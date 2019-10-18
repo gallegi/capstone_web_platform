@@ -8,7 +8,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class SearchStatusController : Controller
     {
-        // GET: SearchStatus
+        [Route("giay-moi/tim-giay-hen")]
         public ActionResult Index()
         {
             return View("/Views/InvitationCard/SearchStatus.cshtml");

@@ -8,6 +8,7 @@ namespace vnpost_ocr_system.Controllers
 {
     public class EditDataController : Controller
     {
+
         // GET: EditData
         public ActionResult Index()
         {
