@@ -14,6 +14,7 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             return View("/Views/Document/DocumentProcessed.cshtml");
             //This is Bach
+            //Ha beo an cut
         }
     }
 }
