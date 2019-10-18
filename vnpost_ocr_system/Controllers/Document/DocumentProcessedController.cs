@@ -12,7 +12,7 @@ namespace vnpost_ocr_system.Controllers.Document
         // GET: DocumentProcessed
         public ActionResult DocumentProcessed()
         {
-            return View("/Views/InvitationCard/ConfirmInfor.cshtml");
+            return View("/Views/Document/DocumentProcessed.cshtml");
         }
     }
 }

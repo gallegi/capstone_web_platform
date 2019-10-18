@@ -6026,11 +6026,6 @@
     <Content Include="dist\js\pages\c3-chart\c3_test.json" />
     <Content Include="dist\js\pages\datatable\data.json" />
     <Content Include="dist\js\pages\datatable\German.json" />
-    <Content Include="Controllers\InvitationCard\ConfirmInfor.cshtml" />
-    <Content Include="Controllers\InvitationCard\DisplayCode.cshtml" />
-    <Content Include="Controllers\InvitationCard\DisplayStatus.cshtml" />
-    <Content Include="Controllers\InvitationCard\InputInformation.cshtml" />
-    <Content Include="Controllers\InvitationCard\SearchStatus.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6062,9 +6057,13 @@
     <Content Include="Views\Login\ManagementUser.cshtml" />
     <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Document\DocumentProcessed.cshtml" />
+    <Content Include="Views\Document\DocumentProcessing.cshtml" />
+    <Content Include="Views\Document\DocumentRecived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\InvitationCard\" />
     <Folder Include="CustomJS\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
