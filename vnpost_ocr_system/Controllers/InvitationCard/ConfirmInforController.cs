@@ -12,7 +12,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         [Route("giay-hen/xac-nhan-thong-tin-giay-hen")]
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/InvitationCard/ConfirmInfor.cshtml");
         }
     }
 }
