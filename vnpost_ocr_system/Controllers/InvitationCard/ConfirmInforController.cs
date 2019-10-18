@@ -11,7 +11,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         // GET: ConfirmInfor
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/InvitationCard/ConfirmInfor.cshtml");
         }
     }
 }
