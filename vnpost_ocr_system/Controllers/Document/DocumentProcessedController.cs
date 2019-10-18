@@ -13,6 +13,10 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult DocumentProcessed()
         {
             return View("/Views/Document/DocumentProcessed.cshtml");
+            //Test
+            int a = 1;
+            Console.WriteLine(a);
+
         }
     }
 }
