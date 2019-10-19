@@ -1,6 +1,7 @@
 ﻿.page_wrapper{
     margin-left:5%;
     margin-right:5%;
+    margin-top:70px;
 }
 .master_float{
     margin-right:1%;
@@ -8,5 +9,6 @@
 .set_top{
     margin-left:-2%;
 }
-
-
+#icon_set{
+    margin-left:5%;
+}
