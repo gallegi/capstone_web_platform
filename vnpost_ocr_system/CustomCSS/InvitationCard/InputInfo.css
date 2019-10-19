@@ -1,0 +1,11 @@
+﻿th,tr,td {
+    text-align: center;
+}
+
+.big-title {
+    font-size: 27px;
+    color: black;
+    letter-spacing: -1px;
+    margin-top: 22px;
+    padding-left: 10.5px;
+}
