@@ -10,11 +10,10 @@ namespace vnpost_ocr_system.Controllers.Document
     public class DocumentProcessedController : Controller
     {
         // GET: DocumentProcessed
+        [Route("ho-so/ho-so-da-xu-ly")]
         public ActionResult DocumentProcessed()
         {
             return View("/Views/Document/DocumentProcessed.cshtml");
-            //This is Bach
-            //Ha beo an cut
         }
     }
 }

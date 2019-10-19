@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace vnpost_ocr_system.Controllers
+namespace vnpost_ocr_system.Controllers.InvitationCard
 {
-    public class EditDataController : Controller
+    [Route("giay-hen/ma-giay-hen")]
+    public class DisplayCodeController : Controller
     {
-
-        // GET: EditData
+        // GET: DisplayCode
         public ActionResult Index()
         {
             return View();
