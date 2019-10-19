@@ -536,7 +536,8 @@
         </div>
     </div>
 </div>
-
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 
 <script>
    
@@ -548,12 +549,10 @@
         transitionEffect: "fade",
         titleTemplate: '<span class="step">#index#</span> #title#',
     });
+    $(document).ready(function () {
+        $(".actions").remove();
+    })
 
-
-    
-
-    
-    
 </script>
 
    

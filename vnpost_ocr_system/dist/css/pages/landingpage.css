@@ -15,7 +15,7 @@
   background: #fff; }
 
 .topbar {
-  background-image: url(~/../landingpage/assets/images/banner-bg.jpg);
+  background-image: url(../../../landingpage/assets/images/banner-bg.jpg);
   background-repeat: no-repeat; }
   .topbar .header-banner {
     padding-top: 120px;

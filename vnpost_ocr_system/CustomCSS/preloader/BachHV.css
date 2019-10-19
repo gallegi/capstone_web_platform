@@ -27,3 +27,9 @@
 }
 body {
 }
+label,h6{
+    font-size: 130%;
+}
+.card-content>.row{
+    margin-bottom: 2%;
+}
