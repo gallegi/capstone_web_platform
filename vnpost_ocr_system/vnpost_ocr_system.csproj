@@ -138,6 +138,7 @@
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6068,6 +6069,7 @@
     <Content Include="Views\Document\DocumentProcessed.cshtml" />
     <Content Include="Views\Document\DocumentProcessing.cshtml" />
     <Content Include="Views\Document\DocumentRecived.cshtml" />
+    <Content Include="Views\Payment\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
