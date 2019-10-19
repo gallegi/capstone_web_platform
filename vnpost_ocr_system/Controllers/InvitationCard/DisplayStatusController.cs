@@ -12,7 +12,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         [Route("giay-hen/trang-thai-giay-hen")]
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/InvitationCard/DisplayStatus.cshtml");
+
         }
     }
 }
