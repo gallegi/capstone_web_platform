@@ -9,6 +9,7 @@ namespace vnpost_ocr_system.Controllers.Home
     public class HomeController : Controller
     {
         // GET: Home
+
         public ActionResult Index()
         {
             return View("/Views/Home/Home.cshtml");
