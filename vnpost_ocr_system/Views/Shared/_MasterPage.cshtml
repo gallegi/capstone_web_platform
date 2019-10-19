@@ -19,6 +19,9 @@
     <!-- This page CSS -->
     <link href="~/dist/css/pages/dashboard1.css" rel="stylesheet">
     <link href="~/CustomCSS/MasterPage/MasterPage.css" rel="stylesheet" />
+    
+    <link href="~/CustomCSS/TriHP.css" rel="stylesheet" />
+    <link href="~/CustomCSS/FontAwesome.css" rel="stylesheet" />
     <!--Font css-->
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -457,14 +460,10 @@
 
     @*<script src="~/Scripts/Scripts.js"></script>*@
 
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/CustomJS/MasterPage.js"></script>
+
+
     @*@Scripts.Render("~/Scripts/moment.js")*@
-    <script>
-        $(".loading").css("z-index", 99999);
-        $('body').css('overflow', '');
-    </script>
+
 </body>
 
 </html>
@@ -476,6 +475,8 @@
     if (windowWidth < 768) {
         $(".set_top").remove();
     }
-})
+    })
+    $(".loading").css("z-index", 99999);
+    $('body').css('overflow', '');
 
 </script>
