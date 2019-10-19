@@ -11,7 +11,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         // GET: DisplayStatus
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/InvitationCard/DisplayStatus.cshtml");
+
         }
     }
 }
