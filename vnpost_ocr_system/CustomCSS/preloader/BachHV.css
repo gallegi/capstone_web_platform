@@ -1,0 +1,29 @@
+﻿.father-display-status{
+    padding: 20px;
+    
+}
+.ClearFix::after {
+    clear:both;
+    content: ".";
+    width: 0;
+    height: 0;
+    display: block;
+}
+.detailOrder{
+    box-shadow: 0 0 10px #C8CACA;
+}
+.gray-line{
+    background-color: #C8CACA;
+}
+.line{
+    padding: 15px 0 15px 15px;
+    font-size: 130%;
+}
+.status-title{
+    margin-top: 20px;
+}
+.code-order{
+    float:right;
+}
+body {
+}
