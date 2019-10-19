@@ -9,7 +9,7 @@ namespace vnpost_ocr_system.Controllers
     public class PaymentController : Controller
     {
         // GET: Payment
-        
+        [Route("giay-hen/thanh-toan")]
         public ActionResult Index()
         {
             return View("/Views/Payment/Payment.cshtml");
