@@ -6,13 +6,13 @@ using System.Web.Mvc;
 
 namespace vnpost_ocr_system.Controllers
 {
-    public class EditDataController : Controller
+    public class PaymentController : Controller
     {
-
-        // GET: EditData
+        // GET: Payment
+        
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/Payment/Payment.cshtml");
         }
     }
 }

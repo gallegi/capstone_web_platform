@@ -131,8 +131,14 @@
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
+    <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
+    <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
+    <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5384,7 +5390,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CustomCSS\FontAwesome.css" />
+    <Content Include="CustomCSS\MasterPage\MasterPage.css" />
+    <Content Include="CustomCSS\preloader\BachHV.css" />
     <Content Include="CustomCSS\preloader\css.css" />
+    <Content Include="CustomCSS\TriHP.css" />
+    <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
     <Content Include="dist\css\icons\flag-icon-css\flag-icon.min.css" />
@@ -6060,13 +6071,17 @@
     <Content Include="Views\Document\DocumentProcessed.cshtml" />
     <Content Include="Views\Document\DocumentProcessing.cshtml" />
     <Content Include="Views\Document\DocumentRecived.cshtml" />
+    <Content Include="Views\Payment\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\InvitationCard\" />
-    <Folder Include="CustomJS\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\ConfirmInfor\" />
+    <Folder Include="Views\DisplayCode\" />
+    <Folder Include="Views\DisplayStatus\" />
+    <Folder Include="Views\InputInformation\" />
+    <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

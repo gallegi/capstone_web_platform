@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MasterPage</title>
+    <title>VNPOST|Gửi giấy hẹn HCC</title>
     <!-- chartist CSS -->
     <link href="~/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
@@ -16,7 +16,10 @@
     <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <!-- This page CSS -->
     <link href="~/dist/css/pages/dashboard1.css" rel="stylesheet">
-
+    <link href="~/CustomCSS/MasterPage/MasterPage.css" rel="stylesheet" />
+    
+    <link href="~/CustomCSS/TriHP.css" rel="stylesheet" />
+    <link href="~/CustomCSS/FontAwesome.css" rel="stylesheet" />
     <!--Font css-->
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -101,169 +104,14 @@
             <!-- ============================================================== -->
             <nav>
                 <div class="nav-wrapper">
-                    <!-- ============================================================== -->
-                    <!-- Logo you can find that scss in header.scss -->
-                    <!-- ============================================================== -->
-                  
-                    <!-- ============================================================== -->
-                    <!-- Logo you can find that scss in header.scss -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Left topbar icon scss in header.scss -->
-                    <!-- ============================================================== -->
-                    <ul class="left">
-                        <li class="hide-on-med-and-down">
-                            <a href="javascript: void(0);" class="nav-toggle">
-                                <span class="bars bar1"></span>
-                                <span class="bars bar2"></span>
-                                <span class="bars bar3"></span>
-                            </a>
-                        </li>
-                        <li class="hide-on-large-only">
-                            <a href="javascript: void(0);" class="sidebar-toggle">
-                                <span class="bars bar1"></span>
-                                <span class="bars bar2"></span>
-                                <span class="bars bar3"></span>
-                            </a>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- Notification icon scss in header.scss -->
-                        <!-- ============================================================== -->
-                        <li>
-                            <a class="dropdown-trigger" href="javascript:void(0);" data-target="noti_dropdown"><i class="material-icons">notifications</i></a>
-                            <ul id="noti_dropdown" class="mailbox dropdown-content">
-                                <li>
-                                    <div class="drop-title">Thông Báo</div>
-                                </li>
-                                <li>
-                                    <div class="message-center">
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="btn-floating btn-large red"><i class="material-icons">link</i></span>
-                                            <span class="mail-contnet">
-                                                <h5>Phòng Kinh Doanh</h5>
-                                                <span class="mail-desc">Danh sách các thiết bị mới nhập</span> <span class="time">9:30 AM</span>
-                                            </span>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="btn-floating btn-large blue"><i class="material-icons">date_range</i></span>
-                                            <span class="mail-contnet">
-                                                <h5>Các sự kiện</h5>
-                                                <span class="mail-desc">Đặt lịch họp cho trưởng phòng</span>
-                                                <span class="time">9:10 AM</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="center-align" href="javascript:void(0);"> <strong>Xoá thông báo</strong> </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- Comment topbar icon scss in header.scss -->
-                        <!-- ============================================================== -->
-                        <li>
-                            <a class="dropdown-trigger" href="javascript:void(0);" data-target="msg_dropdown"><i class="material-icons">comment</i></a>
-                            <ul id="msg_dropdown" class="mailbox dropdown-content">
-                                <li>
-                                    <div class="drop-title">Bạn có 4 tin nhắn mới</div>
-                                </li>
-                                <li>
-                                    <div class="message-center">
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="user-img">
-                                                <img src="/assets/images/users/2.jpg" alt="user" class="circle">
-                                                <span class="profile-status online pull-right"></span>
-                                            </span>
-                                            <span class="mail-contnet">
-                                                <h5></h5>
-                                                <span class="mail-desc">Gửi báo cáo chưa ? </span>
-                                                <span class="time">9:30 AM</span>
-                                            </span>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="user-img">
-                                                <img src="/assets/images/users/2.jpg" alt="user" class="circle">
-                                                <span class="profile-status busy pull-right"></span>
-                                            </span>
-                                            <span class="mail-contnet">
-                                                <h5> </h5>
-                                                <span class="mail-desc">Gửi anh báo cáo nhân sự</span>
-                                                <span class="time">9:10 AM</span>
-                                            </span>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="user-img">
-                                                <img src="/assets/images/users/2.jpg" alt="user" class="circle">
-                                                <span class="profile-status away pull-right"></span>
-                                            </span>
-                                            <span class="mail-contnet">
-                                                <h5>Trần Văn Vương - TCLĐ</h5>
-                                                <span class="mail-desc">Em ơi gửi anh chứng chỉ lao động</span>
-                                                <span class="time">9:08 AM</span>
-                                            </span>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <span class="user-img">
-                                                <img src="/assets/images/users/2.jpg" alt="user" class="circle">
-                                                <span class="profile-status offline pull-right"></span>
-                                            </span>
-                                            <span class="mail-contnet">
-                                                <h5>Lê Văn Tam - Trưởng phòng CDVT</h5>
-                                                <span class="mail-desc">Gửi báo cáo hàng ngày em nhé!</span>
-                                                <span class="time">9:02 AM</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="center-align" href="javascript:void(0);"> <strong>Xoá tin nhắn</strong> </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <ul class="right master_float">
+                        <li><a href="/Home/Index"><i class="material-icons dp48">home</i></a></li>
+                        <li class="set_top"><a href="/Home/Index">Home</a></li>
+                        <li><a href="/giay-hen/nhap-giay-hen"><i class="material-icons dp48">add_circle</i></a></li>
+                        <li class="set_top"><a href="/giay-hen/nhap-giay-hen">Nhập giấy hẹn mới</a></li>
+                        <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i></a></li>
+                        <li class="set_top"><a href="/giay-hen/tim-giay-hen">Tìm kiếm  giấy hẹn mới</a></li>
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- Left topbar icon scss in header.scss -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Right topbar icon scss in header.scss -->
-                    <!-- ============================================================== -->
-
-                    <ul class="right">
-                        <!-- ============================================================== -->
-                        <!-- Profile icon scss in header.scss -->
-                        <!-- ============================================================== -->
-                        <li>
-                            <a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="/assets/images/users/2.jpg" alt="user" class="circle profile-pic"></a>
-                            <ul id="user_dropdown" class="mailbox dropdown-content dropdown-user">
-                                <li>
-                                    <div class="dw-user-box">
-                                        <div class="u-img"><img src="/assets/images/users/2.jpg" alt="user"></div>
-                                        <div class="u-text">
-                                            <a class="waves-effect waves-light btn-small red white-text">Xem Hồ Sơ</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="small material-icons">account_circle</i> Hồ Sơ Của Tôi</a></li>
-                                <li><a href="#"><i class="small material-icons">inbox</i> Tin nhắn</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="small material-icons">settings</i> Cài Đặt Tài Khoản</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href=""><i class="small material-icons">power_settings_new</i>Đăng Xuất</a></li>
-                            </ul>
-                        </li>
-                        <li id="user-icon"><a href=""><span class="new badge red" data-badge-caption=""></span></a></li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right topbar icon scss in header.scss -->
-                    <!-- ============================================================== -->
                 </div>
             </nav>
             <!-- ============================================================== -->
@@ -273,7 +121,6 @@
         <!-- ============================================================== -->
         <!-- Sidebar scss in sidebar.scss -->
         <!-- ============================================================== -->
-     
         <!-- ============================================================== -->
         <!-- Sidebar scss in sidebar.scss -->
         <!-- ============================================================== -->
@@ -281,9 +128,9 @@
         <!-- Page wrapper scss in scafholding.scss -->
         <!-- ============================================================== -->
         @*<div class="page-wrapper">*@
-        <div class="content">
-                @RenderBody()
-         </div>
+        <div class="page_wrapper">
+            @RenderBody()
+        </div>
         @*</div>*@
         <!-- ============================================================== -->
         <!-- Page wrapper scss in scafholding.scss -->
@@ -610,18 +457,24 @@
         @Scripts.Render("~/bundles/bootstrap")*@
 
     @*<script src="~/Scripts/Scripts.js"></script>*@
-    <script src="~/Scripts/notify.min.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
     @*@Scripts.Render("~/Scripts/moment.js")*@
-    <script>
-        $(".loading").css("z-index", 99999);
-        $('body').css('overflow', '');
-    </script>
+
 </body>
 
 </html>
 <script>
     $(".loading").css("z-index", 99999);
     $('body').css('overflow', '');
+    $(document).ready(function () {
+    var windowWidth = $(window).width(); 
+    if (windowWidth < 768) {
+        $(".set_top").remove();
+    }
+    })
+    $(".loading").css("z-index", 99999);
+    $('body').css('overflow', '');
+
 </script>
