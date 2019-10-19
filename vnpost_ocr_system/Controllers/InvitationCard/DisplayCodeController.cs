@@ -12,7 +12,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         // GET: DisplayCode
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/InvitationCard/DisplayCode.cshtml");
         }
     }
 }

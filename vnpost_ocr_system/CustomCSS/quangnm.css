@@ -1,0 +1,32 @@
+﻿.big-title {
+    font-size: 27px;
+    color: black;
+    letter-spacing: -1px;
+    margin-top: 22px;
+    padding-left: 10.5px;
+}
+
+.card-content .center i {
+    font-size: 100px;
+}
+
+.page-height {
+    line-height: 50px;
+}
+
+.img-icon {
+    font-size: 100px;
+}
+
+.page-content {
+    padding: 1rem;
+    font-size: 20px;
+}
+
+.centerDisplayCode {
+    text-align: center;
+}
+
+.btn {
+    border-radius: 5px;
+}
