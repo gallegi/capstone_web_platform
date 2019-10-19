@@ -13,6 +13,8 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult Index()
         {
             return View();
+            //test 
+            Console.WriteLine(1);
         }
     }
 }

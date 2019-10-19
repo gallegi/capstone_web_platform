@@ -573,12 +573,7 @@
     <Content Include="assets\images\carousel\ca2.jpg" />
     <Content Include="assets\images\carousel\img6.jpg" />
     <Content Include="assets\images\collections\yuna.jpg" />
-    <Content Include="assets\images\favicon.png" />
-    <Content Include="assets\images\logo-dark-text.png" />
-    <Content Include="assets\images\logo-icon.png" />
-    <Content Include="assets\images\logo-light-icon.png" />
-    <Content Include="assets\images\logo-light-text.png" />
-    <Content Include="assets\images\logo-text.png" />
+    <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
     <Content Include="assets\images\parallax2.jpg" />
@@ -5395,6 +5390,7 @@
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
     <Content Include="CustomCSS\preloader\BachHV.css" />
     <Content Include="CustomCSS\preloader\css.css" />
+    <Content Include="CustomCSS\preloader\logo.png" />
     <Content Include="CustomCSS\TriHP.css" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
