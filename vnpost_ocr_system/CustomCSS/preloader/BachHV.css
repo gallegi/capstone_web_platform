@@ -14,6 +14,7 @@
 }
 .gray-line{
     background-color: #C8CACA;
+    color: white;
 }
 .line{
     padding: 15px 0 15px 15px;
@@ -30,6 +31,9 @@ body {
 label,h6{
     font-size: 130%;
 }
-.card-content>.row{
+.card-content > .row {
     margin-bottom: 2%;
+}
+.card-content>h6{
+    margin-bottom: 1.8%;
 }

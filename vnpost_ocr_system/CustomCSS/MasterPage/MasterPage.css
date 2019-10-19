@@ -9,6 +9,13 @@
 .set_top{
     margin-left:-2%;
 }
-#icon_set{
-    margin-left:5%;
+@media only screen and (min-width: 1024px) {
+    #icon_set {
+        margin-left: 5%;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    #icon_set {
+        margin-left: -27%;
+    }
 }
