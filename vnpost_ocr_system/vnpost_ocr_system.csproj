@@ -5394,6 +5394,7 @@
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
     <Content Include="CustomCSS\preloader\BachHV.css" />
     <Content Include="CustomCSS\preloader\css.css" />
+    <Content Include="CustomCSS\quangnm.css" />
     <Content Include="CustomCSS\TriHP.css" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
