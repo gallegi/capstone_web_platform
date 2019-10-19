@@ -5424,6 +5424,7 @@
     <Content Include="CustomCSS\preloader\BachHV.css" />
     <Content Include="CustomCSS\preloader\css.css" />
     <Content Include="CustomCSS\preloader\logo.png" />
+    <Content Include="CustomCSS\preloader\TuanNM.css" />
     <Content Include="CustomCSS\TriHP.css" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
