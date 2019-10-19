@@ -1,3 +1,9 @@
-﻿.h-form-label label {
-    font-size: 2rem;
+﻿.warning-info {
+    font-style: italic;
+    color: red;
+    padding-left: 1.5rem;
+}
+
+.h-form-label > label {
+    font-size: 1rem;
 }
