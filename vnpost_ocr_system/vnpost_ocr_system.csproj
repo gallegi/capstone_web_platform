@@ -5421,13 +5421,8 @@
     <Content Include="CustomCSS\preloader\DisplayStatus.css" />
     <Content Include="CustomCSS\preloader\css.css" />
     <Content Include="CustomCSS\preloader\logo.png" />
-<<<<<<< HEAD
     <Content Include="CustomCSS\preloader\ConfirmInfor.css" />
-    <Content Include="CustomCSS\TriHP.css" />
-=======
-    <Content Include="CustomCSS\preloader\TuanNM.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
->>>>>>> develop
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
