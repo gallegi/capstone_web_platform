@@ -6,6 +6,9 @@
     font-size: 27px;
     color: black;
     letter-spacing: -1px;
-    margin-top: 22px;
     padding-left: 10.5px;
+}
+
+.no-collapse-m-p {
+    overflow: hidden;
 }
