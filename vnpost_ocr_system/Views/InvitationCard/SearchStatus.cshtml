@@ -3,15 +3,23 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
+<link href="~/CustomCSS/preloader/Search.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
-    <div class="input-group m-t-10">
-        <div class="row">
-            <input type="text" class="form-control col l11" placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng">
-            <div class="input-group-append col">
+<div class="input-group">
+    <div class="row" style="padding-top: 15%">
 
-                <button class="btn btn-secondary" type="button">
-                    <a href="/giay-hen/trang-thai-giay-hen"><i class="fa fa-search"></i></a>
-                </button>
-            </div>
+
+
+        <input type="text" class="form-control col offset-l3 l6" style="border: 1px solid black; border-radius: 5px;" placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng">
+        <div class="input-group-append col l2">
+            <button class="btn btn-secondary" type="button">
+                <a href="/giay-hen/trang-thai-giay-hen"><i class="fa fa-search"></i></a>
+            </button>
         </div>
+
+
+
     </div>
+</div>
+ 

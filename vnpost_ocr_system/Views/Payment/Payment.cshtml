@@ -10,26 +10,26 @@
         @*Left*@
         <h4>Hình thức thanh toán</h4>
         <div class="col l9 s12">
-            <div class="card card-border p-30">
+            <div class="card card-shadow p-20 resize-card">
 
                 @* Payment method *@
                 <div>
                     <form action="#">
                         <p>
                             <label>
-                                <input name="group1" type="radio" checked />
+                                <input onclick="myFunction()" name="group1" id ="r1" type="radio" checked />
                                 <span>Thanh toán tiền mặt khi nhận hàng</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" />
+                                <input onclick="myFunction()" name="group1" id ="r2" type="radio" />
                                 <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input class="with-gap" name="group1" type="radio" />
+                                <input onclick="showBankList()" name="group1" id ="r3" type="radio" />
                                 <span>Thẻ ATM nội địa/Internet Banking</span>
                             </label>
                         </p>
@@ -37,112 +37,101 @@
                 </div>
 
                 @* Bank list *@
-                <div>
+                <div class="bank-list">
                     <div class="row m-t-20">
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/1.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/2.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/3.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/4.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+
+                    </div>
+
+                    <div class="row m-t-20">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/5.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/6.png" />
+                        </div>
+                        <div class="col s6 l3 m2">
+                            <img src="~/Content/BankLogo/7.png" />
+                        </div>
+                        <div class="col s6 l3 m2">
+                            <img src="~/Content/BankLogo/8.png" />
                         </div>
                     </div>
 
                     <div class="row m-t-20">
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/7.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/8.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/9.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/10.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/11.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/12.png" />
                         </div>
                     </div>
 
                     <div class="row m-t-20">
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/13.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/14.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/15.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/16.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/17.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/18.png" />
                         </div>
                     </div>
 
                     <div class="row m-t-20">
-                        <div class="col s4 l1 m2 m-r-25">
+
+                        <div class="col s6 l3 m2">
+                            <img src="~/Content/BankLogo/17.png" />
+                        </div>
+                        <div class="col s6 l3 m2">
+                            <img src="~/Content/BankLogo/18.png" />
+                        </div>
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/19.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/20.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                    </div>
+
+                    <div class="row m-t-20">
+
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/21.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/22.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/23.png" />
                         </div>
-                        <div class="col s4 l1 m2 m-r-25">
+                        <div class="col s6 l3 m2">
                             <img src="~/Content/BankLogo/24.png" />
                         </div>
                     </div>
 
-                    <div class="row m-t-20">
 
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/25.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/26.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/27.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/28.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/29.png" />
-                        </div>
-                        <div class="col s4 l1 m2 m-r-25">
-                            <img src="~/Content/BankLogo/30.png" />
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -150,12 +139,12 @@
         @* Right *@
         <div class="col l3">
             <div class="row">
-                <div class="card card-border p-5">
+                <div class="card card-shadow p-20">
                     <div>
-                        <p class="payment-title">Địa chỉ đơn hàng</p>
+                        <p class="payment-title card-border">Địa chỉ đơn hàng</p>
                     </div>
 
-                    <b>Nguyễn Vũ Minh</b>
+                    <b class="payment-title">Nguyễn Vũ Minh</b>
                     <div>
                         <p>
                             FPT Software, khu công nghệ cao,
@@ -167,14 +156,18 @@
             </div>
 
             <div class="row">
-                <div class="card p-5 card-border">
+                <div class="card card-shadow p-20">
                     <div>
-                        <p class="payment-title">Đơn hàng</p>
+                        <p class="payment-title card-border">Đơn hàng</p>
                     </div>
                     <div>
-                        <b>Mã đơn hàng: MX20538</b>
+                        <b class="payment-title m-b-25">Mã đơn hàng: MX20538</b>
                     </div>
-                    <p class="payment-title">Thủ tục hành chính</p>
+                    <span>
+                        <span>Thủ tục hành chính:</span>
+                        <span>Xin cấp lại căn cước công dân</span>
+                    </span>
+
                     <div>
                         <p>Thành tiền: 120,000 đồng <br />(Đã bao gồm VAT)</p>
                     </div>
@@ -188,3 +181,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function myFunction(){
+        document.getElementsByClassName('bank-list')[0].style.display = "none";         // Function returns the product of a and b
+    }
+    if (document.getElementById("r1").checked == true) {
+        document.getElementsByClassName('bank-list')[0].style.display = "none";
+    }
+
+    function showBankList() {
+        document.getElementsByClassName('bank-list')[0].style.display = 'block';
+    }
+</script>
