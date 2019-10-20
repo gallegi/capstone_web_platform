@@ -13,12 +13,14 @@
     box-shadow: 0 0 10px #C8CACA;
 }
 .gray-line{
-    background-color: #C8CACA;
-    color: white;
+    background-color: #f1f1f1;
+    
 }
 .line{
     padding: 15px 0 15px 15px;
-    font-size: 130%;
+    font-size: 100%;
+    color: black;
+    tab-size: 4;
 }
 .status-title{
     margin-top: 20px;
@@ -28,12 +30,29 @@
 }
 body {
 }
-label,h6{
-    font-size: 130%;
+label{
+    font-size: 15px;
+    color: black;
+}
+h6{
+     font-size: 16px;
 }
 .card-content > .row {
     margin-bottom: 2%;
 }
 .card-content>h6{
     margin-bottom: 1.8%;
+}
+h2,h3{
+    font-size: 27px;
+    color: #000000;
+}
+.highlight {
+    font-weight: 1000;
+}
+.tab-space{
+    margin-left: 2%;
+}
+h3{
+    margin-bottom: 2%;
 }
