@@ -5419,6 +5419,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomCSS\FontAwesome.css" />
+    <Content Include="CustomCSS\InvitationCard\DisplayCode.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
     <Content Include="CustomCSS\preloader\BachHV.css" />
