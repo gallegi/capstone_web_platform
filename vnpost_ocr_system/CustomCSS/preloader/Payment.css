@@ -1,4 +1,12 @@
-﻿.center {
+﻿.card p{
+    color: black;
+}
+
+.card span{
+    color: black;
+}
+
+.center {
     margin: 15% auto;
     width: 90%;
 }
@@ -13,6 +21,16 @@
     border-bottom: 1px solid black;
 }
 
-img {
-    width: 100px;
+.col > img {
+    width: 50%;
 }
+
+.card-shadow {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2),0 2px 5px 0 rgba(0,0,0,0.19)
+}
+
+.resize-card{
+    
+    resize: both;
+    overflow: auto;
+} 
