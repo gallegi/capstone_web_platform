@@ -10,7 +10,7 @@
         @*Left*@
         <h4>Hình thức thanh toán</h4>
         <div class="col l9 s12">
-            <div class="card card-shadow p-20">
+            <div class="card card-shadow p-20 resize-card">
 
                 @* Payment method *@
                 <div>
@@ -180,13 +180,13 @@
 
 <script>
     function myFunction(){
-        document.getElementsByClassName('bank-list')[0].style.visibility = 'hidden';         // Function returns the product of a and b
+        document.getElementsByClassName('bank-list')[0].style.display = "none";         // Function returns the product of a and b
     }
     if (document.getElementById("r1").checked == true) {
-        document.getElementsByClassName('bank-list')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('bank-list')[0].style.display = "none";
     }
 
     function showBankList() {
-        document.getElementsByClassName('bank-list')[0].style.visibility = 'visible';
+        document.getElementsByClassName('bank-list')[0].style.display = 'block';
     }
 </script>
