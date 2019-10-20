@@ -1,4 +1,12 @@
-﻿.center {
+﻿.card p{
+    color: black;
+}
+
+.card span{
+    color: black;
+}
+
+.center {
     margin: 15% auto;
     width: 90%;
 }
@@ -17,6 +25,6 @@ img {
     width: 50%;
 }
 
-.my-flex{
-
+.card-shadow {
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
 }
