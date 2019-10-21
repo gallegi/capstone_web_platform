@@ -44,6 +44,14 @@
     cursor: text;
 }
 
+.hover-default {
+    cursor: default;
+}
+
+.hover-pointer {
+    cursor: pointer;
+}
+
 .my-left-align {
     text-align: left !important;
 }
@@ -63,4 +71,16 @@
     .my-p-l-20 {
         padding-left: 7px;
     }
+}
+
+#picker-icon {
+    color: black;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
