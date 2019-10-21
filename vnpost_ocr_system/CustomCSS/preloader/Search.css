@@ -1,0 +1,23 @@
+﻿a{
+    color: white;
+}
+.fa-search {
+    background-color: #00bcd4 !important;
+}
+.btn {
+    background-color: #00bcd4 !important;
+}
+.margin-search > row > input{
+    margin-top: 25% !important;
+}
+
+.row > input{
+    border: 1px solid black;
+}
+input{
+    border: 1px solid black;
+}
+
+
+
+
