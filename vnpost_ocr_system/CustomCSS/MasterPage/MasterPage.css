@@ -2,6 +2,7 @@
     margin-left:5%;
     margin-right:5%;
     margin-top:70px;
+
 }
 .master_float{
     margin-right:1%;
@@ -21,4 +22,7 @@
 }
 .master_float li a{
     display:flex;
+}
+.master_float li a i{
+    margin-right:5px;
 }
