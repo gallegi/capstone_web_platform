@@ -12,3 +12,9 @@
 .no-collapse-m-p {
     overflow: hidden;
 }
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  color: gray;
+  display: block; /* For Firefox */
+}

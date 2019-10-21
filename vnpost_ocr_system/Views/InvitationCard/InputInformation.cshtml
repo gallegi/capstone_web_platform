@@ -14,7 +14,8 @@
     <div class="row input-card-info-main">
         <div class="col s12 l12">
             <div class="card">
-                <form autocomplete="off" spellcheck="false" action="/giay-hen/xac-nhan-thong-tin-giay-hen" class="form-control">
+                <form autocomplete="off" spellcheck="false" action="/giay-hen/xac-nhan-thong-tin-giay-hen"
+                      class="form-control">
                     <div class="form-body black-text">
                         <div class="divider"></div>
                         <div class="card-content">
@@ -62,7 +63,8 @@
                                     <div class="input-field row">
                                         <p class="col l4 p-t-10 s12">Địa chỉ CQHCC:</p>
                                         <div class="col l6 s12">
-                                            <input id="con1" type="text" value="Auto generate khi chọn CQHCC" readonly>
+                                            <input id="con1" type="text" value="Auto generate khi chọn CQHCC"
+                                                   readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -97,18 +99,44 @@
                                 <div class="col s12 l11">
                                     <div class="table-responsive">
                                         <table id="mainTable" class="table-bordered table-responsive">
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
                                             <thead>
                                                 <tr>
                                                     <th colspan="1">STT</th>
                                                     <th colspan="8">Danh mục hồ sơ</th>
                                                     <th colspan="2">Số lượng</th>
+                                                    <th colspan="4">Thêm dòng/Xóa dòng</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="text-center">
+                                            <tbody>
                                                 <tr>
-                                                    <td colspan="1" class="stt">1</td>
-                                                    <td colspan="8" contenteditable="true">Click để chỉnh sửa nội dung</td>
-                                                    <td colspan="2" contenteditable="true"></td>
+                                                    <td colspan="1" class="stt p-t-5">1</td>
+                                                    <td colspan="8" contenteditable="true" placeholder="Nhấp để chỉnh sửa nội dung" style="text-align: left;"></td>
+                                                    <td colspan="2" contenteditable="true" placeholder="Số lượng" style="text-align: left;"></td>
+                                                    <td colspan="4" class="row">
+                                                        <button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add"
+                                                                type="button">
+                                                            +
+                                                        </button>
+                                                        <button class="btn waves-effect waves-light red col l3 bt-del"
+                                                                type="button">
+                                                            -
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -117,16 +145,20 @@
                                 </div>
                             </div>
                             <div class="row m-t-15 p-l-10">
-                                <button class="btn waves-effect waves-light cyan col l1 m-r-10" type="button" onclick="add()">
+                                <button class="btn waves-effect waves-light cyan col l1 m-r-10" type="button"
+                                        onclick="add()">
                                     Thêm dòng
                                 </button>
-                                <button class="btn waves-effect waves-light red col l1" type="button" onclick="remove()">
+                                <button class="btn waves-effect waves-light red col l1" type="button"
+                                        onclick="remove()">
                                     Xóa dòng
                                 </button>
                             </div>
                         </div>
                         <div class="card-content">
-                            <h6 class="font-medium black-text">Thông tin người yêu cầu giải quyết thủ tục hành chính</h6>
+                            <h6 class="font-medium black-text">
+                                Thông tin người yêu cầu giải quyết thủ tục hành chính
+                            </h6>
                             <div class="row">
                                 <div class="col s12 m6 l6">
                                     <div class="input-field row">
@@ -182,8 +214,11 @@
                                     <div class="input-field row">
                                         <p class="col l4 p-t-10 s12">Ngày cấp:</p>
                                         <div class="col l6 s12 datepicker-calendar-container row">
-                                            @*<input id="con1" type="text" class="datepicker col s10 l10" value="Ngày 1 Tháng 1, 2019">*@
-                                            <input name="dateTLHD" id="datepicker" type='text' readonly class="col s10 l10 datepicker-here form-control" autocomplete="off" data-language='vi' value="01/01/2019" />
+                                            @*<input id="con1" type="text" class="datepicker col s10 l10"
+                                                value="Ngày 1 Tháng 1, 2019">*@
+                                            <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                   class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                                   data-language='vi' value="01/01/2019" />
                                             <i class="material-icons dp48 small p-0-0 col">date_range</i>
                                         </div>
                                     </div>
@@ -200,7 +235,12 @@
                         </div>
                         <div class="divider"></div>
                         <div class="card-content">
-                            <h6 class="font-medium black-text">Thông tin người gửi <span class="red-text">(Có giữ hay không)</span></h6>
+                            <h6 class="font-medium black-text">
+                                Thông tin người gửi <span class="red-text">
+                                    (Có giữ
+                                    hay không)
+                                </span>
+                            </h6>
                             <div class="row">
                                 <div class="col s12 m6 l6">
                                     <div class="input-field row">
@@ -290,8 +330,11 @@
                     </div>
                 </form>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Code<i class="material-icons right">close</i></span>
-                    <pre class="pre-scroll language-markup ps ps--theme_default" data-ps-id="70765464-ce7d-57ba-9b41-fe40cd28221f"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span>
+                    <span class="card-title grey-text text-darken-4">
+                        Code<i class="material-icons right">close</i>
+                    </span>
+                    <pre class="pre-scroll language-markup ps ps--theme_default"
+                         data-ps-id="70765464-ce7d-57ba-9b41-fe40cd28221f"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span>
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>divider<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card-content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
@@ -392,20 +435,93 @@
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
                     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></code><div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></pre>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></code><div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></pre>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
-<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="../../CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="../../CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
 <script>
-    //$(function () {
-    //    $(".datepicker-here").datepicker({
-    //        format: 'Ngày d Tháng m, yyyy'
-    //    });
-    //});
+    function addAfter(ele) {
+        var curRow = ele.parentNode.parentNode;
+        var curStt = curRow.textContent;
+        var nextStt = curStt + 1;
+        var newRow = $("<tr>");
+        var cols = "";
+        cols += '<td colspan="1" class="stt">' + nextStt + '</td>';
+        cols += '<td colspan="8" contenteditable="true"></td>';
+        cols += '<td colspan="2" contenteditable="true"></td>';
+        cols += '<td><button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add" type="button">+</button><button class="btn waves-effect waves-light red col l3 bt-del"type="button">-</button></td>';
+        newRow.append(cols);
+        newRow.insertAfter($(this).closest('tr'));
+        var table = document.getElementById('mainTable');
+
+        var rowLength = table.rows.length;
+        alert(rowLength);
+    }
+
+    $("#mainTable").on("click", ".bt-addd", function () {
+
+        var curRow = $(this).parentNode.parentNode;
+        var curStt = curRow.textContent;
+        var nextStt = curStt + 1;
+        var newRow = $("<tr>");
+        var cols = "";
+        cols += '<td colspan="1" class="stt">' + nextStt + '</td>';
+        cols += '<td colspan="8" contenteditable="true"></td>';
+        cols += '<td colspan="2" contenteditable="true"></td>';
+        cols += '<td><button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add" type="button">+</button><button class="btn waves-effect waves-light red col l3 bt-del"type="button">-</button></td>';
+        newRow.append(cols);
+        newRow.insertAfter($(this).closest('tr'));
+        var table = document.getElementById('mainTable');
+
+        var rowLength = table.rows.length;
+        alert(rowLength);
+        // for (var i = 1; i < rowLength; i+=1) {
+        //     var row = table.rows[i];
+        //     var stt = i;
+        //     alert(stt);
+        //     //your code goes here, looping over every row.
+        //     //cells are accessed as easy
+        //     var fc = row.cell[0];
+        //     fc.innerHTML = '12';
+        //     var cellLength = row.cells.length;
+        //     // for (var y = 0; y < cellLength; y += 1) {
+        //     //     var cell = row.cells[y];
+
+        //     //     //do something with every cell here
+        //     // }
+        // }
+    });
+
+    $("#mainTable").on("click", ".bt-del", function () {
+        $(this).closest("tr").remove();
+        resetStt();
+    });
+
+    function resetStt() {
+        var table = document.getElementById('mainTable');
+
+        var rowLength = table.rows.length;
+
+        for (var i = 0; i < rowLength; i++) {
+            var row = table.rows[i];
+            var stt = i + 1;
+            Console.log(stt);
+            //your code goes here, looping over every row.
+            //cells are accessed as easy
+            row.cell[0].innerHTML = stt + '';
+            var cellLength = row.cells.length;
+            // for (var y = 0; y < cellLength; y += 1) {
+            //     var cell = row.cells[y];
+
+            //     //do something with every cell here
+            // }
+        }
+    }
+
     function add() {
         var sttArr = $('.stt');
         var last = sttArr.length + 1;
