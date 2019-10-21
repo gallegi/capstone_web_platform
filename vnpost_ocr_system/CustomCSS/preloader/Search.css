@@ -2,22 +2,45 @@
     color: white;
 }
 .fa-search {
-    background-color: #00bcd4 !important;
+    background-color: #e9ecef !important;
 }
 .btn {
-    background-color: #00bcd4 !important;
+    background-color: #e9ecef !important;
 }
 .margin-search > row > input{
     margin-top: 25% !important;
 }
 
-.row > input{
-    border: 1px solid black;
+
+
+.row > input {
+    border: 5px solid #e9ecef;
 }
-input{
-    border: 1px solid black;
+input {
+    border: 5px solid #e9ecef;
 }
 
+.my-btn {
+    width: 75px !important;
+    height: 3.19rem;
+    
+}
 
+::placeholder {
+    color: #808080;
+    opacity: 1;
+   
+}
 
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 0 0 0 white !important;
+}
 
+@media screen and (max-width: 400px) {
+    ::placeholder {
+        color: #808080;
+        opacity: 1;
+        font-size: 0.6em;
+    }
+}
