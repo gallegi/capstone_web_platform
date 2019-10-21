@@ -99,43 +99,34 @@
                                 <div class="col s12 l11">
                                     <div class="table-responsive">
                                         <table id="mainTable" class="table-bordered table-responsive">
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
-                                            <col>
                                             <thead>
                                                 <tr>
-                                                    <th colspan="1">STT</th>
-                                                    <th colspan="8">Danh mục hồ sơ</th>
-                                                    <th colspan="2">Số lượng</th>
-                                                    <th colspan="4">Thêm dòng/Xóa dòng</th>
+                                                    <th class="width-1">STT</th>
+                                                    <th class="width-2">Danh mục hồ sơ</th>
+                                                    <th class="width-3">Số lượng</th>
+                                                    <th class="width-3">Thêm dòng/Xóa dòng</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="1" class="stt p-t-5">1</td>
-                                                    <td colspan="8" contenteditable="true" placeholder="Nhấp để chỉnh sửa nội dung" style="text-align: left;"></td>
-                                                    <td colspan="2" contenteditable="true" placeholder="Số lượng" style="text-align: left;"></td>
-                                                    <td colspan="4" class="row">
-                                                        <button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add"
-                                                                type="button">
-                                                            +
-                                                        </button>
-                                                        <button class="btn waves-effect waves-light red col l3 bt-del"
-                                                                type="button">
-                                                            -
-                                                        </button>
+                                                    <td class="stt">1</td>
+                                                    <td class="hover-caret left-align" contenteditable="true"
+                                                        placeholder="Nhấp để chỉnh sửa nội dung"
+                                                        style="text-align: left;"></td>
+                                                    <td class="hover-caret" contenteditable="true"
+                                                        placeholder="Số lượng" style="text-align: left;"></td>
+                                                    <td class="no-collapse-m-p">
+                                                        <div style="text-align: center;">
+                                                            <button class="btn waves-effect waves-light cyan m-r-10 bt-add my-bt"
+                                                                    type="button">
+                                                                +
+                                                            </button>
+                                                            <button class="btn waves-effect waves-light red bt-del my-bt"
+                                                                    type="button">
+                                                                -
+                                                            </button>
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -441,10 +432,12 @@
         </div>
     </div>
 </div>
-<script src="../../CustomJS/datepicker_src/dist/js/datepicker.js"></script>
-<script src="../../CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
 <script>
-    function addAfter(ele) {
+    function addBelow(ele) {
+        var n = $(this).parent("tr").find("td:first").text();
+        alert(n);
         var curRow = ele.parentNode.parentNode;
         var curStt = curRow.textContent;
         var nextStt = curStt + 1;
@@ -462,41 +455,26 @@
         alert(rowLength);
     }
 
-    $("#mainTable").on("click", ".bt-addd", function () {
-
-        var curRow = $(this).parentNode.parentNode;
-        var curStt = curRow.textContent;
-        var nextStt = curStt + 1;
+    $("#mainTable").on("mousedown", ".bt-add", function () {
+        // var nextStt = curStt + 1;
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td colspan="1" class="stt">' + nextStt + '</td>';
-        cols += '<td colspan="8" contenteditable="true"></td>';
-        cols += '<td colspan="2" contenteditable="true"></td>';
-        cols += '<td><button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add" type="button">+</button><button class="btn waves-effect waves-light red col l3 bt-del"type="button">-</button></td>';
+        cols += '<td colspan="1" class="stt"></td>';
+        cols += '<td class="hover-caret left-align" contenteditable="true" placeholder="Nhấp để chỉnh sửa nội dung" style="text-align: left;"></td>';
+        cols += '<td class="hover-caret" contenteditable="true" placeholder="Số lượng" style="text-align: left;"></td>';
+        cols += '<td class="no-collapse-m-p"><div style="text-align: center;"><button class="btn waves-effect waves-light cyan m-r-10 bt-add my-bt" type="button">+</button><button class="btn waves-effect waves-light red bt-del my-bt" type="button">-</button></div></td>';
         newRow.append(cols);
         newRow.insertAfter($(this).closest('tr'));
-        var table = document.getElementById('mainTable');
+    });
 
-        var rowLength = table.rows.length;
-        alert(rowLength);
-        // for (var i = 1; i < rowLength; i+=1) {
-        //     var row = table.rows[i];
-        //     var stt = i;
-        //     alert(stt);
-        //     //your code goes here, looping over every row.
-        //     //cells are accessed as easy
-        //     var fc = row.cell[0];
-        //     fc.innerHTML = '12';
-        //     var cellLength = row.cells.length;
-        //     // for (var y = 0; y < cellLength; y += 1) {
-        //     //     var cell = row.cells[y];
-
-        //     //     //do something with every cell here
-        //     // }
-        // }
+    $("#mainTable").on("mouseup", ".bt-add", function () {
+        resetStt();
     });
 
     $("#mainTable").on("click", ".bt-del", function () {
+        var sttArr = $('.stt');
+        var last = sttArr.length + 1;
+        if (last == 2) return;
         $(this).closest("tr").remove();
         resetStt();
     });
@@ -506,26 +484,18 @@
 
         var rowLength = table.rows.length;
 
-        for (var i = 0; i < rowLength; i++) {
+        for (var i = 1; i < rowLength; i++) {
             var row = table.rows[i];
-            var stt = i + 1;
-            Console.log(stt);
             //your code goes here, looping over every row.
             //cells are accessed as easy
-            row.cell[0].innerHTML = stt + '';
-            var cellLength = row.cells.length;
-            // for (var y = 0; y < cellLength; y += 1) {
-            //     var cell = row.cells[y];
-
-            //     //do something with every cell here
-            // }
+            row.cells[0].innerHTML = i + '';
         }
     }
 
     function add() {
         var sttArr = $('.stt');
         var last = sttArr.length + 1;
-        $('#mainTable tr:last').after('<tr>  <td colspan="1" class="stt">' + last + '</td> <td colspan="8" contenteditable="true"></td> <td colspan="2" contenteditable="true"></td>  </tr>');
+        $('#mainTable tr:last').after('<tr>  <td colspan="1" class="stt">' + last + '</td> <td colspan="8" contenteditable="true"></td> <td colspan="2" contenteditable="true"></td></tr>');
     }
     function remove() {
         var sttArr = $('.stt');
