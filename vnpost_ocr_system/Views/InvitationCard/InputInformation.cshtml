@@ -135,16 +135,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-t-15 p-l-10">
-                                <button class="btn waves-effect waves-light cyan col l1 m-r-10" type="button"
-                                        onclick="add()">
-                                    Thêm dòng
-                                </button>
-                                <button class="btn waves-effect waves-light red col l1" type="button"
-                                        onclick="remove()">
-                                    Xóa dòng
-                                </button>
-                            </div>
                         </div>
                         <div class="card-content">
                             <h6 class="font-medium black-text">
@@ -434,73 +424,4 @@
 </div>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
-<script>
-    function addBelow(ele) {
-        var n = $(this).parent("tr").find("td:first").text();
-        alert(n);
-        var curRow = ele.parentNode.parentNode;
-        var curStt = curRow.textContent;
-        var nextStt = curStt + 1;
-        var newRow = $("<tr>");
-        var cols = "";
-        cols += '<td colspan="1" class="stt">' + nextStt + '</td>';
-        cols += '<td colspan="8" contenteditable="true"></td>';
-        cols += '<td colspan="2" contenteditable="true"></td>';
-        cols += '<td><button class="btn waves-effect waves-light cyan col l3 m-r-10 bt-add" type="button">+</button><button class="btn waves-effect waves-light red col l3 bt-del"type="button">-</button></td>';
-        newRow.append(cols);
-        newRow.insertAfter($(this).closest('tr'));
-        var table = document.getElementById('mainTable');
-
-        var rowLength = table.rows.length;
-        alert(rowLength);
-    }
-
-    $("#mainTable").on("mousedown", ".bt-add", function () {
-        // var nextStt = curStt + 1;
-        var newRow = $("<tr>");
-        var cols = "";
-        cols += '<td colspan="1" class="stt"></td>';
-        cols += '<td class="hover-caret left-align" contenteditable="true" placeholder="Nhấp để chỉnh sửa nội dung" style="text-align: left;"></td>';
-        cols += '<td class="hover-caret" contenteditable="true" placeholder="Số lượng" style="text-align: left;"></td>';
-        cols += '<td class="no-collapse-m-p"><div style="text-align: center;"><button class="btn waves-effect waves-light cyan m-r-10 bt-add my-bt" type="button">+</button><button class="btn waves-effect waves-light red bt-del my-bt" type="button">-</button></div></td>';
-        newRow.append(cols);
-        newRow.insertAfter($(this).closest('tr'));
-    });
-
-    $("#mainTable").on("mouseup", ".bt-add", function () {
-        resetStt();
-    });
-
-    $("#mainTable").on("click", ".bt-del", function () {
-        var sttArr = $('.stt');
-        var last = sttArr.length + 1;
-        if (last == 2) return;
-        $(this).closest("tr").remove();
-        resetStt();
-    });
-
-    function resetStt() {
-        var table = document.getElementById('mainTable');
-
-        var rowLength = table.rows.length;
-
-        for (var i = 1; i < rowLength; i++) {
-            var row = table.rows[i];
-            //your code goes here, looping over every row.
-            //cells are accessed as easy
-            row.cells[0].innerHTML = i + '';
-        }
-    }
-
-    function add() {
-        var sttArr = $('.stt');
-        var last = sttArr.length + 1;
-        $('#mainTable tr:last').after('<tr>  <td colspan="1" class="stt">' + last + '</td> <td colspan="8" contenteditable="true"></td> <td colspan="2" contenteditable="true"></td></tr>');
-    }
-    function remove() {
-        var sttArr = $('.stt');
-        var last = sttArr.length + 1;
-        if (last == 2) return;
-        $('#mainTable tr:last').remove();
-    }
-</script>
+<script src="~/CustomJS/InputInfo.js"></script>
