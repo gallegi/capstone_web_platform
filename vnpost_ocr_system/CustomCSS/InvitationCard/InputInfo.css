@@ -1,4 +1,4 @@
-﻿th,tr,td {
+﻿th {
     text-align: center;
 }
 
@@ -11,4 +11,39 @@
 
 .no-collapse-m-p {
     overflow: hidden;
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color: gray;
+    display: block;
+}
+
+.width-1 {
+    width: 8%;
+}
+
+.width-2 {
+    width: 60%;
+}
+
+.width-3 {
+    width: 16%;
+}
+
+.width-4 {
+    width: 32%;
+}
+
+.my-bt {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.hover-caret:hover {
+    cursor: text;
+}
+
+.left-align {
+    text-align: left;
 }
