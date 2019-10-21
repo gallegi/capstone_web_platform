@@ -44,6 +44,13 @@
     cursor: text;
 }
 
-.left-align {
-    text-align: left;
+.my-left-align {
+    text-align: left !important;
+}
+
+@media only screen and (min-width: 0) and (max-width: 600px) {
+    .my-bt {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
