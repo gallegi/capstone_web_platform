@@ -9,9 +9,10 @@ namespace vnpost_ocr_system.Controllers.Login
     public class LoginController : Controller
     {
         // GET: Login
+        [Route("dang-nhap")]
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/Login/Login.cshtml");
         }
     }
 }
