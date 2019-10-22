@@ -5425,7 +5425,6 @@
     <Content Include="CustomCSS\InvitationCard\ConfirmInforBonus.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
-    <Content Include="CustomCSS\preloader\ConfirmInforBonus.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
