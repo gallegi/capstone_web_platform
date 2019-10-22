@@ -4,10 +4,15 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
-<link rel="stylesheet" href="~/CustomCSS/DocumentNotReceived.css" />
+<link href="~/CustomCSS/Document/DocumentNotReceived.css" rel="stylesheet" />
+<link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
 <div class="page-titles">
     <div class="d-flex align-items-center">
-        <h4 class="font-medium m-b-0 pdleft">Danh sách giấy hẹn - Đã tiếp nhận</h4>
+        <h4 class="font-medium m-b-0 pdleft black-text">Danh sách giấy hẹn - Chờ tiếp nhận</h4>
     </div>
 </div>
 
@@ -16,7 +21,7 @@
         <div class="col s12">
             <div class="card">
                 <form class="h-form b-form">
-                    <div class="form-body">
+                    <div class="form-body black-text">
                         <div class="divider"></div>
                         <div class="card-content">
                             <div class="row">
@@ -24,7 +29,7 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name">Tên thủ tục</label>
+                                                <p for="f-name">Tên thủ tục</p>
                                             </div>
                                         </div>
                                         <div class="col s6">
@@ -42,7 +47,7 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="l-name">Tỉnh thành</label>
+                                                <p for="l-name">Tỉnh thành</p>
                                             </div>
                                         </div>
                                         <div class="col s6">
@@ -64,12 +69,12 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name">Từ ngày</label>
+                                                <p for="f-name">Từ ngày</p>
                                             </div>
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <input name="dateTLHD" id="datepicker" type='text'
+                                                <input name="dateTLHD" id="datepicker" type='text' readonly
                                                        class="col s10 l10 datepicker-here form-control" autocomplete="off"
                                                        data-language='vi' value="01/01/2019" />
                                                 <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
@@ -81,7 +86,7 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="l-name">Cơ quan hành chính</label>
+                                                <p for="l-name">Cơ quan hành chính</p>
                                             </div>
                                         </div>
                                         <div class="col s6">
@@ -103,14 +108,14 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name">Đến ngày</label>
+                                                <p for="f-name">Đến ngày</p>
                                             </div>
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
                                                 <input name="dateTLHD" id="datepicker" type='text'
                                                        class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" />
+                                                       data-language='vi' value="31/12/2019" />
                                                 <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                                             </div>
                                         </div>
@@ -146,111 +151,35 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <table id="zero_config" class="responsive-table display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Mã hồ sơ</th>
-                                <th>Mã vận đơn</th>
-                                <th>Tên thủ tục</th>
-                                <th>Cơ quan HCC</th>
-                                <th>Ngày gửi</th>
-                                <th>Người gửi</th>
-                                <th>Người nhận</th>
-                                <th>Địa chỉ người nhận</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>Công an tỉnh</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Thế Nam</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th>()</th>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="mainTable" class="table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="width-1">Mã hồ sơ</th>
+                                    <th class="width-1">Tên thủ tục</th>
+                                    <th class="width-1">Cơ quan HCC</th>
+                                    <th class="width-1">Ngày gửi</th>
+                                    <th class="width-1">Người gửi</th>
+                                    <th class="width-1">Người nhận</th>
+                                    <th class="width-1">Địa chỉ người nhận</th>
+                                    <th class="width-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>123456798</td>
+                                    <td>Cấp đổi CMT</td>
+                                    <td>Công an tỉnh</td>
+                                    <td>15/10/2019</td>
+                                    <td>Nguyễn Thế Nam</td>
+                                    <td>Nguyễn Văn B</td>
+                                    <td>116 Láng Hạ</td>
+                                    <td>icon</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
+                    </div>
                     <ul class="pagination m-t-15 center-align">
                         <li class="pagination_button page-item previous disabled" id="zero_config_previous">
                             <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
@@ -273,5 +202,5 @@
         </div>
     </div>
 </div>
-
-
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
