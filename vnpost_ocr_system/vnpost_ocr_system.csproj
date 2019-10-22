@@ -6197,7 +6197,6 @@
     <Content Include="Views\Document\DocumentRecived.cshtml" />
     <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
-    <Content Include="Views\Shared\_Layout_TCLD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
