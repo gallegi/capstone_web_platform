@@ -43,9 +43,13 @@ html body .font-medium {
     color: #ffffff;
 }
 
-/*th {
-    text-align: center;
-}*/
+th {
+    font-size: 16px;
+}
+
+td {
+    font-size: 16px;
+}
 
 .big-title {
     font-size: 27px;
@@ -64,19 +68,39 @@ html body .font-medium {
     display: block;
 }
 
-.width-1 {
+.width-6 {
+    width: 6%;
+}
+
+.width-8 {
     width: 8%;
 }
 
-.width-2 {
+.width-10 {
+    width: 10%;
+}
+
+.width-12 {
+    width: 12%;
+}
+
+.width-15 {
+    width: 15%;
+}
+
+.width-22 {
+    width: 22%;
+}
+
+.width-60 {
     width: 60%;
 }
 
-.width-3 {
+.width-16 {
     width: 16%;
 }
 
-.width-4 {
+.width-32 {
     width: 32%;
 }
 
