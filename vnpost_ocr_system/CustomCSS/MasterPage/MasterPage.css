@@ -2,6 +2,8 @@
     margin-left:5%;
     margin-right:5%;
     margin-top:70px;
+    padding-left:10%;
+    padding-right:10%;
 
 }
 .master_float{
@@ -28,4 +30,7 @@
 }
 .content_all {
     background-color: #e9ebee !important;
+}
+.set_color{
+    background-color:#e9ebee !important;
 }

@@ -6,13 +6,13 @@ using System.Web.Mvc;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
-    public class DocumentRecivedController : Controller
+    public class DocumentNotReceivedController : Controller
     {
-        // GET: DocumentRecived
-        [Route("ho-so/ho-so-da-nhan")]
+        // GET: DocumentNotReceived
+        [Route("ho-so/ho-so-cho-nhan")]
         public ActionResult Index()
         {
-            return View("/Views/Document/DocumentRecived.cshtml");
+            return View("/Views/Document/DocumentNotReceived.cshtml");
         }
     }
 }

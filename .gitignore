@@ -74,3 +74,6 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 /.vs
+vnpost_ocr_system.sln
+vnpost_ocr_system.sln
+*.pubxml
