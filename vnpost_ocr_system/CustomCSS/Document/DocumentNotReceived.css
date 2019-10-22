@@ -1,4 +1,8 @@
-﻿.margintop {
+﻿div {
+    font-size: 18px;
+}
+
+.margintop {
     margin-top: 15px;
 }
 
@@ -35,13 +39,13 @@ html body .font-medium {
 }
 
 .btn {
-    border-radius: 3px; 
+    border-radius: 3px;
 }
 
-.btn > a{
-    text-decoration: none;
-    color: #ffffff;
-}
+    .btn > a {
+        text-decoration: none;
+        color: #ffffff;
+    }
 
 th {
     font-size: 16px;
@@ -107,6 +111,7 @@ td {
 .my-bt {
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 10px;
 }
 
 .hover-caret:hover {
@@ -156,6 +161,7 @@ td {
 
 .edit-icon {
     font-size: 20px;
+    transition-duration: 0.25s;
 }
 
 .a-reset {
@@ -165,4 +171,19 @@ td {
 
 .edit-icon:hover {
     color: #00bcd4 !important;
+}
+
+.my-label {
+    font-size: 16px;
+    color: #333333;
+}
+
+.m-t-responsive {
+    margin-top: 30px;
+}
+
+@media only screen and (mid-width:0) and (max-width: 500px) {
+    .my-paging {
+        font-size: 12px !important;
+    }
 }

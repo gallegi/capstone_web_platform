@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12">Số hồ sơ:</div>
+                                        <div class="col l4 m4 p-t-10 s12 my-label">Tên thủ tục</div>
                                         <div class="col l6 m6 s12">
                                             <select tabindex="-1" class="card-border">
                                                 <option value="1" selected>Cấp đổi CMT</option>
@@ -40,22 +40,7 @@
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <div class="select-wrapper row">
-                                        @*<div class="col l1 m1 s0"></div>*@
-                                        <div class="col l4 m4 p-t-10 s12">Tên CQHCC:</div>
-                                        <div class="col l6 m6 s12">
-                                            <select tabindex="-1">
-                                                <option value="1" selected>Công an quận Hoàn Kiếm</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12">Tỉnh/Thành phố:</div>
+                                        <div class="col l4 m4 p-t-10 s12 my-label">Tỉnh/thành</div>
                                         <div class="col l6 m6 s12">
                                             <select tabindex="-1">
                                                 <option value="1" selected>Hà Nội</option>
@@ -65,34 +50,41 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 m6 l6 m6">
+                            </div>
+                            <div class="row m-t-responsive">
+                                <div class="input-field col s12 m6">
                                     <div class="input-field row">
-                                        <p class="col l4 m4 p-t-10 s12">Địa chỉ CQHCC:</p>
-                                        <div class="col l6 m6 s12">
-                                            <input id="con1" type="text" value="Auto generate khi chọn CQHCC"
-                                                   readonly>
+                                        <p class="col l4 m4 p-t-10 s12 my-label">Từ ngày</p>
+                                        <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                            <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                   class="col s10 l10 datepicker-here" autocomplete="off"
+                                                   data-language='vi' value="01/01/2019" />
+                                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="input-field col s12 m6">
                                     <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12">Quận/Huyện:</div>
+                                        <div class="col l4 m4 p-t-10 s12 my-label">Cơ quan hành chính</div>
                                         <div class="col l6 m6 s12">
                                             <select tabindex="-1">
-                                                <option value="1" selected>Quận Hoàn Kiếm</option>
+                                                <option value="1" selected>Công an tỉnh</option>
                                                 <option value="2">Option 2</option>
                                                 <option value="3">Option 3</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 m6 l6 m6">
+                            </div>
+                            <div class="row m-t-responsive">
+                                <div class="input-field col s12 m6">
                                     <div class="input-field row">
-                                        <p class="col l4 m4 p-t-10 s12">Số hồ sơ:</p>
-                                        <div class="col l6 m6 s12">
-                                            <input id="con1" type="text" value="">
+                                        <p class="col l4 m4 p-t-10 s12 my-label">Đến ngày</p>
+                                        <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                            <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                   class="datepicker-here col s10 l10" autocomplete="off"
+                                                   data-language='vi' value="31/12/2019" />
+                                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                                         </div>
                                     </div>
                                 </div>
@@ -106,10 +98,10 @@
     <div class="row m-t-10 m-b-10">
         <div class="col s12">
             <div class="right-align">
-                <button class="btn waves-effect waves-light cyan" type="submit">
+                <button class="btn waves-effect waves-light cyan my-bt" type="submit">
                     In
                 </button>
-                <button class="btn waves-effect waves-light cyan" type="submit">
+                <button class="btn waves-effect waves-light cyan my-bt" type="submit">
                     Kết xuất excel
                 </button>
             </div>
@@ -198,23 +190,25 @@
                         </table>
                         <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
                     </div>
-                    <ul class="pagination m-t-15 center-align">
-                        <li class="pagination_button page-item previous disabled" id="zero_config_previous">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Trang trước</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                        </li>
-                        <li class="paginate_button page-item next" id="zero_config_next">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">Trang sau</a>
-                        </li>
-                    </ul>
+                    <div class="no-collapse-m-p">
+                        <ul class="pagination m-t-15 center-align">
+                            <li class="pagination_button page-item previous disabled" id="zero_config_previous">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link my-paging">Trước</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link my-paging">1</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link my-paging">2</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link my-paging">3</a>
+                            </li>
+                            <li class="paginate_button page-item next" id="zero_config_next">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link my-paging">Sau</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
