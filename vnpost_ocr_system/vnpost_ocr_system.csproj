@@ -607,6 +607,7 @@
     <Content Include="assets\images\users\6.jpg" />
     <Content Include="assets\images\users\7.jpg" />
     <Content Include="assets\images\users\8.jpg" />
+    <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
     <Content Include="assets\images\users\d2.jpg" />
     <Content Include="assets\images\users\d3.jpg" />
@@ -5419,6 +5420,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomCSS\DocumentReceived.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInforBonus.css" />
+    <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
+    <Content Include="CustomCSS\preloader\ConfirmInforBonus.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
@@ -6197,6 +6200,7 @@
     <Content Include="Views\Document\DocumentProcessing.cshtml" />
     <Content Include="Views\Document\DocumentRecived.cshtml" />
     <Content Include="Views\Payment\Payment.cshtml" />
+    <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
