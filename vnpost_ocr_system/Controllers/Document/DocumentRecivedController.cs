@@ -12,7 +12,7 @@ namespace vnpost_ocr_system.Controllers.Document
         [Route("ho-so/ho-so-da-nhan")]
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/Document/DocumentRecived.cshtml");
         }
     }
 }
