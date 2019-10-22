@@ -76,3 +76,4 @@ _[Ss]cripts
 /.vs
 vnpost_ocr_system.sln
 vnpost_ocr_system.sln
+*.pubxml
