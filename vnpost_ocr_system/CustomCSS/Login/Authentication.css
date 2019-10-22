@@ -1,0 +1,28 @@
+﻿.login-logo img{
+    width: 100%;
+}
+
+.login-label {
+    text-align: center;
+    font-size: 1rem;
+    color: #1c5b96;
+}
+
+.login-btn{
+    margin-bottom: 100px;
+}
+
+::placeholder {
+    color: #808080;
+    opacity: 1;
+    padding-left: 15px;
+}
+
+.my-input {
+    border: 1px solid #e9ecef !important;
+}
+
+input.invalid[type=email]:not(.browser-default) {
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 0 0 0 white !important;
+}
