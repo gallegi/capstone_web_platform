@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Hồ sơ chờ tiếp nhận";
-    Layout = "~/Views/Shared/_MasterPage.cshtml";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
 }
 
 <link href="~/CustomCSS/Document/DocumentNotReceived.css" rel="stylesheet" />
@@ -24,108 +24,76 @@
                     <div class="form-body black-text">
                         <div class="divider"></div>
                         <div class="card-content">
+                            <h6 class="font-medium black-text">Thông tin thủ tục</h6>
                             <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <p for="f-name">Tên thủ tục</p>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Cấp đổi CMT</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
+                                <div class="input-field col s12 m6">
+                                    <div class="select-wrapper row">
+                                        <div class="col l4 m4 p-t-10 s12">Số hồ sơ:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1" class="card-border">
+                                                <option value="1" selected>Cấp đổi CMT</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <p for="l-name">Tỉnh thành</p>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Hà Nội</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
+                                <div class="input-field col s12 m6">
+                                    <div class="select-wrapper row">
+                                        @*<div class="col l1 m1 s0"></div>*@
+                                        <div class="col l4 m4 p-t-10 s12">Tên CQHCC:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1">
+                                                <option value="1" selected>Công an quận Hoàn Kiếm</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-content">
                             <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <p for="f-name">Từ ngày</p>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" />
-                                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                            </div>
+                                <div class="input-field col s12 m6">
+                                    <div class="select-wrapper row">
+                                        <div class="col l4 m4 p-t-10 s12">Tỉnh/Thành phố:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1">
+                                                <option value="1" selected>Hà Nội</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <p for="l-name">Cơ quan hành chính</p>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Công an tỉnh</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
+                                <div class="col s12 m6 l6 m6">
+                                    <div class="input-field row">
+                                        <p class="col l4 m4 p-t-10 s12">Địa chỉ CQHCC:</p>
+                                        <div class="col l6 m6 s12">
+                                            <input id="con1" type="text" value="Auto generate khi chọn CQHCC"
+                                                   readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-content">
                             <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <p for="f-name">Đến ngày</p>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <input name="dateTLHD" id="datepicker" type='text'
-                                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                                       data-language='vi' value="31/12/2019" />
-                                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                            </div>
+                                <div class="input-field col s12 m6">
+                                    <div class="select-wrapper row">
+                                        <div class="col l4 m4 p-t-10 s12">Quận/Huyện:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1">
+                                                <option value="1" selected>Quận Hoàn Kiếm</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 l6">
-                                    <div class="row center-align">
-                                        <button class="btn waves-effect waves-light cyan" type="submit">
-                                            Hiển thị
-                                        </button>
+                                <div class="col s12 m6 l6 m6">
+                                    <div class="input-field row">
+                                        <p class="col l4 m4 p-t-10 s12">Số hồ sơ:</p>
+                                        <div class="col l6 m6 s12">
+                                            <input id="con1" type="text" value="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +200,7 @@
                     </div>
                     <ul class="pagination m-t-15 center-align">
                         <li class="pagination_button page-item previous disabled" id="zero_config_previous">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                            <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Trang trước</a>
                         </li>
                         <li class="paginate_button page-item active">
                             <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
@@ -244,7 +212,7 @@
                             <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a>
                         </li>
                         <li class="paginate_button page-item next" id="zero_config_next">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+                            <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">Trang sau</a>
                         </li>
                     </ul>
                 </div>
