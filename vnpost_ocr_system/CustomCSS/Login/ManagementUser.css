@@ -1,0 +1,19 @@
+﻿.mana-user-table thead {
+    background-color: #ecf0f1;
+}
+.table-function td{
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color: gray;
+    display: block;
+}
+
+.input-search {
+    resize: none;
+}
+
+
