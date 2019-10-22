@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessingController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
@@ -607,7 +608,6 @@
     <Content Include="assets\images\users\6.jpg" />
     <Content Include="assets\images\users\7.jpg" />
     <Content Include="assets\images\users\8.jpg" />
-    <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
     <Content Include="assets\images\users\d2.jpg" />
     <Content Include="assets\images\users\d3.jpg" />
@@ -5418,7 +5418,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
+    <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
     <Content Include="CustomCSS\preloader\ConfirmInforBonus.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
@@ -6198,6 +6198,8 @@
     <Content Include="Views\Document\DocumentProcessing.cshtml" />
     <Content Include="Views\Document\DocumentRecived.cshtml" />
     <Content Include="Views\Payment\Payment.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -6207,6 +6209,7 @@
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\DisplayCode\" />
     <Folder Include="Views\DisplayStatus\" />
+    <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
