@@ -17,19 +17,19 @@
                     <form action="#">
                         <p>
                             <label>
-                                <input onclick="myFunction()" name="group1" id ="r1" type="radio" checked />
+                                <input onclick="myFunction()" name="group1" id="r1" type="radio" checked />
                                 <span>Thanh toán tiền mặt khi nhận hàng</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input onclick="myFunction()" name="group1" id ="r2" type="radio" />
+                                <input onclick="myFunction()" name="group1" id="r2" type="radio" />
                                 <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input onclick="showBankList()" name="group1" id ="r3" type="radio" />
+                                <input onclick="showBankList()" name="group1" id="r3" type="radio" />
                                 <span>Thẻ ATM nội địa/Internet Banking</span>
                             </label>
                         </p>
@@ -182,8 +182,7 @@
     </div>
 </div>
 
-<script>
-    function myFunction(){
+<script>function myFunction(){
         document.getElementsByClassName('bank-list')[0].style.display = "none";         // Function returns the product of a and b
     }
     if (document.getElementById("r1").checked == true) {
@@ -192,5 +191,4 @@
 
     function showBankList() {
         document.getElementsByClassName('bank-list')[0].style.display = 'block';
-    }
-</script>
+    }</script>
