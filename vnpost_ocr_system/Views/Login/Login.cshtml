@@ -3,5 +3,60 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
-<h2>Login</h2>
+<link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="auth-box col l4 offset-l4" style="background-color: white;">
+            <div id="loginform">
+                <div class="logo login-logo col l6 offset-l3 s6 offset-s3">
+                    <span class="db"><img src="../../assets/images/Logo.png" alt="logo"></span>
+
+                </div>
+
+                <div class="col l8 offset-l2 m-t-5">
+                    <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
+                </div>
+
+                <!-- Form -->
+                <div class="row">
+                    <form class="col s12" action="index.html">
+                        <!-- email -->
+                        <div class="row">
+                            <div class="input-field col s12 p-l-40 p-r-40">
+                                <input id="email" type="email" class="my-input" required="" placeholder="Tài khoản">
+
+                            </div>
+                        </div>
+                        <!-- pwd -->
+                        <div class="row">
+                            <div class="input-field col s12 p-l-40 p-r-40">
+                                <input id="password" type="password" class="my-input" required="" placeholder="Mật khẩu">
+
+                            </div>
+                        </div>
+                        <!-- pwd -->
+                        <div class="row m-t-5">
+                            <div class="col s7 p-l-40">
+                                <label>
+                                    <input type="checkbox">
+                                    <span>Ghi nhớ</span>
+                                </label>
+                            </div>
+                            <div class="col s5 right-align p-r-40"><a href="#" class="link" id="to-recover">Quên mật khẩu?</a></div>
+                        </div>
+                        <!-- pwd -->
+                        <div class="row m-t-40">
+                            <div class="col s12 l6 offset-l3 login-btn">
+                                <button class="btn-large w100 blue accent-4 m-t-30" type="submit">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
