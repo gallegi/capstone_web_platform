@@ -9,9 +9,10 @@ namespace vnpost_ocr_system.Controllers.Login
     public class ManagementUserController : Controller
     {
         // GET: ManagementUser
+        [Route("phan-quyen-tai-khoan")]
         public ActionResult Index()
         {
-            return View();
+            return View("/Views/Login/ManagementUser.cshtml");
         }
     }
 }
