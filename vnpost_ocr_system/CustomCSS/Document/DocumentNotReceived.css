@@ -1,5 +1,5 @@
 ﻿div {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .margintop {
@@ -48,11 +48,11 @@ html body .font-medium {
     }
 
 th {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 td {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .big-title {
@@ -170,11 +170,11 @@ td {
 }
 
 .edit-icon:hover {
-    color: #00bcd4 !important;
+    color: #2196F3 !important;
 }
 
 .my-label {
-    font-size: 16px;
+    font-size: 14px;
     color: #333333;
 }
 
@@ -189,11 +189,15 @@ td {
 }
 
 .bt-inner-text {
-    padding-top: 2px;
+    padding-top: 5px;
     margin-left: 3px;
 }
 
 .my-icon {
     font-size: 4px;
     margin-right: 5px;
+}
+
+.bt-color-common {
+    background-color: #2196F3 !important;
 }
