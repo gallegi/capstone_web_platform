@@ -6,10 +6,80 @@
 <link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/CustomJS/test.js"></script>
 
+
+
+<!-- Pop-up add user / edit user-->
+<div id="vattu" class="modal p-20" tabindex="0" style="z-index: 1003; display: none; opacity: 0; top: 10%; transform: scaleX(0.8) scaleY(0.8);">
+    <div class="modal-header center">
+        <h4>Nhập thông tin tài khoản</h4>
+    </div>
+    <div class="modal-body">
+        <table id="Table" class="centered striped">
+            <tbody>
+                <tr>
+                    <td>UserID:</td>
+                    <td><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Tên người dùng</td>
+                    <td><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Tài khoản:</td>
+                    <td><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Vai trò</td>
+                    <td><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Active: </td>
+                    <td class="active-check-box">
+                        <label>
+                            <input type="checkbox">
+                            <span></span>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn modal-close blue">Lưu</a>
+        <a class="btn modal-close blue darken-2">Đóng</a>
+    </div>
+</div>
+
+@* Pop up xác nhận xóa *@
+<!-- Modal HTML -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Xóa tài khoản</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
+                
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="content">
-   
+
 
 
 
@@ -67,9 +137,9 @@
 
 
         <div class="col l1">
-            <button class="btn cyan waves-effect waves-light right" name="action" data-toggle="modal" data-target="#forminput">
+            <a href="#vattu" class="btn cyan waves-effect waves-light right modal-trigger" name="action">
                 Add
-            </button>
+            </a>
 
 
         </div>
@@ -91,7 +161,7 @@
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="#!">Chỉnh sửa</a></li>
             <li><a href="#!">Đổi vai trò</a></li>
-            <li><a href="#!">Xóa</a></li>
+            <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
         </ul>
 
         <table class="table highlight responsive-table mana-user-table">
@@ -308,33 +378,7 @@
 
 @* ***************** *@
 
-<div id="id01" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php" method="post">
-        <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <img src="img_avatar2.png" alt="Avatar" class="avatar">
-        </div>
-
-        <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-
-            <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-    </form>
-</div>
 
 <script>
     // Get the modal
