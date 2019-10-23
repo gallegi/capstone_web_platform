@@ -11,10 +11,13 @@ html body .font-medium {
     border-radius: 5px; 
 }
 
+.my-blue-btn {
+    background-color: #2196F3; 
+}
+
 a{
     text-decoration: none;
     color: #ffffff;
-
 }
 
 textarea {
@@ -31,16 +34,3 @@ textarea {
     padding-top: 20px;
 }
 
-@media only screen and (max-width: 600px) {
-    textarea {
-        resize: none;
-        height: 150px;
-    }
-}
-
-
-@media only screen and (min-width: 600px) {
-    textarea {
-        height: 150px;
-    }
-}

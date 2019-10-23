@@ -5425,6 +5425,7 @@
     <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
+    <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
