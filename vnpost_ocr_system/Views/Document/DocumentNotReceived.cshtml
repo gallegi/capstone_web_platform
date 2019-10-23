@@ -5,6 +5,9 @@
 }
 
 <link href="~/CustomCSS/Document/DocumentNotReceived.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/CustomCSS/InvitationCard/ConfirmInforBonus.css" />
+<link rel="stylesheet" href="~/CustomCSS/preloader/ConfirmInfor.css" />
+<link rel="stylesheet" href="~/CustomCSS/Document/DocumentReceived.css" />
 <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
@@ -19,85 +22,126 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card p-b-10">
                 <form class="h-form b-form">
-                    <div class="form-body black-text">
+                    <div class="form-body">
                         <div class="divider"></div>
                         <div class="card-content">
-                            <h6 class="font-medium black-text">Thông tin thủ tục</h6>
                             <div class="row">
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12 my-label">Tên thủ tục</div>
-                                        <div class="col l6 m6 s12">
-                                            <select tabindex="-1" class="card-border">
-                                                <option value="1" selected>Cấp đổi CMT</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="f-name" class="text-black">Tên thủ tục</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s8">
+                                            <div class="h-form-label">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Cấp đổi CMT</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12 my-label">Tỉnh/thành</div>
-                                        <div class="col l6 m6 s12">
-                                            <select tabindex="-1">
-                                                <option value="1" selected>Hà Nội</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="l-name" class="text-black">Tỉnh thành</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-t-responsive">
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="input-field row">
-                                        <p class="col l4 m4 p-t-10 s12 my-label">Từ ngày</p>
-                                        <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                            <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                   class="col s10 l10 datepicker-here" autocomplete="off"
-                                                   data-language='vi' value="01/01/2019" />
-                                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="select-wrapper row">
-                                        <div class="col l4 m4 p-t-10 s12 my-label">Cơ quan hành chính</div>
-                                        <div class="col l6 m6 s12">
-                                            <select tabindex="-1" class="right-align">
-                                                <option value="1" selected>Công an tỉnh</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Hà Nội</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-t-responsive">
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="input-field row">
-                                        <p class="col l4 m4 p-t-10 s12 my-label">Đến ngày</p>
-                                        <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                            <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                   class="datepicker-here col s10 l10" autocomplete="off"
-                                                   data-language='vi' width="40" value="31/12/2019">
-                                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="f-name" class="text-black">Từ ngày</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="input-field col s12 m12 l6">
-                                    <div class="input-field row">
-                                        <p class="col l4 m4 p-t-10 s12 my-label"></p>
-                                        <div class="col l6 m6 s12 right-align">
-                                            <button class="btn waves-effect waves-light cyan my-bt" type="submit">
-                                                <div class="m-0-0 p-0-0 d-flex">
-                                                    <i class="material-icons my-icon">filter_list</i>
-                                                    <span class="bt-inner-text">Hiển thị</span>
+                                        <div class="col s8">
+                                            <div class="h-form-label">
+                                                <div class="datepicker-calendar-container">
+                                                    <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                           class="col s10 l10 datepicker-here " autocomplete="off"
+                                                           data-language='vi' value="01/01/2019" />
+                                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                                                 </div>
-                                            </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="l-name" class="text-black">Cơ quan hành chính</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Công an tỉnh</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="f-name" class="text-black">Đến ngày</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s8">
+                                            <div class="h-form-label">
+                                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                       class="col s10 l10 datepicker-here" autocomplete="off"
+                                                       data-language='vi' value="01/01/2019" />
+                                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="l-name" class="text-black"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label right-align">
+                                                <button class="btn waves-effect waves-light bt-color-common my-bt" type="submit">
+                                                    <div class="m-0-0 p-0-0 d-flex">
+                                                        <i class="material-icons my-icon">filter_list</i>
+                                                        <span class="bt-inner-text">Hiển thị</span>
+                                                    </div>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,13 +155,13 @@
     <div class="row m-t-10 m-b-10">
         <div class="col s12">
             <div class="right-align">
-                <button class="btn waves-effect waves-light cyan my-bt" type="submit">
+                <button class="btn waves-effect waves-light bt-color-common my-bt" type="submit">
                     <div class="m-0-0 p-0-0 d-flex">
                         <i class="material-icons my-icon">local_printshop</i>
                         <span class="bt-inner-text">In</span>
                     </div>
                 </button>
-                <button class="btn waves-effect waves-light cyan my-bt" type="submit">
+                <button class="btn waves-effect waves-light bt-color-common my-bt" type="submit">
                     <div class="m-0-0 p-0-0 d-flex">
                         <i class="material-icons my-icon">grid_on</i>
                         <span class="bt-inner-text">Kết xuất excel</span>
@@ -130,7 +174,7 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <div class="table-responsive m-b-40">
+                    <div class="table-responsive m-b-40 m-t-30">
                         <table id="mainTable" class="table-bordered table-responsive">
                             <thead>
                                 <tr>
