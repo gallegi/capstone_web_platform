@@ -1,0 +1,46 @@
+﻿.h-form-label {
+    font-size: 1rem;
+    line-height:2.5rem;
+}
+
+html body .font-medium {
+    margin-bottom: 2rem;
+}
+
+.btn {
+    border-radius: 5px; 
+}
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+
+}
+
+textarea {
+    resize: none;
+    height: 150px;
+}
+
+.font-medium {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.col {
+    padding-top: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    textarea {
+        resize: none;
+        height: 150px;
+    }
+}
+
+
+@media only screen and (min-width: 600px) {
+    textarea {
+        height: 150px;
+    }
+}

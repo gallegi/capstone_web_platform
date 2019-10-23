@@ -26,7 +26,7 @@
                         <div class="card-content">
                             <h6 class="font-medium black-text">Thông tin thủ tục</h6>
                             <div class="row">
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s12 m12 l6">
                                     <div class="select-wrapper row">
                                         <div class="col l4 m4 p-t-10 s12 my-label">Tên thủ tục</div>
                                         <div class="col l6 m6 s12">
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s12 m12 l6">
                                     <div class="select-wrapper row">
                                         <div class="col l4 m4 p-t-10 s12 my-label">Tỉnh/thành</div>
                                         <div class="col l6 m6 s12">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="row m-t-responsive">
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s12 m12 l6">
                                     <div class="input-field row">
                                         <p class="col l4 m4 p-t-10 s12 my-label">Từ ngày</p>
                                         <div class="col l6 m6 s12 datepicker-calendar-container row">
@@ -63,11 +63,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s12 m12 l6">
                                     <div class="select-wrapper row">
                                         <div class="col l4 m4 p-t-10 s12 my-label">Cơ quan hành chính</div>
                                         <div class="col l6 m6 s12">
-                                            <select tabindex="-1">
+                                            <select tabindex="-1" class="right-align">
                                                 <option value="1" selected>Công an tỉnh</option>
                                                 <option value="2">Option 2</option>
                                                 <option value="3">Option 3</option>
@@ -77,14 +77,27 @@
                                 </div>
                             </div>
                             <div class="row m-t-responsive">
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s12 m12 l6">
                                     <div class="input-field row">
                                         <p class="col l4 m4 p-t-10 s12 my-label">Đến ngày</p>
                                         <div class="col l6 m6 s12 datepicker-calendar-container row">
                                             <input name="dateTLHD" id="datepicker" type='text' readonly
                                                    class="datepicker-here col s10 l10" autocomplete="off"
-                                                   data-language='vi' value="31/12/2019" />
+                                                   data-language='vi' width="40" value="31/12/2019">
                                             <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12 m12 l6">
+                                    <div class="input-field row">
+                                        <p class="col l4 m4 p-t-10 s12 my-label"></p>
+                                        <div class="col l6 m6 s12 right-align">
+                                            <button class="btn waves-effect waves-light cyan my-bt" type="submit">
+                                                <div class="m-0-0 p-0-0 d-flex">
+                                                    <i class="material-icons my-icon">filter_list</i>
+                                                    <span class="bt-inner-text">Hiển thị</span>
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -99,10 +112,16 @@
         <div class="col s12">
             <div class="right-align">
                 <button class="btn waves-effect waves-light cyan my-bt" type="submit">
-                    In
+                    <div class="m-0-0 p-0-0 d-flex">
+                        <i class="material-icons my-icon">local_printshop</i>
+                        <span class="bt-inner-text">In</span>
+                    </div>
                 </button>
                 <button class="btn waves-effect waves-light cyan my-bt" type="submit">
-                    Kết xuất excel
+                    <div class="m-0-0 p-0-0 d-flex">
+                        <i class="material-icons my-icon">grid_on</i>
+                        <span class="bt-inner-text">Kết xuất excel</span>
+                    </div>
                 </button>
             </div>
         </div>
