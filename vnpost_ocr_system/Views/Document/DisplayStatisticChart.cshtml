@@ -1,0 +1,269 @@
+﻿
+@{
+    ViewBag.Title = "DisplayStatisticChart";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+
+
+<link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
+<div class="container-fluid">
+
+
+    <div class="row">
+
+        <div class="card">
+
+
+
+            <div class="card-content">
+                <h3 class="font-medium">Thống kê trong hôm nay</h3>
+
+
+                <div class="row">
+                    <div class="col l4 m6 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
+                                        <h2 class="white-text m-b-5">12</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=============================-->
+                    <div class="col l4 m6 s12">
+                        <div class="card info-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
+                                        <h2 class="white-text m-b-5">36</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=============================-->
+
+                    <div class="col l4 m6 s12">
+                        <div class="card warning-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đã xử lý</h6>
+                                        <h2 class="white-text m-b-5">13</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-content">
+                <h3 class="font-medium">Thống kê trong 30 ngày gần nhất</h3>
+
+
+                <div class="row">
+                    <div class="col l4 m6 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
+                                        <h2 class="white-text m-b-5">240</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=============================-->
+                    <div class="col l4 m6 s12">
+                        <div class="card info-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
+                                        <h2 class="white-text m-b-5">320</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=============================-->
+                    <!--test-->
+                    <div class="col l4 m6 s12">
+                        <div class="card warning-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h6 class="white-text">Số hồ sơ đã xử lý</h6>
+                                        <h2 class="white-text m-b-5">200</h2>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col l9 m12 s12">
+                    <div class="card-content">
+                        <h5 class="font-medium center">Biểu đồ thống kê số lượng hồ sơ trong 30 ngày gần nhất</h5>
+                        <div class="card-content analytics-info">
+
+                            <div id="basic-line" class="test" style="height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col l3 s12">
+
+                    <div class="card-content">
+                        <div class="card-content analytics-info">
+
+                            <div id="basic-pie" style="height:400px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 l1">
+                        <div class="row">
+                            <div class="col s3">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 l3">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="h-form-label">
+                                    <div class="line1"></div>
+                                </div>
+                            </div>
+                            <div class="col s6 l6">
+                                <div class="h-form-label">
+                                    <div class="m-l">Số hồ sơ đang chờ tiếp nhận</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col s12 l1">
+                        <div class="row">
+                            <div class="col s3">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 l3">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="h-form-label">
+                                    <div class="line2"></div>
+                                </div>
+                            </div>
+                            <div class="col s6 l6">
+                                <div class="h-form-label">
+                                    <div class="m-l">Số hồ sơ đã tiếp nhận</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col s12 l1">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="h-form-label">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 l3">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="h-form-label">
+                                    <div class="line3"></div>
+                                </div>
+                            </div>
+                            <div class="col s6 l6">
+                                <div class="h-form-label">
+                                    <div class="m-l">Số hồ sơ đã xử lý</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
+

@@ -1,0 +1,24 @@
+﻿.line1{
+   
+    background-color: #d675d0;
+    width: 100%;
+    height: 10px;
+    margin-bottom: 20px;
+  
+    
+}
+.line2{
+   background-color:#58bbff;
+    width: 100%;
+    height: 10px;
+     margin-bottom: 20px;
+}
+.line3{
+    background-color:#fcb051;
+   width: 100%;
+    height: 10px;
+}
+
+@media only screen and (max-width: 1024px){
+  
+}

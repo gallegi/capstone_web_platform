@@ -128,10 +128,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessingController.cs" />
+    <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -5420,7 +5422,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
+    <Content Include="CustomCSS\Document\DocumentReceived.css" />
+    <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
+    <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
@@ -5498,6 +5503,8 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\InputInfo.js" />
+    <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -6202,6 +6209,8 @@
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
     <Content Include="Views\Document\DocumentNotReceivedDetail.cshtml" />
+    <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
+    <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6209,8 +6218,10 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\DisplayCode\" />
+    <Folder Include="Views\DisplayStatisticChart\" />
     <Folder Include="Views\DisplayStatus\" />
     <Folder Include="Views\DocumentNotReceived\" />
+    <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
