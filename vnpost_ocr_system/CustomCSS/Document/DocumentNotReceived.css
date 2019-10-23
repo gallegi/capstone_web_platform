@@ -197,3 +197,7 @@ td {
     font-size: 4px;
     margin-right: 5px;
 }
+
+.bt-color-common {
+    background-color: #2196F3 !important;
+}

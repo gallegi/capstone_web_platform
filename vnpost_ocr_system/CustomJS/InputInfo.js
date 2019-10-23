@@ -5,7 +5,7 @@
     cols += '<td colspan="1" class="stt"></td>';
     cols += '<td class="hover-caret my-p-l-20 my-left-align" contenteditable="true" placeholder="Nhấp để chỉnh sửa nội dung" style="text-align: left !important;"></td>';
     cols += '<td class="hover-caret" contenteditable="true" placeholder="Số lượng" style="text-align: left;"></td>';
-    cols += '<td class="no-collapse-m-p"> <div style="text-align: center;"> <button class="btn waves-effect waves-light cyan m-r-10 bt-add my-bt" type="button"> + </button> <button class="btn waves-effect waves-light red bt-del my-bt" type="button"> -</button> </div> </td>';
+    cols += '<td class="no-collapse-m-p"> <div style="text-align: center;"> <button class="btn waves-effect waves-light bt-color-common m-r-10 bt-add my-bt" type="button"> + </button> <button class="btn waves-effect waves-light red bt-del my-bt" type="button"> -</button> </div> </td>';
     newRow.append(cols);
     newRow.insertAfter($(this).closest('tr'));
 });

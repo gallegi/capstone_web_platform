@@ -84,3 +84,7 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.bt-color-common {
+    background-color: #2196F3 !important;
+}
