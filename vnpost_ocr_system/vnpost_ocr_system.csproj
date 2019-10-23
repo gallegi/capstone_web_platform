@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessedController.cs" />
     <Compile Include="Controllers\Document\DocumentProcessingController.cs" />
@@ -577,7 +578,6 @@
     <Content Include="assets\images\carousel\img6.jpg" />
     <Content Include="assets\images\collections\yuna.jpg" />
     <Content Include="assets\images\Logo.jpg" />
-    <Content Include="assets\images\Logo.PNG" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
     <Content Include="assets\images\parallax2.jpg" />
@@ -5419,12 +5419,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CustomCSS\Login\Authentication.css" />
-    <Content Include="CustomCSS\Login\ManagementUser.css" />
+    <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
-    <Content Include="CustomCSS\InvitationCard\ConfirmInforBonus.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
-    <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
+    <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
@@ -6206,6 +6204,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
+    <Content Include="Views\Document\DocumentNotReceivedDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
