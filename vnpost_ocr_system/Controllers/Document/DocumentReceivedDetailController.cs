@@ -9,7 +9,7 @@ namespace vnpost_ocr_system.Controllers.Document
     public class DocumentReceivedDetailController : Controller
     {
         // GET: DocumentReceivedDetail
-        [Route("ho-so/chi-tiet-ho-so-da-xu-ly")]
+        [Route("ho-so/ho-so-da-nhan/chi-tiet")]
         public ActionResult Index()
         {
             return View("/Views/Document/DocumentReceivedDetail.cshtml");
