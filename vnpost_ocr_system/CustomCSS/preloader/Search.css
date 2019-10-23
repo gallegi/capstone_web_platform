@@ -53,3 +53,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
     }
     
 }
+
+.page_wrapper{
+    margin: 0 !important;
+}

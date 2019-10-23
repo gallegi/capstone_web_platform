@@ -8,8 +8,16 @@
 
 
 
+<div class="content">
+   
 
-<div class="container-fluid">
+
+
+
+
+
+
+
 
     @* Thanh tìm kiếm, button search, button refresh *@
     <div class="row my-function d-flex">
@@ -22,10 +30,48 @@
             <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
                    placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" onclick="changeColor()" onfocusout="loseFocus()">
         </div>
+
+
+        <div class="modal fade" id="forminput" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email1">Email address</label>
+                                <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">Password</label>
+                                <input type="password" class="form-control" id="password1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">Confirm Password</label>
+                                <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="col l1">
-            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+            <button class="btn cyan waves-effect waves-light right" name="action" data-toggle="modal" data-target="#forminput">
                 Add
             </button>
+
+
         </div>
         <div class="col l1">
             <i class="material-icons dp48 small">refresh</i>
@@ -225,3 +271,81 @@
         </div>
     </div>
 </div>
+
+@* POP-UP NHẬP THÔNG TIN NGƯỜI DÙNG MỚI *@
+<div class="modal fade" id="forminput" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email1">Email address</label>
+                        <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input type="password" class="form-control" id="password1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Confirm Password</label>
+                        <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* ***************** *@
+
+<div id="id01" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <button type="submit">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
