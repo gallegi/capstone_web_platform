@@ -1,5 +1,12 @@
-﻿.mana-user-table thead {
-    background-color: #ecf0f1;
+﻿.btn {
+    background-color: #acafb0 !important;
+}
+.col{
+    
+    padding: 0!important;
+}
+.mana-user-table thead {
+    background-color: #acafb0;
 }
 .table-function td{
     margin-right: 0 !important;
@@ -102,19 +109,19 @@ table.centered tbody tr td{
         outline: none !important;
     }
 
-    .modal-confirm .btn-info {
+.modal-confirm .btn-info {
         background: #c1c1c1;
     }
 
-        .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
             background: #a8a8a8;
         }
 
-    .modal-confirm .btn-danger {
+.modal-confirm .btn-danger {
         background: #f15e5e;
     }
 
-        .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
             background: #ee3535;
         }
 
