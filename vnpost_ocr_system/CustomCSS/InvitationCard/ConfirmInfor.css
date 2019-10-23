@@ -30,3 +30,37 @@ html body .font-medium {
 .card .card-content {
     padding: 40px;
 }
+label{
+   color: black;
+   
+}
+.table, td, th {
+  border: 1px solid black;
+
+}
+table {
+  border-collapse: collapse;
+  color:black;
+}
+
+table, td, th {
+  border: 1px solid black;
+  
+}
+.width-1{
+width: 8%;
+}
+.width-2{
+width: 80%;}
+.center-text{
+text-align: center; 
+}
+td{
+padding-left:5px;
+}
+.highlight{
+    font-weight: bold;
+}
+.row{
+    margin-top: 0.8%;
+}
