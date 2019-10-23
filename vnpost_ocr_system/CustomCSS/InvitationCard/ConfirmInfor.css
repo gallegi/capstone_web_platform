@@ -20,6 +20,7 @@ html body .font-medium {
 
 .btn {
     border-radius: 3px; 
+    background-color: #2196F3;
 }
 
 .btn > a{
