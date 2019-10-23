@@ -98,7 +98,7 @@
                        placeholder="Nhập UserID, Tên người dùng, Tài khoản để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
             </div>
 
-            <div class="col m-r-40">
+            <div class="col m-r-40" style="margin-right: 0px !important">
                 <button class="align-self-stretch btn btn-secondary input-group-append my-btn" type="button">
                     <a href="/giay-hen/trang-thai-giay-hen"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
@@ -108,17 +108,17 @@
 
             <div class="col">
 
-                <div class="col">
+                <div class="col" style=" margin-left: 30px !important">
                     <a href="#vattu" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger m-r-30" name="action">
                         Thêm tài khoản
                     </a>
 
 
                 </div>
-                <div class="col">
+                <div class="col" style=" margin-left: 10px !important">
                     <i class="material-icons dp48 small">refresh</i>
                 </div>
-                <div class="col">
+                <div class="col" style=" margin-left: 10px !important">
                     <i class="material-icons dp48 small">more_vert</i>
                 </div>
 
@@ -132,8 +132,8 @@
             <div class="col l10 offset-l1">
 
                 @* Dữ liệu cho nút edit *@
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!">Chỉnh sửa</a></li>
+                <ul id="dropdown1" style=" width:120px !important"  class="dropdown-content" >
+                    <li><a href="#vattu"  class="modal-trigger">Chỉnh sửa</a></li>
 
                     <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
                 </ul>
