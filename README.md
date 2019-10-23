@@ -1,5 +1,8 @@
 # VNPost_OCR_System
 
+# Link Azure:
+	   
+[Azure Web Deploy](https://vnpost.azurewebsites.net/)
 
 # Drive
 
