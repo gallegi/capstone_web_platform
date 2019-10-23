@@ -9,7 +9,7 @@ namespace vnpost_ocr_system.Controllers.Document
     public class DisplayStatisticChartController : Controller
     {
         // GET: DisplayStatisticChart
-        [Route("thong-ke/cho-tiep-nhan")]
+        [Route("ho-so/thong-ke-tong-quat")]
         public ActionResult Index()
         {
             return View("/Views/Document/DisplayStatisticChart.cshtml");
