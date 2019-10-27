@@ -611,6 +611,7 @@
     <Content Include="assets\images\users\6.jpg" />
     <Content Include="assets\images\users\7.jpg" />
     <Content Include="assets\images\users\8.jpg" />
+    <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
     <Content Include="assets\images\users\d2.jpg" />
     <Content Include="assets\images\users\d3.jpg" />
@@ -5426,6 +5427,8 @@
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
+    <Content Include="CustomCSS\Login\Authentication.css" />
+    <Content Include="CustomCSS\Login\ManagementUser.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
@@ -6186,6 +6189,7 @@
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -6236,7 +6240,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
