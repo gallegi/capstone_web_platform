@@ -1,5 +1,6 @@
 ﻿# Guide Test Web responsive 
   khi run code tại google chrome bấm [F12] chọn **Together device toolbar** [Ctrl+Shift+M] để mô phỏng màn hình của điện thoại. Từ đó test được xem code của mình đã được responsive không. 
+  
   Lưu ý  : refresh trang [F5] sau khi chuyển qua view của device để chạy lại javascripts
 ##
 [Check device](https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device) xem web có phải điện thoại hay không. Nếu là điện thoại thì xử lý thêm = javascript.
