@@ -129,3 +129,10 @@ table.centered tbody tr td{
     display: inline-block;
     margin: 100px auto;
 }
+
+/*Ul for button edit (Chỉnh sửa, xóa)*/
+
+.edit-ul > li {
+    overflow-x: hidden;
+    width: 120px;
+}

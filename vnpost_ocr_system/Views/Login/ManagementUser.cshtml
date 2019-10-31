@@ -92,8 +92,8 @@
 
     @* Thanh tìm kiếm, button search, button refresh *@
     <div class="row my-function">
-        <div class="col l10 offset-l1">
-            <div class="my-input-search col l8">
+        <div class="col l6 s11 offset-l1">
+            <div class="my-input-search col l10">
                 <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
                        placeholder="Nhập UserID, Tên người dùng, Tài khoản để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
             </div>
@@ -103,25 +103,22 @@
                     <a href="#!"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
             </div>
+        </div>
+
+        <div class="col l4 d-flex justify-content-end">
+
+            <div style=" margin-left: 20px !important">
+                <a href="#vattu" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger m-r-30" name="action">
+                    Thêm tài khoản
+                </a>
 
 
-
-            <div class="col">
-
-                <div class="col" style=" margin-left: 30px !important">
-                    <a href="#vattu" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger m-r-30" name="action">
-                        Thêm tài khoản
-                    </a>
-
-
-                </div>
-                <div class="col" style=" margin-left: 10px !important">
-                    <i class="material-icons dp48 small">refresh</i>
-                </div>
-                <div class="col" style=" margin-left: 10px !important">
-                    <i class="material-icons dp48 small">more_vert</i>
-                </div>
-
+            </div>
+            <div>
+                <i class="material-icons dp48 small">refresh</i>
+            </div>
+            <div style=" margin-left: 15px !important">
+                <i class="material-icons dp48 small">more_vert</i>
             </div>
 
         </div>
@@ -132,8 +129,8 @@
             <div class="col l10 offset-l1">
 
                 @* Dữ liệu cho nút edit *@
-                <ul id="dropdown1" style=" width:120px !important"  class="dropdown-content" >
-                    <li><a href="#vattu"  class="modal-trigger">Chỉnh sửa</a></li>
+                <ul id="dropdown1" style=" width:120px !important; overflow-x: hidden;" class="dropdown-content edit-ul">
+                    <li><a href="#vattu" class="modal-trigger">Chỉnh sửa</a></li>
 
                     <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
                 </ul>
