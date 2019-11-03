@@ -26,8 +26,8 @@ Với các Template thì hầu hết các template đều full responsive. Khi i
     ````
 
 - [x] Issues : Table display Table display quá lớn, không phù hợp với điện thoại
-- 
-    Đã bỏ table
+
+        Đã bỏ table
 
 - [ ] [Tra cứu đơn hàng](https://vnpost.azurewebsites.net/giay-hen/trang-thai-giay-hen) thì cái 
     ````html
