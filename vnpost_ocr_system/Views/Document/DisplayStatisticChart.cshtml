@@ -7,6 +7,10 @@
 
 
 <link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
+<script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
+<script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
+
 <div class="container-fluid">
 
 
@@ -14,9 +18,83 @@
 
         <div class="card">
 
+            <div class="card-content">
+                <h3 class="font-medium">Thông tin thủ tục</h3>
+                
+                
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <div class="select-wrapper row">
+                            <label class="col l4 m4 p-t-10 s12 normal-size">Tỉnh/Thành phố:</label>
+                            <div class="col l6 m6 s12">
+                                <select onchange="city(this.value)" tabindex="-1">
+                                    <option value="Hà Nội" selected>Hà Nội</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <div class="select-wrapper row">
+                            <label class="col l4 m4 p-t-10 s12 normal-size">Cơ quan hành chính:</label>
+                            <div class="col l6 m6 s12">
+                                <select onchange="org(this.value)" tabindex="-1">
+                                    <option value="Công an tỉnh" selected>Công an tỉnh</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <div class="select-wrapper row">
+                            <label class="col l4 m4 p-t-10 s12 normal-size">Quận/Huyện:</label>
+                            <div class="col l6 m6 s12">
+                                <select onchange="district(this.value)" tabindex="-1">
+                                    <option value="Quận Hoàn Kiếm" selected>Quận Hoàn Kiếm</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <div class="select-wrapper row">
+                            <label class="col l4 m4 p-t-10 s12 normal-size">Thủ tục hành chính:</label>
+                            <div class="col l6 m6 s12">
+                                <select onchange="procedure(this.value)" tabindex="-1">
+                                    <option value="Cấp đổi CMT" selected>Cấp đổi CMT</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <h4 class="center font-weight-bold m-t-40">
+                    <span>Thống kê tại</span>
+                    <span id="city">Hà Nội</span>
+                    <span>,</span>
+                    <span id="district">Quận Hoàn Kiếm</span>
+                    <span>,</span>
+                    <span>cơ quan hành chính</span>
+                    <span id="org">Công an tỉnh</span>
+                    <span>,</span>
+                    <span>Thủ tục</span>
+                    <span id="procedure">Cấp đổi CMT</span>
 
+                </h4>
+            </div>
 
             <div class="card-content">
+
+
+
                 <h3 class="font-medium">Thống kê trong hôm nay</h3>
 
 
@@ -70,60 +148,7 @@
 
 
             </div>
-            <div class="card-content">
-                <h3 class="font-medium">Thống kê trong 30 ngày gần nhất</h3>
-
-
-                <div class="row">
-                    <div class="col l4 m6 s12">
-                        <div class="card danger-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">240</h2>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--=============================-->
-                    <div class="col l4 m6 s12">
-                        <div class="card info-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">320</h2>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--=============================-->
-                    <!--test-->
-                    <div class="col l4 m6 s12">
-                        <div class="card warning-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h6 class="white-text">Số hồ sơ đã xử lý</h6>
-                                        <h2 class="white-text m-b-5">200</h2>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
+            
 
             <div class="row">
                 <div class="col l9 m12 s12">
@@ -264,6 +289,4 @@
     </div>
 </div>
 
-<script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
-<script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
 

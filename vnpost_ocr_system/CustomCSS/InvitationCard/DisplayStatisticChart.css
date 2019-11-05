@@ -22,3 +22,13 @@
 @media only screen and (max-width: 1024px){
   
 }
+.normal-size{
+    font-size: 15px;
+}
+label{
+   
+    color: black;
+}
+.font-weight-bold{
+  font-weight: bold;
+}
