@@ -77,6 +77,25 @@ width: 80%;}
 .center-text{
 text-align: center; 
 }
+.right-text{
+text-align: right; 
+}
+
 td{
 padding-left:5px;
 }
+@media only screen and (max-width: 1023px){
+    .processShip{
+        display: none;
+    }
+    .clgray{
+        background-color: #f1f1f1;
+    }
+}
+.pink-cuscol{
+    background-color: #f7cbcd;
+}
+.blue-cuscol{
+    background-color: #cde3f2;
+}
+

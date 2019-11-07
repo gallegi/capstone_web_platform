@@ -10,6 +10,12 @@
 <script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
 <script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
 <script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
+<link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
 
 <div class="container-fluid">
 
@@ -148,6 +154,99 @@
 
 
             </div>
+
+            <div></div>
+            <div class="card-content">
+                <h3 class="font-medium">So sánh thống kê trong 2 khoảng thời gian</h3>
+                <div class="card-content">
+                  
+                    <div class="row">
+                        <div class="col s12 l6 center-text">
+                            <div class="row">
+                                <h4 class="font-medium">Khoảng thời gian 1</h4>
+                            </div>
+                        </div>
+                        <div class="col s12 l6 center-text">
+                            <div class="row">
+                                <h4 class="font-medium">Khoảng thời gian 2</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 l6 center-text">
+                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                       data-language='vi' value="03/10/2018" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
+                        </div>
+                        <div class="col s12 l6 center-text">
+                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                       data-language='vi' value="05/11/2019" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col s12 l6 center-text">
+                            <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                       data-language='vi' value="10/10/2018" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
+                        </div>
+                        <div class="col s12 l6 center-text">
+                            <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                       data-language='vi' value="12/11/2019" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <table>
+                    <tr>
+                        <th class="width-1 center-text">Loại hồ sơ</th>
+                        <th class="width-1 center-text">Hồ sơ đang chờ tiếp nhận</th>
+                        <th class="width-1 center-text">Hồ sơ đã tiếp nhận</th>
+                        <th class="width-1 center-text">Hồ sơ đã xử lý xong</th>
+                    </tr>
+                    <tr>
+                        <td class="center-text">Khoảng thời gian</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>                        
+                    </tr>
+                    <tr class="pink-cuscol">
+                        <td class="center-text">03/10/2018 - 10/10/2018</td>
+                        <td class="right-text">30</td>
+                        <td class="right-text">12</td>
+                        <td class="right-text">24</td>
+                    </tr>
+                    <tr class="blue-cuscol">
+                        <td class="center-text">05/11/2018 - 12/11/2018</td>
+                        <td class="right-text">45</td>
+                        <td class="right-text">56</td>
+                        <td class="right-text">33</td>
+                    </tr>
+
+
+                </table>
+            </div>
+
             
 
             <div class="row">
