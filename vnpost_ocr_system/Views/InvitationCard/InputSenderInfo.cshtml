@@ -4,12 +4,15 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
+
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 
-<div class="container-fluid">
+<div class="container-fluid input-sender-main">
 
     <div class="row">
         <!--wizard form-->
@@ -33,506 +36,131 @@
                 </div>
             </div>
         </div>
-        <div class="col s12">
-            <div class="card">
-                <div class="steps clearfix">
-                    <ul role="tablist">
-                        <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
-                            <a id="steps-uid-5-t-0" href="#steps-uid-5-h-0" aria-controls="steps-uid-5-p-0">
-                                <span class="step">1</span> Personal Info
-                            </a>
-                        </li>
-                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
-                            <a id="steps-uid-5-t-1" href="#steps-uid-5-h-1" aria-controls="steps-uid-5-p-1">
-                                <span class="step">2</span> Job Status
-                            </a>
-                        </li>
-                        <li role="tab" class="current" aria-disabled="false" aria-selected="true">
-                            <a id="steps-uid-5-t-2" href="#steps-uid-5-h-2" aria-controls="steps-uid-5-p-2">
-                                <span class="current-info audible">current step: </span>
-                                <span class="step">3</span> Interview
-                            </a>
-                        </li>
-                        <li role="tab" class="disabled last" aria-disabled="true">
-                            <a id="steps-uid-5-t-3" href="#steps-uid-5-h-3" aria-controls="steps-uid-5-p-3">
-                                <span class="step">4</span> Remark
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
 
         <!--end wizard form-->
         <h2 class="big-title m-t-0 col s12">3. Thông tin người gửi</h2>
         <div class="col s12">
             <div class="card">
-
-                <div class="card father-display-status">
-
-
-                    <h3>Chi tiết trạng thái đơn hàng</h3>
-                    <div class="card detailOrder">
-                        <div class="gray-line line highlight">Cập nhật mới nhất: Thứ tư, 16/10/2019</div>
-                        <div class="line">Đang đi lấy hồ sơ</div>
-                        <div class="gray-line line highlight">Thứ ba, 15/10/2019</div>
-                        <div class="line">
-                            <div>10:05 Xác nhận thông tin giấy hẹn thành công</div>
-                            <div>10:00 Đã tiếp nhận thông tin giấy hẹn</div>
+                <div class="card p-25">
+                    <div class="row">
+                        <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                        <div class="col s12 m-b-40">
+                            <div class="info-list-div ">
+                                <div class="row">
+                                    <p class="content-text font-bold col s12">Nguyễn Vũ Minh</p>
+                                    <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                    <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                    <p class="col s12 m-t-15">
+                                        <span class="row">
+                                            <button class="col s2 btn waves-effect waves-light bt-color-common" type="submit">
+                                                Sử dụng thông tin này
+                                            </button>
+                                            <button class="col offset-s1 s1 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                Sửa
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="col s12 m-b-40">
+                            <div class="info-list-div">
+                                <div class="row">
+                                    <p class="content-text font-bold col s12">Nguyễn Vũ Minh</p>
+                                    <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                    <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                    <p class="col s12 m-t-15">
+                                        <span class="row">
+                                            <button class="col l2 s12 btn waves-effect waves-light bt-color-common s-m-b-20" type="submit">
+                                                Sử dụng thông tin này
+                                            </button>
+                                            <button class="col offset-l1 l1 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                Sửa
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="col s12 big-heading m-b-15">
+                            Bạn muốn sử dụng thông tin khác?
+                            <span class="light-blue-text hover-pointer hover-underline">
+                                Nhập thông tin mới
+                            </span>
+                        </p>
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12 l12 m12">
+                                    <div class="input-field row">
+                                        <p class="col l2 m2 p-t-10 s12">Họ và tên:</p>
+                                        <div class="col l6 m6 s12">
+                                            <input id="con1" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l12 m12">
+                                    <div class="input-field row">
+                                        <p class="col l2 m2 p-t-10 s12">Số điện thoại:</p>
+                                        <div class="col l6 m6 s12">
+                                            <input id="con1" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12">
+                                    <div class="row">
+                                        <div class="col l2 m2 p-t-10 s12 ">Tỉnh/Thành phố:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1" class="card-border">
+                                                <option value="1" selected>Hà Nội</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12">
+                                    <div class="select-wrapper row">
+                                        <div class="col l2 m2 p-t-10 s12 ">Quận/Huyện:</div>
+                                        <div class="col l6 m6 s12">
+                                            <select tabindex="-1" class="card-border">
+                                                <option value="1" selected>Quận Thạch Thất</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12">
+                                    <div class="select-wrapper row">
+                                        <div class="col l2 m2 p-t-10 s12 ">Địa chỉ:</div>
+                                        <div class="col l6 m6 s12">
+                                            <textarea></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
-    </div>
 
-
-    <div class="page-titles">
-        <div class="d-flex align-items-center">
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <form class="h-form b-form">
-                    <div class="form-body">
-                        <div class="divider"></div>
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin người yêu cầu giải quyết thủ tục hành chính</h6>
-
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Họ và tên:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Văn A</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Số điện thoại:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">091234567</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="uname">Khu công nghệ cao, xã Thạch Hòa, huyện Thạch Thất, Hà Nội</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname"></label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Loại GTTT: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="h-form-label">
-                                                <label for="uname">Chứng Minh Nhân Dân </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">Số GTTT: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">12345</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Ngày cấp: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">10/10/2019</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname"></label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div></div>
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin người gửi</h6>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Họ và tên:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Thị B</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Số điện thoại:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">01234567890</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="uname">Nhà số 191, Mỹ Đình, Hà Nội</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">Email:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">email@gmail.com</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div></div>
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin người nhận</h6>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Họ và tên:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Văn B</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Số điện thoại:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">0345671234</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="uname">Nhà số 191, Tố Hữu, Hà Nội</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">Email:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">email@fpt.vn</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Bach-->
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin tiền nộp</h6>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Phí, lệ phí thủ tục hành chính:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label class="font-medium" for="f-name">35,000 (đồng)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Tổng tiền:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label class="font-medium" for="l-name">83,000 (đồng)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Cước dịch vụ: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label class="font-medium" for="uname">43,637 (đồng)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">Bằng chữ:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label class="font-medium" for="nname">Tám mươi ba nghìn đồng</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">VAT:  </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label class="font-medium" for="uname">4,363(đồng)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!---->
-                        <div></div>
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin hồ sơ</h6>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Tên cơ quan HCC: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Công an thành phố HN</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Địa chỉ CQHCC:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <label for="l-name">Số 1, ngõ 2, Nguyễn Thái Học, Ba Đình</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Tên thủ tục:  </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="uname">Cấp mới CMT</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">Số hồ sơ: </label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">#98765</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div></div>
-                        <div class="card-content">
-                            <h6 class="font-medium">Thông tin hồ sơ</h6>
-                            <table>
-                                <tr>
-                                    <th class="width-1 center-text">STT</th>
-                                    <th class="width-2 center-text">Danh mục hồ sơ</th>
-                                    <th class="width-1 center-text">Số lượng</th>
-                                </tr>
-                                <tr>
-                                    <td class="center-text">1</td>
-                                    <td>Hộ khẩu thường trú (sổ hộ khẩu, sổ hộ gia đình hoặc giấy chứng nhận nhân khẩu tập thể đã được cấp)</td>
-                                    <td class="center-text">1</td>
-                                </tr>
-                                <tr>
-                                    <td class="center-text">2</td>
-                                    <td>CMT bản cũ</td>
-                                    <td class="center-text">2</td>
-                                </tr>
-
-
-                            </table>
-
-                        </div>
-                    </div>
-                    <div></div>
-
-                </form>
-
-            </div>
-        </div>
     </div>
 </div>
+<script src="../../dist/js/custom.min.js"></script>
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 
@@ -549,6 +177,163 @@
     $(document).ready(function () {
         $(".actions").remove();
     })
+    ////Basic Example
+    //$("#example-basic").steps({
+    //    headerTag: "h3",
+    //    bodyTag: "section",
+    //    transitionEffect: "slideLeft",
+    //    autoFocus: true
+    //});
 
+    //// Basic Example with form
+    //var form = $("#example-form");
+    //form.validate({
+    //    errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    //    rules: {
+    //        confirm: {
+    //            equalTo: "#password"
+    //        }
+    //    }
+    //});
+    //form.children("div").steps({
+    //    headerTag: "h3",
+    //    bodyTag: "section",
+    //    transitionEffect: "slideLeft",
+    //    onStepChanging: function(event, currentIndex, newIndex) {
+    //        form.validate().settings.ignore = ":disabled,:hidden";
+    //        return form.valid();
+    //    },
+    //    onFinishing: function(event, currentIndex) {
+    //        form.validate().settings.ignore = ":disabled";
+    //        return form.valid();
+    //    },
+    //    onFinished: function(event, currentIndex) {
+    //        alert("Submitted!");
+    //    }
+    //});
+
+    //// Advance Example
+
+    //var form = $("#example-advanced-form").show();
+
+    //form.steps({
+    //    headerTag: "h3",
+    //    bodyTag: "fieldset",
+    //    transitionEffect: "slideLeft",
+    //    onStepChanging: function(event, currentIndex, newIndex) {
+    //        // Allways allow previous action even if the current form is not valid!
+    //        if (currentIndex > newIndex) {
+    //            return true;
+    //        }
+    //        // Forbid next action on "Warning" step if the user is to young
+    //        if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+    //            return false;
+    //        }
+    //        // Needed in some cases if the user went back (clean up)
+    //        if (currentIndex < newIndex) {
+    //            // To remove error styles
+    //            form.find(".body:eq(" + newIndex + ") label.error").remove();
+    //            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+    //        }
+    //        form.validate().settings.ignore = ":disabled,:hidden";
+    //        return form.valid();
+    //    },
+    //    onStepChanged: function(event, currentIndex, priorIndex) {
+    //        // Used to skip the "Warning" step if the user is old enough.
+    //        if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+    //            form.steps("next");
+    //        }
+    //        // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+    //        if (currentIndex === 2 && priorIndex === 3) {
+    //            form.steps("previous");
+    //        }
+    //    },
+    //    onFinishing: function(event, currentIndex) {
+    //        form.validate().settings.ignore = ":disabled";
+    //        return form.valid();
+    //    },
+    //    onFinished: function(event, currentIndex) {
+    //        alert("Submitted!");
+    //    }
+    //}).validate({
+    //    errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    //    rules: {
+    //        confirm: {
+    //            equalTo: "#password-2"
+    //        }
+    //    }
+    //});
+
+    //// Dynamic Manipulation
+    //$("#example-manipulation").steps({
+    //    headerTag: "h3",
+    //    bodyTag: "section",
+    //    enableAllSteps: true,
+    //    enablePagination: false
+    //});
+
+    ////Vertical Steps
+
+    //$("#example-vertical").steps({
+    //    headerTag: "h3",
+    //    bodyTag: "section",
+    //    transitionEffect: "slideLeft",
+    //    stepsOrientation: "vertical"
+    //});
+
+    ////Custom design form example
+    //$(".tab-wizard").steps({
+    //    headerTag: "h6",
+    //    bodyTag: "section",
+    //    transitionEffect: "fade",
+    //    titleTemplate: '<span class="step">#index#</span> #title#',
+    //    labels: {
+    //        finish: "Submit"
+    //    },
+    //    onFinished: function(event, currentIndex) {
+    //        swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+
+    //    }
+    //});
+
+
+    //var form = $(".validation-wizard").show();
+
+    //$(".validation-wizard").steps({
+    //    headerTag: "h6",
+    //    bodyTag: "section",
+    //    transitionEffect: "fade",
+    //    titleTemplate: '<span class="step">#index#</span> #title#',
+    //    labels: {
+    //        finish: "Submit"
+    //    },
+    //    onStepChanging: function(event, currentIndex, newIndex) {
+    //        return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+    //    },
+    //    onFinishing: function(event, currentIndex) {
+    //        return form.validate().settings.ignore = ":disabled", form.valid()
+    //    },
+    //    onFinished: function(event, currentIndex) {
+    //        swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+    //    }
+    //}), $(".validation-wizard").validate({
+    //    ignore: "input[type=hidden]",
+    //    errorClass: "text-danger",
+    //    successClass: "text-success",
+    //    highlight: function(element, errorClass) {
+    //        $(element).removeClass(errorClass)
+    //    },
+    //    unhighlight: function(element, errorClass) {
+    //        $(element).removeClass(errorClass)
+    //    },
+    //    errorPlacement: function(error, element) {
+    //        error.insertAfter(element)
+    //    },
+    //    rules: {
+    //        email: {
+    //            email: !0
+    //        }
+    //    }
+    //})
 </script>
 
