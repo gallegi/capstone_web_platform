@@ -72,11 +72,15 @@ p{
     width: 500px;
    
 }
-@media only screen and (max-width: 767px){
-    .test{
-    width: 200px;
-   
+@media only screen and (max-width: 767px) {
+    .test {
+        width: 200px;
+    }
 }
+   @media only screen and (max-width: 1024px) and (min-width: 768px){
+  .test {
+        width: 310px;
+    }
 }
 .customDis{
     display: none;
