@@ -35,3 +35,10 @@ textarea {
     width: 800px;
     margin: 0 auto;
 }
+
+@media only screen and (min-width: 0) and (max-width: 1300px) {
+    .form-wrapper {
+        width: unset;
+        margin: 0 auto;
+    }
+}
