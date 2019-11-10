@@ -150,6 +150,7 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
     <Compile Include="Controllers\User\InvitationManageController.cs" />
+    <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5451,6 +5452,7 @@
     <Content Include="CustomCSS\preloader\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
+    <Content Include="CustomCSS\UserRegister\UserRegister.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -6237,6 +6239,7 @@
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\InvitationCard\InputInformationScreen22.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\UserRegister\UserRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

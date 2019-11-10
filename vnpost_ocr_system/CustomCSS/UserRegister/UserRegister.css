@@ -1,0 +1,42 @@
+﻿.tabs .tab a.active {
+    color: #fdaf18;
+}
+.tabs .tab a {
+    color: black;
+}
+
+.tabs .indicator {
+    color: #fdaf18;
+    background-color: #fdaf18;
+}
+
+.tabs .tab a:focus.active{
+    background-color: white;
+}
+
+.white-background{
+    background-color: white;
+}
+
+.yellow-logo-bg {
+    background-color: #fdaf18;
+}
+
+.inline{
+    display: inline;
+}
+
+.black-text{
+    color: black;
+}
+
+.btn-large:hover {
+    background-color: #fdaf18;
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    background-color: black;
+}
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+    border: 2px solid black;
+}
