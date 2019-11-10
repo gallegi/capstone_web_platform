@@ -4,11 +4,16 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
 <link href="~/CustomCSS/User/AccountInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+
 
 <div class="main-wrapper p-t-20">
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Thông tin tài khoản</h2>
@@ -16,29 +21,159 @@
         <form autocomplete="off" spellcheck="false" action="" class="form-control">
             <div class="account-info">
                 <div class="row">
-                    <div class="col s12 l5 m5">
-                        Họ và tên
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Họ và tên:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15" value="Nguyễn Vân Anh"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
                     </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Số điện thoại:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15 readonly" readonly value="0915123123"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Email:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15 readonly" readonly value="anhnv@gmail.com"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col s12 l5 m5">
+                            Giới tính:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" type="radio" />
+                                        <span>Nam</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" type="radio" />
+                                        <span>Nữ</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" type="radio" checked />
+                                        <span>Khác</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                            Ngày sinh:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s11">
+                                    <input name="dateTLHD" id="datepicker" type="text" readonly
+                                           class="datepicker-here p-l-15 " autocomplete="off"
+                                           data-language='vi' value="01/01/2019" style="border: 0.5px solid #999999;
+                               border-radius: 10px; width: 100%!important;" />
+                                </div>
+                                <div class="col l1 s1">
+                                    <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <label>
+                                <input id="cb-change-pass" type="checkbox" class="filled-in" />
+                                <span>Thay đổi mật khẩu</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fading">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu mới:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15" placeholder="Nhập mật khẩu cũ"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu cũ:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15" placeholder="Mật khẩu từ 6 đến 32 ký tự"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                    <div class="row m-b-40">
+                        <div class="col s12 l5 m5">
+                            Nhập lại:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="input" type="text" class="p-l-15" placeholder="Nhập lại mật khẩu mới"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col s12 l5 m5">
-                        <input id="input" type="text" class="p-l-15"
-                               onclick="changeColor()" onfocusout="loseFocus()">
+                    </div>
+                    <div class="col s12 l5 m5 right-align">
+                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
+                                style="margin-right: -11px;">
+                            Cập nhật
+                        </button>
                     </div>
                 </div>
             </div>
-            
         </form>
     </div>
 </div>
 
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+
 <script type="text/javascript">
-    function changeColor() {
-        document.getElementById("input").style.border = "0.5px solid #000000";
+    function changeColor(obj) {
+        obj.style.border = "0.5px solid #5e35b1";
+    }
+
+    function loseFocus(obj) {
+
+        obj.style.border = "0.5px solid #999999";
 
     }
 
-    function loseFocus() {
+    jQuery(document).ready(function () {
+        jQuery('.fading').hide();
 
-        document.getElementById("input").style.border = "0.5px solid #cccccc";
+        $('#cb-change-pass').change(function () {
+            if (this.checked) {
+                $('.fading').fadeIn(300);
+            }
+            else {
+                $('.fading').fadeOut(300);
+            }
+        });
 
-    }
+    })
+
 </script>

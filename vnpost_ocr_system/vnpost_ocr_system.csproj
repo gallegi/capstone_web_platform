@@ -5421,6 +5421,7 @@
     <Content Include="Content\BankLogo\7.png" />
     <Content Include="Content\BankLogo\8.png" />
     <Content Include="Content\BankLogo\9.png" />
+    <Content Include="Content\BankLogo\calendar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
