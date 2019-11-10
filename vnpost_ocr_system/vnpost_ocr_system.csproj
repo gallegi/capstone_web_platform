@@ -6217,6 +6217,7 @@
     <Content Include="Views\Document\DocumentNotReceivedDetail.cshtml" />
     <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
     <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
