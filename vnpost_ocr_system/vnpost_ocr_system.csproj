@@ -5435,6 +5435,7 @@
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\InvitationCard\InputInforScreen21.css" />
+    <Content Include="CustomCSS\InvitationCard\InputInforScreen22.css" />
     <Content Include="CustomCSS\InvitationCard\InputSenderInfo.css" />
     <Content Include="CustomCSS\InvitationCard\InputSenderLib.css" />
     <Content Include="CustomCSS\Login\Authentication.css" />
