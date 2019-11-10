@@ -1,0 +1,19 @@
+﻿.account-info {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 0.5px solid black !important;
+    box-shadow: 0 0 0 0 white !important;
+}
+
+#input {
+    border: 0.5px solid #cccccc;
+}
+
+.card {
+    border: 1px solid black;
+}
