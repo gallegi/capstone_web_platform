@@ -128,7 +128,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Controllers\API\ListAPIController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
@@ -6226,7 +6225,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\AddAPI\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\DisplayCode\" />
     <Folder Include="Views\DisplayStatisticChart\" />
