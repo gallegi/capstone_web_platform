@@ -1,0 +1,164 @@
+﻿@{
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+<link href="~/CustomCSS/UserRegister/UserRegister.css" rel="stylesheet" />
+<link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        @* Pannel logo, message VN-POST *@
+        <div class="col l4">
+            <div class="auth-box col " style="background-color: white;">
+                <div id="loginform">
+                    <div class="logo login-logo col l6 offset-l3 s6 offset-s3">
+                        <span class="db"><img src="../../assets/images/Logo.png" alt="logo"></span>
+
+                    </div>
+
+                    <div class="col l8 offset-l2 m-t-5">
+                        <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
+                    </div>
+
+                    
+
+                </div>
+
+            </div>
+        </div>
+
+        @* Register pannel *@
+    <div class="col l8 white-background">
+        <ul class="tabs">
+            <li class="tab col l6"><a href="#profile" class="">Đăng nhập</a></li>
+            <li class="tab col l6"><a href="#settings" class="active">Đăng kí</a></li>
+        </ul>
+
+        <div class="auth-box">
+            <div id="loginform">
+                
+                <!-- Form -->
+                <div class="row">
+                    <form class="col s12" action="index.html">
+                        <!-- email -->
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Họ tên</p>
+                            </div>
+
+                            <div class="input-field col s9">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Nhập họ tên</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">SĐT</p>
+                            </div>
+
+                            <div class="input-field col l5">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Nhập số điện thoại</label>
+                            </div>
+
+                            <div class="col l4 m-t-10">
+                                <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="submit">Gửi mã xác thực</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Mã xác thực</p>
+                            </div>
+
+                            <div class="input-field col s9">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Nhập mã xác thực</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Email</p>
+                            </div>
+
+                            <div class="input-field col s9">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Nhập địa chỉ email</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Mật khẩu</p>
+                            </div>
+
+                            <div class="input-field col s9">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Mật khẩu từ 6 đến 32 kí tự</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Nhập lại mật khẩu</p>
+                            </div>
+
+                            <div class="input-field col s9">
+                                <input id="email" type="email" class="validate my-input" required="">
+                                <label for="email">Nhập lại mật khẩu</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s2 m-t-20 m-l-20">
+                                <p class="black-text">Giới tính</p>
+                            </div>
+
+                            <div class="col m-t-20 m-l-20 m-b-30">
+                                <form action="#">
+                                    <p class="inline m-r-30">
+                                        <label>
+                                            <input class="with-gap" name="group1" type="radio" checked/>
+                                            <span>Nam</span>
+                                        </label>
+                                    </p>
+
+                                    <p class="inline m-r-30">
+                                        <label>
+                                            <input class="with-gap" name="group1" type="radio" />
+                                            <span>Nữ</span>
+                                        </label>
+                                    </p>
+
+                                    <p class="inline m-r-30">
+                                        <label>
+                                            <input class="with-gap" name="group1" type="radio" />
+                                            <span>Khác</span>
+                                        </label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- pwd -->
+                        <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                            <div class="col s12">
+                                <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit">Tạo tài khoản</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+
+    </div>
+
+    </div>
+
+</div>
