@@ -6225,6 +6225,7 @@
     <Content Include="Views\InvitationCard\InputReceiverInfomation.cshtml" />
     <Content Include="Views\User\AddressInfo.cshtml" />
     <Content Include="Views\User\CreateAddressInfo.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

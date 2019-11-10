@@ -81,9 +81,76 @@
 
 <div class="container-fluid">
 
+        <div class="row">
+        <div class="col offset-l1 l1">
+            <p class="m-t-10">Khu vực</p>
+        </div>
+
+        @* Drop down list khu vực *@
+        <div class="col l3">
+            <form>
+
+                <select class="browser-default">
+
+                    <option value="1">Tổng công ty</option>
+                    <option value="2">Hà Nội</option>
+                    <option value="3">Nam Định</option>
+                    <option value="4">Tất cả</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="col l1 offset-l1">
+            <p class="m-t-10">Vai trò</p>
+        </div>
+
+        @* Drop down list vai trò *@
+        <div class="col l4">
+            <form>
+
+                <select class="browser-default">
+
+                    <option value="1">Quản trị viên</option>
+                    <option value="2">Nhân viên nhập liệu</option>
+                    <option value="3">Tất cả</option>
+                </select>
+            </form>
+        </div>
 
 
+    </div>
 
+        <div class="row m-t-30">
+            <div class="col offset-l1 l1">
+                Hoạt động
+            </div>
+
+            <div class="col">
+                <p>
+                    <label>
+                        <input type="checkbox" unchecked="checked" />
+                        <span>Có</span>
+                    </label>
+                </p>
+            </div>
+
+            <div class="col offset-l1">
+                <p>
+                    <label>
+                        <input type="checkbox" unchecked="checked" />
+                        <span>Không</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col l3 offset-l8">
+                <a href="#" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger">
+                    Hiển thị
+                </a>
+            </div>
+        </div>
 
 
 
@@ -91,34 +158,30 @@
 
 
     @* Thanh tìm kiếm, button search, button refresh *@
-    <div class="row my-function">
-        <div class="col l6 s11 offset-l1">
-            <div class="my-input-search col l10">
-                <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
-                       placeholder="Nhập UserID, Tên người dùng, Tài khoản để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
-            </div>
+    <div class="row my-function m-t-40">
+        <div class="col l9 offset-l1">
 
-            <div class="col m-r-40" style="margin-right: 0px !important">
+
+            <div class="col" style="margin-right: 0px !important">
                 <button class="align-self-stretch btn btn-secondary input-group-append my-btn" type="button">
                     <a href="#!"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
             </div>
+
+            <div class="my-input-search col l11">
+                <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
+                       placeholder="Nhập tên người dùng, tài khoản, khu vực để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
+            </div>
         </div>
 
-        <div class="col l4 d-flex justify-content-end">
+        <div class="col l2 d-flex">
 
-            <div style=" margin-left: 20px !important">
-                <a href="#vattu" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger m-r-30" name="action">
-                    Thêm tài khoản
-                </a>
-
-
-            </div>
+            
             <div>
-                <i class="material-icons dp48 small">refresh</i>
+                <i class="material-icons dp48 small">add</i>
             </div>
             <div style=" margin-left: 15px !important">
-                <i class="material-icons dp48 small">more_vert</i>
+                <i class="material-icons dp48 small">refresh</i>
             </div>
 
         </div>
@@ -139,20 +202,20 @@
                     <thead>
                         <tr>
                             <th class="center-align">STT</th>
-                            <th>UserID</th>
-                            <th class="center-align">Tên người dùng</th>
+                            <th>Tên người dùng</th>
                             <th class="center-align">Tài khoản</th>
+                            <th class="center-align">Khu vực</th>
                             <th class="center-align">Vai trò</th>
-                            <th class="center-align">Active</th>
+                            <th class="center-align">Hoạt động</th>
                             <th class="center-align"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -160,16 +223,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -177,16 +241,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -194,16 +259,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -211,16 +277,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -228,16 +295,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -245,16 +313,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -262,16 +331,17 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
 
                         <tr>
                             <td class="center-align">1</td>
-                            <td class="left-align">U01</td>
-                            <td class="center-align">Nguyễn Quang Tùng </td>
-                            <td class="center-align"> QuangNT@vnpost.com </td>
+                            <td class="left-align">Nguyễn Quang Tùng</td>
+                            <td class="center-align">admin0</td>
+                            <td class="center-align"> Tổng công ty </td>
                             <td class="center-align"> Quản trị viên </td>
                             <td class="center-align">
                                 <label class="m-l-15">
@@ -279,8 +349,9 @@
                                     <span></span>
                                 </label>
                             </td>
-                            <td class="right-align">
-                                <a class="dropdown-trigger btn  " href="#" data-target="dropdown1"><i class="material-icons dp50">settings</i></a>
+                            <td class="center-align">
+                                <i class="material-icons dp48 small">mode_edit</i>
+                                <i class="material-icons dp48 small">clear</i>
                             </td>
                         </tr>
                     </tbody>
