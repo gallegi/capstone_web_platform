@@ -141,6 +141,8 @@
     <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationScreen21Controller.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationScreen22Controller.cs" />
     <Compile Include="Controllers\InvitationCard\InputSenderInfoController.cs" />
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
@@ -5427,11 +5429,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Img\upload.png" />
     <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
     <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
+    <Content Include="CustomCSS\InvitationCard\InputInforScreen21.css" />
+    <Content Include="CustomCSS\InvitationCard\InputInforScreen22.css" />
     <Content Include="CustomCSS\InvitationCard\InputSenderInfo.css" />
     <Content Include="CustomCSS\InvitationCard\InputSenderLib.css" />
     <Content Include="CustomCSS\Login\Authentication.css" />
@@ -5517,8 +5522,10 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
+    <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -6229,6 +6236,11 @@
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
+    <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
+    <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
+    <Content Include="Views\User\InvitationManage.cshtml" />
+    <Content Include="Views\User\AccountInfo.cshtml" />
+    <Content Include="Views\InvitationCard\InputInformationScreen22.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
   </ItemGroup>
