@@ -72,6 +72,12 @@ p{
     width: 500px;
    
 }
+@media only screen and (max-width: 767px){
+    .test{
+    width: 200px;
+   
+}
+}
 .test2{
     width: 200%;
     background-image: url(../../Content/Img/upload.png);
