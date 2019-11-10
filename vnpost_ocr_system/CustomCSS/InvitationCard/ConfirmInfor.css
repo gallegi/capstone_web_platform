@@ -77,4 +77,7 @@ td {
     .clgray {
         background-color: #f1f1f1;
     }
+    img {
+        width: 100%;
+    }
 }
