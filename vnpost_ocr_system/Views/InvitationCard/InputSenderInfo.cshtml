@@ -16,22 +16,43 @@
 
     <div class="row">
         <!--wizard form-->
-        <div class="col s12">
+        <div class="col s12 none-responsive">
             <div class="card">
                 <div class="card-content wizard-content">
-                    <form action="#" class="tab-wizard wizard-circle">
-                        <!-- Step 1 -->
-                        <h6>Thông tin thủ tục</h6>
-                        <section class="done"></section>
-                        <!-- Step 2 -->
-                        <h6>Thông tin người yêu cầu giải quyết TTHC</h6>
-                        <section class="done"></section>
-                        <!-- Step 3 -->
-                        <h6>Thông tin người gửi</h6>
-                        <section class="current"></section>
-                        <!-- Step 4 -->
-                        <h6>Thông tin người nhận</h6>
-                        <section></section>
+                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                        <div class="steps clearfix">
+                            <ul role="tablist">
+                                <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0"
+                                       style="color:black!important;">
+                                        <span class="step">1</span>
+                                        Thông tin thủ tục
+                                    </a>
+                                </li>
+                                <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                    <a id="steps-uid-6-t-1"
+                                       aria-controls="steps-uid-6-p-1"
+                                       style="color:black!important;">
+                                        <span class="step">2</span>
+                                        Thông tin yêu cầu giải quyết TTHC
+                                    </a>
+                                </li>
+                                <li role="tab" class="current" aria-disabled="false" aria-selected="true">
+                                    <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2">
+                                        <span class="current-info audible">current step:</span><span class="step">3</span>
+                                        Thông tin người gửi
+                                    </a>
+                                </li>
+                                <li role="tab" class="disabled last" aria-disabled="true">
+                                    <a id="steps-uid-6-t-3"
+                                       aria-controls="steps-uid-6-p-3"
+                                       style="color:black!important;">
+                                        <span class="step">4</span>
+                                        Thông tin người nhận
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -39,7 +60,7 @@
 
 
         <!--end wizard form-->
-        <form autocomplete="off" spellcheck="false">
+        <form autocomplete="off" spellcheck="false" action="~/giay-hen/nhap-thong-tin-nguoi-nhan">
 
             <h2 class="big-title m-t-0 col s12">3. Thông tin người gửi</h2>
             <div class="col s12">
@@ -56,12 +77,12 @@
                                         <div class="col s12 m-t-10">
                                             <div class="row">
                                                 <div class="col l5 s12 p-t-10">
-                                                    <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                    <button class="btn waves-effect waves-light bt-color-common bt-long" type="submit">
                                                         Sử dụng thông tin này
                                                     </button>
                                                 </div>
                                                 <div class="col l1 s12 p-t-10">
-                                                    <button class="show-form  btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="button">
+                                                    <button class="show-form btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="button">
                                                         Sửa
                                                     </button>
                                                 </div>
@@ -80,7 +101,7 @@
                                         <div class="col s12 m-t-10">
                                             <div class="row">
                                                 <div class="col l5 s12 p-t-10">
-                                                    <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                    <button class="btn waves-effect waves-light bt-color-common bt-long" type="submit">
                                                         Sử dụng thông tin này
                                                     </button>
                                                 </div>
@@ -206,18 +227,5 @@
         });
 
     })
-
-
-    //Custom design form example
-    $(".tab-wizard").steps({
-        headerTag: "h6",
-        bodyTag: "section",
-        transitionEffect: "fade",
-        titleTemplate: '<span class="step">#index#</span> #title#',
-    });
-    $(document).ready(function () {
-        $(".actions").remove();
-    })
-    
 </script>
 
