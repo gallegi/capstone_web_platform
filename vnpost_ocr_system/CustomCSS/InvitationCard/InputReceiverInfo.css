@@ -70,3 +70,9 @@ textarea {
 .bt-color-common {
     background-color: #2196F3 !important;
 }
+
+@media only screen and (min-width: 0) and (max-width: 1023px) {
+    .wizard-content {
+        display: none;
+    }
+}
