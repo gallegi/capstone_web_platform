@@ -145,6 +145,7 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5439,6 +5440,7 @@
     <Content Include="CustomCSS\preloader\logo.png" />
     <Content Include="CustomCSS\preloader\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\UserRegister\UserRegister.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -6217,6 +6219,7 @@
     <Content Include="Views\Document\DocumentNotReceivedDetail.cshtml" />
     <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
     <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
+    <Content Include="Views\UserRegister\UserRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
