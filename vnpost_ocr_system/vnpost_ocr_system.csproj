@@ -141,10 +141,15 @@
     <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationScreen21Controller.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationScreen22Controller.cs" />
+    <Compile Include="Controllers\InvitationCard\InputSenderInfoController.cs" />
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\User\AccountInfoController.cs" />
+    <Compile Include="Controllers\User\InvitationManageController.cs" />
     <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5419,15 +5424,21 @@
     <Content Include="Content\BankLogo\7.png" />
     <Content Include="Content\BankLogo\8.png" />
     <Content Include="Content\BankLogo\9.png" />
+    <Content Include="Content\BankLogo\calendar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Img\upload.png" />
     <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
     <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
+    <Content Include="CustomCSS\InvitationCard\InputInforScreen21.css" />
+    <Content Include="CustomCSS\InvitationCard\InputInforScreen22.css" />
+    <Content Include="CustomCSS\InvitationCard\InputSenderInfo.css" />
+    <Content Include="CustomCSS\InvitationCard\InputSenderLib.css" />
     <Content Include="CustomCSS\Login\Authentication.css" />
     <Content Include="CustomCSS\Login\ManagementUser.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
@@ -5440,6 +5451,7 @@
     <Content Include="CustomCSS\preloader\logo.png" />
     <Content Include="CustomCSS\preloader\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
@@ -5510,8 +5522,10 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
+    <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -6219,12 +6233,19 @@
     <Content Include="Views\Document\DocumentNotReceivedDetail.cshtml" />
     <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
     <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
+    <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
+    <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
+    <Content Include="Views\User\InvitationManage.cshtml" />
+    <Content Include="Views\User\AccountInfo.cshtml" />
+    <Content Include="Views\InvitationCard\InputInformationScreen22.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\AccountInfo\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\DisplayCode\" />
     <Folder Include="Views\DisplayStatisticChart\" />
