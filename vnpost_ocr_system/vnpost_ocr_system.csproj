@@ -142,6 +142,7 @@
     <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationScreen21Controller.cs" />
+    <Compile Include="Controllers\InvitationCard\InputInformationScreen22Controller.cs" />
     <Compile Include="Controllers\InvitationCard\InputSenderInfoController.cs" />
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
@@ -6233,6 +6234,7 @@
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
+    <Content Include="Views\InvitationCard\InputInformationScreen22.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
