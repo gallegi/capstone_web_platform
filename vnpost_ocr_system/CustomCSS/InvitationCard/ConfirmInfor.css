@@ -1,12 +1,4 @@
-﻿.warning-info {
-    font-style: italic;
-    color: red;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-bottom: 0;
-}
-
-.h-form-label > label {
+﻿.h-form-label > label {
     font-size: 1rem;
 }
 

@@ -1,0 +1,85 @@
+﻿.clgray {
+    background-color: #f1f1f1;
+}
+
+.container-fluid {
+    min-height: 100px;
+}
+
+.h-form-label > label {
+    font-size: 1rem;
+}
+
+.card .row {
+    margin-bottom: 25px;
+    padding-left: 40px;
+}
+
+html body .font-medium {
+    margin-bottom: 2rem;
+}
+
+.btn {
+    border-radius: 3px;
+    background-color: #2196F3;
+}
+
+    .btn > a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+        .btn > a:hover {
+            background-color: #2196F3;
+        }
+
+    .btn:hover {
+        background-color: #2196F3;
+    }
+
+.card .card-content {
+    padding: 40px;
+}
+
+label {
+    color: black;
+}
+
+.response-data {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,1);
+    height: 350px;
+}
+
+.response-data-left {
+    width: 35%;
+    border-radius: inherit;
+    border-right: inherit;
+    background-color: rgba(0,0,0,.2);
+    position: relative;
+}
+
+    .response-data-left > p {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.1rem;
+    }
+
+.response-data-right {
+    width: 65%;
+    position: relative;
+}
+
+    .response-data-right > p {
+        margin: 0;
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        margin-right: -45%;
+        transform: translate(-45%, -45%);
+    }
