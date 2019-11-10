@@ -23,13 +23,13 @@
     // Private function for creating the input element
     function create_btn(that, settings) {
         // The input icon element
-        var picker_btn_icon = $('<i class="test2"></i>');
+        var picker_btn_icon = $('<i class=""></i>');
 
         // The actual file input which stays hidden
         var picker_btn_input = $('<input  type="file" name="' + settings.name + '" />');
 
         // The actual element displayed
-        var picker_btn = $('<div class="' + settings.class + ' img-upload-btn"></div>')
+        var picker_btn = $('<div class="' + settings.class + '"></div>')
             .append(picker_btn_icon)
             .append(picker_btn_input);
 
@@ -60,7 +60,7 @@
         var picker_preview_image = $('<img src="' + src + '" class="test" />');
 
         // The remove image button
-        var picker_preview_remove = $('<button class="btn btn-link"><small>Remove</small></button>');
+        var picker_preview_remove = $('<button class="btn bt-color-common  btn-link"><small>Remove</small></button>');
 
         // The preview element
         var picker_preview = $('<div class="text-center"></div>')
@@ -81,3 +81,17 @@
 $(document).ready(function () {
     $('.img-picker').imagePicker({ name: 'images' });
 })
+
+function checkFilter() {
+    var item1 = document.getElementById("item1").value;
+    var item2 = document.getElementById("item2").value;
+    var item3 = document.getElementById("item3").value;
+    var item4 = document.getElementById("item4").value;
+    
+   
+    
+    if (item1 !== "Tỉnh/Thành phố" && item2 !== "Quận/Huyện" && item3 !== "Tên CQHC" && item4 !== "Tên thủ tục") {
+        //alert(item1 + "-" + item2 + "-" + item3 + "-" + item4);
+        document.getElementById("contact").style.display = "block";
+    }
+}

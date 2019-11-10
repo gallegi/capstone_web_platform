@@ -8,6 +8,7 @@
 
 <link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
 <script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="../../dist/js/custom.min.js"></script>
 <script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
 <script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
@@ -162,18 +163,8 @@
                   
                     <div class="row">
                         <div class="col s12 l6 center-text">
-                            <div class="row">
-                                <h4 class="font-medium">Khoảng thời gian 1</h4>
-                            </div>
-                        </div>
-                        <div class="col s12 l6 center-text">
-                            <div class="row">
-                                <h4 class="font-medium">Khoảng thời gian 2</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 l6 center-text">
+                            <div class="lefttext"><h4 class="font-medium">Khoảng thời gian 1</h4></div>
+                                
                             <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
                             <div class="col l6 m6 s12 datepicker-calendar-container row">
                                 <input name="dateTLHD" id="datepicker" type='text' readonly
@@ -181,20 +172,6 @@
                                        data-language='vi' value="03/10/2018" />
                                 <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                             </div>
-                        </div>
-                        <div class="col s12 l6 center-text">
-                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
-                            <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                       data-language='vi' value="05/11/2019" />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col s12 l6 center-text">
                             <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
                             <div class="col l6 m6 s12 datepicker-calendar-container row">
                                 <input name="dateTLHD" id="datepicker" type='text' readonly
@@ -202,8 +179,18 @@
                                        data-language='vi' value="10/10/2018" />
                                 <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                             </div>
+                            
                         </div>
                         <div class="col s12 l6 center-text">
+                            
+                                <h4 class="font-medium lefttext">Khoảng thời gian 2</h4>
+                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="datepicker" type='text' readonly
+                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
+                                       data-language='vi' value="05/11/2019" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
                             <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
                             <div class="col l6 m6 s12 datepicker-calendar-container row">
                                 <input name="dateTLHD" id="datepicker" type='text' readonly
@@ -211,9 +198,11 @@
                                        data-language='vi' value="12/11/2019" />
                                 <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                             </div>
+                            
                         </div>
-
                     </div>
+                  
+                   
 
                 </div>
 
@@ -249,34 +238,22 @@
 
             
 
-            @*<div class="row">
-                <div class="col l9 m12 s12">
-                    <div class="card-content">
-                        <h5 class="font-medium center">Biểu đồ thống kê số lượng hồ sơ trong 30 ngày gần nhất</h5>
+            <div class="row">
+                <div class="col l2"></div>
+                <div class="col l8">
+                    <div class="card">
                         <div class="card-content analytics-info">
-
-                            <div id="basic-line" class="test" style="height:400px;"></div>
+                           
+                            <div id="basic-bar" style="height:400px;"></div>
                         </div>
                     </div>
                 </div>
-
-
-                <div class="col l3 s12">
-
-                    <div class="card-content">
-                        <div class="card-content analytics-info">
-
-                            <div id="basic-pie" style="height:400px;"></div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>*@
+                <div class="col l2"></div>
+               
+            </div>
             <div class="card-content">
                 <div class="row">
-                    <div class="col s12 l1">
+                    <div class="col s12 l2 m-l-30">
                         <div class="row">
                             <div class="col s3">
                                 <div class="h-form-label">
@@ -308,7 +285,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col s12 l1">
+                    <div class="col s12 l2 m-l-30">
                         <div class="row">
                             <div class="col s3">
                                 <div class="h-form-label">
@@ -341,7 +318,7 @@
 
 
                 <div class="row">
-                    <div class="col s12 l1">
+                    <div class="col s12 l2 m-l-30">
                         <div class="row">
                             <div class="col s6">
                                 <div class="h-form-label">
@@ -388,4 +365,19 @@
     </div>
 </div>
 
+    <!-- ============================================================== -->
+<!-- All Required js -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Apps -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Custom js -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- This page plugin js -->
+<!-- ============================================================== -->
 

@@ -78,12 +78,7 @@ p{
    
 }
 }
-.test2{
-    width: 200%;
-    background-image: url(../../Content/Img/upload.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    width: 100px;
-    content: ".";
-
+.customDis{
+    display: none;
 }
+

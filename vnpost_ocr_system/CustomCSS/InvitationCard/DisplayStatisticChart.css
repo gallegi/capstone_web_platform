@@ -32,3 +32,8 @@ label{
 .font-weight-bold{
   font-weight: bold;
 }
+.lefttext{
+    text-align: left;
+    margin-left: 20%;
+    margin-bottom: 5%;
+}

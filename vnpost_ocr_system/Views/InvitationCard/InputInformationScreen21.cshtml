@@ -14,6 +14,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
 
+<link href="../../dist/css/style.css" rel="stylesheet">
+   
+    <link href="../../assets/extra-libs/prism/prism.css" rel="stylesheet">
 <div class="container-fluid">
 
     <div class="row">
@@ -79,10 +82,10 @@
 
                             <div class="select-wrapper row">
                                 <div class="col l2"></div>
-                                <label class="col l2 m4 p-t-10 s12 normal-size left">Tỉnh/Thành phố:</label>
+                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tỉnh/Thành phố:</p>
                                 <div class="col l6 m6 s12">
-                                    <select>
-                                        <option value="" disabled selected>Tỉnh/Thành phố</option>
+                                    <select onchange="checkFilter()" id="item1">
+                                        <option value="Tỉnh/Thành phố" disabled selected>Tỉnh/Thành phố</option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="Option 2">Option 2</option>
                                         <option value="Option 3">Option 3</option>
@@ -92,10 +95,10 @@
 
                             <div class="select-wrapper row">
                                 <div class="col l2"></div>
-                                <label class="col l2 m4 p-t-10 s12 normal-size left">Quận/Huyện:</label>
+                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Quận/Huyện:</p>
                                 <div class="col l6 m6 s12">
-                                    <select  tabindex="-1">
-                                        <option value="" selected disabled>Quận/Huyện</option>
+                                    <select onchange="checkFilter()" id="item2" tabindex="-1">
+                                        <option value="Quận/Huyện" selected disabled>Quận/Huyện</option>
                                         <option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option>
                                         <option value="Option 2">Option 2</option>
                                         <option value="Option 3">Option 3</option>
@@ -104,10 +107,10 @@
                             </div>
                             <div class="select-wrapper row">
                                 <div class="col l2"></div>
-                                <label class="col l2 m4 p-t-10 s12 normal-size left">Tên CQHC:</label>
+                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên CQHC:</p>
                                 <div class="col l6 m6 s12">
-                                    <select  tabindex="-1">
-                                        <option value="" selected disabled>Tên CQHC</option>
+                                    <select onchange="checkFilter()" id="item3" tabindex="-1">
+                                        <option value="Tên CQHC" selected disabled>Tên CQHC</option>
                                         <option value="Công an quận Hoàn Kiếm">Công an quận Hoàn Kiếm</option>
                                         <option value="Option 2">Option 2</option>
                                         <option value="Option 3">Option 3</option>
@@ -116,10 +119,11 @@
                             </div>
                             <div class="select-wrapper row">
                                 <div class="col l2"></div>
-                                <label class="col l2 m4 p-t-10 s12 normal-size left">Tên thủ tục:</label>
+                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên thủ tục:</p>
                                 <div class="col l6 m6 s12">
-                                    <select onchange="city(this.value)" tabindex="-1">
-                                        <option value="Cấp đổi CMT" selected>Cấp đổi CMT</option>
+                                    <select onchange="checkFilter()" id="item4" tabindex="-1">
+                                        <option value="Tên thủ tục" selected disabled>Tên thủ tục</option>
+                                        <option value="Cấp đổi CMT">Cấp đổi CMT</option>
                                         <option value="Option 2">Option 2</option>
                                         <option value="Option 3">Option 3</option>
                                     </select>
@@ -167,7 +171,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt">
+    <div id="contact" class="row mt customDis">
         <div class="col s12">
             <h4>(*)Thông tin liên hệ hỗ trợ</h4>
             <div class="card">
