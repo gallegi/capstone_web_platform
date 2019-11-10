@@ -42,3 +42,22 @@ textarea {
         margin: 0 auto;
     }
 }
+
+@media only screen and (min-width: 0) and (max-width: 1023px) {
+    .none-responsive {
+        display:none;
+    }
+}
+
+.bt-long {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+@media only screen and (min-width: 0) and (max-width: 410px) {
+    .bt-long {
+        font-size: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
