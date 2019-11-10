@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "CreateAddressInfo";
     Layout = "~/Views/Shared/_MasterPage.cshtml";
+
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
@@ -14,7 +16,6 @@
 <div class="main-wrapper p-t-20 black-text">
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
     <div class="card content-text">
-        <form autocomplete="off" spellcheck="false" action="" class="form-control">
             <div class="account-info">
                 <div class="row">
                     <div class="row m-b-30">
@@ -141,7 +142,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 </div>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
