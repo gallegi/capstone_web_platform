@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "InputReceiverInfomation";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+
+@{
+    ViewBag.Title = "InputSenderInfo";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+<link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
+
+<div class="container-fluid black-text">
+    <div class="row">
+        <!--wizard form-->
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content wizard-content">
+                    <form action="#" class="tab-wizard wizard-circle">
+                        <!-- Step 1 -->
+                        <h6>Thông tin thủ tục</h6>
+                        <section></section>
+                        <!-- Step 2 -->
+                        <h6>Thông tin người yêu cầu giải quyết TTHC</h6>
+                        <section></section>
+                        <!-- Step 3 -->
+                        <h6>Thông tin người gửi</h6>
+                        <section></section>
+                        <!-- Step 4 -->
+                        <h6>Thông tin người nhận</h6>
+                        <section></section>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end wizard form-->
+        
+        <form autocomplete="off" spellcheck="false">
+            <h2 class="big-title col s12">3. Thông tin người gửi</h2>
+            <div class="col s12">
+                <div class="card p-25">
+                    <div class="row">
+                        <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                        <div class="col s12 m-b-20">
+                            <div class="info-list-div ">
+                                <div class="row">
+                                    <p class="content-text font-bold col s12">Nguyễn Vũ Minh</p>
+                                    <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                    <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                    <p class="col s12 m-t-15">
+                                        <span class="row">
+                                            <button class="col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
+                                                Giao đến địa chỉ này
+                                            </button>
+                                            <button class="show-form col l2 m5 offset-m1 s12 offset-l2 btn waves-effect waves-light bt-color-common" type="button">
+                                                Sửa
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m-b-20">
+                            <div class="info-list-div ">
+                                <div class="row">
+                                    <p class="content-text font-bold col s12">Nguyễn Vũ Minh</p>
+                                    <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                    <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                    <p class="col s12 m-t-15">
+                                        <span class="row">
+                                            <button class="col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
+                                                Giao đến địa chỉ này
+                                            </button>
+                                            <button class="show-form col l2 m5 offset-m1 s12 offset-l2 btn waves-effect waves-light bt-color-common" type="button">
+                                                Sửa
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="col s12 big-heading m-b-15">
+                            Bạn muốn giao đến địa chỉ khác?
+                            <span class="show-form light-blue-text hover-pointer hover-underline">
+                                Nhập địa chỉ mới
+                            </span>
+                        </p>
+
+                        <div class="col s12 content-text">
+                            <div class="form-wrapper col offset-l1 l10">
+                                <div class="row">
+                                    <div class="col s12 l12 m12">
+                                        <div class="input-field row">
+                                            <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
+                                            <div class="col l9 m9 s12">
+                                                <input id="con1" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 l12 m12">
+                                        <div class="input-field row">
+                                            <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
+                                            <div class="col l9 m9 s12">
+                                                <input id="con1" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <div class="row">
+                                            <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
+                                            <div class="col l9 m9 s12">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Hà Nội</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <div class="select-wrapper row">
+                                            <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
+                                            <div class="col l9 m9 s12">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Quận Thạch Thất</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <div class="select-wrapper row">
+                                            <div class="col l3 m3 p-t-10 s12">Địa chỉ:</div>
+                                            <div class="col l9 m9 s12">
+                                                <textarea></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <div class="select-wrapper row">
+                                            <div class="col l3 m3 p-t-10 s12">Thông tin ghi chú:</div>
+                                            <div class="col l9 m9 s12">
+                                                <textarea></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <div class="select-wrapper row">
+                                            <div class="col l3 m3 s12"></div>
+                                            <div class="col l9 m9 s12">
+                                                <button class="col offset-l7 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                    Tiếp tục
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript add more for 1->4 -->
+<script src="../../dist/js/custom.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('.form-wrapper').hide();
+
+        jQuery(".show-form").click(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            $('.form-wrapper').fadeIn(300);
+        });
+
+        jQuery(".hide-form").click(function () {
+            $('.form-wrapper').fadeOut(300);
+        });
+
+    })
+
+    //Custom design form example
+    $(".tab-wizard").steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#',
+    });
+    $(document).ready(function () {
+        $(".actions").remove();
+    })
+
+</script>
+
