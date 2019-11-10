@@ -146,6 +146,8 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\User\AddressInfoController.cs" />
+    <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5441,6 +5443,7 @@
     <Content Include="CustomCSS\preloader\logo.png" />
     <Content Include="CustomCSS\preloader\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -6220,12 +6223,16 @@
     <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
     <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
     <Content Include="Views\InvitationCard\InputReceiverInfomation.cshtml" />
+    <Content Include="Views\User\AddressInfo.cshtml" />
+    <Content Include="Views\User\CreateAddressInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\AddressInfo\" />
     <Folder Include="Views\ConfirmInfor\" />
+    <Folder Include="Views\CreateAddressInfo\" />
     <Folder Include="Views\DisplayCode\" />
     <Folder Include="Views\DisplayStatisticChart\" />
     <Folder Include="Views\DisplayStatus\" />

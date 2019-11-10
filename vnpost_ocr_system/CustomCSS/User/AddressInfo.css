@@ -1,0 +1,16 @@
+﻿.account-info {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    box-shadow: 0 0 0 0 white !important;
+}
+
+.cal-icon {
+    font-size: 40px;
+}
+
+
