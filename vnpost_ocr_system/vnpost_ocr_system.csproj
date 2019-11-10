@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\API\EditAPIController.cs" />
     <Compile Include="Controllers\API\ListAPIController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6220,17 +6222,21 @@
     <Content Include="Views\Document\DocumentReceivedDetail.cshtml" />
     <Content Include="Views\Document\DisplayStatisticChart.cshtml" />
     <Content Include="Views\API\ListAPI.cshtml" />
+    <Content Include="Views\API\AddAPI.cshtml" />
+    <Content Include="Views\API\EditAPI.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\AddAPI\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\DisplayCode\" />
     <Folder Include="Views\DisplayStatisticChart\" />
     <Folder Include="Views\DisplayStatus\" />
     <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\DocumentReceivedDetail\" />
+    <Folder Include="Views\EditAPI\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\ListAPI\" />
     <Folder Include="Views\SearchStatus\" />
