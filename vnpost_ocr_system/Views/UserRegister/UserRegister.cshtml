@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="input-field col s9 m-b-0">
-                                    <input id="tbName" type="email" name="tbName" class="validate my-input" required="">
+                                    <input id="tbName" name="tbName" class="validate my-input">
                                     
                                 </div>
                             </div>
@@ -64,12 +64,12 @@
                                 </div>
 
                                 <div class="input-field col l5 m-b-0">
-                                    <input id="tbPhone" name="tbPhone" type="email" class="validate my-input" required="">
+                                    <input id="tbPhone" name="tbPhone"  class="validate my-input" >
                                     
                                 </div>
 
                                 <div class="col l4 m-t-10 m-b-0">
-                                    <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="submit">Gửi mã xác thực</button>
+                                    <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" onclick="return valid()" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
                                 </div>
                             </div>
                             <!-- email valid -->
@@ -86,7 +86,7 @@
                                 </div>
 
                                 <div class="input-field col s9 m-b-0">
-                                    <input id="tbValidCode" name="tbValidCode" type="email" class="validate my-input" required="">
+                                    <input id="tbValidCode" name="tbValidCode"  class="validate my-input">
                                     
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <div class="input-field col s9 m-b-0">
-                                    <input id="tbEmail" name="tbEmail" type="email" class="validate my-input" required="">
+                                    <input id="tbEmail" name="tbEmail"  class="validate my-input">
                                     
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 </div>
 
                                 <div class="input-field col s9 m-b-0">
-                                    <input id="tbPass" name="tbPass" type="email" class="validate my-input" required="">
+                                    <input id="tbPass" name="tbPass"  class="validate my-input" >
                                     
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 </div>
 
                                 <div class="input-field col s9 m-b-0">
-                                    <input id="tbRePass" name="tbRePass" type="email" class="validate my-input" required="">
+                                    <input id="tbRePass" name="tbRePass"  class="validate my-input" >
                                     
                                 </div>
                             </div>
@@ -220,54 +220,65 @@
         var valid = true;
 
         if (name.length == 0) {
-            valid = false;
+           
             $('#name-err').text('Không để trống tên');
+            return false;
         }
         if (phone.length == 0) {
-            valid = false;
+            
             $('#phone-err').text('Không để trống điện thoại');
+            return false;
         }
         if (phone == "0123") {
-            valid = false;
-            $('#phone-err').text('Số điện thoại sai');
+            
+            $('#phone-err').text('Số điện thoại đã tồn tại');
+            return false;
         }
         if (validCode.length == 0) {
-            valid = false;
+           
             $('#validCode-err').text('Không để trống mã xác thực');
+            return false;
         }
 
         if (validCode.length <= 5) {
-            valid = false;
-            $('#validCode-err').text('Mã OTP sai');
+            
+            $('#validCode-err').text('Mã xác thực không đúng');
+            return false;
         }
         if (email.length == 0) {
-            valid = false;
+            
             $('#email-err').text('Không để trống email');
+            return false;
         }
 
         var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
         if (isEmail == false) {
-            valid = false;
-            $('#email-err').text('Email sai định dạng');
+            
+            $('#email-err').text('Địa chỉ email không hợp lệ');
+            return false;
         }
         
 
         
         if (pass.length == 0) {
-            valid = false;
+            
             $('#pass-err').text('Không để trống mật khẩu');
+            return false;
         }
         if (pass.length < 6 || pass.length > 32) {
-            valid = false;
+            
             $('#pass-err').text('Mật khẩu 6-32 kí tự');
+            return false;
         }
         if (rePass.length == 0) {
-            valid = false;
+            
             $('#rePass-err').text('Không để trống trường nhập lại mật khẩu');
+            return false;
         }
         if (rePass != pass) {
-            valid = false;
-            $('#rePass-err').text('Mật khẩu phải trùng');
+            
+            $('#rePass-err').text('Mật khẩu nhập lại không khớp');
+            return false;
         }
         return valid;
     }
