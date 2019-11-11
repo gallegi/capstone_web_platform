@@ -113,9 +113,9 @@
                                             </div>
                                             <!-- email valid -->
                                             <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20">
+                                                <div class="col s3 l2 m-t-20 m-l-20">
                                                 </div>
-                                                <div id="name-err" class="col s9 err">
+                                                <div id="name-err" class="col s8 l9 err">
                                                 </div>
                                             </div>
 
@@ -132,14 +132,19 @@
                                                 <div class="col l4 s12 m-t-10 m-b-0">
                                                     <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" onclick="return valid()" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
                                                 </div>
-                                            </div>
-                                            <!-- email valid -->
-                                            <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20 ">
+
+                                                <!-- email valid -->
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                    </div>
+
+
+                                                    <div id="phone-err col" class="col s8 l9 err">
+                                                    </div>
                                                 </div>
-                                                <div id="phone-err" class="col s9 err">
-                                                </div>
+
                                             </div>
+                                            
 
                                             <div class="row">
                                                 <div class="col s3 l2 m-t-20 m-l-20">
@@ -152,10 +157,12 @@
                                                 </div>
                                             </div>
                                             <!-- valid -->
+
+
                                             <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20 ">
+                                                <div class="col s3 l2 m-t-20 m-l-20">
                                                 </div>
-                                                <div id="validCode-err" class="col s9 err">
+                                                <div id="validCode-err" class="col s8 l9 err">
                                                 </div>
                                             </div>
 
@@ -170,12 +177,15 @@
                                                 </div>
                                             </div>
                                             <!-- valid -->
+
+
                                             <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20 ">
+                                                <div class="col s3 l2 m-t-20 m-l-20">
                                                 </div>
-                                                <div id="email-err" class="col s9 err">
+                                                <div id="email-err" class="col s8 l9 err">
                                                 </div>
                                             </div>
+
 
                                             <div class="row">
                                                 <div class="col s3 l2 m-t-20 m-l-20">
@@ -183,15 +193,17 @@
                                                 </div>
 
                                                 <div class="input-field col s8 l9 m-b-0">
-                                                    <input id="tbPass" name="tbPass" class="validate my-input" placeholder="Mật khẩu từ 6 - 32 kí tự">
+                                                    <input id="tbPass" name="tbPass" type="password" class="validate my-input" placeholder="Mật khẩu từ 6 - 32 kí tự">
 
                                                 </div>
                                             </div>
                                             <!-- valid -->
+
+
                                             <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20 ">
+                                                <div class="col s3 l2 m-t-20 m-l-20">
                                                 </div>
-                                                <div id="pass-err" class="col s9 err">
+                                                <div id="pass-err" class="col s8 l9 err">
                                                 </div>
                                             </div>
 
@@ -201,15 +213,17 @@
                                                 </div>
 
                                                 <div class="input-field col s8 l9 m-b-0">
-                                                    <input id="tbRePass" name="tbRePass" class="validate my-input" placeholder="Nhập lại mật khẩu">
+                                                    <input id="tbRePass" type="password" name="tbRePass" class="validate my-input" placeholder="Nhập lại mật khẩu">
 
                                                 </div>
                                             </div>
                                             <!-- valid -->
+                                            
+
                                             <div class="row">
-                                                <div class="col s2 m-t-20 m-l-20 ">
+                                                <div class="col s3 l2 m-t-20 m-l-20">
                                                 </div>
-                                                <div id="rePass-err" class="col s9 err">
+                                                <div id="rePass-err" class="col s8 l9 err">
                                                 </div>
                                             </div>
 
@@ -222,24 +236,24 @@
                                                     <label class="offset-s2">
                                                         <input name="group1" type="radio" checked />
                                                         <span>Nam</span>
-                                                     </label> 
+                                                    </label>
                                                     <label>
                                                         <input name="group1" type="radio" />
                                                         <span>Nữ</span>
                                                     </label>
-                                                    
-                                                        <label class="new-line-small">
-                                                            <input name="group1" type="radio" />
-                                                            <span>Khác</span>
-                                                        </label>
+
+                                                    <label class="new-line-small">
+                                                        <input name="group1" type="radio" />
+                                                        <span>Khác</span>
+                                                    </label>
                                                 </div>
 
-                                            <!-- pwd -->
-                                            <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
-                                                <div class="col s12">
-                                                    <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit" onclick="return valid()">Tạo tài khoản</button>
+                                                <!-- pwd -->
+                                                <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                                                    <div class="col s12">
+                                                        <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit" onclick="return valid()">Tạo tài khoản</button>
+                                                    </div>
                                                 </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
