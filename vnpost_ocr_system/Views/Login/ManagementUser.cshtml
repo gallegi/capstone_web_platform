@@ -9,6 +9,7 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/CustomJS/test.js"></script>
+<script src="~/CustomJS/Management_User/ManagementUser.js"></script>
 
 
 
@@ -229,7 +230,9 @@
 
             </div>
             <div style=" margin-left: 15px !important">
+                <a href="#" class="modal-trigger" onclick="reloadPage()">
                 <i class="material-icons dp48 small">refresh</i>
+                </a>
             </div>
 
         </div>
@@ -412,8 +415,16 @@
                                 </label>
                             </td>
                             <td class="center-align">
-                                <i class="material-icons dp48 small">mode_edit</i>
-                                <i class="material-icons dp48 small">clear</i>
+                                <a href="#editUser" class="modal-trigger" name="action">
+
+                                    <i class="material-icons dp48 small">mode_edit</i>
+                                </a>
+
+
+                                <a href="#deleteModal" class="modal-trigger" name="action">
+
+                                    <i class="material-icons dp48 small">clear</i>
+                                </a>
                             </td>
                         </tr>
 

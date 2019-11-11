@@ -5512,6 +5512,7 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
+    <Content Include="CustomJS\Management_User\ManagementUser.js" />
     <Content Include="CustomJS\MasterPage.js" />
     <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
