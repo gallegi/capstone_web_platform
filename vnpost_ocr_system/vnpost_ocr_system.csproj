@@ -5443,6 +5443,7 @@
     <Content Include="CustomCSS\Login\ManagementUser.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
+    <Content Include="CustomCSS\MaterialStepper\mstepper.css" />
     <Content Include="CustomCSS\preloader\FontAwesome.css" />
     <Content Include="CustomCSS\InvitationCard\InputInfo.css" />
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
