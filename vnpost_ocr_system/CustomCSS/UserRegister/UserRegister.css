@@ -56,3 +56,20 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
     color: red;
 }
 
+@media only screen and (max-width: 600px) {
+    .gender-mobile{
+        margin-left: 45px;
+        margin-top: 20px;
+    }
+
+    .new-line-small {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .gender-mobile {
+        margin-left: 20px;
+        margin-top: 25px;
+    }
+}
