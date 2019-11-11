@@ -5464,6 +5464,7 @@
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
+    <Content Include="CustomJS\API.js" />
     <Content Include="CustomCSS\User\InviteManage.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
