@@ -5513,6 +5513,7 @@
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
     <Content Include="CustomJS\MasterPage.js" />
+    <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
     <Content Include="dist\css\icons\flag-icon-css\flag-icon.min.css" />
