@@ -64,3 +64,6 @@ input.invalid[type=email]:not(.browser-default) {
 .fix-space{
     margin-top:10px;
 }
+.fix-padding {
+    padding: 0 0rem !important;
+}
