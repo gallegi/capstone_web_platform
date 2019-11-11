@@ -245,7 +245,7 @@
             $('#email-err').text('Không để trống email');
         }
 
-        var isEmail = /^[a-zA-Z0-9]{1,}[@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
+        var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
         if (isEmail == false) {
             alert("Wrong email format. Email must look like abc123@abc.xyz");
             return false;
