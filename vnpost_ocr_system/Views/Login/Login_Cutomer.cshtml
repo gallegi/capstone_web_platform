@@ -272,14 +272,19 @@
                 $(".set-btn").remove();
             }
         })
-        $("#btn_login").click(function () {
+    $("#btn_login").click(function () {
+        var check = 0;
             if ($("#user").val() == "01234") {
                 $("#user_failed").show();
                 $("#password_failed").hide();
-            } else if ($("#pass").val() == "123") {
+                check = 1;
+        }
+        if ($("#pass").val() == "123") {
                 $("#user_failed").hide();
-                $("#password_failed").show();
-            } else {
+            $("#password_failed").show();
+            check = 1;
+        }
+        if(check==0) {
                 window.location.href = "/tai-khoan/thong-tin-tai-khoan";
             }
         });
