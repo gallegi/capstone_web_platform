@@ -5,11 +5,11 @@
 }
 <link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
 
-<div class="container-fluid">
+
 
     <div class="row title_login">
-        <div class="col l12">
-            <div class="col l4">
+        <div class="row">
+            <div class="col l4" id="login-web">
                 <div class="card">
                     <div class="card-content login-content">
                         <div class="row">
@@ -32,14 +32,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col l8">
+            <div class="col l8 m12 s12">
                 <div class="card">
                     <div class="card-content login-content">
                         <div class="row">
-                            <div class="col l12">
+                            <div id="login-mobile">
+                                <div class="logo login-logo col l12 s6 offset-s4" id="login-mobile">
+                                    <span class="db"><img style="width:70%;height:40%" src="../../assets/images/Logo.png" alt="logo"></span>
+                                </div>
+                                <div class="col l12 s12 m-t-5" id="login-mobile">
+                                    <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
+                                </div>
+                            </div>
+                            <div class="col l12 m12 s12">
                                 <ul class="tabs">
-                                    <li class="tab col l6"><a href="#login">Đăng nhập</a></li>
-                                    <li class="tab col l6"><a href="#register">Đăng ký</a></li>
+                                    <li class="tab col l6 m6 s6" ><a href="#login">Đăng nhập</a></li>
+                                    <li class="tab col l6 m6 s6"><a href="#register">Đăng ký</a></li>
                                 </ul>
                             </div>
                             <div id="login" class="col l12">
@@ -47,14 +55,20 @@
                                     <div class="col l3 m3 s12">
                                         <h6>SĐT/Email</h6>
                                     </div>
-                                    <div class="col l9 m9 s12">
-                                        <input id="email" type="email" class="my-input" required="" placeholder="Nhập số điện thoại hoặc email">
+                                    <div class="col l9 m9 offset-m3 s12">
+                                        <input type="text" id="user" placeholder="Nhập số điện thoại hoặc email">
+                                    </div>
+                                    <div class="col l9 offset-l3 m9 offset-m3 s12 input_login">
+                                        <span style="color:red" id="user_failed" hidden>Vui lòng nhập Email hoặc SĐT</span>
                                     </div>
                                     <div class="col l3 m3 s12">
                                         <h6>Mật khẩu</h6>
                                     </div>
-                                    <div class="col l9 m9 s12">
-                                        <input type="text" placeholder="Mật khẩu từ 6 đến 32 kí từ">
+                                    <div class="col l9 m9 s12 input_login">
+                                        <input type="password" id="pass" placeholder="Mật khẩu từ 6 đến 32 kí từ">
+                                    </div>
+                                    <div class="col l9 offset-l3 m9 offset-m3 s12">
+                                        <span style="color:red" hidden id="password_failed">Mật khẩu không đúng</span>
                                     </div>
                                     <div class="col l12 m12 s12">
                                         <label div class="left">
@@ -66,7 +80,7 @@
                                         </label>
                                     </div>
                                     <div class="col l12 s12">
-                                        <a class="waves-effect waves-light btn btn-login" style="background-color:#fcc438">Đăng nhập</a>
+                                        <a class="waves-effect waves-light btn btn-login" id="btn_login" style="background-color:#fcc438">Đăng nhập</a>
                                     </div>
                                     <div class="col l12 s12">
                                         <a class="waves-effect waves-light btn btn-login " style="background-color:#3793c6"><div class="set-btn">Đăng nhập bằng Facebook</div><i class="fab fa-facebook-f"></i></a>
@@ -75,10 +89,8 @@
                                         <a class="waves-effect waves-light btn btn-login" style="background-color:#d35760"><div class="set-btn">Đăng nhập bằng Google</div><i class="fab fa-google-plus-g"></i></a>
                                     </div>
                                 </div>
-
-
-                                <div id="register" class="col s12">Test 2</div>
                             </div>
+                            <div id="register" class="col s12">Test 2</div>
                         </div>
                     </div>
                 </div>
@@ -88,11 +100,29 @@
 
     </div>
     <script>
-     $(document).ready(function () {
-    var windowWidth = $(window).width();
-    if (windowWidth < 768) {
-        $(".set-btn").remove();
-    }
-    })
-
+        $(document).ready(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth < 768) {
+                $(".set-btn").remove();
+            }
+        })
+        $("#btn_login").click(function () {
+            if ($("#user").val() == "1234") {
+                $("#user_failed").show();
+                $("#password_failed").hide();
+            }
+            if ($("#pass").val() == "123") {
+                $("#user_failed").hide();
+                $("#password_failed").show();
+            }
+        });
+        $(document).ready(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth <= 1023) {
+                $("#login-web").remove();
+            }
+            if (windowWidth > 1023) {
+                $("#login-mobile").remove();
+            }
+        })
     </script>
