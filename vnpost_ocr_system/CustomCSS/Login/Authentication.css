@@ -61,3 +61,6 @@ input.invalid[type=email]:not(.browser-default) {
 .btn-forget{
     margin-left:15px;
 }
+.fix-space{
+    margin-top:10px;
+}
