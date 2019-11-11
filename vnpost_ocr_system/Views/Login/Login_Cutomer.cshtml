@@ -276,10 +276,11 @@
             if ($("#user").val() == "01234") {
                 $("#user_failed").show();
                 $("#password_failed").hide();
-            }
-            if ($("#pass").val() == "123") {
+            } else if ($("#pass").val() == "123") {
                 $("#user_failed").hide();
                 $("#password_failed").show();
+            } else {
+                window.location.href = "/tai-khoan/thong-tin-tai-khoan";
             }
         });
         $(document).ready(function () {
