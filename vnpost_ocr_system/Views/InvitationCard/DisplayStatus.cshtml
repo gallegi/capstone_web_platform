@@ -3,6 +3,9 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+<link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
 
 
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
@@ -20,24 +23,44 @@
                         <p class="code-order">Mã đơn hàng: #12345678</p>
                     </div>
                     <!--wizard form-->
-                    <div class="col s12 processShip">
+                    <div class="col s12">
                         <div class="card">
                             <div class="card-content wizard-content">
-                                
-                               
-                                <form action="#" class="tab-wizard wizard-circle">
-                                    <!-- Step 1 -->
-                                    <h6>Thông tin thủ tục</h6>
-                                    <section class="done"></section>
-                                    <!-- Step 2 -->
-                                    <h6>Thông tin người yêu cầu giải quyết TTHC</h6>
-                                    <section class="done"></section>
-                                    <!-- Step 3 -->
-                                    <h6>Thông tin người gửi</h6>
-                                    <section class="current"></section>
-                                    <!-- Step 4 -->
-                                    <h6>Thông tin người nhận</h6>
-                                    <section></section>
+                                <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                                    <div class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                                <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                    <span class="step">1</span>
+                                                    Đang chờ tiếp nhận
+                                                </a>
+                                            </li>
+                                            <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                                <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                    <span class="step">2</span>
+                                                    Đã tiếp nhận
+                                                </a>
+                                            </li>
+                                            <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
+                                                <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                    <span class="step">3</span>
+                                                    Lấy giấy tờ thành công
+                                                </a>
+                                            </li>
+                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                                <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                    <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                    Đang phát
+                                                </a>
+                                            </li>
+                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                                <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                    <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                    Đã phát thành công
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -584,21 +607,26 @@
 
 
 
-<script>
-   
 
-    //Custom design form example
-    $(".tab-wizard").steps({
-        headerTag: "h6",
-        bodyTag: "section",
-        transitionEffect: "fade",
-        titleTemplate: '<span class="step">#index#</span> #title#',
-    });
-    $(document).ready(function () {
-        $(".actions").remove();
+   <!-- JavaScript add more for 1->4 -->
+<script src="../../dist/js/custom.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('.form-wrapper').hide();
+
+        jQuery(".show-form").click(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            $('.form-wrapper').fadeIn(300);
+        });
+
+        jQuery(".hide-form").click(function () {
+            $('.form-wrapper').fadeOut(300);
+        });
+
     })
 
 </script>
-
-   
-
