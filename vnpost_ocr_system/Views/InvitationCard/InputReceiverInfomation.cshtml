@@ -9,51 +9,49 @@
 
 <div class="container-fluid black-text">
     <div class="row">
-        <!--wizard form-->
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content wizard-content">
-                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
-                        <div class="steps clearfix">
-                            <ul role="tablist">
-                                <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
-                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
-                                        <span class="step">1</span>
-                                        Thông tin thủ tục
-                                    </a>
-                                </li>
-                                <li role="tab" class="done" aria-disabled="false" aria-selected="false">
-                                    <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
-                                        <span class="step">2</span>
-                                        Thông tin yêu cầu giải quyết TTHC
-                                    </a>
-                                </li>
-                                <li role="tab" class="done" aria-disabled="false" aria-selected="false">
-                                    <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
-                                        <span class="step">3</span>
-                                        Thông tin người gửi
-                                    </a>
-                                </li>
-                                <li role="tab" class="current last" aria-disabled="false" aria-selected="true">
-                                    <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
-                                        <span class="current-info audible">current step:</span><span class="step">4</span>
-                                        Thông tin người nhận
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!--end wizard form-->
-        
         <form autocomplete="off" spellcheck="false" action="/giay-hen/xac-nhan-thong-tin-giay-hen">
-            <h2 class="big-title col s12">3. Thông tin người gửi</h2>
             <div class="col s12">
                 <div class="card p-25">
                     <div class="row">
-                        <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                        <!--wizard form-->
+                        <div class="col s12 none-responsive">
+                            <div class="md-stepper-horizontal" style="box-shadow:none!important;">
+                                <div class="md-step active done">
+                                    <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
+                                        <div class="md-step-circle"><span>1</span></div>
+                                        <div class="md-step-title">Thông tin thủ tục</div>
+                                        <div class="md-step-bar-left"></div>
+                                        <div class="md-step-bar-right"></div>
+                                    </a>
+                                </div>
+                                <div class="md-step active done">
+                                    <a href="~/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
+                                        <div class="md-step-circle"><span>2</span></div>
+                                        <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
+                                        <div class="md-step-bar-left"></div>
+                                        <div class="md-step-bar-right"></div>
+                                    </a>
+                                </div>
+                                <div class="md-step active done">
+                                    <a>
+                                        <div class="md-step-circle"><span>3</span></div>
+                                        <div class="md-step-title">Thông tin người gửi</div>
+                                        <div class="md-step-bar-left"></div>
+                                        <div class="md-step-bar-right"></div>
+                                    </a>
+                                </div>
+                                <div class="md-step active">
+                                    <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                                        <div class="md-step-circle"><span>4</span></div>
+                                        <div class="md-step-title">Thông tin người nhận</div>
+                                        <div class="md-step-bar-left"></div>
+                                        <div class="md-step-bar-right"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--end wizard form-->
                         <div class="col s12 m-b-20">
                             <div class="info-list-div ">
                                 <div class="row">
@@ -62,10 +60,10 @@
                                     <p class="content-text col s12">Số điện thoại: 0829018592</p>
                                     <p class="col s12 m-t-15 m-b-0">
                                         <span class="row">
-                                            <button class="col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
+                                            <button class="bt-long col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
                                                 Giao đến địa chỉ này
                                             </button>
-                                            <button class="show-form col l2 m5 offset-m1 s12 offset-l2 btn waves-effect waves-light bt-color-common" type="button">
+                                            <button class="bt-short show-form col offset-l1 l1 offset-m1 m5  s12 btn waves-effect waves-light bt-color-common" type="button">
                                                 Sửa
                                             </button>
                                         </span>
@@ -82,10 +80,10 @@
                                     <p class="content-text col s12">Số điện thoại: 0829018592</p>
                                     <p class="col s12 m-t-15 m-b-0">
                                         <span class="row">
-                                            <button href="/giay-hen/xac-nhan-thong-tin-giay-hen" class="col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
+                                            <button class="bt-long col l3 m6 s12 btn waves-effect waves-light bt-color-common m-b-10" type="submit">
                                                 Giao đến địa chỉ này
                                             </button>
-                                            <button class="show-form col l2 m5 offset-m1 s12 offset-l2 btn waves-effect waves-light bt-color-common" type="button">
+                                            <button class="bt-short show-form col offset-l1 l1 offset-m1 m5  s12 btn waves-effect waves-light bt-color-common" type="button">
                                                 Sửa
                                             </button>
                                         </span>
@@ -177,7 +175,7 @@
                                     <div class="select-wrapper row">
                                         <div class="col l3 m3 s12"></div>
                                         <div class="col l9 m9 s12">
-                                            <button class="col offset-l7 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                            <button class="col offset-l10 l2 s12 btn waves-effect waves-light bt-color-common" type="submit">
                                                 Tiếp tục
                                             </button>
                                         </div>

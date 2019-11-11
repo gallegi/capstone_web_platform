@@ -38,16 +38,25 @@ input.invalid[type=email]:not(.browser-default) {
         color: #fdaf1b;
     }
 .btn-login{
-    width:60%;
-    margin-left:20%;
-    margin-right:20%;
+    width:100%;
+
     margin-top:10px;
 }
 #login{
-    margin-top:20px;
+    margin-top:50px;
 }
 .login-content{
-    height:450px;
+    height:800px;
+}
+@media only screen and (min-width: 1024px) {
+    .login-content {
+        height: 850px;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .login-content {
+        height: 1100px;
+    }
 }
 .btn-forget{
     margin-left:15px;
