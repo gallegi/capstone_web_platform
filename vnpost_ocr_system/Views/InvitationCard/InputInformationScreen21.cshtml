@@ -4,8 +4,7 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
-<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
-<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen21.css" rel="stylesheet" />
 <script src="~/CustomJS/InputInforScreen21.js"></script>
@@ -15,6 +14,14 @@
 <link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="../../dist/css/style.css" rel="stylesheet">
+
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+<link href="~/CustomCSS/MaterialStepper/mstepper.css" rel="stylesheet" />
+
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
    
     <link href="../../assets/extra-libs/prism/prism.css" rel="stylesheet">
 <div class="container-fluid">
@@ -29,26 +36,43 @@
                             
                         <!--wizard form-->
                         <div class="card">
-                            <div class="card wizard-content">
-
-
-
-                                <form action="#" class="tab-wizard wizard-circle">
-                                    <!-- Step 1 -->
-                                    <h6>Thông tin thủ tục</h6>
-                                    <section></section>
-                                    <!-- Step 2 -->
-                                    <h6>Thông tin yêu cầu giải quyết TTHC</h6>
-                                    <section></section>
-                                    <!-- Step 3 -->
-                                    <h6>Thông tin người gửi</h6>
-                                    <section></section>
-                                    <!-- Step 4 -->
-                                    <h6>Thông tin người nhận</h6>
-                                    <section></section>
-
-                                </form>
-
+                            <div class="col s12 none-responsive">
+                                <div class="card">
+                                    <div class="md-stepper-horizontal">
+                                        <div class="md-step active">
+                                            <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
+                                                <div class="md-step-circle"><span>1</span></div>
+                                                <div class="md-step-title">Thông tin thủ tục</div>
+                                                <div class="md-step-bar-left"></div>
+                                                <div class="md-step-bar-right"></div>
+                                            </a>
+                                        </div>
+                                        <div class="md-step">
+                                            <a href="~/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
+                                                <div class="md-step-circle"><span>2</span></div>
+                                                <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
+                                                <div class="md-step-bar-left"></div>
+                                                <div class="md-step-bar-right"></div>
+                                            </a>
+                                        </div>
+                                        <div class="md-step">
+                                            <a>
+                                                <div class="md-step-circle"><span>3</span></div>
+                                                <div class="md-step-title">Thông tin người gửi</div>
+                                                <div class="md-step-bar-left"></div>
+                                                <div class="md-step-bar-right"></div>
+                                            </a>
+                                        </div>
+                                        <div class="md-step">
+                                            <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                                                <div class="md-step-circle"><span>4</span></div>
+                                                <div class="md-step-title">Thông tin người nhận</div>
+                                                <div class="md-step-bar-left"></div>
+                                                <div class="md-step-bar-right"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!--end wizard form-->
