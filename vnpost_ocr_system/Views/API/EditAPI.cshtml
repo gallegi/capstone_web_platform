@@ -3,6 +3,10 @@
 }
 
 <link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
+<script src="~/assets/extra-libs/jquery-datatables-editable/jquery.dataTables.js"></script>
+<script src="~/assets/extra-libs/tiny-editable/mindmup-editabletable.js"></script>
+<script src="~/assets/extra-libs/tiny-editable/numeric-input-example.js"></script>
+<script src="~/CustomJS/API.js"></script>
 
 <div class="page-titles">
     <div class="d-flex align-items-center">
@@ -146,7 +150,7 @@
                             <div class="row">
                                 <div class="col l11">
                                     <div class="row">
-                                        <table class="centered table-bordered">
+                                        <table id="mainTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
                                             <thead class="clgray">
                                                 <tr>
                                                     <th rowspan="2">STT</th>
@@ -166,11 +170,12 @@
                                                     <td>MaBuuGui</td>
                                                     <td>varchar(13)</td>
                                                 </tr>
-                                                <tr>
-                                                    <td colspan="4"><i class="fas fa-plus"></i> Thêm Param mới</td>
-                                                </tr>
                                             </tbody>
                                         </table>
+                                        <br />
+                                        <div class="center-align">
+                                            <div id="addrow" class="waves-effect waves-light btn blue ju"><i class="fas fa-plus"></i> Thêm param mới</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +186,7 @@
                             <div class="row">
                                 <div class="col l11">
                                     <div class="row">
-                                        <table class="centered table-bordered">
+                                        <table id="mainTable2" class="centered  editable-table table" style="cursor: pointer;">
                                             <thead class="clgray">
                                                 <tr>
                                                     <th rowspan="2">STT</th>
@@ -196,16 +201,17 @@
 
                                             <tbody>
                                                 <tr>
-                                                    <td>VD</td>
-                                                    <td>Mã khách hàng của đơn hàng này</td>
-                                                    <td>MaKH</td>
-                                                    <td>varchar(50)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"><i class="fas fa-plus"></i> Thêm request data mới</td>
+                                                    <td tabindex="1">VD</td>
+                                                    <td tabindex="1">Mã khách hàng của đơn hàng này</td>
+                                                    <td tabindex="1">MaKH</td>
+                                                    <td tabindex="1">varchar(50)</td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <br />
+                                        <div class="center-align">
+                                            <div id="addrow" class="waves-effect waves-light btn blue ju"><i class="fas fa-plus"></i> Thêm Request data mới</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -271,3 +277,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+        $('#mainTable2').editableTableWidget().numericInputExample().find('td:first').focus();
+        $('#editable-datatable').editableTableWidget().numericInputExample().find('tdLfirst').focus();
+        $(function () {
+            $('#editable-datatable').DataTable();
+        });
+
+    </script>

@@ -5463,6 +5463,7 @@
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
+    <Content Include="CustomJS\API.js" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -6264,9 +6265,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\AccountInfo\" />
     <Folder Include="Views\AddAPI\" />
     <Folder Include="Views\AddressInfo\" />
-    <Folder Include="Views\AccountInfo\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\CreateAddressInfo\" />
     <Folder Include="Views\DisplayCode\" />
@@ -6276,8 +6277,8 @@
     <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\EditAPI\" />
     <Folder Include="Views\InputInformation\" />
-    <Folder Include="Views\ListAPI\" />
     <Folder Include="Views\InputReceiverInformation\" />
+    <Folder Include="Views\ListAPI\" />
     <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
