@@ -17,54 +17,51 @@
 <div class="container-fluid input-sender-main">
 
     <div class="row">
-        <!--wizard form-->
-        <div class="col s12 none-responsive">
-            <div class="card">
-                <div class="md-stepper-horizontal">
-                    <div class="md-step active done">
-                        <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
-                            <div class="md-step-circle"><span>1</span></div>
-                            <div class="md-step-title">Thông tin thủ tục</div>
-                            <div class="md-step-bar-left"></div>
-                            <div class="md-step-bar-right"></div>
-                        </a>
-                    </div>
-                    <div class="md-step active done">
-                        <a href="~/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
-                            <div class="md-step-circle"><span>2</span></div>
-                            <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
-                            <div class="md-step-bar-left"></div>
-                            <div class="md-step-bar-right"></div>
-                        </a>
-                    </div>
-                    <div class="md-step active">
-                        <a>
-                            <div class="md-step-circle"><span>3</span></div>
-                            <div class="md-step-title">Thông tin người gửi</div>
-                            <div class="md-step-bar-left"></div>
-                            <div class="md-step-bar-right"></div>
-                        </a>
-                    </div>
-                    <div class="md-step">
-                        <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
-                            <div class="md-step-circle"><span>4</span></div>
-                            <div class="md-step-title">Thông tin người nhận</div>
-                            <div class="md-step-bar-left"></div>
-                            <div class="md-step-bar-right"></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!--end wizard form-->
-        <form autocomplete="off" spellcheck="false" action="~/giay-hen/nhap-thong-tin-nguoi-nhan">
-
-            <h2 class="big-title m-t-0 col s12">3. Thông tin người gửi</h2>
-            <div class="col s12">
-                <div class="card">
+        <div class="card">
+            <form autocomplete="off" spellcheck="false" action="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                <div class="col s12">
                     <div class="card p-25">
                         <div class="row">
+                            <!--wizard form-->
+                            <div class="col s12 none-responsive">
+                                <div class="md-stepper-horizontal" style="box-shadow:none!important;">
+                                    <div class="md-step active done">
+                                        <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
+                                            <div class="md-step-circle"><span>1</span></div>
+                                            <div class="md-step-title">Thông tin thủ tục</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
+                                    </div>
+                                    <div class="md-step active done">
+                                        <a href="~/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
+                                            <div class="md-step-circle"><span>2</span></div>
+                                            <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
+                                    </div>
+                                    <div class="md-step active">
+                                        <a>
+                                            <div class="md-step-circle"><span>3</span></div>
+                                            <div class="md-step-title">Thông tin người gửi</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
+                                    </div>
+                                    <div class="md-step">
+                                        <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                                            <div class="md-step-circle"><span>4</span></div>
+                                            <div class="md-step-title">Thông tin người nhận</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end wizard form-->
                             <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                             <div class="col s12 m-b-40">
                                 <div class="info-list-div ">
@@ -202,9 +199,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-
+            </form>
+        </div>
     </div>
 </div>
 <script src="../../dist/js/custom.min.js"></script>
