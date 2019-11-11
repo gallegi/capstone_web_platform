@@ -5463,6 +5463,7 @@
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
+    <Content Include="CustomCSS\User\InviteManage.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -5535,8 +5536,10 @@
     <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
+    <Content Include="CustomJS\Management_User\ManagementUser.js" />
     <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
+    <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
     <Content Include="dist\css\icons\flag-icon-css\flag-icon.min.css" />
@@ -6267,6 +6270,7 @@
     <Folder Include="Views\AddAPI\" />
     <Folder Include="Views\AddressInfo\" />
     <Folder Include="Views\AccountInfo\" />
+    <Folder Include="Views\AddressInfo\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\CreateAddressInfo\" />
     <Folder Include="Views\DisplayCode\" />
