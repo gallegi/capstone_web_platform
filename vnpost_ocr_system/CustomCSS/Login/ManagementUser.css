@@ -1,4 +1,6 @@
-﻿.btn {
+﻿
+
+.btn {
     background-color: #acafb0 !important;
 }
 .col{
@@ -40,7 +42,7 @@ table.centered tbody tr td{
     width: 400px;
 }
 
-    .modal-confirm .modal-content {
+.modal-confirm .modal-content {
         padding: 20px;
         border-radius: 5px;
         border: none;
@@ -48,18 +50,18 @@ table.centered tbody tr td{
         font-size: 14px;
     }
 
-    .modal-confirm .modal-header {
+.modal-confirm .modal-header {
         border-bottom: none;
         position: relative;
     }
 
-    .modal-confirm h4 {
+.modal-confirm h4 {
         text-align: center;
         font-size: 26px;
         margin: 30px 0 -10px;
     }
 
-    .modal-confirm .close {
+.modal-confirm .close {
         position: absolute;
         top: -5px;
         right: -2px;
