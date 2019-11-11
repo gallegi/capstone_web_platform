@@ -21,144 +21,255 @@
                         <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
                     </div>
 
-                    
-
                 </div>
 
             </div>
         </div>
 
         @* Register pannel *@
-    <div class="col l8 white-background">
-        <ul class="tabs">
-            <li class="tab col l6"><a href="#profile" class="">Đăng nhập</a></li>
-            <li class="tab col l6"><a href="#settings" class="active">Đăng kí</a></li>
-        </ul>
+        <div class="col l8 white-background">
+            <ul class="tabs">
+                <li class="tab col l6"><a href="#profile" class="">Đăng nhập</a></li>
+                <li class="tab col l6"><a href="#settings" class="active">Đăng kí</a></li>
+            </ul>
 
-        <div class="auth-box">
-            <div id="loginform">
-                
-                <!-- Form -->
-                <div class="row">
-                    <form class="col s12" action="index.html">
-                        <!-- email -->
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Họ tên</p>
+            <div class="auth-box">
+                <div id="loginform">
+
+                    <!-- Form -->
+                    <div class="row">
+                        <form name="Form" class="col s12" action="index.html">
+                            <!-- email -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">Họ tên</p>
+                                </div>
+
+                                <div class="input-field col s9 m-b-0">
+                                    <input id="tbName" type="email" name="tbName" class="validate my-input" required="">
+
+                                </div>
+                            </div>
+                            <!-- email valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                </div>
+                                <div id="name-err" class="col s9 err">
+                                </div>
                             </div>
 
-                            <div class="input-field col s9">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Nhập họ tên</label>
-                            </div>
-                        </div>
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">SĐT</p>
+                                </div>
 
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">SĐT</p>
-                            </div>
+                                <div class="input-field col l5 m-b-0">
+                                    <input id="tbPhone" name="tbPhone" type="email" class="validate my-input" required="">
 
-                            <div class="input-field col l5">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Nhập số điện thoại</label>
-                            </div>
+                                </div>
 
-                            <div class="col l4 m-t-10">
-                                <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="submit">Gửi mã xác thực</button>
+                                <div class="col l4 m-t-10 m-b-0">
+                                    <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="submit">Gửi mã xác thực</button>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Mã xác thực</p>
+                            <!-- email valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 ">
+                                </div>
+                                <div id="phone-err" class="col s9 err">
+                                </div>
                             </div>
 
-                            <div class="input-field col s9">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Nhập mã xác thực</label>
-                            </div>
-                        </div>
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">Mã xác thực</p>
+                                </div>
 
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Email</p>
-                            </div>
+                                <div class="input-field col s9 m-b-0">
+                                    <input id="tbValidCode" name="tbValidCode" type="email" class="validate my-input" required="">
 
-                            <div class="input-field col s9">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Nhập địa chỉ email</label>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Mật khẩu</p>
+                            <!-- valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 ">
+                                </div>
+                                <div id="validCode-err" class="col s9 err">
+                                </div>
                             </div>
 
-                            <div class="input-field col s9">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Mật khẩu từ 6 đến 32 kí tự</label>
-                            </div>
-                        </div>
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">Email</p>
+                                </div>
 
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Nhập lại mật khẩu</p>
-                            </div>
+                                <div class="input-field col s9 m-b-0">
+                                    <input id="tbEmail" name="tbEmail" type="email" class="validate my-input" required="">
 
-                            <div class="input-field col s9">
-                                <input id="email" type="email" class="validate my-input" required="">
-                                <label for="email">Nhập lại mật khẩu</label>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s2 m-t-20 m-l-20">
-                                <p class="black-text">Giới tính</p>
+                            <!-- valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 ">
+                                </div>
+                                <div id="email-err" class="col s9 err">
+                                </div>
                             </div>
 
-                            <div class="col m-t-20 m-l-20 m-b-30">
-                                <form action="#">
-                                    <p class="inline m-r-30">
-                                        <label>
-                                            <input class="with-gap" name="group1" type="radio" checked/>
-                                            <span>Nam</span>
-                                        </label>
-                                    </p>
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">Mật khẩu</p>
+                                </div>
 
-                                    <p class="inline m-r-30">
-                                        <label>
-                                            <input class="with-gap" name="group1" type="radio" />
-                                            <span>Nữ</span>
-                                        </label>
-                                    </p>
+                                <div class="input-field col s9 m-b-0">
+                                    <input id="tbPass" name="tbPass" type="email" class="validate my-input" required="">
 
-                                    <p class="inline m-r-30">
-                                        <label>
-                                            <input class="with-gap" name="group1" type="radio" />
-                                            <span>Khác</span>
-                                        </label>
-                                    </p>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- pwd -->
-                        <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
-                            <div class="col s12">
-                                <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit">Tạo tài khoản</button>
+                            <!-- valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 ">
+                                </div>
+                                <div id="pass-err" class="col s9 err">
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 m-b-0">
+                                    <p class="black-text m-b-0">Nhập lại mật khẩu</p>
+                                </div>
+
+                                <div class="input-field col s9 m-b-0">
+                                    <input id="tbRePass" name="tbRePass" type="email" class="validate my-input" required="">
+
+                                </div>
+                            </div>
+                            <!-- valid -->
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20 ">
+                                </div>
+                                <div id="rePass-err" class="col s9 err">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s2 m-t-20 m-l-20">
+                                    <p class="black-text">Giới tính</p>
+                                </div>
+
+                                <div class="col m-t-20 m-l-20 m-b-30">
+                                    <form action="#">
+                                        <p class="inline m-r-30">
+                                            <label>
+                                                <input class="with-gap" name="group1" type="radio" checked />
+                                                <span>Nam</span>
+                                            </label>
+                                        </p>
+
+                                        <p class="inline m-r-30">
+                                            <label>
+                                                <input class="with-gap" name="group1" type="radio" />
+                                                <span>Nữ</span>
+                                            </label>
+                                        </p>
+
+                                        <p class="inline m-r-30">
+                                            <label>
+                                                <input class="with-gap" name="group1" type="radio" />
+                                                <span>Khác</span>
+                                            </label>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- pwd -->
+                            <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                                <div class="col s12">
+                                    <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit" onclick="return valid()">Tạo tài khoản</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
                 </div>
-                
-                
+
             </div>
-            
+
         </div>
 
     </div>
 
-    </div>
-
 </div>
+
+<script>
+    function valid() {
+        $('#name-err').text('');
+        $('#phone-err').text('');
+        $('#validCode-err').text('');
+        $('#email-err').text('');
+        $('#pass-err').text('');
+        $('#rePass-err').text('');
+        var name = document.forms["Form"]["tbName"].value;
+        var phone = document.forms["Form"]["tbPhone"].value;
+        var validCode = document.forms["Form"]["tbValidCode"].value;
+        var email = document.forms["Form"]["tbEmail"].value;
+        var pass = document.forms["Form"]["tbPass"].value;
+        var rePass = document.forms["Form"]["tbRePass"].value;
+        var valid = true;
+
+        if (name.length == 0) {
+            valid = false;
+            $('#name-err').text('Không để trống tên');
+        }
+        if (phone.length == 0) {
+            valid = false;
+            $('#phone-err').text('Không để trống điện thoại');
+        }
+        if (phone == "0123") {
+            valid = false;
+            $('#phone-err').text('Số điện thoại sai');
+        }
+        if (validCode.length == 0) {
+            valid = false;
+            $('#validCode-err').text('Không để trống mã xác thực');
+        }
+
+        if (validCode.length <= 5) {
+            valid = false;
+            $('#validCode-err').text('Mã OTP sai');
+        }
+        if (email.length == 0) {
+            valid = false;
+            $('#email-err').text('Không để trống email');
+        }
+
+        var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
+        if (isEmail == false) {
+            
+             $('#email-err').text('Wrong email format. Email must look like abc123@abc.xyz');
+            valid = false;
+        }
+
+
+
+        if (pass.length == 0) {
+            valid = false;
+            $('#pass-err').text('Không để trống mật khẩu');
+        }
+        if (pass.length < 6 || pass.length > 32) {
+            valid = false;
+            $('#pass-err').text('Mật khẩu 6-32 kí tự');
+        }
+        if (rePass.length == 0) {
+            valid = false;
+            $('#rePass-err').text('Không để trống trường nhập lại mật khẩu');
+        }
+        if (rePass != pass) {
+            valid = false;
+            $('#rePass-err').text('Mật khẩu phải trùng');
+        }
+        return valid;
+    }
+</script>

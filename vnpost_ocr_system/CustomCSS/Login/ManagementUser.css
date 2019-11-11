@@ -1,4 +1,8 @@
-﻿.btn {
+﻿a{
+    color: black;
+}
+
+.btn {
     background-color: #acafb0 !important;
 }
 .col{
