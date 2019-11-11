@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewBag.Title = "InputInformationScreen22";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+<link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
+
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/CustomJS/InputInfo.js"></script>
+
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
+
+<div class="container-fluid input-sender-main">
+
+    <div class="row">
+        <!--wizard form-->
+        <div class="col s12 processShip m-b-25">
+            <div class="card">
+                <div class="card-content wizard-content">
+                    <form action="#" class="tab-wizard wizard-circle">
+                        <!-- Step 1 -->
+                        <h6>Thông tin thủ tục</h6>
+                        <section class="done"></section>
+                        <!-- Step 2 -->
+                        <h6>Thông tin người yêu cầu giải quyết TTHC</h6>
+                        <section class="done"></section>
+                        <!-- Step 3 -->
+                        <h6>Thông tin người gửi</h6>
+                        <section class="current"></section>
+                        <!-- Step 4 -->
+                        <h6>Thông tin người nhận</h6>
+                        <section></section>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!--end wizard form-->
+        <form autocomplete="off" spellcheck="false" action="/giay-hen/nhap-giay-hen/thong-tin-nguoi-gui">
+
+            <h2 class="big-title m-t-0 col s12">2. Thông tin người yêu cầu giải quyết thủ tục hành chính</h2>
+            <div class="col s12">
+                <div class="card">
+                    
+                        <div class="card p-25">
+                            <div class="row">
+                                <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                                <div class="col s12 m-b-40">
+                                    <div class="info-list-div ">
+                                        <div class="row p-b-20">
+                                            <p class="content-text highlight col s12">Nguyễn Vũ Minh</p>
+                                            <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                            <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: Chứng minh nhân dân</p>
+                                            <p class="content-text col s12">Số giấy tờ tùy thân: 212811168</p>
+                                            <p class="content-text col s12">Ngày cấp: 20/01/2014</p>
+                                            <p class="content-text col s12">Nơi cấp: Công an Quảng Ngãi</p>
+
+
+                                            <div class="col s12 m-t-10">
+                                                <div class="row">
+                                                    <div class="col l3 s12 p-t-10">
+                                                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                            Sử dụng thông tin này
+                                                        </button>
+                                                    </div>
+                                                    <div class="col l1 s12 p-t-10">
+                                                        <button class="show-form  btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="button">
+                                                            Sửa
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s12 m-b-40">
+                                    <div class="info-list-div">
+                                        <div class="row p-b-20">
+                                            <p class="content-text highlight col s12">Nguyễn Vũ Minh</p>
+                                            <p class="content-text col s12">Địa chỉ: KDC số 28, thôn Thạch Thang, xã Đức Phong, huyễn Mộ Đức, tỉnh Quảng Ngãi</p>
+                                            <p class="content-text col s12">Số điện thoại: 0829018592</p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: Chứng minh nhân dân</p>
+                                            <p class="content-text col s12">Số giấy tờ tùy thân: 212811168</p>
+                                            <p class="content-text col s12">Ngày cấp: 20/01/2014</p>
+                                            <p class="content-text col s12">Nơi cấp: Công an Quảng Ngãi</p>
+                                            <div class="col s12 m-t-10">
+                                                <div class="row">
+                                                    <div class="col l3 s12 p-t-10">
+                                                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                            Sử dụng thông tin này
+                                                        </button>
+                                                    </div>
+                                                    <div class="col l1 s12 p-t-10">
+                                                        <button class="show-form  btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="button">
+                                                            Sửa
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                        Nhập thông tin mới
+                                    </span>
+                                </p>
+                                <div class="col s12">
+                                    <div class="form-wrapper">
+                                        <div class="row">
+                                            <div class="col s12 l12 m12">
+                                                <div class="input-field row">
+                                                    <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
+                                                    <div class="col l9 m9 s12">
+                                                        <input id="con1" type="text" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l12 m12">
+                                                <div class="input-field row">
+                                                    <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
+                                                    <div class="col l9 m9 s12">
+                                                        <input id="con1" type="text" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12">
+                                                <div class="row">
+                                                    <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
+                                                    <div class="col l9 m9 s12">
+                                                        <select tabindex="-1" class="card-border">
+                                                            <option value="1" selected>Hà Nội</option>
+                                                            <option value="2">Option 2</option>
+                                                            <option value="3">Option 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12">
+                                                <div class="select-wrapper row">
+                                                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
+                                                    <div class="col l9 m9 s12">
+                                                        <select tabindex="-1" class="card-border">
+                                                            <option value="1" selected>Quận Thạch Thất</option>
+                                                            <option value="2">Option 2</option>
+                                                            <option value="3">Option 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12">
+                                                <div class="select-wrapper row">
+                                                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
+                                                    <div class="col l9 m9 s12">
+                                                        <textarea></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12">
+                                                <div class="row">
+                                                    <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
+                                                    <div class="col l9 m9 s12">
+                                                        <select tabindex="-1" class="card-border">
+                                                            <option value="1" selected>Chứng minh nhân dân</option>
+                                                            <option value="2">Option 2</option>
+                                                            <option value="3">Option 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l12 m12">
+                                                <div class="input-field row">
+                                                    <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
+                                                    <div class="col l9 m9 s12">
+                                                        <input id="con1" type="text" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l12 m12">
+                                                <div class="input-field row">
+                                                    <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
+                                                    <div class="col l9 m9 s12 datepicker-calendar-container row">
+                                                        <input name="dateTLHD" id="datepicker" type='text' readonly
+                                                               class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                                               data-language='vi' value="16/10/2019" />
+                                                        <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l12 m12">
+                                                <div class="input-field row">
+                                                    <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
+                                                    <div class="col l9 m9 s12">
+                                                        <input id="con1" type="text" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12">
+                                                <div class="select-wrapper row">
+                                                    <div class="col l3 m3 p-t-10 s12 "></div>
+                                                    <div class="col l9 m9 s12">
+                                                        <button class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20" type="button">
+                                                            Hủy Bỏ
+                                                        </button>
+                                                        <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                                            Sử dụng thông tin này
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+</div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script src="../../dist/js/custom.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('.form-wrapper').hide();
+
+        jQuery(".show-form").click(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            $('.form-wrapper').fadeIn(300);
+        });
+
+        jQuery(".hide-form").click(function () {
+            $('.form-wrapper').fadeOut(300);
+        });
+
+    })
+
+
+    //Custom design form example
+    $(".tab-wizard").steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#',
+    });
+    $(document).ready(function () {
+        $(".actions").remove();
+    })
+
+</script>

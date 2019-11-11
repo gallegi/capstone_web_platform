@@ -1,0 +1,41 @@
+﻿.account-info {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    box-shadow: 0 0 0 0 white !important;
+}
+
+#input {
+    border: 0.5px solid #999999;
+    border-radius: 10px;
+}
+
+::placeholder {
+    color: gray;
+}
+
+.material-icons {
+    margin-top: 10px;
+    font-size: 40px;
+}
+
+.card {
+    border: 1px solid black;
+}
+
+.readonly {
+    background-color: #d9d9d9 !important;
+    color: gray;
+}
+
+label {
+    color: black;
+}
+
+.cal-img {
+    width: 30px;
+}

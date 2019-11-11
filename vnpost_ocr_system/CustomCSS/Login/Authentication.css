@@ -26,3 +26,29 @@ input.invalid[type=email]:not(.browser-default) {
     border-bottom: 1px solid black !important;
     box-shadow: 0 0 0 0 white !important;
 }
+.title-label{
+    display:flex;
+}
+    .title-label h6 {
+        display: flex;
+        margin-top: 18px;
+        margin-left:5px;
+    }
+    .title-label i {
+        color: #fdaf1b;
+    }
+.btn-login{
+    width:60%;
+    margin-left:20%;
+    margin-right:20%;
+    margin-top:10px;
+}
+#login{
+    margin-top:20px;
+}
+.login-content{
+    height:450px;
+}
+.btn-forget{
+    margin-left:15px;
+}
