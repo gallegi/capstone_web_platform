@@ -6,57 +6,93 @@
 <link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="auth-box col l4 offset-l4" style="background-color: white;">
-            <div id="loginform">
-                <div class="logo login-logo col l6 offset-l3 s6 offset-s3">
-                    <span class="db"><img src="../../assets/images/Logo.png" alt="logo"></span>
 
-                </div>
-
-                <div class="col l8 offset-l2 m-t-5">
-                    <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
-                </div>
-
-                <!-- Form -->
-                <div class="row">
-                    <form class="col s12" action="index.html">
-                        <!-- email -->
+    <div class="row title_login">
+        <div class="col l12">
+            <div class="col l4">
+                <div class="card">
+                    <div class="card-content login-content">
                         <div class="row">
-                            <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="email" type="email" class="my-input" required="" placeholder="Tài khoản">
-
+                            <div class="logo login-logo col l12 s6 offset-s3">
+                                <span class="db"><img src="../../assets/images/Logo.png" alt="logo"></span>
+                            </div>
+                            <div class="col l12 s12 m-t-5">
+                                <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
+                            </div>
+                            <div class="col l11 offset-l1 m8 offset-m4 s12 title-label">
+                                <i class="material-icons small dp48">check</i><h6>Tiện lợi</h6>
+                            </div>
+                            <div class="col l11 offset-l1 m8 offset-m4 s12 title-label">
+                                <i class="material-icons small dp48">check</i><h6>Tin cậy</h6>
+                            </div>
+                            <div class="col l11 offset-l1 m8 offset-m4 s12 title-label">
+                                <i class="material-icons small dp48">check</i><h6 class="">Nhanh chóng</h6>
                             </div>
                         </div>
-                        <!-- pwd -->
-                        <div class="row">
-                            <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="password" type="password" class="my-input" required="" placeholder="Mật khẩu">
-
-                            </div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-5">
-                            <div class="col s7 p-l-40">
-                                <label>
-                                    <input type="checkbox">
-                                    <span>Ghi nhớ</span>
-                                </label>
-                            </div>
-                            <div class="col s5 right-align p-r-40"><a href="#" class="link" id="to-recover">Quên mật khẩu?</a></div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-40">
-                            <div class="col s12 l6 offset-l3 login-btn">
-                                <button class="btn-large w100 blue accent-4 m-t-30" type="submit">Đăng nhập</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-
             </div>
+            <div class="col l8">
+                <div class="card">
+                    <div class="card-content login-content">
+                        <div class="row">
+                            <div class="col l12">
+                                <ul class="tabs">
+                                    <li class="tab col l6"><a href="#login">Đăng nhập</a></li>
+                                    <li class="tab col l6"><a href="#register">Đăng ký</a></li>
+                                </ul>
+                            </div>
+                            <div id="login" class="col l12">
+                                <div>
+                                    <div class="col l3 m3 s12">
+                                        <h6>SĐT/Email</h6>
+                                    </div>
+                                    <div class="col l9 m9 s12">
+                                        <input id="email" type="email" class="my-input" required="" placeholder="Nhập số điện thoại hoặc email">
+                                    </div>
+                                    <div class="col l3 m3 s12">
+                                        <h6>Mật khẩu</h6>
+                                    </div>
+                                    <div class="col l9 m9 s12">
+                                        <input type="text" placeholder="Mật khẩu từ 6 đến 32 kí từ">
+                                    </div>
+                                    <div class="col l12 m12 s12">
+                                        <label div class="left">
+                                            <input type="checkbox">
+                                            <span>Ghi nhớ</span>
+                                        </label>
+                                        <label div class="right">
+                                            <span class="btn-forget"><a href="javascript:void(0)">Quên mật khẩu?</a></span>
+                                        </label>
+                                    </div>
+                                    <div class="col l12 s12">
+                                        <a class="waves-effect waves-light btn btn-login" style="background-color:#fcc438">Đăng nhập</a>
+                                    </div>
+                                    <div class="col l12 s12">
+                                        <a class="waves-effect waves-light btn btn-login " style="background-color:#3793c6"><div class="set-btn">Đăng nhập bằng Facebook</div><i class="fab fa-facebook-f"></i></a>
+                                    </div>
+                                    <div class="col l12 s12">
+                                        <a class="waves-effect waves-light btn btn-login" style="background-color:#d35760"><div class="set-btn">Đăng nhập bằng Google</div><i class="fab fa-google-plus-g"></i></a>
+                                    </div>
+                                </div>
 
+
+                                <div id="register" class="col s12">Test 2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
+
+    </div>
+    <script>
+     $(document).ready(function () {
+    var windowWidth = $(window).width();
+    if (windowWidth < 768) {
+        $(".set-btn").remove();
+    }
+    })
+
+    </script>
