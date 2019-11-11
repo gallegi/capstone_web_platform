@@ -33,21 +33,184 @@
                                 <input id="password" type="password" class="my-input" required="" placeholder="Mật khẩu">
 
                             </div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-5">
-                            <div class="col s7 p-l-40">
-                                <label>
-                                    <input type="checkbox">
-                                    <span>Ghi nhớ</span>
-                                </label>
-                            </div>
-                            <div class="col s5 right-align p-r-40"><a href="#" class="link" id="to-recover">Quên mật khẩu?</a></div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-40">
-                            <div class="col s12 l6 offset-l3 login-btn">
-                                <button class="btn-large w100 blue accent-4 m-t-30" type="submit">Đăng nhập</button>
+
+                            <div id="register" class="s12">
+                                <div class="auth-box">
+                                    <div id="loginform">
+
+                                        <!-- Form -->
+                                        <div class="row">
+                                            <form name="Form" class="col s12" action="index.html">
+                                                <!-- email -->
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                        <p class="black-text">Họ tên</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l9 m-b-0">
+                                                        <input id="tbName" name="tbName" class="validate my-input">
+
+                                                    </div>
+                                                </div>
+                                                <!-- email valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20">
+                                                    </div>
+                                                    <div id="name-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                        <p class="black-text">SĐT</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l5 m-b-0">
+                                                        <input id="tbPhone" name="tbPhone" class="validate my-input">
+
+                                                    </div>
+
+                                                    <div class="col l4 s12 m-t-10 m-b-0">
+                                                        <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" onclick="return valid()" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
+                                                    </div>
+                                                </div>
+                                                <!-- email valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20 ">
+                                                    </div>
+                                                    <div id="phone-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                        <p class="black-text">Mã xác thực</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l9 m-b-0">
+                                                        <input id="tbValidCode" name="tbValidCode" class="validate my-input">
+
+                                                    </div>
+                                                </div>
+                                                <!-- valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20 ">
+                                                    </div>
+                                                    <div id="validCode-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                        <p class="black-text">Email</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l9 m-b-0">
+                                                        <input id="tbEmail" name="tbEmail" class="validate my-input">
+
+                                                    </div>
+                                                </div>
+                                                <!-- valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20 ">
+                                                    </div>
+                                                    <div id="email-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                        <p class="black-text">Mật khẩu</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l9 m-b-0">
+                                                        <input id="tbPass" name="tbPass" class="validate my-input">
+
+                                                    </div>
+                                                </div>
+                                                <!-- valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20 ">
+                                                    </div>
+                                                    <div id="pass-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s3 l2 m-t-20 m-l-20 m-b-0">
+                                                        <p class="black-text m-b-0">Nhập lại mật khẩu</p>
+                                                    </div>
+
+                                                    <div class="input-field col s8 l9 m-b-0">
+                                                        <input id="tbRePass" name="tbRePass" class="validate my-input">
+
+                                                    </div>
+                                                </div>
+                                                <!-- valid -->
+                                                <div class="row">
+                                                    <div class="col s2 m-t-20 m-l-20 ">
+                                                    </div>
+                                                    <div id="rePass-err" class="col s9 err">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col s1 l2 m-t-20 m-l-20 m-r-5">
+                                                        <p class="black-text">Giới tính</p>
+                                                    </div>
+
+                                                    <div class="col gender-mobile">
+                                                        <label class="offset-s2">
+                                                            <input name="group1" type="radio" checked />
+                                                            <span>Nam</span>
+                                                        </label>
+                                                        <label>
+                                                            <input name="group1" type="radio"/>
+                                                            <span>Nữ</span>
+                                                        </label>
+                                                        <label class="new-line-small">
+                                                            <input name="group1" type="radio"/>
+                                                            <span>Khác</span>
+                                                        </label>
+                                                    </div>
+
+                                                    @*<div class="col m-t-20 m-l-20 m-b-30">
+                                                        abc
+                                                        <label>
+                                                            <input name="group1" type="radio" checked />
+                                                            <span>Red</span>
+                                                        </label>
+
+                                                            <p class="inline m-r-30">
+                                                                <label>
+                                                                    <input class="with-gap" name="group1" type="radio" />
+                                                                    <span>Nữ</span>
+                                                                </label>
+                                                            </p>
+
+                                                            <p class="inline m-r-30">
+                                                                <label>
+                                                                    <input class="with-gap" name="group1" type="radio" />
+                                                                    <span>Khác</span>
+                                                                </label>
+                                                            </p>
+                                                        
+                                                    </div>*@
+                                                </div>
+
+                                                <!-- pwd -->
+                                                <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                                                    <div class="col s12">
+                                                        <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit" onclick="return valid()">Tạo tài khoản</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </form>
