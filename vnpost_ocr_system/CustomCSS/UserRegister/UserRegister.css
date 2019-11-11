@@ -58,7 +58,7 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 
 @media only screen and (max-width: 600px) {
     .gender-mobile{
-        margin-left: 45px;
+        margin-left: 20px;
         margin-top: 20px;
     }
 
