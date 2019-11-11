@@ -86,3 +86,7 @@ p{
     display: none;
 }
 
+.temp{
+    margin-bottom: 3%;
+    box-shadow: none !important;
+}
