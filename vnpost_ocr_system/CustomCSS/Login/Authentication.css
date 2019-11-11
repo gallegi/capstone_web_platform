@@ -48,6 +48,16 @@ input.invalid[type=email]:not(.browser-default) {
 .login-content{
     height:800px;
 }
+@media only screen and (min-width: 1024px) {
+    .login-content {
+        height: 850px;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .login-content {
+        height: 1100px;
+    }
+}
 .btn-forget{
     margin-left:15px;
 }
