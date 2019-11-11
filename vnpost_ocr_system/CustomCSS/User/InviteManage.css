@@ -41,3 +41,15 @@
         padding-left: 10.5px;
     }
 }
+
+@media only screen and (min-width: 0px) and (max-width: 395px) {
+    td, th {
+        font-size: x-small;
+    }
+    .big-title {
+        font-size: 17px;
+        color: black;
+        letter-spacing: -1px;
+        padding-left: 10.5px;
+    }
+}
