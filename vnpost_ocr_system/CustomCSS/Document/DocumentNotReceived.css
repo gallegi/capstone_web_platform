@@ -84,16 +84,32 @@ td {
     width: 10%;
 }
 
+.width-11 {
+    width: 11%;
+}
+
 .width-12 {
     width: 12%;
+}
+
+.width-13 {
+    width: 13%;
 }
 
 .width-15 {
     width: 15%;
 }
 
+.width-17 {
+    width: 17%;
+}
+
 .width-22 {
     width: 22%;
+}
+
+.width-25 {
+    width: 25%;
 }
 
 .width-60 {
@@ -200,4 +216,8 @@ td {
 
 .bt-color-common {
     background-color: #2196F3 !important;
+}
+
+.cal-img {
+    width: 30px;
 }

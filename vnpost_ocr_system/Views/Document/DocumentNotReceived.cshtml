@@ -32,28 +32,10 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Tên thủ tục</label>
+                                                <label for="f-name" class="text-black">Tỉnh/thành</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Cấp đổi CMT</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Tỉnh thành</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
                                             <div class="h-form-label">
                                                 <select tabindex="-1" class="card-border">
                                                     <option value="1" selected>Hà Nội</option>
@@ -64,40 +46,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div class="row">
                                 <div class="col s12 l6">
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Từ ngày</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <div class="datepicker-calendar-container">
-                                                    <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                           class="col s10 l10 datepicker-here " autocomplete="off"
-                                                           data-language='vi' value="01/01/2019" />
-                                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Cơ quan hành chính</label>
+                                                <label for="l-name" class="text-black">Tên thủ tục</label>
                                             </div>
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Công an tỉnh</option>
+                                                <select tabindex="-1" class="card-border" style="width:100%!important;">
+                                                    <option value="1" selected>Cấp đổi CMT</option>
                                                     <option value="2">Option 2</option>
                                                     <option value="3">Option 3</option>
                                                 </select>
@@ -113,16 +72,93 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Đến ngày</label>
+                                                <label for="l-name" class="text-black">Quận/huyện</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
                                             <div class="h-form-label">
-                                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                       class="col s10 l10 datepicker-here" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" />
-                                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Quận Hoàn Kiếm</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="f-name" class="text-black">Từ ngày</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <div class="col l11 s10 p-l-0">
+                                                    <input name="dateTLHD" id="datepicker" type="text" readonly
+                                                           class="datepicker-here" autocomplete="off"
+                                                           data-language='vi' value="01/01/2019" style="width: 100%!important;" />
+                                                </div>
+                                                <div class="col l1 s2 p-l-0">
+                                                    <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="l-name" class="text-black">Cơ quan hành chính</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s8">
+                                            <div class="h-form-label">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>Công an tỉnh</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label margintop">
+                                                <label for="f-name" class="text-black">Đến ngày</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <div class="col l11 s10 p-l-0">
+                                                    <input name="dateTLHD" id="datepicker" type="text" readonly
+                                                           class="datepicker-here" autocomplete="off"
+                                                           data-language='vi' value="01/01/2019" style="width: 100%!important;" />
+                                                </div>
+                                                <div class="col l1 s2 p-l-0">
+                                                    <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                        </div>
+                                        <div class="col s8">
                                         </div>
                                     </div>
                                 </div>
@@ -179,11 +215,11 @@
                             <thead>
                                 <tr>
                                     <th class="width-8">Mã hồ sơ</th>
-                                    <th class="width-12">Tên thủ tục</th>
-                                    <th class="width-12">Cơ quan HCC</th>
+                                    <th class="width-11">Tỉnh thành</th>
+                                    <th class="width-13">Cơ quan HCC</th>
+                                    <th class="width-13">Tên thủ tục</th>
                                     <th class="width-10">Ngày gửi</th>
-                                    <th class="width-15">Người gửi</th>
-                                    <th class="width-15">Người nhận</th>
+                                    <th class="width-13">Người nhận</th>
                                     <th class="width-22">Địa chỉ người nhận</th>
                                     <th class=""></th>
                                 </tr>
@@ -191,110 +227,100 @@
                             <tbody>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
+                                    <td>Cấp đổi CMT</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
                                 </tr>
                                 <tr>
                                     <td>123456798</td>
-                                    <td>Cấp đổi CMT</td>
+                                    <td>Hà Nội</td>
                                     <td>Công an tỉnh</td>
-                                    <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
-                                    <td>Nguyễn Văn B</td>
-                                    <td>116 Láng Hạ</td>
-                                    <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>123456798</td>
                                     <td>Cấp đổi CMT</td>
-                                    <td>Công an tỉnh</td>
                                     <td>15/10/2019</td>
-                                    <td>Nguyễn Thế Nam</td>
                                     <td>Nguyễn Văn B</td>
                                     <td>116 Láng Hạ</td>
                                     <td><a class="a-reset" href="ho-so-cho-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">border_color</i></a></td>

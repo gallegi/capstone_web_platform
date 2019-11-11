@@ -11,6 +11,7 @@
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputInforScreen21.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
@@ -22,39 +23,55 @@
 <link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
 
 
+
+<link href="~/CustomCSS/MaterialStepper/mstepper.css" rel="stylesheet" />
+
 <div class="container-fluid input-sender-main">
 
     <div class="row">
-        <!--wizard form-->
-        <div class="col s12 processShip m-b-25">
-            <div class="card">
-                <div class="card-content wizard-content">
-                    <form action="#" class="tab-wizard wizard-circle">
-                        <!-- Step 1 -->
-                        <h6>Thông tin thủ tục</h6>
-                        <section class="done"></section>
-                        <!-- Step 2 -->
-                        <h6>Thông tin người yêu cầu giải quyết TTHC</h6>
-                        <section class="done"></section>
-                        <!-- Step 3 -->
-                        <h6>Thông tin người gửi</h6>
-                        <section class="current"></section>
-                        <!-- Step 4 -->
-                        <h6>Thông tin người nhận</h6>
-                        <section></section>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
 
 
         <!--end wizard form-->
         <form autocomplete="off" spellcheck="false" action="/giay-hen/nhap-giay-hen/thong-tin-nguoi-gui">
 
-            <h2 class="big-title m-t-0 col s12">2. Thông tin người yêu cầu giải quyết thủ tục hành chính</h2>
             <div class="col s12">
+                <h5>2. Thông tin yêu cầu giải quyết TTHC</h5>
                 <div class="card">
-                    
+                    <div class="md-stepper-horizontal m-t-20 delshadow customStep">
+                        <div class="md-step active done">
+                            <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
+                                <div class="md-step-circle"><span>1</span></div>
+                                <div class="md-step-title">Thông tin thủ tục</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </a>
+                        </div>
+                        <div class="md-step active">
+                            <a href="~/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
+                                <div class="md-step-circle"><span>2</span></div>
+                                <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </a>
+                        </div>
+                        <div class="md-step">
+                            <a>
+                                <div class="md-step-circle"><span>3</span></div>
+                                <div class="md-step-title">Thông tin người gửi</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </a>
+                        </div>
+                        <div class="md-step">
+                            <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                                <div class="md-step-circle"><span>4</span></div>
+                                <div class="md-step-title">Thông tin người nhận</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </a>
+                        </div>
+                    </div>
                         <div class="card p-25">
                             <div class="row">
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>

@@ -76,13 +76,45 @@ p{
     .test {
         width: 200px;
     }
+    .customStep{
+        display: none !important;
+    }
+    h5{
+        display: block !important;
+    }
+    
+    
+
 }
    @media only screen and (max-width: 1024px) and (min-width: 768px){
   .test {
         width: 310px;
     }
 }
+   h5{
+       display: none;
+   }
 .customDis{
     display: none;
 }
 
+.temp{
+    margin-bottom: 3%;
+    box-shadow: none !important;
+}
+.mgbt{
+    padding-bottom: 50px;
+}
+.nodisplay{
+    display: none;
+}
+
+.vertical-step{
+    display: none;
+}
+input.select-dropdown{
+    font-size: 15px !important;
+}
+.btn{
+    display: block !important;
+}
