@@ -115,3 +115,6 @@ p{
 input.select-dropdown{
     font-size: 15px !important;
 }
+.btn{
+    display: block !important;
+}
