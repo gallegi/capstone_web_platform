@@ -1,16 +1,17 @@
 ﻿.big-heading {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .content-text {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 7px;
 }
 
 .info-list-div {
     border: dashed #b3b3b3;
     border-radius: 12px;
-    padding:20px;
+    padding: 20px;
+    padding-bottom: 0px;
 }
 
 textarea {
@@ -69,12 +70,26 @@ textarea {
 }
 
 @media only screen and (min-width: 0) and (max-width: 1023px) {
-    .wizard-content {
+    .none-responsive {
         display: none;
     }
 }
 
- /*mstepper.css*/
+@media only screen and (min-width: 1024px) and (max-width: 2000px) {
+    .bt-short {
+        margin-left: 20px !important;
+    }
+}
+
+
+@media only screen and (min-width: 1024px) and (max-width: 2000px) {
+    .bt-long {
+        width: 20% !important;
+    }
+}
+
+
+/*mstepper.css*/
 
 ﻿html {
     -webkit-font-smoothing: antialiased !important;
