@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "CreateAddressInfo";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+<link href="~/CustomCSS/User/AddressInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+
+<div class="main-wrapper p-t-20 black-text">
+    <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
+    <div class="card content-text">
+            <div class="account-info">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Họ và tên:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="con1" type="text" value="Nguyễn Vân Anh">
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Số điện thoại:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="con1" type="text" value="0915123123">
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Tỉnh/Thành phố:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border">
+                                <option value="1" selected>Hà Nội</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Quận/Huyện:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border">
+                                <option value="1" selected>Cầu Giấy</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Phường/Xã:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border">
+                                <option value="1" selected>Mai Dịch</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Địa chỉ:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                     
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Loại giấy tờ tùy thân:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border">
+                                <option value="1" selected>CMT</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Mã số giấy tờ tùy thân:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="con1" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Ngày cấp:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div>
+                                <div class="row">
+                                    <input name="date" id="datepicker" type="datetime"
+                                           class="datepicker-here col offset-s1 s9 offset-l1 l10" autocomplete="off"
+                                           data-language='vi' value="" />
+                                    <i class="fas fa-calendar-alt col s2 l1" style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Nơi cấp:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="con1" type="text" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 l5 m5">
+                    </div>
+                    <div class="col s12 l5 m5 right-align">
+                        <a class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
+                                style="margin-right: -11px;" href="/tai-khoan/so-dia-chi">
+                            Cập nhật
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+
+
