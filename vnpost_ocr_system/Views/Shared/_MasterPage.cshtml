@@ -113,7 +113,7 @@
                         <li><a href="/Home/index"><i class="material-icons dp48">home</i><div class="set_top">Home</div></a></li>
                         <li><a href="/giay-hen/nhap-giay-hen"><i class="material-icons dp48">add_circle</i><div class="set_top">Nhập giấy hẹn mới</div></a></li>
                         <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i><div class="set_top">Tra cứu giấy hẹn</div></a></li>
-                        <li><a href="javascript:void(0)"><i class="material-icons dp48">exit_to_app</i><div class="set_top">Đăng nhập</div></a></li>
+                        <li><a href="/dang-nhap"><i class="material-icons dp48">exit_to_app</i><div class="set_top">Đăng nhập</div></a></li>
                     </ul>
                 </div>
             </nav>
@@ -472,7 +472,7 @@
 
     $(document).ready(function () {
     var windowWidth = $(window).width(); 
-    if (windowWidth < 768) {
+    if (windowWidth <= 768) {
         $(".set_top").remove();
     }
     })
