@@ -5463,6 +5463,7 @@
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
+    <Content Include="CustomCSS\User\InviteManage.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\custom.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.css" />
     <Content Include="CustomJS\datepicker_src\dist\css\datepicker.min.css" />
@@ -6267,6 +6268,7 @@
     <Folder Include="Views\AddAPI\" />
     <Folder Include="Views\AddressInfo\" />
     <Folder Include="Views\AccountInfo\" />
+    <Folder Include="Views\AddressInfo\" />
     <Folder Include="Views\ConfirmInfor\" />
     <Folder Include="Views\CreateAddressInfo\" />
     <Folder Include="Views\DisplayCode\" />

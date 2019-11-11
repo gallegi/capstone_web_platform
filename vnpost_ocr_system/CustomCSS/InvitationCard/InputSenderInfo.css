@@ -12,7 +12,7 @@
 }
 
 .content-text {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 7px;
 }
 
@@ -45,19 +45,44 @@ textarea {
 
 @media only screen and (min-width: 0) and (max-width: 1023px) {
     .none-responsive {
-        display:none;
+        display: none;
     }
 }
 
+
 .bt-long {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
-@media only screen and (min-width: 0) and (max-width: 410px) {
+.bt-short {
+    margin-left: -15px !important;
+}
+
+@media only screen and (min-width: 410px) and (max-width: 1527px) {
+    .bt-short {
+        margin-left: unset!important;
+    }
+}
+
+@media only screen and (min-width: 343px) and (max-width: 410px) {
     .bt-long {
         font-size: 14px;
         padding-left: 10px;
         padding-right: 10px;
+    }
+    .bt-short {
+        margin-left: unset!important;
+    }
+}
+
+@media only screen and (min-width: 0) and (max-width: 342px) {
+    .bt-long {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .bt-short {
+        margin-left: unset!important;
     }
 }
