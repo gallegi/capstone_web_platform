@@ -1,33 +1,30 @@
 ﻿
 
-$(document).ready(function () {
-    var counter = 0;
-
-    $("#addrow").on("click", function () {
-        var newRow = $("<tr>");
-        var cols = "";
-
-        cols += '<td></td>';
-        cols += '<td></td>';
-        cols += '<td></td>';
-        cols += '<td></td>';
-        newRow.append(cols);
-        $("table.order-list").append(newRow);
-    });
-
+$("#mainTable").on("mousedown", ".bt-add", function () {
+    // var nextStt = curStt + 1;
+    var newRow = $("<tr>");
+    var cols = "";
+    cols += '<td class="stt"></td>';
+    cols += '<td></td>';
+    cols += '<td></td>';
+    cols += '<td></td>';
+    newRow.append(cols);
+    newRow.insertAfter($(this).closest('tr'));
 });
 
+$("#mainTable").on("mouseup", ".bt-add", function () {
+    resetStt();
+});
 
+function resetStt() {
+    var table = document.getElementById('mainTable');
 
-function calculateRow(row) {
-    var price = +row.find('input[name^="price"]').val();
+    var rowLength = table.rows.length;
 
-}
-
-function calculateGrandTotal() {
-    var grandTotal = 0;
-    $("table.order-list").find('input[name^="price"]').each(function () {
-        grandTotal += +$(this).val();
-    });
-    $("#grandtotal").text(grandTotal.toFixed(2));
+    for (var i = 1; i < rowLength; i++) {
+        var row = table.rows[i];
+        //your code goes here, looping over every row.
+        //cells are accessed as easy
+        row.cells[0].innerHTML = i + '';
+    }
 }
