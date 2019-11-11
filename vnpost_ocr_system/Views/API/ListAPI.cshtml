@@ -1,0 +1,330 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+
+<link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
+
+<div class="page-titles">
+    <div class="d-flex align-items-center">
+        <h4 class="font-medium m-b-0 pdleft">Danh sách API</h4>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <table class="centered">
+                        <thead class="clgray">
+                            <tr>
+                                <th>STT</th>
+                                <th>APIID</th>
+                                <th>Tên API</th>
+                                <th>Đường dẫn API</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>U01</td>
+                                <td>API lấy thông tin mã hồ sơ</td>
+                                <td>https://vnpost/lay-thong-tin-ma-ho-so</td>
+                                <td><a href="" class="black-text"> <i class='far fa-edit' style='font-size:24px'></i> </a></td>
+                                <td><a href="" class="black-text"> <i class="fa fa-times" style="font-size:30px"></i> </a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>U01</td>
+                                <td>API lấy trạng thái giấy hẹn</td>
+                                <td>https://vnpost/lay-trang-thai-giay-hen</td>
+                                <td><a href="" class="black-text"> <i class='far fa-edit' style='font-size:24px'></i> </a></td>
+                                <td><a href="" class="black-text"> <i class="fa fa-times" style="font-size:30px"></i> </a><i class="fa fa-remove" style="font-size:24px"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div></div>
+                    <div class="card-content">
+                        <div class="form-action right-align">
+                            <a href="/api/them-api" class="waves-effect waves-light btn blue ju">Thêm API</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-titles">
+    <div class="d-flex align-items-center">
+        <h4 class="font-medium m-b-0 pdleft">Thông tin API</h4>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <form class="h-form b-form">
+                    <div class="form-body">
+                        <div class="card-content">
+                            <h4 class="font-medium">Request</h4>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">HTTP Request</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">GET</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">URI</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">https://vnpost/lay-thong-tin-ma-ho-so</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Description</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">API lấy thông tin về mã hồ sơ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Request Header</h4>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Authorization</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Basic Authentication</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Content-type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">https://vnpost/lay-thong-tin-ma-ho-so</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">username</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">test</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">123456</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Description</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">API lấy thông tin về mã hồ sơ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Parameter</h4>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">MaBuuGui</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Mã bưu gửi muốn lấy thông tin</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Request Data</h4>
+                            <div class="row">
+                                <div class="col l9">
+                                    <div class="row">
+                                        <table class="centered table-bordered">
+                                            <thead class="clgray">
+                                                <tr>
+                                                    <th rowspan="2">STT</th>
+                                                    <th colspan="2">Request</th>
+                                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width: 60%">Logic</th>
+                                                    <th style="width: 40%">Physics</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Mã số của bưu gửi, còn gọi là mã vận đơn</td>
+                                                    <td>MaBuuGui</td>
+                                                    <td>varchar(13)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Mã Khách Hàng của đơn hàng này</td>
+                                                    <td>MaKH</td>
+                                                    <td>varchar(50)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Mỗi bưu cục đầu mối sẽ chịu trách nhiệm 1 cơ quan HCC. API sẽ trả về bưu cục đầu mối tương ứng với cơ quan HCC trong mã</td>
+                                                    <td>MaBuuCucDauMoiHCC</td>
+                                                    <td>int</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>Họ và tên người nhận theo đăng ký ban đầu</td>
+                                                    <td>HoTenNguoiNhan</td>
+                                                    <td>nvarchar(100)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>Địa chỉ người nhận</td>
+                                                    <td>DiaChiNguoiNhan</td>
+                                                    <td>nvarchar(500)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>Số điện thoại người nhận</td>
+                                                    <td>DienThoaiNguoiNhan</td>
+                                                    <td>varchar(15)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Response Data</h4>
+                            <div class="row">
+                                <div class="col l8">
+                                    <div class="row">
+                                        <div class="response-data">
+                                            <div class="response-data-left">
+                                                <p>Sample Data</p>
+                                            </div>
+                                            <div class="response-data-right">
+                                                <p>
+                                                    {
+                                                    <br /><br />
+                                                    "MaBuuGui": "EN980000239VN",
+                                                    <br /><br />
+                                                    "MaKH": "42001O84000029000",
+                                                    <br /><br />
+                                                    "MaBuuCucDauMoiHCC": "421650",
+                                                    <br /><br />
+                                                    "HoTenNguoiNhan": "Trần Thị B",
+                                                    <br /><br />
+                                                    "DiaChiNguoiNhan": "Hà Nội",
+                                                    <br /><br />
+                                                    "DienThoaiNguoiNhan": "0972111757",
+                                                    <br /><br />
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

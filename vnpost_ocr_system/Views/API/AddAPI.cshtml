@@ -1,0 +1,256 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+<link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
+
+<div class="page-titles">
+    <div class="d-flex align-items-center">
+        <h4 class="font-medium m-b-0 pdleft">Thêm mới API</h4>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <form class="h-form b-form">
+                    <div class="form-body">
+                        <div class="card-content">
+                            <h4 class="font-medium">Request</h4>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label m-t-15">
+                                                <label for="f-name">HTTP Request</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <select tabindex="-1" class="card-border">
+                                                    <option value="1" selected>GET</option>
+                                                    <option value="2">POST</option>
+                                                    <option value="3">PUT</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label m-t-15">
+                                                <label for="f-name">URI</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <input id="URI-field" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label m-t-15">
+                                                <label for="f-name">Description</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <input id="description-field" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Request Header</h4>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Authorization</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Basic Authentication</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Content-type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label for="f-name">application/json</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label m-t-15">
+                                                <label for="f-name">Username</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <input id="username-field" type="text" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <div class="h-form-label m-t-15">
+                                                <label for="f-name">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <input id="password-field" type="text" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Parameter</h4>
+                            <div class="row">
+                                <div class="col l11">
+                                    <div class="row">
+                                        <table class="centered table-bordered">
+                                            <thead class="clgray">
+                                                <tr>
+                                                    <th rowspan="2">STT</th>
+                                                    <th colspan="2">Request</th>
+                                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width: 45%">Logic</th>
+                                                    <th style="width: 30%">Physics</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><i class="fas fa-plus"></i> Thêm Param mới</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Request Data</h4>
+                            <div class="row">
+                                <div class="col l11">
+                                    <div class="row">
+                                        <table class="centered table-bordered">
+                                            <thead class="clgray">
+                                                <tr>
+                                                    <th rowspan="2">STT</th>
+                                                    <th colspan="2">Request</th>
+                                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width: 45%">Logic</th>
+                                                    <th style="width: 30%">Physics</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><i class="fas fa-plus"></i> Thêm request data mới</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h4 class="font-medium">Response Data</h4>
+                            <div class="row">
+                                <div class="col l11">
+                                    <div class="row">
+                                        <div class="response-data">
+                                            <div class="response-data-left">
+                                                <p>Sample Data</p>
+                                            </div>
+                                            <div class="response-data-right">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col l11">
+                                    <div class="row">
+                                        <div class="form-action right-align">
+                                            <a href="" class="waves-effect waves-light btn blue ju">Tự động căn chỉnh JSON format</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col l11">
+                                    <div class="row">
+                                        <div class="form-action right-align">
+                                            <a href="" class="waves-effect waves-light btn blue ju">Xác nhận</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>

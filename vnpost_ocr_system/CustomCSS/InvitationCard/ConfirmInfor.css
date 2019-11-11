@@ -1,12 +1,4 @@
-﻿.warning-info {
-    font-style: italic;
-    color: red;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-bottom: 0;
-}
-
-.h-form-label > label {
+﻿.h-form-label > label {
     font-size: 1rem;
 }
 
@@ -79,4 +71,13 @@ td {
 
 .row {
     margin-top: 0.8%;
+}
+
+@media only screen and (max-width: 1023px) {
+    .clgray {
+        background-color: #f1f1f1;
+    }
+    img {
+        width: 100%;
+    }
 }
