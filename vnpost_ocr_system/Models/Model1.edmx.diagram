@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b76f13165bf4070ab6fa7de9039a6c0" Name="Diagram1">
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Admin" Width="1.5" PointX="3.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.AdminRole" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.API" Width="1.5" PointX="11.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.APIInputParam" Width="1.5" PointX="14" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.APIOutputParam" Width="1.5" PointX="14" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.ContactInfo" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Customer" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.District" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.EmailVerification" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Order" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.OrderStatusDetail" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Payment" Width="1.5" PointX="11.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PaymentMethod" Width="1.5" PointX="9" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PaymentStatu" Width="1.5" PointX="9" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PersonalPaperType" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PhoneVerification" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PostOffice" Width="1.5" PointX="1.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Profile" Width="1.5" PointX="3.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Province" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PublicAdministration" Width="1.5" PointX="1.5" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.ResetPasswordToken" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.Status" Width="1.5" PointX="3.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__CreatedBy__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__ModifiedB__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__PostalPro__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__Role__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__ModifiedB__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__Processed__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__APIInputP__APIID__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__APIOutput__APIID__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__ContactIn__Custo__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__ContactIn__Perso__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__ContactIn__Posta__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__CustomerI__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__ResetPass__Custo__0AD2A005" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__District__Postal__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__Procedure__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__ReceiverP__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__SenderPos__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__Procedure__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__ProfileID__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__StatusID__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__OrderStat__Order__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__OrderID__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__OrderStat__PosCo__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__OrderStat__Statu__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__Payment__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__Payment__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__PublicAdm__PosCo__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK__Profile__PublicA__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
