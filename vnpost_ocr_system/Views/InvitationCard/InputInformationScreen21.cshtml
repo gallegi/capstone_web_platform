@@ -90,7 +90,7 @@
                                     <div class="col l2"></div>
                                     <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tỉnh/Thành phố:</p>
                                     <div class="col l6 m6 s12">
-                                        <select onchange="getDistrict()" id="item1">
+                                        <select id="item1">
                                             <option value="Tỉnh/Thành phố" disabled selected>Tỉnh/Thành phố</option>
                                             @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                             {
@@ -251,13 +251,19 @@
     })
 
     $(document).ready(function () {
-    })
-
-    function getDistrict() {
-        $.ajax({
-            type: "POST",
-            url: "/phong-cdvt/su-co/export",
-            cache: false
+        $('#item1').change(function () {
+            $.ajax({
+                type: "POST",
+                url: "/GetDistrict",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (data) {
+                    console.log(data)
+                }
+            })
         })
-    }
+    })
 </script>
