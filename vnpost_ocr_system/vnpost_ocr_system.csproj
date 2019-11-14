@@ -170,6 +170,7 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
+    <Compile Include="Controllers\MobileViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
@@ -267,6 +268,7 @@
     <Content Include="assets\Custom css\floating-action-btn.css" />
     <Content Include="assets\Custom css\font-family.css" />
     <Content Include="assets\Custom css\form-input-border.css" />
+    <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
     <Content Include="assets\extra-libs\block-ui\block-ui.js" />
@@ -669,6 +671,7 @@
     <Content Include="assets\images\alert\alert5.png" />
     <Content Include="assets\images\alert\alert6.png" />
     <Content Include="assets\images\alert\alert7.png" />
+    <Content Include="assets\images\background.png" />
     <Content Include="assets\images\big\auth-bg.jpg" />
     <Content Include="assets\images\big\auth-bg2.jpg" />
     <Content Include="assets\images\big\error-bg.jpg" />
@@ -692,6 +695,9 @@
     <Content Include="assets\images\carousel\ca2.jpg" />
     <Content Include="assets\images\carousel\img6.jpg" />
     <Content Include="assets\images\collections\yuna.jpg" />
+    <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\login-logo.jfif" />
     <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
@@ -5501,6 +5507,10 @@
     <Content Include="assets\libs\typeahead.js\dist\typehead-min.css" />
     <Content Include="assets\libs\wnumb\test.html" />
     <Content Include="assets\libs\wnumb\wNumb.js" />
+    <Content Include="assets\materialize\css\materialize.css" />
+    <Content Include="assets\materialize\css\materialize.min.css" />
+    <Content Include="assets\materialize\js\materialize.js" />
+    <Content Include="assets\materialize\js\materialize.min.js" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -6323,6 +6333,8 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\materialize\LICENSE" />
+    <Content Include="assets\materialize\README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6382,6 +6394,8 @@
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
+    <Content Include="Views\MobileView\Login.cshtml" />
+    <Content Include="Views\MobileView\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
