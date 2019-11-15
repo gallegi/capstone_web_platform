@@ -702,7 +702,6 @@
     <Content Include="assets\images\collections\yuna.jpg" />
     <Content Include="assets\images\fb-icon.png" />
     <Content Include="assets\images\g-icon.png" />
-    <Content Include="assets\images\login-logo.jfif" />
     <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
@@ -741,6 +740,7 @@
     <Content Include="assets\images\users\d3.jpg" />
     <Content Include="assets\images\users\d4.jpg" />
     <Content Include="assets\images\users\d5.jpg" />
+    <Content Include="assets\images\login-logo.png" />
     <Content Include="assets\images\users\profile.png" />
     <Content Include="assets\images\yuna.jpg" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\index.html" />
@@ -6402,7 +6402,6 @@
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
-    <Content Include="Views\MobileView\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

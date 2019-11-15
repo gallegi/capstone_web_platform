@@ -9411,7 +9411,7 @@ nav i.material-icons {
     height: 64px;
     line-height: 64px; }
     .topbar nav .nav-wrapper .brand-logo {
-      left: auto;
+      /*left: auto;*/
       transform: none;
       width: 250px;
       display: flex;
