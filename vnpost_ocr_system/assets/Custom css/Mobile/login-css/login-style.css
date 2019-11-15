@@ -67,6 +67,7 @@ button.login-btn.col.s12.btn.waves-effect.waves-light.btn.btn-large.m-md {
 
 body {
     background-image: url('/assets/images/background.png');
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -112,7 +113,7 @@ body {
     padding-right: 10px;
 }
 
-#helpModal {
+.modal {
     border-radius: 20px !important;
 }
 
@@ -134,7 +135,6 @@ ul:not(.browser-default) {
     color: #848484;
     -webkit-transition: color .2s;
     transition: color .2s;
-
     top: 30px;
 }
 
@@ -147,3 +147,9 @@ ul:not(.browser-default) {
         font-size: 35px !important;
         color: #4a4a4a;
     }
+
+input#number-email-reset {
+    margin-top:20px !important;
+    font-size: 35px !important;
+    line-height:20px;
+}
