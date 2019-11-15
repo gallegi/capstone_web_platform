@@ -14,6 +14,11 @@ namespace vnpost_ocr_system.Controllers.Login
         [Route("khach-hang/dang-nhap")]
         public ActionResult Index()
         {
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Login.cshtml");
+            }else{
+            }
             ViewBag.invalidcode = "";
             return View("/Views/Login/Login_Cutomer.cshtml");
         }

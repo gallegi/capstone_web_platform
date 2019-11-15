@@ -131,7 +131,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="XCrypt">
+    <Reference Include="XCrypt, Version=2.0.4922.41601, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\XCrypt.2.0.0\lib\XCrypt.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -160,6 +160,7 @@
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
+    <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
+    <Compile Include="Controllers\MobileViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
@@ -270,6 +272,7 @@
     <Content Include="assets\Custom css\floating-action-btn.css" />
     <Content Include="assets\Custom css\font-family.css" />
     <Content Include="assets\Custom css\form-input-border.css" />
+    <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
     <Content Include="assets\extra-libs\block-ui\block-ui.js" />
@@ -672,6 +675,7 @@
     <Content Include="assets\images\alert\alert5.png" />
     <Content Include="assets\images\alert\alert6.png" />
     <Content Include="assets\images\alert\alert7.png" />
+    <Content Include="assets\images\background.png" />
     <Content Include="assets\images\big\auth-bg.jpg" />
     <Content Include="assets\images\big\auth-bg2.jpg" />
     <Content Include="assets\images\big\error-bg.jpg" />
@@ -695,6 +699,8 @@
     <Content Include="assets\images\carousel\ca2.jpg" />
     <Content Include="assets\images\carousel\img6.jpg" />
     <Content Include="assets\images\collections\yuna.jpg" />
+    <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\g-icon.png" />
     <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
@@ -733,6 +739,7 @@
     <Content Include="assets\images\users\d3.jpg" />
     <Content Include="assets\images\users\d4.jpg" />
     <Content Include="assets\images\users\d5.jpg" />
+    <Content Include="assets\images\login-logo.png" />
     <Content Include="assets\images\users\profile.png" />
     <Content Include="assets\images\yuna.jpg" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\index.html" />
@@ -5504,6 +5511,10 @@
     <Content Include="assets\libs\typeahead.js\dist\typehead-min.css" />
     <Content Include="assets\libs\wnumb\test.html" />
     <Content Include="assets\libs\wnumb\wNumb.js" />
+    <Content Include="assets\materialize\css\materialize.css" />
+    <Content Include="assets\materialize\css\materialize.min.css" />
+    <Content Include="assets\materialize\js\materialize.js" />
+    <Content Include="assets\materialize\js\materialize.min.js" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -5644,6 +5655,8 @@
     <Content Include="CustomJS\Management_User\ManagementUser.js" />
     <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
+    <Content Include="CustomJS\mstepper\mstepper.min.css" />
+    <Content Include="CustomJS\mstepper\mstepper.min.js" />
     <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -6326,6 +6339,8 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\materialize\LICENSE" />
+    <Content Include="assets\materialize\README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6385,6 +6400,7 @@
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
+    <Content Include="Views\MobileView\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6400,6 +6416,7 @@
     <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\EditAPI\" />
+    <Folder Include="Views\GetProvinces\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />

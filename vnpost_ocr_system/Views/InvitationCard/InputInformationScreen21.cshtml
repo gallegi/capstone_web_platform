@@ -33,210 +33,173 @@
 
 
 <link href="~/CustomCSS/MaterialStepper/mstepper.css" rel="stylesheet" />
-
-
-
+<link href="~/CustomJS/mstepper/mstepper.min.css" rel="stylesheet" />
+<script src="~/CustomJS/mstepper/mstepper.min.js"></script>
 
 <div class="container-fluid">
-    
+    <div class="page-titles">
+        <div class="d-flex align-items-center">
 
-
-        <div class="page-titles">
-            <div class="d-flex align-items-center">
-
-            </div>
         </div>
+    </div>
     <form action="/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
         <div class="row">
-           <h5>1. Thông tin thủ tục</h5>
-                
-                <div class="card">
+            <h5>1. Thông tin thủ tục</h5>
+            <div class="card">
+                <div class="h-form b-form">
+                    <div class="form-body">
+                        <div class="row">
 
+                            <div class="card-content">
 
-                    <div class="h-form b-form">
-                        <div class="form-body">
-                            <div class="row">
-                                
-                                <div class="card-content">
-
-                                    <div class="md-stepper-horizontal temp customStep">
-                                        <div class="md-step active">
-                                            <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
-                                                <div class="md-step-circle"><span>1</span></div>
-                                                <div class="md-step-title">Thông tin thủ tục</div>
-                                                <div class="md-step-bar-left"></div>
-                                                <div class="md-step-bar-right"></div>
-                                            </a>
-                                        </div>
-                                        <div class="md-step">
-                                            <a>
-                                                <div class="md-step-circle"><span>2</span></div>
-                                                <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
-                                                <div class="md-step-bar-left"></div>
-                                                <div class="md-step-bar-right"></div>
-                                            </a>
-                                        </div>
-                                        <div class="md-step">
-                                            <a>
-                                                <div class="md-step-circle"><span>3</span></div>
-                                                <div class="md-step-title">Thông tin người gửi</div>
-                                                <div class="md-step-bar-left"></div>
-                                                <div class="md-step-bar-right"></div>
-                                            </a>
-                                        </div>
-                                        <div class="md-step">
-                                            <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
-                                                <div class="md-step-circle"><span>4</span></div>
-                                                <div class="md-step-title">Thông tin người nhận</div>
-                                                <div class="md-step-bar-left"></div>
-                                                <div class="md-step-bar-right"></div>
-                                            </a>
-                                        </div>
+                                <div class="md-stepper-horizontal temp customStep">
+                                    <div class="md-step active">
+                                        <a href="~/giay-hen/nhap-giay-hen/thong-tin-thu-tuc">
+                                            <div class="md-step-circle"><span>1</span></div>
+                                            <div class="md-step-title">Thông tin thủ tục</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
                                     </div>
-                                    <div class="select-wrapper row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tỉnh/Thành phố:</p>
-                                        <div class="col l6 m6 s12">
-                                            <select onchange="checkFilter()" id="item1">
-                                                <option value="Tỉnh/Thành phố" disabled selected>Tỉnh/Thành phố</option>
-                                                <option value="Hà Nội">Hà Nội</option>
-                                                <option value="Option 2">Option 2</option>
-                                                <option value="Option 3">Option 3</option>
-                                            </select>
-                                        </div>
+                                    <div class="md-step">
+                                        <a>
+                                            <div class="md-step-circle"><span>2</span></div>
+                                            <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
                                     </div>
-
-                                    <div class="select-wrapper row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Quận/Huyện:</p>
-                                        <div class="col l6 m6 s12">
-                                            <select onchange="checkFilter()" id="item2" tabindex="-1">
-                                                <option value="Quận/Huyện" selected disabled>Quận/Huyện</option>
-                                                <option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option>
-                                                <option value="Option 2">Option 2</option>
-                                                <option value="Option 3">Option 3</option>
-                                            </select>
-                                        </div>
+                                    <div class="md-step">
+                                        <a>
+                                            <div class="md-step-circle"><span>3</span></div>
+                                            <div class="md-step-title">Thông tin người gửi</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
                                     </div>
-                                    <div class="select-wrapper row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên CQHC:</p>
-                                        <div class="col l6 m6 s12">
-                                            <select onchange="checkFilter()" id="item3" tabindex="-1">
-                                                <option value="Tên CQHC" selected disabled>Tên CQHC</option>
-                                                <option value="Công an quận Hoàn Kiếm">Công an quận Hoàn Kiếm</option>
-                                                <option value="Option 2">Option 2</option>
-                                                <option value="Option 3">Option 3</option>
-                                            </select>
-                                        </div>
+                                    <div class="md-step">
+                                        <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
+                                            <div class="md-step-circle"><span>4</span></div>
+                                            <div class="md-step-title">Thông tin người nhận</div>
+                                            <div class="md-step-bar-left"></div>
+                                            <div class="md-step-bar-right"></div>
+                                        </a>
                                     </div>
-                                    <div class="select-wrapper row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên thủ tục:</p>
-                                        <div class="col l6 m6 s12">
-                                            <select onchange="checkFilter()" id="item4" tabindex="-1">
-                                                <option value="Tên thủ tục" selected disabled>Tên thủ tục</option>
-                                                <option value="Cấp đổi CMT">Cấp đổi CMT</option>
-                                                <option value="Option 2">Option 2</option>
-                                                <option value="Option 3">Option 3</option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="select-wrapper row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tỉnh/Thành phố:</p>
+                                    <div class="col l6 m6 s12">
+                                        <select id="item1">
+                                            <option value="Tỉnh/Thành phố" disabled selected>Tỉnh/Thành phố</option>
+                                            @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                                            {
+                                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            }
+                                        </select>
                                     </div>
-                                    <div class="input-field row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Mã giấy hẹn:</p>
-                                        <div class="col l6 m6 s12">
-                                            <input class="no-border" id="con1" type="text" value="">
-                                        </div>
+                                </div>
+
+                                <div class="select-wrapper row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Quận/Huyện:</p>
+                                    <div class="col l6 m6 s12">
+                                        <select id="item2" tabindex="-1">
+                                            <option value="Quận/Huyện" selected disabled>Quận/Huyện</option>
+                                        </select>
                                     </div>
-
-                                    <div class="input-field row">
-                                        <div class="col l2"></div>
-                                        <p class="col l2 m4 p-t-10 s12 normal-size left bold">Ảnh chụp giấy hẹn:</p>
-                                        <div class="col l6 m6 s12 m-t-15">
-
-                                            <div class="img-picker"></div>
-                                            @*<img class="img-picker" src="~/Content/Img/upload.png" />*@
-
-                                        </div>
+                                </div>
+                                <div class="select-wrapper row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên CQHC:</p>
+                                    <div class="col l6 m6 s12">
+                                        <select id="item3" tabindex="-1">
+                                            <option value="Tên CQHC" selected disabled>Tên CQHC</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="select-wrapper row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên thủ tục:</p>
+                                    <div class="col l6 m6 s12">
+                                        <select id="item4" tabindex="-1">
+                                            <option value="Tên thủ tục" selected disabled>Tên thủ tục</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-field row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Mã giấy hẹn:</p>
+                                    <div class="col l6 m6 s12">
+                                        <input class="no-border" id="con1" type="text" value="">
+                                    </div>
+                                </div>
 
-                                    <div class="card">
-                                        <div class="h-form b-form">
-                                            <div class="form-body">
+                                <div class="input-field row">
+                                    <div class="col l2"></div>
+                                    <p class="col l2 m4 p-t-10 s12 normal-size left bold">Ảnh chụp giấy hẹn:</p>
+                                    <div class="col l6 m6 s12 m-t-15">
 
-
-                                                <div id="contact" class="card-content customDis">
-                                                    <h4 class="mgbt">(*)Thông tin liên hệ hỗ trợ</h4>
-                                                    <div class="row">
-                                                        <div class="col l2"></div>
-                                                        <p class="col l2 s12 normal-size left">Địa chỉ CQHCC:</p>
-                                                        <p class="col l6">Quận Ba Đình, Hà Nội</p>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col l2"></div>
-                                                        <p class="col l2 s12 normal-size left">Số điện thoại CQHCC:</p>
-                                                        <p class="col l4">912213855</p>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col l2"></div>
-                                                        <p class="col l2 s12 normal-size left">Tên bưu cục đầu mối:</p>
-                                                        <p class="col l4">KHL Hùng Vương</p>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col l2"></div>
-                                                        <p class="col l2 s12 normal-size left">Địa chỉ bưu cục đầu mối:</p>
-                                                        <p class="col l4">Số 175, Phố Nguyễn Thái Học, Phường Điện Biên</p>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col l2"></div>
-                                                        <p class="col l2 s12 normal-size left">Số điện thoại bưu cục đầu mối:</p>
-                                                        <p class="col l4">439435895</p>
-
-                                                    </div>
-
-
-
-
-
-
-
-
-                                                </div>
-
-
-
-
-                                                <div></div>
-
-                                            </div>
-                                            <div></div>
-
-                                        </div>
+                                        <div class="img-picker"></div>
+                                        @*<img class="img-picker" src="~/Content/Img/upload.png" />*@
 
                                     </div>
                                 </div>
 
+                                <div class="card">
+                                    <div class="h-form b-form">
+                                        <div class="form-body">
+
+
+                                            <div id="contact" class="card-content customDis">
+                                                <h4 class="mgbt">(*)Thông tin liên hệ hỗ trợ</h4>
+                                                <div class="row">
+                                                    <div class="col l2"></div>
+                                                    <p class="col l2 s12 normal-size left">Địa chỉ CQHCC:</p>
+                                                    <p class="col l6">Quận Ba Đình, Hà Nội</p>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col l2"></div>
+                                                    <p class="col l2 s12 normal-size left">Số điện thoại CQHCC:</p>
+                                                    <p class="col l4">912213855</p>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col l2"></div>
+                                                    <p class="col l2 s12 normal-size left">Tên bưu cục đầu mối:</p>
+                                                    <p class="col l4">KHL Hùng Vương</p>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col l2"></div>
+                                                    <p class="col l2 s12 normal-size left">Địa chỉ bưu cục đầu mối:</p>
+                                                    <p class="col l4">Số 175, Phố Nguyễn Thái Học, Phường Điện Biên</p>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col l2"></div>
+                                                    <p class="col l2 s12 normal-size left">Số điện thoại bưu cục đầu mối:</p>
+                                                    <p class="col l4">439435895</p>
+
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
                             </div>
-
-
-                            <div></div>
-
                         </div>
                         <div></div>
-
                     </div>
-
+                    <div></div>
                 </div>
-            
+            </div>
         </div>
         <div class="row mt">
             <div class="col s12">
-                
+
             </div>
         </div>
         <div class="row m-t-30 m-b-30">
@@ -278,5 +241,89 @@
         $(".actions").remove();
     })
 
-</script>
+    $(document).ready(function () {
+        $('#item1').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetDistrict",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    $('#item2').empty();
+                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                    $('#item2').append(option);
+                    $('#item2').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
 
+    $(document).ready(function () {
+        $('#item2').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetAdmins",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#item3').empty();
+                    var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                    }
+                    $('#item3').append(option);
+                    $('#item3').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $('#item3').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetProfile",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#item4').empty();
+                    var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                    }
+                    $('#item4').append(option);
+                    $('#item4').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+</script>
