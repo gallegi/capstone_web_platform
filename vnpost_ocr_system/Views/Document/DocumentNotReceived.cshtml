@@ -26,157 +26,83 @@
     <div class="row">
         <div class="col s12">
             <div class="card p-b-10">
-                <form class="h-form b-form">
-                    <div class="form-body">
-                        <div class="divider"></div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Tỉnh/thành</label>
-                                            </div>
+                <div class="form-body">
+                    <div class="divider"></div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="f-name" class="text-black">Tỉnh/thành</label>
                                         </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border" id="province">
-                                                    @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
-                                                    {
-                                                        <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                                                    }
+                                    </div>
+                                    <div class="col s8">
+                                        <div class="h-form-label">
+                                            <select tabindex="-1" class="card-border" id="province">
+                                                @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                {
+                                                    <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                                }
 
-                                                </select>
-                                            </div>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Tên thủ tục</label>
-                                            </div>
+                            </div>
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="l-name" class="text-black">Tên thủ tục</label>
                                         </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border" style="width:100%!important;" id="profile">
-                                                    <option value="" selected>Cấp đổi CMT</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="col s9">
+                                        <div class="h-form-label">
+                                            <select tabindex="-1" class="card-border" style="width:100%!important;" id="profile">
+                                                <option value="" selected>Cấp đổi CMT</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Quận/huyện</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border" id="district">
-                                                </select>
-                                            </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="l-name" class="text-black">Quận/huyện</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Từ ngày</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <div class="col l11 s10 p-l-0">
-                                                    <input name="dateTLHD" id="dateFrom" type="text" readonly
-                                                           class="datepicker-here" autocomplete="off"
-                                                           data-language='vi' value="01/01/2019" style="width: 100%!important;" />
-                                                </div>
-                                                <div class="col l1 s2 p-l-0">
-                                                    <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
-                                                </div>
-                                            </div>
+                                    <div class="col s8">
+                                        <div class="h-form-label">
+                                            <select tabindex="-1" class="card-border" id="district">
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Cơ quan hành chính</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border" id="coQuan">
-
-                                                </select>
-                                            </div>
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="f-name" class="text-black">Từ ngày</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Đến ngày</label>
+                                    <div class="col s9">
+                                        <div class="h-form-label">
+                                            <div class="col l11 s10 p-l-0">
+                                                <input name="dateTLHD" id="dateFrom" type="text" readonly
+                                                       class="datepicker-here" autocomplete="off"
+                                                       data-language='vi' value="01/01/2019" style="width: 100%!important;" />
                                             </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label">
-                                                <div class="col l11 s10 p-l-0">
-                                                    <input name="dateTLHD" id="dateTo" type="text" readonly
-                                                           class="datepicker-here" autocomplete="off"
-                                                           data-language='vi' value="01/01/2019" style="width: 100%!important;" />
-                                                </div>
-                                                <div class="col l1 s2 p-l-0">
-                                                    <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                        </div>
-                                        <div class="col s8">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black"></label>
-                                            </div>
-                                        </div>
-                                        <div class="col s9">
-                                            <div class="h-form-label right-align">
-                                                <button class="btn waves-effect waves-light bt-color-common my-bt" type="submit">
-                                                    <div class="m-0-0 p-0-0 d-flex">
-                                                        <i class="material-icons my-icon">filter_list</i>
-                                                        <span class="bt-inner-text">Hiển thị</span>
-                                                    </div>
-                                                </button>
+                                            <div class="col l1 s2 p-l-0">
+                                                <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +110,78 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="l-name" class="text-black">Cơ quan hành chính</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s8">
+                                        <div class="h-form-label">
+                                            <select tabindex="-1" class="card-border" id="coQuan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="f-name" class="text-black">Đến ngày</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s9">
+                                        <div class="h-form-label">
+                                            <div class="col l11 s10 p-l-0">
+                                                <input name="dateTLHD" id="dateTo" type="text" readonly
+                                                       class="datepicker-here" autocomplete="off"
+                                                       data-language='vi' value="01/01/2019" style="width: 100%!important;" />
+                                            </div>
+                                            <div class="col l1 s2 p-l-0">
+                                                <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                    </div>
+                                    <div class="col s8">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="h-form-label margintop">
+                                            <label for="l-name" class="text-black"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col s9">
+                                        <div class="h-form-label right-align">
+                                            <button class="btn waves-effect waves-light bt-color-common my-bt" id="filter">
+                                                <div class="m-0-0 p-0-0 d-flex">
+                                                    <i class="material-icons my-icon">filter_list</i>
+                                                    <span class="bt-inner-text">Hiển thị</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -355,6 +352,8 @@
 
 
 
+
+
     function dateFormat(d) {
         if (d == null) {
             return "";
@@ -368,93 +367,101 @@
         return (date);
     }
 </script>
-
 <script>
     $(document).ready(function () {
-        $('#province').change(function () {
-            $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetDistrict",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#district').empty();
-                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+        var dataTable = $('#mainTable').DataTable();
+        $("#filter").click(function () {
+            dataTable.ajax.reload(function () {
+            });
+        });
+    })
+</script>
+<script>
+        $(document).ready(function () {
+            $('#province').change(function () {
+                $('#pre-load').show()
+                $.ajax({
+                    type: "POST",
+                    url: "/GetDistrict",
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        code: $(this).val()
+                    },
+                    success: function (response) {
+                        $('#district').empty();
+                        var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                        for (var i = 0; i < response.length; i++) {
+                            option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                        }
+                        $('#district').append(option);
+                        $('#district').formSelect();
+                        $('#pre-load').hide()
+                    },
+                    error: function () {
+                        $('#pre-load').hide()
                     }
-                    $('#district').append(option);
-                    $('#district').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
+                })
             })
         })
-    })
 
-    $(document).ready(function () {
-        $('#district').change(function () {
-            $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetAdmins",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    console.log(response)
-                    $('#coQuan').empty();
-                    var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+        $(document).ready(function () {
+            $('#district').change(function () {
+                $('#pre-load').show()
+                $.ajax({
+                    type: "POST",
+                    url: "/GetAdmins",
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        code: $(this).val()
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $('#coQuan').empty();
+                        var option = "<option value='' selected disabled>Tên CQHC</option>";
+                        for (var i = 0; i < response.length; i++) {
+                            option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                        }
+                        $('#coQuan').append(option);
+                        $('#coQuan').formSelect();
+                        $('#pre-load').hide()
+                    },
+                    error: function () {
+                        $('#pre-load').hide()
                     }
-                    $('#coQuan').append(option);
-                    $('#coQuan').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
+                })
             })
         })
-    })
 
-    $(document).ready(function () {
-        $('#coQuan').change(function () {
-            $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetProfile",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    console.log(response)
-                    $('#profile').empty();
-                    var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+        $(document).ready(function () {
+            $('#coQuan').change(function () {
+                $('#pre-load').show()
+                $.ajax({
+                    type: "POST",
+                    url: "/GetProfile",
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        code: $(this).val()
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $('#profile').empty();
+                        var option = "<option value='' selected disabled>Tên thủ tục</option>";
+                        for (var i = 0; i < response.length; i++) {
+                            option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                        }
+                        $('#profile').append(option);
+                        $('#profile').formSelect();
+                        $('#pre-load').hide()
+                    },
+                    error: function () {
+                        $('#pre-load').hide()
                     }
-                    $('#profile').append(option);
-                    $('#profile').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
+                })
             })
         })
-    })
 
 </script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
