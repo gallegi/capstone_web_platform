@@ -82,16 +82,16 @@ $(document).ready(function () {
     $('.img-picker').imagePicker({ name: 'images' });
 })
 
-function checkFilter() {
-    var item1 = document.getElementById("item1").value;
-    var item2 = document.getElementById("item2").value;
-    var item3 = document.getElementById("item3").value;
-    var item4 = document.getElementById("item4").value;
+//function checkFilter() {
+//    var item1 = document.getElementById("item1").value;
+//    var item2 = document.getElementById("item2").value;
+//    var item3 = document.getElementById("item3").value;
+//    var item4 = document.getElementById("item4").value;
     
    
     
-    if (item1 !== "Tỉnh/Thành phố" && item2 !== "Quận/Huyện" && item3 !== "Tên CQHC" && item4 !== "Tên thủ tục") {
-        //alert(item1 + "-" + item2 + "-" + item3 + "-" + item4);
-        document.getElementById("contact").style.display = "block";
-    }
-}
+//    if (item1 !== "Tỉnh/Thành phố" && item2 !== "Quận/Huyện" && item3 !== "Tên CQHC" && item4 !== "Tên thủ tục") {
+//        //alert(item1 + "-" + item2 + "-" + item3 + "-" + item4);
+//        document.getElementById("contact").style.display = "block";
+//    }
+//}
