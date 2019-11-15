@@ -18,15 +18,38 @@ namespace vnpost_ocr_system.Controllers.Login
             return View("/Views/Login/Login_Cutomer.cshtml");
         }
         [HttpPost]
-        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCode, string tbEmail, string tbPass, string tbRePass, string group1)
+        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass, string tbRePass, string group1)
         {
-            if (!tbValidCode.Equals("123456"))
-            {
-                ViewBag.invalidcode = "Mã xác thực không đúng";
-                return View("/Views/Login/Login_Cutomer.cshtml");
-            }
             try
             {
+                if (!string.IsNullOrEmpty(tbPhone))
+                {
+                    if (!tbValidCodePhone.Equals("123456"))
+                    {
+                        ViewBag.invalidcode = "Mã xác thực không đúng";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                    var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
+                    if(cus.Count > 0)
+                    {
+                        ViewBag.messe = "Số điện thoại đã được đăng kí cho tài khoản khác";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                }
+                if (!string.IsNullOrEmpty(tbEmail))
+                {
+                    if (!tbValidCodeEmail.Equals("123456"))
+                    {
+                        ViewBag.invalidcode1 = "Mã xác thực không đúng";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
+                    if (cus.Count > 0)
+                    {
+                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                }
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(tbPass, "pl");
                 Random r = new Random();
                 int salt = r.Next(100000, 999999);
@@ -45,7 +68,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             catch (Exception e)
             {
-                ViewBag.notifi = "Có lỗi xảy ra. Vui lòng thử lại";
+                ViewBag.messe = "Có lỗi xảy ra. Vui lòng thử lại";
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
         }
