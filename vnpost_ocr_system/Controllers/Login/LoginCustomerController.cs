@@ -15,7 +15,80 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Index()
         {
             ViewBag.invalidcode = "";
-            return View("/Views/Login/Login_Cutomer.cshtml");
+            if (HttpContext.Request.Cookies["remmem"] != null)
+            {
+                HttpCookie remme = HttpContext.Request.Cookies.Get("remmem");
+                login a = new login()
+                {
+                    username = remme.Values.Get("user"),
+                    password = remme.Values.Get("pass")
+                };
+                ViewBag.login = a;
+            }
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Login.cshtml");
+            }
+            else
+            {
+                return View("/Views/Login/Login_Cutomer.cshtml");
+            }
+        }
+        public ActionResult Login(string user,string pass,string checkbox)
+        {
+            string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pl");
+            var custom = db.Customers.Where(x => x.Email.Equals(user) || x.Phone.Equals(user)).FirstOrDefault();
+            bool check = true;
+            if(custom != null)
+            {
+                if (!string.IsNullOrEmpty(custom.Phone))
+                {
+                    if (!custom.Phone.Equals(user))
+                    {
+                        check = false;
+                    }
+                }
+                if (!string.IsNullOrEmpty(custom.Email))
+                {
+                    if(check == false)
+                    if (!custom.Email.Equals(user))
+                    {
+                        check = false;
+                    }
+                    else
+                    {
+                        check = true;
+                    }
+                }
+                if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
+                string password = string.Concat(custom.PasswordHash, custom.PasswordSalt);
+                passXc = string.Concat(passXc, custom.PasswordSalt);
+                if (passXc.Equals(password))
+                {
+                    Session["userID"] = custom.CustomerID;
+                    Session["userName"] = custom.FullName;
+                    if (!String.IsNullOrEmpty(checkbox))
+                    {
+                        if (checkbox.Equals("True"))
+                        {
+                            HttpCookie remme = new HttpCookie("remmem");
+                            remme["user"] = user;
+                            remme["pass"] = pass;
+                            remme.Expires = DateTime.Now.AddDays(365);
+                            HttpContext.Response.Cookies.Add(remme);
+                        }
+                    }
+                    return Json(3, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(2, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
         }
         [HttpPost]
         public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass, string tbRePass, string group1)
@@ -72,5 +145,10 @@ namespace vnpost_ocr_system.Controllers.Login
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
         }
+    }
+    public class login
+    {
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }
