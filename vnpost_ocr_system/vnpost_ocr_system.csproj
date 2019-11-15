@@ -160,6 +160,7 @@
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
+    <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
@@ -5654,6 +5655,8 @@
     <Content Include="CustomJS\Management_User\ManagementUser.js" />
     <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
+    <Content Include="CustomJS\mstepper\mstepper.min.css" />
+    <Content Include="CustomJS\mstepper\mstepper.min.js" />
     <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -6414,6 +6417,7 @@
     <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\EditAPI\" />
+    <Folder Include="Views\GetProvinces\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />
