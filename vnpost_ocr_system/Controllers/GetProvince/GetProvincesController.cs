@@ -55,7 +55,8 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetPublicAdministrationByDistrictCode(string code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<PublicAdministration> list = (from po in db.PostOffices.Where(x => x.DistrictCode.Equals(code))
+            List<PublicAdministration> list = (from pd in db.Districts.Where(x => x.PostalDistrictCode.Equals(code))
+                                               join po in db.PostOffices on pd.DistrictCode equals po.DistrictCode
                                                join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {
