@@ -11,12 +11,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/assets/Custom css/Mobile/login-css/login-style.css" rel="stylesheet" />
     <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
-   
+
 
 </head>
 
 <body>
-   
+
     <!--navbar-->
     <div class="wrapper">
         <div class="row help-container">
@@ -24,61 +24,126 @@
         </div>
         <div class="row login-logo">
             <div class="row center logo">
-                <img src="~/assets/images/login-logo.png" />
+                <img src="/assets/images/login-logo.png" />
             </div>
         </div>
-        <div class="container">
-            <div class="row m-b-none">
-                <h2 class="center-align grey-text darken-4 login-title">HỆ THỐNG TIẾP NHẬN HỒ SƠ<br /> HÀNH CHÍNH CÔNG</h2>
-                <form method="post">
-                    <div class='input-authen input-field col s12'>
-                        <i class="material-icons prefix">person</i>
-                        <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+        <h2 class="center-align grey-text darken-4 login-title">HỆ THỐNG TIẾP NHẬN HỒ SƠ<br /> HÀNH CHÍNH CÔNG</h2>
+        <!------------------------------------------------------------------------------------------------------->
 
-                    </div>
-                    <div class='input-authen input-field col s12 padder-x'>
-                        <i class="material-icons prefix">lock</i>
-                        <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3 tab-lr"><a class="active" href="#login-container"><h4>Đăng nhập</h4></a></li>
+                    <li class="tab col s3 tab-lr"><a href="#register-container"><h4>Đăng ký</h4></a></li>
+                </ul>
+            </div>
+        </div>
 
+        <!------------------------------------------------------------------------------------------------------->
+        <div id="login-container">
+            <div class="container">
+                <div class="row m-b-none">
+                    <form method="post">
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">person</i>
+                            <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
+                        </div>
+                        <div class="row reg-and-forget">
+                            <a id="forget-link" href="#">Quên mật khẩu?</a>
+                        </div>
+                        <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG NHẬP</button>
+                        <button class='login-btn fb-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
+                            <img src="/assets/images/fb-icon.png" />Đăng nhập qua Facebook
+                        </button>
+                        <button class='login-btn g-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
+                            <img src="/assets/images/g-icon.png" />Đăng nhập qua Google
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------->
+        <div id="register-container">
+            <div class="container">
+                <div class="row m-b-none">
+                    <form method="post">
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">person</i>
+                            <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="icon_prefix2" />
+                        </div>
 
-                    </div>
-                    <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG NHẬP</button>
-                    <button class='login-btn fb-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
-                        <img src="~/assets/images/fb-icon.png" />Đăng nhập qua Facebook
-                    </button>
-                    <button class='login-btn g-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
-                        <img src="~/assets/images/g-icon.png" />Đăng nhập qua Google
-                    </button>
-                    <div class="row reg-and-forget">
-                        <a id="reg-link" href="#">Đăng ký</a>
-                        <a id="forget-link" href="#">Quên mật khẩu?</a>
-                    </div>
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">create</i>
+                            <input type="text" placeholder="Họ và tên" class="icon_prefix2" />
+                        </div>
 
-                </form>
+                        <div class='input-authen col s12 gender-container'>
+                            <i class="material-icons dp48 prefix">face</i>
+                            <label>
+                                <input class="with-gap" name="gender" value="1" type="radio" />
+                                <span>Nam</span>
+                            </label>
+                            <label>
+                                <input class="with-gap" name="gender" value="0" type="radio" />
+                                <span>Nữ</span>
+                            </label>
+                        </div>
+                        <br />
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">phone</i>
+                            <input type="text" placeholder="Số điện thoại" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">email</i>
+                            <input type="text" placeholder="Email" class="icon_prefix2" />
+                        </div>
+                        <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG KÝ</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="helpModal" class="modal">
+            <div class="modal-content">
+                <h2>Trợ giúp?</h2>
+                <p style="font-size:40px">
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique eros eleifend porttitor blandit.
+                    Suspendisse luctus ex nec risus accumsan rhoncus.
+                    Proin venenatis, libero ac pretium vestibulum, urna lacus condimentum eros, in consequat diam augue eget dui.
+                    Vivamus id est porta, pellentesque felis suscipit, bibendum nulla. Duis molestie nunc sed sollicitudin malesuada.
+                    Proin pretium purus nibh, eget dictum ligula egestas a.
+                    Suspendisse nisi nunc, sagittis at dignissim a, lacinia in arcu.
+                    Vestibulum eu metus nec odio feugiat congue. Vivamus id ex ipsum.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
             </div>
         </div>
     </div>
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <h2>Trợ giúp?</h2>
-            <p style="font-size:40px">
 
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique eros eleifend porttitor blandit. 
-            Suspendisse luctus ex nec risus accumsan rhoncus. 
-            Proin venenatis, libero ac pretium vestibulum, urna lacus condimentum eros, in consequat diam augue eget dui. 
-            Vivamus id est porta, pellentesque felis suscipit, bibendum nulla. Duis molestie nunc sed sollicitudin malesuada.
-            Proin pretium purus nibh, eget dictum ligula egestas a. 
-            Suspendisse nisi nunc, sagittis at dignissim a, lacinia in arcu. 
-            Vestibulum eu metus nec odio feugiat congue. Vivamus id ex ipsum.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
-        </div>
-    </div>
     <!---->
     <script>
         $(document).ready(function () {
             $('.modal').modal();
+        });
+
+        $(document).ready(function () {
+            $('.tabs').tabs();
         });
     </script>
 

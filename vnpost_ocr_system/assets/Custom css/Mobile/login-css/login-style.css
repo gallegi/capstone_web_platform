@@ -78,6 +78,11 @@ body {
 .login-title {
     color: #f57f17 !important;
     font-weight: bold;
+    margin-bottom: 50px !important;
+}
+
+.tabs {
+    background-color: transparent !important;
 }
 
 .reg-and-forget a {
@@ -110,3 +115,35 @@ body {
 #helpModal {
     border-radius: 20px !important;
 }
+
+ul:not(.browser-default) {
+    height: 80px !important;
+}
+
+.tab a {
+    height: 80px !important;
+}
+
+.row .col.s3 {
+    width: 50% !important;
+}
+
+.gender-container .prefix {
+    width: 2rem;
+    font-size: 40px;
+    color: #848484;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+
+    top: 30px;
+}
+
+.gender-container {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+    .gender-container span {
+        font-size: 35px !important;
+        color: #4a4a4a;
+    }
