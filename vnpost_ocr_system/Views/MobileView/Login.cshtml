@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/assets/Custom css/Mobile/login-css/login-style.css" rel="stylesheet" />
     <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
-
+    <meta name="viewport" content="user-scalable=no" />
 
 </head>
 
@@ -53,7 +53,7 @@
                             <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
                         </div>
                         <div class="row reg-and-forget">
-                            <a id="forget-link" href="#">Quên mật khẩu?</a>
+                            <a id="forget-link" class="modal-trigger" href="#resetModal">Quên mật khẩu?</a>
                         </div>
                         <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG NHẬP</button>
                         <button class='login-btn fb-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
@@ -134,6 +134,24 @@
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
             </div>
         </div>
+
+        <div id="resetModal" class="modal">
+            <div class="modal-content">
+                <h2>Đặt lại mật khẩu</h2>
+                <p style="font-size:35px">
+                    <i> Số điện thoại hoặc email đăng ký:</i>
+                    <input type="text" placeholder="SĐT/Email" id="number-email-reset" class="icon_prefix2" />
+                </p>
+                <div class="row">
+                    <button class='login-btn col s12 btn waves-effect waves-light btn-large m-md yellow darken-4'>Gửi mã xác nhận</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
+            </div>
+        </div>
+
     </div>
 
     <!---->
@@ -148,7 +166,7 @@
     </script>
 
     <script src="~/assets/materialize/js/materialize.js"></script>
-    <script src="~/assets/materialize/js/materialize.min.js"></script>
+
 </body>
 </html>
 
