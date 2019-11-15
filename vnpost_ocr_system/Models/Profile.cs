@@ -22,7 +22,7 @@ namespace vnpost_ocr_system.Models
     
         public int ProfileID { get; set; }
         public string ProfileName { get; set; }
-        public long PublicAdministrationLocationID { get; set; }
+        public int PublicAdministrationLocationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
