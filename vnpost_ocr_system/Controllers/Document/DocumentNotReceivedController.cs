@@ -21,5 +21,6 @@ namespace vnpost_ocr_system.Controllers.Document
             }
             return View("/Views/Document/DocumentNotReceived.cshtml");
         }
+
     }
 }
