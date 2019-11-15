@@ -116,7 +116,7 @@ CREATE TABLE [dbo].[ContactInfo](
 	[PostalDistrictCode] [varchar](4) NOT NULL,
 	[Street] [nvarchar](max) NOT NULL,
 	[PersonalPaperTypeID] [int] NULL,
-	[PersonalPaperNumber] [varchar](20) NOT NULL,
+	[PersonalPaperNumber] [varchar](20) NULL,
 	[PersonalPaperIssuedDate] [datetime] NULL,
 	[PersonalPaperIssuedPlace] [nvarchar](max) NULL,
 	[CustomerID] [bigint] NOT NULL,
@@ -370,7 +370,7 @@ GO
 CREATE TABLE [dbo].[Profile](
 	[ProfileID] [int] NOT NULL,
 	[ProfileName] [nvarchar](2000) NOT NULL,
-	[PublicAdministrationLocationID] [bigint] NOT NULL,
+	[PublicAdministrationLocationID] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProfileID] ASC
@@ -402,7 +402,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PublicAdministration](
-	[PublicAdministrationLocationID] [bigint] NOT NULL,
+	[PublicAdministrationLocationID] [int] NOT NULL,
 	[PublicAdministrationName] [nvarchar](200) NOT NULL,
 	[Address] [nvarchar](200) NOT NULL,
 	[Phone] [varchar](50) NULL,
