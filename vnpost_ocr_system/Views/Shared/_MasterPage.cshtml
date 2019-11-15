@@ -54,6 +54,11 @@
     <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
     <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+    <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
+
     <style>
         nav a {
             color: #929292;
@@ -108,7 +113,7 @@
 
             <nav>
                 <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/Logo.jpg"></a>
+                    <a href="/Home/index" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/Logo.jpg"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="/Home/index"  class="nav-link"><i class="material-icons dp48">home</i><span>Home</span></a></li>
@@ -150,6 +155,7 @@
     //    }
     //})
     $(".loading").css("z-index", 99999);
+    $("#pre-load").css("z-index", 99999);
     $('body').css('overflow', '');
 
     $(document).ready(function () {
