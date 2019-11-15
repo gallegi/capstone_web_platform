@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
@@ -29,7 +30,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             //                           PostalDistrictCode = x.PostalDistrictCode,
             //                           PostalDistrictName = x.PostalDistrictName
             //                       }).ToList();
-            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code", new SqlParameter("code", code)).ToList()
+            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
                 .Select(x => new District {
                     PostalDistrictCode = x.PostalDistrictCode,
                     PostalDistrictName = x.PostalDistrictName
@@ -42,7 +43,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetProfileByPAId(long code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code)).ToList().Select(x => new Profile
+            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
             {
                 ProfileID = x.ProfileID,
                 ProfileName = x.ProfileName
@@ -58,6 +59,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             List<PublicAdministration> list = (from pd in db.Districts.Where(x => x.PostalDistrictCode.Equals(code))
                                                join po in db.PostOffices on pd.DistrictCode equals po.DistrictCode
                                                join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
+                                               orderby pa.PublicAdministrationName
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {
                                                    PublicAdministrationLocationID = x.PublicAdministrationLocationID,
