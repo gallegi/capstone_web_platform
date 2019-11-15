@@ -39,7 +39,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetProfile")]
         [HttpPost]
-        public ActionResult GetProfileByPAId(string code)
+        public ActionResult GetProfileByPAId(long code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code)).ToList().Select(x => new Profile
@@ -50,7 +50,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             return Json(list);
         }
 
-        [Route("GetDetails")]
+        [Route("GetAdmins")]
         [HttpPost]
         public ActionResult GetPublicAdministrationByDistrictCode(string code)
         {
