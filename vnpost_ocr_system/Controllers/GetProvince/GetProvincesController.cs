@@ -40,7 +40,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetProfile")]
         [HttpPost]
-        public ActionResult GetProfileByPAId(long code)
+        public ActionResult GetProfileByPAId(int code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile

@@ -39,11 +39,25 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             {
                 string FullName = Request["FullName"];
                 string Phone = Request["Phone"];
+                string PostalDistrictCode = Request["PostalDistrictCode"];
+                string Street = Request["Street"];
+                string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
+                string PersonalPaperNumber = Request["PersonalPaperNumber"];
+                string PersonalPaperIssuedDateString = Request["PersonalPaperIssuedDateString"];
+                string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
+                string ContactInfoID = Request["ContactInfoID"];
                 using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                 {
                     ContactInfo c = new ContactInfo();
                     c.FullName = FullName;
                     c.Phone = Phone;
+                    c.PostalDistrictCode = PostalDistrictCode;
+                    c.Street = Street;
+                    c.PersonalPaperTypeID = int.Parse(PersonalPaperTypeID);
+                    c.PersonalPaperNumber = PersonalPaperNumber;
+                    c.PersonalPaperIssuedDate = DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
+                    c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace;
+                    c.CustomerID = long.Parse(Session["userID"].ToString());
                 }
                 return Json(new { success = true, message = "Thêm mới thành công" });
             }
