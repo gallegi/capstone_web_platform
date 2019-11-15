@@ -10,12 +10,13 @@
     <div class="input-group m-t-0 p-l-10 p-r-15">
         <h5 class="center">Tra cứu giấy hẹn</h5>
         <div class="row">
-
-            <input id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;"
-                   placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" onclick="changeColor()" onfocusout="loseFocus()">
-            <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" type="button">
-                <a href="/giay-hen/trang-thai-giay-hen" class="col l2 s1"> <i class="fa fa-search" style="color: #b2b9bf;"></i></a>
-            </button>
+            <form action="/giay-hen/trang-thai-giay-hen" method="post">
+                <input name="id_raw" id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;"
+                       placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" onclick="changeColor()" onfocusout="loseFocus()">
+                <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" type="submit">
+                    <a class="col l2 s1"> <i class="fa fa-search" style="color: #b2b9bf;"></i></a>
+                </button>
+            </form>
         </div>
     </div>
 </div>
