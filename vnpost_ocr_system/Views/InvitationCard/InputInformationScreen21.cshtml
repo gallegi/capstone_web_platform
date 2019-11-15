@@ -104,11 +104,8 @@
                                     <div class="col l2"></div>
                                     <p class="col l2 m4 p-t-10 s12 normal-size left bold">Quận/Huyện:</p>
                                     <div class="col l6 m6 s12">
-                                        <select onchange="checkFilter()" id="item2" tabindex="-1">
+                                        <select id="item2" tabindex="-1">
                                             <option value="Quận/Huyện" selected disabled>Quận/Huyện</option>
-                                            <option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -116,11 +113,8 @@
                                     <div class="col l2"></div>
                                     <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên CQHC:</p>
                                     <div class="col l6 m6 s12">
-                                        <select onchange="checkFilter()" id="item3" tabindex="-1">
+                                        <select id="item3" tabindex="-1">
                                             <option value="Tên CQHC" selected disabled>Tên CQHC</option>
-                                            <option value="Công an quận Hoàn Kiếm">Công an quận Hoàn Kiếm</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -128,11 +122,8 @@
                                     <div class="col l2"></div>
                                     <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên thủ tục:</p>
                                     <div class="col l6 m6 s12">
-                                        <select onchange="checkFilter()" id="item4" tabindex="-1">
+                                        <select id="item4" tabindex="-1">
                                             <option value="Tên thủ tục" selected disabled>Tên thủ tục</option>
-                                            <option value="Cấp đổi CMT">Cấp đổi CMT</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -252,6 +243,7 @@
 
     $(document).ready(function () {
         $('#item1').change(function () {
+            $('#pre-load').show()
             $.ajax({
                 type: "POST",
                 url: "/GetDistrict",
@@ -260,8 +252,76 @@
                 data: {
                     code: $(this).val()
                 },
-                success: function (data) {
-                    console.log(data)
+                success: function (response) {
+                    $('#item2').empty();
+                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                    $('#item2').append(option);
+                    $('#item2').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $('#item2').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetAdmins",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#item3').empty();
+                    var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                    }
+                    $('#item3').append(option);
+                    $('#item3').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $('#item3').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetProfile",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#item4').empty();
+                    var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                    }
+                    $('#item4').append(option);
+                    $('#item4').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
                 }
             })
         })
