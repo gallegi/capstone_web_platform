@@ -30,6 +30,7 @@ namespace vnpost_ocr_system.Models
         public Nullable<System.DateTime> DOB { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string PostalDistrictID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContactInfo> ContactInfoes { get; set; }
@@ -37,5 +38,6 @@ namespace vnpost_ocr_system.Models
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ResetPasswordToken> ResetPasswordTokens { get; set; }
+        public virtual District District { get; set; }
     }
 }

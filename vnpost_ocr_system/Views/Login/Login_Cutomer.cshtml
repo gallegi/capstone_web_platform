@@ -370,20 +370,21 @@
         });
 
         function Login() {
-            $('#preload').show();
+            
             var username = document.getElementById('user').value;
             var password = document.getElementById('pass').value;
             if (!username.length == 0) {
                 $('#user_failed').html('');
             } else {
                 $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
-                return;
+                return false;
             }
             if (!password.length == 0) { $('#password_failed').html('');}
             else {
                 $('#password_failed').html('Mật khẩu không được để trống');
-                return;
+                return false;
             }
+            $('#pre-load').show();
             var emb = {
                 user: document.getElementById('user').value,
                 pass: document.getElementById('pass').value,
@@ -404,10 +405,10 @@
                     if (result == 3) {
                         window.location.href = '/tai-khoan/thong-tin-tai-khoan';
                     }
-                    $('#preload').hide();
+                    $('#pre-load').hide();
                 },
                 error: function (errormessage) {
-                    $('#preload').hide();
+                    $('#pre-load').hide();
                 }
             });
         }
