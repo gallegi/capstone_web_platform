@@ -12,22 +12,19 @@ namespace vnpost_ocr_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PublicAdministration
+    public partial class APIMethod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PublicAdministration()
+        public APIMethod()
         {
-            this.Profiles = new HashSet<Profile>();
+            this.APIs = new HashSet<API>();
         }
     
-        public int PublicAdministrationLocationID { get; set; }
-        public string PublicAdministrationName { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public long PosCode { get; set; }
+        public int MethodID { get; set; }
+        public string MethodName { get; set; }
+        public System.DateTime LastMofifiedTime { get; set; }
     
-        public virtual PostOffice PostOffice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual ICollection<API> APIs { get; set; }
     }
 }
