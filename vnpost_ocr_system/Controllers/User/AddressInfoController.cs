@@ -14,9 +14,10 @@ namespace vnpost_ocr_system.Controllers.User
         [Route("tai-khoan/so-dia-chi")]
         public ActionResult Index()
         {
-            //need function logIn to get session.
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<ContactInfo> listContactInfo = db.ContactInfoes.Where(x => x.CustomerID == 1).ToList();
+            string customerID = Session["userID"].ToString();
+            List<ContactInfo> listContactInfo = db.Database.SqlQuery<ContactInfo>("select * from ContactInfo where CustomerID = @customerID"
+                    , new SqlParameter("customerID", customerID)).ToList();
             List<Province> listProvince = db.Provinces.ToList<Province>();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listContactInfo = listContactInfo;
@@ -33,10 +34,11 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 try
                 {
-                    ContactInfo delete = db.ContactInfoes.Where(x => x.ContactInfoID.Equals(Code)).First();
-                    db.ContactInfoes.Remove(delete);
-                    db.SaveChanges();
+                    string query = "delete from ContactInfo where ContactInfoID = @code";
+                    db.Database.ExecuteSqlCommand(query, new SqlParameter("code", Code));
                     transaction.Commit();
+                    db.SaveChanges();
+                    return Json("",JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -44,7 +46,6 @@ namespace vnpost_ocr_system.Controllers.User
                     return new HttpStatusCodeResult(400);
                 }
             }
-            return new HttpStatusCodeResult(200);
         }
 
         [Route("tai-khoan/so-dia-chi/lay-chinh-sua")]
@@ -56,11 +57,12 @@ namespace vnpost_ocr_system.Controllers.User
                 ContactInfoes contact = db.Database.SqlQuery<ContactInfoes>("select * from ContactInfo where ContactInfoID = @contacInfoId"
                     , new SqlParameter("contacInfoId", contactInfoId)).First();
                 contact.stringDate = contact.PersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy");
-                return Json(contact);
+                //return Json(contact);
+
+                return Json(new { info = info, list = contact });
             }
             catch (Exception ex)
             {
-
                 return new HttpStatusCodeResult(400);
             }
         }
@@ -85,7 +87,6 @@ namespace vnpost_ocr_system.Controllers.User
             List<Province> listProvince = db.Provinces.ToList<Province>();
             return Json(listProvince);
         }
-
 
         [Route("tai-khoan/so-dia-chi/chinh-sua")]
         public ActionResult Edit(string name, string phone, string address, string PaperTypeCode,
@@ -134,4 +135,5 @@ namespace vnpost_ocr_system.Controllers.User
         public string stringDate { get; set; }
         public string StatusName { get; set; }
     }
+
 }
