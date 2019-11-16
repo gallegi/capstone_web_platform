@@ -21,45 +21,186 @@
             <div class="card">
 
                 <div class="card father-display-status">
-                    <div class="ClearFix">
-                        <p class="code-order">Mã đơn hàng: #12345678</p>
-                    </div>s
                     <!--wizard form-->
                     <div class="card-content wizard-content">
                         <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
                             <div class="steps clearfix">
-                                <ul role="tablist">
-                                    <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
-                                        <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
-                                            <span class="step">1</span>
-                                            Đang chờ tiếp nhận
-                                        </a>
-                                    </li>
-                                    <li role="tab" class="done" aria-disabled="false" aria-selected="false">
-                                        <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
-                                            <span class="step">2</span>
-                                            Đã tiếp nhận
-                                        </a>
-                                    </li>
-                                    <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
-                                        <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
-                                            <span class="step">3</span>
-                                            Lấy giấy tờ thành công
-                                        </a>
-                                    </li>
-                                    <li role="tab" class="" aria-disabled="false" aria-selected="true">
-                                        <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
-                                            <span class="current-info audible">current step:</span><span class="step">4</span>
-                                            Đang phát
-                                        </a>
-                                    </li>
-                                    <li role="tab" class="" aria-disabled="false" aria-selected="true">
-                                        <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
-                                            <span class="current-info audible">current step:</span><span class="step">5</span>
-                                            Đã phát thành công
-                                        </a>
-                                    </li>
-                                </ul>
+                                @if (ViewBag.StatusID == 1)
+                                {
+                                    <ul role="tablist">
+                                        <li role="tab" class="first current" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                <span class="step">1</span>
+                                                Đang chờ tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                <span class="step">2</span>
+                                                Đã tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                <span class="step">3</span>
+                                                Lấy giấy tờ thành công
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                Đang phát
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                Đã phát thành công
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                @if (ViewBag.statusID == 2)
+                                {
+                                    <ul role="tablist">
+                                        <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                <span class="step">1</span>
+                                                Đang chờ tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                <span class="step">2</span>
+                                                Đã tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                <span class="step">3</span>
+                                                Lấy giấy tờ thành công
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                Đang phát
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                Đã phát thành công
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                @if (ViewBag.statusID == 3)
+                                {
+                                    <ul role="tablist">
+                                        <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                <span class="step">1</span>
+                                                Đang chờ tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                <span class="step">2</span>
+                                                Đã tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                <span class="step">3</span>
+                                                Lấy giấy tờ thành công
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                Đang phát
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                Đã phát thành công
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                @if (ViewBag.statusID == 4)
+                                {
+                                    <ul role="tablist">
+                                        <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                <span class="step">1</span>
+                                                Đang chờ tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                <span class="step">2</span>
+                                                Đã tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                <span class="step">3</span>
+                                                Lấy giấy tờ thành công
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="current last" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                Đang phát
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                Đã phát thành công
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                @if (ViewBag.statusID == 5)
+                                {
+                                    <ul role="tablist">
+                                        <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                <span class="step">1</span>
+                                                Đang chờ tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                <span class="step">2</span>
+                                                Đã tiếp nhận
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                <span class="step">3</span>
+                                                Lấy giấy tờ thành công
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="done" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                Đang phát
+                                            </a>
+                                        </li>
+                                        <li role="tab" class="current last" aria-disabled="false" aria-selected="true">
+                                            <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                Đã phát thành công
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+
                             </div>
                         </form>
                     </div>
@@ -108,7 +249,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="f-name">VN0005792911Q</label>
+                                                <label class="font-medium" for="f-name">@ViewBag.order.ItemCode</label>
                                             </div>
                                         </div>
                                     </div>
@@ -118,11 +259,11 @@
                                         <div class="col s3">
                                             <div class="h-form-label">
                                                 <label for="l-name">Bằng chữ:</label>
-                                            </div>
+                                            </div>  
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="l-name">Bốn mươi ba ngìn tám trăm đồng</label>
+                                                <label class="font-medium" for="l-name">@ViewBag.order.TotalAmountInWords</label>
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +279,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="uname">43,500 (đồng)</label>
+                                                <label class="font-medium" for="uname">@ViewBag.order.Amount (đồng)</label>
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +317,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="f-name">#98765</label>
+                                                <label for="f-name">#@ViewBag.Order.AppointmentLetterCode</label>
                                             </div>
                                         </div>
                                     </div>
