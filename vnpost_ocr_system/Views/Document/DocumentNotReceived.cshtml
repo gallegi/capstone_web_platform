@@ -40,6 +40,7 @@
                                     <div class="col s8">
                                         <div class="h-form-label">
                                             <select tabindex="-1" class="card-border" id="province">
+                                                <option value="">Tất cả</option>
                                                 @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
                                                 {
                                                     <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -60,9 +61,7 @@
                                     <div class="col s9">
                                         <div class="h-form-label">
                                             <select tabindex="-1" class="card-border" style="width:100%!important;" id="profile">
-                                                <option value="" selected>Cấp đổi CMT</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
+                                                <option value="">Tất cả</option>
                                             </select>
                                         </div>
                                     </div>
@@ -82,6 +81,7 @@
                                     <div class="col s8">
                                         <div class="h-form-label">
                                             <select tabindex="-1" class="card-border" id="district">
+                                                <option value="">Tất cả</option>
                                             </select>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
                                             <div class="col l11 s10 p-l-0">
                                                 <input name="dateTLHD" id="dateFrom" type="text" readonly
                                                        class="datepicker-here" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" style="width: 100%!important;" />
+                                                       data-language='vi' value="" placeholder="Từ ngày" style="width: 100%!important;" />
                                             </div>
                                             <div class="col l1 s2 p-l-0">
                                                 <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
@@ -122,6 +122,7 @@
                                     <div class="col s8">
                                         <div class="h-form-label">
                                             <select tabindex="-1" class="card-border" id="coQuan">
+                                                <option value='' selected>Tất cả</option>
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +140,7 @@
                                             <div class="col l11 s10 p-l-0">
                                                 <input name="dateTLHD" id="dateTo" type="text" readonly
                                                        class="datepicker-here" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" style="width: 100%!important;" />
+                                                       data-language='vi' value="" placeholder="Đến ngày" style="width: 100%!important;" />
                                             </div>
                                             <div class="col l1 s2 p-l-0">
                                                 <img class="cal-img p-t-5" src="~/Content/BankLogo/calendar.jpg" />
@@ -390,7 +391,7 @@
                     },
                     success: function (response) {
                         $('#district').empty();
-                        var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                        var option = "<option value=''>Tất cả</option>";
                         for (var i = 0; i < response.length; i++) {
                             option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                         }
@@ -419,7 +420,7 @@
                     success: function (response) {
                         console.log(response)
                         $('#coQuan').empty();
-                        var option = "<option value='' selected disabled>Tên CQHC</option>";
+                        var option = "<option value=''>Tất cả</option>";
                         for (var i = 0; i < response.length; i++) {
                             option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                         }
@@ -448,7 +449,7 @@
                     success: function (response) {
                         console.log(response)
                         $('#profile').empty();
-                        var option = "<option value='' selected disabled>Tên thủ tục</option>";
+                        var option = "<option value=''>Tất cả</option>";
                         for (var i = 0; i < response.length; i++) {
                             option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                         }

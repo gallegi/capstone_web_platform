@@ -70,6 +70,14 @@
             display: inline !important;
             vertical-align: middle;
         }
+
+        #main-wrapper[data-layout="vertical"][data-header-position="fixed"] .topbar {
+            z-index: 99 !important;
+        }
+
+        img.light-logo {
+            width: 80px;
+        }
     </style>
 </head>
 
@@ -113,7 +121,7 @@
 
             <nav>
                 <div class="nav-wrapper">
-                    <a href="/Home/index" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/Logo.jpg"></a>
+                    <a href="/Home/index" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/vnpost.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="/Home/index" class="nav-link"><i class="material-icons dp48">home</i><span>Home</span></a></li>
@@ -128,18 +136,18 @@
                                 <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
                             }
                         }}
+
                     </ul>
                 </div>
             </nav>
-
-            <ul class="sidenav" id="mobile-demo">
-                <li><a href="/Home/index"><i class="material-icons dp48">home</i>Home</a></li>
-                <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
-                <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
-                <li><a href="/khach-hang/dang-nhap"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
-            </ul>
         </header>
 
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/Home/index"><i class="material-icons dp48">home</i>Home</a></li>
+            <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
+            <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
+            <li><a href="/khach-hang/dang-nhap"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
+        </ul>
         <div class="page_wrapper content_all">
             @RenderBody()
         </div>

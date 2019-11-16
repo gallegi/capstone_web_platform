@@ -12,6 +12,10 @@ namespace vnpost_ocr_system.Controllers.Home
 
         public ActionResult Index()
         {
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Home.cshtml");
+            }
             return View("/Views/Home/Home.cshtml");
         }
     }
