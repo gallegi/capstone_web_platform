@@ -58,12 +58,11 @@
                         <!-- ============================================================== -->
                         <!-- Notification icon scss in header.scss -->
                         <!-- ============================================================== -->
-                        
                         <!-- ============================================================== -->
                         <!-- Comment topbar icon scss in header.scss -->
                         <!-- ============================================================== -->
-                        
-                       
+
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Left topbar icon scss in header.scss -->
@@ -72,8 +71,8 @@
                     <!-- Right topbar icon scss in header.scss -->
                     <!-- ============================================================== -->
                     <ul class="center">
-                        <img class="light-logo" src="~/assets/images/vnpost.png"/>
-                     
+                        <img class="light-logo" src="~/assets/images/vnpost.png" />
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right topbar icon scss in header.scss -->
@@ -92,17 +91,28 @@
                 <li>
                     <ul class="collapsible">
                         <li class="small-cap"><span class="hide-menu">TÀI KHOẢN</span></li>
-                        <li id="account-area"  class="collapsible-header">
-                                <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
-                                <div class="u-text">
-                                    <h5>Đoàn Văn Thắng</h5>
-                                    <p id="email-display">steve@gmail.com</p>
-                                    <a id="account-settings-button" class="waves-effect waves-light btn btn-small red white-text">Cài đặt tài khoản</a>
-                                </div>
+                        <li id="account-area" class="collapsible-header">
+                            @{ if (Session["userID"] != null)
+                                {
+                                    <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
+                                    <div class="u-text">
+                                        <h5>@Session["userName"]</h5>
+                                        <p id="email-display">steve@gmail.com</p>
+                                        <a id="account-settings-button" class="waves-effect waves-light btn btn-small red white-text">Cài đặt tài khoản</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="u-text">
+                                        <a id="account-settings-button" href="/khach-hang/dang-nhap" class="waves-effect waves-light btn btn-small green white-text">Đăng nhập</a>
+                                    </div>
+                                }
+                            }
+
                         </li>
                         <li class="small-cap"><span class="hide-menu">THEO DÕI</span></li>
                         <li>
-                            <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons dp48">add_circle</i><span class="hide-menu">Nhập giấy hẹn mới</span></a>
+                            <a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="collapsible-header"><i class="material-icons dp48">add_circle</i><span class="hide-menu">Nhập giấy hẹn mới</span></a>
                         </li>
                         <li>
                             <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons dp48">search</i><span class="hide-menu">Tra cứu giấy hẹn</span></a>
@@ -114,9 +124,14 @@
                         <li>
                             <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">languages</i><span class="hide-menu">Ngôn ngữ</span></a>
                         </li>
-                        <li>
-                            <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">exit_to_app</i><span class="hide-menu">Đăng xuất</span></a>
-                        </li>
+                        @{ 
+                            if (Session["userID"] != null)
+                            {
+                                <li>
+                                    <a href="/Logout" class="collapsible-header"><i class="material-icons">exit_to_app</i><span class="hide-menu">Đăng xuất</span></a>
+                                </li>
+                            }
+                        }
 
                     </ul>
                 </li>
@@ -142,7 +157,7 @@
         <!-- ============================================================== -->
         <!-- Right Sidebar -->
         <!-- ============================================================== -->
-       
+
         <div class="chat-windows"></div>
         <!-- ============================================================== -->
         <!-- Right Sidebar -->
