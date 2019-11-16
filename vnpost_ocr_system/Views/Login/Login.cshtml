@@ -18,34 +18,100 @@
                 </div>
 
                 <!-- Form -->
-                <div class="row card-custom" >
-                    <form class="col s12">
+                @{
+                    var username = "";
+                    var password = "";
+                    if (ViewBag.login != null)
+                    {
+                        username = ViewBag.login.username;
+                        password = ViewBag.login.password;
+                    }
+                }
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { onsubmit = "return valid()" }))
+                {
+                    <div class="row card-custom">
                         <!-- email -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="email" type="email" class="my-input" required="" placeholder="Tài khoản">
+                                <input id="username" name="username" type="text" value="@username" class="my-input" placeholder="Tài khoản">
                             </div>
                         </div>
                         <!-- pwd -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="password" type="password" class="my-input" required="" placeholder="Mật khẩu">
+                                <input id="password" type="password" name="password" value="@password" class="my-input" placeholder="Mật khẩu">
                             </div>
                         </div>
-                        <div class="row" style="text-align:center !important">
+                        <div class="row" style="margin-left:20px !important">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" />
+                                <input type="checkbox" class="filled-in" name="checkbox" />
                                 <span>Ghi nhớ</span>
                             </label>
                         </div>
-                        <div class="row btn_login">
-                            <a class="waves-effect waves-light btn orange">Đăng nhập</a>
+                        <div class="row">
+                            <div class="col l10 offset-l2 m9 offset-m3 s12 fix-space">
+                                <span style="color:red" id="failed"></span>
+                            </div>
                         </div>
-                    </form>
-                </div>
-
+                        <div class="row btn_login">
+                            <button class="waves-effect waves-light btn orange" type="submit">Đăng nhập</button>
+                        </div>
+                    </div>
+                }
             </div>
-
+            <input type="hidden" value="@ViewBag.notifi" id="err" />
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#failed').text(document.getElementById('err').value);
+    });
+    function valid() {
+        var user = document.getElementById('username').value;
+        var pass = document.getElementById('password').value;
+        if (user.length == 0) {
+            $('#failed').text('Vui lòng nhập tài khoản');
+            return false;
+        }
+        if (pass.length == 0) {
+            $('#failed').text('Vui lòng nhập mật khẩu');
+            return false;
+        }
+        if (pass.length < 6 || pass.length > 32) {
+            $('#failed').text('Mật khẩu gồm 6-32 kí tự');
+            return false;
+        }
+        return true;
+    }
+    //function Login() {
+    //    $('#pre-load').show();
+    //    var emb = {
+    //        user: document.getElementById('username').value,
+    //        pass: document.getElementById('password').value,
+    //        checkbox: $('#remem').is(":checked")
+    //    };
+    //    $.ajax({
+    //        url: "/Login/Login",
+    //        type: "POST",
+    //        data: JSON.stringify(emb),
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (result) {
+    //            if (result == 1) {
+    //                $('#user_failed').html('Số điện thoại / Email không đúng');
+    //            }
+    //            if (result == 2) {
+    //                $('#password_failed').html('Mật khẩu không đúng');
+    //            }
+    //            if (result == 3) {
+    //                window.location.href = '/';
+    //            }
+    //            $('#pre-load').hide();
+    //        },
+    //        error: function (errormessage) {
+    //            $('#pre-load').hide();
+    //        }
+    //    });
+    //}
+</script>
