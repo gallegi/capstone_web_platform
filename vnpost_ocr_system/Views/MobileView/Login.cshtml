@@ -11,12 +11,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/assets/Custom css/Mobile/login-css/login-style.css" rel="stylesheet" />
     <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
-   
+    <meta name="viewport" content="user-scalable=no" />
 
 </head>
 
 <body>
-   
+
     <!--navbar-->
     <div class="wrapper">
         <div class="row help-container">
@@ -24,66 +24,370 @@
         </div>
         <div class="row login-logo">
             <div class="row center logo">
-                <img src="~/assets/images/login-logo.png" />
+                <img src="/assets/images/login-logo.png" />
             </div>
         </div>
-        <div class="container">
-            <div class="row m-b-none">
-                <h2 class="center-align grey-text darken-4 login-title">HỆ THỐNG TIẾP NHẬN HỒ SƠ<br /> HÀNH CHÍNH CÔNG</h2>
-                <form method="post">
-                    <div class='input-authen input-field col s12'>
-                        <i class="material-icons prefix">person</i>
-                        <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+        <h2 class="center-align grey-text darken-4 login-title">HỆ THỐNG TIẾP NHẬN HỒ SƠ<br /> HÀNH CHÍNH CÔNG</h2>
+        <!------------------------------------------------------------------------------------------------------->
 
-                    </div>
-                    <div class='input-authen input-field col s12 padder-x'>
-                        <i class="material-icons prefix">lock</i>
-                        <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
-
-
-                    </div>
-                    <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG NHẬP</button>
-                    <button class='login-btn fb-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
-                        <img src="~/assets/images/fb-icon.png" />Đăng nhập qua Facebook
-                    </button>
-                    <button class='login-btn g-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
-                        <img src="~/assets/images/g-icon.png" />Đăng nhập qua Google
-                    </button>
-                    <div class="row reg-and-forget">
-                        <a id="reg-link" href="#">Đăng ký</a>
-                        <a id="forget-link" href="#">Quên mật khẩu?</a>
-                    </div>
-
-                </form>
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3 tab-lr"><a class="active" href="#login-container"><h4>Đăng nhập</h4></a></li>
+                    <li class="tab col s3 tab-lr"><a href="#register-container"><h4>Đăng ký</h4></a></li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <h2>Trợ giúp?</h2>
-            <p style="font-size:40px">
+        @{
+            var username = "";
+            var password = "";
+            if (ViewBag.login != null)
+            {
+                username = ViewBag.login.username;
+                password = ViewBag.login.password;
+            }
+        }
+        <!------------------------------------------------------------------------------------------------------->
+        <div id="login-container">
+            <div class="container">
+                <div class="row m-b-none">
+                    <form method="post">
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">person</i>
+                            <input type="text" id="user" value="@username" placeholder="Tên đăng nhập" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" id="pass" value="@password" placeholder="Mật khẩu" class="icon_prefix2" />
+                        </div>
+                        <div class="row reg-and-forget">
+                            <label class="col s6">
+                                <input id="remem" type="checkbox" class="filled-in" />
+                                <span>Ghi nhớ mật khẩu</span>
+                            </label>
+                            <a id="forget-link" class="modal-trigger col s6" href="#resetModal">Quên mật khẩu?</a>
+                        </div>
+                        <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'  onclick="Login()">ĐĂNG NHẬP</button>
+                        <button class='login-btn fb-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
+                            <img src="/assets/images/fb-icon.png" />Đăng nhập qua Facebook
+                        </button>
+                        <button class='login-btn g-login col s12 btn waves-effect waves-light btn btn-large m-md indigo'>
+                            <img src="/assets/images/g-icon.png" />Đăng nhập qua Google
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------->
+        <div id="register-container">
+            <div class="container">
+                <div class="row m-b-none">
+                    <form method="post">
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">person</i>
+                            <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="icon_prefix2" />
+                        </div>
 
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique eros eleifend porttitor blandit. 
-            Suspendisse luctus ex nec risus accumsan rhoncus. 
-            Proin venenatis, libero ac pretium vestibulum, urna lacus condimentum eros, in consequat diam augue eget dui. 
-            Vivamus id est porta, pellentesque felis suscipit, bibendum nulla. Duis molestie nunc sed sollicitudin malesuada.
-            Proin pretium purus nibh, eget dictum ligula egestas a. 
-            Suspendisse nisi nunc, sagittis at dignissim a, lacinia in arcu. 
-            Vestibulum eu metus nec odio feugiat congue. Vivamus id ex ipsum.</p>
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">create</i>
+                            <input type="text" placeholder="Họ và tên" class="icon_prefix2" />
+                        </div>
+
+                        <div class='input-authen col s12 gender-container'>
+                            <i class="material-icons dp48 prefix">face</i>
+                            <label>
+                                <input class="with-gap" name="gender" value="1" type="radio" />
+                                <span>Nam</span>
+                            </label>
+                            <label>
+                                <input class="with-gap" name="gender" value="0" type="radio" />
+                                <span>Nữ</span>
+                            </label>
+                        </div>
+                        <br />
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">phone</i>
+                            <input type="text" placeholder="Số điện thoại" class="icon_prefix2" />
+                        </div>
+                        <div class='input-authen input-field col s12'>
+                            <i class="material-icons prefix">email</i>
+                            <input type="text" placeholder="Email" class="icon_prefix2" />
+                        </div>
+                        <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG KÝ</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
+
+        <div id="helpModal" class="modal">
+            <div class="modal-content">
+                <h2>Trợ giúp?</h2>
+                <p style="font-size:40px">
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique eros eleifend porttitor blandit.
+                    Suspendisse luctus ex nec risus accumsan rhoncus.
+                    Proin venenatis, libero ac pretium vestibulum, urna lacus condimentum eros, in consequat diam augue eget dui.
+                    Vivamus id est porta, pellentesque felis suscipit, bibendum nulla. Duis molestie nunc sed sollicitudin malesuada.
+                    Proin pretium purus nibh, eget dictum ligula egestas a.
+                    Suspendisse nisi nunc, sagittis at dignissim a, lacinia in arcu.
+                    Vestibulum eu metus nec odio feugiat congue. Vivamus id ex ipsum.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
+            </div>
         </div>
+
+        <div id="resetModal" class="modal">
+            <div class="modal-content">
+                <h2>Đặt lại mật khẩu</h2>
+                <p style="font-size:35px">
+                    <i> Số điện thoại hoặc email đăng ký:</i>
+                    <input type="text" placeholder="SĐT/Email" id="number-email-reset" class="icon_prefix2" />
+                </p>
+                <div class="row">
+                    <button class='login-btn col s12 btn waves-effect waves-light btn-large m-md yellow darken-4'>Gửi mã xác nhận</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat"><h4>Đóng</h4></a>
+            </div>
+        </div>
+
     </div>
+
     <!---->
     <script>
         $(document).ready(function () {
             $('.modal').modal();
         });
+
+        $(document).ready(function () {
+            $('.tabs').tabs();
+        });
     </script>
 
     <script src="~/assets/materialize/js/materialize.js"></script>
-    <script src="~/assets/materialize/js/materialize.min.js"></script>
+        <script>
+        $(document).ready(function () {
+            if (document.getElementById('tem').value != '') {
+                $('#validCodePhone-err').text('Mã xác thực không đúng');
+            }
+            if (document.getElementById('tem2').value != '') {
+                $('#validCodeEmail-err').text('Mã xác thực không đúng');
+                $('#emailcheck').attr('checked', 'checked');
+                document.getElementById('emailcheck').value = 1;
+            }
+            if (document.getElementById('tem1').value != '') {
+                $('#messe').text(document.getElementById('tem1').value);
+            }
+            var windowWidth = $(window).width();
+            if (windowWidth < 768) {
+                $(".set-btn").remove();
+            }
+            chen1();
+            chen2();
+        });
+
+        function Login() {
+            $('#pre-load').show();
+            var username = document.getElementById('user').value;
+            var password = document.getElementById('pass').value;
+            if (!username.length == 0) {
+                $('#user_failed').html('');
+            } else {
+                $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
+                return;
+            }
+            if (!password.length == 0) { $('#password_failed').html('');}
+            else {
+                $('#password_failed').html('Mật khẩu không được để trống');
+                return;
+            }
+            var emb = {
+                user: document.getElementById('user').value,
+                pass: document.getElementById('pass').value,
+                checkbox: $('#remem').is(":checked")
+            };
+            $.ajax({
+                url: "/LoginCustomer/Login",
+                type: "POST",
+                data: JSON.stringify(emb),
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    if (result == 1) {
+                        $('#user_failed').html('Số điện thoại / Email không đúng');
+                    }
+                    if (result == 2) {
+                        $('#password_failed').html('Mật khẩu không đúng');
+                    }
+                    if (result == 3) {
+                        window.location.href = '/tai-khoan/thong-tin-tai-khoan';
+                    }
+                    $('#pre-load').hide();
+                },
+                error: function (errormessage) {
+                    $('#pre-load').hide();
+                }
+            });
+        }
+
+        function chen1() {
+            if (document.getElementById('phonecheck').value == 1) {
+                $('#checkboxphone').show();
+                document.getElementById('phonecheck').value = 0;
+            } else {
+                $('#checkboxphone').hide();
+                document.getElementById('phonecheck').value = 1;
+            }
+        }
+        function chen2() {
+            if (document.getElementById('emailcheck').value == 1) {
+                $('#checkboxemail').show();
+                document.getElementById('emailcheck').value = 0;
+            } else {
+                $('#checkboxemail').hide();
+                document.getElementById('emailcheck').value = 1;
+            }
+        }
+        //$("#btn_login").click(function () {
+        //    var check = 0;
+        //    if ($("#user").val() == "01234") {
+        //        $("#user_failed").show();
+        //        $("#password_failed").hide();
+        //        check = 1;
+        //    }
+        //    if ($("#pass").val() == "123") {
+        //        $("#user_failed").hide();
+        //        $("#password_failed").show();
+        //        check = 1;
+        //    }
+        //    if (check == 0) {
+        //        window.location.href = "/tai-khoan/thong-tin-tai-khoan";
+        //    }
+        //});
+        $(document).ready(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth <= 1023) {
+                $("#login-web").remove();
+            }
+            if (windowWidth > 1023) {
+                $("#login-mobile").remove();
+            }
+        });
+
+
+        function valid() {
+            $('#name-err').text('');
+            $('#phone-err').text('');
+            $('#validCodePhone-err').text('');
+            $('#validCodeEmail-err').text('');
+            $('#email-err').text('');
+            $('#pass-err').text('');
+            $('#rePass-err').text('');
+            var name = document.getElementById('tbName').value;
+            var phone = document.getElementById('tbPhone').value;
+            var validCodePhone = document.getElementById('tbValidCodePhone').value;
+            var validCodeEmail = document.getElementById('tbValidCodeEmail').value;
+            var email = document.getElementById('tbEmail').value;
+            var pass = document.getElementById('tbPass').value;
+            var rePass = document.getElementById('tbRePass').value;
+            var valid = true;
+
+            if (name.length == 0) {
+
+                $('#name-err').text('Vui lòng nhập tên');
+                return false;
+            }
+            if (document.getElementById('phonecheck').value == 0) {
+                if (phone.length == 0) {
+
+                    $('#phone-err').text('Vui lòng nhập số điện thoại');
+                    return false;
+                }
+                if (phone.length != 10 && phone.length > 0) {
+                    $('#phone-err').text('Số điện thoại không tồn tại');
+                    return false;
+                }
+                if (validCodePhone.length == 0) {
+
+                    $('#validCodePhone-err').text('Vui lòng nhập mã xác thực');
+                    return false;
+                }
+
+                if (validCodePhone.length <= 5) {
+
+                    $('#validCodePhone-err').text('Mã xác thực không đúng');
+                    return false;
+                }
+            }
+            if (document.getElementById('emailcheck').value == 0) {
+                if (email.length == 0) {
+
+                    $('#email-err').text('Vui lòng nhập email');
+                    return false;
+                }
+                if (validCodeEmail.length == 0) {
+
+                    $('#validCodeEmail-err').text('Vui lòng nhập mã xác thực');
+                    return false;
+                }
+
+                if (validCodeEmail.length <= 5) {
+
+                    $('#validCodeEmail-err').text('Mã xác thực không đúng');
+                    return false;
+                }
+            }
+            if (document.getElementById('emailcheck').value == 1 && document.getElementById('phonecheck').value == 1) {
+                $('#messe').text('Bạn cần xác thực bằng số điện thoại hoặc email để có thể đăng ký');
+                return false;
+            }
+
+
+
+            //var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
+            //if (isEmail == false) {
+
+            //    $('#email-err').text('Địa chỉ email không hợp lệ');
+            //    return false;
+            //}
+
+
+
+            if (pass.length == 0) {
+
+                $('#pass-err').text('Vui lòng nhập mật khẩu');
+                return false;
+            }
+            if (pass.length < 6 || pass.length > 32) {
+
+                $('#pass-err').text('Mật khẩu gồm 6-32 kí tự');
+                return false;
+            }
+            if (rePass.length == 0) {
+
+                $('#rePass-err').text('Vui lòng nhập trường nhập lại mật khẩu');
+                return false;
+            }
+            if (rePass != pass) {
+
+                $('#rePass-err').text('Mật khẩu nhập lại không khớp');
+                return false;
+            }
+            return valid;
+        }
+    </script>
 </body>
 </html>
 

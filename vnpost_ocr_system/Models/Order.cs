@@ -45,8 +45,8 @@ namespace vnpost_ocr_system.Models
         public string ReceiverPostalDistrictCode { get; set; }
         public string ReceiverStreet { get; set; }
         public string OrderNote { get; set; }
-        public System.DateTime CreatedTime { get; set; }
         public Nullable<double> Amount { get; set; }
+        public string TotalAmountInWords { get; set; }
         public int StatusID { get; set; }
         public string ItemCode { get; set; }
         public Nullable<long> ProcessedBy { get; set; }

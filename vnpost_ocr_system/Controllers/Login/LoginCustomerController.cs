@@ -14,24 +14,116 @@ namespace vnpost_ocr_system.Controllers.Login
         [Route("khach-hang/dang-nhap")]
         public ActionResult Index()
         {
+            if (Session["userID"] != null) return Redirect("/");
+            ViewBag.invalidcode = "";
+            if (HttpContext.Request.Cookies["remmem"] != null)
+            {
+                HttpCookie remme = HttpContext.Request.Cookies.Get("remmem");
+                login a = new login()
+                {
+                    username = remme.Values.Get("user"),
+                    password = remme.Values.Get("pass")
+                };
+                ViewBag.login = a;
+            }
             if (Request.Browser.IsMobileDevice)
             {
                 return View("/Views/MobileView/Login.cshtml");
-            }else{
             }
-            ViewBag.invalidcode = "";
-            return View("/Views/Login/Login_Cutomer.cshtml");
-        }
-        [HttpPost]
-        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCode, string tbEmail, string tbPass, string tbRePass, string group1)
-        {
-            if (!tbValidCode.Equals("123456"))
+            else
             {
-                ViewBag.invalidcode = "Mã xác thực không đúng";
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
+        }
+        public ActionResult Login(string user,string pass,string checkbox)
+        {
+            string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pl");
+            var custom = db.Customers.Where(x => x.Email.Equals(user) || x.Phone.Equals(user)).FirstOrDefault();
+            bool check = true;
+            if(custom != null)
+            {
+                if (!string.IsNullOrEmpty(custom.Phone))
+                {
+                    if (!custom.Phone.Equals(user))
+                    {
+                        check = false;
+                    }
+                }
+                if (!string.IsNullOrEmpty(custom.Email))
+                {
+                    if(check == false)
+                    if (!custom.Email.Equals(user))
+                    {
+                        check = false;
+                    }
+                    else
+                    {
+                        check = true;
+                    }
+                }
+                if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
+                string password = string.Concat(custom.PasswordHash, custom.PasswordSalt);
+                passXc = string.Concat(passXc, custom.PasswordSalt);
+                if (passXc.Equals(password))
+                {
+                    Session["userID"] = custom.CustomerID;
+                    Session["userName"] = custom.FullName;
+                    if (!String.IsNullOrEmpty(checkbox))
+                    {
+                        if (checkbox.Equals("True"))
+                        {
+                            HttpCookie remme = new HttpCookie("remmem");
+                            remme["user"] = user;
+                            remme["pass"] = pass;
+                            remme.Expires = DateTime.Now.AddDays(365);
+                            HttpContext.Response.Cookies.Add(remme);
+                        }
+                    }
+                    return Json(3, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(2, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass,string distrint, string tbRePass, string group1)
+        {
             try
             {
+                if (!string.IsNullOrEmpty(tbPhone))
+                {
+                    if (!tbValidCodePhone.Equals("123456"))
+                    {
+                        ViewBag.invalidcode = "Mã xác thực không đúng";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                    var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
+                    if (cus.Count > 0)
+                    {
+                        ViewBag.messe = "Số điện thoại đã được đăng kí cho tài khoản khác";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                }
+                if (!string.IsNullOrEmpty(tbEmail))
+                {
+                    if (!tbValidCodeEmail.Equals("123456"))
+                    {
+                        ViewBag.invalidcode1 = "Mã xác thực không đúng";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
+                    if (cus.Count > 0)
+                    {
+                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        return View("/Views/Login/Login_Cutomer.cshtml");
+                    }
+                }
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(tbPass, "pl");
                 Random r = new Random();
                 int salt = r.Next(100000, 999999);
@@ -43,16 +135,43 @@ namespace vnpost_ocr_system.Controllers.Login
                 c.Phone = tbPhone;
                 c.Email = tbEmail;
                 c.DOB = DateTime.Now;
+                c.PostalDistrictID = distrint;
                 db.Customers.Add(c);
                 db.SaveChanges();
                 ViewBag.notifi = "Tạo tài khoản thành công";
-                return Redirect("/tai-khoan/thong-tin-tai-khoan");
+                var custom = db.Customers.Where(x => x.Email.Equals(tbEmail) || x.Phone.Equals(tbPhone)).FirstOrDefault();
+                Session["userID"] = custom.CustomerID;
+                Session["userName"] = custom.FullName;
+                return Redirect("/");
             }
             catch (Exception e)
             {
-                ViewBag.notifi = "Có lỗi xảy ra. Vui lòng thử lại";
+                ViewBag.messe = "Có lỗi xảy ra. Vui lòng thử lại";
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
         }
+        [Route("Logout")]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
+        public ActionResult GetPro()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var list = db.Provinces.ToList();
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDis(string id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var list = db.Districts.Where(x => x.PostalProvinceCode == id).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+    }
+    public class login
+    {
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }
