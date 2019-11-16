@@ -91,32 +91,46 @@
                 <li>
                     <ul class="collapsible">
                         <li class="small-cap"><span class="hide-menu">TÀI KHOẢN</span></li>
-                        <li id="account-area" class="collapsible-header">
-                            @{ if (Session["userID"] != null)
-                                {
+
+                        @{ if (Session["userID"] != null)
+                            {
+                                <li id="account-area" class="collapsible-header">
                                     <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
                                     <div class="u-text">
                                         <h5>@Session["userName"]</h5>
                                         <p id="email-display">steve@gmail.com</p>
-                                        <a id="account-settings-button" class="waves-effect waves-light btn btn-small red white-text">Cài đặt tài khoản</a>
+                                        <a id="account-settings-button" href="/tai-khoan/thong-tin-tai-khoan" class="waves-effect waves-light btn btn-small red white-text">Cài đặt tài khoản</a>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="u-text">
-                                        <a id="account-settings-button" href="/khach-hang/dang-nhap" class="waves-effect waves-light btn btn-small green white-text">Đăng nhập</a>
-                                    </div>
-                                }
+                                </li>
                             }
+                            else
+                            {
+                                <li>
+                                    <a href="/khach-hang/dang-nhap" class="collapsible-header"><i class="material-icons dp48">person</i><span class="hide-menu">Đăng nhập</span></a>
+                                </li>
+                            }
+                        }
 
-                        </li>
-                        <li class="small-cap"><span class="hide-menu">THEO DÕI</span></li>
+
+                        <li class="small-cap"><span class="hide-menu">QUẢN LÝ</span></li>
                         <li>
                             <a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="collapsible-header"><i class="material-icons dp48">add_circle</i><span class="hide-menu">Nhập giấy hẹn mới</span></a>
                         </li>
                         <li>
                             <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons dp48">search</i><span class="hide-menu">Tra cứu giấy hẹn</span></a>
                         </li>
+                        @{
+                            if (Session["userID"] != null)
+                            {
+                                <li>
+                                    <a href="/tai-khoan/quan-ly-giay-hen" class="collapsible-header"><i class="material-icons dp48">drafts</i><span class="hide-menu">Giấy hẹn của tôi</span></a>
+                                </li>
+                                <li>
+                                    <a href="/tai-khoan/so-dia-chi" class="collapsible-header"><i class="material-icons dp48">book</i><span class="hide-menu">Quản lý sổ địa chỉ</span></a>
+                                </li>
+
+                            }
+                        }
                         <li class="small-cap"><span class="hide-menu">CÀI ĐẶT</span></li>
                         <li>
                             <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">settings</i><span class="hide-menu">Cài đặt chung</span></a>
@@ -124,7 +138,7 @@
                         <li>
                             <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">languages</i><span class="hide-menu">Ngôn ngữ</span></a>
                         </li>
-                        @{ 
+                        @{
                             if (Session["userID"] != null)
                             {
                                 <li>
@@ -185,6 +199,11 @@
     <script src="../../assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
     <script src="../../assets/extra-libs/jquery.repeater/repeater-init.js"></script>
     <script src="../../assets/extra-libs/jquery.repeater/dff.js"></script>
+    <script>
+        $(".container-fluid").click(function () {
+            $("#main-wrapper").removeClass("show-sidebar");
+        })
+    </script>
 </body>
 
 </html>
