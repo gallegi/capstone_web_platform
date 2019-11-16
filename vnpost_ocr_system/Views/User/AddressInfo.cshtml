@@ -297,55 +297,43 @@
         )
     })
 
-    $(document).ready(function () {
-        $.ajax({
-            type: "POST",
-            url: "/tai-khoan/so-dia-chi/lay-tinh-thanh-pho",
-            data: JSON.stringify(),
-            contentType: "application/json;charset=utf-8",
-            dataType: 'json',
-            success: function (response) {
-                $('#province').empty();
-                var option = "<option value='Tỉnh/Thành Phố' selected disabled> Tỉnh/Thành Phố </option>";
-                for (var i = 0; i < response.length; i++) {
-                    if () {
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/tai-khoan/so-dia-chi/lay-tinh-thanh-pho",
+    //        data: JSON.stringify(),
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            $('#province').empty();
+    //            var option = "<option value='Tỉnh/Thành Phố' selected disabled> Tỉnh/Thành Phố </option>";
+    //            for (var i = 0; i < response.length; i++) {
+    //                if () {
 
-                    }
-                    option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
-                }
-                $('#editDistrict').append(option);
-                $('#editDistrict').formSelect();
-                $('#pre-load').hide()
-            }
-        });
-    })
+    //                }
+    //                option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
+    //            }
+    //            $('#editDistrict').append(option);
+    //            $('#editDistrict').formSelect();
+    //            $('#pre-load').hide()
+    //        }
+    //    });
+    //})
 
     function getDelete(code) {
-        swal({
-            title: "Xác nhận?",
-            text: "Bạn không thể khôi phục lại khi xóa",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Đồng ý',
-            cancelButtonText: "Quay lại",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        }, function (isConfirm) {
-            if (isConfirm) {
-                $.ajax({
-                    type: "POST",
-                    url: "/tai-khoan/so-dia-chi/xoa",
-                    dataType: "json",
-                    data: {
-                        Code: JSON.stringify(code)
-                    }
-                }).done(function () {
-                    swal("Đã xóa thành công!", "");
-                });
-            } else {
-                return false;
-            }
+        confirmAlert("Xóa địa chỉ", "Bạn không thể khôi phục lại khi xóa", function () {
+            $.ajax({
+                type: "POST",
+                url: "/tai-khoan/so-dia-chi/xoa",
+                dataType: "json",
+                data: {
+                    Code: JSON.stringify(code)
+                },
+                success: function () {
+                    //swal("Đã xóa thành công!", "");
+                    window.location.href = '/tai-khoan/so-dia-chi';
+                }
+            })
         });
     }
 </script>

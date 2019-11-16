@@ -43,7 +43,7 @@ namespace vnpost_ocr_system.Controllers.User
                     c.PersonalPaperIssuedPlace = placeOfIssue;
 
                     //function LogIn is in progress.
-                    c.CustomerID = 1;
+                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString()); ;
                     db.ContactInfoes.Add(c);
                     db.SaveChanges();
                     transaction.Commit();

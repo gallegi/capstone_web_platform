@@ -69,18 +69,24 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             ViewBag.list = list;
 
 
-            string sql = "select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC' " +
+            string sql = "select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', st.StatusName " +
                 "from [Order] o inner join Status s on o.StatusID = s.StatusID " +
                 "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
                 "inner join PostOffice p on os.PosCode = p.PosCode " +
                 "inner join PublicAdministration pa on p.PosCode = pa.PosCode " +
                 "inner join District d on d.DistrictCode = p.DistrictCode " +
                 "inner join Profile pr on pa.PublicAdministrationLocationID = pr.PublicAdministrationLocationID and pr.ProfileID = o.ProfileID " +
+                "inner join Status st on o.StatusID = st.StatusID " +
                 "where o.OrderID = @id";
             orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
             o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
             o.displayAmount = formatAmount(o.Amount);
             ViewBag.order = o;
+            if (o.StatusID == -3) o.step = 0;
+            else if (o.StatusID == -2) o.step = 1;
+            else if (o.StatusID == 1) o.step = 2;
+            else if (o.StatusID == 5) o.step = 4;
+            else o.step = 3;
             return View("/Views/InvitationCard/DisplayStatus.cshtml");
         }
 
@@ -95,37 +101,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 s = s.Substring(1);
             }
             return s;
-        }
-
-        public class MyOrderDetail : OrderStatusDetail
-        {
-            public int y { get; set; }
-            public int m { get; set; }
-            public int d { get; set; }
-            public string hour { get; set; }
-        }
-
-        public class OrderByDay
-        {
-            public int y { get; set; }
-            public int m { get; set; }
-            public int d { get; set; }
-            public List<MyOrderDetail> listOrder { get; set; }
-            public string dayOfWeek { get; set; }
-
-        }
-
-        public class orderDB : Order
-        {
-            public string NgayCap { get; set; }
-            public string PublicAdministrationName { get; set; }
-            public string Address { get; set; }
-            public string Phone { get; set; }
-            public string ProfileName { get; set; }
-            public string PosName { get; set; }
-            public string Address_BC { get; set; }
-            public string Phone_BC { get; set; }
-            public string displayAmount { get; set; }
         }
     }
 }
