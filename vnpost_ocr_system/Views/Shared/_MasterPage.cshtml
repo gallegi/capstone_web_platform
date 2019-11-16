@@ -59,26 +59,6 @@
     <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
     <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
 
-    <style>
-        nav a {
-            color: #929292;
-        }
-
-        a.nav-link * {
-            clear: both;
-            color: gray;
-            display: inline !important;
-            vertical-align: middle;
-        }
-
-        #main-wrapper[data-layout="vertical"][data-header-position="fixed"] .topbar {
-            z-index: 99 !important;
-        }
-
-        img.light-logo {
-            width: 80px;
-        }
-    </style>
 </head>
 
 <body>
@@ -88,31 +68,15 @@
         <!-- ============================================================== -->
         <div id="pre-load" hidden>
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
             </div>
         </div>
         <div class="preloader">
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
             </div>
         </div>
@@ -176,7 +140,7 @@
 
     $(document).ready(function () {
         $('.sidenav').sidenav({
-             closeOnClick: true
+            closeOnClick: true
         });
     });
 </script>

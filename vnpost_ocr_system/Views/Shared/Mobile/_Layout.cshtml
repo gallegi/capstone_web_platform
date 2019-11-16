@@ -16,7 +16,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <link href="~/assets/Custom css/Mobile/layout-style.css" rel="stylesheet" />
 </head>
 
@@ -25,10 +25,18 @@
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
-        <div class="preloader">
-            <div class="loader">
-                <div class="loader__figure"></div>
-                <p class="loader__label">Material Admin</p>
+        <div id="pre-load" hidden>
+            <div class="loading">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="preloader" hidden>
+            <div class="loading">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -203,6 +211,10 @@
         $(".container-fluid").click(function () {
             $("#main-wrapper").removeClass("show-sidebar");
         })
+            $(".loading").css("z-index", 99999);
+    $("#pre-load").css("z-index", 99999);
+    $('body').css('overflow', '');
+
     </script>
 </body>
 

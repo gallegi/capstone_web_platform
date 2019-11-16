@@ -5,7 +5,7 @@
     z-index: -1;
     height: 100%;
     width: 100%;
-    background-image: url('logo.png');
+    background-image: url('pre-load-logo.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -30,3 +30,12 @@
     border-bottom-right-radius: 0.25rem;
 }
 
+.progress {
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: fixed;
+    width: 15%;
+}
