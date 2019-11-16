@@ -19,9 +19,29 @@
     width:80px;
     margin-top:10px;
 }
-#account-area *{
-    margin-left:10px;
+#account-area * {
+    margin-left: 5px;
 }
 #account-area  img{
     width:40px;
+}
+p#email-display {
+    margin-top: -17px !important;
+    margin-bottom: -17px !important;
+}
+li#account-area {
+    margin-top: 10px;
+    
+}
+a#account-settings-button {
+    margin-bottom: -17px !important;
+}
+#account-area {
+    color:white;
+    padding:10px !important;
+    background-image: url('../../images/account-info-background.png');
+}
+#account-area h5{
+    color: white;
+
 }
