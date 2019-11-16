@@ -280,6 +280,7 @@
     <Content Include="assets\Custom css\floating-action-btn.css" />
     <Content Include="assets\Custom css\font-family.css" />
     <Content Include="assets\Custom css\form-input-border.css" />
+    <Content Include="assets\Custom css\Mobile\layout-style.css" />
     <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
@@ -6413,6 +6414,8 @@
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
+    <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
+    <Content Include="Views\MobileView\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
