@@ -228,20 +228,30 @@
             url: "/tai-khoan/so-dia-chi/lay-chinh-sua",
             dataType: "json",
             success: function (data) {
-                $('#editName').val(data.FullName);
-                $('#editPhone').val(data.Phone);
-                $('#editAddress').val(data.Street);
-                $('#editCode').val(data.PersonalPaperNumber);
-                $('#editDate').val(data.stringDate);
-                $('#editPlaceOfIssue').val(data.PersonalPaperIssuedPlace);
-                $('#id-edit').val(data.ContactInfoID);
+                $('#editName').val(data.info.FullName);
+                $('#editPhone').val(data.info.Phone);
+                $('#province').val(data.info.PostalProvinceCode);
+                $('#province').formSelect();
+                $('#editDistrict').empty();
+                var option = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    option += "<option value='" + data.list[i].PostalDistrictCode + "'>" + data.list[i].PostalDistrictName + "</option>";
+                }
+                $('#editDistrict').html(option);
+                $('#editDistrict').val(data.info.PostalDistrictCode);
+                $('#editDistrict').formSelect();
+                $('#editAddress').val(data.info.Street);
+                $('#editCode').val(data.info.PersonalPaperNumber);
+                $('#editDate').val(data.info.PersonalPaperIssuedDateString);
+                $('#editPlaceOfIssue').val(data.info.PersonalPaperIssuedPlace);
+                $('#id-edit').val(data.info.ContactInfoID);
             },
             data: {
                 contactInfoId: editID
             },
             cache: false
         })
-    }); editCode
+    }); 
     $("#myeditform").submit(function (e) {
         $.ajax({
             type: "POST",
