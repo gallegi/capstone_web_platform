@@ -265,7 +265,26 @@
                                             //
                                             <!-- valid -->
 
-
+                                            <div class="row">
+                                                <div class="row sdt-or-email-checkbox">
+                                                    <div class="col s5 l5 m-l-20">
+                                                        <p class="black-text">Tỉnh thành cư trú</p>
+                                                        <select id="province" onchange="getDis()">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col s5 l5 m-l-20">
+                                                        <p class="black-text">Quận huyện cư trú</p>
+                                                        <select id="district" name="distrint">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s3 l2 m-t-20 m-l-20 col-sm-offset-3">
+                                                </div>
+                                                <div id="diachi-err" class="col s8 l9 err">
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col s3 l2 m-t-20 m-l-20">
                                                     <p class="black-text">Mật khẩu</p>
@@ -365,12 +384,53 @@
             if (windowWidth < 768) {
                 $(".set-btn").remove();
             }
+            getPro();
             chen1();
             chen2();
         });
 
+        function getDis() {
+            var emp = {
+                id : document.getElementById('province').value
+            };
+            $.ajax({
+                url: "/LoginCustomer/GetDis",
+                type: "POST",
+                data: JSON.stringify(emp),
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    $('#district').empty();
+                    var string = "<option value='' selected disabled>Quận/Huyện</option>";
+                    result.forEach(function (key) {
+                        string += "<option value='" + key.PostalDistrictCode + "'>" + key.PostalDistrictName + "</option>";
+                    });
+                    $('#district').append(string);
+                    $('#district').formSelect();
+                },
+                error: function (errormessage) {
+                }
+            });
+        }
+
+        function getPro() {
+            $.ajax({
+                url: "/LoginCustomer/GetPro",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    var string = "<option value='' selected disabled>Tỉnh/Thành</option>";
+                    result.forEach(function (key) {
+                        string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                    });
+                    $('#province').append(string);
+                    $('#province').formSelect();
+                },
+                error: function (errormessage) {
+                }
+            });
+        }
+
         function Login() {
-            
             var username = document.getElementById('user').value;
             var password = document.getElementById('pass').value;
             if (!username.length == 0) {
@@ -379,7 +439,7 @@
                 $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
                 return false;
             }
-            if (!password.length == 0) { $('#password_failed').html('');}
+            if (!password.length == 0) { $('#password_failed').html(''); }
             else {
                 $('#password_failed').html('Mật khẩu không được để trống');
                 return false;
@@ -403,7 +463,7 @@
                         $('#password_failed').html('Mật khẩu không đúng');
                     }
                     if (result == 3) {
-                        window.location.href = '/tai-khoan/thong-tin-tai-khoan';
+                        window.location.href = '/';
                     }
                     $('#pre-load').hide();
                 },
@@ -464,12 +524,15 @@
             $('#validCodePhone-err').text('');
             $('#validCodeEmail-err').text('');
             $('#email-err').text('');
+            $('#diachi-err').text('');
             $('#pass-err').text('');
             $('#rePass-err').text('');
             var name = document.getElementById('tbName').value;
             var phone = document.getElementById('tbPhone').value;
             var validCodePhone = document.getElementById('tbValidCodePhone').value;
             var validCodeEmail = document.getElementById('tbValidCodeEmail').value;
+            var pro = document.getElementById('province').value;
+            var dis = document.getElementById('district').value;
             var email = document.getElementById('tbEmail').value;
             var pass = document.getElementById('tbPass').value;
             var rePass = document.getElementById('tbRePass').value;
@@ -525,7 +588,10 @@
                 return false;
             }
 
-
+            if (pro == '' || dis == '') {
+                $('#diachi-err').text('Vui lòng chọn nơi cư trú');
+                return false;
+            }
 
             //var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
             //if (isEmail == false) {
