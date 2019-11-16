@@ -234,10 +234,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyOrderDetail.cs" />
     <Compile Include="Models\Non_Recive.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderByDay.cs" />
+    <Compile Include="Models\OrderDashBorad.cs" />
+    <Compile Include="Models\orderDB.cs" />
     <Compile Include="Models\OrderStatusDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
