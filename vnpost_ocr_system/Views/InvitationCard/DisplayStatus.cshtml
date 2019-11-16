@@ -29,31 +29,31 @@
                                 <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
                                     <div class="steps clearfix">
                                         <ul role="tablist">
-                                            <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
                                                     <span class="step">1</span>
                                                     Đang chờ tiếp nhận
                                                 </a>
                                             </li>
-                                            <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
                                                     <span class="step">2</span>
                                                     Đã tiếp nhận
                                                 </a>
                                             </li>
-                                            <li role="tab" class="" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
                                                     <span class="step">3</span>
                                                     Lấy giấy tờ thành công
                                                 </a>
                                             </li>
-                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
                                                 <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
                                                     <span class="current-info audible">current step:</span><span class="step">4</span>
                                                     Đang phát
                                                 </a>
                                             </li>
-                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
                                                 <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
                                                     <span class="current-info audible">current step:</span><span class="step">5</span>
                                                     Đã phát thành công
@@ -122,12 +122,12 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="l-name">Bằng chữ:</label>
+                                                <label for="l-name">Bằng chữ: </label>
                                             </div>
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="l-name"></label>
+                                                <label class="font-medium" for="l-name">@ViewBag.order.TotalAmountInWords</label>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="uname"></label>
+                                                <label class="font-medium" for="uname">@ViewBag.order.StatusName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -608,7 +608,11 @@
 
 
 <script>
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
+        $('.myStep').each(function (index) {
+            if (index < @ViewBag.order.step) $(this).addClass("done");
+            if (index == @ViewBag.order.step) $(this).addClass("current");
+        });
         jQuery('.form-wrapper').hide();
 
         jQuery(".show-form").click(function () {

@@ -1,4 +1,5 @@
 ﻿$(function () {
+
     "use strict";
     // ------------------------------
     // Basic bar chart
@@ -29,7 +30,7 @@
             {
                 name: 'Khoảng thời gian',
                 type: 'category',
-                data: ['03/10/2018 - 10/10/2018','05/11/2018 - 12/11/2018']
+                data: [d1,d2]
             }
         ],
         yAxis: [
@@ -43,21 +44,21 @@
             {
                 name: 'Hồ sơ đang chờ tiếp nhận',
                 type: 'bar',
-                data: [30,45],
+                data: [cho1,cho2],
                 
                 
             },
             {
                 name: 'Hồ sơ đã tiếp nhập',
                 type: 'bar',
-                data: [12,56],
+                data: [da1,da2],
                
                
             },
             {
                 name: 'Hồ sơ đã xử lý',
                 type: 'bar',
-                data: [24, 33],
+                data: [xong1, xong2],
 
 
             }
