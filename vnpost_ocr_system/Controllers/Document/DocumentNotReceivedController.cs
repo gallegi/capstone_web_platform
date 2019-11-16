@@ -51,14 +51,12 @@ namespace vnpost_ocr_system.Controllers.Document
                 if (!profile.Equals(""))
                 {
                     query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID where o.StatusID = 1 and p.ProfileID = @profile";
-                    searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("profile", profile)).ToList();
                 }
                 else if (!coQuan.Equals(""))
                 {
                     query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID where o.StatusID = 1 and " +
                         "pa.PublicAdministrationLocationID = @coQuan";
-                    searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("coQuan", coQuan)).ToList();
                 }
                 else if (!district.Equals(""))
                 {
@@ -66,7 +64,6 @@ namespace vnpost_ocr_system.Controllers.Document
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode where o.StatusID = 1 " +
                         "and d.PostalDistrictCode = @district";
-                    searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("district", district)).ToList();
                 }
                 else if (!province.Equals(""))
                 {
@@ -74,7 +71,6 @@ namespace vnpost_ocr_system.Controllers.Document
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
                         "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1 and pro.PostalProvinceCode = @province";
-                    searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("province", province)).ToList();
                 }
                 else
                 {
@@ -82,9 +78,30 @@ namespace vnpost_ocr_system.Controllers.Document
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
                         "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1";
-                    searchList = db.Database.SqlQuery<Non_revieve>(query).ToList();
+                }
+                if (!dateFrom.Equals("") && !dateTo.Equals(""))
+                {
+                    query += " and o.OrderDate between @dateFrom and @dateTo";
+                }
+                else
+                {
+                    if (!dateFrom.Equals(""))
+                    {
+                        query += " and o.OrderDate >= @dateFrom";
+                    }
+                    else if (!dateTo.Equals(""))
+                    {
+                        query += " and o.OrderDate <= @dateTo";
+                    }
                 }
 
+
+                searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("profile", profile),
+                                                                      new SqlParameter("coQuan", coQuan),
+                                                                      new SqlParameter("district", district),
+                                                                      new SqlParameter("province", province),
+                                                                      new SqlParameter("dateFrom", dateFrom),
+                                                                      new SqlParameter("dateTo", dateTo)).ToList();
                 db.Configuration.LazyLoadingEnabled = false;
 
                 totalrows = searchList.Count;
