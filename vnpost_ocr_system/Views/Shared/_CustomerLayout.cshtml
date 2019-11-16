@@ -21,6 +21,7 @@
     <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
     <link href="~/assets/Custom css/floating-action-btn.css" rel="stylesheet">
     <link href="~/assets/Custom css/form-input-border.css" rel="stylesheet">
+    <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <!--Font css-->
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -61,41 +62,16 @@
     <div class="main-wrapper" id="main-wrapper">
         <div id="pre-load" hidden>
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div id="pre-load" hidden>
+        <div class="preloader" hidden>
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
-            </div>
-        </div>
-        <div class="preloader">
-            <div class="loader">
-                <div class="loader__figure"></div>
-                <p class="loader__label">Đang tải...</p>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -112,7 +88,7 @@
                     <!-- ============================================================== -->
                     <a href="javascript:void(0)" class="brand-logo">
                         <span class="icon">
-                            <img class="light-logo"style="margin-left:10px" src="~/assets/images/users/admin1.jpg">
+                            <img class="light-logo" style="margin-left:10px" src="~/assets/images/users/admin1.jpg">
                         </span>
                         <span class="text">
                             <h6 class="admin_text hide-menu" style="color:#9398a3">@Session["userName"]</h6>
@@ -152,10 +128,10 @@
                     <!-- ============================================================== -->
 
                     <ul class="right master_float">
-                            
-                            <li><a href="/Home/index"><i class="material-icons dp48">home</i><div class="set_top">Home</div></a></li>
-                            <li><a href="/giay-hen/nhap-giay-hen"><i class="material-icons dp48">add_circle</i><div class="set_top">Nhập giấy hẹn mới</div></a></li>
-                            <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i><div class="set_top">Tra cứu giấy hẹn</div></a></li>
+
+                        <li><a href="/Home/index"><i class="material-icons dp48">home</i><div class="set_top">Home</div></a></li>
+                        <li><a href="/giay-hen/nhap-giay-hen"><i class="material-icons dp48">add_circle</i><div class="set_top">Nhập giấy hẹn mới</div></a></li>
+                        <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i><div class="set_top">Tra cứu giấy hẹn</div></a></li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right topbar icon scss in header.scss -->
