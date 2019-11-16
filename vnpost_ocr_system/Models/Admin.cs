@@ -31,8 +31,8 @@ namespace vnpost_ocr_system.Models
         public int Role { get; set; }
         public string PostalProvinceCode { get; set; }
         public bool IsActive { get; set; }
-        public long CreatedBy { get; set; }
-        public System.DateTime CreatedTime { get; set; }
+        public Nullable<long> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTime { get; set; }
     

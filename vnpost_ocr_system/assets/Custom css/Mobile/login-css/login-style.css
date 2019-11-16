@@ -153,3 +153,12 @@ input#number-email-reset {
     font-size: 35px !important;
     line-height:20px;
 }
+.failed_mess{
+    color:red;
+    font-size:30px;
+    font-style:italic;
+}
+#remember_check_label {
+    margin-top:65px;
+    font-size: 35px !important;
+}

@@ -12,19 +12,27 @@ namespace vnpost_ocr_system.Controllers.Document
     public class DocumentNotReceivedDetailController : Controller
     {
         [Route("ho-so/ho-so-cho-nhan/chi-tiet")]
+        ////Tuấn: Tôi tạm comment đoạn này đang bị lỗi lại để ae rebuild được, ô fix nhanh nhé
         // GET: DocumentNotReceivedDetail
-        public ActionResult Detail(string id)
+        //public ActionResult Detail(string id)
+        //{
+        //    VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+        //    Non_revieve_detail order = new Non_revieve_detail();
+        //    string sql = "select *,pa.Phone as 'PAPhone',pa.Address as 'PAAddress', po.Phone as 'POPhone', po.Address as 'POAddress' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+        //                "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+        //                "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
+        //                "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode " +
+        //                "join PersonalPaperType ppt on o.ProcedurerPersonalPaperTypeID = ppt.PersonalPaperTypeID " +
+        //                "where o.AppointmentLetterCode = @id";
+        //    order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
+        //    ViewBag.Order = order;
+        //    return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
+        //}
+
+        [Route("ho-so/ho-so-cho-nhan/chi-tiet/cap-nhat")]
+        [HttpPost]
+        public ActionResult Update()
         {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            Non_revieve order = new Non_revieve();
-            string sql = "select o.*, p.*, pro.*, pa.* from [Order] o join" +
-                " District d on o.ProcedurerPostalDistrictCode = d.PostalDistrictCode join " +
-                "Province p on d.PostalProvinceCode = p.ProvinceCode join " +
-                "[Profile] pro on o.ProfileID = pro.ProfileID join " +
-                "PublicAdministration pa on pro.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                "where o.AppointmentLetterCode = @id";
-            order = db.Database.SqlQuery<Non_revieve>(sql, new SqlParameter("id", id)).FirstOrDefault();
-            ViewBag.Order = order;
             return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
         }
     }
