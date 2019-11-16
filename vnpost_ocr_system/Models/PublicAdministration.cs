@@ -20,7 +20,7 @@ namespace vnpost_ocr_system.Models
             this.Profiles = new HashSet<Profile>();
         }
     
-        public long PublicAdministrationLocationID { get; set; }
+        public int PublicAdministrationLocationID { get; set; }
         public string PublicAdministrationName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }

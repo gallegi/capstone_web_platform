@@ -1,8 +1,16 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Linq.Dynamic;
+using System.Threading.Tasks;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Routing;
+using vnpost_ocr_system.Models;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -12,7 +20,107 @@ namespace vnpost_ocr_system.Controllers.Document
         [Route("ho-so/ho-so-cho-nhan")]
         public ActionResult Index()
         {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                List<Province> proList = db.Provinces.ToList();
+                ViewBag.proList = proList;
+                List<District> disList = db.Districts.ToList();
+            }
             return View("/Views/Document/DocumentNotReceived.cshtml");
         }
+
+
+
+        [Route("cho-tiep-nhan")]
+        [HttpPost]
+        public ActionResult Search(string province, string district, string coQuan, string profile, string dateFrom, string dateTo)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<Non_revieve> searchList = null;
+            int totalrows = 0;
+            int totalrowsafterfiltering = 0;
+            string query = "";
+            try
+            {
+                int start = Convert.ToInt32(Request["start"]);
+                int length = Convert.ToInt32(Request["length"]);
+                string searchValue = Request["search[value]"];
+                string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
+                string sortDirection = Request["order[0][dir]"];
+
+                if (!profile.Equals(""))
+                {
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID where o.StatusID = 1 and p.ProfileID = @profile";
+                }
+                else if (!coQuan.Equals(""))
+                {
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID where o.StatusID = 1 and " +
+                        "pa.PublicAdministrationLocationID = @coQuan";
+                }
+                else if (!district.Equals(""))
+                {
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                        "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode where o.StatusID = 1 " +
+                        "and d.PostalDistrictCode = @district";
+                }
+                else if (!province.Equals(""))
+                {
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                        "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
+                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1 and pro.PostalProvinceCode = @province";
+                }
+                else
+                {
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                        "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
+                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1";
+                }
+                if (!dateFrom.Equals("") && !dateTo.Equals(""))
+                {
+                    query += " and o.OrderDate between @dateFrom and @dateTo";
+                }
+                else
+                {
+                    if (!dateFrom.Equals(""))
+                    {
+                        query += " and o.OrderDate >= @dateFrom";
+                    }
+                    else if (!dateTo.Equals(""))
+                    {
+                        query += " and o.OrderDate <= @dateTo";
+                    }
+                }
+
+
+                searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("profile", profile),
+                                                                      new SqlParameter("coQuan", coQuan),
+                                                                      new SqlParameter("district", district),
+                                                                      new SqlParameter("province", province),
+                                                                      new SqlParameter("dateFrom", dateFrom),
+                                                                      new SqlParameter("dateTo", dateTo)).ToList();
+                db.Configuration.LazyLoadingEnabled = false;
+
+                totalrows = searchList.Count;
+                totalrowsafterfiltering = searchList.Count;
+                //sorting
+                searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Non_revieve>();
+                //paging
+                searchList = searchList.Skip(start).Take(length).ToList<Non_revieve>();
+
+            }
+            catch (Exception e)
+            {
+
+                e.Message.ToString();
+
+            }
+            return Json(new { data = searchList, draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrowsafterfiltering }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

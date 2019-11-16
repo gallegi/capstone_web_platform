@@ -29,6 +29,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<AdminRole> AdminRoles { get; set; }
         public virtual DbSet<API> APIs { get; set; }
         public virtual DbSet<APIInputParam> APIInputParams { get; set; }
+        public virtual DbSet<APIMethod> APIMethods { get; set; }
         public virtual DbSet<APIOutputParam> APIOutputParams { get; set; }
         public virtual DbSet<ContactInfo> ContactInfoes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
