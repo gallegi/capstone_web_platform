@@ -4,39 +4,9 @@
     Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
 }
 <link href="~/CustomCSS/preloader/Search.css" rel="stylesheet" />
+<link href="~/assets/Custom css/Mobile/home-css.css" rel="stylesheet" />
 <style>
-    input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
-        font-size: 30px !important;
-    }
-
-    ::placeholder {
-        color: #eaeaea;
-        font-size:15px !important;
-    }
-
-    h5#title {
-        margin-bottom: 30px;
-    }
-
-    .search-card {
-        margin-top: 0% !important;
-        width: 100% !important;
-        height: 230px !important
-    }
-    .container-fluid {
-    padding: 80px 18px !important;
-}
-    #map{
-        width:100%;
-        height:100%;
-    }
-    input#input {
-    font-size: 20px !important;
-    color: gray;
-}
-    input[type=text]:not(.browser-default):focus:not([readonly]){
-        border-bottom:2px solid #e9ecef !important;
-    }
+   
 </style>
 <div class="home-container">
 
@@ -47,7 +17,7 @@
                 <form action="/giay-hen/trang-thai-giay-hen" method="post">
                     <input name="id_raw" id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;"
                            placeholder="Nhập mã giấy hẹn" onclick="changeColor()" onfocusout="loseFocus()">
-                    <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" type="submit">
+                    <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" id="search_btn" type="submit">
                         <a class="col l2 s1"> <i class="fa fa-search" style="color: #b2b9bf;"></i></a>
                     </button>
                 </form>

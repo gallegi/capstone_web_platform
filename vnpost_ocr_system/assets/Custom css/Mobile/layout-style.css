@@ -55,3 +55,6 @@ nav {
 .left-sidebar {
     position: fixed;
 }
+#account-settings-button{
+    background-color:red !important;
+}
