@@ -112,6 +112,8 @@
             <li><a href="/tai-khoan/so-dia-chi" class="nav-link"><i class="material-icons dp48">book</i>Sổ địa chỉ</a></li>
         </ul>
         <ul class="sidenav" id="mobile-demo">
+            <li><a href="/Home/index"><i class="material-icons dp48">home</i>Trang chủ</a></li>
+            <li class="divider"></li>
             @{ if (Session["userID"] != null)
                 {
                     <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">person</i>@Session["userName"]</a></li>
@@ -123,7 +125,7 @@
                     <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
                 }
             }
-            <li><a href="/Home/index"><i class="material-icons dp48">home</i>Trang chủ</a></li>
+            <li class="divider"></li>
             <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
             <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
         </ul>
