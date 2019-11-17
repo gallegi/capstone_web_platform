@@ -45,3 +45,13 @@ a#account-settings-button {
     color: white;
 
 }
+.page-wrapper {
+    background-color: #fafafa;
+}
+nav {
+    position: fixed;
+}
+
+.left-sidebar {
+    position: fixed;
+}
