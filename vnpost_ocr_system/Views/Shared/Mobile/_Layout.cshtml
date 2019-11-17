@@ -125,7 +125,7 @@
                             <a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="collapsible-header"><i class="material-icons dp48">add_circle</i><span class="hide-menu">Nhập giấy hẹn mới</span></a>
                         </li>
                         <li>
-                            <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons dp48">search</i><span class="hide-menu">Tra cứu giấy hẹn</span></a>
+                            <a href="/giay-hen/tim-giay-hen" class="collapsible-header"><i class="material-icons dp48">search</i><span class="hide-menu">Tra cứu giấy hẹn</span></a>
                         </li>
                         @{
                             if (Session["userID"] != null)
@@ -188,9 +188,10 @@
     <!-- ============================================================== -->
     <!-- All Required js -->
     <!-- ============================================================== -->
+
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../../dist/js/materialize.min.js"></script>
     <script src="../../assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/materialize/js/materialize.min.js"></script>
     <!-- ============================================================== -->
     <!-- Apps -->
     <!-- ============================================================== -->
@@ -211,9 +212,9 @@
         $(".container-fluid").click(function () {
             $("#main-wrapper").removeClass("show-sidebar");
         })
-            $(".loading").css("z-index", 99999);
-    $("#pre-load").css("z-index", 99999);
-    $('body').css('overflow', '');
+        $(".loading").css("z-index", 99999);
+        $("#pre-load").css("z-index", 99999);
+        $('body').css('overflow', '');
 
     </script>
 </body>

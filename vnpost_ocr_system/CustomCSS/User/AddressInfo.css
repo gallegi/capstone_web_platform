@@ -18,7 +18,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 
 .address-list-div {
-    border: solid;
+
     border-radius: 12px;
     padding:20px;
 }
