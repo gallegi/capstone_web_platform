@@ -286,6 +286,7 @@
     <Content Include="assets\Custom css\form-input-border.css" />
     <Content Include="assets\Custom css\Mobile\layout-style.css" />
     <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
+    <Content Include="assets\Custom css\Mobile\home-css.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
     <Content Include="assets\extra-libs\block-ui\block-ui.js" />
