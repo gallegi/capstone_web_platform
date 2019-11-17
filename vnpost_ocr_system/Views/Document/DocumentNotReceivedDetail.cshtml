@@ -404,7 +404,7 @@
                                         <div class="col l4 m4 p-t-10 s12 p-t-15">Trạng thái:</div>
                                         <div class="col l6 m6 s12">
                                             <select tabindex="-1" name="status">
-                                                <option value="1" selected>Đã tiếp nhận</option>
+                                                <option value="-2" selected>Đã tiếp nhận</option>
                                                 <option value="2">Từ chối </option>
                                             </select>
                                         </div>
@@ -427,6 +427,7 @@
                         <div></div>
                         <div class="card-content">
                             <div class="form-action right-align">
+                                <input type="hidden" value="@ViewBag.Order.OrderID" name="id"/>
                                 <button class="my-blue-btn btn" type="submit">Cập nhật</button>
                                 <a class="my-blue-btn btn" href="/ho-so/ho-so-cho-nhan">Trở về</a>
 

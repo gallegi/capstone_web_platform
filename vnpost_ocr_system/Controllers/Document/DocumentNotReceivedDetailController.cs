@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -31,9 +32,36 @@ namespace vnpost_ocr_system.Controllers.Document
 
         [Route("ho-so/ho-so-cho-nhan/chi-tiet/cap-nhat")]
         [HttpPost]
-        public ActionResult Update()
+        public ActionResult Update(string itemCode, string status, string note, string id)
         {
-            return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            using (DbContextTransaction con = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    int conId = Convert.ToInt32(id);
+                    OrderStatusDetail osd = new OrderStatusDetail();
+                    osd.OrderID = Convert.ToInt64(id);
+                    osd.StatusID = Convert.ToInt32(status);
+                    osd.Note = note;
+                    osd.CreatedTime = DateTime.Today;
+                    db.OrderStatusDetails.Add(osd);
+                    db.SaveChanges();
+                    Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
+                    o.ItemCode = itemCode;
+                    o.StatusID = Convert.ToInt32(status);
+                    db.Entry(o).State = EntityState.Modified;
+                    db.SaveChanges();
+                    con.Commit();
+                    return Redirect("/ho-so/ho-so-cho-nhan");
+                }
+                catch (Exception e)
+                {
+                    e.Message.ToString();
+                    con.Rollback();
+                    return Redirect("/ho-so/ho-so-cho-nhan");
+                }
+            }
         }
     }
 }
