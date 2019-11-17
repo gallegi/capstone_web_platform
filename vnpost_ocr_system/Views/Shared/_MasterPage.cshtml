@@ -88,29 +88,44 @@
                     <a href="/Home/index" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/vnpost.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="/Home/index" class="nav-link"><i class="material-icons dp48">home</i><span>Home</span></a></li>
+                        <li><a href="/Home/index" class="nav-link"><i class="material-icons dp48">home</i><span>Trang chủ</span></a></li>
                         <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="nav-link"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
                         <li><a href="/giay-hen/tim-giay-hen" class="nav-link"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
                         @{ if (Session["userID"] != null)
-                            {
-                                <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">exit_to_app</i>@Session["userName"]</a></li>
+                            {       
+                                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">person</i>@Session["userName"]</a></li>
                             }
                             else
                             {
-                                <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
+                                <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">person</i>Đăng nhập</a></li>
                             }
-                        }}
+                        }
 
                     </ul>
                 </div>
             </nav>
         </header>
-
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">settings</i>Tài khoản</a></li>
+            <li class="divider"></li>
+            <li><a href="/tai-khoan/quan-ly-giay-hen" class="nav-link"><i class="material-icons dp48">bookmark_border</i>Quản lý giấy hẹn</a></li>
+            <li><a href="/tai-khoan/so-dia-chi" class="nav-link"><i class="material-icons dp48">book</i>Sổ địa chỉ</a></li>
+        </ul>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="/Home/index"><i class="material-icons dp48">home</i>Home</a></li>
+            @{ if (Session["userID"] != null)
+                {
+                    <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">person</i>@Session["userName"]</a></li>
+                    <li><a href="/tai-khoan/quan-ly-giay-hen" class="nav-link"><i class="material-icons dp48">bookmark_border</i>Quản lý giấy hẹn</a></li>
+                    <li><a href="/tai-khoan/so-dia-chi" class="nav-link"><i class="material-icons dp48">book</i>Sổ địa chỉ</a></li>
+                }
+                else
+                {
+                    <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
+                }
+            }
+            <li><a href="/Home/index"><i class="material-icons dp48">home</i>Trang chủ</a></li>
             <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
             <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
-            <li><a href="/khach-hang/dang-nhap"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
         </ul>
         <div class="page_wrapper content_all">
             @RenderBody()

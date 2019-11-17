@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "AddressInfo";
     Layout = "~/Views/Shared/_MasterPage.cshtml";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <link href="~/CustomCSS/User/AddressInfo.css" rel="stylesheet" />
@@ -157,7 +156,7 @@
                     <div class="container-fluid col offset-s1 s9 ">
                         <div class="row p-20 p-b-0">
                             <div class="col s12 l3">
-                                Người nhận:
+                                <b>Người nhận:</b> 
                             </div>
                             <div class="col s12 l9">
                                 @item.FullName
@@ -165,7 +164,7 @@
                         </div>
                         <div class="row p-20 p-b-0">
                             <div class="col s12 l3">
-                                Địa chỉ:
+                                <b>Địa chỉ:</b>
                             </div>
                             <div class="col s12 l9">
                                 @item.Street
@@ -173,7 +172,7 @@
                         </div>
                         <div class="row p-20 p-b-0">
                             <div class="col s12 l3">
-                                Số CMT:
+                                <b>Số CMT:</b>
                             </div>
                             <div class="col s12 l9">
                                 @item.PersonalPaperNumber

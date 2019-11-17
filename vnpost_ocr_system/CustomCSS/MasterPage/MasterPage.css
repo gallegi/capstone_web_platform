@@ -73,3 +73,14 @@ img.light-logo {
 a.brand-logo {
     margin-left: 20px;
 }
+
+div#main-wrapper {
+    background-color: #eef5f9 !important;
+    /* background-color: #ffffff !important; */
+}
+.content_all {
+    background-color: #eef5f9 !important;
+}
+body {
+    background-color: #eef5f9 !important;
+}
