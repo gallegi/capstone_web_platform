@@ -33,8 +33,16 @@
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet" />
 
-<script src="~/assets/libs/dropzone/dist/dropzone.js"></script>
-
+@*<script src="~/assets/libs/dropzone/dist/dropzone.js"></script>*@
+<style>
+   ul.dropdown-content {
+    position: fixed !important;
+    z-index: 9999;
+}
+a#save_profile1 {
+    margin-left: 20px;
+}
+</style>
 <div class="container-fluid">
     <div class="col s12">
         <div class="card">
@@ -74,13 +82,13 @@
                                     <label for="item4">Tên thủ tục :</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <form action="/file-upload"
+                                    @*<form action="/file-upload"
                                           class="dropzone"
                                           id="my-awesome-dropzone">
                                         <label for="item6">Ảnh chụp giấy hẹn :</label>
                                         <br /><br />
                                         <input type="file" />
-                                    </form>
+                                    </form>*@
                                 </div>
                             </div>
                         </div>
@@ -106,13 +114,17 @@
                                     <div class="col s12 m-b-40">
                                         <div class="info-list-div ">
                                             <div id="contact1" class="row p-b-20">
-                                                <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                <p class="content-text col s12">Loại giấy tờ tùy thân: <span id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
-                                                <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
-                                                <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
-                                                <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
+                                                <div class="col s8 m8 l8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                                    <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
+                                                    <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
+                                                    <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
+                                                </div>
+                                                <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
+                                                </div>
                                                 <div class="col s12 m-t-10">
                                                     <div class="col l4 s12 p-t-10">
                                                         <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
@@ -155,9 +167,14 @@
                                     <div class="col s12 m-b-40">
                                         <div class="info-list-div ">
                                             <div id="contact2" class="row p-b-20">
-                                                <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                <div class="col l8 m8 s8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                </div>
+                                                <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+
+                                                </div>
                                                 <div class="col s12 m-t-10">
                                                     <div class="col l4 s12 p-t-10">
                                                         <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
@@ -200,9 +217,14 @@
                                     <div class="col s12 m-b-40">
                                         <div class="info-list-div ">
                                             <div id="contact3" class="row p-b-20">
-                                                <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                <div class="col l8 s8 m8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                </div>
+                                                <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+
+                                                </div>
                                                 <div class="col s12 m-t-10">
                                                     <div class="col l4 s12 p-t-10">
                                                         <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
@@ -604,6 +626,9 @@
     </div>
 </div>
 
+
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 <script>
     var type = "";
 
@@ -815,13 +840,16 @@
     $(document).on("click", "#profile1", function () {
         var Adminprofile = $(this).closest('#contact1');
         $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
-        $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text())
-        $('#ProcedurerStreet').text(Adminprofile.find('#Street').text())
-        $('#ProcedurerAddress').text(Adminprofile.find('#Address').text())
-        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text())
-        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text())
-        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text())
-        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text())
+        $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
+        $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
+        $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
+        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
+        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
+        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
+        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
+        var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
+        $(".is-check-step-2").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
     $(document).on("click", "#profile2", function () {
@@ -830,6 +858,9 @@
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
+         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
+        $(".is-check-step-3").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
     $(document).on("click", "#profile3", function () {
@@ -838,6 +869,9 @@
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('#ReceiverStreet').text(Adminprofile.find('#Street').text())
         $('#ReceiverAddress').text(Adminprofile.find('#Address').text())
+           var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
+        $(".is-check-step-4").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
