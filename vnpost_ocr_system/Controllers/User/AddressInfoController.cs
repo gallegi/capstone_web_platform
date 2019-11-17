@@ -59,7 +59,7 @@ namespace vnpost_ocr_system.Controllers.User
                 contact.stringDate = contact.PersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy");
                 //return Json(contact);
 
-                return Json(new { info = info, list = contact });
+                return Json(new {list = contact });
             }
             catch (Exception ex)
             {
