@@ -16,20 +16,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetDistrictByProvinceCode(string code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            //3 cái đều chạy được, select để lọc data thừa trả về view cho nhẹ, dùng hay không thì tùy
-            //List<District> list = db.Districts.Where(x => x.PostalProvinceCode.Equals(code)).Select(x => new District
-            //{
-            //    PostalDistrictCode = x.PostalDistrictCode,
-            //    PostalDistrictName = x.PostalDistrictName
-            //}).ToList();
-
-            //List<District> list = (from d in db.Districts
-            //                       where d.PostalProvinceCode.Equals(code)
-            //                       select d).ToList().Select(x => new District
-            //                       {
-            //                           PostalDistrictCode = x.PostalDistrictCode,
-            //                           PostalDistrictName = x.PostalDistrictName
-            //                       }).ToList();
+            //3 cách lấy dữ liệu trong database, select để lọc data thừa trả về view cho nhẹ, dùng hay không thì tùy
             List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
                 .Select(x => new District {
                     PostalDistrictCode = x.PostalDistrictCode,
@@ -63,9 +50,20 @@ namespace vnpost_ocr_system.Controllers.GetProvince
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {
                                                    PublicAdministrationLocationID = x.PublicAdministrationLocationID,
-                                                   PublicAdministrationName = x.PublicAdministrationName
+                                                   PublicAdministrationName = x.PublicAdministrationName,
+                                                   Address = x.Address
                                                }).ToList();
             return Json(list);
+        }
+
+        [Route("GetAddressOfPublicAdmins")]
+        [HttpGet]
+        public ActionResult GetAddressByPublicAdminCode(int code)
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                return Json(db.PublicAdministrations.Find(code).PublicAdministrationName);
+            }
         }
     }
 }
