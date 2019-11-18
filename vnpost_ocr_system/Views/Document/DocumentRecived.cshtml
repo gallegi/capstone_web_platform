@@ -10,8 +10,9 @@
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
-<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
-<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+
+
+<link href="~/dist/css/pages/data-table.css" rel="stylesheet">
 
 <div class="page-titles">
     <div class="d-flex align-items-center">
@@ -23,139 +24,136 @@
     <div class="row">
         <div class="col s12">
             <div class="card">
-                <form class="h-form b-form">
-                    <div class="form-body">
-                        <div class="divider"></div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Tỉnh thành</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Hà Nội</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Tên thủ tục</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Cấp đổi CMT</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Quận huyện</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Quận Hoàn Kiếm</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Từ ngày</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="h-form-label">
-                                                <div class="datepicker-calendar-container">
-                                                    <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                           class="col s12 l6 datepicker-here form-control" autocomplete="off"
-                                                           data-language='vi' value="01/01/2019" />
-                                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="l-name" class="text-black">Cơ quan hành chính</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>Công an tỉnh</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s4">
-                                            <div class="h-form-label margintop">
-                                                <label for="f-name" class="text-black">Đến ngày</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                                       class="col s12 l6 datepicker-here form-control" autocomplete="off"
-                                                       data-language='vi' value="01/01/2019" />
-                                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 l6">
-                                    <div class="row right-align">
-                                        <button class="btn" type="submit">
-                                            <i class="material-icons my-icon">filter_list</i> Hiển thị
 
-                                        </button>
+
+                <div class="divider"></div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="l-name" class="text-black">Tỉnh thành</label>
+                                    </div>
+                                </div>
+                                <div class="col s7">
+                                    <div class="h-form-label">
+                                        <select tabindex="-1" class="card-border" id="province">
+                                            <option value="">Tất cả</option>
+                                            @foreach (var item in ViewBag.proList)
+                                            {
+                                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="f-name" class="text-black">Tên thủ tục</label>
+                                    </div>
+                                </div>
+                                <div class="col s8">
+                                    <div class="h-form-label">
+                                        <select tabindex="-1" class="card-border" id="profile">
+                                            <option value="">Tất cả</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="l-name" class="text-black">Quận huyện</label>
+                                    </div>
+                                </div>
+                                <div class="col s7">
+                                    <div class="h-form-label">
+                                        <select tabindex="-1" class="card-border" id="district">
+                                            <option value="">Tất cả</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="f-name" class="text-black">Từ ngày</label>
+                                    </div>
+                                </div>
+                                <div class="col s8">
+                                    <div class="h-form-label">
+                                        <div class="datepicker-calendar-container">
+                                            <input name="dateTLHD" id="dateFrom" type='text' readonly
+                                                   class="col s12 l6 datepicker-here" autocomplete="off"
+                                                   data-language='vi' value="01/01/2019" />
+                                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="l-name" class="text-black">Cơ quan hành chính</label>
+                                    </div>
+                                </div>
+                                <div class="col s7">
+                                    <div class="h-form-label">
+                                        <select tabindex="-1" class="card-border" id="organ">
+                                            <option value="">Tất cả</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 l6">
+                            <div class="row">
+                                <div class="col s4">
+                                    <div class="h-form-label margintop">
+                                        <label for="f-name" class="text-black">Đến ngày</label>
+                                    </div>
+                                </div>
+                                <div class="col s8">
+                                    <div class="h-form-label">
+                                        <input name="dateTLHD" id="dateTo" type='text' readonly
+                                               class="col s12 l6 datepicker-here" autocomplete="off"
+                                               data-language='vi' value="01/01/2019" />
+                                        <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="col s12 l12 ">
+                            <div class="right">
+                                <button class="btn" id="filter">
+                                    <i class="material-icons my-icon">filter_list</i> Hiển thị
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -176,7 +174,7 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <table id="zero_config" class="responsive-table display m-t-20" style="width:100%">
+                    <table id="mainTable" class="responsive-table display m-t-20" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Mã hồ sơ</th>
@@ -191,116 +189,249 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
-                            <tr>
-                                <th>13456798</th>
-                                <th>729209</th>
-                                <th>Hà Nội</th>
-                                <th>Công an tỉnh</th>
-                                <th>Cấp đổi CMT</th>
-                                <th>15/10/2019</th>
-                                <th>Nguyễn Văn B</th>
-                                <th>118 Láng Hạ</th>
-                                <th><a class="a-reset" href="ho-so-da-nhan/chi-tiet"><i class="material-icons dp48 edit-icon black-text">visibility</i></a></th>
-                            </tr>
                         </tbody>
                     </table>
-                    <ul class="pagination m-t-15 center-align">
-                        <li class="pagination_button page-item previous disabled" id="zero_config_previous">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                        </li>
-                        <li class="paginate_button page-item next" id="zero_config_next">
-                            <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
-                        </li>
-                    </ul>
+                    @*<ul class="pagination m-t-15 center-align">
+                            <li class="pagination_button page-item previous disabled" id="zero_config_previous">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                            </li>
+                            <li class="paginate_button page-item next" id="zero_config_next">
+                                <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+                            </li>
+                        </ul>*@
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        //$("#pre-load").show("slow", function () {
+        //});
+        //$("#pre-load").css("z-index", "99999");
+        $('#mainTable')
+            //.on('preXhr.dt', function (e, settings, data) {
+            //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+            //    $("#pre-load").show("slow", function () {
+            //    });
+            //    $("#pre-load").css("z-index", "99999");
+            //    ////////////////////////////////////////////////////////////////////////
+            //})
+            .DataTable({
+                "ajax": {
+                    "url": "/da-tiep-nhan",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "province": function () { return $('#province').val() },
+                        "district": function () { return $('#district').val() },
+                        "profile": function () { return $('#profile').val() },
+                        "dateTo": function () { return $('#dateTo').val() },
+                        "dateFrom": function () { return $('#dateFrom').val() },
+                        "organ": function () { return $('#organ').val() },
+                    }
+                },
+                "columns": [
+                    { "data": "AppointmentLetterCode", "name": "AppointmentLetterCode" },
+                    { "data": "ItemCode", "name": "ItemCode" },
+                    {
+                        "data": "PostalProvinceName", "name": "PostalProvinceName", "render": function (data) {
+                            if (data == null) {
+                                return $('#province option:selected').html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    {
+                        "data": "PublicAdministrationName", "name": "PublicAdministrationName", "render": function (data) {
+                            if (data == null) {
+                                return $('#organ option:selected').html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    { "data": "ProfileName", "name": "ProfileName" },
+                    {
+                        "data": "ShipDate", "name": "ShipDate", "render": function (data) {
+                            return dateFormat(data);
+                        }
+                    },
+                    { "data": "ReceiverFullName", "name": "ReceiverFullName" },
+                    { "data": "ReceiverStreet", "name": "ReceiverStreet" },
+                    {
+                        "data": "OrderID", "render": function (data) {
+                            return "<a class='a-reset' href='/ho-so/ho-so-da-nhan/chi-tiet?id_raw=" + data + "'><i class='material-icons dp48 edit-icon black-text'>border_color</i></a>";
 
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
+                    //("#pre-load").hide("slow", function () {
+                    //});
+                    ////////////////////////////////////////////////
+                },
+                "serverSide": "true",
+                "language": {
+                    emptyTable: "<li class='text-danger' align='center'>Không có dữ liệu</li>",
+                    paginate:
+                    {
+                        previous: "Trang trước",
+                        next: "Trang sau",
+                        first: "|<",
+                        last: ">|",
+
+                    },
+                    info: "Đang hiện START đến END của TOTAL bản ghi",
+                    infoEmpty: "Đang hiện 0 đến 0 của 0 bản ghi",
+                },
+                "order": [0, "asc"],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "initComplete": function (settings, json) {
+                    ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
+                    //$("#pre-load").hide("slow", function () {
+                    //});
+                    //////////////////////////////////////////////// //////////////////////////////////////////////// ////////////////////////////////////////////////
+                }
+            });
+    });
+
+
+
+
+
+    function dateFormat(d) {
+        if (d == null) {
+            return "";
+        }
+        var dateString = d.substr(6);
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var date = day + "/" + month + "/" + year;
+        return (date);
+    } s
+</script>
+<script>
+    $(document).ready(function () {
+        var dataTable = $('#mainTable').DataTable();
+        $("#filter").click(function () {
+            
+            dataTable.ajax.reload(function () {
+            });
+        });
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $('#province').change(function () {
+
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetDistrict",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    $('#district').empty();
+                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                    $('#district').append(option);
+                    $('#district').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $('#district').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetAdmins",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#organ').empty();
+                    var option = "<option value='' selected disabled>Tên CQHC</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                    }
+                    $('#organ').append(option);
+                    $('#organ').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $('#organ').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetProfile",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#profile').empty();
+                    var option = "<option value='' selected disabled>Tên thủ tục</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                    }
+                    $('#profile').append(option);
+                    $('#profile').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
+            })
+        })
+    })
+
+</script>
+
+
+
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
+<script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>

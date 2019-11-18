@@ -23,6 +23,7 @@
     <link href="~/assets/Custom css/form-input-border.css" rel="stylesheet">
     <!--Font css-->
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
+    <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -52,47 +53,25 @@
     <script src="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="~/assets/extra-libs/sparkline/sparkline.js"></script>
     <script src="~/dist/js/pages/dashboards/dashboard1.js"></script>
+    <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
 </head>
 
 <body>
     <div class="main-wrapper" id="main-wrapper">
         <div id="pre-load" hidden>
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div id="pre-load" hidden>
+        <div class="preloader" hidden>
             <div class="loading">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
-            </div>
-        </div>
-        <div class="preloader">
-            <div class="loader">
-                <div class="loader__figure"></div>
-                <p class="loader__label">Đang tải...</p>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -112,9 +91,9 @@
                             <img class="light-logo" src="~/assets/images/users/admin1.jpg">
                         </span>
                         <span class="text">
-                            <h6 class="admin_text hide-menu">Xin chào,Admin1</h6>
+                            <h6 class="admin_text hide-menu">Xin chào,@Session["userName"]</h6>
                         </span>
-                       
+
                     </a>
                     <!-- ============================================================== -->
                     <!-- Logo you can find that scss in header.scss -->
@@ -136,7 +115,7 @@
                                 <span class="bars bar2"></span>
                                 <span class="bars bar3"></span>
                             </a>
-                        </li>                      
+                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Left topbar icon scss in header.scss -->
@@ -147,7 +126,7 @@
 
                     <ul class="right">
                         <li>
-                            <h6 class="text-ava">Admin1</h6>
+                            <h6 class="text-ava">@Session["userName"]</h6>
                         </li>
                         <li>
                             <a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="/assets/images/users/2.jpg" alt="user" class="circle profile-pic"></a>
@@ -188,7 +167,8 @@
                     <ul class="collapsible slidebar">
                         <li><a href="/ho-so/thong-ke-tong-quat" class="collapsible-header"><i class="material-icons">featured_play_list</i><span class="hide-menu">Tổng quan</span></a></li>
                         <li class="small-cap"><span class="hide-menu">Quản lý</span></li>
-                        <li><a href="javascript:void(0);" class="collapsible-header has-arrow"><i class="material-icons">equalizer</i><span class="hide-menu ">Thống kê</span></a>
+                        <li>
+                            <a href="javascript:void(0);" class="collapsible-header has-arrow"><i class="material-icons">equalizer</i><span class="hide-menu ">Thống kê</span></a>
                             <div class="collapsible-body">
                                 <ul>
                                     <li>
@@ -550,7 +530,8 @@
         <!-- Right Sidebar -->
         <!-- ============================================================== -->
     </div>
-
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(".loading").css("z-index", 99999);
         $('body').css('overflow', '');

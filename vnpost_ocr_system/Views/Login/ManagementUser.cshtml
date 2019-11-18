@@ -2,15 +2,29 @@
     ViewBag.Title = "ManagementUser";
     Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
 }
+<style>
+    table, th, td {
+        text-align: center !important;
+    }
 
+    [type="checkbox"]:not(:checked):disabled + span:not(.lever):before {
+        border: 2px solid #5a5a5a !important;
+        background-color: white !important;
+    }
+
+    [type="checkbox"]:checked:disabled + span:before {
+        border-right: 2px solid #5e35b1 !important;
+        border-bottom: 2px solid #5e35b1 !important;
+    }
+</style>
 <link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
-<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
-
+<link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+<link href="~/dist/css/pages/data-table.css" rel="stylesheet">
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/CustomJS/test.js"></script>
 <script src="~/CustomJS/Management_User/ManagementUser.js"></script>
-
+<script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
+<script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 
 <!-- Pop-up add user / edit user-->
@@ -21,20 +35,15 @@
     <div class="modal-body">
         <table id="Table" class="centered striped">
             <tbody>
-
                 <tr>
                     <td>Tên người dùng</td>
-                    <td><input class="form-control" type="text" value="TRÍ123"></td>
+                    <td><input class="form-control" type="text" id="name_add"></td>
                 </tr>
                 <tr>
                     <td>Tỉnh/Thành Phố</td>
                     <td>
-                        <select class="browser-default">
-
-                            <option value="1">Tổng công ty</option>
-                            <option value="2">Hà Nội</option>
-                            <option value="3">Nam Định</option>
-                            <option value="4">Tất cả</option>
+                        <select class="browser-default" id="province_add">
+                            <option value="0">Tổng công ty</option>
                         </select>
 
                     </td>
@@ -42,56 +51,44 @@
                 <tr>
                     <td>Vai trò</td>
                     <td>
-                        <select class="browser-default">
-
-                            <option value="1">Quản trị viên</option>
-                            <option value="2">Nhân viên nhập liệu</option>
-
+                        <select class="browser-default" id="role_add">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tài khoản</td>
-                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text" id="username_add"></td>
                 </tr>
-
                 <tr>
                     <td>Mật khẩu</td>
-                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text" id="password_add"></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-
                         <span class="col" style="margin-left: 290px;">Hiển thị mật khẩu</span>
                         <span class="col">
-
                             <label style="margin-left: 290px; margin-top: 20px">
-                                <input type="checkbox" unchecked="checked" />
+                                <input type="checkbox" id="checkbox_add"/>
                                 <span></span>
                             </label>
-
                         </span>
-
-
                     </td>
                 </tr>
                 <tr>
                     <td>Hoạt động</td>
                     <td>
-
                         <label>
-                            <input type="checkbox" />
+                            <input type="checkbox" id="active_add"/>
                             <span></span>
                         </label>
-
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn modal-close blue">Lưu</a>
+        <a class="btn modal-close blue" onclick="Insert()">Lưu</a>
         <a class="btn modal-close blue darken-2">Đóng</a>
     </div>
 </div>
@@ -107,15 +104,36 @@
             </div>
 
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa tài khoản của Nguyễn Quang Tùng không?</p>
+                <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
 
                 <p class="debug-url"></p>
             </div>
 
             <div class="modal-footer">
 
-                <a class="btn modal-close red">Có</a>
+                <a class="btn modal-close red" onclick="DeleteAdmin()">Có</a>
                 <a class="btn modal-close blue darken-2">Không</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notifi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+
+            <div class="modal-body">
+                <p id="text_notifi"></p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close blue darken-2">OK</a>
             </div>
         </div>
     </div>
@@ -127,70 +145,39 @@
         <div class="col offset-l1 l1">
             <p class="m-t-10">Khu vực</p>
         </div>
-
-        @* Drop down list khu vực *@
         <div class="col l3">
-            <form>
-
-                <select class="browser-default">
-
-                    <option value="1">Tổng công ty</option>
-                    <option value="2">Hà Nội</option>
-                    <option value="3">Nam Định</option>
-                    <option value="4">Tất cả</option>
-                </select>
-            </form>
+            <select class="browser-default" id="province">
+                <option value="">Tổng công ty</option>
+            </select>
         </div>
-
         <div class="col l1 offset-l1">
             <p class="m-t-10">Vai trò</p>
         </div>
-
-        @* Drop down list vai trò *@
         <div class="col l4">
-            <form>
-
-                <select class="browser-default">
-
-                    <option value="1">Quản trị viên</option>
-                    <option value="2">Nhân viên nhập liệu</option>
-                    <option value="3">Tất cả</option>
-                </select>
-            </form>
+            <select class="browser-default" id="role">
+                <option value="">Tất cả</option>
+            </select>
         </div>
-
-
     </div>
 
     <div class="row m-t-30">
         <div class="col offset-l1 l1">
-            Hoạt động
+            <p class="m-t-10">Hoạt động</p>
         </div>
-
-        <div class="col">
-            <p>
-                <label>
-                    <input type="checkbox" unchecked="checked" />
-                    <span>Có</span>
-                </label>
-            </p>
-        </div>
-
-        <div class="col offset-l1">
-            <p>
-                <label>
-                    <input type="checkbox" unchecked="checked" />
-                    <span>Không</span>
-                </label>
-            </p>
+        <div class="col l3">
+            <select class="browser-default" id="active">
+                <option value="">Tất cả</option>
+                <option value="1">Có</option>
+                <option value="0">Không</option>
+            </select>
         </div>
     </div>
 
     <div class="row">
         <div class="col l3 offset-l8">
-            <a href="#" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right modal-trigger m-r-20">
+            <button id="sea" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right m-r-20">
                 Hiển thị
-            </a>
+            </button>
         </div>
     </div>
 
@@ -202,10 +189,6 @@
     @* Thanh tìm kiếm, button search, button refresh *@
     <div class="row my-function m-t-20">
         <div class="col l9 offset-l1">
-
-
-
-
             <div class="my-input-search col l11">
                 <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
                        placeholder="Nhập tên người dùng, tài khoản, khu vực để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
@@ -217,39 +200,23 @@
                 </button>
             </div>
         </div>
-
         <div class="col l2 d-flex">
-
-
             <div>
                 <a href="#vattu" class="modal-trigger" name="action">
-
                     <i class="material-icons dp48 small">add</i>
                 </a>
-
-
             </div>
-            <div style=" margin-left: 15px !important">
-                <a href="#" class="modal-trigger" onclick="reloadPage()">
-                <i class="material-icons dp48 small">refresh</i>
-                </a>
-            </div>
-
         </div>
 
 
         <div class="row">
-
             <div class="col l10 offset-l1">
-
                 @* Dữ liệu cho nút edit *@
                 <ul id="dropdown1" style=" width:120px !important; overflow-x: hidden;" class="dropdown-content edit-ul">
                     <li><a href="#vattu" class="modal-trigger">Chỉnh sửa</a></li>
-
                     <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
                 </ul>
-
-                <table class="table highlight responsive-table mana-user-table">
+                <table class="table highlight responsive-table mana-user-table" id="mainTable">
                     <thead>
                         <tr>
                             <th class="center-align">STT</th>
@@ -259,311 +226,56 @@
                             <th class="center-align">Vai trò</th>
                             <th class="center-align">Hoạt động</th>
                             <th class="center-align"></th>
+                            <th class="center-align"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn6</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-                               
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn7</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">admin10</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn1</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn2</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn3</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn4</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="center-align">1</td>
-                            <td class="left-align">Nguyễn Quang Tùng</td>
-                            <td class="center-align">tienn5</td>
-                            <td class="center-align"> Tổng công ty </td>
-                            <td class="center-align"> Quản trị viên </td>
-                            <td class="center-align">
-                                <label class="m-l-15">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="center-align">
-
-                                <a href="#editUser" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">mode_edit</i>
-                                </a>
-
-
-                                <a href="#deleteModal" class="modal-trigger" name="action">
-
-                                    <i class="material-icons dp48 small">clear</i>
-                                </a>
-
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <ul class="pagination col l4 offset-l4 m-t-40">
-                        <li class="paginate_button page-item previous disabled" id="file_export_previous">
-                            <a href="#"
-                               aria-controls="file_export" data-dt-idx="0" tabindex="0" class="page-link">
-                                Previous
-                            </a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="file_export" data-dt-idx="1" tabindex="0" class="page-link">
-                                1
-                            </a>
-                        </li>
-                        <li class="paginate_button page-item ">
-                            <a href="#" aria-controls="file_export" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                        </li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="file_export" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="file_export" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                        <li class="paginate_button page-item next" id="file_export_next">
-                            <a href="#" aria-controls="file_export" data-dt-idx="5" tabindex="0" class="page-link">
-                                Next
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
 </div>
 
 @* POP-UP NHẬP THÔNG TIN NGƯỜI DÙNG MỚI *@
-<div class="modal fade" id="forminput" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@*<div class="modal fade" id="forminput" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email1">Email address</label>
+                            <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
             </div>
-            <form>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="email1">Email address</label>
-                        <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">Password</label>
-                        <input type="password" class="form-control" id="password1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">Confirm Password</label>
-                        <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
-                    </div>
-                </div>
-                <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </form>
         </div>
-    </div>
-</div>
+    </div>*@
 
 @* ***************** *@
 
 
 
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
 
 
 <!-- Pop-up ------  DEMO PROTOTYPE ---- edit user-->
@@ -577,76 +289,302 @@
 
                 <tr>
                     <td>Tên người dùng</td>
-                    <td><input class="form-control" type="text" value="Nguyễn Quang Tùng"></td>
+                    <td><input class="form-control" type="text" id="name_edit"></td>
                 </tr>
                 <tr>
                     <td>Tỉnh/Thành Phố</td>
                     <td>
-                        <select class="browser-default">
-
-                            <option value="1">Hà Nội</option>
-                            <option value="2">Tổng công ty</option>
-                            
-                            <option value="3">Nam Định</option>
-                            <option value="4">Tất cả</option>
+                        <select class="browser-default" id="province_edit">
                         </select>
-
                     </td>
                 </tr>
                 <tr>
                     <td>Vai trò</td>
                     <td>
-                        <select class="browser-default">
-
-                            <option value="1">Quản trị viên</option>
-                            <option value="2">Nhân viên nhập liệu</option>
-
+                        <select class="browser-default" id="role_edit">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tài khoản</td>
-                    <td><input class="form-control" type="text" value="admin0"></td>
+                    <td><input class="form-control" type="text" id="username_edit"></td>
                 </tr>
 
                 <tr>
                     <td>Mật khẩu</td>
-                    <td><input class="form-control" type="password" value="ABCXYZ"></td>
+                    <td><input class="form-control" type="password" id="password_edit"></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-
                         <span class="col">Hiển thị mật khẩu</span>
                         <span class="col">
 
                             <label style="margin-left: 290px; margin-top: 20px">
-                                <input type="checkbox" unchecked="checked" />
+                                <input type="checkbox" id="showpass" />
                                 <span></span>
                             </label>
-
                         </span>
-
-
                     </td>
                 </tr>
                 <tr>
                     <td>Hoạt động</td>
                     <td>
-
                         <label>
-                            <input type="checkbox" checked/>
+                            <input type="checkbox" id="active_edit" />
                             <span></span>
                         </label>
-
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn modal-close blue">Lưu</a>
+        <a class="btn modal-close blue" onclick="Update()">Lưu</a>
         <a class="btn modal-close blue darken-2">Đóng</a>
     </div>
 </div>
+<input tye="text" hidden id="temp_id" />
+<script>
+    $(document).ready(function () {
+        let ch = 1;
+        getRole();
+        getPro();
+        Sea();
+        $('#sea').click(function () {
+            DataTable.ajax.reload(function () {
+            });
+        });
+        $('#showpass').click(function () {
+            if (ch == 1) { $('#password_edit').attr('type', 'text'); ch = 0; }
+            else { $('#password_edit').attr('type', 'password'); ch = 1; }
+        });
+    });
 
+    function Insert() {
+        $('#pre-load').show();
+        var emb = {
+            name: document.getElementById('name_add').value,
+            username: document.getElementById('username_add').value,
+            password: document.getElementById('password_add').value,
+            province: document.getElementById('province_add').value,
+            role: document.getElementById('role_add').value,
+            active : $('#active_add').is(":checked")
+        };
+        $.ajax({
+            url: "/ManagementUser/Insert",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                $('#text_notifi').text('Thêm tài khoản thành công');
+                $('#notifi').modal('open');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                $('#notifi').modal('open');
+                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+            }
+        });
+    }
+
+    function Delete(id) {
+        document.getElementById('temp_id').value = id;
+        $('#deleteModal').modal('open');
+    }
+    function DeleteAdmin() {
+        $('#pre-load').show();
+        var emb = {
+            id: document.getElementById('temp_id').value
+        };
+        $.ajax({
+            url: "/ManagementUser/Delete",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                $('#text_notifi').text('Xóa tài khoản thành công');
+                $('#notifi').modal('open');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                $('#notifi').modal('open');
+                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+            }
+        });
+    }
+    function Edit(id) {
+        //$('#pre-load').show();
+        var emb = {
+            id: id
+        };
+        $.ajax({
+            url: "/ManagementUser/GetEdit",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('name_edit').value = result.AdminName;
+                document.getElementById('username_edit').value = result.AdminUsername;
+                document.getElementById('password_edit').value = result.AdminPasswordHash;
+                document.getElementById('province_edit').value = result.PostalProvinceCode;
+                document.getElementById('role_edit').value = result.Role;
+                if (result.IsActive == true) $('#active_edit').attr('checked', 'true');
+                else $('#active_edit').removeAttr('checked');
+                $('#editUser').modal('open');
+                $('#pre-load').hide();
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+            }
+        });
+    }
+
+    function getPro() {
+        $.ajax({
+            url: "/LoginCustomer/GetPro",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                $('#province').append(string);
+                $('#province').formSelect();
+                $('#province_edit').append(string);
+                $('#province_edit').formSelect();
+                $('#province_add').append(string);
+                $('#province_add').formSelect();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+    function getRole() {
+        $.ajax({
+            url: "/ManagementUser/getRole",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.AdminRoleID + "'>" + key.AdminRoleName + "</option>";
+                });
+                $('#role').append(string);
+                $('#role').formSelect();
+                $('#role_edit').append(string);
+                $('#role_edit').formSelect();
+                $('#role_add').append(string);
+                $('#role_add').formSelect();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function Sea() {
+        $('#pre-load').show();
+        let index = 1;
+        DataTable = $('#mainTable')
+            .on('preXhr.dt', function (e, settings, data) {
+                ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+                $("#pre-load").show("slow", function () {
+                });
+                $("#pre-load").css("z-index", "99999");
+                ////////////////////////////////////////////////////////////////////////
+            })
+            .DataTable({
+                "ajax": {
+                    "url": "/ManagementUser/getData",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "province": function () { return $('#province').val() },
+                        "role": function () { return $('#role').val() },
+                        "active": function () { return $('#active').val() },
+                    }
+                },
+                "columns": [
+                    { "data": null, "name": "Index", "render": function (data) { return index++; } },
+                    { "data": "AdminName", "name": "AdminName" },
+                    { "data": "AdminUsername", "name": "AdminUsername" },
+                    { "data": "PostalProvinceName", "name": "PostalProvinceName" },
+                    { "data": "AdminRoleName", "name": "AdminRoleName" },
+                    {
+                        "data": "IsActive", "render": function (data) {
+                            if (data == true)
+                                return "<label><input type='checkbox' checked disabled/><span></span></label>";
+                            else return "<label><input type='checkbox' disabled/><span></span>  </label>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminID", "render": function (data) {
+                            return "<a class='a-reset' href='#!' onclick='Edit(" + data + ")'><i class='material-icons dp48 p-10 black-text' style='font-size: 18px !important'>mode_edit</i></a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminID", "render": function (data) {
+                            return "<a class='a-reset' href='#!' onclick='Delete(" + data + ")'><i class='material-icons dp48 p-10 black-text modal-trigger' style='font-size: 18px !important'>clear</i></a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                ],
+                "drawCallback": function (settings) {
+                    ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
+                    //("#pre-load").hide("slow", function () {
+                    //});
+                    ////////////////////////////////////////////////
+                    $('#pre-load').hide();
+                },
+                "serverSide": "true",
+                "language": {
+                    emptyTable: "<li class='text-danger' align='center'>Không có dữ liệu</li>",
+                    paginate:
+                    {
+                        previous: "Trang trước",
+                        next: "Trang sau",
+                        first: "|<",
+                        last: ">|",
+
+                    },
+                    info: "Đang hiện START đến END của TOTAL bản ghi",
+                    infoEmpty: "Đang hiện 0 đến 0 của 0 bản ghi",
+                },
+                "order": [0, "asc"],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "initComplete": function (settings, json) {
+                    ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
+                    //$("#pre-load").hide("slow", function () {
+                    //});
+                    //////////////////////////////////////////////// //////////////////////////////////////////////// ////////////////////////////////////////////////
+                    $('#pre-load').hide();
+                }
+            });
+    }
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

@@ -14,11 +14,7 @@ namespace vnpost_ocr_system.Controllers.Login
         [Route("khach-hang/dang-nhap")]
         public ActionResult Index()
         {
-            if (Request.Browser.IsMobileDevice)
-            {
-                return View("/Views/MobileView/Login.cshtml");
-            }else{
-            }
+            if (Session["userID"] != null) return Redirect("/");
             ViewBag.invalidcode = "";
             if (HttpContext.Request.Cookies["remmem"] != null)
             {
@@ -96,7 +92,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
         }
         [HttpPost]
-        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass, string tbRePass, string group1)
+        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass,string distrint, string tbRePass, string group1)
         {
             try
             {
@@ -108,7 +104,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         return View("/Views/Login/Login_Cutomer.cshtml");
                     }
                     var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
-                    if(cus.Count > 0)
+                    if (cus.Count > 0)
                     {
                         ViewBag.messe = "Số điện thoại đã được đăng kí cho tài khoản khác";
                         return View("/Views/Login/Login_Cutomer.cshtml");
@@ -139,16 +135,38 @@ namespace vnpost_ocr_system.Controllers.Login
                 c.Phone = tbPhone;
                 c.Email = tbEmail;
                 c.DOB = DateTime.Now;
+                c.PostalDistrictID = distrint;
                 db.Customers.Add(c);
                 db.SaveChanges();
                 ViewBag.notifi = "Tạo tài khoản thành công";
-                return Redirect("/tai-khoan/thong-tin-tai-khoan");
+                var custom = db.Customers.Where(x => x.Email.Equals(tbEmail) || x.Phone.Equals(tbPhone)).FirstOrDefault();
+                Session["userID"] = custom.CustomerID;
+                Session["userName"] = custom.FullName;
+                return Redirect("/");
             }
             catch (Exception e)
             {
                 ViewBag.messe = "Có lỗi xảy ra. Vui lòng thử lại";
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
+        }
+        [Route("Logout")]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
+        public ActionResult GetPro()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var list = db.Provinces.ToList();
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDis(string id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var list = db.Districts.Where(x => x.PostalProvinceCode == id).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
     public class login

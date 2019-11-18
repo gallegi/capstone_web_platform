@@ -10,21 +10,94 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        // GET: InputInformationScreen21
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> provinces = db.Provinces.ToList();
-            ViewBag.provinces = provinces;
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
+                List<Province> provinces = db.Provinces.ToList();
+                ViewBag.provinces = provinces;
 
-            List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.FullName, ci.Street, ci.Phone, ppt.PersonalPaperTypeName, ci.PersonalPaperNumber, ci.PersonalPaperIssuedDate, ci.PersonalPaperIssuedPlace
-from Customer c inner join ContactInfo ci
-on c.CustomerID = ci.CustomerID
-inner join PersonalPaperType ppt on ci.PersonalPaperTypeID = ppt.PersonalPaperTypeID
-where c.CustomerID = @CustomerID", new SqlParameter("CustomerID", 1)).ToList();
-            ViewBag.contactInfos = contactInfos;
+                List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.*, ppt.PersonalPaperTypeName, d.PostalDistrictName, p.PostalProvinceName 
+                    from Customer c inner join ContactInfo ci on c.CustomerID = ci.CustomerID
+                    inner join PersonalPaperType ppt on ci.PersonalPaperTypeID = ppt.PersonalPaperTypeID
+					inner join District d on ci.PostalDistrictCode = d.PostalDistrictCode
+					inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode
+                    where c.CustomerID = @CustomerID", new SqlParameter("CustomerID", Session["userID"].ToString())).ToList();
+                ViewBag.contactInfos = contactInfos;
+
+                List<PersonalPaperType> papertypes = db.PersonalPaperTypes.ToList();
+                ViewBag.papertypes = papertypes;
+            }
+
             return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
+        }
+
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
+        [HttpPost]
+        public ActionResult Add()
+        {
+            try
+            {
+                string FullName = Request["FullName"];
+                string Phone = Request["Phone"];
+                string PostalDistrictCode = Request["PostalDistrictCode"];
+                string Street = Request["Street"];
+                string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
+                string PersonalPaperNumber = Request["PersonalPaperNumber"];
+                string PersonalPaperIssuedDateString = Request["PersonalPaperIssuedDateString"];
+                string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
+                string ContactInfoID = Request["ContactInfoID"];
+                string Type = Request["Type"];  //1 có đủ thông tin, 2 thiếu giấy tờ tùy thân
+                using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+                {
+                    ContactInfo c = ContactInfoID == "" ? new ContactInfo() : db.ContactInfoes.Find(int.Parse(ContactInfoID));
+                    if (ContactInfoID != "" && !c.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return Json(new { success = false, message = "Có lỗi xảy ra" });
+                    c.FullName = FullName;
+                    c.Phone = Phone;
+                    c.PostalDistrictCode = PostalDistrictCode;
+                    c.Street = Street;
+                    if (Type.Equals("1"))
+                    {
+                        c.PersonalPaperTypeID = int.Parse(PersonalPaperTypeID);
+                        c.PersonalPaperNumber = PersonalPaperNumber;
+                        c.PersonalPaperIssuedDate = DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
+                        c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace;
+                    }
+                    if (ContactInfoID == "")
+                    {
+                        c.CustomerID = long.Parse(Session["userID"].ToString());
+                        db.ContactInfoes.Add(c);
+                        return Json(new { success = true, message = "Thêm mới thành công" });
+                    }
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Chỉnh sửa thành công" });
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra" });
+            }
+        }
+
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetContactInfo")]
+        [HttpPost]
+        public ActionResult GetContactInfo(int id)
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                ContactInfoDB info = db.Database.SqlQuery<ContactInfoDB>(@"select * from ContactInfo c inner join District d on c.PostalDistrictCode = d.PostalDistrictCode 
+                        inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where ContactInfoID = @ContactInfoID",
+                    new SqlParameter("ContactInfoID", id)).FirstOrDefault();
+                if (!info.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return null;
+                if (info == null) return null;
+
+                List<District> districts = db.Database.SqlQuery<District>("select d.* from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
+
+                info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? "" : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
+                return Json(new { info = info, list = districts });
+            }
         }
     }
 }

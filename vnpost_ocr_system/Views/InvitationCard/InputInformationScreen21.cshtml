@@ -27,286 +27,510 @@
 <script src="~/CustomJS/InputInfo.js"></script>
 
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
-<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
-<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet" />
 
-
-<link href="~/CustomCSS/MaterialStepper/mstepper.css" rel="stylesheet" />
-<link href="~/CustomJS/mstepper/mstepper.min.css" rel="stylesheet" />
-<script src="~/CustomJS/mstepper/mstepper.min.js"></script>
-
+@*<script src="~/assets/libs/dropzone/dist/dropzone.js"></script>*@
+<style>
+   ul.dropdown-content {
+    position: fixed !important;
+    z-index: 9999;
+}
+a#save_profile1 {
+    margin-left: 20px;
+}
+</style>
 <div class="container-fluid">
-    <div class="page-titles">
-        <div class="d-flex align-items-center">
-
-        </div>
-    </div>
-    <form action="/giay-hen/nhap-giay-hen/thong-tin-yeu-cau">
-        <div class="row">
-            <h5>1. Thông tin thủ tục</h5>
-            <div class="card">
-                <div class="h-form b-form">
-                    <div class="form-body">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content wizard-content">
+                <h5 class="card-title">Tạo giấy hẹn mới</h5>
+                <form action="/don-hang/thanh-toan" method="post" class="validation-wizard wizard-circle m-t-40">
+                    <!-- Step 1 -->
+                    <h6>Thông tin thủ tục</h6>
+                    <section>
                         <div class="row">
-                            <div class="card-content">
-                                <ul class="stepper horizontal">
-                                    <li class="step active">
-                                        <div class="step-title waves-effect">Thông tin thủ tục</div>
-                                        <div class="step-content">
-                                            <!-- Your step content goes here (like inputs or so) -->
-                                            <div class="select-wrapper row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tỉnh/Thành phố:</p>
-                                                <div class="col l6 m6 s12">
-                                                    <select id="item1">
-                                                        <option value="Tỉnh/Thành phố" disabled selected>Tỉnh/Thành phố</option>
-                                                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
-                                                        {
-                                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                                                        }
-                                                    </select>
+                            <div class="col m6">
+                                <div class="input-field col s12">
+                                    <select id="item1" name="types">
+                                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                                        {
+                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                        }
+                                    </select>
+                                    <label for="item1" class="">Tỉnh/Thành phố :</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="item2" name="types"></select>
+                                    <label for="item2">Quận/Huyện :</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text" id="item5" class="required" />
+                                    <label for="item5">Mã giấy hẹn :</label>
+                                </div>
+                            </div>
+                            <div class="col m6">
+                                <div class="input-field col s12">
+                                    <select id="item3" tabindex="-1"></select>
+                                    <label for="item3">Tên CQHC :</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="item4" tabindex="-1"></select>
+                                    <label for="item4">Tên thủ tục :</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    @*<form action="/file-upload"
+                                          class="dropzone"
+                                          id="my-awesome-dropzone">
+                                        <label for="item6">Ảnh chụp giấy hẹn :</label>
+                                        <br /><br />
+                                        <input type="file" />
+                                    </form>*@
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 2 -->
+                    <h6>Thông tin yêu cầu giải quyết TTHC</h6>
+                    <section>
+                        <div class="row">
+                            @if (ViewBag.contactInfos == null)
+                            {
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn chưa có thông tin
+                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                        Tạo thông tin mới
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                                foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
+                                {
+                                    <div class="col s12 m-b-40">
+                                        <div class="info-list-div ">
+                                            <div id="contact1" class="row p-b-20">
+                                                <div class="col s8 m8 l8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                                    <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
+                                                    <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
+                                                    <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
                                                 </div>
-                                            </div>
-                                            <div class="select-wrapper row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Quận/Huyện:</p>
-                                                <div class="col l6 m6 s12">
-                                                    <select id="item2" tabindex="-1">
-                                                        <option value="Quận/Huyện" selected disabled>Quận/Huyện</option>
-                                                    </select>
+                                                <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
                                                 </div>
-                                            </div>
-                                            <div class="select-wrapper row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên CQHC:</p>
-                                                <div class="col l6 m6 s12">
-                                                    <select id="item3" tabindex="-1">
-                                                        <option value="Tên CQHC" selected disabled>Tên CQHC</option>
-                                                    </select>
+                                                <div class="col s12 m-t-10">
+                                                    <div class="col l4 s12 p-t-10">
+                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
+                                                    </div>
+                                                    <div class="col l2 s12 p-t-10">
+                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="select-wrapper row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Tên thủ tục:</p>
-                                                <div class="col l6 m6 s12">
-                                                    <select id="item4" tabindex="-1">
-                                                        <option value="Tên thủ tục" selected disabled>Tên thủ tục</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="input-field row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Mã giấy hẹn:</p>
-                                                <div class="col l6 m6 s12">
-                                                    <input class="no-border" id="con1" type="text" required>
-                                                </div>
-                                            </div>
-                                            <div class="input-field row">
-                                                <div class="col l2"></div>
-                                                <p class="col l2 m4 p-t-10 s12 normal-size left bold">Ảnh chụp giấy hẹn:</p>
-                                                <div class="col l6 m6 s12 m-t-15">
-                                                    <div class="img-picker"></div>
-                                                </div>
-                                            </div>
-                                            <div class="step-actions row">
-                                                <!-- Here goes your actions buttons -->
-                                                <button class="waves-effect waves-dark btn next-step">Tiếp tục</button>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li class="step">
-                                        <div class="step-title waves-effect">Thông tin yêu cầu giải quyết TTHC</div>
-                                        <div class="step-content">
-                                            <div class="row">
-                                                @if (ViewBag.contactInfos == null)
-                                                {
-                                                    <p class="col s12 big-heading m-b-15">
-                                                        Bạn chưa có thông tin
-                                                        <span class="show-form light-blue-text hover-pointer hover-underline">
-                                                            Tạo thông tin mới
-                                                        </span>
-                                                    </p>
-                                                }
-                                                else
-                                                {
-
-                                                    <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
-                                                    foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
-                                                    {
-                                                        <div class="col s12 m-b-40">
-                                                            <div class="info-list-div ">
-                                                                <div class="row p-b-20">
-                                                                    <p class="content-text highlight col s12">@item.FullName</p>
-                                                                    <p class="content-text col s12">@item.Street</p>
-                                                                    <p class="content-text col s12">Số điện thoại: @item.Phone</p>
-                                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: @item.PersonalPaperTypeName</p>
-                                                                    <p class="content-text col s12">Số giấy tờ tùy thân: @item.PersonalPaperNumber</p>
-                                                                    <p class="content-text col s12">Ngày cấp: @(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</p>
-                                                                    <p class="content-text col s12">Nơi cấp: @(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</p>
-                                                                    <div class="col s12 m-t-10">
-                                                                        <div class="row">
-                                                                            <div class="col l4 s12 p-t-10">
-                                                                                <a class="btn waves-effect waves-light bt-color-common">Sử dụng thông tin này</a>
-                                                                            </div>
-                                                                            <div class="col l2 s12 p-t-10">
-                                                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" href="#edit">Chỉnh sửa</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                }
-
-                                                <p class="col s12 big-heading m-b-15">
-                                                    Bạn muốn sử dụng thông tin khác?
-                                                    <span class="show-form light-blue-text hover-pointer hover-underline">
-                                                        Nhập thông tin mới
-                                                    </span>
-                                                </p>
-                                            </div>
-                                            <div class="step-actions">
-                                                <!-- Here goes your actions buttons -->
-                                                <button class="waves-effect waves-dark btn next-step">Tiếp tục</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="step">
-                                        <div class="step-title waves-effect">Thông tin người gửi</div>
-                                        <div class="step-content">
-                                            <!-- Your step content goes here (like inputs or so) -->
-                                            <div class="step-actions">
-                                                <!-- Here goes your actions buttons -->
-                                                <button class="waves-effect waves-dark btn next-step">Tiếp tục</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="step">
-                                        <div class="step-title waves-effect">Thông tin người nhận</div>
-                                        <div class="step-content">
-                                            <!-- Your step content goes here (like inputs or so) -->
-                                            <div class="step-actions">
-                                                <!-- Here goes your actions buttons -->
-                                                <button class="waves-effect waves-dark btn next-step">Tiếp tục</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                @*<div class="md-stepper-horizontal temp customStep">
-                                    <div class="md-step">
-                                        <a>
-                                            <div class="md-step-circle"><span>2</span></div>
-                                            <div class="md-step-title">Thông tin yêu cầu giải quyết TTHC</div>
-                                            <div class="md-step-bar-left"></div>
-                                            <div class="md-step-bar-right"></div>
-                                        </a>
                                     </div>
-                                    <div class="md-step">
-                                        <a>
-                                            <div class="md-step-circle"><span>3</span></div>
-                                            <div class="md-step-title">Thông tin người gửi</div>
-                                            <div class="md-step-bar-left"></div>
-                                            <div class="md-step-bar-right"></div>
-                                        </a>
-                                    </div>
-                                    <div class="md-step">
-                                        <a href="~/giay-hen/nhap-thong-tin-nguoi-nhan">
-                                            <div class="md-step-circle"><span>4</span></div>
-                                            <div class="md-step-title">Thông tin người nhận</div>
-                                            <div class="md-step-bar-left"></div>
-                                            <div class="md-step-bar-right"></div>
-                                        </a>
-                                    </div>
-                                </div>*@
-                                <div class="card">
-                                    <div class="h-form b-form">
-                                        <div class="form-body">
-
-
-                                            <div id="contact" class="card-content customDis">
-                                                <h4 class="mgbt">(*)Thông tin liên hệ hỗ trợ</h4>
-                                                <div class="row">
-                                                    <div class="col l2"></div>
-                                                    <p class="col l2 s12 normal-size left">Địa chỉ CQHCC:</p>
-                                                    <p class="col l6">Quận Ba Đình, Hà Nội</p>
+                                }
+                            }
+                            <p class="col s12 big-heading m-b-15">
+                                Bạn muốn sử dụng thông tin khác?
+                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                    Nhập thông tin mới
+                                </a>
+                            </p>
+                        </div>
+                    </section>
+                    <!-- Step 3 -->
+                    <h6>Thông tin người gửi</h6>
+                    <section>
+                        <div class="row">
+                            @if (ViewBag.contactInfos == null)
+                            {
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn chưa có thông tin
+                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                        Tạo thông tin mới
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                                foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
+                                {
+                                    <div class="col s12 m-b-40">
+                                        <div class="info-list-div ">
+                                            <div id="contact2" class="row p-b-20">
+                                                <div class="col l8 m8 s8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                </div>
+                                                <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
 
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col l2"></div>
-                                                    <p class="col l2 s12 normal-size left">Số điện thoại CQHCC:</p>
-                                                    <p class="col l4">912213855</p>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col l2"></div>
-                                                    <p class="col l2 s12 normal-size left">Tên bưu cục đầu mối:</p>
-                                                    <p class="col l4">KHL Hùng Vương</p>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col l2"></div>
-                                                    <p class="col l2 s12 normal-size left">Địa chỉ bưu cục đầu mối:</p>
-                                                    <p class="col l4">Số 175, Phố Nguyễn Thái Học, Phường Điện Biên</p>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col l2"></div>
-                                                    <p class="col l2 s12 normal-size left">Số điện thoại bưu cục đầu mối:</p>
-                                                    <p class="col l4">439435895</p>
-
+                                                <div class="col s12 m-t-10">
+                                                    <div class="col l4 s12 p-t-10">
+                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
+                                                    </div>
+                                                    <div class="col l2 s12 p-t-10">
+                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div></div>
                                         </div>
-                                        <div></div>
+                                    </div>
+                                }
+                            }
+                            <p class="col s12 big-heading m-b-15">
+                                Bạn muốn sử dụng thông tin khác?
+                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    Nhập thông tin mới
+                                </a>
+                            </p>
+                        </div>
+                    </section>
+                    <!-- Step 4 -->
+                    <h6>Thông tin người nhận</h6>
+                    <section>
+                        <div class="row">
+                            @if (ViewBag.contactInfos == null)
+                            {
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn chưa có thông tin
+                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                        Tạo thông tin mới
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
+                                foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
+                                {
+                                    <div class="col s12 m-b-40">
+                                        <div class="info-list-div ">
+                                            <div id="contact3" class="row p-b-20">
+                                                <div class="col l8 s8 m8">
+                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                                </div>
+                                                <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+
+                                                </div>
+                                                <div class="col s12 m-t-10">
+                                                    <div class="col l4 s12 p-t-10">
+                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
+                                                    </div>
+                                                    <div class="col l2 s12 p-t-10">
+                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            <p class="col s12 big-heading m-b-15">
+                                Bạn muốn sử dụng thông tin khác?
+                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    Nhập thông tin mới
+                                </a>
+                            </p>
+                        </div>
+                    </section>
+                    <h6>Phiếu gửi hồ sơ</h6>
+                    <section>
+                        <div class="row">
+                            <div class="form-body">
+                                <div class="card-content col s12">
+                                    <h4 class="font-medium">Thông tin thủ tục</h4>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Tên thủ tục:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ProfileName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Tên cơ quan HCC: </label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="AdminName"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Tỉnh/Thành phố:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="PostalProvinceName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Địa chỉ CQHCC:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="PA_Address"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Quận/Huyện: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="PostalDistrictName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Mã giấy hẹn:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="AppointmentLetterCode"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="col h-form-label">
+                                            <label>Ảnh giấy hẹn: </label>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 center">
+                                        <div class="h-form-label">
+                                            <label><img src="~/assets/images/giay-hen.jpg" /></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-content col s12">
+                                    <h4 class="font-medium">Thông tin người yêu cầu giải quyết thủ tục hành chính</h4>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ProcedurerFullName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Số điện thoại</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerPhone"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Loại GTTT: </label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerPersonalPaperTypeName"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Số GTTT: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ProcedurerPersonalPaperNumber"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Ngày cấp: </label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerPersonalPaperIssuedDate"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-content col s12">
+                                    <h4 class="font-medium">Thông tin người gửi</h4>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="SenderFullName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Số điện thoại</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="SenderPhone"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-content col s12">
+                                    <h4 class="font-medium">Thông tin người nhận</h4>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ReceiverFullName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="row clgray">
+                                            <div class="col s5">
+                                                <div class="h-form-label">
+                                                    <label>Số điện thoại</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s7">
+                                                <div class="h-form-label">
+                                                    <label id="ReceiverPhone"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label>Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label><span id="ReceiverStreet"></span>, <span id="ReceiverAddress"></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="col s12">
+                                            <div class="h-form-label">
+                                                <label>Ghi chú:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s12">
+                                            <textarea name="OrderNote"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div></div>
-                    </div>
-                    <div></div>
-                </div>
+                    </section>
+                </form>
             </div>
         </div>
-        <div class="row mt">
-            <div class="col s12">
-
-            </div>
-        </div>
-        @*<div class="row m-t-30 m-b-30">
-            <div class="col s1 m6 l6 m6">
-                <div class="input-field row">
-                    <p class="col l4 m4 p-t-10 s12"></p>
-                    <div class="col l6 m6 s12">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col s11 m6 l6 m6">
-                <div class="input-field row">
-                    <p class="col l4 m4 p-t-10 s12"></p>
-                    <div class="col l6 m6 s12 right-align">
-                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
-                            Gửi
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-    </form>
+    </div>
 </div>
 
-<div id="edit" class="modal fade">
+<div id="myform1" class="modal fade">
     <div class="form-wrapper">
         <div class="row">
             <div class="col s12 l12 m12">
                 <div class="input-field row">
                     <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
                     <div class="col l9 m9 s12">
-                        <input id="con1" type="text" value="">
+                        <input id="name_edit" type="text">
                     </div>
                 </div>
             </div>
@@ -314,31 +538,26 @@
                 <div class="input-field row">
                     <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
                     <div class="col l9 m9 s12">
-                        <input id="con1" type="text" value="">
+                        <input id="phone_edit" type="text">
                     </div>
                 </div>
             </div>
             <div class="input-field col s12 m12">
-                <div class="row">
-                    <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
-                    <div class="col l9 m9 s12">
-                        <select tabindex="-1" class="card-border">
-                            <option value="1" selected>Hà Nội</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                    </div>
+                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
+                <div class="col l9 m9 s12">
+                    <select tabindex="-1" id="province_edit" class="card-border">
+                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                        {
+                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="input-field col s12 m12">
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
                     <div class="col l9 m9 s12">
-                        <select tabindex="-1" class="card-border">
-                            <option value="1" selected>Quận Thạch Thất</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
+                        <select tabindex="-1" id="district_edit" class="card-border"></select>
                     </div>
                 </div>
             </div>
@@ -346,58 +565,59 @@
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
                     <div class="col l9 m9 s12">
-                        <textarea></textarea>
+                        <textarea id="street_edit"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
-                <div class="row">
+            <div id="showmore">
+                <div class="input-field col s12 m12">
                     <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
                     <div class="col l9 m9 s12">
-                        <select tabindex="-1" class="card-border">
-                            <option value="1" selected>Chứng minh nhân dân</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                        <select tabindex="-1" id="paper_type_edit" class="card-border">
+                            @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
+                            {
+                                <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
+                            }
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
-                    <div class="col l9 m9 s12">
-                        <input id="con1" type="text" value="">
+                <div class="col s12 l12 m12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
+                        <div class="col l9 m9 s12">
+                            <input id="paper_number_edit" type="text">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
-                    <div class="col l9 m9 s12 datepicker-calendar-container row">
-                        <input name="dateTLHD" id="datepicker" type='text' readonly
-                               class="col s10 l10 datepicker-here centerText" autocomplete="off"
-                               data-language='vi' value="16/10/2019" />
-                        <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                <div class="col s12 l12 m12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
+                        <div class="col l9 m9 s12 datepicker-calendar-container row">
+                            <input name="dateTLHD" id="paper_date_edit" type='text' readonly
+                                   class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                   data-language='vi' />
+                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
-                    <div class="col l9 m9 s12">
-                        <input id="con1" type="text" value="">
+                <div class="col s12 l12 m12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
+                        <div class="col l9 m9 s12">
+                            <input id="paper_place_edit" type="text">
+                            <input hidden readonly id="info_edit" type="text" />
+                            <input hidden readonly id="type" />
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="input-field col s12 m12">
-                        <div class="select-wrapper row">
-                            <div class="col l3 m3 p-t-10 s12 "></div>
-                            <div class="col l9 m9 s12">
-                                <a class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close">Hủy Bỏ</a>
-                                <a class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" id="save_profile1">Lưu</a>
-                            </div>
+                <div class="input-field col s12 m12">
+                    <div class="select-wrapper row">
+                        <div class="col l3 m3 p-t-10 s12 "></div>
+                        <div class="col l9 m9 s12">
+                            <a class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close">Hủy Bỏ</a>
+                            <a class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" id="save_profile1">Lưu</a>
                         </div>
                     </div>
                 </div>
@@ -405,23 +625,17 @@
         </div>
     </div>
 </div>
+
+
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
-
 <script>
-    var stepper = document.querySelector('.stepper');
-    var stepperInstace = new MStepper(stepper, {
-        // options
-        firstActive: 0, // this is the default
-        linearStepsNavigation: false,
-    })
-    stepper.addEventListener('stepchange', function () {
-        this.nextstep
-    });
-    
+    var type = "";
+
     $(document).ready(function () {
         $('#item1').change(function () {
             $('#pre-load').show()
+            $('#PostalProvinceName').text($(this).find("option:selected").text())
             $.ajax({
                 type: "POST",
                 url: "/GetDistrict",
@@ -432,7 +646,9 @@
                 },
                 success: function (response) {
                     $('#item2').empty();
-                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    $('#item3').empty();
+                    $('#item4').empty();
+                    var option = "";
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
@@ -448,6 +664,7 @@
 
         $('#item2').change(function () {
             $('#pre-load').show()
+            $('#PostalDistrictName').text($(this).find('option:selected').text());
             $.ajax({
                 type: "POST",
                 url: "/GetAdmins",
@@ -457,11 +674,11 @@
                     code: $(this).val()
                 },
                 success: function (response) {
-                    console.log(response)
                     $('#item3').empty();
-                    var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
+                    $('#item4').empty();
+                    var option = "";
                     for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                        option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                     }
                     $('#item3').append(option);
                     $('#item3').formSelect();
@@ -475,6 +692,8 @@
 
         $('#item3').change(function () {
             $('#pre-load').show()
+            $("#AdminName").text($(this).find('option:selected').text());
+            $('#PA_Address').text($(this).find('option:selected').data("address"))
             $.ajax({
                 type: "POST",
                 url: "/GetProfile",
@@ -484,9 +703,8 @@
                     code: $(this).val()
                 },
                 success: function (response) {
-                    console.log(response)
                     $('#item4').empty();
-                    var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
+                    var option = "";
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                     }
@@ -499,5 +717,324 @@
                 }
             })
         })
+
+        $('#item4').change(function () {
+            $("#ProfileName").text($(this).find('option:selected').text());
+        })
+
+        $('#item5').change(function () {
+            $('#AppointmentLetterCode').text($(this).val())
+        })
+    })
+
+    $(document).on("click", ".modal-trigger", function () {
+        $('#myform1').find("input[type=text], textarea").val("");
+    })
+
+    $(document).on("click", "#add", function () {
+        type = $(this).data("type");
+        if (type != 1) $('#showmore').hide();
+        else $('#showmore').show();
+    })
+
+    $(document).on("click", "#edit", function () {
+        $('#pre-load').show()
+        type = $(this).data("type");
+        if (type != 1) $('#showmore').hide();
+        else $('#showmore').show();
+        $.ajax({
+            type: "POST",
+            url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetContactInfo",
+            cache: false,
+            dataType: "json",
+            data: {
+                id: $(this).data("profile1"),
+                type: type
+            },
+            success: function (response) {
+                $('#name_edit').val(response.info.FullName);
+                $('#phone_edit').val(response.info.Phone);
+                $('#province_edit').val(response.info.PostalProvinceCode);
+                $('#province_edit').formSelect();
+                $('#district_edit').empty();
+                var option = "";
+                for (var i = 0; i < response.list.length; i++) {
+                    option += "<option value='" + response.list[i].PostalDistrictCode + "'>" + response.list[i].PostalDistrictName + "</option>";
+                }
+                $('#district_edit').html(option);
+                $('#district_edit').val(response.info.PostalDistrictCode);
+                $('#district_edit').formSelect();
+                $('#street_edit').val(response.info.Street);
+                $('#paper_type_edit').val(response.info.PersonalPaperTypeID)
+                $('#paper_type_edit').formSelect();
+                $('#paper_number_edit').val(response.info.PersonalPaperNumber);
+                $('#paper_date_edit').val(response.info.PersonalPaperIssuedDateString);
+                $('#paper_place_edit').val(response.info.PersonalPaperIssuedPlace);
+                $('#info_edit').val(response.info.ContactInfoID);
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    })
+
+    $('#province_edit').change(function () {
+        $('#pre-load').show()
+        $.ajax({
+            type: "POST",
+            url: "/GetDistrict",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $(this).val()
+            },
+            success: function (response) {
+                $('#district_edit').empty();
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                }
+                $('#district_edit').append(option);
+                $('#district_edit').formSelect();
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    })
+
+    $(document).on("click", "#save_profile1", function () {
+        $('#pre-load').show()
+        $.ajax({
+            type: "POST",
+            url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc",
+            cache: false,
+            dataType: "json",
+            data: {
+                FullName: $('#name_edit').val(),
+                Phone: $('#phone_edit').val(),
+                PostalDistrictCode: $('#district_edit').val(),
+                Street: $('#street_edit').val(),
+                PersonalPaperTypeID: $('#paper_type_edit').val(),
+                PersonalPaperNumber: $('#paper_number_edit').val(),
+                PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
+                PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
+                ContactInfoID: $('#info_edit').val(),
+                Type: type
+            },
+            success: function (response) {
+                if (response.success)
+                    alert(response.message);
+                else
+                    alert(response.message)
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    })
+
+    $(document).on("click", "#profile1", function () {
+        var Adminprofile = $(this).closest('#contact1');
+        $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
+        $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
+        $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
+        $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
+        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
+        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
+        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
+        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
+        var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
+        $(".is-check-step-2").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+    })
+
+    $(document).on("click", "#profile2", function () {
+        var Adminprofile = $(this).closest('#contact2');
+        $('#SenderFullName').text(Adminprofile.find('#FullName').text());
+        $('#SenderPhone').text(Adminprofile.find('#Phone').text())
+        $('#SenderStreet').text(Adminprofile.find('#Street').text())
+        $('#SenderAddress').text(Adminprofile.find('#Address').text())
+         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
+        $(".is-check-step-3").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+    })
+
+    $(document).on("click", "#profile3", function () {
+        var Adminprofile = $(this).closest('#contact3');
+        $('#ReceiverFullName').text(Adminprofile.find('#FullName').text());
+        $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
+        $('#ReceiverStreet').text(Adminprofile.find('#Street').text())
+        $('#ReceiverAddress').text(Adminprofile.find('#Address').text())
+           var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
+        $(".is-check-step-4").empty();
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+    })
+</script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script>
+    //Basic Example
+    $("#example-basic").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        autoFocus: true
+    });
+
+    // Basic Example with form
+    var form = $("#example-form");
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+    });
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            alert("Submitted!");
+        }
+    });
+
+    // Advance Example
+
+    var form = $("#example-advanced-form").show();
+
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "fieldset",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            // Allways allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+            // Forbid next action on "Warning" step if the user is to young
+            if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+                return false;
+            }
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex) {
+                // To remove error styles
+                form.find(".body:eq(" + newIndex + ") label.error").remove();
+                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex) {
+            // Used to skip the "Warning" step if the user is old enough.
+            if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+                form.steps("next");
+            }
+            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            if (currentIndex === 2 && priorIndex === 3) {
+                form.steps("previous");
+            }
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            alert("Submitted!");
+        }
+    }).validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password-2"
+            }
+        }
+    });
+
+    // Dynamic Manipulation
+    $("#example-manipulation").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        enableAllSteps: true,
+        enablePagination: false
+    });
+
+    //Vertical Steps
+
+    $("#example-vertical").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        stepsOrientation: "vertical"
+    });
+
+    //Custom design form example
+    $(".tab-wizard").steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#',
+        labels: {
+            finish: "Submit"
+        },
+        onFinished: function (event, currentIndex) {
+            swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+
+        }
+    });
+
+
+    var form = $(".validation-wizard").show();
+
+    $(".validation-wizard").steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#',
+        labels: {
+            finish: "Submit"
+        },
+        onStepChanging: function (event, currentIndex, newIndex) {
+            return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+        },
+        onFinishing: function (event, currentIndex) {
+            return form.validate().settings.ignore = ":disabled", form.valid()
+        },
+        onFinished: function (event, currentIndex) {
+            swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+        }
+    }), $(".validation-wizard").validate({
+        ignore: "input[type=hidden]",
+        errorClass: "text-danger",
+        successClass: "text-success",
+        highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element)
+        },
+        rules: {
+            email: {
+                email: !0
+            }
+        }
     })
 </script>

@@ -1,147 +1,351 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AddressInfo";
     Layout = "~/Views/Shared/_MasterPage.cshtml";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <link href="~/CustomCSS/User/AddressInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
-<div class="main-wrapper p-t-20 black-text">
-    <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Sổ địa chỉ</h2>
-    <div class="card content-text">
-        <div class="col s12 m-b-20">
-            <div class="address-list-div ">
-                <div class="row">
-                    <a href="/tai-khoan/tao-dia-chi-moi">
-                        <div class="container-fluid col">
-                            <div class="row">
-                                <i class="cal-icon material-icons dp48 col s12 offset-s5 offset-l4 l1">edit</i>
-                                <div class="p-t-20 col offset-s3 s8 l5">Thêm địa chỉ mới</div>
-                            </div>
-                        </div>
-                    </a>    
-                </div>
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
+<link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+
+<form action="tai-khoan/so-dia-chi" method="POST" id="myeditform" role="form">
+    <input type="hidden" class="form-control" id="id-edit" />
+    <div class="modal fade" id="myEdit">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Sửa thông tin</h3>
             </div>
-        </div>
-        <div class="col s12 m-b-20">
-            <div class="address-list-div ">
-                <div class="row">
-                    <div class="container-fluid col offset-s1 s9 ">
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Người nhận:
+            <div class="modal-body">
+                <div class="address-list-div card">
+                    <div class="row">
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Họ và tên:<span class="red-text">*</span>
                             </div>
-                            <div class="col s12 l9">
-                                Nguyễn Vân Anh
+                            <div class="col s12 l5 m5">
+                                <input id="editName" type="text">
                             </div>
                         </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Địa chỉ:
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Số điện thoại:<span class="red-text">*</span>
                             </div>
-                            <div class="col s12 l9">
-                                Đại học FPT, Khu Công Nghệ cao
+                            <div class="col s12 l5 m5">
+                                <input id="editPhone" type="text">
                             </div>
                         </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Số CMT:
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Tỉnh/Thành phố:<span class="red-text">*</span>
                             </div>
-                            <div class="col s12 l9">
-                                001122334455
+                            <div class="col s12 l5 m5">
+                                <select tabindex="-1" class="card-border" id="province">
+                                    @foreach (var item in ViewBag.listProvince)
+                                    {
+                                        <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Quận/Huyện:<span class="red-text">*</span>
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <select tabindex="-1" class="card-border" id="editDistrict">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Địa chỉ:<span class="red-text">*</span>
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <textarea id="editAddress"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Loại giấy tờ tùy thân:
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <select tabindex="-1" class="card-border" id="paperType">
+                                    @foreach (var item in ViewBag.listPaperType)
+                                    {
+                                        <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col s2">
-                        <div class="row">
-                            <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
-                            <i class="cal-icon material-icons dp48 col l5 s12">close</i>
+                    <div class="row">
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Mã số giấy tờ tùy thân:
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <input id="editCode" type="text">
+                            </div>
                         </div>
 
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Ngày cấp:<span class="red-text">*</span>
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <div>
+                                    <div class="row">
+                                        <input name="date" id="editDate" type="datetime"
+                                               class="datepicker-here col offset-s1 s9 offset-l1 l10" autocomplete="off"
+                                               data-language='vi' />
+                                        <i class="fas fa-calendar-alt col s2 l1" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-b-30">
+                            <div class="col s12 l5 m5 p-t-10">
+                                Nơi cấp:
+                            </div>
+                            <div class="col s12 l5 m5">
+                                <input id="editPlaceOfIssue" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col s12 m-b-20">
-            <div class="address-list-div ">
-                <div class="row">
-                    <div class="container-fluid col offset-s1 s9 ">
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Người nhận:
-                            </div>
-                            <div class="col s12 l9">
-                                Nguyễn Vân Anh
-                            </div>
-                        </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Địa chỉ:
-                            </div>
-                            <div class="col s12 l9">
-                                Đại học FPT, Khu Công Nghệ cao
-                            </div>
-                        </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Số CMT:
-                            </div>
-                            <div class="col s12 l9">
-                                001122334455
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="row">
-                            <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
-                            <i class="cal-icon material-icons dp48 col l5 s12">close</i>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m-b-20">
-            <div class="address-list-div ">
-                <div class="row">
-                    <div class="container-fluid col offset-s1 s9 ">
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Người nhận:
-                            </div>
-                            <div class="col s12 l9">
-                                Nguyễn Vân Anh
-                            </div>
-                        </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Địa chỉ:
-                            </div>
-                            <div class="col s12 l9">
-                                Đại học FPT, Khu Công Nghệ cao
-                            </div>
-                        </div>
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l3">
-                                Số CMT:
-                            </div>
-                            <div class="col s12 l9">
-                                001122334455
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="row">
-                            <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
-                            <i class="cal-icon material-icons dp48 col l5 s12">close</i>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn blue darken-2 modal-close save-category">Lưu</button>
+                <button type="button" class="btn light-blue lighten-1 modal-close" id="exit-add-button">Thoát</button>
             </div>
         </div>
     </div>
+</form>
+
+<div class="main-wrapper p-t-20 black-text">
+    <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Sổ địa chỉ</h2>
+    <div class="col s12 m-b-20">
+        <div class="address-list-div card">
+            <div class="row">
+                <a href="/tai-khoan/tao-dia-chi-moi">
+                    <div class="container-fluid col">
+                        <div class="row">
+                            <i class="cal-icon material-icons dp48 col s12 offset-s5 offset-l4 l1">edit</i>
+                            <div class="p-t-20 col offset-s3 s8 l5">Thêm địa chỉ mới</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in ViewBag.listContactInfo)
+    {
+        <div class="col s12 m-b-20">
+            <div class="address-list-div card">
+                <div class="row">
+                    <div class="container-fluid col offset-s1 s9 ">
+                        <div class="row p-20 p-b-0">
+                            <div class="col s12 l3">
+                                <b>Người nhận:</b> 
+                            </div>
+                            <div class="col s12 l9">
+                                @item.FullName
+                            </div>
+                        </div>
+                        <div class="row p-20 p-b-0">
+                            <div class="col s12 l3">
+                                <b>Địa chỉ:</b>
+                            </div>
+                            <div class="col s12 l9">
+                                @item.Street
+                            </div>
+                        </div>
+                        <div class="row p-20 p-b-0">
+                            <div class="col s12 l3">
+                                <b>Số CMT:</b>
+                            </div>
+                            <div class="col s12 l9">
+                                @item.PersonalPaperNumber
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="row">
+                            <a href="#myEdit" class="modal-trigger open-EditModal" id="editButton" data-edit="@item.ContactInfoID">
+                                <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
+                            </a>
+                            <a href="#" class="modal-trigger" id="deleteButton" onclick="getDelete(@item.ContactInfoID)">
+                                <i class="cal-icon material-icons dp48 col l5 s12">close</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*<div id="delete" class="col s12 m-b-20 ">
+            <div class="address-list-div card">
+                <div class="row">
+                    <div class="container-fluid col offset-s1 s9 ">
+                        <div class="row p-20 p-b-0">
+                            <div class="col s12 l12">
+                                Bạn có chắc muốn xóa tài khoản của Nguyễn Vân Anh không ?
+                            </div>
+                        </div>
+                        <div class="row p-20 p-b-0">
+                            <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                Có
+                            </button>
+                            <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
+                                Không
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>*@
 </div>
+
+<script>
+    $(document).on("click", ".open-EditModal", function () {
+        var editID = $(this).data('edit');
+        $.ajax({
+            type: "POST",
+            url: "/tai-khoan/so-dia-chi/lay-chinh-sua",
+            dataType: "json",
+            success: function (data) {
+                $('#editName').val(data.info.FullName);
+                $('#editPhone').val(data.info.Phone);
+                $('#province').val(data.info.PostalProvinceCode);
+                $('#province').formSelect();
+                $('#editDistrict').empty();
+                var option = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    option += "<option value='" + data.list[i].PostalDistrictCode + "'>" + data.list[i].PostalDistrictName + "</option>";
+                }
+                $('#editDistrict').html(option);
+                $('#editDistrict').val(data.info.PostalDistrictCode);
+                $('#editDistrict').formSelect();
+                $('#editAddress').val(data.info.Street);
+                $('#editCode').val(data.info.PersonalPaperNumber);
+                $('#editDate').val(data.info.PersonalPaperIssuedDateString);
+                $('#editPlaceOfIssue').val(data.info.PersonalPaperIssuedPlace);
+                $('#id-edit').val(data.info.ContactInfoID);
+            },
+            data: {
+                contactInfoId: editID
+            },
+            cache: false
+        })
+    }); 
+    $("#myeditform").submit(function (e) {
+        $.ajax({
+            type: "POST",
+            url: "/tai-khoan/so-dia-chi/chinh-sua",
+            dataType: "text",
+            success: function () {
+                //successAlert('Thành công', 'Chỉnh sửa thành công ');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+            },
+            data: {
+                name: $("#editName").val(),
+                phone: $('#editPhone').val(),
+                address: $('#editAddress').val(),
+                PaperTypeCode: document.getElementById("paperType").value,
+                paperNumber : $('#editCode').val(),
+                districtCode: document.getElementById("editDistrict").value,
+                date: $('#editDate').val(),
+                placeOfIssue: $('#editPlaceOfIssue').val(),
+                id: $('#id-edit').val()
+            },
+            cache: false
+        }).done(function () {
+            location.reload();
+        })
+        return false;
+    });
+
+    $(document).ready(function () {
+        $('#province').change(function () {
+            var data = {
+                provinceID: document.getElementById("province").value
+            };
+            $.ajax({
+                type: "POST",
+                url: "/tai-khoan/tao-dia-chi-moi/lay-quan-huyen",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    $('#editDistrict').empty();
+                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                    $('#editDistrict').append(option);
+                    $('#editDistrict').formSelect();
+                    $('#pre-load').hide()
+                }
+            });
+        }
+        )
+    })
+
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/tai-khoan/so-dia-chi/lay-tinh-thanh-pho",
+    //        data: JSON.stringify(),
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            $('#province').empty();
+    //            var option = "<option value='Tỉnh/Thành Phố' selected disabled> Tỉnh/Thành Phố </option>";
+    //            for (var i = 0; i < response.length; i++) {
+    //                if () {
+
+    //                }
+    //                option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
+    //            }
+    //            $('#editDistrict').append(option);
+    //            $('#editDistrict').formSelect();
+    //            $('#pre-load').hide()
+    //        }
+    //    });
+    //})
+
+    function getDelete(code) {
+        confirmAlert("Xóa địa chỉ", "Bạn không thể khôi phục lại khi xóa", function () {
+            $.ajax({
+                type: "POST",
+                url: "/tai-khoan/so-dia-chi/xoa",
+                dataType: "json",
+                data: {
+                    Code: JSON.stringify(code)
+                },
+                success: function () {
+                    //swal("Đã xóa thành công!", "");
+                    window.location.href = '/tai-khoan/so-dia-chi';
+                }
+            })
+        });
+    }
+</script>
+
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>

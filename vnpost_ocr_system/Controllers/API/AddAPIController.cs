@@ -12,6 +12,7 @@ namespace vnpost_ocr_system.CustomCSS.API
     public class AddAPIController : Controller
     {
         // GET: AddAPI
+       
         [Route("api/them-moi-api")]
         public ActionResult Index()
         {
