@@ -51,6 +51,23 @@ namespace vnpost_ocr_system.Controllers.Document
                 string searchValue = Request["search[value]"];
                 string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
                 string sortDirection = Request["order[0][dir]"];
+
+                string[] arrFrom = dateFrom.Split('/');
+                string[] arrTo = dateTo.Split('/');
+
+                string dFrom = "";
+                string dTo = "";
+
+                for (int i = arrFrom.Length -1; i >=0; i--)
+                {
+                    dFrom += arrFrom[i];
+                }
+
+                for (int i = arrTo.Length - 1; i >= 0; i--)
+                {
+                    dTo += arrTo[i];
+                }
+
                 if (!profile.Equals(""))
                 {
                     query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
@@ -81,10 +98,10 @@ namespace vnpost_ocr_system.Controllers.Document
                 }
                 else
                 {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID "+
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID "+
-"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode "+
-"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode "+
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
+"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
+"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
 "where o.StatusID = 2";
                 }
 
@@ -108,8 +125,8 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
                                                                  new SqlParameter("province", province),
-                                                                 new SqlParameter("dateFrom", dateFrom),
-                                                                 new SqlParameter("dateTo", dateTo)).ToList();
+                                                                 new SqlParameter("dateFrom", dFrom),
+                                                                 new SqlParameter("dateTo", dTo)).ToList();
                 db.Configuration.LazyLoadingEnabled = false;
 
                 totalrows = searchList.Count;
