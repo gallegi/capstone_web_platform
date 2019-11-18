@@ -16,7 +16,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
-                List<Province> provinces = db.Provinces.ToList();
+                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
                 List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.*, ppt.PersonalPaperTypeName, d.PostalDistrictName, p.PostalProvinceName 
