@@ -32,16 +32,57 @@
 
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet" />
-
+<link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 @*<script src="~/assets/libs/dropzone/dist/dropzone.js"></script>*@
+<link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
+<link href="~/assets/uploader/icons.min.css" rel="stylesheet" />
+@*<link href="~/assets/uploader/style_uploader.css" rel="stylesheet" />*@
+
 <style>
-   ul.dropdown-content {
-    position: fixed !important;
-    z-index: 9999;
-}
-a#save_profile1 {
-    margin-left: 20px;
-}
+
+    #toast-container {
+        min-width: 10%;
+        top: 0;
+        right: 50%;
+        transform: translateX(50%) translateY(50%);
+    }
+
+    ul.dropdown-content {
+        position: fixed !important;
+        z-index: 9999;
+    }
+
+    a#save_profile1 {
+        margin-left: 20px;
+    }
+    .dropzone .dz-preview .dz-image {
+
+        margin: auto;
+    }
+        .dropzone .dz-preview .dz-progress .dz-upload {
+        background: #29bb22 !important;
+        background: linear-gradient(to bottom, #7ceb69, #29bb22) !important;
+        /*position: absolute;*/
+        top: 0;
+        bottom: 0;
+        width: 0;
+        /*-webkit-transition: width 300ms ease-in-out;
+        -moz-transition: width 300ms ease-in-out;
+        -ms-transition: width 300ms ease-in-out;
+        -o-transition: width 300ms ease-in-out;
+        transition: width 300ms ease-in-out;*/
+    }
+    .wizard > .actions {
+        padding-top: 30px !important;
+    }
+    .dz-preview.dz-processing.dz-success.dz-complete.dz-image-preview {
+        margin: 0px !important;
+        display: block;
+    }
+    /*.dropzone .dz-preview .dz-image {
+        width: 250px !important;
+        height: 250px !important;
+    }*/
 </style>
 <div class="container-fluid">
     <div class="col s12">
@@ -81,14 +122,17 @@ a#save_profile1 {
                                     <select id="item4" tabindex="-1"></select>
                                     <label for="item4">Tên thủ tục :</label>
                                 </div>
-                                <div class="input-field col s12">
-                                    @*<form action="/file-upload"
-                                          class="dropzone"
-                                          id="my-awesome-dropzone">
-                                        <label for="item6">Ảnh chụp giấy hẹn :</label>
-                                        <br /><br />
-                                        <input type="file" />
-                                    </form>*@
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
+                                    <div class="fallback">
+                                        <input type="file" id="fUpload" name="file" class="form-control" single />
+                                    </div>
+                                    <div class="dz-message needsclick">
+                                        <i class="medium material-icons dp48">cloud_upload</i>
+                                        <h3 id="title_uploader">Kéo thả file hoặc click vào đây để tải lên</h3>
+                                        <span class="text-muted font-13">(File hợp lệ: xls, xlsx)</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -116,9 +160,9 @@ a#save_profile1 {
                                             <div id="contact1" class="row p-b-20">
                                                 <div class="col s8 m8 l8">
                                                     <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                                     <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
                                                     <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
                                                     <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                                     <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
@@ -169,7 +213,7 @@ a#save_profile1 {
                                             <div id="contact2" class="row p-b-20">
                                                 <div class="col l8 m8 s8">
                                                     <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                                     <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                                 </div>
                                                 <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
@@ -219,7 +263,7 @@ a#save_profile1 {
                                             <div id="contact3" class="row p-b-20">
                                                 <div class="col l8 s8 m8">
                                                     <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                                     <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                                 </div>
                                                 <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
@@ -629,11 +673,17 @@ a#save_profile1 {
 
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/assets/extra-libs/prism/prism.js"></script>
+<script src="~/assets/uploader/dropzoneMultiple.js"></script>
 <script>
     var type = "";
     var validate1 = false;
     var validate2 = false;
     var validate3 = false;
+
+    var data = new FormData();
 
     $(document).ready(function () {
         $('#item1').change(function () {
@@ -852,7 +902,9 @@ a#save_profile1 {
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
         $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
+        data.append("ProcedurerPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
+        data.append("ProcedurerPersonalPaperTypeID", Adminprofile.find('#PersonalPaperTypeName').data("papertype"))
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
@@ -868,10 +920,11 @@ a#save_profile1 {
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
-         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
+        data.append("SenderPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
     $(document).on("click", "#profile3", function () {
@@ -880,16 +933,13 @@ a#save_profile1 {
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('#ReceiverStreet').text(Adminprofile.find('#Street').text())
         $('#ReceiverAddress').text(Adminprofile.find('#Address').text())
-           var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
+        data.append("ReceiverPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
-<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
-
-<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
-
 <script>
     var form = $(".validation-wizard").show();
 
@@ -904,26 +954,45 @@ a#save_profile1 {
         onStepChanging: function (event, currentIndex, newIndex) {
             if (currentIndex === 0) {
                 if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null) {
-                    alert("Không được chọn thiếu")
+                    toastr.error('Hãy điền đầy đủ thông tin!', '');
+                    return false;
+                }
+                else if (data.get("img") == null) {
+                    toastr.error('Bạn chưa nhập ảnh giấy hẹn!', '');
                     return false;
                 }
             }
             else if (currentIndex === 1 && !validate1) {
-                alert("Chọn 1 profile đi tuấn béo");
+                toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!', '');
                 return false;
             }
             else if (currentIndex === 2 && !validate2) {
-                alert("Chọn 1 profile người gửi đi tuấn béo");
+                toastr.error('Hãy chọn thông tin người gửi!', '');
                 return false;
             }
             else if (currentIndex === 3 && !validate3) {
-                alert("Chọn 1 profile người nhận đi tuấn béo");
+                toastr.error('Hãy chọn thông tin người nhận!', '');
                 return false;
             }
             return true;
         },
         onFinishing: function (event, currentIndex) {
-            return form.validate().settings.ignore = ":disabled", form.valid()
+            data.append("ProfileID", $('#item4').val());
+            data.append("AppointmentLetterCode", $('#item5').val());
+            data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
+            data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
+            data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
+            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
+            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
+            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
+            data.append("SenderFullName", $('#SenderFullName').text());
+            data.append("SenderPhone", $('#SenderPhone').text());
+            data.append("SenderStreet", $('#SenderStreet').text());
+            data.append("ReceiverFullName", $('#ReceiverFullName').text());
+            data.append("ReceiverPhone", $('#ReceiverPhone').text());
+            data.append("ReceiverStreet", $('#ReceiverStreet').text());
+            data.append("OrderNote", $('#OrderNote').text());
+            return form.submit();
         },
         onFinished: function (event, currentIndex) {
             swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
@@ -948,3 +1017,99 @@ a#save_profile1 {
         }
     })
 </script>
+<script>
+    //Create by TUANKQ
+Dropzone.options.myAwesomeDropzone = {
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    autoProcessQueue: true,
+    dictRemoveFile: 'Hủy',
+    clickable: true,
+    acceptedFiles: "image/jpeg,image/png,image/gif",
+    maxFiles: 10,
+    thumbnailWidth: null,
+    thumbnailHeight: null,
+    uploadMultiple: true,
+    parallelUploads: 10,
+    maxfilesexceeded: function() {
+        var myDropzone = this;
+        myDropzone.removeAllFiles();
+    },
+    init: function () {
+        this.on("addedfile", function () {
+            if (this.files.length > 1) {
+                for (var i = 0; i < this.files.length; i++){
+                        this.removeFile(this.files[i]);
+                }
+            }
+        });
+        this.on("removedfile", function () {
+            data.delete("img");
+        });
+        this.on("thumbnail", function (file, dataUrl) {
+            $('.dz-image').last().find('img').attr({ width: '100%', height: '100%' });
+        }),
+            this.on("success", function (file) {
+                $('.dz-image').css({ "width": "100%", "height": "auto" });
+            })
+        var myDropzone = this;
+        $("#btnUpload3").click(function (e) {
+            e.preventDefault();
+            myDropzone.processQueue();
+        });
+        this.on('sending', function (file, xhr, formData) {
+            data.append("img", file);
+        });
+        //this.on('sending', function (file, xhr, formData) {
+        //        data.append("file", file);
+            //var n = myDropzone.getAcceptedFiles().length;
+            @*if (count3 === n) {
+                var ngaynhap = $("#ngay-chon").val();
+                data3.append("ngayNhap", ngaynhap);
+                data3.append("ca", ca3);
+
+                var link = window.location.href;
+                var phanxuong3 = "@ViewBag.phanxuong";
+
+                data3.append("phanxuong", phanxuong3);
+
+                var notes3 = [];
+                $(".file-description3").each(function () {
+                    notes3.push($(this).val());
+                });*@
+                //data3.append("notes", notes3);
+
+
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/phan-xuong/upload-len-dk",
+                //    //beforeSend: function (xhr) {
+                //    //    xhr.setRequestHeader("XSRF-TOKEN",
+                //    //        $('input:hidden[name="__RequestVerificationToken"]').val());
+                //    //},
+                //    data: data3,
+                //    contentType: false,
+                //    processData: false,
+                //    success: function (data) {
+                //          $("#pre-load").hide("slow", function () {
+                //         });
+                //        if (data.success) {
+                //            reloadAlert("Tải lên thành công!", 1000);
+                //        } else {
+                //            errorAlert("Lỗi!", 1000);
+                //            window.location.reload();
+                //        }
+                //    }
+                //});
+        //    }
+        //});
+    },
+    dictResponseError: "Lỗi (Code: {{statusCode}})",
+    dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
+    dictInvalidFileType: "File không hợp lệ. Hãy chọn một file Excel (xls, xlsx)",
+};
+
+</script>
+<script src="~/assets/libs/toastr/build/toastr.min.js"></script>
+<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
