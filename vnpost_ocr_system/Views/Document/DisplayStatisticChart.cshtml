@@ -9,7 +9,6 @@
 <link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
 <script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
 <script src="../../dist/js/custom.min.js"></script>
-<script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
 <script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
@@ -365,11 +364,11 @@
     </div>
 </div>
 <script>
-    var d1;
-    var d2 = '05/11/2018 - 12/11/2018';
-    var cho1 = 30; var cho2 = 45;
-    var da1 = 12; var da2 = 56;
-    var xong1 = 22; var xong2 = 33;
+    var d1; var d2;
+    var cho1; var cho2;
+    var da1; var da2;
+    var xong1; var xong2;
+
     $(document).ready(function () {
         $('.datepicker-inline').hide();
         var d = '@ViewBag.date';
@@ -389,112 +388,16 @@
         $('#talbe').find('tr:eq(3)').find('td:eq(2)').text(@ViewBag.detail.total_da);
         $('#talbe').find('tr:eq(3)').find('td:eq(3)').text(@ViewBag.detail.total_xong);
 
-        d1 = $('#talbe').find('tr:eq(2)').find('td:eq(0)').text();
-        d2 = $('#talbe').find('tr:eq(3)').find('td:eq(0)').text();
-
-        cho1 = $('#talbe').find('tr:eq(2)').find('td:eq(1)').text();
-        cho2 = $('#talbe').find('tr:eq(3)').find('td:eq(1)').text();
-
-        da1 = $('#talbe').find('tr:eq(2)').find('td:eq(2)').text();
-        da2 = $('#talbe').find('tr:eq(3)').find('td:eq(2)').text();
-
-        xong1 = $('#talbe').find('tr:eq(2)').find('td:eq(3)').text();
-        xong2 = $('#talbe').find('tr:eq(3)').find('td:eq(3)').text();
+        getValue();
+        update();
     });
-    $(".date1").datepicker({
-        onSelect: function () {
-            //alert("absd");
-            var job_start_date = $('#start1').val();
-            var job_end_date = $('#end1').val();
-            job_start_date = job_start_date.split('/');
-            job_end_date = job_end_date.split('/');
-
-            var new_start_date = new Date(job_start_date[2], job_start_date[1], job_start_date[0]);
-            var new_end_date = new Date(job_end_date[2], job_end_date[1], job_end_date[0]);
-
-            if (new_start_date > new_end_date) {
-                alert("Khoảng thời gian không tồn tại.");
-            } else {
-                $('#form1').submit();
-            }
-        }
-    });
-    $(".date2").datepicker({
-        onSelect: function () {
-            //alert("absd");
-            var job_start_date = $('#start2').val();
-            var job_end_date = $('#end2').val();
-            job_start_date = job_start_date.split('/');
-            job_end_date = job_end_date.split('/');
-
-            var new_start_date = new Date(job_start_date[2], job_start_date[1], job_start_date[0]);
-            var new_end_date = new Date(job_end_date[2], job_end_date[1], job_end_date[0]);
-
-            if (new_start_date > new_end_date) {
-                alert("Khoảng thời gian không tồn tại.");
-            } else {
-                $('#form2').submit();
-            }
-
-        }
-    });
-    function SubmitForm(form) {
-        $("#pre-load").show("slow", function () { });
-        $("#pre-load").css("z-index", "99999");
-        $("#pre-load").show();
-
-        $.validator.unobtrusive.parse(form);
-
-        if ($(form).valid()) {
-            $.ajax({
-                type: "POST",
-                url: form.action,
-                data: $(form).serialize(),
-                success: function (response) {
-                    var d = response.date;
-                    $('#talbe').find('tr:eq(2)').find('td:eq(0)').text(d);
-                    $('#talbe').find('tr:eq(2)').find('td:eq(1)').text(response.odb.total_cho);
-                    $('#talbe').find('tr:eq(2)').find('td:eq(2)').text(response.odb.total_da);
-                    $('#talbe').find('tr:eq(2)').find('td:eq(3)').text(response.odb.total_xong);
-                    d1 = $('#talbe').find('tr:eq(2)').find('td:eq(0)').text();
-                    $("#pre-load").hide("slow", function () {
-                    });
-
-                }
-            });
-        }
-
-        return false;
-    }
-    function SubmitForm2(form) {
-        $("#pre-load").show("slow", function () { });
-        $("#pre-load").css("z-index", "99999");
-        $("#pre-load").show();
-
-        $.validator.unobtrusive.parse(form);
-
-        if ($(form).valid()) {
-            $.ajax({
-                type: "POST",
-                url: form.action,
-                data: $(form).serialize(),
-                success: function (response) {
-                    var d = response.date;
-                    $('#talbe').find('tr:eq(3)').find('td:eq(0)').text(d);
-                    $('#talbe').find('tr:eq(3)').find('td:eq(1)').text(response.odb.total_cho);
-                    $('#talbe').find('tr:eq(3)').find('td:eq(2)').text(response.odb.total_da);
-                    $('#talbe').find('tr:eq(3)').find('td:eq(3)').text(response.odb.total_xong);
-                    $("#pre-load").hide("slow", function () {
-                    });
-
-                }
-            });
-        }
-
-        return false;
-    }
+    
+   
 </script>
 <script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>
+
+@*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@
+
 <!-- ============================================================== -->
 <!-- All Required js -->
 <!-- ============================================================== -->
