@@ -180,7 +180,7 @@
                                                         <div class="row">
                                                             <div class="col s3 l2 m-t-20 m-l-20">
                                                             </div>
-                                                            <div id="phone-err" class="col s8 l9 err">
+                                                            <div id="phone-err" class="col s8 l9 err m-l-20">
 
                                                             </div>
                                                         </div>
@@ -229,7 +229,7 @@
                                                         <div class="row">
                                                             <div class="col s3 l2 m-t-20 m-l-20">
                                                             </div>
-                                                            <div id="email-err" class="col s8 l9 err">
+                                                            <div id="email-err" class="col s8 l9 err m-l-20">
 
                                                             </div>
                                                         </div>
@@ -391,7 +391,7 @@
 
         function getDis() {
             var emp = {
-                id : document.getElementById('province').value
+                id: document.getElementById('province').value
             };
             $.ajax({
                 url: "/LoginCustomer/GetDis",
@@ -478,8 +478,8 @@
                 $('#checkboxphone').show();
                 document.getElementById('phonecheck').value = 0;
             } else {
-                $('#checkboxphone').hide();
-                document.getElementById('phonecheck').value = 1;
+                    $('#checkboxphone').hide();
+                    document.getElementById('phonecheck').value = 1;
             }
         }
         function chen2() {
@@ -487,8 +487,8 @@
                 $('#checkboxemail').show();
                 document.getElementById('emailcheck').value = 0;
             } else {
-                $('#checkboxemail').hide();
-                document.getElementById('emailcheck').value = 1;
+                    $('#checkboxemail').hide();
+                    document.getElementById('emailcheck').value = 1;
             }
         }
         //$("#btn_login").click(function () {
@@ -559,7 +559,7 @@
                     return false;
                 }
 
-                if (validCodePhone.length <= 5) {
+                if (validCodePhone.length != 6) {
 
                     $('#validCodePhone-err').text('Mã xác thực không đúng');
                     return false;
@@ -577,7 +577,7 @@
                     return false;
                 }
 
-                if (validCodeEmail.length <= 5) {
+                if (validCodeEmail.length != 6) {
 
                     $('#validCodeEmail-err').text('Mã xác thực không đúng');
                     return false;

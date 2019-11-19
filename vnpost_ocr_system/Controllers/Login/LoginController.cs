@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using XCrypt;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
+
 namespace vnpost_ocr_system.Controllers.Login
 {
     public class LoginController : Controller
@@ -31,7 +33,7 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             try
             {
-                string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pl");
+                string passXc = Encrypt.EncryptString(password, "PD");
                 var admin = db.Admins.Where(x => x.AdminUsername.Equals(username)).FirstOrDefault();
                 if (admin != null)
                 {
