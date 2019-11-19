@@ -29,7 +29,11 @@
             }
         });
         $('#provine').val(text);
+        $('#provine_ch1').val(text);
+        $('#provine_ch2').val(text);
         $('#formall').submit();
+        change1();
+        change2();
     })
 
     $('#item2').change(function () {
@@ -61,7 +65,11 @@
             }
         });
         $('#district_c').val(text);
+        $('#district_c_ch1').val(text);
+        $('#district_c_ch2').val(text);
         $('#formall').submit();
+        change1();
+        change2();
     })
 
     $('#item3').change(function () {
@@ -92,7 +100,11 @@
             }
         });
         $('#hcc').val(text);
+        $('#hcc_ch1').val(text);
+        $('#hcc_ch2').val(text);
         $('#formall').submit();
+        change1();
+        change2();
     })
 
     $('#item4').change(function () {
@@ -100,7 +112,11 @@
         procedure(text);
         $('.tk4').show();
         $('#profile').val(text);
+        $('#profile_ch1').val(text);
+        $('#profile_ch2').val(text);
         $('#formall').submit();
+        change1();
+        change2();
     })
 });
 

@@ -78,6 +78,39 @@ function SubmitFormAll(form) {
 
     return false;
 }
+
+function change1() {
+    var job_start_date = $('#start1').val();
+    var job_end_date = $('#end1').val();
+    job_start_date = job_start_date.split('/');
+    job_end_date = job_end_date.split('/');
+
+    var new_start_date = new Date(job_start_date[2], job_start_date[1], job_start_date[0]);
+    var new_end_date = new Date(job_end_date[2], job_end_date[1], job_end_date[0]);
+
+    if (new_start_date > new_end_date) {
+        alert("Khoảng thời gian không tồn tại.");
+    } else {
+        $('#form1').submit();
+    }
+}
+
+function change2() {
+    var job_start_date = $('#start2').val();
+    var job_end_date = $('#end2').val();
+    job_start_date = job_start_date.split('/');
+    job_end_date = job_end_date.split('/');
+
+    var new_start_date = new Date(job_start_date[2], job_start_date[1], job_start_date[0]);
+    var new_end_date = new Date(job_end_date[2], job_end_date[1], job_end_date[0]);
+
+    if (new_start_date > new_end_date) {
+        alert("Khoảng thời gian không tồn tại.");
+    } else {
+        $('#form2').submit();
+    }
+}
+
 $(".date1").datepicker({
     onSelect: function () {
         //alert("absd");

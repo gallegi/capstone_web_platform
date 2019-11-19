@@ -175,6 +175,10 @@
                             data_restUrl = Url.Action("ChangeDate", "DisplayStatisticChart")
                         }))
                         {
+                            <input type="hidden" id="provine_ch1" name="provine" />
+                            <input type="hidden" id="district_c_ch1" name="district" />
+                            <input type="hidden" id="hcc_ch1" name="hcc" />
+                            <input type="hidden" id="profile_ch1" name="profile" />
                             <div class="col s12 l6 center-text">
                                 <div class="lefttext"><h4 class="font-medium">Khoảng thời gian 1</h4></div>
 
@@ -203,6 +207,10 @@
                             data_restUrl = Url.Action("ChangeDate2", "DisplayStatisticChart")
                         }))
                         {
+                            <input type="hidden" id="provine_ch2" name="provine" />
+                            <input type="hidden" id="district_c_ch2" name="district" />
+                            <input type="hidden" id="hcc_ch2" name="hcc" />
+                            <input type="hidden" id="profile_ch2" name="profile" />
                             <div class="col s12 l6 center-text">
 
                                 <h4 class="font-medium lefttext">Khoảng thời gian 2</h4>
@@ -406,8 +414,8 @@
 
 
 </script>
+<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>    
 <script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
-<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>
 
 @*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@
 

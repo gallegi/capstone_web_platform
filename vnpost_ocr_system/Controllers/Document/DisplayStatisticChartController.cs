@@ -10,7 +10,7 @@ namespace vnpost_ocr_system.Controllers.Document
 {
     public class DisplayStatisticChartController : Controller
     {
-        static string provine_ori = "";
+        string provine_ori = "";
         string district_ori = "";
         string hcc_ori = "";
         string profile_ori = "";
@@ -85,7 +85,7 @@ namespace vnpost_ocr_system.Controllers.Document
         }
 
         [HttpPost]
-        public ActionResult ChangeDate(string start, string end)
+        public ActionResult ChangeDate(string start, string end, string provine, string district, string hcc, string profile)
         {
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
@@ -107,22 +107,22 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
                "where o.ModifiedTime between @start and @end AND ";
-            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
             odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
-                , new SqlParameter("pro", provine_ori)
-                , new SqlParameter("dis", district_ori)
-                , new SqlParameter("pub", hcc_ori)
-                , new SqlParameter("file", profile_ori)).FirstOrDefault();
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             return Json(new { success = true, date = date, odb = odb }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult ChangeDate2(string start, string end)
+        public ActionResult ChangeDate2(string start, string end, string provine, string district, string hcc, string profile)
         {
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
@@ -144,16 +144,16 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
                "where o.ModifiedTime between @start and @end AND ";
-            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
             odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
-                , new SqlParameter("pro", provine_ori)
-                , new SqlParameter("dis", district_ori)
-                , new SqlParameter("pub", hcc_ori)
-                , new SqlParameter("file", profile_ori)).FirstOrDefault();
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             return Json(new { success = true, date = date, odb = odb }, JsonRequestBehavior.AllowGet);
         }
