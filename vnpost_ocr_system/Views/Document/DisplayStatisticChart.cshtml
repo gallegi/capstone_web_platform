@@ -9,7 +9,6 @@
 <link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
 <script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
 <script src="../../dist/js/custom.min.js"></script>
-<script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
@@ -89,6 +88,19 @@
                     <span class="tk4" id="procedure"></span>
 
                 </h4>
+                @using (Html.BeginForm("ChangeLocation", "DisplayStatisticChart", FormMethod.Post, new
+                {
+                    id = "formall",
+                    enctype = "multipart/form-data",
+                    onSubmit = "return SubmitFormAll(this);",
+                    data_restUrl = Url.Action("ChangeLocation", "DisplayStatisticChart")
+                }))
+                {
+                    <input type="hidden" id="provine" name="provine" />
+                    <input type="hidden" id="district_c" name="district" />
+                    <input type="hidden" id="hcc" name="hcc" />
+                    <input type="hidden" id="profile" name="profile" />
+                }
             </div>
 
             <div class="card-content">
@@ -391,9 +403,10 @@
         getValue();
         update();
     });
-    
-   
+
+
 </script>
+<script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
 <script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>
 
 @*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@

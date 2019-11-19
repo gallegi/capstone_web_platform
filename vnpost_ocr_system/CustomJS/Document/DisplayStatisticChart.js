@@ -56,6 +56,28 @@ function SubmitForm2(form) {
 
     return false;
 }
+function SubmitFormAll(form) {
+    $("#pre-load").show("slow", function () { });
+    $("#pre-load").css("z-index", "99999");
+    $("#pre-load").show();
+
+    $.validator.unobtrusive.parse(form);
+
+    if ($(form).valid()) {
+        $.ajax({
+            type: "POST",
+            url: form.action,
+            data: $(form).serialize(),
+            success: function (response) {
+                $("#pre-load").hide("slow", function () {
+                });
+
+            }
+        });
+    }
+
+    return false;
+}
 $(".date1").datepicker({
     onSelect: function () {
         //alert("absd");

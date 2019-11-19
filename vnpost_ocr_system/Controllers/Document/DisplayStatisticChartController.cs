@@ -10,10 +10,11 @@ namespace vnpost_ocr_system.Controllers.Document
 {
     public class DisplayStatisticChartController : Controller
     {
-        
-        // GET: DisplayStatisticChart
-        [Route("ho-so/thong-ke-tong-quat")]
-        public ActionResult Index()
+        static string provine_ori = "";
+        string district_ori = "";
+        string hcc_ori = "";
+        string profile_ori = "";
+        public void load()
         {
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
@@ -22,13 +23,26 @@ namespace vnpost_ocr_system.Controllers.Document
             ViewBag.listPro = listPro;
 
             sql = "select " +
-                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
-                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
-                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-                "from [Order] o  " +
-                "where year(o.ModifiedTime) = year(getdate()) and month(o.ModifiedTime) = month(getdate()) and day(o.ModifiedTime) = day(getdate())";
-            odb = db.Database.SqlQuery<OrderDashBorad>(sql).FirstOrDefault();
-            if(odb == null) odb = new OrderDashBorad();
+               "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
+               "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
+               "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
+               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
+               "inner join PostOffice po on pa.PosCode = po.PosCode " +
+               "inner join District  d on po.DistrictCode = d.DistrictCode " +
+               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               "where year(o.ModifiedTime) = year(getdate()) and month(o.ModifiedTime) = month(getdate()) and day(o.ModifiedTime) = day(getdate()) AND ";
+            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5); 
+            odb = db.Database.SqlQuery<OrderDashBorad>(sql
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).FirstOrDefault();
+            if (odb == null) odb = new OrderDashBorad();
             ViewBag.odb = odb;
 
             string date = DateTime.Now.ToString("dd/MM/yyyy");
@@ -42,11 +56,31 @@ namespace vnpost_ocr_system.Controllers.Document
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  " +
-               "where o.ModifiedTime between @start and @end";
-            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)).FirstOrDefault();
+               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
+               "inner join PostOffice po on pa.PosCode = po.PosCode " +
+               "inner join District  d on po.DistrictCode = d.DistrictCode " +
+               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               "where o.ModifiedTime between @start and @end AND ";
+            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             ViewBag.detail = odb;
+        }
+
+        // GET: DisplayStatisticChart
+        [Route("ho-so/thong-ke-tong-quat")]
+        public ActionResult Index()
+        {
+            load();
             return View("/Views/Document/DisplayStatisticChart.cshtml");
         }
 
@@ -67,9 +101,22 @@ namespace vnpost_ocr_system.Controllers.Document
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  " +
-               "where o.ModifiedTime between @start and @end";
-            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)).FirstOrDefault();
+               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
+               "inner join PostOffice po on pa.PosCode = po.PosCode " +
+               "inner join District  d on po.DistrictCode = d.DistrictCode " +
+               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               "where o.ModifiedTime between @start and @end AND ";
+            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             return Json(new { success = true, date = date, odb = odb }, JsonRequestBehavior.AllowGet);
         }
@@ -91,11 +138,35 @@ namespace vnpost_ocr_system.Controllers.Document
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  " +
-               "where o.ModifiedTime between @start and @end";
-            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)).FirstOrDefault();
+               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
+               "inner join PostOffice po on pa.PosCode = po.PosCode " +
+               "inner join District  d on po.DistrictCode = d.DistrictCode " +
+               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               "where o.ModifiedTime between @start and @end AND ";
+            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             return Json(new { success = true, date = date, odb = odb }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeLocation(string provine, string district, string hcc, string profile)
+        {
+            provine_ori = provine;
+            district_ori = district;
+            hcc_ori = hcc;
+            profile_ori = profile;
+            load();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
     }
