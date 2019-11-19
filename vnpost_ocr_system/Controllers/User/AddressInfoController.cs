@@ -14,9 +14,10 @@ namespace vnpost_ocr_system.Controllers.User
         [Route("tai-khoan/so-dia-chi")]
         public ActionResult Index()
         {
-            //need function logIn to get session.
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<ContactInfo> listContactInfo = db.ContactInfoes.Where(x => x.CustomerID == 1).ToList();
+            string customerID = Session["userID"].ToString();
+            List<ContactInfo> listContactInfo = db.Database.SqlQuery<ContactInfo>("select * from ContactInfo where CustomerID = @customerID"
+                    , new SqlParameter("customerID", customerID)).ToList();
             List<Province> listProvince = db.Provinces.ToList<Province>();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listContactInfo = listContactInfo;
@@ -33,10 +34,11 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 try
                 {
-                    ContactInfo delete = db.ContactInfoes.Where(x => x.ContactInfoID.Equals(Code)).First();
-                    db.ContactInfoes.Remove(delete);
-                    db.SaveChanges();
+                    string query = "delete from ContactInfo where ContactInfoID = @code";
+                    db.Database.ExecuteSqlCommand(query, new SqlParameter("code", Code));
                     transaction.Commit();
+                    db.SaveChanges();
+                    return Json("",JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -44,7 +46,6 @@ namespace vnpost_ocr_system.Controllers.User
                     return new HttpStatusCodeResult(400);
                 }
             }
-            return new HttpStatusCodeResult(200);
         }
 
         [Route("tai-khoan/so-dia-chi/lay-chinh-sua")]
@@ -53,14 +54,19 @@ namespace vnpost_ocr_system.Controllers.User
             try
             {
                 VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                ContactInfoes contact = db.Database.SqlQuery<ContactInfoes>("select * from ContactInfo where ContactInfoID = @contacInfoId"
-                    , new SqlParameter("contacInfoId", contactInfoId)).First();
-                contact.stringDate = contact.PersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy");
-                return Json(contact);
+                ContactInfoDB info = db.Database.SqlQuery<ContactInfoDB>(@"select * from ContactInfo c inner join District d on c.PostalDistrictCode = d.PostalDistrictCode 
+                        inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where ContactInfoID = @ContactInfoID",
+                    new SqlParameter("ContactInfoID", contactInfoId)).FirstOrDefault();
+                if (!info.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return null;
+                if (info == null) return null;
+
+                List<District> districts = db.Database.SqlQuery<District>("select d.* from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
+
+                info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
+                return Json(new { info = info, list = districts });
             }
             catch (Exception ex)
             {
-
                 return new HttpStatusCodeResult(400);
             }
         }
@@ -86,11 +92,12 @@ namespace vnpost_ocr_system.Controllers.User
             return Json(listProvince);
         }
 
-
         [Route("tai-khoan/so-dia-chi/chinh-sua")]
         public ActionResult Edit(string name, string phone, string address, string PaperTypeCode,
             string paperNumber, string districtCode, string date, string placeOfIssue, string id)
         {
+            DateTime formatDate = DateTime.ParseExact(date, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture); 
 
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             string query = "update ContactInfo set FullName = @name "
@@ -113,7 +120,7 @@ namespace vnpost_ocr_system.Controllers.User
                         , new SqlParameter("address", address)
                         , new SqlParameter("PaperTypeCode", PaperTypeCode)
                         , new SqlParameter("paperNumber", paperNumber)
-                        , new SqlParameter("date", date)
+                        , new SqlParameter("date", formatDate)
                         , new SqlParameter("placeOfIssue", placeOfIssue)
                         , new SqlParameter("id", id));
                     transaction.Commit();
@@ -127,11 +134,5 @@ namespace vnpost_ocr_system.Controllers.User
                 }
             }
         }
-    }
-
-    public class ContactInfoes : ContactInfo
-    {
-        public string stringDate { get; set; }
-        public string StatusName { get; set; }
     }
 }

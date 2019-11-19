@@ -15,13 +15,13 @@ namespace vnpost_ocr_system.Controllers.Document
         [Route("ho-so/ho-so-da-nhan")]
         public ActionResult Index()
         {
-                using(VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 List<Province> proList = db.Provinces.ToList();
                 ViewBag.proList = proList;
 
             }
-                return View("/Views/Document/DocumentRecived.cshtml");
+            return View("/Views/Document/DocumentRecived.cshtml");
         }
 
 
@@ -33,7 +33,7 @@ namespace vnpost_ocr_system.Controllers.Document
             public string Phone { get; set; }
         }
 
-        
+
         [Route("da-tiep-nhan")]
         [HttpPost]
         public ActionResult Search(string province, string district, string organ, string profile, string dateFrom, string dateTo)
@@ -51,25 +51,44 @@ namespace vnpost_ocr_system.Controllers.Document
                 string searchValue = Request["search[value]"];
                 string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
                 string sortDirection = Request["order[0][dir]"];
+
+                string[] arrFrom = dateFrom.Split('/');
+                string[] arrTo = dateTo.Split('/');
+
+                string dFrom = "";
+                string dTo = "";
+
+                for (int i = arrFrom.Length -1; i >=0; i--)
+                {
+                    dFrom += arrFrom[i];
+                }
+
+                for (int i = arrTo.Length - 1; i >= 0; i--)
+                {
+                    dTo += arrTo[i];
+                }
+
                 if (!profile.Equals(""))
                 {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID "+
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID "+
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
+"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
 "where o.StatusID = 2 and p.ProfileID = @profile";
-                }else if(!organ.Equals(""))
+                }
+                else if (!organ.Equals(""))
                 {
                     query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
 "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
 "where o.StatusID = 2 and p.PublicAdministrationLocationID = @organ";
-                }else if (!district.Equals(""))
+                }
+                else if (!district.Equals(""))
                 {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID "+
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID "+
-"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode "+
-"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode "+
+                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
+"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
+"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
 "where o.StatusID = 2 and d.PostalDistrictCode = @district";
                 }
-                else if(!province.Equals(""))
+                else if (!province.Equals(""))
                 {
                     query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
 "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
@@ -88,13 +107,13 @@ namespace vnpost_ocr_system.Controllers.Document
 
                 if (!dateFrom.Equals("") && !dateTo.Equals(""))
                 {
-                    query += " and o.OrderDate between @dateFrom and @dateTo";
+                    query += " and o.OrderDate between @dateFrom and @dateTo ";
                 }
                 else
                 {
                     if (!dateFrom.Equals(""))
                     {
-                        query += " and o.OrderDate >= @dateFrom";
+                        query += " and o.OrderDate >= @dateFrom ";
                     }
                     else if (!dateTo.Equals(""))
                     {
@@ -102,12 +121,12 @@ namespace vnpost_ocr_system.Controllers.Document
                     }
                 }
 
-                searchList = db.Database.SqlQuery<recieve>(query,new SqlParameter("profile",profile),
-                                                                 new SqlParameter("organ",organ),
-                                                                 new SqlParameter("district",district),
-                                                                 new SqlParameter("province",province),
-                                                                 new SqlParameter("dateFrom",dateFrom),
-                                                                 new SqlParameter("dateTo", dateTo)).ToList();
+                searchList = db.Database.SqlQuery<recieve>(query, new SqlParameter("profile", profile),
+                                                                 new SqlParameter("organ", organ),
+                                                                 new SqlParameter("district", district),
+                                                                 new SqlParameter("province", province),
+                                                                 new SqlParameter("dateFrom", dFrom),
+                                                                 new SqlParameter("dateTo", dTo)).ToList();
                 db.Configuration.LazyLoadingEnabled = false;
 
                 totalrows = searchList.Count;
@@ -119,7 +138,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 searchList = searchList.Skip(start).Take(length).ToList<recieve>();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.Message.ToString();
             }

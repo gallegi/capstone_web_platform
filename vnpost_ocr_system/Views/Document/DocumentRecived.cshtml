@@ -39,6 +39,7 @@
                                 <div class="col s7">
                                     <div class="h-form-label">
                                         <select tabindex="-1" class="card-border" id="province">
+                                            <option value="">Tất cả</option>
                                             @foreach (var item in ViewBag.proList)
                                             {
                                                 <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -58,6 +59,7 @@
                                 <div class="col s8">
                                     <div class="h-form-label">
                                         <select tabindex="-1" class="card-border" id="profile">
+                                            <option value="">Tất cả</option>
                                         </select>
                                     </div>
                                 </div>
@@ -77,6 +79,7 @@
                                 <div class="col s7">
                                     <div class="h-form-label">
                                         <select tabindex="-1" class="card-border" id="district">
+                                            <option value="">Tất cả</option>
                                         </select>
                                     </div>
                                 </div>
@@ -115,6 +118,7 @@
                                 <div class="col s7">
                                     <div class="h-form-label">
                                         <select tabindex="-1" class="card-border" id="organ">
+                                            <option value="">Tất cả</option>
                                         </select>
                                     </div>
                                 </div>
@@ -266,8 +270,8 @@
                     { "data": "ReceiverFullName", "name": "ReceiverFullName" },
                     { "data": "ReceiverStreet", "name": "ReceiverStreet" },
                     {
-                        "data": "AppointmentLetterCode", "render": function (data) {
-                            return "<a class='a-reset' href='ho-so-cho-nhan/chi-tiet?id=" + data + "'><i class='material-icons dp48 edit-icon black-text'>border_color</i></a>";
+                        "data": "OrderID", "render": function (data) {
+                            return "<a class='a-reset' href='/ho-so/ho-so-da-nhan/chi-tiet?id_raw=" + data + "'><i class='material-icons dp48 edit-icon black-text'>border_color</i></a>";
 
                         },
                         "orderable": false,
@@ -329,7 +333,7 @@
     $(document).ready(function () {
         var dataTable = $('#mainTable').DataTable();
         $("#filter").click(function () {
-
+            
             dataTable.ajax.reload(function () {
             });
         });

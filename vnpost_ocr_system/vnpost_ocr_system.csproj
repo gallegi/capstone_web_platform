@@ -286,6 +286,7 @@
     <Content Include="assets\Custom css\form-input-border.css" />
     <Content Include="assets\Custom css\Mobile\layout-style.css" />
     <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
+    <Content Include="assets\Custom css\Mobile\home-css.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
     <Content Include="assets\extra-libs\block-ui\block-ui.js" />
@@ -5533,6 +5534,15 @@
     <Content Include="assets\libs\sweetalert\sweetalert2.all.min.js" />
     <Content Include="assets\libs\sweetalert\sweetalert2.min.css" />
     <Content Include="assets\libs\sweetalert\sweetalert2.min.js" />
+    <Content Include="assets\uploader\custom.js" />
+    <Content Include="assets\uploader\dropzone.js" />
+    <Content Include="assets\uploader\dropzone.min.css" />
+    <Content Include="assets\uploader\dropzone.min.js" />
+    <Content Include="assets\uploader\dropzoneMultiple.js" />
+    <Content Include="assets\uploader\file-icon.png" />
+    <Content Include="assets\uploader\icon.png" />
+    <Content Include="assets\uploader\icons.min.css" />
+    <Content Include="assets\uploader\style_uploader.css" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -6359,6 +6369,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\uploader\icons.min.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

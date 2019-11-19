@@ -16,12 +16,13 @@ namespace vnpost_ocr_system.Controllers.User
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<MyOrders> listOrder = new List<MyOrders>();
-            string query = "select o.OrderID, o.CustomerID, p.ProfileName , o.AppointmentLetterCode, o.Amount, o.ItemCode , s.StatusName, o.CreatedTime "
+            string query = "select o.OrderID, o.CustomerID, p.ProfileName , o.AppointmentLetterCode, o.Amount, o.ItemCode , s.StatusName, o.OrderDate "
                     + " from \"Order\" o"
                     + " inner join  \"Status\" s on o.StatusID = s.StatusID "
                     + " inner join \"Profile\" p on o.ProfileID = p.ProfileID "
                     + " where o.CustomerID = @customerID ";
-            listOrder = db.Database.SqlQuery<MyOrders>(query, new SqlParameter("customerID", 1)).ToList();
+            string customerID = Session["userID"].ToString();
+            listOrder = db.Database.SqlQuery<MyOrders>(query, new SqlParameter("customerID", customerID)).ToList();
             ViewBag.listOrder = listOrder;
             return View("/Views/User/InvitationManage.cshtml");
         }

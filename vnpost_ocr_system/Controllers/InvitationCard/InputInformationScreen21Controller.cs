@@ -16,12 +16,14 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
-                List<Province> provinces = db.Provinces.ToList();
+                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
-                List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.*, ppt.PersonalPaperTypeName from Customer c inner join ContactInfo ci
-                    on c.CustomerID = ci.CustomerID
+                List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.*, ppt.PersonalPaperTypeName, d.PostalDistrictName, p.PostalProvinceName 
+                    from Customer c inner join ContactInfo ci on c.CustomerID = ci.CustomerID
                     inner join PersonalPaperType ppt on ci.PersonalPaperTypeID = ppt.PersonalPaperTypeID
+					inner join District d on ci.PostalDistrictCode = d.PostalDistrictCode
+					inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode
                     where c.CustomerID = @CustomerID", new SqlParameter("CustomerID", Session["userID"].ToString())).ToList();
                 ViewBag.contactInfos = contactInfos;
 
@@ -47,6 +49,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 string PersonalPaperIssuedDateString = Request["PersonalPaperIssuedDateString"];
                 string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
                 string ContactInfoID = Request["ContactInfoID"];
+                string Type = Request["Type"];  //1 có đủ thông tin, 2 thiếu giấy tờ tùy thân
                 using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                 {
                     ContactInfo c = ContactInfoID == "" ? new ContactInfo() : db.ContactInfoes.Find(int.Parse(ContactInfoID));
@@ -55,18 +58,22 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     c.Phone = Phone;
                     c.PostalDistrictCode = PostalDistrictCode;
                     c.Street = Street;
-                    c.PersonalPaperTypeID = int.Parse(PersonalPaperTypeID);
-                    c.PersonalPaperNumber = PersonalPaperNumber;
-                    c.PersonalPaperIssuedDate = DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
-                    c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace;
-                    c.CustomerID = long.Parse(Session["userID"].ToString());
+                    if (Type.Equals("1"))
+                    {
+                        c.PersonalPaperTypeID = int.Parse(PersonalPaperTypeID);
+                        c.PersonalPaperNumber = PersonalPaperNumber;
+                        c.PersonalPaperIssuedDate = DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
+                        c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace;
+                    }
                     if (ContactInfoID == "")
                     {
+                        c.CustomerID = long.Parse(Session["userID"].ToString());
                         db.ContactInfoes.Add(c);
+                        return Json(new { success = true, message = "Thêm mới thành công" });
                     }
                     db.SaveChanges();
+                    return Json(new { success = true, message = "Chỉnh sửa thành công" });
                 }
-                return Json(new { success = true, message = "Thêm mới thành công" });
             }
             catch (Exception)
             {
