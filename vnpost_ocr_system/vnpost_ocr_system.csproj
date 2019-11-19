@@ -5678,6 +5678,7 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\Document\CustomDisplayStatisticChartWithSubmit.js" />
     <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
