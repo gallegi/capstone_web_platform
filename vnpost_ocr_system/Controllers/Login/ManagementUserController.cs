@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using XCrypt;
+using System.Data.Entity;
 
 namespace vnpost_ocr_system.Controllers.Login
 {
@@ -21,11 +22,13 @@ namespace vnpost_ocr_system.Controllers.Login
         }
 
         [HttpPost]
-        public ActionResult getData(string province,string role,string active)
+        public ActionResult getData(string province, string role, string active)
         {
             string query = "";
-            if (string.IsNullOrEmpty(province)) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.[Role] like @role and a.IsActive like @active";
-            else query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.PostalProvinceCode = @province and a.[Role] like @role and a.IsActive like @active";
+            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role";
+            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role";
+            if (!string.IsNullOrEmpty(province)) query += " and a.PostalProvinceCode = @province ";
+            query += " order by a.Role";
             List<Admindb> searchList = null;
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
@@ -38,9 +41,11 @@ namespace vnpost_ocr_system.Controllers.Login
                 string sortDirection = Request["order[0][dir]"];
 
                 searchList = db.Database.SqlQuery<Admindb>(query,
-                    new SqlParameter("province", province ),
-                    new SqlParameter("role", '%' + role+ '%'),
-                    new SqlParameter("active", '%' + active + '%')
+                    new SqlParameter("province", province),
+                    new SqlParameter("role", '%' + role + '%'),
+                    new SqlParameter("active", '%' + active + '%'),
+                    new SqlParameter("currrole", Convert.ToInt32(Session["adminRole"])),
+                    new SqlParameter("currprovince", Convert.ToInt32(Session["adminPro"]))
                     ).ToList();
 
                 db.Configuration.LazyLoadingEnabled = false;
@@ -62,55 +67,114 @@ namespace vnpost_ocr_system.Controllers.Login
             return Json(new { data = searchList, draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrowsafterfiltering }, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult Insert(string name,string username,string password,int province,int role,int active)
+        public ActionResult Insert(string name, string username, string password, int province, int role, int active)
         {
-            try
+            if (Convert.ToInt32(Session["adminRole"]) < role)
             {
-                string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password);
-                Random r = new Random();
-                Admin a = new Admin();
-                a.AdminName = name;
-                a.AdminUsername = username;
-                a.AdminPasswordHash = passXc;
-                a.AdminPasswordSalt = r.Next(100000, 999999).ToString();
-                a.Role = role;
-                a.PostalProvinceCode = province.ToString();
-                a.IsActive = Convert.ToBoolean(active);
-                a.CreatedTime = DateTime.Now;
-                db.Admins.Add(a);
-                db.SaveChanges();
-                return Json("", JsonRequestBehavior.AllowGet);
+                try
+                {
+                    string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pl");
+                    Random r = new Random();
+                    Admin a = new Admin();
+                    a.AdminName = name;
+                    a.AdminUsername = username;
+                    a.AdminPasswordHash = passXc;
+                    a.AdminPasswordSalt = r.Next(100000, 999999).ToString();
+                    a.Role = role;
+                    a.PostalProvinceCode = province.ToString();
+                    a.IsActive = Convert.ToBoolean(active);
+                    a.CreatedTime = DateTime.Now;
+                    db.Admins.Add(a);
+                    db.SaveChanges();
+                    return Json("Thêm tài khoản thành công", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception)
+                {
+                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                }
             }
-            catch (Exception)
+            else
             {
-                return Json("", JsonRequestBehavior.AllowGet);
+                return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult Update(int id,string name, string username, string password, int province, int role, int active)
+        {
+            if (Convert.ToInt32(Session["adminRole"]) < role)
+            {
+                try
+                {
+                    var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
+                    admin.AdminName = name;
+                    admin.AdminUsername = username;
+                    admin.AdminPasswordHash = password;
+                    admin.Role = role;
+                    admin.PostalProvinceCode = province.ToString();
+                    admin.IsActive = Convert.ToBoolean(active);
+                    admin.CreatedTime = DateTime.Now;
+                    db.Entry(admin).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json("Chỉnh sửa tài khoản thành công", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception)
+                {
+                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public ActionResult getRole()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var list = db.AdminRoles.OrderBy(x=>x.AdminRoleID).ToList();
-            return Json(list,JsonRequestBehavior.AllowGet);
+            int adminRole = Convert.ToInt32(Session["adminRole"]);
+            var list = db.AdminRoles.Where(x => x.AdminRoleID > adminRole).OrderBy(x => x.AdminRoleID).ToList();
+            //AdminRole a = new AdminRole();
+            //a.AdminRoleID = 1; a.AdminRoleName = "Super Admin";
+            //if (adminRole == 1) list.Insert(0,a);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetPro()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var listA = new List<Province>();
+            string adminPro = Session["adminPro"].ToString();
+            if (Convert.ToInt32(Session["adminRole"]) == 3) listA = db.Provinces.Where(x => x.PostalProvinceCode.Equals(adminPro)).ToList();
+            else listA = db.Provinces.ToList();
+            var listS = db.Provinces.ToList();
+            return Json(new { listsearch = listS, listAE = listA }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetEdit(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
             var obj = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-            obj.AdminPasswordHash = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Decrypt(obj.AdminPasswordHash);
-            return Json(obj,JsonRequestBehavior.AllowGet);
+            //obj.AdminPasswordHash = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Decrypt(obj.AdminPasswordHash);
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
         {
             try
             {
                 var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-                db.Admins.Remove(admin);
-                return Json("", JsonRequestBehavior.AllowGet);
+                if (Convert.ToInt32(Session["adminRole"]) < admin.Role)
+                {
+                    db.Admins.Remove(admin);
+                    db.SaveChanges();
+                    return Json("Thao tác thành công", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception)
             {
-                return Json("", JsonRequestBehavior.AllowGet);
+                return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
             }
         }
 

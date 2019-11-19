@@ -43,7 +43,6 @@
                     <td>Tỉnh/Thành Phố</td>
                     <td>
                         <select class="browser-default" id="province_add">
-                            <option value="0">Tổng công ty</option>
                         </select>
 
                     </td>
@@ -61,12 +60,12 @@
                 </tr>
                 <tr>
                     <td>Mật khẩu</td>
-                    <td><input class="form-control" type="text" id="password_add"></td>
+                    <td><input class="form-control" type="password" id="password_add"></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <span class="col" style="margin-left: 290px;">Hiển thị mật khẩu</span>
+                        <span class="col">Hiển thị mật khẩu</span>
                         <span class="col">
                             <label style="margin-left: 290px; margin-top: 20px">
                                 <input type="checkbox" id="checkbox_add"/>
@@ -219,11 +218,11 @@
                 <table class="table highlight responsive-table mana-user-table" id="mainTable">
                     <thead>
                         <tr>
-                            <th class="center-align">STT</th>
+                            @*<th class="center-align">STT</th>*@
                             <th>Tên người dùng</th>
                             <th class="center-align">Tài khoản</th>
-                            <th class="center-align">Khu vực</th>
                             <th class="center-align">Vai trò</th>
+                            <th class="center-align">Khu vực</th>
                             <th class="center-align">Hoạt động</th>
                             <th class="center-align"></th>
                             <th class="center-align"></th>
@@ -348,6 +347,7 @@
 <script>
     $(document).ready(function () {
         let ch = 1;
+        let addc = 1;
         getRole();
         getPro();
         Sea();
@@ -358,6 +358,10 @@
         $('#showpass').click(function () {
             if (ch == 1) { $('#password_edit').attr('type', 'text'); ch = 0; }
             else { $('#password_edit').attr('type', 'password'); ch = 1; }
+        });
+        $('#checkbox_add').click(function () {
+            if (addc == 1) { $('#password_add').attr('type', 'text'); addc = 0; }
+            else { $('#password_add').attr('type', 'password'); addc = 1; }
         });
     });
 
@@ -380,7 +384,37 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                $('#text_notifi').text('Thêm tài khoản thành công');
+                $('#text_notifi').text(result);
+                $('#notifi').modal('open');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                $('#notifi').modal('open');
+                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+            }
+        });
+    }
+
+    function Update() {
+        var emb = {
+            id: document.getElementById('temp_id').value,
+            name: document.getElementById('name_edit').value,
+            username: document.getElementById('username_edit').value,
+            password: document.getElementById('password_edit').value,
+            province: document.getElementById('province_edit').value,
+            role: document.getElementById('role_edit').value,
+            active : $('#active_edit').is(":checked")
+        };
+        $.ajax({
+            url: "/ManagementUser/Update",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                $('#text_notifi').text(result);
                 $('#notifi').modal('open');
             },
             error: function (errormessage) {
@@ -409,7 +443,7 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                $('#text_notifi').text('Xóa tài khoản thành công');
+                $('#text_notifi').text(result);
                 $('#notifi').modal('open');
             },
             error: function (errormessage) {
@@ -439,6 +473,7 @@
                 else $('#active_edit').removeAttr('checked');
                 $('#editUser').modal('open');
                 $('#pre-load').hide();
+                document.getElementById('temp_id').value = id;
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
@@ -448,20 +483,30 @@
 
     function getPro() {
         $.ajax({
-            url: "/LoginCustomer/GetPro",
+            url: "/ManagementUser/GetPro",
             type: "POST",
             contentType: "application/json;charset=utf-8",
             success: function (result) {
                 var string = "";
-                result.forEach(function (key) {
+                var stringA = "";
+                result.listsearch.forEach(function (key) {
                     string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                let cou = 0;
+                result.listAE.forEach(function (key) {
+                    stringA += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                    cou++;
                 });
                 $('#province').append(string);
                 $('#province').formSelect();
-                $('#province_edit').append(string);
+                $('#province_edit').append(stringA);
                 $('#province_edit').formSelect();
-                $('#province_add').append(string);
+                $('#province_add').append(stringA);
                 $('#province_add').formSelect();
+                if (cou == 1) {
+                    document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
+                    $('#province').attr('disabled',true)
+                }
             },
             error: function (errormessage) {
             }
@@ -479,6 +524,7 @@
                 });
                 $('#role').append(string);
                 $('#role').formSelect();
+                //string = string.substring(36, string.length);
                 $('#role_edit').append(string);
                 $('#role_edit').formSelect();
                 $('#role_add').append(string);
@@ -490,8 +536,7 @@
     }
 
     function Sea() {
-        $('#pre-load').show();
-        let index = 1;
+                //let index = 1;
         DataTable = $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
                 ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
@@ -512,11 +557,11 @@
                     }
                 },
                 "columns": [
-                    { "data": null, "name": "Index", "render": function (data) { return index++; } },
+                    //{ "data": null,  "render": function (data) { return index++; } },
                     { "data": "AdminName", "name": "AdminName" },
                     { "data": "AdminUsername", "name": "AdminUsername" },
-                    { "data": "PostalProvinceName", "name": "PostalProvinceName" },
                     { "data": "AdminRoleName", "name": "AdminRoleName" },
+                    { "data": "PostalProvinceName", "name": "PostalProvinceName" },
                     {
                         "data": "IsActive", "render": function (data) {
                             if (data == true)
@@ -547,6 +592,7 @@
                     //});
                     ////////////////////////////////////////////////
                     $('#pre-load').hide();
+
                 },
                 "serverSide": "true",
                 "language": {

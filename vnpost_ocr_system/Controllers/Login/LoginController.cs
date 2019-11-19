@@ -14,7 +14,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Index()
         {
             ViewBag.notifi = "";
-            if(Session["userID"] != null) return Redirect("/phan-quyen-tai-khoan");
+            if(Session["useradminID"] != null) return Redirect("/phan-quyen-tai-khoan");
             if (HttpContext.Request.Cookies["remmemadmin"] != null)
             {
                 HttpCookie remme = HttpContext.Request.Cookies.Get("remmemadmin");
@@ -39,8 +39,10 @@ namespace vnpost_ocr_system.Controllers.Login
                     passXc = string.Concat(passXc, admin.AdminPasswordSalt);
                     if (passXc.Equals(pass))
                     {
-                        Session["userID"] = admin.AdminID;
-                        Session["userName"] = admin.AdminName;
+                        Session["useradminID"] = admin.AdminID;
+                        Session["useradminName"] = admin.AdminName;
+                        Session["adminRole"] = admin.Role;
+                        Session["adminPro"] = admin.PostalProvinceCode;
                         if (!String.IsNullOrEmpty(checkbox))
                         {
                             if (checkbox.Equals("on"))
