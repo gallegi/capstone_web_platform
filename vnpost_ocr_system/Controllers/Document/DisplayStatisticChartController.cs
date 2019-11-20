@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -77,6 +78,7 @@ namespace vnpost_ocr_system.Controllers.Document
         }
 
         // GET: DisplayStatisticChart
+        [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/thong-ke-tong-quat")]
         public ActionResult Index()
         {

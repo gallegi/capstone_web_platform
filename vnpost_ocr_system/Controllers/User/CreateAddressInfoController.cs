@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.User
 {
     public class CreateAddressInfoController : Controller
     {
+        [Auther(Roles = "0")]
         // GET: CreateAddressInfo
         [Route("tai-khoan/tao-dia-chi-moi")]
         public ActionResult Index()
@@ -22,7 +24,7 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.listPaperType = listPaperType;
             return View("/Views/User/CreateAddressInfo.cshtml");
         }
-
+        [Auther(Roles = "0")]
         [Route("tai-khoan/tao-dia-chi-moi/them")]
         public ActionResult Add(string name, string phone, string province, string district
             , string address, string paperType, string code, string date, string placeOfIssue)

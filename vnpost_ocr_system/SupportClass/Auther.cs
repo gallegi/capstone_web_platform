@@ -13,23 +13,23 @@ namespace vnpost_ocr_system.SupportClass
 {
     public class Auther : ActionFilterAttribute, IAuthorizationFilter
     {
-        public string RightID { get; set; }
+        public string Roles { get; set; }
 
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (string.IsNullOrEmpty(Convert.ToString(filterContext.HttpContext.Session["UserID"])))
+            if (string.IsNullOrEmpty(Convert.ToString(filterContext.HttpContext.Session["Role"])))
             {
                 var Url = new UrlHelper(filterContext.RequestContext);
-                var url = Url.Action("Index", "Login");
+                var url = Url.Action("Index", "Home");
                 filterContext.Result = new RedirectResult(url);
             }
             else
             {
-                List<string> RightIDs = (List<string>)filterContext.HttpContext.Session["RightIDs"];
+                string role = (string)filterContext.HttpContext.Session["Role"];
                 bool Check = false;
-                foreach (var r in RightID.Split(','))
+                foreach (var r in Roles.Split(','))
                 {
-                    if (RightIDs.Contains(r))
+                    if (role.Contains(r))
                     {
                         Check = true;
                         break;
@@ -38,8 +38,7 @@ namespace vnpost_ocr_system.SupportClass
                 if (!Check)
                 {
                     string url = (string)filterContext.HttpContext.Session["url"];
-                    filterContext.Result = new RedirectResult("/" + url);
-                    //filterContext.Result = new ViewResult() { ViewName = "Permisssion" };
+                    filterContext.Result = new RedirectResult(url);
                 }
             }
         }
