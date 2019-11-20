@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using System.Linq.Dynamic;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentRecivedController : Controller
     {
         // GET: DocumentRecived
+        [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-da-nhan")]
         public ActionResult Index()
         {

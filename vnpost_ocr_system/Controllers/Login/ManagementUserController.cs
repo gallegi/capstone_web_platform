@@ -16,6 +16,7 @@ namespace vnpost_ocr_system.Controllers.Login
     {
         private VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
         // GET: ManagementUser
+        [Auther(Roles = "1,2,3")]
         [Route("phan-quyen-tai-khoan")]
         public ActionResult Index()
         {
@@ -68,6 +69,7 @@ namespace vnpost_ocr_system.Controllers.Login
             return Json(new { data = searchList, draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrowsafterfiltering }, JsonRequestBehavior.AllowGet);
 
         }
+        [Auther(Roles = "1,2,3")]
         public ActionResult Insert(string name, string username, string password, int province, int role, int active)
         {
             if (Convert.ToInt32(Session["adminRole"]) < role)
@@ -99,7 +101,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
             }
         }
-
+        [Auther(Roles = "1,2,3")]
         public ActionResult Update(int id,string name, string username, string password, int province, int role, int active)
         {
             if (Convert.ToInt32(Session["adminRole"]) < role)
@@ -130,7 +132,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
         }
 
-
+        [Auther(Roles = "1,2,3")]
         public ActionResult getRole()
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -141,6 +143,7 @@ namespace vnpost_ocr_system.Controllers.Login
             //if (adminRole == 1) list.Insert(0,a);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        [Auther(Roles = "1,2,3")]
         public ActionResult GetPro()
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -151,6 +154,7 @@ namespace vnpost_ocr_system.Controllers.Login
             var listS = db.Provinces.ToList();
             return Json(new { listsearch = listS, listAE = listA }, JsonRequestBehavior.AllowGet);
         }
+        [Auther(Roles = "1,2,3")]
         public ActionResult GetEdit(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -158,6 +162,7 @@ namespace vnpost_ocr_system.Controllers.Login
             obj.AdminPasswordHash = Encrypt.DecryptString(obj.AdminPasswordHash, "PD");
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+        [Auther(Roles = "1,2,3")]
         public ActionResult Delete(int id)
         {
             try

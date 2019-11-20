@@ -69,6 +69,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 {
                     Session["userID"] = custom.CustomerID;
                     Session["userName"] = custom.FullName;
+                    Session["Role"] = "0";
+                    Session["url"] = "/";
                     if (!String.IsNullOrEmpty(checkbox))
                     {
                         if (checkbox.Equals("True"))

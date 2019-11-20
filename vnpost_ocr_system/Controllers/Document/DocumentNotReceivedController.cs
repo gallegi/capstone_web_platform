@@ -12,12 +12,14 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentNotReceivedController : Controller
     {
         // GET: DocumentNotReceived
+        [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan")]
         public ActionResult Index()
         {

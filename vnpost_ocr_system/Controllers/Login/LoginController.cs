@@ -16,7 +16,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Index()
         {
             ViewBag.notifi = "";
-            if(Session["useradminID"] != null) return Redirect("/phan-quyen-tai-khoan");
+            if(Session["useradminID"] != null) return Redirect("/ho-so/thong-ke-tong-quat");
             if (HttpContext.Request.Cookies["remmemadmin"] != null)
             {
                 HttpCookie remme = HttpContext.Request.Cookies.Get("remmemadmin");
@@ -45,6 +45,8 @@ namespace vnpost_ocr_system.Controllers.Login
                         Session["useradminName"] = admin.AdminName;
                         Session["adminRole"] = admin.Role;
                         Session["adminPro"] = admin.PostalProvinceCode;
+                        Session["Role"] = admin.Role.ToString();
+                        Session["url"] = "/ho-so/thong-ke-tong-quat";
                         if (!String.IsNullOrEmpty(checkbox))
                         {
                             if (checkbox.Equals("on"))
@@ -56,7 +58,7 @@ namespace vnpost_ocr_system.Controllers.Login
                                 HttpContext.Response.Cookies.Add(remme);
                             }
                         }
-                        return Redirect("/phan-quyen-tai-khoan");
+                        return Redirect("/ho-so/thong-ke-tong-quat");
                     }
                     else
                     {

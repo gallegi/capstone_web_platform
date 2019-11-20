@@ -5,12 +5,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.User
 {
     public class AddressInfoController : Controller
     {
         // GET: AddressInfo
+        [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi")]
         public ActionResult Index()
         {
@@ -25,7 +27,7 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.listPaperType = listPaperType;
             return View("/Views/User/AddressInfo.cshtml");
         }
-
+        [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi/xoa")]
         public ActionResult Delete(string Code)
         {
@@ -91,7 +93,7 @@ namespace vnpost_ocr_system.Controllers.User
             List<Province> listProvince = db.Provinces.ToList<Province>();
             return Json(listProvince);
         }
-
+        [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi/chinh-sua")]
         public ActionResult Edit(string name, string phone, string address, string PaperTypeCode,
             string paperNumber, string districtCode, string date, string placeOfIssue, string id)

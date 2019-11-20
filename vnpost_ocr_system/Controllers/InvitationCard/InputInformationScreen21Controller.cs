@@ -5,11 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
@@ -33,7 +35,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
             return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
         }
-
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         [HttpPost]
         public ActionResult Add()

@@ -7,11 +7,13 @@ using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentNotReceivedDetailController : Controller
     {
+        [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan/chi-tiet")]
         //Tuấn: Tôi tạm comment đoạn này đang bị lỗi lại để ae rebuild được, ô fix nhanh nhé
         //GET: DocumentNotReceivedDetail
@@ -29,7 +31,7 @@ namespace vnpost_ocr_system.Controllers.Document
             ViewBag.Order = order;
             return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
         }
-
+        [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan/chi-tiet/cap-nhat")]
         [HttpPost]
         public ActionResult Update(string itemCode, string status, string note, string id)

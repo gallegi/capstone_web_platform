@@ -15,6 +15,7 @@ namespace vnpost_ocr_system.Controllers.User
     {
         private VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
         // GET: AccountInfo
+        [Auther(Roles = "0")]
         [Route("tai-khoan/thong-tin-tai-khoan")]
         public ActionResult Index()
         {
@@ -34,6 +35,7 @@ namespace vnpost_ocr_system.Controllers.User
             //custom.DOB = DateTime.ParseExact(custom.DOB.ToString(), "MM/dd/YYYY HH:mm:ss tt", CultureInfo.InvariantCulture);
             return Json(custom, JsonRequestBehavior.AllowGet);
         }
+        [Auther(Roles = "0")]
         public ActionResult Update(string name,string phone,string email,string dob,string gender,string oldpass,string newpass,string repass)
         {
             try
