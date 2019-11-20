@@ -7,6 +7,7 @@ using vnpost_ocr_system.Models;
 using System.Globalization;
 using XCrypt;
 using System.Data.Entity;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.User
 {
@@ -37,7 +38,7 @@ namespace vnpost_ocr_system.Controllers.User
         {
             try
             {
-                string oldpassXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(oldpass, "pl");
+                string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
                 int userID = Convert.ToInt32(Session["userID"].ToString());
                 var custom = db.Customers.Where(x => x.CustomerID == userID).FirstOrDefault();
                 string RenPass = string.Concat(custom.PasswordHash, custom.PasswordSalt);
@@ -51,7 +52,7 @@ namespace vnpost_ocr_system.Controllers.User
                 {
                     if (string.Concat(oldpassXc, custom.PasswordSalt).Equals(RenPass))
                     {
-                        custom.PasswordHash = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(newpass, "pl");
+                        custom.PasswordHash = Encrypt.EncryptString(newpass, "PD");
                         db.Entry(custom).State = EntityState.Modified;
                         db.SaveChanges();
                         return Json(1, JsonRequestBehavior.AllowGet);

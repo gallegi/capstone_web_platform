@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 using XCrypt;
 namespace vnpost_ocr_system.Controllers.Login
 {
@@ -37,7 +38,7 @@ namespace vnpost_ocr_system.Controllers.Login
         }
         public ActionResult Login(string user,string pass,string checkbox)
         {
-            string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pl");
+            string passXc = Encrypt.EncryptString(pass, "PD");
             var custom = db.Customers.Where(x => x.Email.Equals(user) || x.Phone.Equals(user)).FirstOrDefault();
             bool check = true;
             if(custom != null)
@@ -124,7 +125,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         return View("/Views/Login/Login_Cutomer.cshtml");
                     }
                 }
-                string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(tbPass, "pl");
+                string passXc = Encrypt.EncryptString(tbPass, "PD");
                 Random r = new Random();
                 int salt = r.Next(100000, 999999);
                 Customer c = new Customer();

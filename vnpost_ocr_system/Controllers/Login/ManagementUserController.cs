@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using XCrypt;
 using System.Data.Entity;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Login
 {
@@ -73,7 +74,7 @@ namespace vnpost_ocr_system.Controllers.Login
             {
                 try
                 {
-                    string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pl");
+                    string passXc = Encrypt.EncryptString(password, "PD");
                     Random r = new Random();
                     Admin a = new Admin();
                     a.AdminName = name;
@@ -106,9 +107,10 @@ namespace vnpost_ocr_system.Controllers.Login
                 try
                 {
                     var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
+                    string passXc = Encrypt.EncryptString(password, "PD");
                     admin.AdminName = name;
                     admin.AdminUsername = username;
-                    admin.AdminPasswordHash = password;
+                    admin.AdminPasswordHash = passXc;
                     admin.Role = role;
                     admin.PostalProvinceCode = province.ToString();
                     admin.IsActive = Convert.ToBoolean(active);
@@ -153,7 +155,7 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             db.Configuration.ProxyCreationEnabled = false;
             var obj = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-            //obj.AdminPasswordHash = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Decrypt(obj.AdminPasswordHash);
+            obj.AdminPasswordHash = Encrypt.DecryptString(obj.AdminPasswordHash, "PD");
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
