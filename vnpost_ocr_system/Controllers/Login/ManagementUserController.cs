@@ -24,13 +24,13 @@ namespace vnpost_ocr_system.Controllers.Login
         }
 
         [HttpPost]
-        public ActionResult getData(string province, string role, string active)
+        public ActionResult getData(string province, string role, string active,string username,string name)
         {
             string query = "";
-            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role";
-            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role";
+            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
             if (!string.IsNullOrEmpty(province)) query += " and a.PostalProvinceCode = @province ";
-            query += " order by a.Role";
+            //query += " order by a.Role";
             List<Admindb> searchList = null;
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
@@ -47,8 +47,16 @@ namespace vnpost_ocr_system.Controllers.Login
                     new SqlParameter("role", '%' + role + '%'),
                     new SqlParameter("active", '%' + active + '%'),
                     new SqlParameter("currrole", Convert.ToInt32(Session["adminRole"])),
-                    new SqlParameter("currprovince", Convert.ToInt32(Session["adminPro"]))
+                    new SqlParameter("currprovince", Convert.ToInt32(Session["adminPro"])),
+                    new SqlParameter("name", '%' + name + '%'),
+                    new SqlParameter("username", '%' + username + '%')
                     ).ToList();
+                //if (Convert.ToInt32(Session["adminRole"]) == 1)
+                //{
+                //    var admin = db.Database.SqlQuery<Admindb>("select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar,Province p where a.Role =1 and ar.AdminRoleID = a.Role and p.PostalProvinceCode=a.PostalProvinceCode").FirstOrDefault();
+                //    searchList.Insert(0, admin);
+                //}
+
 
                 db.Configuration.LazyLoadingEnabled = false;
 
@@ -58,7 +66,6 @@ namespace vnpost_ocr_system.Controllers.Login
                 searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Admindb>();
                 //paging
                 searchList = searchList.Skip(start).Take(length).ToList<Admindb>();
-
             }
             catch (Exception e)
             {

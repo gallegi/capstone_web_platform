@@ -68,7 +68,7 @@
                         <span class="col">Hiển thị mật khẩu</span>
                         <span class="col">
                             <label style="margin-left: 290px; margin-top: 20px">
-                                <input type="checkbox" id="checkbox_add"/>
+                                <input type="checkbox" id="checkbox_add" />
                                 <span></span>
                             </label>
                         </span>
@@ -78,7 +78,7 @@
                     <td>Hoạt động</td>
                     <td>
                         <label>
-                            <input type="checkbox" id="active_add"/>
+                            <input type="checkbox" id="active_add" />
                             <span></span>
                         </label>
                     </td>
@@ -141,42 +141,61 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col offset-l1 l1">
-            <p class="m-t-10">Khu vực</p>
-        </div>
-        <div class="col l3">
-            <select class="browser-default" id="province">
-                <option value="">Tổng công ty</option>
-            </select>
-        </div>
-        <div class="col l1 offset-l1">
-            <p class="m-t-10">Vai trò</p>
-        </div>
-        <div class="col l4">
-            <select class="browser-default" id="role">
-                <option value="">Tất cả</option>
-            </select>
+        <div class="center m-l-40">
+            <div class="col l1 center">
+                <p class="m-t-10">Tên người dùng</p>
+            </div>
+            <div class="col l2">
+                <input type="text" id="name_filter" class="form-control" />
+            </div>
+
+            <div class="col l1 offset-l1 center">
+                <p class="m-t-10">Hoạt động</p>
+            </div>
+            <div class="col l2">
+                <select class="browser-default" id="active">
+                    <option value="">Tất cả</option>
+                    <option value="1">Có</option>
+                    <option value="0">Không</option>
+                </select>
+            </div>
+            <div class="col l1 offset-l1 center">
+                <p class="m-t-10">Vai trò</p>
+            </div>
+            <div class="col l2">
+                <select class="browser-default" id="role">
+                    <option value="">Tất cả</option>
+                </select>
+            </div>
         </div>
     </div>
 
-    <div class="row m-t-30">
-        <div class="col offset-l1 l1">
-            <p class="m-t-10">Hoạt động</p>
+    <div class="row m-t-20">
+        <div class="center m-l-40">
+            <div class="col l1 center">
+                <p class="m-t-10">Tên tài khoản</p>
+            </div>
+            <div class="col l2">
+                <input type="text" id="username_filter" class="form-control" />
+            </div>
         </div>
-        <div class="col l3">
-            <select class="browser-default" id="active">
-                <option value="">Tất cả</option>
-                <option value="1">Có</option>
-                <option value="0">Không</option>
-            </select>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col l3 offset-l8">
-            <button id="sea" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right m-r-20">
-                Hiển thị
-            </button>
+        <div class="center m-l-40">
+            <div class="col l3">
+                <button id="sea" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right">
+                    Hiển thị
+                </button>
+            </div>
+        </div>
+        <div class="m-r-40">
+            <div class="col l1 offset-l2 center">
+                <p class="m-t-10">Khu vực</p>
+            </div>
+            <div class="col l2">
+                <select class="browser-default" id="province">
+                    <option value="">Tổng công ty</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -186,23 +205,11 @@
 
 
     @* Thanh tìm kiếm, button search, button refresh *@
-    <div class="row my-function m-t-20">
-        <div class="col l9 offset-l1">
-            <div class="my-input-search col l11">
-                <input id="input" type="text" class="form-control my-form" style="border: 2px solid #e9ecef;"
-                       placeholder="Nhập tên người dùng, tài khoản, khu vực để tìm kiếm" onclick="changeColor()" onfocusout="loseFocus()">
-            </div>
-
-            <div class="col" style="margin-right: 0px !important">
-                <button class="align-self-stretch btn btn-secondary input-group-append my-btn" type="button">
-                    <a href="#!"> <i class="fa fa-search" style="color: white;"></i></a>
-                </button>
-            </div>
-        </div>
-        <div class="col l2 d-flex">
-            <div>
-                <a href="#vattu" class="modal-trigger" name="action">
-                    <i class="material-icons dp48 small">add</i>
+    <div class="row my-function m-t-40">
+        <div class="col l3 m-b-10">
+            <div class="center">
+                <a href="#vattu" class="modal-trigger p-10 m-5 m-r-25" style="background-color:#2962ff !important;color:white" name="action">
+                    Thêm mới
                 </a>
             </div>
         </div>
@@ -373,7 +380,7 @@
             password: document.getElementById('password_add').value,
             province: document.getElementById('province_add').value,
             role: document.getElementById('role_add').value,
-            active : $('#active_add').is(":checked")
+            active: $('#active_add').is(":checked")
         };
         $.ajax({
             url: "/ManagementUser/Insert",
@@ -403,7 +410,7 @@
             password: document.getElementById('password_edit').value,
             province: document.getElementById('province_edit').value,
             role: document.getElementById('role_edit').value,
-            active : $('#active_edit').is(":checked")
+            active: $('#active_edit').is(":checked")
         };
         $.ajax({
             url: "/ManagementUser/Update",
@@ -505,7 +512,7 @@
                 $('#province_add').formSelect();
                 if (cou == 1) {
                     document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
-                    $('#province').attr('disabled',true)
+                    $('#province').attr('disabled', true)
                 }
             },
             error: function (errormessage) {
@@ -536,7 +543,7 @@
     }
 
     function Sea() {
-                //let index = 1;
+        //let index = 1;
         DataTable = $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
                 ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
@@ -554,6 +561,8 @@
                         "province": function () { return $('#province').val() },
                         "role": function () { return $('#role').val() },
                         "active": function () { return $('#active').val() },
+                        "username": function () { return $('#username_filter').val() },
+                        "name": function () { return $('#name_filter').val() },
                     }
                 },
                 "columns": [
