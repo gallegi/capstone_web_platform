@@ -70,10 +70,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     {
                         c.CustomerID = long.Parse(Session["userID"].ToString());
                         db.ContactInfoes.Add(c);
-                        return Json(new { success = true, message = "Thêm mới thành công" });
+                        return Json(new { success = true, add = true, message = "Thêm mới thành công" });
                     }
                     db.SaveChanges();
-                    return Json(new { success = true, message = "Chỉnh sửa thành công" });
+                    return Json(new { success = true, add = false, message = "Chỉnh sửa thành công" });
                 }
             }
             catch (Exception)
@@ -81,7 +81,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 return Json(new { success = false, message = "Có lỗi xảy ra" });
             }
         }
-
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetContactInfo")]
         [HttpPost]
         public ActionResult GetContactInfo(int id)

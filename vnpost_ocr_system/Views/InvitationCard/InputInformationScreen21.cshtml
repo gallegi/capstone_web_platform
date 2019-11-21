@@ -155,28 +155,24 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact1" class="row p-b-20">
-                                                <div class="col s8 m8 l8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
-                                                    <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
-                                                    <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
-                                                    <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
-                                                </div>
-                                                <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact1" class="info-list-div col">
+                                        <div class="col s8 m8 l8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                            <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
+                                            <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
+                                            <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
+                                        </div>
+                                        <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -208,25 +204,20 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact2" class="row p-b-20">
-                                                <div class="col l8 m8 s8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                </div>
-                                                <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
-
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact2" class="info-list-div col">
+                                        <div class="col l8 m8 s8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                        </div>
+                                        <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -258,25 +249,20 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact3" class="row p-b-20">
-                                                <div class="col l8 s8 m8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                </div>
-                                                <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
-
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact3" class="info-list-div col">
+                                        <div class="col l8 s8 m8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                        </div>
+                                        <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -1028,6 +1014,20 @@
         })
     })
 
+    var contact = "";
+
+    $(document).on("click", 'section #contact1', function () {
+        contact = 'section #contact1:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
+    $(document).on("click", 'section #contact2', function () {
+        contact = 'section #contact2:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
+    $(document).on("click", 'section #contact3', function () {
+        contact = 'section #contact3:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
     $(document).on("click", "#save_profile1", function () {
         $('#pre-load').show()
         $.ajax({
@@ -1048,8 +1048,24 @@
                 Type: type
             },
             success: function (response) {
-                if (response.success)
+                if (response.success) {
+                    if (response.add) {
+
+                    }
+                    else {
+                        $(contact).find('#FullName').text($('#name_edit').val())
+                        $(contact).find('#Street').text($('#street_edit').val())
+                        $(contact).find('#Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
+                        $(contact).find('#Address').data('district', $('#district_edit').val())
+                        $(contact).find('#Phone').text($('#phone_edit').val())
+                        $(contact).find('#PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
+                        $(contact).find('#PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
+                        $(contact).find('#PersonalPaperNumber').text($('#paper_number_edit').val())
+                        $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
+                        $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
+                    }
                     alert(response.message);
+                }
                 else
                     alert(response.message)
                 $('#pre-load').hide()
