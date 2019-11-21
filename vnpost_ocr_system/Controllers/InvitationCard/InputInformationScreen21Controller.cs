@@ -11,13 +11,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
+            if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
                 List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
