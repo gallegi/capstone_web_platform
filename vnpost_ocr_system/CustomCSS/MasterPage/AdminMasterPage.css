@@ -15,3 +15,6 @@
 .content_all {
     background-color: #e9ebee !important;
 }
+a.brand-logo {
+    left: 0px !important;
+}
