@@ -56,8 +56,8 @@
                         </div>
                         <div class="col l12 m12 s12">
                             <ul class="tabs" style="overflow-x:hidden;overflow-y:hidden">
-                                <li class="tab col l6 m6 s6"><a href="#login">Đăng nhập</a></li>
-                                <li class="tab col l6 m6 s6"><a href="#register">Đăng ký</a></li>
+                                <li class="tab col l6 m6 s6"><a href="#login" id="tabsss" class="@(ViewBag.messe == ""?"active":"")">Đăng nhập</a></li>
+                                <li class="tab col l6 m6 s6"><a href="#register" id="tabss" class="@(ViewBag.messe != ""?"active":"")">Đăng ký</a></li>
                             </ul>
                         </div>
                         <div id="login" class="col l12">
@@ -519,6 +519,7 @@
 
 
         function valid() {
+            $('#messe').text('');
             $('#name-err').text('');
             $('#phone-err').text('');
             $('#validCodePhone-err').text('');
