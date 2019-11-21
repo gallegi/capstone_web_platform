@@ -89,7 +89,7 @@
         <div class="card">
             <div class="card-content wizard-content">
                 <h5 class="card-title">Tạo giấy hẹn mới</h5>
-                <form action="/don-hang/thanh-toan" method="post" class="validation-wizard wizard-circle m-t-40">
+                <form action="/giay-hen/ma-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Thông tin thủ tục</h6>
                     <section>
@@ -290,6 +290,7 @@
                             </p>
                         </div>
                     </section>
+                    <!-- Step 5 -->
                     <h6>Phiếu gửi hồ sơ</h6>
                     <section>
                         <div class="row">
@@ -380,8 +381,7 @@
                                         </div>
                                     </div>
                                     <div class="col s12 center">
-                                        <div class="h-form-label">
-                                            <label><img src="~/assets/images/giay-hen.jpg" /></label>
+                                        <div class="h-form-label" id="img">
                                         </div>
                                     </div>
                                 </div>
@@ -557,6 +557,170 @@
                                             <textarea name="OrderNote"></textarea>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 6 -->
+                    <h6>Xác nhận thanh toán</h6>
+                    <section>
+                        <div class="row">
+                            <h4>Hình thức thanh toán</h4>
+                            <div class="col l9 s12">
+                                <div class="card card-shadow p-20 resize-card">
+                                    <div>
+                                        <label>
+                                            <input name="group1" id="r1" type="radio" checked />
+                                            <span>Thanh toán tiền mặt khi nhận hàng</span>
+                                        </label>
+                                        <label>
+                                            <input name="group1" id="r2" type="radio" disabled />
+                                            <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
+                                        </label>
+                                        <label>
+                                            <input name="group1" id="r3" type="radio" disabled />
+                                            <span>Thẻ ATM nội địa/Internet Banking</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="bank-list">
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/1.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/2.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/3.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/4.png" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/5.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/6.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/7.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/8.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/9.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/10.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/11.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/12.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/13.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/14.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/15.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/16.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/17.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/18.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/19.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/20.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/21.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/22.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/23.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/24.png" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Right *@
+                            <div class="col l3">
+                                <div class="row">
+                                    <div class="card card-shadow p-20">
+                                        <div>
+                                            <p class="payment-title card-border">Địa chỉ đơn hàng</p>
+                                        </div>
+
+                                        <b class="payment-title">Nguyễn Vũ Minh</b>
+                                        <div>
+                                            <p>
+                                                FPT Software, khu công nghệ cao,
+                                                km29, đại lộ Thăng Long, Xã Thạch Hòa, huyện
+                                                Thạch Thất, Hà Nội Việt Nam
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card card-shadow p-20">
+                                        <div>
+                                            <p class="payment-title card-border">Đơn hàng</p>
+                                        </div>
+                                        <div>
+                                            <b class="payment-title m-b-25">Mã đơn hàng: MX20538</b>
+                                        </div>
+                                        <span>
+                                            <span class="payment-title">Thủ tục hành chính:</span>
+                                            <span>Xin cấp lại căn cước công dân</span>
+                                        </span>
+
+
+                                    </div>
+                                </div>
+
+                                @* Button *@
+                                <div class="row d-flex justify-content-end m-t-40">
+                                    <a href="/giay-hen/ma-giay-hen" class="waves-effect waves-light btn blue ju">Tiếp tục</a>
                                 </div>
                             </div>
                         </div>
@@ -992,7 +1156,16 @@
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
             data.append("ReceiverStreet", $('#ReceiverStreet').text());
             data.append("OrderNote", $('#OrderNote').text());
-            return form.submit();
+            $.ajax({
+                type: "POST",
+                url: "/don-hang/thanh-toan",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                }
+            });
+            //return form.submit();
         },
         onFinished: function (event, currentIndex) {
             swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
@@ -1037,7 +1210,17 @@ Dropzone.options.myAwesomeDropzone = {
         myDropzone.removeAllFiles();
     },
     init: function () {
-        this.on("addedfile", function () {
+        this.on("addedfile", function (file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var base64String = event.target.result;
+                var image = new Image();
+                image.src = base64String;
+                $('#img').empty();
+                $('#img').append(image);
+                $('#img').children().width("100%")
+            };
+            reader.readAsDataURL(file);
             if (this.files.length > 1) {
                 for (var i = 0; i < this.files.length; i++){
                         this.removeFile(this.files[i]);
@@ -1045,7 +1228,8 @@ Dropzone.options.myAwesomeDropzone = {
             }
         });
         this.on("removedfile", function () {
-            data.delete("img");
+            data.delete("img")
+            $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
             $('.dz-image').last().find('img').attr({ width: '100%', height: '100%' });
