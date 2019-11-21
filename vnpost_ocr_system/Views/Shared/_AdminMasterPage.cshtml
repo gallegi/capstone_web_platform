@@ -27,24 +27,6 @@
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
     <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <!-- Apps -->
-    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
-    @*<script src="~/dist/js/materialize.min.js"></script>*@
-    @*<script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>*@
-
-    <!-- ============================================================== -->
-    @*<script src="~/dist/js/app.js"></script>
-    <script src="~/dist/js/app.init.js"></script>
-    <script src="~/dist/js/app-style-switcher.js"></script>*@
-    <!-------CUSTOM CSS----->
-    @*<script src="~/dist/js/custom.min.js"></script>*@
-    @*<link href="~/CustomCSS/MasterPage/AdminMasterPage.css" rel="stylesheet" />
-        <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
-        <link href="~/assets/Custom css/floating-action-btn.css" rel="stylesheet">
-        <link href="~/assets/Custom css/form-input-border.css" rel="stylesheet">
-        <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
-        <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
-        <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />*@
-    <!---CUSTOM JS-->
     <script src="~/dist/js/pages/dashboards/dashboard1.js"></script>
     <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/dist/js/materialize.min.js"></script>
@@ -560,6 +542,9 @@
 </body>
 </html>
 <script>
+    $(function () {
+        $("#pre-load").hide("slow", function () { });
+    })
     $(".loading").css("z-index", 99999);
     $('body').css('overflow', '');
 </script>
