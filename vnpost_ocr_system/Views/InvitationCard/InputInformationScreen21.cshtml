@@ -89,7 +89,7 @@
         <div class="card">
             <div class="card-content wizard-content">
                 <h5 class="card-title">Tạo giấy hẹn mới</h5>
-                <form action="/don-hang/thanh-toan" method="post" class="validation-wizard wizard-circle m-t-40">
+                <form action="/giay-hen/ma-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Thông tin thủ tục</h6>
                     <section>
@@ -123,7 +123,10 @@
                                     <label for="item4">Tên thủ tục :</label>
                                 </div>
                             </div>
+                            
                             <div class="col s12 m12 l12">
+                                <br/>
+                                <label>Ảnh chụp giấy hẹn:</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" name="file" class="form-control" single />
@@ -155,28 +158,24 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact1" class="row p-b-20">
-                                                <div class="col s8 m8 l8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                    <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
-                                                    <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
-                                                    <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
-                                                    <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
-                                                </div>
-                                                <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact1" class="info-list-div col">
+                                        <div class="col s8 m8 l8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                            <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
+                                            <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
+                                            <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
+                                        </div>
+                                        <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -208,25 +207,20 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact2" class="row p-b-20">
-                                                <div class="col l8 m8 s8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                </div>
-                                                <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
-
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact2" class="info-list-div col">
+                                        <div class="col l8 m8 s8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                        </div>
+                                        <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -258,25 +252,20 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="col s12 m-b-40">
-                                        <div class="info-list-div ">
-                                            <div id="contact3" class="row p-b-20">
-                                                <div class="col l8 s8 m8">
-                                                    <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                                    <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                                    <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                                </div>
-                                                <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
-
-                                                </div>
-                                                <div class="col s12 m-t-10">
-                                                    <div class="col l4 s12 p-t-10">
-                                                        <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
-                                                    </div>
-                                                    <div class="col l2 s12 p-t-10">
-                                                        <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
-                                                    </div>
-                                                </div>
+                                    <div id="contact3" class="info-list-div col">
+                                        <div class="col l8 s8 m8">
+                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                        </div>
+                                        <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+                                        </div>
+                                        <div class="col s12 m-t-10">
+                                            <div class="col l4 s12 p-t-10">
+                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
+                                            </div>
+                                            <div class="col l2 s12 p-t-10">
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -290,6 +279,7 @@
                             </p>
                         </div>
                     </section>
+                    <!-- Step 5 -->
                     <h6>Phiếu gửi hồ sơ</h6>
                     <section>
                         <div class="row">
@@ -380,8 +370,7 @@
                                         </div>
                                     </div>
                                     <div class="col s12 center">
-                                        <div class="h-form-label">
-                                            <label><img src="~/assets/images/giay-hen.jpg" /></label>
+                                        <div class="h-form-label" id="img">
                                         </div>
                                     </div>
                                 </div>
@@ -557,6 +546,170 @@
                                             <textarea name="OrderNote"></textarea>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 6 -->
+                    <h6>Xác nhận thanh toán</h6>
+                    <section>
+                        <div class="row">
+                            <h4>Hình thức thanh toán</h4>
+                            <div class="col l9 s12">
+                                <div class="card card-shadow p-20 resize-card">
+                                    <div>
+                                        <label>
+                                            <input name="group1" id="r1" type="radio" checked />
+                                            <span>Thanh toán tiền mặt khi nhận hàng</span>
+                                        </label>
+                                        <label>
+                                            <input name="group1" id="r2" type="radio" disabled />
+                                            <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
+                                        </label>
+                                        <label>
+                                            <input name="group1" id="r3" type="radio" disabled />
+                                            <span>Thẻ ATM nội địa/Internet Banking</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="bank-list">
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/1.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/2.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/3.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/4.png" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/5.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/6.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/7.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/8.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/9.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/10.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/11.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/12.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/13.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/14.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/15.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/16.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/17.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/18.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/19.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/20.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-t-20">
+
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/21.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/22.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/23.png" />
+                                            </div>
+                                            <div class="col s6 l3 m2">
+                                                <img src="~/Content/BankLogo/24.png" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Right *@
+                            <div class="col l3">
+                                <div class="row">
+                                    <div class="card card-shadow p-20">
+                                        <div>
+                                            <p class="payment-title card-border">Địa chỉ đơn hàng</p>
+                                        </div>
+
+                                        <b class="payment-title">Nguyễn Vũ Minh</b>
+                                        <div>
+                                            <p>
+                                                FPT Software, khu công nghệ cao,
+                                                km29, đại lộ Thăng Long, Xã Thạch Hòa, huyện
+                                                Thạch Thất, Hà Nội Việt Nam
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card card-shadow p-20">
+                                        <div>
+                                            <p class="payment-title card-border">Đơn hàng</p>
+                                        </div>
+                                        <div>
+                                            <b class="payment-title m-b-25">Mã đơn hàng: MX20538</b>
+                                        </div>
+                                        <span>
+                                            <span class="payment-title">Thủ tục hành chính:</span>
+                                            <span>Xin cấp lại căn cước công dân</span>
+                                        </span>
+
+
+                                    </div>
+                                </div>
+
+                                @* Button *@
+                                <div class="row d-flex justify-content-end m-t-40">
+                                    <a href="/giay-hen/ma-giay-hen" class="waves-effect waves-light btn blue ju">Tiếp tục</a>
                                 </div>
                             </div>
                         </div>
@@ -864,6 +1017,20 @@
         })
     })
 
+    var contact = "";
+
+    $(document).on("click", 'section #contact1', function () {
+        contact = 'section #contact1:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
+    $(document).on("click", 'section #contact2', function () {
+        contact = 'section #contact2:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
+    $(document).on("click", 'section #contact3', function () {
+        contact = 'section #contact3:nth-child(' + ($(this).index() + 1) + ')';
+    })
+
     $(document).on("click", "#save_profile1", function () {
         $('#pre-load').show()
         $.ajax({
@@ -884,8 +1051,24 @@
                 Type: type
             },
             success: function (response) {
-                if (response.success)
+                if (response.success) {
+                    if (response.add) {
+
+                    }
+                    else {
+                        $(contact).find('#FullName').text($('#name_edit').val())
+                        $(contact).find('#Street').text($('#street_edit').val())
+                        $(contact).find('#Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
+                        $(contact).find('#Address').data('district', $('#district_edit').val())
+                        $(contact).find('#Phone').text($('#phone_edit').val())
+                        $(contact).find('#PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
+                        $(contact).find('#PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
+                        $(contact).find('#PersonalPaperNumber').text($('#paper_number_edit').val())
+                        $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
+                        $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
+                    }
                     alert(response.message);
+                }
                 else
                     alert(response.message)
                 $('#pre-load').hide()
@@ -992,7 +1175,16 @@
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
             data.append("ReceiverStreet", $('#ReceiverStreet').text());
             data.append("OrderNote", $('#OrderNote').text());
-            return form.submit();
+            $.ajax({
+                type: "POST",
+                url: "/don-hang/thanh-toan",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                }
+            });
+            //return form.submit();
         },
         onFinished: function (event, currentIndex) {
             swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
@@ -1037,7 +1229,17 @@ Dropzone.options.myAwesomeDropzone = {
         myDropzone.removeAllFiles();
     },
     init: function () {
-        this.on("addedfile", function () {
+        this.on("addedfile", function (file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var base64String = event.target.result;
+                var image = new Image();
+                image.src = base64String;
+                $('#img').empty();
+                $('#img').append(image);
+                $('#img').children().width("100%")
+            };
+            reader.readAsDataURL(file);
             if (this.files.length > 1) {
                 for (var i = 0; i < this.files.length; i++){
                         this.removeFile(this.files[i]);
@@ -1045,7 +1247,8 @@ Dropzone.options.myAwesomeDropzone = {
             }
         });
         this.on("removedfile", function () {
-            data.delete("img");
+            data.delete("img")
+            $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
             $('.dz-image').last().find('img').attr({ width: '100%', height: '100%' });

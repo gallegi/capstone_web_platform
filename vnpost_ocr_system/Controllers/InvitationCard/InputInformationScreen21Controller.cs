@@ -11,13 +11,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
+            if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
                 List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
@@ -71,10 +70,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     {
                         c.CustomerID = long.Parse(Session["userID"].ToString());
                         db.ContactInfoes.Add(c);
-                        return Json(new { success = true, message = "Thêm mới thành công" });
+                        return Json(new { success = true, add = true, message = "Thêm mới thành công" });
                     }
                     db.SaveChanges();
-                    return Json(new { success = true, message = "Chỉnh sửa thành công" });
+                    return Json(new { success = true, add = false, message = "Chỉnh sửa thành công" });
                 }
             }
             catch (Exception)
@@ -82,7 +81,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 return Json(new { success = false, message = "Có lỗi xảy ra" });
             }
         }
-
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetContactInfo")]
         [HttpPost]
         public ActionResult GetContactInfo(int id)
