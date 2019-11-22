@@ -15,7 +15,7 @@
     <link href="~/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <link href="~/dist/css/style.css" rel="stylesheet">
-
+    <link href="~/CustomCSS/MasterPage/AdminMasterPage.css" rel="stylesheet" />
     <!-- This page CSS -->
     <link href="~/dist/css/pages/dashboard1.css" rel="stylesheet">
     <link href="~/assets/extra-libs/prism/prism.css" rel="stylesheet">
@@ -186,12 +186,14 @@
             <!-- ============================================================== -->
             <!-- Container fluid scss in scafholding.scss -->
             <!-- ============================================================== -->
-           
-                @RenderBody()
-  
+
+            @RenderBody()
+
             <!-- ============================================================== -->
             <!-- Container fluid scss in scafholding.scss -->
             <!-- ============================================================== -->
+            <footer class="center-align m-b-30">All Rights Reserved by VNPost.</footer>
+
         </div>
         <!-- ============================================================== -->
         <!-- Page wrapper scss in scafholding.scss -->
@@ -199,7 +201,6 @@
         <!-- ============================================================== -->
         <!-- Right Sidebar -->
         <!-- ============================================================== -->
-        <div class="chat-windows "></div>
         <!-- ============================================================== -->
         <!-- Right Sidebar -->
         <!-- ============================================================== -->
@@ -211,19 +212,20 @@
     <!-- All Required js -->
     <!-- ============================================================== -->
     @*<script src="~/dist/js/materialize.min.js"></script>
-    <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>*@
+        <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>*@
     <!-- ============================================================== -->
     <!-- Apps -->
     <!-- ============================================================== -->
     <script src="~/dist/js/app.js"></script>
     <script src="~/dist/js/app.init.light-sidebar.js"></script>
     <script src="~/dist/js/app-style-switcher.js"></script>
-    <!-- ============================================================== -->
     <!-- Custom js -->
     <!-- ============================================================== -->
+    <script src="../../dist/js/custom.min.js"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
+    <script src="../../assets/extra-libs/prism/prism.js"></script>
 </body>
 </html>
 <script>
