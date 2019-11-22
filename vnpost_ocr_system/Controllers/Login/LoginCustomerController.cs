@@ -17,6 +17,7 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             if (Session["userID"] != null) return Redirect("/");
             ViewBag.invalidcode = "";
+            ViewBag.messe = "";
             if (HttpContext.Request.Cookies["remmem"] != null)
             {
                 HttpCookie remme = HttpContext.Request.Cookies.Get("remmem");
