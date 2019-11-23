@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Drawing;
 using System.Web;
 using System.Web.Mvc;
@@ -40,33 +41,52 @@ namespace vnpost_ocr_system.Controllers
             string ReceiverPostalDistrictCode = Request["ReceiverPostalDistrictCode"].ToString();
             string ReceiverStreet = Request["ReceiverStreet"].ToString();
             string OrderNote = Request["OrderNote"].ToString();
+
+            sourceimage.Save("C:/Users/1160/Desktop/temp.png");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                Order o = new Order();
-                o.CustomerID = long.Parse(Session["userID"].ToString());
-                o.OrderDate = DateTime.Now;
-                o.ProfileID = ProfileID;
-                o.AppointmentLetterCode = AppointmentLetterCode;
-                o.ProcedurerFullName = ProcedurerFullName;
-                o.ProcedurerPhone = ProcedurerPhone;
-                o.ProcedurerPostalDistrictCode = ProcedurerPostalDistrictCode;
-                o.ProcedurerStreet = ProcedurerStreet;
-                o.ProcedurerPersonalPaperTypeID = ProcedurerPersonalPaperTypeID;
-                o.ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber;
-                o.ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate;
-                o.ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace;
-                o.SenderFullName = SenderFullName;
-                o.SenderPhone = SenderPhone;
-                o.SenderPostalDistrictCode = SenderPostalDistrictCode;
-                o.SenderStreet = SenderStreet;
-                o.ReceiverFullName = ReceiverFullName;
-                o.ReceiverPhone = ReceiverPhone;
-                o.ReceiverPostalDistrictCode = ReceiverPostalDistrictCode;
-                o.ReceiverStreet = ReceiverStreet;
-                o.OrderNote = OrderNote;
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Order o = new Order();
+                        o.CustomerID = long.Parse(Session["userID"].ToString());
+                        o.OrderDate = DateTime.Now;
+                        o.ProfileID = ProfileID;
+                        o.AppointmentLetterCode = AppointmentLetterCode;
+                        o.ProcedurerFullName = ProcedurerFullName;
+                        o.ProcedurerPhone = ProcedurerPhone;
+                        o.ProcedurerPostalDistrictCode = ProcedurerPostalDistrictCode;
+                        o.ProcedurerStreet = ProcedurerStreet;
+                        o.ProcedurerPersonalPaperTypeID = ProcedurerPersonalPaperTypeID;
+                        o.ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber;
+                        o.ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate;
+                        o.ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace;
+                        o.SenderFullName = SenderFullName;
+                        o.SenderPhone = SenderPhone;
+                        o.SenderPostalDistrictCode = SenderPostalDistrictCode;
+                        o.SenderStreet = SenderStreet;
+                        o.ReceiverFullName = ReceiverFullName;
+                        o.ReceiverPhone = ReceiverPhone;
+                        o.ReceiverPostalDistrictCode = ReceiverPostalDistrictCode;
+                        o.ReceiverStreet = ReceiverStreet;
+                        o.OrderNote = OrderNote;
+                        db.Orders.Add(o);
+                        OrderStatusDetail detail = new OrderStatusDetail();
+                        detail.OrderID = o.OrderID;
+                        detail.StatusID = -3;
+                        db.OrderStatusDetails.Add(detail);
+                        db.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        return Json(new { success = false, message = "Có lỗi xảy ra" });
+                    }
+                }
             }
-            sourceimage.Save("C:/Users/1160/Desktop/temp.png");
-            return View("/Views/Payment/Payment.cshtml");
+            return Json(new { success = true, message = "" });
         }
     }
 }
