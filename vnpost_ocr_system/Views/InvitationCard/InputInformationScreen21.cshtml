@@ -39,6 +39,9 @@
 @*<link href="~/assets/uploader/style_uploader.css" rel="stylesheet" />*@
 
 <style>
+    .datepicker{
+        z-index: 9999;
+    }
 
     #toast-container {
         min-width: 10%;
@@ -1042,18 +1045,20 @@
                 FullName: $('#name_edit').val(),
                 Phone: $('#phone_edit').val(),
                 PostalDistrictCode: $('#district_edit').val(),
+                PostalDistrictName: $('#district_edit option:selected').text(),
                 Street: $('#street_edit').val(),
                 PersonalPaperTypeID: $('#paper_type_edit').val(),
                 PersonalPaperNumber: $('#paper_number_edit').val(),
                 PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
                 PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
                 ContactInfoID: $('#info_edit').val(),
-                Type: type
+                Type: type,
+                PostalProvinceName: $('#province_edit option:selected').text()
             },
             success: function (response) {
                 if (response.success) {
                     if (response.add) {
-
+                        $('section:not([style*="display: none"]) .row').append(response.html)
                     }
                     else {
                         $(contact).find('#FullName').text($('#name_edit').val())
