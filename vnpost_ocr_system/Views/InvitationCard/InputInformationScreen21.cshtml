@@ -838,96 +838,117 @@
 
     var data = new FormData();
 
-    $(document).ready(function () {
-        $('#item1').change(function () {
-            $('#pre-load').show()
-            $('#PostalProvinceName').text($(this).find("option:selected").text())
-            $.ajax({
-                type: "POST",
-                url: "/GetDistrict",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item2').empty();
-                    $('#item3').empty();
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $("#PostalDistrictName").text(response[i].ProfileName)
-                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
-                    }
-                    $('#item2').append(option);
-                    $('#item2').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
+    function getDistrict() {
+        $('#pre-load').show()
+        $('#item2').empty();
+        $('#item2').formSelect();
+        $('#item3').empty();
+        $('#item3').formSelect();
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $('#PostalProvinceName').text($('#item1').find("option:selected").text())
+        $.ajax({
+            type: "POST",
+            url: "/GetDistrict",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item1').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#PostalDistrictName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
-            })
+                $('#item2').append(option);
+                $('#item2').formSelect();
+                getAdmins()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getAdmins() {
+        $('#pre-load').show()
+        $('#item3').empty();
+        $('#item3').formSelect();
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $('#PostalDistrictName').text($('#item2').find('option:selected').text());
+        $.ajax({
+            type: "POST",
+            url: "/GetAdmins",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item2').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#AdminName").text(response[i].ProfileName)
+                    option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                }
+                $('#item3').append(option);
+                $('#item3').formSelect();
+                getProfiles();
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getProfiles() {
+        $('#pre-load').show()
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $("#AdminName").text($('#item3').find('option:selected').text());
+        $('#PA_Address').text($('#item3').find('option:selected').data("address"))
+        $.ajax({
+            type: "POST",
+            url: "/GetProfile",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item3').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $(".ProfileName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                }
+                $('#item4').append(option);
+                $('#item4').formSelect();
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        getDistrict();
+
+        $('#item1').change(function () {
+            getDistrict();
         })
 
         $('#item2').change(function () {
             $('#pre-load').show()
-            $('#PostalDistrictName').text($(this).find('option:selected').text());
-            $.ajax({
-                type: "POST",
-                url: "/GetAdmins",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item3').empty();
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $("#AdminName").text(response[i].ProfileName)
-                        option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
-                    }
-                    $('#item3').append(option);
-                    $('#item3').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getAdmins();
         })
 
         $('#item3').change(function () {
-            $('#pre-load').show()
-            $("#AdminName").text($(this).find('option:selected').text());
-            $('#PA_Address').text($(this).find('option:selected').data("address"))
-            $.ajax({
-                type: "POST",
-                url: "/GetProfile",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $(".ProfileName").text(response[i].ProfileName)
-                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
-                    }
-                    $('#item4').append(option);
-                    $('#item4').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getProfiles();
         })
 
         $('#item4').change(function () {
@@ -1144,7 +1165,7 @@
         },
         onStepChanging: function (event, currentIndex, newIndex) {
             if (currentIndex === 0) {
-                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null) {
+                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null || $('#item5').val() == "") {
                     toastr.error('Hãy điền đầy đủ thông tin!', '');
                     return false;
                 }
@@ -1153,15 +1174,15 @@
                     return false;
                 }
             }
-            else if (currentIndex === 1 && !validate1) {
+            else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!', '');
                 return false;
             }
-            else if (currentIndex === 2 && !validate2) {
+            else if (currentIndex === 2 && !validate2 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người gửi!', '');
                 return false;
             }
-            else if (currentIndex === 3 && !validate3) {
+            else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người nhận!', '');
                 return false;
             }
