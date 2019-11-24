@@ -105,31 +105,31 @@
                                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
-                                    <label for="item1" class="">Tỉnh/Thành phố :</label>
+                                    <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item2" name="types"></select>
-                                    <label for="item2">Quận/Huyện :</label>
+                                    <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" id="item5" class="required" />
-                                    <label for="item5">Mã giấy hẹn :</label>
+                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12">
                                     <select id="item3" tabindex="-1"></select>
-                                    <label for="item3">Tên CQHC :</label>
+                                    <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item4" tabindex="-1"></select>
-                                    <label for="item4">Tên thủ tục :</label>
+                                    <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                             </div>
                             
                             <div class="col s12 m12 l12">
                                 <br/>
-                                <label>Ảnh chụp giấy hẹn:</label>
+                                <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" name="file" class="form-control" single />
@@ -1100,7 +1100,7 @@
         var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
         $(".is-check-step-2").empty();
         validate1 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
     $(document).on("click", "#profile2", function () {
@@ -1114,7 +1114,7 @@
         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
     $(document).on("click", "#profile3", function () {
@@ -1128,7 +1128,7 @@
         var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
 <script>
