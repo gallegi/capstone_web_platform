@@ -68,16 +68,17 @@
                         Loại giấy tờ tùy thân:
                     </div>
                     <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="paperType">
+                        <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
                             @foreach (var item in ViewBag.listPaperType)
                             {
                                 <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
                             }
+                            <option value=""> Không có </option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="paperDetail">
                 <div class="row m-b-30">
                     <div class="col s12 l5 m5 p-t-10">
                         Mã số giấy tờ tùy thân:
@@ -172,8 +173,16 @@
                 }
             });
         }
-        )
+        )  
     })
+
+    function toggleDiv(divId, element) {
+        if (element.value == '') {
+            $("#" + divId).hide();
+        } else {
+            $("#" + divId).show();
+        }
+    }
 
 </script>
 
