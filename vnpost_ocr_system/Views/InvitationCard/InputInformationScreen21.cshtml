@@ -39,6 +39,9 @@
 @*<link href="~/assets/uploader/style_uploader.css" rel="stylesheet" />*@
 
 <style>
+    .datepicker{
+        z-index: 9999;
+    }
 
     #toast-container {
         min-width: 10%;
@@ -102,31 +105,31 @@
                                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
-                                    <label for="item1" class="">Tỉnh/Thành phố :</label>
+                                    <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item2" name="types"></select>
-                                    <label for="item2">Quận/Huyện :</label>
+                                    <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" id="item5" class="required" />
-                                    <label for="item5">Mã giấy hẹn :</label>
+                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12">
                                     <select id="item3" tabindex="-1"></select>
-                                    <label for="item3">Tên CQHC :</label>
+                                    <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item4" tabindex="-1"></select>
-                                    <label for="item4">Tên thủ tục :</label>
+                                    <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 </div>
                             </div>
                             
                             <div class="col s12 m12 l12">
                                 <br/>
-                                <label>Ảnh chụp giấy hẹn:</label>
+                                <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" name="file" class="form-control" single />
@@ -158,7 +161,7 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact1" class="info-list-div col">
+                                    <div id="contact1" class="info-list-div col s12">
                                         <div class="col s8 m8 l8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
@@ -207,7 +210,7 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact2" class="info-list-div col">
+                                    <div id="contact2" class="info-list-div col s12">
                                         <div class="col l8 m8 s8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
@@ -252,7 +255,7 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact3" class="info-list-div col">
+                                    <div id="contact3" class="info-list-div col s12">
                                         <div class="col l8 s8 m8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
@@ -265,7 +268,7 @@
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col l2 s12 p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="3" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +276,7 @@
                             }
                             <p class="col s12 big-heading m-b-15">
                                 Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
                                     Nhập thông tin mới
                                 </a>
                             </p>
@@ -294,7 +297,7 @@
                                         </div>
                                         <div class="col s7">
                                             <div class="h-form-label">
-                                                <label id="ProfileName"></label>
+                                                <label class="ProfileName"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -359,7 +362,7 @@
                                             </div>
                                             <div class="col s7">
                                                 <div class="h-form-label">
-                                                    <label id="AppointmentLetterCode"></label>
+                                                    <label class="AppointmentLetterCode"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -506,7 +509,7 @@
                                         </div>
                                         <div class="col s7">
                                             <div class="h-form-label">
-                                                <label id="ReceiverFullName"></label>
+                                                <label class="ReceiverFullName"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -532,7 +535,7 @@
                                         </div>
                                         <div class="col s7">
                                             <div class="h-form-label">
-                                                <label><span id="ReceiverStreet"></span>, <span id="ReceiverAddress"></span></label>
+                                                <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -671,7 +674,6 @@
                                 </div>
                             </div>
 
-                            @* Right *@
                             <div class="col l3">
                                 <div class="row">
                                     <div class="card card-shadow p-20">
@@ -679,12 +681,10 @@
                                             <p class="payment-title card-border">Địa chỉ đơn hàng</p>
                                         </div>
 
-                                        <b class="payment-title">Nguyễn Vũ Minh</b>
+                                        <b class="payment-title ReceiverFullName"></b>
                                         <div>
                                             <p>
-                                                FPT Software, khu công nghệ cao,
-                                                km29, đại lộ Thăng Long, Xã Thạch Hòa, huyện
-                                                Thạch Thất, Hà Nội Việt Nam
+                                                <span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span>
                                             </p>
                                         </div>
                                     </div>
@@ -696,11 +696,11 @@
                                             <p class="payment-title card-border">Đơn hàng</p>
                                         </div>
                                         <div>
-                                            <b class="payment-title m-b-25">Mã đơn hàng: MX20538</b>
+                                            <b class="payment-title m-b-25">Mã đơn hàng: <span class="AppointmentLetterCode"></span></b>
                                         </div>
                                         <span>
                                             <span class="payment-title">Thủ tục hành chính:</span>
-                                            <span>Xin cấp lại căn cước công dân</span>
+                                            <span class="ProfileName"></span>
                                         </span>
 
 
@@ -727,7 +727,7 @@
                 <div class="input-field row">
                     <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
                     <div class="col l9 m9 s12">
-                        <input id="name_edit" type="text">
+                        <input required id="name_edit" type="text">
                     </div>
                 </div>
             </div>
@@ -742,7 +742,7 @@
             <div class="input-field col s12 m12">
                 <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
                 <div class="col l9 m9 s12">
-                    <select tabindex="-1" id="province_edit" class="card-border">
+                    <select required tabindex="-1" id="province_edit" class="card-border">
                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                         {
                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -754,7 +754,7 @@
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
                     <div class="col l9 m9 s12">
-                        <select tabindex="-1" id="district_edit" class="card-border"></select>
+                        <select required tabindex="-1" id="district_edit" class="card-border"></select>
                     </div>
                 </div>
             </div>
@@ -762,7 +762,7 @@
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
                     <div class="col l9 m9 s12">
-                        <textarea id="street_edit"></textarea>
+                        <textarea required id="street_edit"></textarea>
                     </div>
                 </div>
             </div>
@@ -813,7 +813,7 @@
                     <div class="select-wrapper row">
                         <div class="col l3 m3 p-t-10 s12 "></div>
                         <div class="col l9 m9 s12">
-                            <a class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close">Hủy Bỏ</a>
+                            <button class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close" id="close-modal">Hủy Bỏ</button>
                             <a class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" id="save_profile1">Lưu</a>
                         </div>
                     </div>
@@ -838,104 +838,125 @@
 
     var data = new FormData();
 
-    $(document).ready(function () {
-        $('#item1').change(function () {
-            $('#pre-load').show()
-            $('#PostalProvinceName').text($(this).find("option:selected").text())
-            $.ajax({
-                type: "POST",
-                url: "/GetDistrict",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item2').empty();
-                    $('#item3').empty();
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $("#PostalDistrictName").text(response[i].ProfileName)
-                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
-                    }
-                    $('#item2').append(option);
-                    $('#item2').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
+    function getDistrict() {
+        $('#pre-load').show()
+        $('#item2').empty();
+        $('#item2').formSelect();
+        $('#item3').empty();
+        $('#item3').formSelect();
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $('#PostalProvinceName').text($('#item1').find("option:selected").text())
+        $.ajax({
+            type: "POST",
+            url: "/GetDistrict",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item1').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#PostalDistrictName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
-            })
+                $('#item2').append(option);
+                $('#item2').formSelect();
+                getAdmins()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getAdmins() {
+        $('#pre-load').show()
+        $('#item3').empty();
+        $('#item3').formSelect();
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $('#PostalDistrictName').text($('#item2').find('option:selected').text());
+        $.ajax({
+            type: "POST",
+            url: "/GetAdmins",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item2').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#AdminName").text(response[i].ProfileName)
+                    option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                }
+                $('#item3').append(option);
+                $('#item3').formSelect();
+                getProfiles();
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getProfiles() {
+        $('#pre-load').show()
+        $('#item4').empty();
+        $('#item4').formSelect();
+        $("#AdminName").text($('#item3').find('option:selected').text());
+        $('#PA_Address').text($('#item3').find('option:selected').data("address"))
+        $.ajax({
+            type: "POST",
+            url: "/GetProfile",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#item3').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $(".ProfileName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                }
+                $('#item4').append(option);
+                $('#item4').formSelect();
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        getDistrict();
+
+        $('#item1').change(function () {
+            getDistrict();
         })
 
         $('#item2').change(function () {
             $('#pre-load').show()
-            $('#PostalDistrictName').text($(this).find('option:selected').text());
-            $.ajax({
-                type: "POST",
-                url: "/GetAdmins",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item3').empty();
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $("#AdminName").text(response[i].ProfileName)
-                        option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
-                    }
-                    $('#item3').append(option);
-                    $('#item3').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getAdmins();
         })
 
         $('#item3').change(function () {
-            $('#pre-load').show()
-            $("#AdminName").text($(this).find('option:selected').text());
-            $('#PA_Address').text($(this).find('option:selected').data("address"))
-            $.ajax({
-                type: "POST",
-                url: "/GetProfile",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#item4').empty();
-                    var option = "";
-                    for (var i = 0; i < response.length; i++) {
-                        if (i === 0)
-                            $("#ProfileName").text(response[i].ProfileName)
-                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
-                    }
-                    $('#item4').append(option);
-                    $('#item4').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getProfiles();
         })
 
         $('#item4').change(function () {
-            $("#ProfileName").text($(this).find('option:selected').text());
+            $(".ProfileName").text($(this).find('option:selected').text());
         })
 
         $('#item5').change(function () {
-            $('#AppointmentLetterCode').text($(this).val())
+            $('.AppointmentLetterCode').text($(item5).val())
         })
     })
 
@@ -1042,18 +1063,21 @@
                 FullName: $('#name_edit').val(),
                 Phone: $('#phone_edit').val(),
                 PostalDistrictCode: $('#district_edit').val(),
+                PostalDistrictName: $('#district_edit option:selected').text(),
                 Street: $('#street_edit').val(),
                 PersonalPaperTypeID: $('#paper_type_edit').val(),
                 PersonalPaperNumber: $('#paper_number_edit').val(),
                 PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
                 PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
                 ContactInfoID: $('#info_edit').val(),
-                Type: type
+                Type: type,
+                PostalProvinceName: $('#province_edit option:selected').text()
             },
             success: function (response) {
                 if (response.success) {
                     if (response.add) {
-
+                        $('section:not([style*="display: none"]) .row').children('p').remove()
+                        $('section:not([style*="display: none"]) .row').append(response.html)
                     }
                     else {
                         $(contact).find('#FullName').text($('#name_edit').val())
@@ -1067,6 +1091,7 @@
                         $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
                         $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
                     }
+                    $('#close-modal').click();
                     alert(response.message);
                 }
                 else
@@ -1085,8 +1110,10 @@
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
         $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
+        data.delete("ProcedurerPostalDistrictCode");
         data.append("ProcedurerPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
+        data.delete("ProcedurerPersonalPaperTypeID");
         data.append("ProcedurerPersonalPaperTypeID", Adminprofile.find('#PersonalPaperTypeName').data("papertype"))
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
@@ -1094,7 +1121,7 @@
         var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
         $(".is-check-step-2").empty();
         validate1 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
     $(document).on("click", "#profile2", function () {
@@ -1103,24 +1130,26 @@
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
+        data.delete("SenderPostalDistrictCode");
         data.append("SenderPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
     $(document).on("click", "#profile3", function () {
         var Adminprofile = $(this).closest('#contact3');
-        $('#ReceiverFullName').text(Adminprofile.find('#FullName').text());
+        $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
-        $('#ReceiverStreet').text(Adminprofile.find('#Street').text())
-        $('#ReceiverAddress').text(Adminprofile.find('#Address').text())
+        $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
+        $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
+        data.delete("ReceiverPostalDistrictCode");
         data.append("ReceiverPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:100px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
 <script>
@@ -1136,7 +1165,7 @@
         },
         onStepChanging: function (event, currentIndex, newIndex) {
             if (currentIndex === 0) {
-                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null) {
+                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null || $('#item5').val() == "") {
                     toastr.error('Hãy điền đầy đủ thông tin!', '');
                     return false;
                 }
@@ -1145,15 +1174,15 @@
                     return false;
                 }
             }
-            else if (currentIndex === 1 && !validate1) {
+            else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!', '');
                 return false;
             }
-            else if (currentIndex === 2 && !validate2) {
+            else if (currentIndex === 2 && !validate2 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người gửi!', '');
                 return false;
             }
-            else if (currentIndex === 3 && !validate3) {
+            else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người nhận!', '');
                 return false;
             }
@@ -1171,9 +1200,9 @@
             data.append("SenderFullName", $('#SenderFullName').text());
             data.append("SenderPhone", $('#SenderPhone').text());
             data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('#ReceiverFullName').text());
+            data.append("ReceiverFullName", $('.ReceiverFullName').text());
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverStreet", $('#ReceiverStreet').text());
+            data.append("ReceiverStreet", $('.ReceiverStreet').text());
             data.append("OrderNote", $('#OrderNote').text());
             $.ajax({
                 type: "POST",
