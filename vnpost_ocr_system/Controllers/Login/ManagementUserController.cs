@@ -24,13 +24,13 @@ namespace vnpost_ocr_system.Controllers.Login
         }
 
         [HttpPost]
-        public ActionResult getData(string province, string role, string active,string username,string name)
+        public ActionResult getData(string province, string role, string active, string username, string name)
         {
             string query = "";
-            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
-            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
-            if (!string.IsNullOrEmpty(province)) query += " and a.PostalProvinceCode = @province ";
-            //query += " order by a.Role";
+            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+            if (!string.IsNullOrEmpty(province)) { query += " and a.PostalProvinceCode = @province "; }
+            query += " order by a.Role";
             List<Admindb> searchList = null;
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
@@ -51,19 +51,21 @@ namespace vnpost_ocr_system.Controllers.Login
                     new SqlParameter("name", '%' + name + '%'),
                     new SqlParameter("username", '%' + username + '%')
                     ).ToList();
-                //if (Convert.ToInt32(Session["adminRole"]) == 1)
-                //{
-                //    var admin = db.Database.SqlQuery<Admindb>("select a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar,Province p where a.Role =1 and ar.AdminRoleID = a.Role and p.PostalProvinceCode=a.PostalProvinceCode").FirstOrDefault();
-                //    searchList.Insert(0, admin);
-                //}
 
-
+                foreach (Admindb a in searchList)
+                {
+                    if (!string.IsNullOrEmpty(province)) { searchList.Remove(a); }
+                    else
+                    {
+                        if (a.AdminRoleName.Equals("Tổng công ty")) a.PostalProvinceName = "Tổng công ty";
+                    }
+                }
                 db.Configuration.LazyLoadingEnabled = false;
 
                 totalrows = searchList.Count;
                 totalrowsafterfiltering = searchList.Count;
                 //sorting
-                searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Admindb>();
+                //searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Admindb>();
                 //paging
                 searchList = searchList.Skip(start).Take(length).ToList<Admindb>();
             }
@@ -91,6 +93,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     a.AdminPasswordHash = passXc;
                     a.AdminPasswordSalt = r.Next(100000, 999999).ToString();
                     a.Role = role;
+                    if (province == 0) province = 1;
                     a.PostalProvinceCode = province.ToString();
                     a.IsActive = Convert.ToBoolean(active);
                     a.CreatedTime = DateTime.Now;
@@ -98,7 +101,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     db.SaveChanges();
                     return Json("Thêm tài khoản thành công", JsonRequestBehavior.AllowGet);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
                 }
@@ -109,7 +112,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
         }
         [Auther(Roles = "1,2,3")]
-        public ActionResult Update(int id,string name, string username, string password, int province, int role, int active)
+        public ActionResult Update(int id, string name, string username, string password, int province, int role, int active)
         {
             if (Convert.ToInt32(Session["adminRole"]) < role)
             {
@@ -121,6 +124,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     admin.AdminUsername = username;
                     admin.AdminPasswordHash = passXc;
                     admin.Role = role;
+                    if (province == 0) province = 10;
                     admin.PostalProvinceCode = province.ToString();
                     admin.IsActive = Convert.ToBoolean(active);
                     admin.CreatedTime = DateTime.Now;
@@ -195,6 +199,7 @@ namespace vnpost_ocr_system.Controllers.Login
     }
     public class Admindb
     {
+        public int STT { get; set; }
         public Int64 AdminID { get; set; }
         public string AdminName { get; set; }
         public string AdminUsername { get; set; }
