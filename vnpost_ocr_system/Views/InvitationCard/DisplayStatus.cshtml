@@ -20,7 +20,7 @@
 
                 <div class="card father-display-status">
                     <div class="ClearFix">
-                        <p class="code-order">Mã đơn hàng: #12345678</p>
+                        <p class="code-order">Mã đơn hàng: #@ViewBag.order.OrderID</p>
                     </div>
                     <!--wizard form-->
                     <div class="col s12">
@@ -29,31 +29,31 @@
                                 <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
                                     <div class="steps clearfix">
                                         <ul role="tablist">
-                                            <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
                                                     <span class="step">1</span>
                                                     Đang chờ tiếp nhận
                                                 </a>
                                             </li>
-                                            <li role="tab" class="done" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
                                                     <span class="step">2</span>
                                                     Đã tiếp nhận
                                                 </a>
                                             </li>
-                                            <li role="tab" class="current last" aria-disabled="false" aria-selected="false">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                 <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
                                                     <span class="step">3</span>
                                                     Lấy giấy tờ thành công
                                                 </a>
                                             </li>
-                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
                                                 <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
                                                     <span class="current-info audible">current step:</span><span class="step">4</span>
                                                     Đang phát
                                                 </a>
                                             </li>
-                                            <li role="tab" class="" aria-disabled="false" aria-selected="true">
+                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
                                                 <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
                                                     <span class="current-info audible">current step:</span><span class="step">5</span>
                                                     Đã phát thành công
@@ -68,13 +68,16 @@
                     <!--end wizard form-->
                     <h3>Chi tiết trạng thái đơn hàng</h3>
                     <div class="card detailOrder">
-                        <div class="gray-line line highlight">Cập nhật mới nhất: Thứ tư, 16/10/2019</div>
-                        <div class="line">08:00 Đang đi lấy hồ sơ</div>
-                        <div class="gray-line line highlight">Thứ ba, 15/10/2019</div>
-                        <div class="line">
-                            <div>10:05 Xác nhận thông tin giấy hẹn thành công</div>
-                            <div>10:00 Đã tiếp nhận thông tin giấy hẹn</div>
-                        </div>
+                        @{
+                            foreach (var item in ViewBag.list)
+                            {
+                                <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
+                                foreach (var x in item.listOrder)
+                                {
+                                    <div class="line">@x.hour @x.Note</div>
+                                }
+                            }
+                        }
 
                     </div>
                 </div>
@@ -105,12 +108,12 @@
                                     <div class="row clgray">
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="f-name">Mã vận đơn:</label>
+                                                <label for="f-name">Mã vận đơn: @ViewBag.order.ItemCode</label>
                                             </div>
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="f-name">VN0005792911Q</label>
+                                                <label class="font-medium" for="f-name"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -119,12 +122,12 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="l-name">Bằng chữ:</label>
+                                                <label for="l-name">Bằng chữ: </label>
                                             </div>
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="l-name">Bốn mươi ba ngìn tám trăm đồng</label>
+                                                <label class="font-medium" for="l-name">@ViewBag.order.TotalAmountInWords</label>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +143,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="uname">43,500 (đồng)</label>
+                                                <label class="font-medium" for="uname">@ViewBag.order.displayAmount (đồng)</label>
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +158,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="uname">Đã thanh toán</label>
+                                                <label class="font-medium" for="uname">@ViewBag.order.StatusName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +181,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="f-name">#98765</label>
+                                                <label for="f-name">#@ViewBag.order.ProfileID</label>
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +195,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="l-name">KHL Hùng Vương</label>
+                                                <label for="l-name">@ViewBag.order.PosName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +211,7 @@
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label for="uname">Công an Thành phố Hà Nội</label>
+                                                <label for="uname">@ViewBag.order.PublicAdministrationName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +225,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="nname">4.39435895</label>
+                                                <label for="nname">@ViewBag.order.Phone_BC</label>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +241,7 @@
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label for="uname">Cấp mới CMT</label>
+                                                <label for="uname">@ViewBag.order.ProfileName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +255,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="nname">Số 175, Phố Nguyễn Thái Học, Phường Điện Biên</label>
+                                                <label for="nname">@ViewBag.order.Address_BC</label>
                                             </div>
                                         </div>
                                     </div>
@@ -268,7 +271,7 @@
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label for="uname">912213855</label>
+                                                <label for="uname">@ViewBag.order.Phone</label>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +300,7 @@
                                         </div>
                                         <div class="col s6">
                                             <div class="h-form-label">
-                                                <label for="uname">Số 1, ngõ 2, Nguyễn Thái Học, Ba Đình, Hà Nội</label>
+                                                <label for="uname">@ViewBag.order.Address</label>
                                             </div>
                                         </div>
                                     </div>
@@ -332,7 +335,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Văn A</label>
+                                                <label for="f-name">@ViewBag.order.ProcedurerFullName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -346,7 +349,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="l-name">091234567</label>
+                                                <label for="l-name">@ViewBag.order.ProcedurerPhone</label>
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +365,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="uname">Khu công nghệ cao, xã Thạch Hòa, huyện Thạch Thất, Hà Nội</label>
+                                                <label for="uname">@ViewBag.order.ProcedurerStreet</label>
                                             </div>
                                         </div>
                                     </div>
@@ -406,7 +409,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="nname">12345</label>
+                                                <label for="nname">@ViewBag.order.ProcedurerPersonalPaperNumber</label>
                                             </div>
                                         </div>
                                     </div>
@@ -422,7 +425,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="uname">10/10/2019</label>
+                                                <label for="uname">@ViewBag.order.NgayCap</label>
                                             </div>
                                         </div>
                                     </div>
@@ -456,7 +459,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Thị B</label>
+                                                <label for="f-name">@ViewBag.order.SenderFullName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -470,7 +473,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="l-name">01234567890</label>
+                                                <label for="l-name">@ViewBag.order.SenderPhone</label>
                                             </div>
                                         </div>
                                     </div>
@@ -486,7 +489,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="uname">Nhà số 191, Mỹ Đình, Hà Nội</label>
+                                                <label for="uname">@ViewBag.order.SenderStreet</label>
                                             </div>
                                         </div>
                                     </div>
@@ -495,12 +498,7 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="nname">Email:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">email@gmail.com</label>
+                                                <label for="nname"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -520,7 +518,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="f-name">Nguyễn Văn B</label>
+                                                <label for="f-name">@ViewBag.order.ReceiverFullName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -534,7 +532,7 @@
                                         </div>
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="l-name">0345671234</label>
+                                                <label for="l-name">@ViewBag.order.ReceiverPhone</label>
                                             </div>
                                         </div>
                                     </div>
@@ -550,7 +548,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="uname">Nhà số 191, Tố Hữu, Hà Nội</label>
+                                                <label for="uname">@ViewBag.order.ReceiverStreet</label>
                                             </div>
                                         </div>
                                     </div>
@@ -559,12 +557,7 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <div class="h-form-label">
-                                                <label for="nname">Email:</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s3">
-                                            <div class="h-form-label">
-                                                <label for="nname">email@fpt.vn</label>
+                                                <label for="nname"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -580,7 +573,7 @@
                                         </div>
                                         <div class="col s9">
                                             <div class="h-form-label">
-                                                <label for="uname">Giao hàng ngoài giờ hành chính các ngày trong tuần hoặc vào thứ 7, chủ nhật</label>
+                                                <label for="uname">@ViewBag.order.OrderNote</label>
                                             </div>
                                         </div>
                                     </div>
@@ -615,7 +608,11 @@
 
 
 <script>
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
+        $('.myStep').each(function (index) {
+            if (index < @ViewBag.order.step) $(this).addClass("done");
+            if (index == @ViewBag.order.step) $(this).addClass("current");
+        });
         jQuery('.form-wrapper').hide();
 
         jQuery(".show-form").click(function () {

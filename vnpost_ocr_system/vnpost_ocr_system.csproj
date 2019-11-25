@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,16 +48,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Entity.Design.Extensibility, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data.Services.Design" />
+    <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Entity.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -112,6 +137,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="XCrypt, Version=2.0.4922.41601, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XCrypt.2.0.0\lib\XCrypt.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Diagnostics.DiagnosticSource">
@@ -119,9 +147,6 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +163,7 @@
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
+    <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
@@ -151,6 +177,7 @@
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
+    <Compile Include="Controllers\MobileViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
@@ -161,12 +188,106 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\API.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\APIInputParam.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\APIMethod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\APIOutputParam.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContactInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContactInfoDB.cs" />
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailVerification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyOrderDetail.cs" />
+    <Compile Include="Models\Non_Recive.cs" />
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderByDay.cs" />
+    <Compile Include="Models\OrderDashBorad.cs" />
+    <Compile Include="Models\orderDB.cs" />
+    <Compile Include="Models\OrderStatusDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentMethod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentStatu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalPaperType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhoneVerification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PostOffice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PublicAdministration.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResetPasswordToken.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupportClass\Auther.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Custom css\floating-action-btn.css" />
     <Content Include="assets\Custom css\font-family.css" />
     <Content Include="assets\Custom css\form-input-border.css" />
+    <Content Include="assets\Custom css\Mobile\layout-style.css" />
+    <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
+    <Content Include="assets\Custom css\Mobile\home-css.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
     <Content Include="assets\Custom css\TABLE_BORDERED.css" />
     <Content Include="assets\extra-libs\block-ui\block-ui.js" />
@@ -562,6 +683,7 @@
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview-init.js" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.css" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.js" />
+    <Content Include="assets\images\account-info-background.png" />
     <Content Include="assets\images\alert\alert.png" />
     <Content Include="assets\images\alert\alert2.png" />
     <Content Include="assets\images\alert\alert3.png" />
@@ -569,6 +691,7 @@
     <Content Include="assets\images\alert\alert5.png" />
     <Content Include="assets\images\alert\alert6.png" />
     <Content Include="assets\images\alert\alert7.png" />
+    <Content Include="assets\images\background.png" />
     <Content Include="assets\images\big\auth-bg.jpg" />
     <Content Include="assets\images\big\auth-bg2.jpg" />
     <Content Include="assets\images\big\error-bg.jpg" />
@@ -592,6 +715,8 @@
     <Content Include="assets\images\carousel\ca2.jpg" />
     <Content Include="assets\images\carousel\img6.jpg" />
     <Content Include="assets\images\collections\yuna.jpg" />
+    <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\g-icon.png" />
     <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\office.jpg" />
     <Content Include="assets\images\parallax1.jpg" />
@@ -630,6 +755,7 @@
     <Content Include="assets\images\users\d3.jpg" />
     <Content Include="assets\images\users\d4.jpg" />
     <Content Include="assets\images\users\d5.jpg" />
+    <Content Include="assets\images\login-logo.png" />
     <Content Include="assets\images\users\profile.png" />
     <Content Include="assets\images\yuna.jpg" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\index.html" />
@@ -5401,6 +5527,23 @@
     <Content Include="assets\libs\typeahead.js\dist\typehead-min.css" />
     <Content Include="assets\libs\wnumb\test.html" />
     <Content Include="assets\libs\wnumb\wNumb.js" />
+    <Content Include="assets\materialize\css\materialize.css" />
+    <Content Include="assets\materialize\css\materialize.min.css" />
+    <Content Include="assets\materialize\js\materialize.js" />
+    <Content Include="assets\materialize\js\materialize.min.js" />
+    <Content Include="assets\libs\sweetalert\alert-vnpost-js.js" />
+    <Content Include="assets\libs\sweetalert\sweetalert2.all.min.js" />
+    <Content Include="assets\libs\sweetalert\sweetalert2.min.css" />
+    <Content Include="assets\libs\sweetalert\sweetalert2.min.js" />
+    <Content Include="assets\uploader\custom.js" />
+    <Content Include="assets\uploader\dropzone.js" />
+    <Content Include="assets\uploader\dropzone.min.css" />
+    <Content Include="assets\uploader\dropzone.min.js" />
+    <Content Include="assets\uploader\dropzoneMultiple.js" />
+    <Content Include="assets\uploader\file-icon.png" />
+    <Content Include="assets\uploader\icon.png" />
+    <Content Include="assets\uploader\icons.min.css" />
+    <Content Include="assets\uploader\style_uploader.css" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -5535,12 +5678,15 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\Document\CustomDisplayStatisticChartWithSubmit.js" />
     <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
     <Content Include="CustomJS\Document\DisplayStatisticChart.js" />
     <Content Include="CustomJS\Management_User\ManagementUser.js" />
     <Content Include="CustomJS\InputInforScreen21.js" />
     <Content Include="CustomJS\MasterPage.js" />
+    <Content Include="CustomJS\mstepper\mstepper.min.css" />
+    <Content Include="CustomJS\mstepper\mstepper.min.js" />
     <Content Include="CustomJS\UserRegister\UserRegister.js" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="dist\css\icons\crypto-icons\cryptocoins.css" />
@@ -5928,6 +6074,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\.DS_Store" />
@@ -6206,6 +6362,16 @@
     <Content Include="CustomJS\datepicker_src\src\sass\navigation.scss" />
     <Content Include="CustomJS\datepicker_src\src\sass\timepicker.scss" />
     <Content Include="CustomJS\datepicker_src\src\sass\_datepicker-config.scss" />
+    <Content Include="assets\materialize\LICENSE" />
+    <Content Include="assets\materialize\README.md" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="assets\uploader\icons.min.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6265,10 +6431,12 @@
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
+    <Content Include="Views\MobileView\Login.cshtml" />
+    <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
+    <Content Include="Views\MobileView\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\AccountInfo\" />
     <Folder Include="Views\AddAPI\" />
@@ -6281,6 +6449,7 @@
     <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\EditAPI\" />
+    <Folder Include="Views\GetProvinces\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />
@@ -6301,6 +6470,12 @@
     </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -6334,8 +6509,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,0 +1,1907 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AdminUsername" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AdminPasswordHash" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="AdminPasswordSalt" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="PostalProvinceCode" Type="varchar" MaxLength="2" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AdminRole">
+          <Key>
+            <PropertyRef Name="AdminRoleID" />
+          </Key>
+          <Property Name="AdminRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminRoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="API">
+          <Key>
+            <PropertyRef Name="APIID" />
+          </Key>
+          <Property Name="APIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APIMethodID" Type="int" Nullable="false" />
+          <Property Name="APIUri" Type="varchar(max)" Nullable="false" />
+          <Property Name="APIDescription" Type="nvarchar(max)" />
+          <Property Name="LastMofifiedTime" Type="datetime" Nullable="false" />
+          <Property Name="SampleRespone" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="APIInputParam">
+          <Key>
+            <PropertyRef Name="APIID" />
+            <PropertyRef Name="APIInputParamName" />
+          </Key>
+          <Property Name="APIID" Type="int" Nullable="false" />
+          <Property Name="APIInputParamName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APIInputParamType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APIInputParamDescription" Type="nvarchar(max)" />
+          <Property Name="LastMofifiedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APIMethod">
+          <Key>
+            <PropertyRef Name="MethodID" />
+          </Key>
+          <Property Name="MethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MethodName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LastMofifiedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APIOutputParam">
+          <Key>
+            <PropertyRef Name="APIID" />
+            <PropertyRef Name="APIOutputParamName" />
+          </Key>
+          <Property Name="APIID" Type="int" Nullable="false" />
+          <Property Name="APIOutputParamName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APIOutputParamType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APIOutputParamDescription" Type="nvarchar(max)" />
+          <Property Name="LastMofifiedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactInfo">
+          <Key>
+            <PropertyRef Name="ContactInfoID" />
+          </Key>
+          <Property Name="ContactInfoID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostalDistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PersonalPaperTypeID" Type="int" />
+          <Property Name="PersonalPaperNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PersonalPaperIssuedDate" Type="datetime" />
+          <Property Name="PersonalPaperIssuedPlace" Type="nvarchar(max)" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="PasswordSalt" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostalDistrictID" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="PostalDistrictCode" />
+          </Key>
+          <Property Name="PostalDistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="PostalDistrictName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="PostalProvinceCode" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailVerification">
+          <Key>
+            <PropertyRef Name="EmailVerificationID" />
+          </Key>
+          <Property Name="EmailVerificationID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VerificationCode" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="ProfileID" Type="int" Nullable="false" />
+          <Property Name="AppointmentLetterCode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AppointLetterImageLink" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProcedurerFullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProcedurerPhone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProcedurerPostalDistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ProcedurerStreet" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperTypeID" Type="int" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperIssuedDate" Type="datetime" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlace" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SenderFullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SenderPhone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SenderPostalDistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="SenderStreet" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ReceiverFullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReceiverPhone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReceiverPostalDistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ReceiverStreet" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OrderNote" Type="nvarchar(max)" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="TotalAmountInWords" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcessedBy" Type="bigint" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrderStatusDetail">
+          <Key>
+            <PropertyRef Name="OrderStatusDetailID" />
+          </Key>
+          <Property Name="OrderStatusDetailID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="bigint" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="PosCode" Type="bigint" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="bigint" Nullable="false" />
+          <Property Name="PaymentMethodID" Type="int" Nullable="false" />
+          <Property Name="PaymentStatusID" Type="int" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="OtherDetails" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentMethodName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentStatus">
+          <Key>
+            <PropertyRef Name="PaymentStatusID" />
+          </Key>
+          <Property Name="PaymentStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentStatusDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalPaperType">
+          <Key>
+            <PropertyRef Name="PersonalPaperTypeID" />
+          </Key>
+          <Property Name="PersonalPaperTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonalPaperTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhoneVerification">
+          <Key>
+            <PropertyRef Name="PhoneVerificationID" />
+          </Key>
+          <Property Name="PhoneVerificationID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VerificationCode" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostOffice">
+          <Key>
+            <PropertyRef Name="PosCode" />
+          </Key>
+          <Property Name="PosCode" Type="bigint" Nullable="false" />
+          <Property Name="PosName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="DistrictCode" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+          </Key>
+          <Property Name="ProfileID" Type="int" Nullable="false" />
+          <Property Name="ProfileName" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="PostalProvinceCode" />
+          </Key>
+          <Property Name="PostalProvinceCode" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="PostalProvinceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProvinceCode" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PublicAdministration">
+          <Key>
+            <PropertyRef Name="PublicAdministrationLocationID" />
+          </Key>
+          <Property Name="PublicAdministrationLocationID" Type="int" Nullable="false" />
+          <Property Name="PublicAdministrationName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="PosCode" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResetPasswordToken">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Admin__CreatedBy__44FF419A">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Admin1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__ModifiedB__45F365D3">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Admin1">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__PostalPro__46E78A0C">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__Role__47DBAE45">
+          <End Role="AdminRole" Type="Self.AdminRole" Multiplicity="1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminRole">
+              <PropertyRef Name="AdminRoleID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__APIInputP__APIID__74AE54BC">
+          <End Role="API" Type="Self.API" Multiplicity="1" />
+          <End Role="APIInputParam" Type="Self.APIInputParam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="API">
+              <PropertyRef Name="APIID" />
+            </Principal>
+            <Dependent Role="APIInputParam">
+              <PropertyRef Name="APIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__APIOutput__APIID__75A278F5">
+          <End Role="API" Type="Self.API" Multiplicity="1" />
+          <End Role="APIOutputParam" Type="Self.APIOutputParam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="API">
+              <PropertyRef Name="APIID" />
+            </Principal>
+            <Dependent Role="APIOutputParam">
+              <PropertyRef Name="APIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Custo__4BAC3F29">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Perso__4CA06362">
+          <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="0..1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalPaperType">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Posta__4D94879B">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__District__Postal__4F7CD00D">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__CustomerI__7A672E12">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ModifiedB__7B5B524B">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Procedure__7C4F7684">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcedurerPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Procedure__7D439ABD">
+          <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalPaperType">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcedurerPersonalPaperTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Processed__7E37BEF6">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcessedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ProfileID__7F2BE32F">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ReceiverP__00200768">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ReceiverPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__SenderPos__01142BA1">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SenderPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__StatusID__02084FDA">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__Order__02FC7413">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__PosCo__59FA5E80">
+          <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="0..1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostOffice">
+              <PropertyRef Name="PosCode" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="PosCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__Statu__5AEE82B9">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__OrderID__05D8E0BE">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__5CD6CB2B">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__5DCAEF64">
+          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="PaymentStatusID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__PostOffic__Distr__5EBF139D' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__PostOffic__Distr__5EBF139D" />-->
+        <Association Name="FK__Profile__PublicA__5FB337D6">
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicAdministration">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PublicAdm__PosCo__60A75C0F">
+          <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="1" />
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostOffice">
+              <PropertyRef Name="PosCode" />
+            </Principal>
+            <Dependent Role="PublicAdministration">
+              <PropertyRef Name="PosCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResetPass__Custo__619B8048">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ResetPasswordToken" Type="Self.ResetPasswordToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ResetPasswordToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_API_APIMethod">
+          <End Role="APIMethod" Type="Self.APIMethod" Multiplicity="1" />
+          <End Role="API" Type="Self.API" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIMethod">
+              <PropertyRef Name="MethodID" />
+            </Principal>
+            <Dependent Role="API">
+              <PropertyRef Name="APIMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PostalDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VNPOST_AppointmentModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminRole" EntityType="Self.AdminRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="API" EntityType="Self.API" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APIInputParam" EntityType="Self.APIInputParam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APIMethod" EntityType="Self.APIMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APIOutputParam" EntityType="Self.APIOutputParam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailVerification" EntityType="Self.EmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatusDetail" EntityType="Self.OrderStatusDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalPaperType" EntityType="Self.PersonalPaperType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneVerification" EntityType="Self.PhoneVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostOffice" EntityType="Self.PostOffice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PublicAdministration" EntityType="Self.PublicAdministration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResetPasswordToken" EntityType="Self.ResetPasswordToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Admin__CreatedBy__44FF419A" Association="Self.FK__Admin__CreatedBy__44FF419A">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Admin1" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__ModifiedB__45F365D3" Association="Self.FK__Admin__ModifiedB__45F365D3">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Admin1" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__PostalPro__46E78A0C" Association="Self.FK__Admin__PostalPro__46E78A0C">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Admin" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__Role__47DBAE45" Association="Self.FK__Admin__Role__47DBAE45">
+            <End Role="AdminRole" EntitySet="AdminRole" />
+            <End Role="Admin" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__APIInputP__APIID__74AE54BC" Association="Self.FK__APIInputP__APIID__74AE54BC">
+            <End Role="API" EntitySet="API" />
+            <End Role="APIInputParam" EntitySet="APIInputParam" />
+          </AssociationSet>
+          <AssociationSet Name="FK__APIOutput__APIID__75A278F5" Association="Self.FK__APIOutput__APIID__75A278F5">
+            <End Role="API" EntitySet="API" />
+            <End Role="APIOutputParam" EntitySet="APIOutputParam" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Custo__4BAC3F29" Association="Self.FK__ContactIn__Custo__4BAC3F29">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ContactInfo" EntitySet="ContactInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Perso__4CA06362" Association="Self.FK__ContactIn__Perso__4CA06362">
+            <End Role="PersonalPaperType" EntitySet="PersonalPaperType" />
+            <End Role="ContactInfo" EntitySet="ContactInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Posta__4D94879B" Association="Self.FK__ContactIn__Posta__4D94879B">
+            <End Role="District" EntitySet="District" />
+            <End Role="ContactInfo" EntitySet="ContactInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__District__Postal__4F7CD00D" Association="Self.FK__District__Postal__4F7CD00D">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__CustomerI__7A672E12" Association="Self.FK__Order__CustomerI__7A672E12">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ModifiedB__7B5B524B" Association="Self.FK__Order__ModifiedB__7B5B524B">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Procedure__7C4F7684" Association="Self.FK__Order__Procedure__7C4F7684">
+            <End Role="District" EntitySet="District" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Procedure__7D439ABD" Association="Self.FK__Order__Procedure__7D439ABD">
+            <End Role="PersonalPaperType" EntitySet="PersonalPaperType" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Processed__7E37BEF6" Association="Self.FK__Order__Processed__7E37BEF6">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ProfileID__7F2BE32F" Association="Self.FK__Order__ProfileID__7F2BE32F">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ReceiverP__00200768" Association="Self.FK__Order__ReceiverP__00200768">
+            <End Role="District" EntitySet="District" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__SenderPos__01142BA1" Association="Self.FK__Order__SenderPos__01142BA1">
+            <End Role="District" EntitySet="District" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__StatusID__02084FDA" Association="Self.FK__Order__StatusID__02084FDA">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__Order__02FC7413" Association="Self.FK__OrderStat__Order__02FC7413">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__PosCo__59FA5E80" Association="Self.FK__OrderStat__PosCo__59FA5E80">
+            <End Role="PostOffice" EntitySet="PostOffice" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__Statu__5AEE82B9" Association="Self.FK__OrderStat__Statu__5AEE82B9">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__OrderID__05D8E0BE" Association="Self.FK__Payment__OrderID__05D8E0BE">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__5CD6CB2B" Association="Self.FK__Payment__Payment__5CD6CB2B">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__5DCAEF64" Association="Self.FK__Payment__Payment__5DCAEF64">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile__PublicA__5FB337D6" Association="Self.FK__Profile__PublicA__5FB337D6">
+            <End Role="PublicAdministration" EntitySet="PublicAdministration" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PublicAdm__PosCo__60A75C0F" Association="Self.FK__PublicAdm__PosCo__60A75C0F">
+            <End Role="PostOffice" EntitySet="PostOffice" />
+            <End Role="PublicAdministration" EntitySet="PublicAdministration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResetPass__Custo__619B8048" Association="Self.FK__ResetPass__Custo__619B8048">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ResetPasswordToken" EntitySet="ResetPasswordToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_API_APIMethod" Association="Self.FK_API_APIMethod">
+            <End Role="APIMethod" EntitySet="APIMethod" />
+            <End Role="API" EntitySet="API" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_District" Association="Self.FK_Customer_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VNPOST_AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdminUsername" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminPasswordHash" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminPasswordSalt" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Admin1" Relationship="Self.FK__Admin__CreatedBy__44FF419A" FromRole="Admin" ToRole="Admin1" />
+          <NavigationProperty Name="Admin2" Relationship="Self.FK__Admin__CreatedBy__44FF419A" FromRole="Admin1" ToRole="Admin" />
+          <NavigationProperty Name="Admin11" Relationship="Self.FK__Admin__ModifiedB__45F365D3" FromRole="Admin" ToRole="Admin1" />
+          <NavigationProperty Name="Admin3" Relationship="Self.FK__Admin__ModifiedB__45F365D3" FromRole="Admin1" ToRole="Admin" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Admin__PostalPro__46E78A0C" FromRole="Admin" ToRole="Province" />
+          <NavigationProperty Name="AdminRole" Relationship="Self.FK__Admin__Role__47DBAE45" FromRole="Admin" ToRole="AdminRole" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__ModifiedB__7B5B524B" FromRole="Admin" ToRole="Order" />
+          <NavigationProperty Name="Orders1" Relationship="Self.FK__Order__Processed__7E37BEF6" FromRole="Admin" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="AdminRole">
+          <Key>
+            <PropertyRef Name="AdminRoleID" />
+          </Key>
+          <Property Name="AdminRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminRoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__Role__47DBAE45" FromRole="AdminRole" ToRole="Admin" />
+        </EntityType>
+        <EntityType Name="API">
+          <Key>
+            <PropertyRef Name="APIID" />
+          </Key>
+          <Property Name="APIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APIMethodID" Type="Int32" Nullable="false" />
+          <Property Name="APIUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SampleRespone" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="APIInputParams" Relationship="Self.FK__APIInputP__APIID__74AE54BC" FromRole="API" ToRole="APIInputParam" />
+          <NavigationProperty Name="APIOutputParams" Relationship="Self.FK__APIOutput__APIID__75A278F5" FromRole="API" ToRole="APIOutputParam" />
+          <NavigationProperty Name="APIMethod" Relationship="Self.FK_API_APIMethod" FromRole="API" ToRole="APIMethod" />
+        </EntityType>
+        <EntityType Name="APIInputParam">
+          <Key>
+            <PropertyRef Name="APIID" />
+            <PropertyRef Name="APIInputParamName" />
+          </Key>
+          <Property Name="APIID" Type="Int32" Nullable="false" />
+          <Property Name="APIInputParamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIInputParamType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIInputParamDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="API" Relationship="Self.FK__APIInputP__APIID__74AE54BC" FromRole="APIInputParam" ToRole="API" />
+        </EntityType>
+        <EntityType Name="APIMethod">
+          <Key>
+            <PropertyRef Name="MethodID" />
+          </Key>
+          <Property Name="MethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MethodName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="APIs" Relationship="Self.FK_API_APIMethod" FromRole="APIMethod" ToRole="API" />
+        </EntityType>
+        <EntityType Name="APIOutputParam">
+          <Key>
+            <PropertyRef Name="APIID" />
+            <PropertyRef Name="APIOutputParamName" />
+          </Key>
+          <Property Name="APIID" Type="Int32" Nullable="false" />
+          <Property Name="APIOutputParamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIOutputParamType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIOutputParamDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="API" Relationship="Self.FK__APIOutput__APIID__75A278F5" FromRole="APIOutputParam" ToRole="API" />
+        </EntityType>
+        <EntityType Name="ContactInfo">
+          <Key>
+            <PropertyRef Name="ContactInfoID" />
+          </Key>
+          <Property Name="ContactInfoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonalPaperTypeID" Type="Int32" />
+          <Property Name="PersonalPaperNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalPaperIssuedDate" Type="DateTime" Precision="3" />
+          <Property Name="PersonalPaperIssuedPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__ContactIn__Custo__4BAC3F29" FromRole="ContactInfo" ToRole="Customer" />
+          <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__ContactIn__Perso__4CA06362" FromRole="ContactInfo" ToRole="PersonalPaperType" />
+          <NavigationProperty Name="District" Relationship="Self.FK__ContactIn__Posta__4D94879B" FromRole="ContactInfo" ToRole="District" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PasswordHash" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalDistrictID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Custo__4BAC3F29" FromRole="Customer" ToRole="ContactInfo" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__619B8048" FromRole="Customer" ToRole="ResetPasswordToken" />
+          <NavigationProperty Name="District" Relationship="Self.FK_Customer_District" FromRole="Customer" ToRole="District" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="PostalDistrictCode" />
+          </Key>
+          <Property Name="PostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalDistrictName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Posta__4D94879B" FromRole="District" ToRole="ContactInfo" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_District" FromRole="District" ToRole="Customer" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__District__Postal__4F7CD00D" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="District" ToRole="Order" />
+          <NavigationProperty Name="Orders1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="District" ToRole="Order" />
+          <NavigationProperty Name="Orders2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="District" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="EmailVerification">
+          <Key>
+            <PropertyRef Name="EmailVerificationID" />
+          </Key>
+          <Property Name="EmailVerificationID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VerificationCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentLetterCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AppointLetterImageLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcedurerFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcedurerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcedurerPostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcedurerStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcedurerPersonalPaperIssuedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SenderFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SenderPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SenderPostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SenderStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReceiverFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReceiverPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReceiverPostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReceiverStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="TotalAmountInWords" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessedBy" Type="Int64" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK__Order__ModifiedB__7B5B524B" FromRole="Order" ToRole="Admin" />
+          <NavigationProperty Name="Admin1" Relationship="Self.FK__Order__Processed__7E37BEF6" FromRole="Order" ToRole="Admin" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="District1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="District2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="Order" ToRole="PersonalPaperType" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Order" ToRole="Profile" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Order" ToRole="Status" />
+          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="Order" ToRole="OrderStatusDetail" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Order" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="OrderStatusDetail">
+          <Key>
+            <PropertyRef Name="OrderStatusDetailID" />
+          </Key>
+          <Property Name="OrderStatusDetailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PosCode" Type="Int64" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="OrderStatusDetail" ToRole="Order" />
+          <NavigationProperty Name="PostOffice" Relationship="Self.FK__OrderStat__PosCo__59FA5E80" FromRole="OrderStatusDetail" ToRole="PostOffice" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__OrderStat__Statu__5AEE82B9" FromRole="OrderStatusDetail" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentStatusID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OtherDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Payment" ToRole="Order" />
+          <NavigationProperty Name="PaymentMethod" Relationship="Self.FK__Payment__Payment__5CD6CB2B" FromRole="Payment" ToRole="PaymentMethod" />
+          <NavigationProperty Name="PaymentStatu" Relationship="Self.FK__Payment__Payment__5DCAEF64" FromRole="Payment" ToRole="PaymentStatus" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__5CD6CB2B" FromRole="PaymentMethod" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="PaymentStatu">
+          <Key>
+            <PropertyRef Name="PaymentStatusID" />
+          </Key>
+          <Property Name="PaymentStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentStatusDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__5DCAEF64" FromRole="PaymentStatus" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="PersonalPaperType">
+          <Key>
+            <PropertyRef Name="PersonalPaperTypeID" />
+          </Key>
+          <Property Name="PersonalPaperTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonalPaperTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Perso__4CA06362" FromRole="PersonalPaperType" ToRole="ContactInfo" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="PersonalPaperType" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="PhoneVerification">
+          <Key>
+            <PropertyRef Name="PhoneVerificationID" />
+          </Key>
+          <Property Name="PhoneVerificationID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VerificationCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="PostOffice">
+          <Key>
+            <PropertyRef Name="PosCode" />
+          </Key>
+          <Property Name="PosCode" Type="Int64" Nullable="false" />
+          <Property Name="PosName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__PosCo__59FA5E80" FromRole="PostOffice" ToRole="OrderStatusDetail" />
+          <NavigationProperty Name="PublicAdministrations" Relationship="Self.FK__PublicAdm__PosCo__60A75C0F" FromRole="PostOffice" ToRole="PublicAdministration" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+          </Key>
+          <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="ProfileName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Profile" ToRole="Order" />
+          <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Profile__PublicA__5FB337D6" FromRole="Profile" ToRole="PublicAdministration" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="PostalProvinceCode" />
+          </Key>
+          <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalProvinceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__PostalPro__46E78A0C" FromRole="Province" ToRole="Admin" />
+          <NavigationProperty Name="Districts" Relationship="Self.FK__District__Postal__4F7CD00D" FromRole="Province" ToRole="District" />
+        </EntityType>
+        <EntityType Name="PublicAdministration">
+          <Key>
+            <PropertyRef Name="PublicAdministrationLocationID" />
+          </Key>
+          <Property Name="PublicAdministrationLocationID" Type="Int32" Nullable="false" />
+          <Property Name="PublicAdministrationName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PosCode" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="PostOffice" Relationship="Self.FK__PublicAdm__PosCo__60A75C0F" FromRole="PublicAdministration" ToRole="PostOffice" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK__Profile__PublicA__5FB337D6" FromRole="PublicAdministration" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="ResetPasswordToken">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__ResetPass__Custo__619B8048" FromRole="ResetPasswordToken" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Status" ToRole="Order" />
+          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Statu__5AEE82B9" FromRole="Status" ToRole="OrderStatusDetail" />
+        </EntityType>
+        <Association Name="FK__Admin__CreatedBy__44FF419A">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Admin1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__ModifiedB__45F365D3">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Admin1">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__PostalPro__46E78A0C">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admin__Role__47DBAE45">
+          <End Role="AdminRole" Type="Self.AdminRole" Multiplicity="1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminRole">
+              <PropertyRef Name="AdminRoleID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ModifiedB__7B5B524B">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Processed__7E37BEF6">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcessedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__APIInputP__APIID__74AE54BC">
+          <End Role="API" Type="Self.API" Multiplicity="1" />
+          <End Role="APIInputParam" Type="Self.APIInputParam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="API">
+              <PropertyRef Name="APIID" />
+            </Principal>
+            <Dependent Role="APIInputParam">
+              <PropertyRef Name="APIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__APIOutput__APIID__75A278F5">
+          <End Role="API" Type="Self.API" Multiplicity="1" />
+          <End Role="APIOutputParam" Type="Self.APIOutputParam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="API">
+              <PropertyRef Name="APIID" />
+            </Principal>
+            <Dependent Role="APIOutputParam">
+              <PropertyRef Name="APIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_API_APIMethod">
+          <End Role="APIMethod" Type="Self.APIMethod" Multiplicity="1" />
+          <End Role="API" Type="Self.API" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIMethod">
+              <PropertyRef Name="MethodID" />
+            </Principal>
+            <Dependent Role="API">
+              <PropertyRef Name="APIMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Custo__4BAC3F29">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Perso__4CA06362">
+          <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="0..1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalPaperType">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactIn__Posta__4D94879B">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="ContactInfo">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__CustomerI__7A672E12">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResetPass__Custo__619B8048">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ResetPasswordToken" Type="Self.ResetPasswordToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ResetPasswordToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PostalDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__District__Postal__4F7CD00D">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Procedure__7C4F7684">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcedurerPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ReceiverP__00200768">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ReceiverPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__SenderPos__01142BA1">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SenderPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Procedure__7D439ABD">
+          <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalPaperType">
+              <PropertyRef Name="PersonalPaperTypeID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProcedurerPersonalPaperTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__ProfileID__7F2BE32F">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__StatusID__02084FDA">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__Order__02FC7413">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__OrderID__05D8E0BE">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__PosCo__59FA5E80">
+          <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="0..1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostOffice">
+              <PropertyRef Name="PosCode" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="PosCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderStat__Statu__5AEE82B9">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="OrderStatusDetail">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__5CD6CB2B">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Payment__5DCAEF64">
+          <End Role="PaymentStatus" Type="Self.PaymentStatu" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="PaymentStatusID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PublicAdm__PosCo__60A75C0F">
+          <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="1" />
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostOffice">
+              <PropertyRef Name="PosCode" />
+            </Principal>
+            <Dependent Role="PublicAdministration">
+              <PropertyRef Name="PosCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile__PublicA__5FB337D6">
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicAdministration">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VNPOST_AppointmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="AdminRoles" EntityType="Self.AdminRole" />
+          <EntitySet Name="APIs" EntityType="Self.API" />
+          <EntitySet Name="APIInputParams" EntityType="Self.APIInputParam" />
+          <EntitySet Name="APIMethods" EntityType="Self.APIMethod" />
+          <EntitySet Name="APIOutputParams" EntityType="Self.APIOutputParam" />
+          <EntitySet Name="ContactInfoes" EntityType="Self.ContactInfo" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="EmailVerifications" EntityType="Self.EmailVerification" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatu" />
+          <EntitySet Name="PersonalPaperTypes" EntityType="Self.PersonalPaperType" />
+          <EntitySet Name="PhoneVerifications" EntityType="Self.PhoneVerification" />
+          <EntitySet Name="PostOffices" EntityType="Self.PostOffice" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <EntitySet Name="PublicAdministrations" EntityType="Self.PublicAdministration" />
+          <EntitySet Name="ResetPasswordTokens" EntityType="Self.ResetPasswordToken" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <AssociationSet Name="FK__Admin__CreatedBy__44FF419A" Association="Self.FK__Admin__CreatedBy__44FF419A">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Admin1" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__ModifiedB__45F365D3" Association="Self.FK__Admin__ModifiedB__45F365D3">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Admin1" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__PostalPro__46E78A0C" Association="Self.FK__Admin__PostalPro__46E78A0C">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admin__Role__47DBAE45" Association="Self.FK__Admin__Role__47DBAE45">
+            <End Role="AdminRole" EntitySet="AdminRoles" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ModifiedB__7B5B524B" Association="Self.FK__Order__ModifiedB__7B5B524B">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Processed__7E37BEF6" Association="Self.FK__Order__Processed__7E37BEF6">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__APIInputP__APIID__74AE54BC" Association="Self.FK__APIInputP__APIID__74AE54BC">
+            <End Role="API" EntitySet="APIs" />
+            <End Role="APIInputParam" EntitySet="APIInputParams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__APIOutput__APIID__75A278F5" Association="Self.FK__APIOutput__APIID__75A278F5">
+            <End Role="API" EntitySet="APIs" />
+            <End Role="APIOutputParam" EntitySet="APIOutputParams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_API_APIMethod" Association="Self.FK_API_APIMethod">
+            <End Role="APIMethod" EntitySet="APIMethods" />
+            <End Role="API" EntitySet="APIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Custo__4BAC3F29" Association="Self.FK__ContactIn__Custo__4BAC3F29">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ContactInfo" EntitySet="ContactInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Perso__4CA06362" Association="Self.FK__ContactIn__Perso__4CA06362">
+            <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
+            <End Role="ContactInfo" EntitySet="ContactInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactIn__Posta__4D94879B" Association="Self.FK__ContactIn__Posta__4D94879B">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="ContactInfo" EntitySet="ContactInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__CustomerI__7A672E12" Association="Self.FK__Order__CustomerI__7A672E12">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResetPass__Custo__619B8048" Association="Self.FK__ResetPass__Custo__619B8048">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ResetPasswordToken" EntitySet="ResetPasswordTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_District" Association="Self.FK_Customer_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__District__Postal__4F7CD00D" Association="Self.FK__District__Postal__4F7CD00D">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Procedure__7C4F7684" Association="Self.FK__Order__Procedure__7C4F7684">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ReceiverP__00200768" Association="Self.FK__Order__ReceiverP__00200768">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__SenderPos__01142BA1" Association="Self.FK__Order__SenderPos__01142BA1">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Procedure__7D439ABD" Association="Self.FK__Order__Procedure__7D439ABD">
+            <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__ProfileID__7F2BE32F" Association="Self.FK__Order__ProfileID__7F2BE32F">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__StatusID__02084FDA" Association="Self.FK__Order__StatusID__02084FDA">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__Order__02FC7413" Association="Self.FK__OrderStat__Order__02FC7413">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__OrderID__05D8E0BE" Association="Self.FK__Payment__OrderID__05D8E0BE">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__PosCo__59FA5E80" Association="Self.FK__OrderStat__PosCo__59FA5E80">
+            <End Role="PostOffice" EntitySet="PostOffices" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderStat__Statu__5AEE82B9" Association="Self.FK__OrderStat__Statu__5AEE82B9">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="OrderStatusDetail" EntitySet="OrderStatusDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__5CD6CB2B" Association="Self.FK__Payment__Payment__5CD6CB2B">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Payment__5DCAEF64" Association="Self.FK__Payment__Payment__5DCAEF64">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PublicAdm__PosCo__60A75C0F" Association="Self.FK__PublicAdm__PosCo__60A75C0F">
+            <End Role="PostOffice" EntitySet="PostOffices" />
+            <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile__PublicA__5FB337D6" Association="Self.FK__Profile__PublicA__5FB337D6">
+            <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VNPOST_AppointmentModelStoreContainer" CdmEntityContainer="VNPOST_AppointmentEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="AdminUsername" ColumnName="AdminUsername" />
+                <ScalarProperty Name="AdminPasswordHash" ColumnName="AdminPasswordHash" />
+                <ScalarProperty Name="AdminPasswordSalt" ColumnName="AdminPasswordSalt" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminRoles">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AdminRole">
+              <MappingFragment StoreEntitySet="AdminRole">
+                <ScalarProperty Name="AdminRoleID" ColumnName="AdminRoleID" />
+                <ScalarProperty Name="AdminRoleName" ColumnName="AdminRoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIs">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.API">
+              <MappingFragment StoreEntitySet="API">
+                <ScalarProperty Name="APIID" ColumnName="APIID" />
+                <ScalarProperty Name="APIMethodID" ColumnName="APIMethodID" />
+                <ScalarProperty Name="APIUri" ColumnName="APIUri" />
+                <ScalarProperty Name="APIDescription" ColumnName="APIDescription" />
+                <ScalarProperty Name="LastMofifiedTime" ColumnName="LastMofifiedTime" />
+                <ScalarProperty Name="SampleRespone" ColumnName="SampleRespone" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIInputParams">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIInputParam">
+              <MappingFragment StoreEntitySet="APIInputParam">
+                <ScalarProperty Name="APIID" ColumnName="APIID" />
+                <ScalarProperty Name="APIInputParamName" ColumnName="APIInputParamName" />
+                <ScalarProperty Name="APIInputParamType" ColumnName="APIInputParamType" />
+                <ScalarProperty Name="APIInputParamDescription" ColumnName="APIInputParamDescription" />
+                <ScalarProperty Name="LastMofifiedTime" ColumnName="LastMofifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIMethods">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIMethod">
+              <MappingFragment StoreEntitySet="APIMethod">
+                <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="LastMofifiedTime" ColumnName="LastMofifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIOutputParams">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIOutputParam">
+              <MappingFragment StoreEntitySet="APIOutputParam">
+                <ScalarProperty Name="APIID" ColumnName="APIID" />
+                <ScalarProperty Name="APIOutputParamName" ColumnName="APIOutputParamName" />
+                <ScalarProperty Name="APIOutputParamType" ColumnName="APIOutputParamType" />
+                <ScalarProperty Name="APIOutputParamDescription" ColumnName="APIOutputParamDescription" />
+                <ScalarProperty Name="LastMofifiedTime" ColumnName="LastMofifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactInfoes">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ContactInfo">
+              <MappingFragment StoreEntitySet="ContactInfo">
+                <ScalarProperty Name="ContactInfoID" ColumnName="ContactInfoID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PersonalPaperTypeID" ColumnName="PersonalPaperTypeID" />
+                <ScalarProperty Name="PersonalPaperNumber" ColumnName="PersonalPaperNumber" />
+                <ScalarProperty Name="PersonalPaperIssuedDate" ColumnName="PersonalPaperIssuedDate" />
+                <ScalarProperty Name="PersonalPaperIssuedPlace" ColumnName="PersonalPaperIssuedPlace" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PostalDistrictID" ColumnName="PostalDistrictID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailVerifications">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.EmailVerification">
+              <MappingFragment StoreEntitySet="EmailVerification">
+                <ScalarProperty Name="EmailVerificationID" ColumnName="EmailVerificationID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="AppointmentLetterCode" ColumnName="AppointmentLetterCode" />
+                <ScalarProperty Name="AppointLetterImageLink" ColumnName="AppointLetterImageLink" />
+                <ScalarProperty Name="ProcedurerFullName" ColumnName="ProcedurerFullName" />
+                <ScalarProperty Name="ProcedurerPhone" ColumnName="ProcedurerPhone" />
+                <ScalarProperty Name="ProcedurerPostalDistrictCode" ColumnName="ProcedurerPostalDistrictCode" />
+                <ScalarProperty Name="ProcedurerStreet" ColumnName="ProcedurerStreet" />
+                <ScalarProperty Name="ProcedurerPersonalPaperTypeID" ColumnName="ProcedurerPersonalPaperTypeID" />
+                <ScalarProperty Name="ProcedurerPersonalPaperNumber" ColumnName="ProcedurerPersonalPaperNumber" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedDate" ColumnName="ProcedurerPersonalPaperIssuedDate" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedPlace" ColumnName="ProcedurerPersonalPaperIssuedPlace" />
+                <ScalarProperty Name="SenderFullName" ColumnName="SenderFullName" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="SenderPostalDistrictCode" ColumnName="SenderPostalDistrictCode" />
+                <ScalarProperty Name="SenderStreet" ColumnName="SenderStreet" />
+                <ScalarProperty Name="ReceiverFullName" ColumnName="ReceiverFullName" />
+                <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+                <ScalarProperty Name="ReceiverPostalDistrictCode" ColumnName="ReceiverPostalDistrictCode" />
+                <ScalarProperty Name="ReceiverStreet" ColumnName="ReceiverStreet" />
+                <ScalarProperty Name="OrderNote" ColumnName="OrderNote" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TotalAmountInWords" ColumnName="TotalAmountInWords" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatusDetails">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.OrderStatusDetail">
+              <MappingFragment StoreEntitySet="OrderStatusDetail">
+                <ScalarProperty Name="OrderStatusDetailID" ColumnName="OrderStatusDetailID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PosCode" ColumnName="PosCode" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="OtherDetails" ColumnName="OtherDetails" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentStatus">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentStatu">
+              <MappingFragment StoreEntitySet="PaymentStatus">
+                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
+                <ScalarProperty Name="PaymentStatusDescription" ColumnName="PaymentStatusDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalPaperTypes">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PersonalPaperType">
+              <MappingFragment StoreEntitySet="PersonalPaperType">
+                <ScalarProperty Name="PersonalPaperTypeID" ColumnName="PersonalPaperTypeID" />
+                <ScalarProperty Name="PersonalPaperTypeName" ColumnName="PersonalPaperTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneVerifications">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PhoneVerification">
+              <MappingFragment StoreEntitySet="PhoneVerification">
+                <ScalarProperty Name="PhoneVerificationID" ColumnName="PhoneVerificationID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostOffices">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PostOffice">
+              <MappingFragment StoreEntitySet="PostOffice">
+                <ScalarProperty Name="PosCode" ColumnName="PosCode" />
+                <ScalarProperty Name="PosName" ColumnName="PosName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
+                <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PublicAdministrations">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PublicAdministration">
+              <MappingFragment StoreEntitySet="PublicAdministration">
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PosCode" ColumnName="PosCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResetPasswordTokens">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ResetPasswordToken">
+              <MappingFragment StoreEntitySet="ResetPasswordToken">
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

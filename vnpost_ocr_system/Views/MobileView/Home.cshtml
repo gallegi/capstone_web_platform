@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
+}
+<link href="~/CustomCSS/preloader/Search.css" rel="stylesheet" />
+<link href="~/assets/Custom css/Mobile/home-css.css" rel="stylesheet" />
+<style>
+   
+</style>
+<div class="home-container">
+
+    <div class="card p-5 search-card" style=" padding-top: 50px !important;">
+        <div class="input-group m-t-0 p-l-10 p-r-15">
+            <h5 id="title" class="center">Tra cứu giấy hẹn</h5>
+            <div class="row">
+                <form action="/giay-hen/trang-thai-giay-hen" method="post">
+                    <input name="id_raw" id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;"
+                           placeholder="Nhập mã giấy hẹn" onclick="changeColor()" onfocusout="loseFocus()">
+                    <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" id="search_btn" type="submit">
+                        <a class="col l2 s1"> <i class="fa fa-search" style="color: #b2b9bf;"></i></a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <label>CHI NHÁNH VNPOST</label>
+    <hr />
+    <div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.2965577586438!2d105.7896297149097!3d21.020816793425443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5c3effa1c7%3A0x1937123124c20e8f!2zQsawdSBD4bulYyBT4buRIDEgVm5Qb3N0IChFTVMp!5e0!3m2!1svi!2s!4v1573963927430!5m2!1svi!2s" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </div>
+
+    <label>TIN TỨC</label>
+    <hr />
+    <p align="justify">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </p>
+
+    <label>HỖ TRỢ</label>
+    <hr />
+    <label>HƯỚNG DẪN</label>
+    <hr />
+
+</div>
+

@@ -3210,7 +3210,7 @@ nav {
       transform: translateX(-50%); }
     @media only screen and (max-width: 992px) {
       nav .brand-logo {
-        left: 50%;
+        left: 0%;
         transform: translateX(-50%); }
         nav .brand-logo.left, nav .brand-logo.right {
           padding: 0;
@@ -9411,7 +9411,7 @@ nav i.material-icons {
     height: 64px;
     line-height: 64px; }
     .topbar nav .nav-wrapper .brand-logo {
-      left: auto;
+      /*left: auto;*/
       transform: none;
       width: 250px;
       display: flex;
@@ -10323,8 +10323,9 @@ Preloader
       display: block; }
     #main-wrapper[data-layout="vertical"] .topbar nav .nav-wrapper .brand-logo[data-logobg="skin6"] .light-logo, #main-wrapper[data-layout="horizontal"] .topbar nav .nav-wrapper .brand-logo[data-logobg="skin6"] .light-logo {
       display: none; }
-  #main-wrapper[data-layout="vertical"] .topbar nav[data-navbarbg="skin1"], #main-wrapper[data-layout="horizontal"] .topbar nav[data-navbarbg="skin1"] {
-    background: #2962FF; }
+    #main-wrapper[data-layout="vertical"] .topbar nav[data-navbarbg="skin1"], #main-wrapper[data-layout="horizontal"] .topbar nav[data-navbarbg="skin1"] {
+        background: #fcaf17;
+    }
   #main-wrapper[data-layout="vertical"] .topbar nav[data-navbarbg="skin2"], #main-wrapper[data-layout="horizontal"] .topbar nav[data-navbarbg="skin2"] {
     background: #fe5419; }
   #main-wrapper[data-layout="vertical"] .topbar nav[data-navbarbg="skin3"], #main-wrapper[data-layout="horizontal"] .topbar nav[data-navbarbg="skin3"] {

@@ -9,8 +9,6 @@
 <link href="~/CustomCSS/InvitationCard/DisplayStatisticChart.css" rel="stylesheet" />
 <script src="../../assets/libs/echarts/dist/echarts-en.min.js"></script>
 <script src="../../dist/js/custom.min.js"></script>
-<script src="../../CustomJS/Document/DisplayStatisticChart.js"></script>
-<script src="../../CustomJS/Document/CustomDisplayStatisticChart.js"></script>
 <link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
@@ -27,17 +25,20 @@
 
             <div class="card-content">
                 <h3 class="font-medium">Thông tin thủ tục</h3>
-                
-                
+
+
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Tỉnh/Thành phố:</label>
                             <div class="col l6 m6 s12">
-                                <select onchange="city(this.value)" tabindex="-1">
-                                    <option value="Hà Nội" selected>Hà Nội</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
+                                <select tabindex="-1" id="item1">
+                                    @{
+                                        foreach (var item in ViewBag.listPro)
+                                        {
+                                            <option value="@item.PostalProvinceCode" selected>@item.PostalProvinceName</option>
+                                        }
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -46,25 +47,19 @@
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Cơ quan hành chính:</label>
                             <div class="col l6 m6 s12">
-                                <select onchange="org(this.value)" tabindex="-1">
-                                    <option value="Công an tỉnh" selected>Công an tỉnh</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
+                                <select tabindex="-1" id="item3">
                                 </select>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Quận/Huyện:</label>
                             <div class="col l6 m6 s12">
-                                <select onchange="district(this.value)" tabindex="-1">
-                                    <option value="Quận Hoàn Kiếm" selected>Quận Hoàn Kiếm</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
+                                <select tabindex="-1" id="item2">
                                 </select>
                             </div>
                         </div>
@@ -73,29 +68,39 @@
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Thủ tục hành chính:</label>
                             <div class="col l6 m6 s12">
-                                <select onchange="procedure(this.value)" tabindex="-1">
-                                    <option value="Cấp đổi CMT" selected>Cấp đổi CMT</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
+                                <select tabindex="-1" id="item4">
                                 </select>
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
                 <h4 class="center font-weight-bold m-t-40">
-                    <span>Thống kê tại</span>
-                    <span id="city">Hà Nội</span>
-                    <span>,</span>
-                    <span id="district">Quận Hoàn Kiếm</span>
-                    <span>,</span>
-                    <span>cơ quan hành chính</span>
-                    <span id="org">Công an tỉnh</span>
-                    <span>,</span>
-                    <span>Thủ tục</span>
-                    <span id="procedure">Cấp đổi CMT</span>
+                    <span class="tk1">Thống kê tại</span>
+                    <span class="tk1" id="city"></span>
+                    <span class="tk1">,</span>
+                    <span class="tk2" id="district"></span>
+                    <span class="tk2">,</span>
+                    <span class="tk3">cơ quan hành chính</span>
+                    <span class="tk3" id="org"></span>
+                    <span class="tk3">,</span>
+                    <span class="tk4">Thủ tục</span>
+                    <span class="tk4" id="procedure"></span>
 
                 </h4>
+                @using (Html.BeginForm("ChangeLocation", "DisplayStatisticChart", FormMethod.Post, new
+                {
+                    id = "formall",
+                    enctype = "multipart/form-data",
+                    onSubmit = "return SubmitFormAll(this);",
+                    data_restUrl = Url.Action("ChangeLocation", "DisplayStatisticChart")
+                }))
+                {
+                    <input type="hidden" id="provine" name="provine" />
+                    <input type="hidden" id="district_c" name="district" />
+                    <input type="hidden" id="hcc" name="hcc" />
+                    <input type="hidden" id="profile" name="profile" />
+                }
             </div>
 
             <div class="card-content">
@@ -112,7 +117,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">12</h2>
+                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_cho</h2>
 
                                     </div>
 
@@ -127,7 +132,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">36</h2>
+                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_da</h2>
 
                                     </div>
 
@@ -143,7 +148,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đã xử lý</h6>
-                                        <h2 class="white-text m-b-5">13</h2>
+                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_xong</h2>
 
                                     </div>
 
@@ -160,53 +165,79 @@
             <div class="card-content">
                 <h3 class="font-medium">So sánh thống kê trong 2 khoảng thời gian</h3>
                 <div class="card-content">
-                  
+
                     <div class="row">
-                        <div class="col s12 l6 center-text">
-                            <div class="lefttext"><h4 class="font-medium">Khoảng thời gian 1</h4></div>
-                                
-                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
-                            <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                       data-language='vi' value="03/10/2018" />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                        @using (Html.BeginForm("ChangeDate", "DisplayStatisticChart", FormMethod.Post, new
+                        {
+                            id = "form1",
+                            enctype = "multipart/form-data",
+                            onSubmit = "return SubmitForm(this);",
+                            data_restUrl = Url.Action("ChangeDate", "DisplayStatisticChart")
+                        }))
+                        {
+                            <input type="hidden" id="provine_ch1" name="provine" />
+                            <input type="hidden" id="district_c_ch1" name="district" />
+                            <input type="hidden" id="hcc_ch1" name="hcc" />
+                            <input type="hidden" id="profile_ch1" name="profile" />
+                            <div class="col s12 l6 center-text">
+                                <div class="lefttext"><h4 class="font-medium">Khoảng thời gian 1</h4></div>
+
+                                <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
+                                <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                    <input name="start" id="start1" type='text' readonly
+                                           class="col s10 l10 datepicker-here form-control date1" autocomplete="off"
+                                           data-language='vi' value="03/10/2018" />
+                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                </div>
+                                <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
+                                <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                    <input name="end" id="end1" type='text' readonly
+                                           class="col s10 l10 datepicker-here form-control date1" autocomplete="off"
+                                           data-language='vi' value="10/10/2018" />
+                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                </div>
+
                             </div>
-                            <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
-                            <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                       data-language='vi' value="10/10/2018" />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                            </div>
-                            
-                        </div>
-                        <div class="col s12 l6 center-text">
-                            
+                        }
+                        @using (Html.BeginForm("ChangeDate2", "DisplayStatisticChart", FormMethod.Post, new
+                        {
+                            id = "form2",
+                            enctype = "multipart/form-data",
+                            onSubmit = "return SubmitForm2(this);",
+                            data_restUrl = Url.Action("ChangeDate2", "DisplayStatisticChart")
+                        }))
+                        {
+                            <input type="hidden" id="provine_ch2" name="provine" />
+                            <input type="hidden" id="district_c_ch2" name="district" />
+                            <input type="hidden" id="hcc_ch2" name="hcc" />
+                            <input type="hidden" id="profile_ch2" name="profile" />
+                            <div class="col s12 l6 center-text">
+
                                 <h4 class="font-medium lefttext">Khoảng thời gian 2</h4>
-                            <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
-                            <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                       data-language='vi' value="05/11/2019" />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                <label class="col l4 m4 p-t-10 s12">Từ ngày:</label>
+                                <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                    <input name="start" id="start2" type='text' readonly
+                                           class="col s10 l10 datepicker-here form-control date2" autocomplete="off"
+                                           data-language='vi' value="05/11/2019" />
+                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                </div>
+                                <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
+                                <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                    <input name="end" id="end2" type='text' readonly
+                                           class="col s10 l10 datepicker-here form-control date2" autocomplete="off"
+                                           data-language='vi' value="12/11/2019" />
+                                    <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                                </div>
+
                             </div>
-                            <label class="col l4 m4 p-t-10 s12">Đến ngày:</label>
-                            <div class="col l6 m6 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="datepicker" type='text' readonly
-                                       class="col s10 l10 datepicker-here form-control" autocomplete="off"
-                                       data-language='vi' value="12/11/2019" />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                            </div>
-                            
-                        </div>
+                        }
                     </div>
-                  
-                   
+
+
 
                 </div>
 
-                <table>
+                <table id="talbe">
                     <tr>
                         <th class="width-1 center-text">Loại hồ sơ</th>
                         <th class="width-1 center-text">Hồ sơ đang chờ tiếp nhận</th>
@@ -217,39 +248,39 @@
                         <td class="center-text">Khoảng thời gian</td>
                         <td></td>
                         <td></td>
-                        <td></td>                        
+                        <td></td>
                     </tr>
                     <tr class="pink-cuscol">
-                        <td class="center-text">03/10/2018 - 10/10/2018</td>
-                        <td class="right-text">30</td>
-                        <td class="right-text">12</td>
-                        <td class="right-text">24</td>
+                        <td class="center-text"></td>
+                        <td class="right-text"></td>
+                        <td class="right-text"></td>
+                        <td class="right-text"></td>
                     </tr>
                     <tr class="blue-cuscol">
-                        <td class="center-text">05/11/2018 - 12/11/2018</td>
-                        <td class="right-text">45</td>
-                        <td class="right-text">56</td>
-                        <td class="right-text">33</td>
+                        <td class="center-text"></td>
+                        <td class="right-text"></td>
+                        <td class="right-text"></td>
+                        <td class="right-text"></td>
                     </tr>
 
 
                 </table>
             </div>
 
-            
+
 
             <div class="row">
                 <div class="col l2"></div>
                 <div class="col l8">
                     <div class="card">
                         <div class="card-content analytics-info">
-                           
+
                             <div id="basic-bar" style="height:400px;"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col l2"></div>
-               
+
             </div>
             <div class="card-content">
                 <div class="row">
@@ -349,35 +380,54 @@
 
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
+<script>
+    var d1; var d2;
+    var cho1; var cho2;
+    var da1; var da2;
+    var xong1; var xong2;
 
-    <!-- ============================================================== -->
+    $(document).ready(function () {
+        $('.datepicker-inline').hide();
+        var d = '@ViewBag.date';
+        $('#start1').val(d);
+        $('#end1').val(d);
+        $('#start2').val(d);
+        $('#end2').val(d);
+
+        d = '@ViewBag.d';
+        $('#talbe').find('tr:eq(2)').find('td:eq(0)').text(d);
+        $('#talbe').find('tr:eq(2)').find('td:eq(1)').text(@ViewBag.detail.total_cho);
+        $('#talbe').find('tr:eq(2)').find('td:eq(2)').text(@ViewBag.detail.total_da);
+        $('#talbe').find('tr:eq(2)').find('td:eq(3)').text(@ViewBag.detail.total_xong);
+
+        $('#talbe').find('tr:eq(3)').find('td:eq(0)').text(d);
+        $('#talbe').find('tr:eq(3)').find('td:eq(1)').text(@ViewBag.detail.total_cho);
+        $('#talbe').find('tr:eq(3)').find('td:eq(2)').text(@ViewBag.detail.total_da);
+        $('#talbe').find('tr:eq(3)').find('td:eq(3)').text(@ViewBag.detail.total_xong);
+
+        getValue();
+        update();
+    });
+
+
+</script>
+<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>    
+<script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
+
+@*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@
+
+<!-- ============================================================== -->
 <!-- All Required js -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- Apps -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- Custom js -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- This page plugin js -->
 <!-- ============================================================== -->
-

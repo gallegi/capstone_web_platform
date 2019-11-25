@@ -140,3 +140,11 @@
 .ghi-chu {
     min-width: 300px;
 }
+
+.table-width {
+    min-width: 100px;
+}
+
+.card {
+    padding: 20px!important;
+}
