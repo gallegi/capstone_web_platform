@@ -56,10 +56,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 }
                 else
                 {
-                    string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail  order by y,m,d desc";
-                    List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query).ToList();
-                    query = "select *,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail  order by y,m,d desc";
-                    List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query).ToList();
+                    string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail where OrderID = @id  order by y,m,d desc";
+                    List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", id)).ToList();
+                    query = "select *,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail where OrderID = @id  order by y,m,d desc";
+                    List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id",id)).ToList();
                     foreach (var item in list)
                     {
                         item.listOrder = new List<MyOrderDetail>();
@@ -98,18 +98,25 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         }
                     }
                     ViewBag.list = list;
-                    string sql = "select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', st.StatusName " +
+                    string sql = "select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName " +
                         "from [Order] o inner join Status s on o.StatusID = s.StatusID " +
                         "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
                         "inner join PostOffice p on os.PosCode = p.PosCode " +
                         "inner join PublicAdministration pa on p.PosCode = pa.PosCode " +
                         "inner join District d on d.DistrictCode = p.DistrictCode " +
-                        "inner join Profile pr on pa.PublicAdministrationLocationID = pr.PublicAdministrationLocationID and pr.ProfileID = o.ProfileID " +
-                        "inner join Status st on o.StatusID = st.StatusID " +
+                        "inner join Profile pr on pr.ProfileID = o.ProfileID " +
                         "where o.OrderID = @id";
                     orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
-                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
-                    o.displayAmount = formatAmount(o.Amount);
+                    if(o == null)
+                    {
+                        o = new orderDB();
+                    }
+                    else
+                    {
+                        o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                        o.displayAmount = formatAmount(o.Amount);
+                    }
+                    
                     ViewBag.order = o;
                     if (o.StatusID == -3) o.step = 0;
                     else if (o.StatusID == -2) o.step = 1;
