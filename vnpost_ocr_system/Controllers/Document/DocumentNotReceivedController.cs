@@ -53,34 +53,34 @@ namespace vnpost_ocr_system.Controllers.Document
                 string sortDirection = Request["order[0][dir]"];
                 if (!profile.Equals(""))
                 {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID where o.StatusID = 1 and p.ProfileID = @profile";
+                    query = "select o.*, p.ProfileName, p.PublicAdministrationLocationID from [Order] o join [Profile] p on o.ProfileID = p.ProfileID where o.StatusID = -3 and p.ProfileID = @profile";
                 }
                 else if (!coQuan.Equals(""))
                 {
-                    query = "select *, pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
-                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID where o.StatusID = 1 and " +
+                    query = "select o.*, p.ProfileName, p.PublicAdministrationLocationID , pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                        "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID where o.StatusID = -3 and " +
                         "pa.PublicAdministrationLocationID = @coQuan";
                 }
                 else if (!district.Equals(""))
                 {
-                    query = "select *,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                    query = "select o.*, p.ProfileName, p.PublicAdministrationLocationID ,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                        "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode where o.StatusID = 1 " +
+                        "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode where o.StatusID = -3 " +
                         "and d.PostalDistrictCode = @district";
                 }
                 else if (!province.Equals(""))
                 {
-                    query = "select *,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                    query = "select o.*, p.ProfileName, p.PublicAdministrationLocationID ,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
-                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1 and pro.PostalProvinceCode = @province";
+                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = -3 and pro.PostalProvinceCode = @province";
                 }
                 else
                 {
-                    query = "select *,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+                    query = "select o.*, p.ProfileName, p.PublicAdministrationLocationID ,pa.Phone as 'PAPhone' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
-                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = 1";
+                        "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode where o.StatusID = -3";
                 }
                 if (!dateFrom.Equals("") && !dateTo.Equals(""))
                 {
@@ -102,7 +102,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         to = DateTime.ParseExact(dateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                 }
-                searchList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("profile", profile),
+                searchList = db.Database.SqlQuery<Non_revieve>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY", new SqlParameter("profile", profile),
                                                                       new SqlParameter("coQuan", coQuan),
                                                                       new SqlParameter("district", district),
                                                                       new SqlParameter("province", province),
@@ -110,12 +110,14 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                       new SqlParameter("dateTo", to)).ToList();
                 db.Configuration.LazyLoadingEnabled = false;
 
-                totalrows = searchList.Count;
-                totalrowsafterfiltering = searchList.Count;
-                //sorting
-                searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Non_revieve>();
-                //paging
-                searchList = searchList.Skip(start).Take(length).ToList<Non_revieve>();
+                totalrows = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM ( " + query + " ) as count"
+                                                                    , new SqlParameter("profile", profile),
+                                                                      new SqlParameter("coQuan", coQuan),
+                                                                      new SqlParameter("district", district),
+                                                                      new SqlParameter("province", province),
+                                                                      new SqlParameter("dateFrom", from),
+                                                                      new SqlParameter("dateTo", to)).FirstOrDefault();
+                totalrowsafterfiltering = totalrows;
 
             }
             catch (Exception e)

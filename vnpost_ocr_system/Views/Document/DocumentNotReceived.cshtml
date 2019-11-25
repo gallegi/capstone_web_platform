@@ -12,7 +12,6 @@
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
-
 <link href="~/dist/css/pages/data-table.css" rel="stylesheet">
 
 
@@ -207,8 +206,8 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <div class="table-responsive m-b-40 m-t-30">
-                        <table id="mainTable" class="table-bordered table-responsive">
+                    <div class="m-b-40 m-t-30">
+                        <table id="mainTable" class="table-bordered">
                             <thead>
                                 <tr>
                                     <th class="width-20 table-width">Mã hồ sơ</th>
@@ -227,25 +226,6 @@
 
                         <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
                     </div>
-                    @*<div class="no-collapse-m-p">
-                            <ul class="pagination m-t-15 center-align">
-                                <li class="pagination_button page-item previous disabled" id="zero_config_previous">
-                                    <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link my-paging">Trước</a>
-                                </li>
-                                <li class="paginate_button page-item active">
-                                    <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link my-paging">1</a>
-                                </li>
-                                <li class="paginate_button page-item active">
-                                    <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link my-paging">2</a>
-                                </li>
-                                <li class="paginate_button page-item active">
-                                    <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link my-paging">3</a>
-                                </li>
-                                <li class="paginate_button page-item next" id="zero_config_next">
-                                    <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link my-paging">Sau</a>
-                                </li>
-                            </ul>
-                        </div>*@
                 </div>
             </div>
         </div>
@@ -253,18 +233,20 @@
 </div>
 
 <script>
+   $(".datepicker-inline").remove();
     $(document).ready(function () {
-        //$("#pre-load").show("slow", function () {
-        //});
-        //$("#pre-load").css("z-index", "99999");
+        
+        $("#pre-load").show("slow", function () {
+        });
+        $("#pre-load").css("z-index", "99999");
         $('#mainTable')
-            //.on('preXhr.dt', function (e, settings, data) {
-            //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
-            //    $("#pre-load").show("slow", function () {
-            //    });
-            //    $("#pre-load").css("z-index", "99999");
-            //    ////////////////////////////////////////////////////////////////////////
-            //})
+            .on('preXhr.dt', function (e, settings, data) {
+                //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+                $("#pre-load").show("slow", function () {
+                });
+                $("#pre-load").css("z-index", "99999");
+                //    ////////////////////////////////////////////////////////////////////////
+            })
             .DataTable({
                 "ajax": {
                     "url": "/cho-tiep-nhan",
@@ -299,7 +281,7 @@
                             }
                         }
                     },
-                    { "data": "ProfileName", "name": "ProfileName" },
+                    { "data": "ProfileName", "name": "ProfileName", width: "500px" },
                     {
                         "data": "OrderDate", "name": "OrderDate", "render": function (data) {
                             return dateFormat(data);
@@ -318,8 +300,8 @@
                 ],
                 "drawCallback": function (settings) {
                     ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
-                    //("#pre-load").hide("slow", function () {
-                    //});
+                    $("#pre-load").hide("slow", function () {
+                    });
                     ////////////////////////////////////////////////
                 },
                 "serverSide": "true",
@@ -343,13 +325,12 @@
                 "bAutoWidth": false,
                 "initComplete": function (settings, json) {
                     ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
-                    //$("#pre-load").hide("slow", function () {
-                    //});
+                    $("#pre-load").hide("slow", function () {
+                    });
                     //////////////////////////////////////////////// //////////////////////////////////////////////// ////////////////////////////////////////////////
                 }
             });
     });
-
 
 
 
@@ -377,96 +358,97 @@
     })
 </script>
 <script>
-        $(document).ready(function () {
-            $('#province').change(function () {
-                $('#pre-load').show()
-                $.ajax({
-                    type: "POST",
-                    url: "/GetDistrict",
-                    cache: false,
-                    dataType: 'json',
-                    data: {
-                        code: $(this).val()
-                    },
-                    success: function (response) {
-                        $('#district').empty();
-                        var option = "<option value=''>Tất cả</option>";
-                        for (var i = 0; i < response.length; i++) {
-                            option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
-                        }
-                        $('#district').append(option);
-                        $('#district').formSelect();
-                        $('#pre-load').hide()
-                    },
-                    error: function () {
-                        $('#pre-load').hide()
+    $(document).ready(function () {
+        $('#province').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetDistrict",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    $('#district').empty();
+                    var option = "<option value=''>Tất cả</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
-                })
+                    $('#district').append(option);
+                    $('#district').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
             })
         })
+    })
 
-        $(document).ready(function () {
-            $('#district').change(function () {
-                $('#pre-load').show()
-                $.ajax({
-                    type: "POST",
-                    url: "/GetAdmins",
-                    cache: false,
-                    dataType: 'json',
-                    data: {
-                        code: $(this).val()
-                    },
-                    success: function (response) {
-                        console.log(response)
-                        $('#coQuan').empty();
-                        var option = "<option value=''>Tất cả</option>";
-                        for (var i = 0; i < response.length; i++) {
-                            option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
-                        }
-                        $('#coQuan').append(option);
-                        $('#coQuan').formSelect();
-                        $('#pre-load').hide()
-                    },
-                    error: function () {
-                        $('#pre-load').hide()
+    $(document).ready(function () {
+        $('#district').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetAdmins",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#coQuan').empty();
+                    var option = "<option value=''>Tất cả</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                     }
-                })
+                    $('#coQuan').append(option);
+                    $('#coQuan').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
             })
         })
+    })
 
-        $(document).ready(function () {
-            $('#coQuan').change(function () {
-                $('#pre-load').show()
-                $.ajax({
-                    type: "POST",
-                    url: "/GetProfile",
-                    cache: false,
-                    dataType: 'json',
-                    data: {
-                        code: $(this).val()
-                    },
-                    success: function (response) {
-                        console.log(response)
-                        $('#profile').empty();
-                        var option = "<option value=''>Tất cả</option>";
-                        for (var i = 0; i < response.length; i++) {
-                            option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
-                        }
-                        $('#profile').append(option);
-                        $('#profile').formSelect();
-                        $('#pre-load').hide()
-                    },
-                    error: function () {
-                        $('#pre-load').hide()
+    $(document).ready(function () {
+       
+        $('#coQuan').change(function () {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/GetProfile",
+                cache: false,
+                dataType: 'json',
+                data: {
+                    code: $(this).val()
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#profile').empty();
+                    var option = "<option value=''>Tất cả</option>";
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                     }
-                })
+                    $('#profile').append(option);
+                    $('#profile').formSelect();
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
+                }
             })
         })
+    })
+
 
 </script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
-<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
-
+@*<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>*@
 
 <script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
 <script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
