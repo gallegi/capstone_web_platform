@@ -19,11 +19,11 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            string sql = "select * from Province order by PostalProvinceName";
+            string sql = "select distinct * from Province order by PostalProvinceName";
             List<Province> listPro = db.Database.SqlQuery<Province>(sql).ToList();
             ViewBag.listPro = listPro;
 
-            sql = "select " +
+            sql = "select distinct " +
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
@@ -32,7 +32,8 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join PostOffice po on pa.PosCode = po.PosCode " +
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "where year(o.ModifiedTime) = year(getdate()) and month(o.ModifiedTime) = month(getdate()) and day(o.ModifiedTime) = day(getdate()) AND ";
+               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               "where year(os.CreatedTime) = year(getdate()) and month(os.CreatedTime) = month(getdate()) and day(os.CreatedTime) = day(getdate()) AND ";
             if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -53,7 +54,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string[] data = date.Split('/');
             string start = data[2] + "/" + data[1] + "/" + data[0];
             string end = data[2] + "/" + data[1] + "/" + data[0];
-            sql = "select " +
+            sql = "select distinct " +
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
@@ -62,7 +63,8 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join PostOffice po on pa.PosCode = po.PosCode " +
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "where o.ModifiedTime between @start and @end AND ";
+               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               "where os.CreatedTime between @start and @end AND ";
             if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -99,7 +101,7 @@ namespace vnpost_ocr_system.Controllers.Document
             start = data[2] + "/" + data[1] + "/" + data[0];
             data = end.Split('/');
             end = data[2] + "/" + data[1] + "/" + data[0];
-            string sql = "select " +
+            string sql = "select distinct " +
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
@@ -108,7 +110,8 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join PostOffice po on pa.PosCode = po.PosCode " +
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "where o.ModifiedTime between @start and @end AND ";
+               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               "where os.CreatedTime between @start and @end AND ";
             if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -136,7 +139,7 @@ namespace vnpost_ocr_system.Controllers.Document
             start = data[2] + "/" + data[1] + "/" + data[0];
             data = end.Split('/');
             end = data[2] + "/" + data[1] + "/" + data[0];
-            string sql = "select " +
+            string sql = "select distinct " +
                "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
@@ -145,7 +148,8 @@ namespace vnpost_ocr_system.Controllers.Document
                "inner join PostOffice po on pa.PosCode = po.PosCode " +
                "inner join District  d on po.DistrictCode = d.DistrictCode " +
                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "where o.ModifiedTime between @start and @end AND ";
+               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               "where os.CreatedTime between @start and @end AND ";
             if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
