@@ -9,10 +9,13 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class SearchStatusController : Controller
     {
+        static string mess = "";
         [Route("giay-hen/tim-giay-hen")]
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.mess = mess;
+            mess = "";
             return View("/Views/InvitationCard/SearchStatus.cshtml");
         }
         [Auther(Roles = "0")]
@@ -22,6 +25,11 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         {
             DisplayStatusController ds = new DisplayStatusController();
             ds.Display(id);
+        }
+
+        public void getMess(string s)
+        {
+            mess = s;
         }
     }
 }
