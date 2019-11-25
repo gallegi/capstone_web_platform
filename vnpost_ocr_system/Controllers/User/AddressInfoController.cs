@@ -27,6 +27,7 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.listPaperType = listPaperType;
             return View("/Views/User/AddressInfo.cshtml");
         }
+
         [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi/xoa")]
         public ActionResult Delete(string Code)
@@ -63,9 +64,9 @@ namespace vnpost_ocr_system.Controllers.User
                 if (info == null) return null;
 
                 List<District> districts = db.Database.SqlQuery<District>("select d.* from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
-
+                //List<PersonalPaperType> listType = db.Database.SqlQuery<PersonalPaperType>(" @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
-                return Json(new { info = info, list = districts });
+                return Json(new { info = info, list = districts});
             }
             catch (Exception ex)
             {
@@ -93,14 +94,13 @@ namespace vnpost_ocr_system.Controllers.User
             List<Province> listProvince = db.Provinces.ToList<Province>();
             return Json(listProvince);
         }
+
         [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi/chinh-sua")]
         public ActionResult Edit(string name, string phone, string address, string PaperTypeCode,
             string paperNumber, string districtCode, string date, string placeOfIssue, string id)
         {
-            DateTime formatDate = DateTime.ParseExact(date, "dd/MM/yyyy",
-                                       System.Globalization.CultureInfo.InvariantCulture); 
-
+            DateTime formatDate = DateTime.ParseExact(date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             string query = "update ContactInfo set FullName = @name "
                     + " , Phone = @phone "
@@ -115,7 +115,21 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 try
                 {
-                    db.Database.ExecuteSqlCommand(query
+                    if (PaperTypeCode.Equals(""))
+                    {
+                        db.Database.ExecuteSqlCommand(query
+                        , new SqlParameter("name", name)
+                        , new SqlParameter("phone", phone)
+                        , new SqlParameter("districtCode", districtCode)
+                        , new SqlParameter("address", address)
+                        , new SqlParameter("PaperTypeCode", DBNull.Value)
+                        , new SqlParameter("paperNumber", DBNull.Value)
+                        , new SqlParameter("date", DBNull.Value)
+                        , new SqlParameter("placeOfIssue", DBNull.Value)
+                        , new SqlParameter("id", id));
+                    } else
+                    {
+                        db.Database.ExecuteSqlCommand(query
                         , new SqlParameter("name", name)
                         , new SqlParameter("phone", phone)
                         , new SqlParameter("districtCode", districtCode)
@@ -125,9 +139,9 @@ namespace vnpost_ocr_system.Controllers.User
                         , new SqlParameter("date", formatDate)
                         , new SqlParameter("placeOfIssue", placeOfIssue)
                         , new SqlParameter("id", id));
+                    }
                     transaction.Commit();
                     return new HttpStatusCodeResult(200);
-                    //return Redirect("tai-khoan/so-dia-chi");
                 }
                 catch (Exception ex)
                 {

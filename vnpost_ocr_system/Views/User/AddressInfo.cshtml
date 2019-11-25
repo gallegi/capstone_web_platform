@@ -61,6 +61,7 @@
                             </div>
                             <div class="col s12 l5 m5">
                                 <select tabindex="-1" class="card-border" id="editDistrict">
+
                                 </select>
                             </div>
                         </div>
@@ -76,17 +77,18 @@
                             <div class="col s12 l5 m5 p-t-10">
                                 Loại giấy tờ tùy thân:
                             </div>
-                            <div class="col s12 l5 m5">
-                                <select tabindex="-1" class="card-border" id="paperType">
+                            <div class="col s12 l5 m5"> 
+                                <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
                                     @foreach (var item in ViewBag.listPaperType)
                                     {
                                         <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
                                     }
+                                    <option value=""> Không có </option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="paperDetail">
                         <div class="row m-b-30">
                             <div class="col s12 l5 m5 p-t-10">
                                 Mã số giấy tờ tùy thân:
@@ -193,30 +195,6 @@
             </div>
         </div>
     }
-
-    @*<div id="delete" class="col s12 m-b-20 ">
-            <div class="address-list-div card">
-                <div class="row">
-                    <div class="container-fluid col offset-s1 s9 ">
-                        <div class="row p-20 p-b-0">
-                            <div class="col s12 l12">
-                                Bạn có chắc muốn xóa tài khoản của Nguyễn Vân Anh không ?
-                            </div>
-                        </div>
-                        <div class="row p-20 p-b-0">
-                            <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
-                                Có
-                            </button>
-                            <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit">
-                                Không
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        </div>*@
 </div>
 
 <script>
@@ -233,13 +211,20 @@
                 $('#province').formSelect();
                 $('#editDistrict').empty();
                 var option = "";
-                for (var i = 0; i < data.list.length; i++) {
+                for (var i = 0; i < data.list.length; i++){
                     option += "<option value='" + data.list[i].PostalDistrictCode + "'>" + data.list[i].PostalDistrictName + "</option>";
                 }
                 $('#editDistrict').html(option);
                 $('#editDistrict').val(data.info.PostalDistrictCode);
                 $('#editDistrict').formSelect();
                 $('#editAddress').val(data.info.Street);
+                $('#paperType').val(data.info.PersonalPaperTypeID);
+                $('#paperType').formSelect();
+                if (data.info.PersonalPaperTypeID == null) {
+                    $("#paperDetail").hide();
+                } else {
+                    $("#paperDetail").show();
+                }
                 $('#editCode').val(data.info.PersonalPaperNumber);
                 $('#editDate').val(data.info.PersonalPaperIssuedDateString);
                 $('#editPlaceOfIssue').val(data.info.PersonalPaperIssuedPlace);
@@ -251,6 +236,7 @@
             cache: false
         })
     }); 
+
     $("#myeditform").submit(function (e) {
         $.ajax({
             type: "POST",
@@ -304,31 +290,8 @@
             });
         }
         )
-    })
-
-    //$(document).ready(function () {
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/tai-khoan/so-dia-chi/lay-tinh-thanh-pho",
-    //        data: JSON.stringify(),
-    //        contentType: "application/json;charset=utf-8",
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            $('#province').empty();
-    //            var option = "<option value='Tỉnh/Thành Phố' selected disabled> Tỉnh/Thành Phố </option>";
-    //            for (var i = 0; i < response.length; i++) {
-    //                if () {
-
-    //                }
-    //                option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
-    //            }
-    //            $('#editDistrict').append(option);
-    //            $('#editDistrict').formSelect();
-    //            $('#pre-load').hide()
-    //        }
-    //    });
-    //})
-
+    });
+        
     function getDelete(code) {
         confirmAlert("Xóa địa chỉ", "Bạn không thể khôi phục lại khi xóa", function () {
             $.ajax({
@@ -345,6 +308,19 @@
             })
         });
     }
+
+    function toggleDiv(divId, element) {
+        if (element.value == '') {
+            $("#" + divId).hide();
+        } else {
+            $("#" + divId).show();
+        }
+    }
+
+    function setDefault() {
+
+    }
+
 </script>
 
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
