@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using XCrypt;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
+
 namespace vnpost_ocr_system.Controllers.Login
 {
     public class LoginController : Controller
@@ -14,7 +16,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Index()
         {
             ViewBag.notifi = "";
-            if(Session["userID"] != null) return Redirect("/phan-quyen-tai-khoan");
+            if(Session["useradminID"] != null) return Redirect("/ho-so/thong-ke-tong-quat");
             if (HttpContext.Request.Cookies["remmemadmin"] != null)
             {
                 HttpCookie remme = HttpContext.Request.Cookies.Get("remmemadmin");
@@ -31,7 +33,7 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             try
             {
-                string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pl");
+                string passXc = Encrypt.EncryptString(password, "PD");
                 var admin = db.Admins.Where(x => x.AdminUsername.Equals(username)).FirstOrDefault();
                 if (admin != null)
                 {
@@ -39,8 +41,12 @@ namespace vnpost_ocr_system.Controllers.Login
                     passXc = string.Concat(passXc, admin.AdminPasswordSalt);
                     if (passXc.Equals(pass))
                     {
-                        Session["userID"] = admin.AdminID;
-                        Session["userName"] = admin.AdminName;
+                        Session["useradminID"] = admin.AdminID;
+                        Session["useradminName"] = admin.AdminName;
+                        Session["adminRole"] = admin.Role;
+                        Session["adminPro"] = admin.PostalProvinceCode;
+                        Session["Role"] = admin.Role.ToString();
+                        Session["url"] = "/ho-so/thong-ke-tong-quat";
                         if (!String.IsNullOrEmpty(checkbox))
                         {
                             if (checkbox.Equals("on"))
@@ -52,7 +58,7 @@ namespace vnpost_ocr_system.Controllers.Login
                                 HttpContext.Response.Cookies.Add(remme);
                             }
                         }
-                        return Redirect("/phan-quyen-tai-khoan");
+                        return Redirect("/ho-so/thong-ke-tong-quat");
                     }
                     else
                     {
@@ -70,6 +76,11 @@ namespace vnpost_ocr_system.Controllers.Login
             {
                 return View("/Views/Login/Login.cshtml");
             }
+        }
+        public ActionResult LogoutAdmin()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
         }
     }
 }

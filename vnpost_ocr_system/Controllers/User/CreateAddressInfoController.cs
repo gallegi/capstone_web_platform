@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.User
 {
     public class CreateAddressInfoController : Controller
     {
+        [Auther(Roles = "0")]
         // GET: CreateAddressInfo
         [Route("tai-khoan/tao-dia-chi-moi")]
         public ActionResult Index()
@@ -22,7 +24,7 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.listPaperType = listPaperType;
             return View("/Views/User/CreateAddressInfo.cshtml");
         }
-
+        [Auther(Roles = "0")]
         [Route("tai-khoan/tao-dia-chi-moi/them")]
         public ActionResult Add(string name, string phone, string province, string district
             , string address, string paperType, string code, string date, string placeOfIssue)
@@ -37,13 +39,13 @@ namespace vnpost_ocr_system.Controllers.User
                     c.Phone = phone;
                     c.PostalDistrictCode = district;
                     c.Street = address;
-                    c.PersonalPaperTypeID = Convert.ToInt32(paperType);
+                    c.PersonalPaperTypeID = paperType.Equals("") ? c.PersonalPaperTypeID = null : c.PersonalPaperTypeID = Convert.ToInt32(paperType);
                     c.PersonalPaperNumber = code;
-                    c.PersonalPaperIssuedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    c.PersonalPaperIssuedDate = date.Equals("") ? (DateTime?) null :  DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     c.PersonalPaperIssuedPlace = placeOfIssue;
 
-                    //function LogIn is in progress.
-                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString()); ;
+                    //get customerID from session.
+                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString());
                     db.ContactInfoes.Add(c);
                     db.SaveChanges();
                     transaction.Commit();

@@ -56,8 +56,8 @@
                         </div>
                         <div class="col l12 m12 s12">
                             <ul class="tabs" style="overflow-x:hidden;overflow-y:hidden">
-                                <li class="tab col l6 m6 s6"><a href="#login">Đăng nhập</a></li>
-                                <li class="tab col l6 m6 s6"><a href="#register">Đăng ký</a></li>
+                                <li class="tab col l6 m6 s6"><a href="#login" id="tabsss" class="@(ViewBag.messe == ""?"active":"")">Đăng nhập</a></li>
+                                <li class="tab col l6 m6 s6"><a href="#register" id="tabss" class="@(ViewBag.messe != ""?"active":"")">Đăng ký</a></li>
                             </ul>
                         </div>
                         <div id="login" class="col l12">
@@ -180,7 +180,7 @@
                                                         <div class="row">
                                                             <div class="col s3 l2 m-t-20 m-l-20">
                                                             </div>
-                                                            <div id="phone-err" class="col s8 l9 err">
+                                                            <div id="phone-err" class="col s8 l9 err m-l-20">
 
                                                             </div>
                                                         </div>
@@ -229,7 +229,7 @@
                                                         <div class="row">
                                                             <div class="col s3 l2 m-t-20 m-l-20">
                                                             </div>
-                                                            <div id="email-err" class="col s8 l9 err">
+                                                            <div id="email-err" class="col s8 l9 err m-l-20">
 
                                                             </div>
                                                         </div>
@@ -391,7 +391,7 @@
 
         function getDis() {
             var emp = {
-                id : document.getElementById('province').value
+                id: document.getElementById('province').value
             };
             $.ajax({
                 url: "/LoginCustomer/GetDis",
@@ -478,8 +478,8 @@
                 $('#checkboxphone').show();
                 document.getElementById('phonecheck').value = 0;
             } else {
-                $('#checkboxphone').hide();
-                document.getElementById('phonecheck').value = 1;
+                    $('#checkboxphone').hide();
+                    document.getElementById('phonecheck').value = 1;
             }
         }
         function chen2() {
@@ -487,8 +487,8 @@
                 $('#checkboxemail').show();
                 document.getElementById('emailcheck').value = 0;
             } else {
-                $('#checkboxemail').hide();
-                document.getElementById('emailcheck').value = 1;
+                    $('#checkboxemail').hide();
+                    document.getElementById('emailcheck').value = 1;
             }
         }
         //$("#btn_login").click(function () {
@@ -519,6 +519,7 @@
 
 
         function valid() {
+            $('#messe').text('');
             $('#name-err').text('');
             $('#phone-err').text('');
             $('#validCodePhone-err').text('');
@@ -559,7 +560,7 @@
                     return false;
                 }
 
-                if (validCodePhone.length <= 5) {
+                if (validCodePhone.length != 6) {
 
                     $('#validCodePhone-err').text('Mã xác thực không đúng');
                     return false;
@@ -577,7 +578,7 @@
                     return false;
                 }
 
-                if (validCodeEmail.length <= 5) {
+                if (validCodeEmail.length != 6) {
 
                     $('#validCodeEmail-err').text('Mã xác thực không đúng');
                     return false;
