@@ -33,10 +33,11 @@
                             <label class="col l4 m4 p-t-10 s12 normal-size">Tỉnh/Thành phố:</label>
                             <div class="col l6 m6 s12">
                                 <select tabindex="-1" id="item1">
+                                    <option selected value="0">Tất cả</option>
                                     @{
                                         foreach (var item in ViewBag.listPro)
                                         {
-                                            <option value="@item.PostalProvinceCode" selected>@item.PostalProvinceName</option>
+                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     }
                                 </select>
@@ -160,7 +161,117 @@
 
 
             </div>
+            @using (Html.BeginForm("ChangeMonth", "DisplayStatisticChart", FormMethod.Post, new
+            {
+                id = "form4",
+                enctype = "multipart/form-data",
+                onSubmit = "return SubmitFormMonth(this);",
+                data_restUrl = Url.Action("ChangeMonth", "DisplayStatisticChart")
+            }))
+            {
+                <input type="hidden" id="provine_chm" name="provine" />
+                <input type="hidden" id="district_c_chm" name="district" />
+                <input type="hidden" id="hcc_chm" name="hcc" />
+                <input type="hidden" id="profile_chm" name="profile" />
+                <input name="year" type='hidden' readonly id="hiddenyear" />
+                <input name="month" type='hidden' readonly id="hiddenmonth" />
+            }
+            <div class="card-content">
+                <h3 class="font-medium">Thống kê theo năm, theo tháng</h3>
+                <div class="card-content">
+                    @using (Html.BeginForm("ChangeYear", "DisplayStatisticChart", FormMethod.Post, new
+                    {
+                        id = "form3",
+                        enctype = "multipart/form-data",
+                        onSubmit = "return SubmitFormYear(this);",
+                        data_restUrl = Url.Action("ChangeYear", "DisplayStatisticChart")
+                    }))
+                    {
+                        <input type="hidden" id="provine_chy" name="provine" />
+                        <input type="hidden" id="district_c_chy" name="district" />
+                        <input type="hidden" id="hcc_chy" name="hcc" />
+                        <input type="hidden" id="profile_chy" name="profile" />
+                        <div class="row">
+                            <label class="col l1 m4 p-t-10 s12">Chọn năm:</label>
+                            <div class="col l6 m6 s12 datepicker-calendar-container row">
+                                <input name="year" type='text' readonly id="dateyear"
+                                       class="col s10 l10 datepicker-here form-control date1" autocomplete="off"
+                                       data-language='vi' value="2019" data-view="years" data-date-format="yyyy" data-min-view="years" />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
 
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col l4 m6 s12">
+                            <div class="card danger-gradient card-hover">
+                                <div class="card-content">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
+                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_cho</h2>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--=============================-->
+                        <div class="col l4 m6 s12">
+                            <div class="card info-gradient card-hover">
+                                <div class="card-content">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
+                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_da</h2>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--=============================-->
+
+                        <div class="col l4 m6 s12">
+                            <div class="card warning-gradient card-hover">
+                                <div class="card-content">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h6 class="white-text">Số hồ sơ đã xử lý</h6>
+                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_xong</h2>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cyear" class="col l12">
+                    <div class="card">
+                        <div class="card-content analytics-info">
+                            <div id="basic-bar" style="height:400px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l12">
+
+                </div>
+                <div id="cmonth" class="col l12">
+                    <div class="card">
+                        <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">arrow_back</i>
+                        <a id="back" class="col l1 m4 p-t-10 s12" style="margin-top:2px; color:black">Trở lại</a>
+                        <div class="card-content analytics-info">
+                            <div id="basic-bar-month" style="height:400px"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div></div>
             <div class="card-content">
                 <h3 class="font-medium">So sánh thống kê trong 2 khoảng thời gian</h3>
@@ -275,7 +386,7 @@
                     <div class="card">
                         <div class="card-content analytics-info">
 
-                            <div id="basic-bar" style="height:400px;"></div>
+                            <div id="basic-bar-2time" style="height:400px;"></div>
                         </div>
                     </div>
                 </div>
@@ -384,12 +495,45 @@
     </div>
 </div>
 <script>
+    var xong, chua, da;
+    var xongm, chuam, dam;
+    function year() {
+        var temp = "@ViewBag.list_xong";
+        temp = temp.split("&quot;").join("");
+        temp = temp.split("[").join("");
+        temp = temp.split("]").join("");
+        temp = temp.split("}").join("");
+        temp = temp.split("{").join("");
+        temp = temp.split("sum:").join("");
+        xong = temp.split(",");
+
+        temp = "@ViewBag.list_da";
+        temp = temp.split("&quot;").join("");
+        temp = temp.split("[").join("");
+        temp = temp.split("]").join("");
+        temp = temp.split("}").join("");
+        temp = temp.split("{").join("");
+        temp = temp.split("sum:").join("");
+        da = temp.split(",");
+
+        temp = "@ViewBag.list_chua";
+        temp = temp.split("&quot;").join("");
+        temp = temp.split("[").join("");
+        temp = temp.split("]").join("");
+        temp = temp.split("}").join("");
+        temp = temp.split("{").join("");
+        temp = temp.split("sum:").join("");
+        chua = temp.split(",");
+    }
     var d1; var d2;
     var cho1; var cho2;
     var da1; var da2;
     var xong1; var xong2;
 
+
     $(document).ready(function () {
+
+        year();
         $('.datepicker-inline').hide();
         var d = '@ViewBag.date';
         $('#start1').val(d);
@@ -410,13 +554,20 @@
 
         getValue();
         update();
+        chartYear();
+        chartMonth();
+        $("#cmonth").hide();
     });
 
-
+    $("#back").click(function () {
+        $("#cmonth").hide();
+        $("#cyear").show();
+    });
 </script>
-<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>    
+<script src="~/CustomJS/Document/bar.js"></script>
+<script src="~/CustomJS/Document/barMonth.js"></script>
+<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>
 <script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
-
 @*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@
 
 <!-- ============================================================== -->
