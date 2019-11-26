@@ -15,7 +15,7 @@
             },
             success: function (response) {
                 $('#item2').empty();
-                var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                var option = "<option value='0' selected>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
@@ -45,7 +45,7 @@
             },
             success: function (response) {
                 $('#item3').empty();
-                var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
+                var option = "<option value='0' selected>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
@@ -75,7 +75,7 @@
             },
             success: function (response) {
                 $('#item4').empty();
-                var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
+                var option = "<option value='0' selected>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
