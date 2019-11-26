@@ -6434,6 +6434,7 @@
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
+    <Content Include="Views\Shared\AdminLoginPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

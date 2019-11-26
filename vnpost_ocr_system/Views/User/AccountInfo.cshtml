@@ -179,7 +179,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="dis_temp"/>
+    <input type="hidden" id="dis_temp" />
 </div>
 
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
@@ -230,8 +230,11 @@
                 });
                 $('#dis_cus').append(string);
                 $('#dis_cus').formSelect();
-                document.getElementById('dis_cus').value = document.getElementById('dis_temp').value;
-                $('#dis_cus').formSelect();
+                if (document.getElementById('dis_temp').value != '') {
+                    document.getElementById('dis_cus').value = document.getElementById('dis_temp').value;
+                    $('#dis_cus').formSelect();
+                }
+                document.getElementById('dis_temp').value = '';
             },
             error: function (errormessage) {
             }
@@ -318,7 +321,8 @@
             gender: check,
             oldpass: document.getElementById('oldpass').value,
             newpass: document.getElementById('newpass').value,
-            repass: document.getElementById('repass').value
+            repass: document.getElementById('repass').value,
+            dis  : document.getElementById('dis_cus').value,
         };
         $.ajax({
             url: "/AccountInfo/Update",
