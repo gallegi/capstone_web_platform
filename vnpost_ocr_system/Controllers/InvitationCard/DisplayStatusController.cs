@@ -20,12 +20,13 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             {
                 SearchStatusController ssc = new SearchStatusController();
                 ssc.getMess("Phải đăng nhập trước");
-                return Redirect("/giay-hen/tim-giay-hen");
+                //return Redirect("/giay-hen/tim-giay-hen");
             }
             else
             {
-                return View("/Views/InvitationCard/DisplayStatus.cshtml");
+                //return View("/Views/InvitationCard/DisplayStatus.cshtml");
             }
+            return Redirect("/giay-hen/tim-giay-hen");
 
         }
 
