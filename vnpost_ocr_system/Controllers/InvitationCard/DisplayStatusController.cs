@@ -92,7 +92,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                             case "Sat":
                                 item.dayOfWeek = "Thứ bảy";
                                 break;
-                            case "Sub":
+                            case "Sun":
                                 item.dayOfWeek = "Chủ nhật";
                                 break;
                         }

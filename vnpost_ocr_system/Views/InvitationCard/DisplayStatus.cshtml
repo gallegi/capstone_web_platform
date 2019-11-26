@@ -53,7 +53,7 @@
                                                     Đang phát
                                                 </a>
                                             </li>
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
+                                            <li id="step5" role="tab" class="myStep" aria-disabled="false" aria-selected="true">
                                                 <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
                                                     <span class="current-info audible">current step:</span><span class="step">5</span>
                                                     Đã phát thành công
@@ -613,6 +613,7 @@
             if (index < @ViewBag.order.step) $(this).addClass("done");
             if (index == @ViewBag.order.step) $(this).addClass("current");
         });
+        if(@ViewBag.order.step == 4) $('#step5').addClass("done");
         jQuery('.form-wrapper').hide();
 
         jQuery(".show-form").click(function () {
