@@ -5546,6 +5546,7 @@
     <Content Include="assets\uploader\icon.png" />
     <Content Include="assets\uploader\icons.min.css" />
     <Content Include="assets\uploader\style_uploader.css" />
+    <Content Include="assets\uploader\webcam.min.js" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -6436,6 +6437,8 @@
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
+    <Content Include="Views\MobileView\InvitationCard\InputInformationScreen21.cshtml" />
+    <Content Include="Views\MobileView\InvitationCard\SearchStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

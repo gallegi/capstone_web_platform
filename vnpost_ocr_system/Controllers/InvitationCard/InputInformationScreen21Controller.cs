@@ -31,8 +31,15 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 List<PersonalPaperType> papertypes = db.PersonalPaperTypes.ToList();
                 ViewBag.papertypes = papertypes;
             }
-
-            return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/InvitationCard/InputInformationScreen21.cshtml");
+            }
+            else
+            {
+                return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
+            }
+            
         }
         [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
