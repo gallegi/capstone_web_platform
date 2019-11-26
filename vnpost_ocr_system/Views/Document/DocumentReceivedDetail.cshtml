@@ -72,7 +72,7 @@
                                 <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
                                 foreach (var x in item.listOrder)
                                 {
-                                    <div class="line">@x.hour @x.Note</div>
+                                    <div class="line">@x.hour: @if (x.Note != null) { @x.Note; } else { @x.StatusName; }</div>
                                 }
                             }
                         }
