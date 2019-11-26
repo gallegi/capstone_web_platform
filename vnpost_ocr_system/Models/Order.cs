@@ -17,6 +17,7 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
+            this.OrderImages = new HashSet<OrderImage>();
             this.OrderStatusDetails = new HashSet<OrderStatusDetail>();
             this.Payments = new HashSet<Payment>();
         }
@@ -27,7 +28,6 @@ namespace vnpost_ocr_system.Models
         public Nullable<System.DateTime> ShipDate { get; set; }
         public int ProfileID { get; set; }
         public string AppointmentLetterCode { get; set; }
-        public string AppointLetterImageLink { get; set; }
         public string ProcedurerFullName { get; set; }
         public string ProcedurerPhone { get; set; }
         public string ProcedurerPostalDistrictCode { get; set; }
@@ -47,7 +47,7 @@ namespace vnpost_ocr_system.Models
         public string OrderNote { get; set; }
         public Nullable<double> Amount { get; set; }
         public string TotalAmountInWords { get; set; }
-        public int StatusID { get; set; }
+        public Nullable<int> StatusID { get; set; }
         public string ItemCode { get; set; }
         public Nullable<long> ProcessedBy { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
@@ -62,6 +62,8 @@ namespace vnpost_ocr_system.Models
         public virtual PersonalPaperType PersonalPaperType { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Status Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderImage> OrderImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderStatusDetail> OrderStatusDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
