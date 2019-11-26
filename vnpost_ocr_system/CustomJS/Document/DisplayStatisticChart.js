@@ -56,6 +56,121 @@ function SubmitForm2(form) {
 
     return false;
 }
+function SubmitFormYear(form) {
+    $("#pre-load").show("slow", function () { });
+    $("#pre-load").css("z-index", "99999");
+    $("#pre-load").show();
+
+    $.validator.unobtrusive.parse(form);
+
+    if ($(form).valid()) {
+        $.ajax({
+            type: "POST",
+            url: form.action,
+            data: $(form).serialize(),
+            success: function (response) {
+                //alert(temp);
+                var temp = response.cxong;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                xong = temp.split(",");
+
+                temp = response.cda;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                da = temp.split(",");
+
+                temp = response.cchua;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                chua = temp.split(",");
+
+
+                chartYear();
+                $("#pre-load").hide("slow", function () {
+                });
+
+            }
+        });
+    }
+
+    return false;
+}
+function SubmitFormMonth(form) {
+    $("#pre-load").show("slow", function () { });
+    $("#pre-load").css("z-index", "99999");
+    $("#pre-load").show();
+
+    $.validator.unobtrusive.parse(form);
+
+    if ($(form).valid()) {
+        $.ajax({
+            type: "POST",
+            url: form.action,
+            data: $(form).serialize(),
+            success: function (response) {
+                var temp = response.cxong;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                xongm = temp.split(",");
+
+                temp = response.cda;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                dam = temp.split(",");
+
+                temp = response.cchua;
+                temp = temp.split("&quot;").join("");
+                temp = temp.split("[").join("");
+                temp = temp.split("]").join("");
+                temp = temp.split("}").join("");
+                temp = temp.split("{").join("");
+                temp = temp.split("sum").join("");
+                temp = temp.split(":").join("");
+                temp = temp.split("\"").join("");
+                chuam = temp.split(",");
+
+                chartMonth();
+
+                $("#pre-load").hide("slow", function () {
+                });
+
+            }
+        });
+    }
+
+    return false;
+}
 function SubmitFormAll(form) {
     $("#pre-load").show("slow", function () { });
     $("#pre-load").css("z-index", "99999");
@@ -111,6 +226,22 @@ function change2() {
     }
 }
 
+function change3() {
+    var job_start_date = $('#start2').val();
+    var job_end_date = $('#end2').val();
+    job_start_date = job_start_date.split('/');
+    job_end_date = job_end_date.split('/');
+
+    var new_start_date = new Date(job_start_date[2], job_start_date[1], job_start_date[0]);
+    var new_end_date = new Date(job_end_date[2], job_end_date[1], job_end_date[0]);
+
+    if (new_start_date > new_end_date) {
+        alert("Khoảng thời gian không tồn tại.");
+    } else {
+        $('#form2').submit();
+    }
+}
+
 $(".date1").datepicker({
     onSelect: function () {
         //alert("absd");
@@ -148,6 +279,16 @@ $(".date2").datepicker({
 
     }
 });
+$("#dateyear").datepicker({
+    onSelect: function () {
+        $('#hiddenyear').val($("#dateyear").val());
+        $("#cmonth").hide();
+        $("#cyear").show();
+        $('#form3').submit();
+
+
+    }
+});
 function getValue() {
     d1 = $('#talbe').find('tr:eq(2)').find('td:eq(0)').text();
     d2 = $('#talbe').find('tr:eq(3)').find('td:eq(0)').text();
@@ -168,7 +309,7 @@ function update() {
     // Basic bar chart
     // ------------------------------
     // based on prepared DOM, initialize echarts instance
-    var myChart = echarts.init(document.getElementById('basic-bar'));
+    var myChart = echarts.init(document.getElementById('basic-bar-2time'));
 
     // specify chart configuration item and data
     var option = {

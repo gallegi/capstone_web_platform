@@ -15,7 +15,7 @@
             },
             success: function (response) {
                 $('#item2').empty();
-                var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                var option = "<option value='Tất cả' selected>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
@@ -31,9 +31,14 @@
         $('#provine').val(text);
         $('#provine_ch1').val(text);
         $('#provine_ch2').val(text);
+        $('#provine_chy').val(text);
+        $('#provine_chm').val(text);
         $('#formall').submit();
         change1();
         change2();
+        $('#form3').submit();
+        $("#cmonth").hide();
+        $("#cyear").show();
     })
 
     $('#item2').change(function () {
@@ -51,7 +56,7 @@
             },
             success: function (response) {
                 $('#item3').empty();
-                var option = "<option value='Tên CQHC' selected disabled>Tên CQHC</option>";
+                var option = "<option value='Tất cả' selected disabled>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
@@ -67,9 +72,14 @@
         $('#district_c').val(text);
         $('#district_c_ch1').val(text);
         $('#district_c_ch2').val(text);
+        $('#district_c_chy').val(text);
+        $('#district_c_chm').val(text);
         $('#formall').submit();
         change1();
         change2();
+        $('#form3').submit();
+        $("#cmonth").hide();
+        $("#cyear").show();
     })
 
     $('#item3').change(function () {
@@ -87,7 +97,7 @@
             },
             success: function (response) {
                 $('#item4').empty();
-                var option = "<option value='Tên thủ tục' selected disabled>Tên thủ tục</option>";
+                var option = "<option value='Tất cả' selected disabled>Tất cả</option>";
                 for (var i = 0; i < response.length; i++) {
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
@@ -102,9 +112,14 @@
         $('#hcc').val(text);
         $('#hcc_ch1').val(text);
         $('#hcc_ch2').val(text);
+        $('#hcc_chy').val(text);
+        $('#hcc_chm').val(text);
         $('#formall').submit();
         change1();
         change2();
+        $('#form3').submit();
+        $("#cmonth").hide();
+        $("#cyear").show();
     })
 
     $('#item4').change(function () {
@@ -114,9 +129,14 @@
         $('#profile').val(text);
         $('#profile_ch1').val(text);
         $('#profile_ch2').val(text);
+        $('#profile_chy').val(text);
+        $('#profile_chm').val(text);
         $('#formall').submit();
         change1();
         change2();
+        $('#form3').submit();
+        $("#cmonth").hide();
+        $("#cyear").show();
     })
 });
 
