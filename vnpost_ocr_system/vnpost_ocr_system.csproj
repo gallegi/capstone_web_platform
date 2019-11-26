@@ -170,7 +170,6 @@
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
-    <Compile Include="Controllers\InvitationCard\DisplayCodeController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
     <Compile Include="Controllers\InvitationCard\InputReceiverInformationController.cs" />
@@ -217,6 +216,7 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -246,6 +246,9 @@
     <Compile Include="Models\OrderByDay.cs" />
     <Compile Include="Models\OrderDashBorad.cs" />
     <Compile Include="Models\orderDB.cs" />
+    <Compile Include="Models\OrderImage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OrderStatusDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -5548,6 +5551,7 @@
     <Content Include="assets\uploader\icon.png" />
     <Content Include="assets\uploader\icons.min.css" />
     <Content Include="assets\uploader\style_uploader.css" />
+    <Content Include="assets\uploader\webcam.min.js" />
     <Content Include="Content\BankLogo\1.png" />
     <Content Include="Content\BankLogo\10.png" />
     <Content Include="Content\BankLogo\11.png" />
@@ -5682,6 +5686,8 @@
     <Content Include="CustomJS\datepicker_src\tests\specs\events.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\options.js" />
     <Content Include="CustomJS\datepicker_src\tests\specs\static-methods.js" />
+    <Content Include="CustomJS\Document\barMonth.js" />
+    <Content Include="CustomJS\Document\bar.js" />
     <Content Include="CustomJS\Document\CustomDisplayStatisticChartWithSubmit.js" />
     <Content Include="CustomJS\Document\CustomDisplayStatisticChart.js" />
     <Content Include="CustomJS\InputInfo.js" />
@@ -6368,6 +6374,7 @@
     <Content Include="CustomJS\datepicker_src\src\sass\_datepicker-config.scss" />
     <Content Include="assets\materialize\LICENSE" />
     <Content Include="assets\materialize\README.md" />
+    <Content Include="assets\uploader\icons.min.css.map" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -6442,9 +6449,13 @@
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
+    <Content Include="Views\Shared\AdminLoginPage.cshtml" />
+    <Content Include="Views\MobileView\InvitationCard\InputInformationScreen21.cshtml" />
+    <Content Include="Views\MobileView\InvitationCard\SearchStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\AccountInfo\" />
     <Folder Include="Views\AddAPI\" />

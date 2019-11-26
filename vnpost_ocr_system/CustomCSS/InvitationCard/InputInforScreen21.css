@@ -1,4 +1,4 @@
-﻿.ordercode{
+.ordercode{
     
     padding-top: 2%;
     padding-right: 2%;
@@ -116,5 +116,5 @@ input.select-dropdown{
     font-size: 15px !important;
 }
 .btn{
-    display: block !important;
+    /* display: block !important; */
 }
