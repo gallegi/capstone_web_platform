@@ -182,14 +182,14 @@
         <div class="card">
             <div class="card-content wizard-content">
                 <h2 class="card-title center">Tạo giấy hẹn mới</h2>
-                <form action="/giay-hen/ma-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
+                <form action="/giay-hen/trang-thai-giay-hen" id="myform" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Thông tin thủ tục</h6>
                     <section>
                         <div class="row">
                             <div class="col m6">
                                 <div class="input-field col s12">
-                                    <select id="item1" name="types">
+                                    <select id="item1">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
                                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -198,7 +198,7 @@
                                     <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select id="item2" name="types"></select>
+                                    <select id="item2"></select>
                                     <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
@@ -231,7 +231,6 @@
                                     <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
                                 </div>
                                 <input type="file" id="img-chooser-file" onchange="readURL(this);" class="img-input" hidden>
-                                @*<input type="file" accept="image/*" capture="capture">*@
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
                                 </div>
@@ -562,6 +561,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label class="summary-label">Nơi cấp: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ProcedurerPersonalPaperIssuedPlace"></label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-content col s12">
                                     <h4 class="font-medium">Thông tin người gửi</h4>
@@ -653,7 +664,7 @@
                                             </div>
                                         </div>
                                         <div class="col s12">
-                                            <textarea name="OrderNote"></textarea>
+                                            <textarea id="OrderNote"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -669,20 +680,20 @@
                                 <div class="card card-shadow p-20 resize-card">
                                     <div>
                                         <label>
-                                            <input name="group1" id="r1" type="radio" checked />
+                                            <input id="r1" type="radio" checked />
                                             <span>Thanh toán tiền mặt khi nhận hàng</span>
                                         </label>
                                         <label>
-                                            <input name="group1" id="r2" type="radio" disabled />
+                                            <input id="r2" type="radio" disabled />
                                             <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
                                         </label>
                                         <label>
-                                            <input name="group1" id="r3" type="radio" disabled />
+                                            <input id="r3" type="radio" disabled />
                                             <span>Thẻ ATM nội địa/Internet Banking</span>
                                         </label>
                                     </div>
 
-                                    <div class="bank-list">
+                                    @*<div class="bank-list">
                                         <div class="row m-t-20">
                                             <div class="col s6 l3 m2">
                                                 <img src="~/Content/BankLogo/1.png" />
@@ -777,7 +788,7 @@
                                         </div>
 
 
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
 
@@ -813,14 +824,10 @@
 
                                     </div>
                                 </div>
-
-                                @* Button *@
-                                <div class="row d-flex justify-content-end m-t-40">
-                                    <a href="/giay-hen/ma-giay-hen" class="waves-effect waves-light btn blue ju">Tiếp tục</a>
-                                </div>
                             </div>
                         </div>
                     </section>
+                    <input name="id_raw" id="id_raw" readonly hidden />
                 </form>
             </div>
         </div>
@@ -1196,8 +1203,12 @@
             success: function (response) {
                 if (response.success) {
                     if (response.add) {
-                        $('section:not([style*="display: none"]) .row').children('p').remove()
-                        $('section:not([style*="display: none"]) .row').append(response.html)
+                        for (var i = 2; i < 5; i++) {
+                            $('section:nth-child(' + i * 2 + ') .row').children('p').remove()
+                            $('section:nth-child(' + i * 2 + ') .row').append(response.html[i - 2])
+                        }
+                        //$('section:not([style*="display: none"]) .row').children('p').remove()
+                        //$('section:not([style*="display: none"]) .row').append(response.html)
                     }
                     else {
                         $(contact).find('#FullName').text($('#name_edit').val())
@@ -1212,10 +1223,10 @@
                         $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
                     }
                     $('#close-modal').click();
-                    alert(response.message);
+                    successAlert(response.message);
                 }
                 else
-                    alert(response.message)
+                    errorAlert(response.message)
                 $('#pre-load').hide()
             },
             error: function () {
@@ -1226,6 +1237,11 @@
 
     $(document).on("click", "#profile1", function () {
         var Adminprofile = $(this).closest('#contact1');
+        if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == ""
+            || Adminprofile.find('#PersonalPaperIssuedDate').text() == "" || Adminprofile.find('#PersonalPaperIssuedPlace').text() == "") {
+            toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
+            return;
+        }
         $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
@@ -1311,6 +1327,7 @@
             return true;
         },
         onFinishing: function (event, currentIndex) {
+            $('#pre-load').show();
             data.append("ProfileID", $('#item4').val());
             data.append("AppointmentLetterCode", $('#item5').val());
             data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
@@ -1325,7 +1342,7 @@
             data.append("ReceiverFullName", $('.ReceiverFullName').text());
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
             data.append("ReceiverStreet", $('.ReceiverStreet').text());
-            data.append("OrderNote", $('#OrderNote').text());
+            data.append("OrderNote", $('#OrderNote').val());
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",
@@ -1333,6 +1350,12 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    if (response.success) {
+                        $('#id_raw').val(response.data)
+                        $('#myform').submit();
+                    }
+                    else
+                        errorAlert(response.message)
                 }
             });
             //return form.submit();
@@ -1490,8 +1513,18 @@ Dropzone.options.myAwesomeDropzone = {
                     .attr('src', e.target.result)
                     .width('100%')
                     .height('100%');
+                var base64String = e.target.result;
+                var image = new Image();
+                image.src = base64String;
+                $('#img').empty();
+                $('#img').append(image);
+                $('#img').children().width("100%")
             };
             reader.readAsDataURL(input.files[0]);
+            data.delete("img")
+            data.delete("imgName")
+            data.append("img", input.files[0]);
+            data.append("imgName", input.files[0].name)
         }
     }
 </script>
