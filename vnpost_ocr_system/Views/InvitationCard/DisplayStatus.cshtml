@@ -74,7 +74,7 @@
                                 <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
                                 foreach (var x in item.listOrder)
                                 {
-                                    <div class="line">@x.hour @x.Note</div>
+                                    <div class="line">@x.hour: @x.display</div>
                                 }
                             }
                         }
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="detail">
         <div class="col s12">
             <div class="card">
                 <form class="h-form b-form">
@@ -609,6 +609,9 @@
 
 <script>
     $(document).ready(function () {
+        var ck = @ViewBag.ck;
+        if (ck == 1) $('#detail').hide();
+        else $('#detail').show();
         $('.myStep').each(function (index) {
             if (index < @ViewBag.order.step) $(this).addClass("done");
             if (index == @ViewBag.order.step) $(this).addClass("current");

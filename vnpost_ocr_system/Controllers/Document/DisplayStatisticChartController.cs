@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -17,28 +18,33 @@ namespace vnpost_ocr_system.Controllers.Document
         string profile_ori = "";
         public void load()
         {
+            string year = DateTime.Now.ToString("yyyy");
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             string sql = "select distinct * from Province order by PostalProvinceName";
             List<Province> listPro = db.Database.SqlQuery<Province>(sql).ToList();
             ViewBag.listPro = listPro;
-
-            sql = "select distinct " +
-               "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
-               "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
-               "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
-               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
-               "inner join PostOffice po on pa.PosCode = po.PosCode " +
-               "inner join District  d on po.DistrictCode = d.DistrictCode " +
-               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+            sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
+                "from(select a.date, " +
+               "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
+               "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
+               "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
+               "from " +
+               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+               " inner join PostOffice po on pa.PosCode = po.PosCode " +
+               " inner join District  d on po.DistrictCode = d.DistrictCode " +
+               " inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               " inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
                "where year(os.CreatedTime) = year(getdate()) and month(os.CreatedTime) = month(getdate()) and day(os.CreatedTime) = day(getdate()) AND ";
-            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
-            sql = sql.Substring(0, sql.Length - 5); 
+            //"where year(os.CreatedTime) = 2017 and month(os.CreatedTime) = 4 and day(os.CreatedTime) = 26 AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " ) a group by a.date) a";
             odb = db.Database.SqlQuery<OrderDashBorad>(sql
                 , new SqlParameter("pro", provine_ori)
                 , new SqlParameter("dis", district_ori)
@@ -54,22 +60,26 @@ namespace vnpost_ocr_system.Controllers.Document
             string[] data = date.Split('/');
             string start = data[2] + "/" + data[1] + "/" + data[0];
             string end = data[2] + "/" + data[1] + "/" + data[0];
-            sql = "select distinct " +
-               "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
-               "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
-               "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
-               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
-               "inner join PostOffice po on pa.PosCode = po.PosCode " +
-               "inner join District  d on po.DistrictCode = d.DistrictCode " +
-               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-               "where os.CreatedTime between @start and @end AND ";
-            if (provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
+                "from(select a.date, " +
+               "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
+               "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
+               "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
+               "from " +
+               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+               " inner join PostOffice po on pa.PosCode = po.PosCode " +
+               " inner join District  d on po.DistrictCode = d.DistrictCode " +
+               " inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               " inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               " where os.CreatedTime between @start and @end AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
+            sql += " ) a group by a.date) a";
             odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
                 , new SqlParameter("pro", provine_ori)
                 , new SqlParameter("dis", district_ori)
@@ -77,6 +87,72 @@ namespace vnpost_ocr_system.Controllers.Document
                 , new SqlParameter("file", profile_ori)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             ViewBag.detail = odb;
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = 5 and year(os.CreatedTime) = @year AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_xong = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).ToList();
+            string xong = JsonConvert.SerializeObject(list_xong);
+            ViewBag.list_xong = xong;
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = -2 and year(os.CreatedTime) = @year AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_da = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).ToList();
+            string da = JsonConvert.SerializeObject(list_da);
+            ViewBag.list_da = da;
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = -3 and year(os.CreatedTime) = @year AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_chua = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).ToList();
+            string chua = JsonConvert.SerializeObject(list_chua);
+            ViewBag.list_chua = chua;
         }
 
         // GET: DisplayStatisticChart
@@ -86,6 +162,153 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             load();
             return View("/Views/Document/DisplayStatisticChart.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult ChangeYear(string year, string provine, string district, string hcc, string profile)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            string date = DateTime.Now.ToString("yyyy");
+            if (year == "") year = date;
+
+            string sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = 5 and year(os.CreatedTime) = @year AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_xong = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string xong = JsonConvert.SerializeObject(list_xong);
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = -2 and year(os.CreatedTime) = @year AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_da = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string da = JsonConvert.SerializeObject(list_da);
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = -3 and year(os.CreatedTime) = @year AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime) ";
+            List<DataChart> list_chua = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string chua = JsonConvert.SerializeObject(list_chua);
+
+            return Json(new { success = true, cxong = xong, cda = da, cchua = chua }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeMonth(string year, string month, string provine, string district, string hcc, string profile)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            string date = DateTime.Now.ToString("yyyy");
+            if (year == "") year = date;
+            date = DateTime.Now.ToString("MM");
+            if (month == "") month = date;
+            string sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = 5 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime), DAY(os.CreatedTime) ";
+            List<DataChart> list_xong = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year), new SqlParameter("month",month)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string xong = JsonConvert.SerializeObject(list_xong);
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = 5 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime), DAY(os.CreatedTime) ";
+            List<DataChart> list_da = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year), new SqlParameter("month", month)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string da = JsonConvert.SerializeObject(list_da);
+
+            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
+                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "inner join Profile p on o.ProfileID = p.ProfileID " +
+                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                "inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "inner join District  d on po.DistrictCode = d.DistrictCode " +
+                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                "where o.StatusID = 5 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime), DAY(os.CreatedTime) ";
+            List<DataChart> list_chua = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year), new SqlParameter("month", month)
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).ToList();
+            string chua = JsonConvert.SerializeObject(list_chua);
+
+            return Json(new { success = true, cxong = xong, cda = da, cchua = chua }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -101,22 +324,26 @@ namespace vnpost_ocr_system.Controllers.Document
             start = data[2] + "/" + data[1] + "/" + data[0];
             data = end.Split('/');
             end = data[2] + "/" + data[1] + "/" + data[0];
-            string sql = "select distinct " +
-               "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
-               "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
-               "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
-               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
-               "inner join PostOffice po on pa.PosCode = po.PosCode " +
-               "inner join District  d on po.DistrictCode = d.DistrictCode " +
-               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-               "where os.CreatedTime between @start and @end AND ";
-            if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile != "") sql += "p.ProfileName  = @file and ";
+            string sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
+                "from(select a.date, " +
+               "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
+               "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
+               "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
+               "from " +
+               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+               " inner join PostOffice po on pa.PosCode = po.PosCode " +
+               " inner join District  d on po.DistrictCode = d.DistrictCode " +
+               " inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               " inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               " where os.CreatedTime between @start and @end AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
+            sql += " ) a group by a.date) a";
             odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
                 , new SqlParameter("pro", provine)
                 , new SqlParameter("dis", district)
@@ -139,22 +366,26 @@ namespace vnpost_ocr_system.Controllers.Document
             start = data[2] + "/" + data[1] + "/" + data[0];
             data = end.Split('/');
             end = data[2] + "/" + data[1] + "/" + data[0];
-            string sql = "select distinct " +
-               "(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
-               "(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
-               "(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-               "from [Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
-               "inner join PublicAdministration pa on p.PublicAdministrationLocationID  = pa.PublicAdministrationLocationID " +
-               "inner join PostOffice po on pa.PosCode = po.PosCode " +
-               "inner join District  d on po.DistrictCode = d.DistrictCode " +
-               "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-               "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-               "where os.CreatedTime between @start and @end AND ";
-            if (provine != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile != "") sql += "p.ProfileName  = @file and ";
+            string sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
+                "from(select a.date, " +
+               "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
+               "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
+               "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
+               "from " +
+               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
+               " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+               " inner join PostOffice po on pa.PosCode = po.PosCode " +
+               " inner join District  d on po.DistrictCode = d.DistrictCode " +
+               " inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+               " inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+               " where os.CreatedTime between @start and @end AND ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
+            sql += " ) a group by a.date) a";
             odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("start", start), new SqlParameter("end", end)
                 , new SqlParameter("pro", provine)
                 , new SqlParameter("dis", district)
