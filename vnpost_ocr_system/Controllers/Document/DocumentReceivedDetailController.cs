@@ -11,6 +11,7 @@ namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentReceivedDetailController : Controller
     {
+
         // GET: DocumentReceivedDetail
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-da-nhan/chi-tiet")]
@@ -19,10 +20,10 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             int id = Convert.ToInt32(id_raw);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail  order by y,m,d desc";
-            List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query).ToList();
-            query = "select *,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail  order by y,m,d desc";
-            List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query).ToList();
+            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail where OrderID = @id  order by y,m,d desc";
+            List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", id)).ToList();
+            query = "select osd.*,YEAR(osd.CreatedTime) as 'y', MONTH(osd.CreatedTime) as 'm', DAY(osd.CreatedTime) as 'd', s.StatusName from OrderStatusDetail osd join Status s on osd.StatusID = s.StatusID where OrderID = @id order by y,m,d desc";
+            List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", id)).ToList();
             foreach (var item in list)
             {
                 item.listOrder = new List<MyOrderDetail>();
@@ -31,6 +32,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     x.hour = x.CreatedTime.ToString("HH:MM");
                     if (x.y == item.y && x.m == item.m && x.d == item.d)
                     {
+                        item.StatusID = x.StatusID;
                         item.listOrder.Add(x);
                         item.dayOfWeek = x.CreatedTime.ToString("ddd");
                     }
@@ -63,15 +65,15 @@ namespace vnpost_ocr_system.Controllers.Document
             ViewBag.list = list;
 
 
-            string sql = "select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', st.StatusName " +
-                "from [Order] o inner join Status s on o.StatusID = s.StatusID " +
-                "inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-                "inner join PostOffice p on os.PosCode = p.PosCode " +
-                "inner join PublicAdministration pa on p.PosCode = pa.PosCode " +
-                "inner join District d on d.DistrictCode = p.DistrictCode " +
-                "inner join Profile pr on pa.PublicAdministrationLocationID = pr.PublicAdministrationLocationID and pr.ProfileID = o.ProfileID " +
-                "inner join Status st on o.StatusID = st.StatusID " +
-                "where o.OrderID = @id";
+            string sql = "select distinct o.*,s.StatusName, pa.PublicAdministrationName, pa.Phone, pa.[Address], p.ProfileName, " +
+                        " po.PosName, po.[Address] as 'Address_BC', po.Phone as 'Phone_BC' from[Order] o" +
+                        " left join[Profile] p on o.ProfileID = p.ProfileID" +
+                        " left join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID" +
+                        " left join PostOffice po on pa.PosCode = po.PosCode" +
+                        " left join District d on po.DistrictCode = d.DistrictCode" +
+                        " left join[Status] s on o.StatusID = s.StatusID" +
+                        " left join OrderStatusDetail osd on o.OrderID = osd.OrderID" +
+                        " where o.OrderID = @id";
             orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
             o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
             o.displayAmount = formatAmount(o.Amount);

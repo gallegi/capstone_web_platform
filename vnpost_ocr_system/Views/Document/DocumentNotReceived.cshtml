@@ -38,12 +38,21 @@
                                     <div class="col s8">
                                         <div class="h-form-label">
                                             <select tabindex="-1" class="card-border" id="province">
-                                                <option value="">Tất cả</option>
-                                                @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                @if (ViewBag.proList.Count != 1)
                                                 {
-                                                    <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                                    <option value="">Tất cả</option>
+                                                    foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                    {
+                                                        <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                                    }
                                                 }
-
+                                                else
+                                                {
+                                                    foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                    {
+                                                        <option selected value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                                    }
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -193,7 +202,7 @@
                         <span class="bt-inner-text">In</span>
                     </div>
                 </button>
-                <button class="btn waves-effect waves-light bt-color-common my-bt" type="submit">
+                <button class="btn waves-effect waves-light bt-color-common my-bt" id="excel">
                     <div class="m-0-0 p-0-0 d-flex">
                         <i class="material-icons my-icon">grid_on</i>
                         <span class="bt-inner-text">Kết xuất excel</span>
@@ -233,9 +242,9 @@
 </div>
 
 <script>
-   $(".datepicker-inline").remove();
+    $(".datepicker-inline").remove();
     $(document).ready(function () {
-        
+
         $("#pre-load").show("slow", function () {
         });
         $("#pre-load").css("z-index", "99999");
@@ -359,93 +368,126 @@
 </script>
 <script>
     $(document).ready(function () {
-        $('#province').change(function () {
-            $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetDistrict",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    $('#district').empty();
-                    var option = "<option value=''>Tất cả</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
-                    }
-                    $('#district').append(option);
-                    $('#district').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
-        })
-    })
+        getDistrict();
 
-    $(document).ready(function () {
         $('#district').change(function () {
             $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetAdmins",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    console.log(response)
-                    $('#coQuan').empty();
-                    var option = "<option value=''>Tất cả</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
-                    }
-                    $('#coQuan').append(option);
-                    $('#coQuan').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getAdmins();
         })
-    })
 
-    $(document).ready(function () {
-       
         $('#coQuan').change(function () {
-            $('#pre-load').show()
-            $.ajax({
-                type: "POST",
-                url: "/GetProfile",
-                cache: false,
-                dataType: 'json',
-                data: {
-                    code: $(this).val()
-                },
-                success: function (response) {
-                    console.log(response)
-                    $('#profile').empty();
-                    var option = "<option value=''>Tất cả</option>";
-                    for (var i = 0; i < response.length; i++) {
-                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
-                    }
-                    $('#profile').append(option);
-                    $('#profile').formSelect();
-                    $('#pre-load').hide()
-                },
-                error: function () {
-                    $('#pre-load').hide()
-                }
-            })
+            getProfiles();
+        })
+
+        $('#profile').change(function () {
+            $(".ProfileName").text($(this).find('option:selected').text());
+        })
+
+        $('#item5').change(function () {
+            $('.AppointmentLetterCode').text($(item5).val())
         })
     })
 
+</script>
+<script>
 
+    function getDistrict() {
+        $('#pre-load').show()
+        $('#PostalProvinceName').text($('#province').find("option:selected").text())
+        $.ajax({
+            type: "POST",
+            url: "/GetDistrict",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#province').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#PostalDistrictName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                }
+                $('#district').append(option);
+                $('#district').formSelect();
+                getAdmins()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getAdmins() {
+        $('#pre-load').show()
+        $('#PostalDistrictName').text($('#district').find('option:selected').text());
+        $.ajax({
+            type: "POST",
+            url: "/GetAdmins",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#district').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $("#AdminName").text(response[i].ProfileName)
+                    option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                }
+                $('#coQuan').append(option);
+                $('#coQuan').formSelect();
+                getProfiles();
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getProfiles() {
+        $('#pre-load').show()
+        $("#AdminName").text($('#coQuan').find('option:selected').text());
+        $('#PA_Address').text($('#coQuan').find('option:selected').data("address"))
+        $.ajax({
+            type: "POST",
+            url: "/GetProfile",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#coQuan').val()
+            },
+            success: function (response) {
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (i === 0)
+                        $(".ProfileName").text(response[i].ProfileName)
+                    option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                }
+                $('#profile').append(option);
+                $('#profile').formSelect();
+                $('#pre-load').hide()
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+
+    $("#excel").click(function () {
+        $("#pre-load").show();
+        $.ajax({
+            type: "POST",
+            url: "/ho-so-cho-nhan/excel",
+            cache: false
+        }).done(function () {
+            window.location.href = "/Excel/Download/Ho-so-cho-nhan.xlsx";
+            $("#pre-load").hide();
+        })
+    });
 </script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 @*<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>*@

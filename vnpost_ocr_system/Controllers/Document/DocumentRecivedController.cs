@@ -7,11 +7,16 @@ using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using System.Linq.Dynamic;
 using vnpost_ocr_system.SupportClass;
+using System.Globalization;
+using System.Web.Hosting;
+using System.IO;
+using OfficeOpenXml;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentRecivedController : Controller
     {
+        public static List<recieve> excelList = new List<recieve>();
         // GET: DocumentRecived
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-da-nhan")]
@@ -19,9 +24,18 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                List<Province> proList = db.Provinces.ToList();
+                string address = "";
+                List<Province> proList = new List<Province>();
+                if (Session["adminPro"] != null)
+                {
+                    address = Session["adminPro"].ToString();
+                    proList = db.Provinces.Where(x => x.PostalProvinceCode == address).OrderBy(x => x.PostalProvinceName).ToList();
+                }
+                else
+                {
+                    proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                }
                 ViewBag.proList = proList;
-
             }
             return View("/Views/Document/DocumentRecived.cshtml");
         }
@@ -45,7 +59,8 @@ namespace vnpost_ocr_system.Controllers.Document
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
             string query = "";
-
+            DateTime from = DateTime.Today;
+            DateTime to = DateTime.Today;
             try
             {
                 int start = Convert.ToInt32(Request["start"]);
@@ -54,90 +69,71 @@ namespace vnpost_ocr_system.Controllers.Document
                 string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
                 string sortDirection = Request["order[0][dir]"];
 
-                string[] arrFrom = dateFrom.Split('/');
-                string[] arrTo = dateTo.Split('/');
-
-                string dFrom = "";
-                string dTo = "";
-
-                for (int i = arrFrom.Length -1; i >=0; i--)
+                    query = "select o.*,pro.PostalProvinceName, p.ProfileName, p.PublicAdministrationLocationID,pa.PublicAdministrationName from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
+                            "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                            "join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
+                            "join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
+                            "where o.StatusID = -2";
+                if (!province.Equals(""))
                 {
-                    dFrom += arrFrom[i];
+                    query += " and pro.PostalProvinceCode = @province ";
                 }
-
-                for (int i = arrTo.Length - 1; i >= 0; i--)
+                if (!district.Equals(""))
                 {
-                    dTo += arrTo[i];
+                    query += " and d.PostalDistrictCode = @district ";
                 }
-
+                if (!organ.Equals(""))
+                {
+                    query += " and pa.PublicAdministrationLocationID = @organ ";
+                }
                 if (!profile.Equals(""))
                 {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-"where o.StatusID = 2 and p.ProfileID = @profile";
+                    query += " and p.ProfileID = @profile ";
                 }
-                else if (!organ.Equals(""))
-                {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-"where o.StatusID = 2 and p.PublicAdministrationLocationID = @organ";
-                }
-                else if (!district.Equals(""))
-                {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
-"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
-"where o.StatusID = 2 and d.PostalDistrictCode = @district";
-                }
-                else if (!province.Equals(""))
-                {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
-"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
-"where o.StatusID = 2 and d.PostalProvinceCode = @province";
-                }
-                else
-                {
-                    query = "select * from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-"join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-"join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
-"join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
-"where o.StatusID = 2";
-                }
-
                 if (!dateFrom.Equals("") && !dateTo.Equals(""))
                 {
-                    query += " and o.OrderDate between @dateFrom and @dateTo ";
+                    query += " and o.OrderDate between @dateFrom and @dateTo";
+                    from = DateTime.ParseExact(dateFrom, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    to = DateTime.ParseExact(dateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 }
                 else
                 {
                     if (!dateFrom.Equals(""))
                     {
-                        query += " and o.OrderDate >= @dateFrom ";
+                        query += " and o.OrderDate >= @dateFrom";
+                        from = DateTime.ParseExact(dateFrom, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
                     }
                     else if (!dateTo.Equals(""))
                     {
                         query += " and o.OrderDate <= @dateTo";
+                        to = DateTime.ParseExact(dateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                 }
 
-                searchList = db.Database.SqlQuery<recieve>(query, new SqlParameter("profile", profile),
+                searchList = db.Database.SqlQuery<recieve>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
+                                                                 new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
                                                                  new SqlParameter("province", province),
-                                                                 new SqlParameter("dateFrom", dFrom),
-                                                                 new SqlParameter("dateTo", dTo)).ToList();
+                                                                 new SqlParameter("dateFrom", from),
+                                                                 new SqlParameter("dateTo", to)).ToList();
                 db.Configuration.LazyLoadingEnabled = false;
 
-                totalrows = searchList.Count;
-
-                totalrowsafterfiltering = searchList.Count;
-                //sorting
-                searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<recieve>();
-                //paging
-                searchList = searchList.Skip(start).Take(length).ToList<recieve>();
+                totalrows = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM ( " + query + " ) as count"
+                                                                    , new SqlParameter("profile", profile),
+                                                                      new SqlParameter("organ", organ),
+                                                                      new SqlParameter("district", district),
+                                                                      new SqlParameter("province", province),
+                                                                      new SqlParameter("dateFrom", from),
+                                                                      new SqlParameter("dateTo", to)).FirstOrDefault();
+                totalrowsafterfiltering = totalrows;
+                excelList = db.Database.SqlQuery<recieve>(query,new SqlParameter("profile", profile),
+                                                                 new SqlParameter("organ", organ),
+                                                                 new SqlParameter("district", district),
+                                                                 new SqlParameter("province", province),
+                                                                 new SqlParameter("dateFrom", from),
+                                                                 new SqlParameter("dateTo", to)).ToList();
 
             }
             catch (Exception e)
@@ -145,6 +141,35 @@ namespace vnpost_ocr_system.Controllers.Document
                 e.Message.ToString();
             }
             return Json(new { data = searchList, draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrowsafterfiltering }, JsonRequestBehavior.AllowGet);
+        }
+        [Route("ho-so-da-nhan/excel")]
+        [HttpPost]
+        public void ReturnExcel()
+        {
+            string path = HostingEnvironment.MapPath("/Excel/Ho-so-da-nhan.xlsx");
+            FileInfo file = new FileInfo(path);
+            using (ExcelPackage excelPackage = new ExcelPackage(file))
+            {
+                ExcelWorkbook excelWorkbook = excelPackage.Workbook;
+                ExcelWorksheet excelWorksheet = excelWorkbook.Worksheets.First();
+
+                int k = 2;
+                for (int i = 0; i < excelList.Count; i++)
+                {
+
+                    excelWorksheet.Cells[k, 1].Value = i + 1;
+                    excelWorksheet.Cells[k, 2].Value = excelList.ElementAt(i).AppointmentLetterCode;
+                    excelWorksheet.Cells[k, 3].Value = excelList.ElementAt(i).ItemCode;
+                    excelWorksheet.Cells[k, 4].Value = excelList.ElementAt(i).PostalProvinceName;
+                    excelWorksheet.Cells[k, 5].Value = excelList.ElementAt(i).PublicAdministrationName;
+                    excelWorksheet.Cells[k, 6].Value = excelList.ElementAt(i).ProfileName;
+                    excelWorksheet.Cells[k, 7].Value = excelList.ElementAt(i).OrderDate != null ? excelList.ElementAt(i).OrderDate.ToString("dd/MM/yyyy") : "";
+                    excelWorksheet.Cells[k, 8].Value = excelList.ElementAt(i).ReceiverFullName;
+                    excelWorksheet.Cells[k, 9].Value = excelList.ElementAt(i).ReceiverStreet;
+                    k++;
+                }
+                excelPackage.SaveAs(new FileInfo(HostingEnvironment.MapPath("/Excel/Download/Ho-so-da-nhan.xlsx")));
+            }
         }
     }
 }
