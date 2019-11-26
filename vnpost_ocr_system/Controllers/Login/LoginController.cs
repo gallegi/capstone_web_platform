@@ -36,7 +36,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 var admin = db.Admins.Where(x => x.AdminUsername.Equals(username)).FirstOrDefault();
                 if (admin != null)
                 {
-                    password = string.Concat(password, admin.AdminPasswordSalt);
+                    password = string.Concat(password, admin.AdminPasswordSalt.Substring(0,6));
                     string passXc = Encrypt.EncryptString(password, "PD");
                     if (passXc.Equals(admin.AdminPasswordHash))
                     {

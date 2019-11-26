@@ -6375,6 +6375,11 @@
     <Content Include="assets\materialize\LICENSE" />
     <Content Include="assets\materialize\README.md" />
     <Content Include="assets\uploader\icons.min.css.map" />
+    <Content Include="assets\uploader\icons.min.css.map" />
+    <Content Include="Excel\Ho-so-cho-nhan.xlsx" />
+    <Content Include="Excel\Download\Ho-so-cho-nhan.xlsx" />
+    <Content Include="Excel\Download\Ho-so-da-nhan.xlsx" />
+    <Content Include="Excel\Ho-so-da-nhan.xlsx" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -6382,11 +6387,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="assets\uploader\icons.min.css.map" />
-    <Content Include="Excel\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-da-nhan.xlsx" />
-    <Content Include="Excel\Ho-so-da-nhan.xlsx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

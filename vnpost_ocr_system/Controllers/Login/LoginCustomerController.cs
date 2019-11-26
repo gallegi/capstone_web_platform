@@ -63,7 +63,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     }
                 }
                 if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
-                pass = string.Concat(pass, custom.PasswordSalt);
+                pass = string.Concat(pass, custom.PasswordSalt.Substring(0,6));
                 string passXc = Encrypt.EncryptString(pass, "PD");
                 if (passXc.Equals(custom.PasswordHash))
                 {
