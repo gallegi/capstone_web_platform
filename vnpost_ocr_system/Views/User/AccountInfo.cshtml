@@ -89,15 +89,41 @@
                             <div class="col l11 s10">
                                 <input name="dateTLHD" id="datepicker"
                                        class="datepicker-here p-l-15 " autocomplete="off"
-                                       data-language='vi' style="border: 0.5px solid #999999;
+                                       data-language='vi' style="border: 1px solid #000000;
                                border-radius: 10px; width: 100%!important;" />
-                            </div>
-                            <div class="col l1 s2 p-l-0">
-                                <img class="cal-img p-t-5" style="margin-left:15px !important" src="~/Content/BankLogo/calendar.jpg" />
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row mb-4">
+                    <div class="col s12 l5 m5 m-t-15">
+                        Tỉnh/Thành phố
+                    </div>
+                    <div class="col s12 l5 m5">
+                        <div class="row">
+                            <div class="col l11 s10">
+                                <select class="form-control" id="province_cus" onchange="getDis()">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col s12 l5 m5 m-t-15">
+                        Quận/Huyện
+                    </div>
+                    <div class="col s12 l5 m5">
+                        <div class="row">
+                            <div class="col l11 s10">
+                                <select class="form-control" id="dis_cus">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-4">
                     <div class="col s12 l5 m5">
                     </div>
@@ -153,6 +179,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="dis_temp"/>
 </div>
 
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
@@ -164,11 +191,71 @@
     }
 
     function loseFocus(obj) {
-
         obj.style.border = "0.5px solid #999999";
-
     }
 
+    function getProbyDis(dis) {
+        var emp = {
+            dis: dis
+        };
+        $.ajax({
+            url: "/AccountInfo/GetProbyDis",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('province_cus').value = result.PostalProvinceCode;
+                $('#province_cus').formSelect();
+                getDis();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function getDis() {
+        var emp = {
+            id: document.getElementById('province_cus').value
+        };
+        $.ajax({
+            url: "/LoginCustomer/GetDis",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#dis_cus').empty();
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalDistrictCode + "'>" + key.PostalDistrictName + "</option>";
+                });
+                $('#dis_cus').append(string);
+                $('#dis_cus').formSelect();
+                document.getElementById('dis_cus').value = document.getElementById('dis_temp').value;
+                $('#dis_cus').formSelect();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function getPro() {
+        $.ajax({
+            url: "/LoginCustomer/GetPro",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                $('#province_cus').append(string);
+                $('#province_cus').formSelect();
+                GetInfo();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
     function GetInfo() {
         $('#preload').show();
         $.ajax({
@@ -180,6 +267,8 @@
                 document.getElementById('phone').value = result.Phone;
                 document.getElementById('email').value = result.Email;
                 document.getElementById('datepicker').value = result.dob;
+                document.getElementById('dis_temp').value = result.PostalDistrictID;
+                getProbyDis(result.PostalDistrictID);
                 if (result.Gender == 1) $('#M').attr('checked', 'checked');
                 if (result.Gender == 0) $('#F').attr('checked', 'checked');
                 if (result.Gender == 2) $('#K').attr('checked', 'checked');
@@ -243,7 +332,6 @@
                     setTimeout(function () {
                         location.reload(true);
                     }, 1300);
-
                 }
                 if (result == 0) {
                     $('#err').html('Mật khẩu không đúng');
@@ -262,7 +350,7 @@
     jQuery(document).ready(function () {
         jQuery('.fading').hide();
         $('#err').html('');
-        GetInfo();
+        getPro();
         $('#cb-change-pass').change(function () {
             if (this.checked) {
                 $('.fading').fadeIn(300);

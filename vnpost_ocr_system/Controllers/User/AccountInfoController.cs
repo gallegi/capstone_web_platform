@@ -29,7 +29,8 @@ namespace vnpost_ocr_system.Controllers.User
                 FullName = x.FullName,
                 Phone = x.Phone,
                 Email = x.Email,
-                Gender = x.Gender
+                Gender = x.Gender,
+                PostalDistrictID = x.PostalDistrictID
             }).FirstOrDefault();
             //custom.DOB = Convert.ToDateTime(date.ToString("dd/MM/yyyy"));
             //custom.DOB = DateTime.ParseExact(custom.DOB.ToString(), "MM/dd/YYYY HH:mm:ss tt", CultureInfo.InvariantCulture);
@@ -76,6 +77,13 @@ namespace vnpost_ocr_system.Controllers.User
                 return Json(2, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetProbyDis(string dis)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var province = db.Districts.Where(x => x.PostalDistrictCode.Equals(dis)).FirstOrDefault();
+            return Json(province,JsonRequestBehavior.AllowGet);
+        }
+
     }
 
     public class CustomerDB : Customer

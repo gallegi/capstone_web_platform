@@ -39,13 +39,13 @@ namespace vnpost_ocr_system.Controllers.User
                     c.Phone = phone;
                     c.PostalDistrictCode = district;
                     c.Street = address;
-                    c.PersonalPaperTypeID = Convert.ToInt32(paperType);
+                    c.PersonalPaperTypeID = paperType.Equals("") ? c.PersonalPaperTypeID = null : c.PersonalPaperTypeID = Convert.ToInt32(paperType);
                     c.PersonalPaperNumber = code;
-                    c.PersonalPaperIssuedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    c.PersonalPaperIssuedDate = date.Equals("") ? (DateTime?) null :  DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     c.PersonalPaperIssuedPlace = placeOfIssue;
 
-                    //function LogIn is in progress.
-                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString()); ;
+                    //get customerID from session.
+                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString());
                     db.ContactInfoes.Add(c);
                     db.SaveChanges();
                     transaction.Commit();

@@ -77,5 +77,10 @@ namespace vnpost_ocr_system.Controllers.Login
                 return View("/Views/Login/Login.cshtml");
             }
         }
+        public ActionResult LogoutAdmin()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
     }
 }
