@@ -503,6 +503,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col s12 l6">
+                                        <div class="col s5">
+                                            <div class="h-form-label">
+                                                <label class="summary-label">Nơi cấp: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s7">
+                                            <div class="h-form-label">
+                                                <label id="ProcedurerPersonalPaperIssuedPlace"></label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-content col s12">
                                     <h4 class="font-medium">Thông tin người gửi</h4>
@@ -594,7 +606,7 @@
                                             </div>
                                         </div>
                                         <div class="col s12">
-                                            <textarea name="OrderNote"></textarea>
+                                            <textarea id="OrderNote"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -1260,7 +1272,7 @@
             data.append("ReceiverFullName", $('.ReceiverFullName').text());
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
             data.append("ReceiverStreet", $('.ReceiverStreet').text());
-            data.append("OrderNote", $('#OrderNote').text());
+            data.append("OrderNote", $('#OrderNote').val());
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",
