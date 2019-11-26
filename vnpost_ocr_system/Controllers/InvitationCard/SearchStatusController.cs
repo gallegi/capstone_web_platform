@@ -16,7 +16,15 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         {
             ViewBag.mess = mess;
             mess = "";
-            return View("/Views/InvitationCard/SearchStatus.cshtml");
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/InvitationCard/SearchStatus.cshtml");
+            }
+            else
+            {
+                return View("/Views/InvitationCard/SearchStatus.cshtml");
+            }
+            
         }
         [Auther(Roles = "0")]
         [Route("giay-hen/tim-giay-hen")]
