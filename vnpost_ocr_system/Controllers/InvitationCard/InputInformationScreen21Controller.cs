@@ -55,7 +55,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
                 string ContactInfoID = Request["ContactInfoID"];
                 string PostalProvinceName = Request["PostalProvinceName"];
-                int Type = int.Parse(Request["Type"]);  //1 có đủ thông tin, 2 và 3 thiếu giấy tờ tùy thân
                 using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                 {
                     ContactInfo c = ContactInfoID == "" ? new ContactInfo() : db.ContactInfoes.Find(int.Parse(ContactInfoID));
@@ -64,52 +63,52 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     c.Phone = Phone;
                     c.PostalDistrictCode = PostalDistrictCode;
                     c.Street = Street;
-                    if (Type.Equals(1))
-                    {
-                        c.PersonalPaperTypeID = int.Parse(PersonalPaperTypeID);
-                        c.PersonalPaperNumber = PersonalPaperNumber;
-                        if (PersonalPaperIssuedDateString == "")
-                            c.PersonalPaperIssuedDate = null;
-                        else
-                            c.PersonalPaperIssuedDate = DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
-                        c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace;
-                    }
+                    c.PersonalPaperTypeID = PersonalPaperTypeID == "" ? null : (int?)int.Parse(PersonalPaperTypeID);
+                    c.PersonalPaperNumber = PersonalPaperNumber == "" ? null : PersonalPaperNumber;
+                    c.PersonalPaperIssuedDate = PersonalPaperIssuedDateString == "" ? null: (DateTime?)DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
+                    c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace == "" ? null : PersonalPaperIssuedPlace;
                     if (ContactInfoID == "")
                     {
                         c.CustomerID = long.Parse(Session["userID"].ToString());
                         db.ContactInfoes.Add(c);
                         db.SaveChanges();
-                        string html = "<div id='contact" + Type + @"' class='info-list-div col s12'>
-                                            <div class='col s8 m8 l8'>
-                                                <p id='FullName' class='content-text highlight col s12'>" + c.FullName + @"</p>
-                                                <p class='content-text col s12'><span id='Street'>" + c.Street + @"</span>, <span data-district='" + c.PostalDistrictCode + @"' id='Address'>" + PostalDistrictName + @", " + PostalProvinceName + @"</span></p>
-                                                <p class='content-text col s12'>Số điện thoại: <span id='Phone'>" + c.Phone + @"</span></p>";
-                        html += Type == 1 ? @"
-                                                <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' id='PersonalPaperTypeName'>" + c.Street + @"</span></p>
-                                                <p class='content-text col s12'>Số giấy tờ tùy thân: <span id='PersonalPaperNumber'>" + c.PersonalPaperNumber + @"</span></p>
-                                                <p class='content-text col s12'>Ngày cấp: <span id='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
-                                                <p class='content-text col s12'>Nơi cấp: <span id='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>"
-                                    : "";
-                        html += @"
-                                            </div>
-                                            <div class='col l4 s4 m4 is-check-step-" + (Type + 1) + "' id='isCheckStep" + (Type + 1) + "-" + c.ContactInfoID + @"'>
-                                            </div>
-                                            <div class='col s12 m-t-10'>
-                                                <div class='col l4 s12 p-t-10'>
-                                                    <a class='btn waves-effect waves-light bt-color-common' data-profile1='" + c.ContactInfoID + @"' id='profile" + Type + @"'>Sử dụng thông tin này</a>
+                        //1 có đủ thông tin, 2 và 3 thiếu giấy tờ tùy thân
+                        List<string> list = new List<string>();
+                        for (int i = 1; i < 4; i++)
+                        {
+                            string html = "<div id='contact" + i + @"' class='info-list-div col s12'>
+                                                <div class='col s8 m8 l8'>
+                                                    <p id='FullName' class='content-text highlight col s12'>" + c.FullName + @"</p>
+                                                    <p class='content-text col s12'><span id='Street'>" + c.Street + @"</span>, <span data-district='" + c.PostalDistrictCode + @"' id='Address'>" + PostalDistrictName + @", " + PostalProvinceName + @"</span></p>
+                                                    <p class='content-text col s12'>Số điện thoại: <span id='Phone'>" + c.Phone + @"</span></p>";
+                            html += i == 1 ? @"
+                                                    <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' id='PersonalPaperTypeName'>" + c.Street + @"</span></p>
+                                                    <p class='content-text col s12'>Số giấy tờ tùy thân: <span id='PersonalPaperNumber'>" + c.PersonalPaperNumber + @"</span></p>
+                                                    <p class='content-text col s12'>Ngày cấp: <span id='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
+                                                    <p class='content-text col s12'>Nơi cấp: <span id='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>"
+                                        : "";
+                            html += @"
                                                 </div>
-                                                <div class='col l2 s12 p-t-10'>
-                                                    <a class='modal-trigger btn waves-effect waves-light bt-color-common' data-profile1='" + c.ContactInfoID + @"' data-type='" + Type + @"' id='edit' href='#myform1'>Chỉnh sửa</a>
+                                                <div class='col l4 s4 m4 is-check-step-" + (i + 1) + "' id='isCheckStep" + (i + 1) + "-" + c.ContactInfoID + @"'>
+                                                </div>
+                                                <div class='col s12 m-t-10'>
+                                                    <div class='col l4 s12 p-t-10'>
+                                                        <a class='btn waves-effect waves-light bt-color-common' data-profile1='" + c.ContactInfoID + @"' id='profile" + i + @"'>Sử dụng thông tin này</a>
+                                                    </div>
+                                                    <div class='col l2 s12 p-t-10'>
+                                                        <a class='modal-trigger btn waves-effect waves-light bt-color-common' data-profile1='" + c.ContactInfoID + @"' data-type='" + i + @"' id='edit' href='#myform1'>Chỉnh sửa</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <p class='col s12 big-heading m-b-15'>
-                                            Bạn muốn sử dụng thông tin khác?
-                                            <a class='modal-trigger light-blue-text hover-underline' href='#myform1' id='add' data-type='" + Type + @"'>
-                                                Nhập thông tin mới
-                                            </a>
-                                        </p>";
-                        return Json(new { success = true, add = true, message = "Thêm mới thành công", html = html });
+                                            <p class='col s12 big-heading m-b-15'>
+                                                Bạn muốn sử dụng thông tin khác?
+                                                <a class='modal-trigger light-blue-text hover-underline' href='#myform1' id='add' data-type='" + i + @"'>
+                                                    Nhập thông tin mới
+                                                </a>
+                                            </p>";
+                            list.Add(html);
+                        }
+                        return Json(new { success = true, add = true, message = "Thêm mới thành công", html = list });
                     }
                     db.SaveChanges();
                     return Json(new { success = true, add = false, message = "Chỉnh sửa thành công" });
