@@ -16,6 +16,10 @@
         .sdt-or-email-checkbox * {
             padding-right: 10px !important;
         }
+
+    .card .card-content {
+        padding-top: 0px !important;
+    }
 </style>
 <div class="row title_login">
     <div class="row">
@@ -75,7 +79,7 @@
                                     <h6>SĐT/Email</h6>
                                 </div>
                                 <div class="col l10 m10 offset-m3 s12">
-                                    <input type="text" id="user" value="@username" placeholder="Nhập số điện thoại hoặc email">
+                                    <input type="text" id="user" value="@username" class="p-l-15" placeholder="Nhập số điện thoại hoặc email">
                                 </div>
                                 <div class="col l10 offset-l2 m10 offset-m2 s12 input_login fix-space">
                                     <span style="color:red" id="user_failed"></span>
@@ -84,7 +88,7 @@
                                     <h6>Mật khẩu</h6>
                                 </div>
                                 <div class="col l10 m10 s12 input_login fix-space">
-                                    <input type="password" id="pass" value="@password" placeholder="Mật khẩu từ 6 đến 32 kí từ">
+                                    <input type="password" id="pass" value="@password" class="p-l-15" placeholder="Mật khẩu từ 6 đến 32 kí từ">
                                 </div>
                                 <div class="col l10 offset-l2 m9 offset-m3 s12 fix-space">
                                     <span style="color:red" id="password_failed"></span>
@@ -115,9 +119,9 @@
                             <div class="auth-box">
 
                                 <div class="row">
-                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                    <div class="col s3 l2 m-l-10">
                                     </div>
-                                    <div id="messe" class="col s8 l9 err">
+                                    <div id="messe" class="col s8 l9 err p-t-20">
 
                                     </div>
                                 </div>
@@ -126,235 +130,241 @@
 
                                     <!-- Form -->
                                     <div class="row">
-                                        @using (Html.BeginForm("DangKi", "LoginCustomer", FormMethod.Post, new { onsubmit = "return valid()" }))
-                                        {
-                                            <!-- email -->
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                    <p class="black-text">Họ tên</p>
-                                                </div>
-
-                                                <div class="input-field col s8 l9 m-b-0">
-                                                    <input id="tbName" name="tbName" class="validate my-input" placeholder="Nhập họ tên">
-
-                                                </div>
-                                            </div>
-                                            <!-- email valid -->
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                </div>
-                                                <div id="name-err" class="col s8 l9 err">
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row" style="">
-                                                @*border: 3px solid #848484; border-radius:5px*@
-                                                <div class="row sdt-or-email-checkbox">
-                                                    <label div class="left" id="sdt-checkbox">
-                                                        <input type="checkbox" id="phonecheck" value="1" onclick="chen1()" checked>
-                                                        <span>Số điện thoại</span>
-                                                    </label>
-                                                    <label div class="left" id="email-checkbox">
-                                                        <input type="checkbox" id="emailcheck" onclick="chen2()" value="0">
-                                                        <span>Email</span>
-                                                    </label>
-                                                </div>
-                                                <div id="checkboxphone">
-                                                    <div class="row">
-
-                                                        <div class="col s3 l2 m-t-20 m-l-20">
-                                                            <p class="black-text">SĐT</p>
-                                                        </div>
-
-                                                        <div class="input-field col s8 l5 m-b-0">
-                                                            <input id="tbPhone" name="tbPhone" class="validate my-input" placeholder="Nhập số điện thoại">
-
-                                                        </div>
-
-                                                        <div class="col l4 s12 m-t-10 m-b-0">
-                                                            <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="button" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
-                                                        </div>
-
-                                                        <!-- email valid -->
-                                                        <div class="row">
-                                                            <div class="col s3 l2 m-t-20 m-l-20">
-                                                            </div>
-                                                            <div id="phone-err" class="col s8 l9 err m-l-20">
-
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <div class="row">
-                                                            <div class="col s3 l2 m-t-20 m-l-20">
-                                                                <p class="black-text">Mã xác thực</p>
-                                                            </div>
-
-                                                            <div class="input-field col s8 l9 m-b-0">
-                                                                <input id="tbValidCodePhone" name="tbValidCodePhone" class="validate my-input" placeholder="Nhập mã xác thực">
-
-                                                            </div>
-                                                        </div>
-                                                        <!-- valid -->
-
-
-                                                        <div class="row">
-                                                            <div class="col s3 l2 m-t-20 m-l-20">
-                                                            </div>
-                                                            <div id="validCodePhone-err" class="col s8 l9 err">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div id="checkboxemail">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                @using (Html.BeginForm("DangKi", "LoginCustomer", FormMethod.Post, new { onsubmit = "return valid()" }))
+                                                {
+                                                    <!-- email -->
                                                     <div class="row">
                                                         <div class="col s3 l2 m-t-20 m-l-20">
-                                                            <p class="black-text">Nhập Email</p>
-                                                        </div>
-
-                                                        <div class="input-field col s8 l5 m-b-0">
-                                                            <input id="tbEmail" name="tbEmail" class="validate my-input" placeholder="Nhập địa chỉ email">
-
-                                                        </div>
-
-                                                        <div class="col l4 s12 m-t-10 m-b-0">
-                                                            <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="button" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
-                                                        </div>
-
-                                                        <!-- email valid -->
-                                                        <div class="row">
-                                                            <div class="col s3 l2 m-t-20 m-l-20">
-                                                            </div>
-                                                            <div id="email-err" class="col s8 l9 err m-l-20">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="row">
-                                                        <div class="col s3 l2 m-t-20 m-l-20">
-                                                            <p class="black-text">Mã xác thực</p>
+                                                            <p class="black-text">Họ tên</p>
                                                         </div>
 
                                                         <div class="input-field col s8 l9 m-b-0">
-                                                            <input id="tbValidCodeEmail" name="tbValidCodeEmail" class="validate my-input" placeholder="Nhập mã xác thực">
+                                                            <input id="tbName" name="tbName" class="validate my-input" placeholder="Nhập họ tên">
 
                                                         </div>
                                                     </div>
+                                                    <!-- email valid -->
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20">
+                                                        </div>
+                                                        <div id="name-err" class="col s8 l9 err">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <p style="font-size: 22px !important; color: #000000 !important;font-weight: 600" class="m-l-20">Email hoặc số điện thoại</p>
+                                                    </div>
+                                                    <div class="row" style="border:1px solid #d0d0d0 !important;padding-bottom: 20px; border-radius: 5px !important">
+                                                        <div class="row sdt-or-email-checkbox">
+                                                            <label div class="left" id="sdt-checkbox">
+                                                                <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
+                                                                <span>Số điện thoại</span>
+                                                            </label>
+                                                            <label div class="left" id="email-checkbox">
+                                                                <input type="checkbox" id="emailcheck" class="ep-checkboxes">
+                                                                <span>Email</span>
+                                                            </label>
+                                                        </div>
+                                                        <div id="checkboxphone">
+                                                            <div class="row">
+
+                                                                <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    <p class="black-text">SĐT</p>
+                                                                </div>
+
+                                                                <div class="input-field col s8 l5 m-b-0">
+                                                                    <input id="tbPhone" name="tbPhone" class="validate my-input" placeholder="Nhập số điện thoại">
+
+                                                                </div>
+
+                                                                <div class="col l4 s12 m-t-10 m-b-0">
+                                                                    <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="button" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
+                                                                </div>
+
+                                                                <!-- email valid -->
+                                                                <div class="row">
+                                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    </div>
+                                                                    <div id="phone-err" class="col s8 l9 err m-l-20">
+
+                                                                    </div>
+                                                                </div>
 
 
 
+                                                                <div class="row">
+                                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                                        <p class="black-text">Mã xác thực</p>
+                                                                    </div>
+
+                                                                    <div class="input-field col s8 l9 m-b-0">
+                                                                        <input id="tbValidCodePhone" name="tbValidCodePhone" class="validate my-input" placeholder="Nhập mã xác thực">
+
+                                                                    </div>
+                                                                </div>
+                                                                <!-- valid -->
+
+
+                                                                <div class="row">
+                                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    </div>
+                                                                    <div id="validCodePhone-err" class="col s8 l9 err">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="checkboxemail" hidden>
+                                                            <div class="row">
+                                                                <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    <p class="black-text">Nhập Email</p>
+                                                                </div>
+
+                                                                <div class="input-field col s8 l5 m-b-0">
+                                                                    <input id="tbEmail" name="tbEmail" class="validate my-input" placeholder="Nhập địa chỉ email">
+
+                                                                </div>
+
+                                                                <div class="col l4 s12 m-t-10 m-b-0">
+                                                                    <button class="btn-large w100 yellow-logo-bg accent-4 my-btn" type="button" style="height: 47px; margin-top: 5px;">Gửi mã xác thực</button>
+                                                                </div>
+
+                                                                <!-- email valid -->
+                                                                <div class="row">
+                                                                    <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    </div>
+                                                                    <div id="email-err" class="col s8 l9 err m-l-20">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="col s3 l2 m-t-20 m-l-20">
+                                                                    <p class="black-text">Mã xác thực</p>
+                                                                </div>
+
+                                                                <div class="input-field col s8 l9 m-b-0">
+                                                                    <input id="tbValidCodeEmail" name="tbValidCodeEmail" class="validate my-input" placeholder="Nhập mã xác thực">
+
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <!-- valid -->
+
+
+                                                            <div class="row">
+                                                                <div class="col s3 l2 m-t-20 m-l-20">
+                                                                </div>
+                                                                <div id="validCodeEmail-err" class="col s8 l9 err">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    //
+                                                    <!-- valid -->
+
+                                                    <div class="row">
+                                                        <div class="row sdt-or-email-checkbox">
+                                                            <div class="col s5 l5 m-l-20">
+                                                                <p class="black-text">Tỉnh thành cư trú</p>
+                                                                <select id="province" onchange="getDis()">
+                                                                </select>
+                                                            </div>
+                                                            <div class="col s5 l5 m-l-20">
+                                                                <p class="black-text">Quận huyện cư trú</p>
+                                                                <select id="district" name="distrint">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20 col-sm-offset-3">
+                                                        </div>
+                                                        <div id="diachi-err" class="col s8 l9 err">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20">
+                                                            <p class="black-text">Mật khẩu</p>
+                                                        </div>
+
+                                                        <div class="input-field col s8 l9 m-b-0">
+                                                            <input id="tbPass" name="tbPass" type="password" class="validate my-input" placeholder="Mật khẩu từ 6 - 32 kí tự">
+
+                                                        </div>
+                                                    </div>
                                                     <!-- valid -->
 
 
                                                     <div class="row">
                                                         <div class="col s3 l2 m-t-20 m-l-20">
                                                         </div>
-                                                        <div id="validCodeEmail-err" class="col s8 l9 err">
+                                                        <div id="pass-err" class="col s8 l9 err">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20 m-b-0">
+                                                            <p class="black-text m-b-0">Nhập lại mật khẩu</p>
+                                                        </div>
+
+                                                        <div class="input-field col s8 l9 m-b-0">
+                                                            <input id="tbRePass" type="password" name="tbRePass" class="validate my-input" placeholder="Nhập lại mật khẩu">
 
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <!-- valid -->
 
-                                            //
-                                            <!-- valid -->
 
-                                            <div class="row">
-                                                <div class="row sdt-or-email-checkbox">
-                                                    <div class="col s5 l5 m-l-20">
-                                                        <p class="black-text">Tỉnh thành cư trú</p>
-                                                        <select id="province" onchange="getDis()">
-                                                        </select>
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20">
+                                                        </div>
+                                                        <div id="rePass-err" class="col s8 l9 err">
+                                                        </div>
                                                     </div>
-                                                    <div class="col s5 l5 m-l-20">
-                                                        <p class="black-text">Quận huyện cư trú</p>
-                                                        <select id="district" name="distrint">
-                                                        </select>
+
+                                                    <div class="row">
+                                                        <div class="col s3 l2 m-t-20 m-l-20">
+                                                            <p class="black-text">Giới tính</p>
+                                                        </div>
+
+                                                        <div class="col gender-mobile m-b-30">
+                                                            <label class="offset-s2">
+                                                                <input name="group1" value="1" type="radio" id="male" checked />
+                                                                <span>Nam</span>
+                                                            </label>
+                                                            <label>
+                                                                <input name="group1" value="0" type="radio" />
+                                                                <span>Nữ</span>
+                                                            </label>
+
+                                                            <label class="new-line-small">
+                                                                <input name="group1" value="2" type="radio" />
+                                                                <span>Khác</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <!-- pwd -->
+                                                        <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                                                            <div class="col s12">
+                                                                <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit">Tạo tài khoản</button>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
-                                                </div>
+                                                }
                                             </div>
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20 col-sm-offset-3">
-                                                </div>
-                                                <div id="diachi-err" class="col s8 l9 err">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                    <p class="black-text">Mật khẩu</p>
-                                                </div>
+                                        </div>
 
-                                                <div class="input-field col s8 l9 m-b-0">
-                                                    <input id="tbPass" name="tbPass" type="password" class="validate my-input" placeholder="Mật khẩu từ 6 - 32 kí tự">
-
-                                                </div>
-                                            </div>
-                                            <!-- valid -->
-
-
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                </div>
-                                                <div id="pass-err" class="col s8 l9 err">
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20 m-b-0">
-                                                    <p class="black-text m-b-0">Nhập lại mật khẩu</p>
-                                                </div>
-
-                                                <div class="input-field col s8 l9 m-b-0">
-                                                    <input id="tbRePass" type="password" name="tbRePass" class="validate my-input" placeholder="Nhập lại mật khẩu">
-
-                                                </div>
-                                            </div>
-                                            <!-- valid -->
-
-
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                </div>
-                                                <div id="rePass-err" class="col s8 l9 err">
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col s3 l2 m-t-20 m-l-20">
-                                                    <p class="black-text">Giới tính</p>
-                                                </div>
-
-                                                <div class="col gender-mobile m-b-30">
-                                                    <label class="offset-s2">
-                                                        <input name="group1" value="1" type="radio" id="male" checked />
-                                                        <span>Nam</span>
-                                                    </label>
-                                                    <label>
-                                                        <input name="group1" value="0" type="radio" />
-                                                        <span>Nữ</span>
-                                                    </label>
-
-                                                    <label class="new-line-small">
-                                                        <input name="group1" value="2" type="radio" />
-                                                        <span>Khác</span>
-                                                    </label>
-                                                </div>
-
-                                                <!-- pwd -->
-                                                <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
-                                                    <div class="col s12">
-                                                        <button class="btn-large w100 yellow-logo-bg accent-4 black-text" type="submit">Tạo tài khoản</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        }
                                     </div>
                                 </div>
                             </div>
@@ -378,6 +388,7 @@
                 document.getElementById('emailcheck').value = 1;
             }
             if (document.getElementById('tem1').value != '') {
+                s
                 $('#messe').text(document.getElementById('tem1').value);
             }
             var windowWidth = $(window).width();
@@ -385,8 +396,8 @@
                 $(".set-btn").remove();
             }
             getPro();
-            chen1();
-            chen2();
+            //chen1();
+            //chen2();
         });
 
         function getDis() {
@@ -473,24 +484,27 @@
             });
         }
 
-        function chen1() {
-            if (document.getElementById('phonecheck').value == 1) {
-                $('#checkboxphone').show();
-                document.getElementById('phonecheck').value = 0;
+
+        $(".ep-checkboxes").click(function (e) {
+            var email = $("#emailcheck").is(":checked");
+            var phone = $("#phonecheck").is(":checked");
+            if (email === false && phone === false) {
+                e.preventDefault();
             } else {
-                    $('#checkboxphone').hide();
-                    document.getElementById('phonecheck').value = 1;
-            }
-        }
-        function chen2() {
-            if (document.getElementById('emailcheck').value == 1) {
-                $('#checkboxemail').show();
-                document.getElementById('emailcheck').value = 0;
-            } else {
+                if ($("#emailcheck").is(":checked") === true) {
+                    $('#checkboxemail').show();
+                } else {
                     $('#checkboxemail').hide();
-                    document.getElementById('emailcheck').value = 1;
+                }
+                if ($("#phonecheck").is(":checked") === true) {
+                    $('#checkboxphone').show();
+                } else {
+                    $('#checkboxphone').hide();
+                }
             }
-        }
+
+        });
+
         //$("#btn_login").click(function () {
         //    var check = 0;
         //    if ($("#user").val() == "01234") {
@@ -544,7 +558,7 @@
                 $('#name-err').text('Vui lòng nhập tên');
                 return false;
             }
-            if (document.getElementById('phonecheck').value == 0) {
+            if ($("#phonecheck").is(":checked") === true) {
                 if (phone.length == 0) {
 
                     $('#phone-err').text('Vui lòng nhập số điện thoại');
@@ -566,7 +580,7 @@
                     return false;
                 }
             }
-            if (document.getElementById('emailcheck').value == 0) {
+            if ($("#emailcheck").is(":checked") === true) {
                 if (email.length == 0) {
 
                     $('#email-err').text('Vui lòng nhập email');

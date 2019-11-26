@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_MasterPage.cshtml";
+    Layout = "~/Views/Shared/AdminLoginPage.cshtml";
 }
 <link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
 
@@ -33,13 +33,13 @@
                         <!-- email -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="username" name="username" type="text" value="@username" class="my-input" placeholder="Tài khoản">
+                                <input id="username" name="username" type="text" value="@username" class="my-input p-l-15" placeholder="Tài khoản">
                             </div>
                         </div>
                         <!-- pwd -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="password" type="password" name="password" value="@password" class="my-input" placeholder="Mật khẩu">
+                                <input id="password" type="password" name="password" value="@password" class="my-input p-l-15" placeholder="Mật khẩu">
                             </div>
                         </div>
                         <div class="row" style="margin-left:20px !important">

@@ -37,24 +37,26 @@ namespace vnpost_ocr_system.Controllers.User
             return Json(custom, JsonRequestBehavior.AllowGet);
         }
         [Auther(Roles = "0")]
-        public ActionResult Update(string name,string phone,string email,string dob,string gender,string oldpass,string newpass,string repass)
+        public ActionResult Update(string name,string phone,string email,string dob,string gender,string oldpass,string newpass,string repass,string dis)
         {
             try
             {
-                string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
                 int userID = Convert.ToInt32(Session["userID"].ToString());
                 var custom = db.Customers.Where(x => x.CustomerID == userID).FirstOrDefault();
-                string RenPass = string.Concat(custom.PasswordHash, custom.PasswordSalt);
                 DateTime vert = DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 custom.FullName = name;
                 custom.DOB = vert;
                 custom.Email = email;
                 custom.Gender = Convert.ToInt32(gender);
                 custom.Phone = phone;
+                custom.PostalDistrictID = dis;
                 if (!string.IsNullOrEmpty(oldpass))
                 {
-                    if (string.Concat(oldpassXc, custom.PasswordSalt).Equals(RenPass))
+                    oldpass = string.Concat(oldpass, custom.PasswordSalt);
+                    string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
+                    if (oldpassXc.Equals(custom.PasswordHash))
                     {
+                        newpass = string.Concat(newpass, custom.PasswordSalt);
                         custom.PasswordHash = Encrypt.EncryptString(newpass, "PD");
                         db.Entry(custom).State = EntityState.Modified;
                         db.SaveChanges();
