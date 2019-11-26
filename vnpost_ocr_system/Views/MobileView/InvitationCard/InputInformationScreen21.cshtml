@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "InputInformationScreen21";
-    Layout = "~/Views/Shared/_MasterPage.cshtml";
+    Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
 }
 
 
@@ -98,17 +98,20 @@
         background-color: #fff !important;
         color: #fcaf17 !important;
     }
-    .wizard-content .wizard>.steps>ul>li.done .step {
-    background-color: #fcaf17 !important;
-    border-color: #fcaf17 !important;
 
-}
-    .wizard-content .wizard.wizard-circle>.steps>ul>li.current:after, .wizard-content .wizard.wizard-circle>.steps>ul>li.current~li:after, .wizard-content .wizard.wizard-circle>.steps>ul>li.current~li:before {
-    background-color: #F3F3F3 !important;
-}
-    .wizard-content .wizard.wizard-circle>.steps>ul>li:after, .wizard-content .wizard.wizard-circle>.steps>ul>li:before {
-    background-color: #fcaf17 !important;
-}
+    .wizard-content .wizard > .steps > ul > li.done .step {
+        background-color: #fcaf17 !important;
+        border-color: #fcaf17 !important;
+    }
+
+    .wizard-content .wizard.wizard-circle > .steps > ul > li.current:after, .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:after, .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:before {
+        background-color: #F3F3F3 !important;
+    }
+
+    .wizard-content .wizard.wizard-circle > .steps > ul > li:after, .wizard-content .wizard.wizard-circle > .steps > ul > li:before {
+        background-color: #fcaf17 !important;
+    }
+
     .wizard-content .wizard > .actions > ul > li > a {
         background: #fcaf17 !important;
     }
@@ -116,65 +119,121 @@
         .wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
             background-color: #fff !important;
         }
-        .summary-label{
-            font-weight:bold !important;
+
+    .summary-label {
+        font-weight: bold !important;
+    }
+
+    .summary-content {
+        font-style: italic !important;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        margin-left: -50px;
+        margin-right: -50px;
+    }
+
+    .card-title {
+        color: dimgray;
+    }
+
+    i.small.material-icons.dp48 {
+        vertical-align: middle;
+    }
+
+    .image-input {
+        width: 47% !important;
+        border: 1px #d1d1d1 solid;
+        border-radius: 10px;
+    }
+
+        .image-input:active {
+            background-color: #d1d1d1 !important;
         }
-        .summary-content{
-           font-style:italic !important;
-        }
+
+    #img-capture {
+        float: right !important;
+    }
+
+    .img-input {
+        display: none !important;
+    }
+
+    #capture-modal {
+        border-radius: 15px;
+    }
+
+   #img-display {
+    margin-top: 70px !important;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed #b0b0b0;
+    padding: 20px 20px 20px 20px;
+    border-radius: 10px;
+}
 </style>
-<div class="container-fluid">
-    <div class="col s12">
+<div class="container">
+    <div class="row">
         <div class="card">
             <div class="card-content wizard-content">
-                <h2 class="card-title">Tạo giấy hẹn mới</h2>
-                <form id="myform" action="/giay-hen/trang-thai-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
+                <h2 class="card-title center">Tạo giấy hẹn mới</h2>
+                <form action="/giay-hen/ma-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Thông tin thủ tục</h6>
                     <section>
                         <div class="row">
                             <div class="col m6">
                                 <div class="input-field col s12">
-                                    <select id="item1">
+                                    <select id="item1" name="types">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
                                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
-                                    <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select id="item2"></select>
-                                    <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <select id="item2" name="types"></select>
+                                    <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" id="item5" class="required" />
-                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12">
                                     <select id="item3" tabindex="-1"></select>
-                                    <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item4" tabindex="-1"></select>
-                                    <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
                                 </div>
                             </div>
 
                             <div class="col s12 m12 l12">
                                 <br />
-                                <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
-                                <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
-                                    <div class="fallback">
-                                        <input type="file" id="fUpload" class="form-control" single />
-                                    </div>
-                                    <div class="dz-message needsclick">
-                                        <i class="medium material-icons dp48">cloud_upload</i>
-                                        <h3 id="title_uploader">Kéo thả file hoặc click vào đây để tải lên</h3>
-                                        <span class="text-muted font-13">(File hợp lệ: jpg, png)</span>
-                                    </div>
+                                <div class="row">
+                                    <label style="margin-left:10px;color:darkgray">Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                </div>
+
+                                <div id="img-chooser" class="image-input center col s5 m5 l5">
+                                    <i class="small material-icons dp48">cloud_upload</i> Chọn ảnh
+                                </div>
+                                <div class="col s1 m1 l1"></div>
+                                <div id="img-capture" class="image-input center col s5 m5 l5">
+                                    <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
+                                </div>
+                                <input type="file" id="img-chooser-file" onchange="readURL(this);" class="img-input" hidden>
+                                @*<input type="file" accept="image/*" capture="capture">*@
+                                <div id="img-display" hidden>
+                                    <img id="blah" src="#" alt="your image" />
                                 </div>
                             </div>
                         </div>
@@ -325,7 +384,7 @@
                             <div class="form-body">
                                 <div class="card-content col s12">
                                     <h4 class="font-medium">Thông tin thủ tục</h4>
-                                    <hr/>
+                                    <hr />
                                     <div class="row">
                                         <div class="col s12 l6">
                                             <div class="col s3">
@@ -343,7 +402,7 @@
                                             <div class="row clgray">
                                                 <div class="col s3">
                                                     <div class="h-form-label">
-                                                        <label  class="summary-label">Tên cơ quan HCC: </label>
+                                                        <label class="summary-label">Tên cơ quan HCC: </label>
                                                     </div>
                                                 </div>
                                                 <div class="col s9">
@@ -358,7 +417,7 @@
                                         <div class="col s12 l6">
                                             <div class="col s3">
                                                 <div class="h-form-label">
-                                                    <label   class="summary-label">Tỉnh/Thành phố:</label>
+                                                    <label class="summary-label">Tỉnh/Thành phố:</label>
                                                 </div>
                                             </div>
                                             <div class="col s9">
@@ -371,7 +430,7 @@
                                             <div class="row clgray">
                                                 <div class="col s3">
                                                     <div class="h-form-label">
-                                                        <label  class="summary-label">Địa chỉ CQHCC:</label>
+                                                        <label class="summary-label">Địa chỉ CQHCC:</label>
                                                     </div>
                                                 </div>
                                                 <div class="col s9">
@@ -386,7 +445,7 @@
                                         <div class="col s12 l6">
                                             <div class="col s3">
                                                 <div class="h-form-label">
-                                                    <label   class="summary-label">Quận/Huyện: </label>
+                                                    <label class="summary-label">Quận/Huyện: </label>
                                                 </div>
                                             </div>
                                             <div class="col s9">
@@ -399,7 +458,7 @@
                                             <div class="row clgray">
                                                 <div class="col s3">
                                                     <div class="h-form-label">
-                                                        <label   class="summary-label">Mã giấy hẹn:</label>
+                                                        <label class="summary-label">Mã giấy hẹn:</label>
                                                     </div>
                                                 </div>
                                                 <div class="col s9">
@@ -413,7 +472,7 @@
                                     <div class="row">
                                         <div class="col s12">
                                             <div class="col h-form-label">
-                                                <label   class="summary-label">Ảnh giấy hẹn: </label>
+                                                <label class="summary-label">Ảnh giấy hẹn: </label>
                                             </div>
                                         </div>
                                         <div class="col s12 center">
@@ -610,20 +669,20 @@
                                 <div class="card card-shadow p-20 resize-card">
                                     <div>
                                         <label>
-                                            <input id="r1" type="radio" checked />
+                                            <input name="group1" id="r1" type="radio" checked />
                                             <span>Thanh toán tiền mặt khi nhận hàng</span>
-                                        </label><br />
+                                        </label>
                                         <label>
-                                            <input id="r2" type="radio" disabled />
+                                            <input name="group1" id="r2" type="radio" disabled />
                                             <span>Thanh toán bằng thẻ quốc tế Visa, Master, JCB</span>
-                                        </label><br />
+                                        </label>
                                         <label>
-                                            <input id="r3" type="radio" disabled />
+                                            <input name="group1" id="r3" type="radio" disabled />
                                             <span>Thẻ ATM nội địa/Internet Banking</span>
-                                        </label><br />
+                                        </label>
                                     </div>
 
-                                    @*<div class="bank-list">
+                                    <div class="bank-list">
                                         <div class="row m-t-20">
                                             <div class="col s6 l3 m2">
                                                 <img src="~/Content/BankLogo/1.png" />
@@ -718,7 +777,7 @@
                                         </div>
 
 
-                                    </div>*@
+                                    </div>
                                 </div>
                             </div>
 
@@ -754,10 +813,14 @@
 
                                     </div>
                                 </div>
+
+                                @* Button *@
+                                <div class="row d-flex justify-content-end m-t-40">
+                                    <a href="/giay-hen/ma-giay-hen" class="waves-effect waves-light btn blue ju">Tiếp tục</a>
+                                </div>
                             </div>
                         </div>
                     </section>
-                    <input name="id_raw" id="id_raw" readonly hidden />
                 </form>
             </div>
         </div>
@@ -865,6 +928,18 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div id="capture-modal" class="modal fade">
+    @*<div class="modal-content">
+        <h4>Chụp ảnh giấy hẹn</h4>*@
+    @*<video id="video" width="100%" height="100%" autoplay></video>*@
+    @*<div id="my_camera"></div>
+            <div class="row center">
+                <button id="snap" style="border-radius:20px" onClick="take_snapshot()" class=" btn green waves-effect waves-light p-l-40 p-r-40"><i class="small material-icons dp48">camera_alt</i></button>
+            </div>
+        </div>*@
 </div>
 
 
@@ -1121,12 +1196,8 @@
             success: function (response) {
                 if (response.success) {
                     if (response.add) {
-                        for (var i = 2; i < 5; i++) {
-                            $('section:nth-child(' + i*2 + ') .row').children('p').remove()
-                            $('section:nth-child(' + i*2 + ') .row').append(response.html[i-2])
-                        }
-                        //$('section:not([style*="display: none"]) .row').children('p').remove()
-                        //$('section:not([style*="display: none"]) .row').append(response.html)
+                        $('section:not([style*="display: none"]) .row').children('p').remove()
+                        $('section:not([style*="display: none"]) .row').append(response.html)
                     }
                     else {
                         $(contact).find('#FullName').text($('#name_edit').val())
@@ -1141,10 +1212,10 @@
                         $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
                     }
                     $('#close-modal').click();
-                    successAlert(response.message);
+                    alert(response.message);
                 }
                 else
-                    errorAlert(response.message)
+                    alert(response.message)
                 $('#pre-load').hide()
             },
             error: function () {
@@ -1155,11 +1226,6 @@
 
     $(document).on("click", "#profile1", function () {
         var Adminprofile = $(this).closest('#contact1');
-        if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == ""
-            || Adminprofile.find('#PersonalPaperIssuedDate').text() == "" || Adminprofile.find('#PersonalPaperIssuedPlace').text() == "") {
-            toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
-            return;
-        }
         $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
@@ -1245,7 +1311,6 @@
             return true;
         },
         onFinishing: function (event, currentIndex) {
-            $('#pre-load').show();
             data.append("ProfileID", $('#item4').val());
             data.append("AppointmentLetterCode", $('#item5').val());
             data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
@@ -1268,12 +1333,6 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    if (response.success) {
-                        $('#id_raw').val(response.data)
-                        $('#myform').submit();
-                    }
-                    else
-                        errorAlert(response.message)
                 }
             });
             //return form.submit();
@@ -1340,7 +1399,6 @@ Dropzone.options.myAwesomeDropzone = {
         });
         this.on("removedfile", function () {
             data.delete("img")
-            data.delete("imgName")
             $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
@@ -1356,7 +1414,6 @@ Dropzone.options.myAwesomeDropzone = {
         });
         this.on('sending', function (file, xhr, formData) {
             data.append("img", file);
-            data.append("imgName", file.name)
         });
         //this.on('sending', function (file, xhr, formData) {
         //        data.append("file", file);
@@ -1406,6 +1463,48 @@ Dropzone.options.myAwesomeDropzone = {
     dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
     dictInvalidFileType: "File không hợp lệ. Hãy chọn một file Excel (xls, xlsx)",
 };
+</script>
+<script>
+    //Webcam.set({
+    //    width: '100%',
+    //    height: '100%',
+    //    image_format: 'jpeg',
+    //    jpeg_quality: 100
+    //});
+    //Webcam.attach('#my_camera');
+    //function take_snapshot() {
+    //    // take snapshot and get image data
+    //    Webcam.snap(function (data_uri) {
+    //        // display results in page
+    //        document.getElementById('img-display').innerHTML =
+    //            '<img src="' + data_uri + '"/>';
+    //    });
+    //}
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            $("#img-display").show();
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width('100%')
+                    .height('100%');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script>
+    $(function () {
+        $(".steps.clearfix").hide();
+    })
+    $("#img-chooser").click(function () {
+        $("#img-chooser-file").click();
+    })
+    $("#img-capture").click(function () {
+        $("#img-capture-file").click();
+    })
 
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
