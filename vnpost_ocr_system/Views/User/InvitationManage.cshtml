@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "InvitationManage";
-      Layout = "~/Views/Shared/_MasterPage.cshtml";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
 <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
@@ -10,6 +10,9 @@
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/User/InviteManage.css" rel="stylesheet" />
 
+<link href="~/dist/css/pages/data-table.css" rel="stylesheet">
+<script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
+<script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 <div class="main-wrapper p-t-20">
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Giấy hẹn của tôi</h2>
@@ -23,87 +26,114 @@
                         <th class="width-12">Tên giấy hẹn</th>
                         <th class="width-10">Mã vận đơn</th>
                         <th class="width-15">Tổng tiền</th>
-                        <th class="width-15">Trạng thái đơn hàng</th>
+                        <th class="width-10">Trạng thái đơn hàng</th>
+                        <th class="width-10"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in ViewBag.listOrder)
-                    {
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
-                                </a>
-                            </td>
-                            <td>@item.OrderDate</td>
-                            <td>@item.ProfileName</td>
-                            <td>@item.ItemCode</td>
-                            <td>@item.Amount</td>
-                            <td>@item.StatusName</td>
-                        </tr>
-                    }
-                    @*<tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">HS1</span>
-                                </a>
-                            </td>
-                            <td>10/10/2019</td>
-                            <td>Lấy CMT</td>
-                            <td>Chưa có</td>
-                            <td>Chưa có</td>
-                            <td>Đang chờ tiếp nhận</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">HS2</span>
-                                </a>
-                            </td>
-                            <td>10/10/2019</td>
-                            <td>Lấy bằng lái xe</td>
-                            <td>VD2</td>
-                            <td>40.000đ</td>
-                            <td>Đã tiếp nhận</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">HS3</span>
-                                </a>
-                            </td>
-                            <td>10/10/2019</td>
-                            <td>Lấy bằng lái ô tô</td>
-                            <td>VD3</td>
-                            <td>40.000đ</td>
-                            <td>Lấy giấy tờ thành công</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">HS4</span>
-                                </a>
-                            </td>
-                            <td>10/10/2019</td>
-                            <td>Lấy sổ đỏ</td>
-                            <td>VD4</td>
-                            <td>40.000đ</td>
-                            <td>Đang phát</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">HS5</span>
-                                </a>
-                            </td>
-                            <td>20/9/2019</td>
-                            <td>Lấy hộ chiếu</td>
-                            <td>VD5</td>
-                            <td>40.000đ</td>
-                            <td>Đã phát thành công</td>
-                        </tr>*@
-                </tbody>
+                @*<tbody>
+                        @foreach (var item in ViewBag.listOrder)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
+                                        <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
+                                    </a>
+                                </td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.ProfileName</td>
+                                <td>@item.ItemCode</td>
+                                <td>@item.Amount</td>
+                                <td>@item.StatusName</td>
+                            </tr>
+                        }
+                    </tbody>*@
             </table>
         </div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        searchActi();
+    });
+
+    function searchActi() {
+        var dataTable = $('#mainTable').DataTable({
+            "language": {
+                "emptyTable": "Không tìm thấy dữ liệu",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            },
+            "ajax": {
+                "url": "/tai-khoan/quan-ly-giay-hen/danh-sach",
+                "type": "POST",
+                "datatype": "json",
+                "cache": "false"
+            },
+            "columns": [
+                {
+                    "data": "AppointmentLetterCode", "name": "AppointmentLetterCode", "render": function (data) {
+                        return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id_raw\" value="+data+" hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
+                    }
+                },
+                { "data": "stringDate", "name": "OrderDate" },
+                { "data": "ProfileName", "name": "ProfileName" },
+                { "data": "ItemCode", "name": "ItemCode" },
+                { "data": "Amount", "name": "Amount" },
+                { "data": "StatusName", "name": "StatusName" },
+                {
+                    "data": {}, "render": function (data) {
+                        if (data.StatusID == -3) {
+                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel("+data.OrderID +")'>Hủy đơn hàng</a>";
+                        } else {
+                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" disabled>Hủy đơn hàng</a>";
+                        }
+                    },
+                    "orderable": false,
+                    "lengthChange": false,
+                    "searchable": false,
+                    "width": "150px"
+                }
+            ],
+            "serverSide": true,
+            "rowId": "AppointmentLetterCode",
+            "bLengthChange": false,
+            "bFilter": false,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "order": [0, "asc"],
+            "initComplete": function (settings, json) {
+                ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
+                $("#pre-load").hide("slow", function () {
+                });
+                //////////////////////////////////////////////// //////////////////////////////////////////////// ////////////////////////////////////////////////
+            }
+        });
+    }
+
+    function getCancel(code) {
+        confirmAlert("Hủy đơn hàng", "Bạn muốn hủy đơn hàng ?", function () {
+            $.ajax({
+                type: "POST",
+                url: "/tai-khoan/quan-ly-giay-hen/huy",
+                dataType: "json",
+                data: {
+                    Code: JSON.stringify(code)
+                },
+                success: function () {
+                    window.location.href = '/tai-khoan/quan-ly-giay-hen';
+                }
+            })
+        });
+    }
+
+    function submit() {
+        document.getElementById("submit").submit();
+    }
+
+</script>
