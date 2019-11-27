@@ -90,7 +90,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     Random r = new Random();
                     int ran = r.Next(100000, 999999);
                     password = string.Concat(password, ran);
-                    string passXc = Encrypt.EncryptString(password, "PD");
+                    string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                     Admin a = new Admin();
                     a.AdminName = name;
                     a.AdminUsername = username;
@@ -123,11 +123,13 @@ namespace vnpost_ocr_system.Controllers.Login
                 try
                 {
                     var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-                    password = string.Concat(password, admin.AdminPasswordSalt);
-                    string passXc = Encrypt.EncryptString(password, "PD");
+                    if (!password.Equals(admin.AdminPasswordHash)) {
+                        password = string.Concat(password, admin.AdminPasswordSalt.Substring(0, 6));
+                        string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
+                        admin.AdminPasswordHash = passXc;
+                    }
                     admin.AdminName = name;
                     admin.AdminUsername = username;
-                    admin.AdminPasswordHash = passXc;
                     admin.Role = role;
                     if (province == 0) province = 10;
                     admin.PostalProvinceCode = province.ToString();
@@ -175,8 +177,8 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             db.Configuration.ProxyCreationEnabled = false;
             var obj = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-            string pass = Encrypt.DecryptString(obj.AdminPasswordHash, "PD").Trim();
-            obj.AdminPasswordHash = pass.Remove(pass.Length - 6, 6);
+            //string pass = Encrypt.DecryptString(obj.AdminPasswordHash, "PD").Trim();
+            //obj.AdminPasswordHash = pass.Remove(pass.Length - 6, 6);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
         [Auther(Roles = "1,2,3")]

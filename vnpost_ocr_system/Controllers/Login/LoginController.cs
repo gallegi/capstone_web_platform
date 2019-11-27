@@ -37,7 +37,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 if (admin != null)
                 {
                     password = string.Concat(password, admin.AdminPasswordSalt.Substring(0,6));
-                    string passXc = Encrypt.EncryptString(password, "PD");
+                    string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                     if (passXc.Equals(admin.AdminPasswordHash))
                     {
                         Session["useradminID"] = admin.AdminID;
