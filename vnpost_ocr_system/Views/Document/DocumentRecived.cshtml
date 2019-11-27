@@ -5,8 +5,6 @@
 }
 
 <link href="~/CustomCSS/Document/DocumentNotReceived.css" rel="stylesheet" />
-<link rel="stylesheet" href="~/CustomCSS/InvitationCard/ConfirmInforBonus.css" />
-<link rel="stylesheet" href="~/CustomCSS/preloader/ConfirmInfor.css" />
 <link rel="stylesheet" href="~/CustomCSS/Document/DocumentReceived.css" />
 <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
@@ -36,23 +34,26 @@
                                     </div>
                                     <div class="col s8">
                                         <div class="h-form-label">
-                                            <select tabindex="-1" class="card-border" id="province">
-                                                @if (ViewBag.proList.Count != 1)
-                                                {
+                                            @if (ViewBag.proList.Count != 1)
+                                            {
+                                                <select tabindex="-1" class="card-border" id="province">
                                                     <option value="">Tất cả</option>
-                                                    foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                    @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
                                                     {
                                                         <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select tabindex="-1" disabled class="card-border" id="province">
+                                                    @foreach (vnpost_ocr_system.Models.Province item in ViewBag.proList)
                                                     {
                                                         <option selected value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                                     }
-                                                }
-                                            </select>
+                                                </select>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +258,7 @@
     $(document).ready(function () {
         $("#pre-load").show("slow", function () {
         });
-        $("#pre-load").css("z-index", "99999");
+        $("#pre-load").css("z-index", "999999");
         $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
                 //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
@@ -317,13 +318,19 @@
                         "orderable": false,
                         "searchable": false,
                     }
+
                 ],
+                success: function (response) {
+                    $("#pre-load").hide("slow", function () {
+                    });
+                },
                 "drawCallback": function (settings) {
                     ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
                     $("#pre-load").hide("slow", function () {
                     });
                     ////////////////////////////////////////////////
                 },
+
                 "serverSide": "true",
                 "language": {
                     emptyTable: "<li class='text-danger' align='center'>Không có dữ liệu</li>",
@@ -367,7 +374,7 @@
         var year = currentTime.getFullYear();
         var date = day + "/" + month + "/" + year;
         return (date);
-    } s
+    }
 </script>
 <script>
     $(document).ready(function () {
@@ -490,7 +497,7 @@
     }
 
 
-     $("#excel").click(function () {
+    $("#excel").click(function () {
         $("#pre-load").show();
         $.ajax({
             type: "POST",
