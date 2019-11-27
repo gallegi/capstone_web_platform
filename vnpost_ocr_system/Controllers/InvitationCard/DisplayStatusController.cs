@@ -32,18 +32,19 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
         [Route("giay-hen/trang-thai-giay-hen")]
         [HttpPost]
-        public ActionResult Display(string id_raw)
+        public ActionResult Display(string id)
         {
             string cusid = "";
             if (Session["userID"] != null)
             {
                 cusid = Session["userID"].ToString();
             }
-            int id = Convert.ToInt32(id_raw);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             Order od = null;
             Order odb = null;
+
             odb = db.Database.SqlQuery<Order>("select o.* from [Order] o where o.AppointmentLetterCode = @id", new SqlParameter("id", id)).FirstOrDefault();
+
             if (odb == null)
             {
                 SearchStatusController ssc = new SearchStatusController();
