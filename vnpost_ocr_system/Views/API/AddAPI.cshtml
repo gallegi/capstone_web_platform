@@ -8,12 +8,13 @@
 <script src="~/assets/extra-libs/tiny-editable/numeric-input-example.js"></script>
 <script src="~/CustomJS/API.js"></script>
 
-<div class="page-titles">
-    <div class="d-flex align-items-center">
-        <h4 class="font-medium m-b-0 pdleft">Thêm mới API</h4>
-    </div>
-</div>
 
+<style>
+    .duplicate {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col s12 m12 l12">
@@ -25,7 +26,7 @@
                         <div class="col s12 m 5 l5">
                             <label><b>Materialize Select</b></label>
                             <div class="h-form-label">
-                                <select tabindex="-1" class="card-border">
+                                <select tabindex="-1" class="card-border" id="method">
                                     <option value="1" selected>GET</option>
                                     <option value="2">POST</option>
                                     <option value="3">PUT</option>
@@ -36,7 +37,7 @@
                         <div class="col s12 m5 l5">
                             <label><b>URI</b></label>
                             <div class="h-form-label">
-                                <input type="text" value="">
+                                <input type="text" id="uri">
                             </div>
                         </div>
                     </div>
@@ -45,7 +46,7 @@
                         <div class="col s12 m12 l12">
                             <label><b>Description</b></label>
                             <div class="h-form-label">
-                                <input type="text" value="">
+                                <input type="text" id="description">
                             </div>
                         </div>
                     </div>
@@ -72,12 +73,12 @@
                 <div class="row">
                     <div class="col s12 m5 l5">
                         <label><b>Username</b></label>
-                        <input type="text" value="" />
+                        <input type="text" id="username" />
                     </div>
                     <div class="col s12 m2 l2"></div>
                     <div class="col s12 m5 l5">
                         <label><b>Password</b></label>
-                        <input type="password" value="" />
+                        <input type="password" id="password" />
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@
                 <h4 class="font-medium">Parameter</h4>
                 <div class="row">
                     <div class="col s12 m12 l12">
-                        <table id="mainTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                        <table id="parameterTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
                             <thead class="clgray">
                                 <tr>
                                     <th rowspan="2">STT</th>
@@ -105,16 +106,17 @@
 
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>1</td>
+                                    <td><input type='text' class="logic" /></td>
+                                    <td><input type='text' class="physics paramName" /></td>
+                                    <td><input type='text' class="type" /></td>
                                 </tr>
                             </tbody>
                         </table>
                         <br />
                         <div class="center-align">
-                            <div id="addrow" class="waves-effect waves-light btn blue ju"><i class="fas fa-plus"></i> Thêm param mới</div>
+                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <button id='remove' class='@*waves-effect waves-light btn blue ju*@ btn light-blue lighten-1' onclick="deleterowParameter('parameterTable')"><i class='large material-icons'>remove</i></button>
                         </div>
                     </div>
                 </div>
@@ -128,7 +130,7 @@
                 <h4 class="font-medium">Request Data</h4>
                 <div class="row">
                     <div class="col s12 m12 l12">
-                        <table id="mainTable2" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                        <table id="requestTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
                             <thead class="clgray">
                                 <tr>
                                     <th rowspan="2">STT</th>
@@ -143,16 +145,17 @@
 
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>1</td>
+                                    <td><input type='text' /></td>
+                                    <td><input type='text' class='requestName' /></td>
+                                    <td><input type='text' /></td>
                                 </tr>
                             </tbody>
                         </table>
                         <br />
                         <div class="center-align">
-                            <div id="addrow" class="waves-effect waves-light btn blue ju"><i class="fas fa-plus"></i> Thêm Request data mới</div>
+                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <button id='remove' class='btn light-blue lighten-1' onclick="deleterowRequest('requestTable')"><i class='large material-icons'>remove</i></button></a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +175,7 @@
                                     <p>Sample Data</p>
                                 </div>
                                 <div class="response-data-right">
-                                    <textarea style="height: 100%"></textarea>
+                                    <textarea style="height: 100%" id="format"></textarea>
                                 </div>
                             </div>
 
@@ -180,8 +183,8 @@
                     </div>
                 </div>
                 <div class="col s12 l12 m12">
-                    <a class="btn blue btn-small darken-2">Tự động căn chỉnh JSON Format</a>
-                    <a class="btn blue btn-small darken-2">Xác nhận</a>
+                    <a class="btn blue btn-small darken-2" onclick="FormatJson()">Tự động căn chỉnh JSON Format</a>
+                    <a class="btn blue btn-small darken-2" onclick="Add()">Xác nhận</a>
                 </div>
             </div>
         </div>
@@ -198,3 +201,127 @@
     });
 
 </script>
+<script>
+    var beforeforma;
+    function FormatJson() {
+        var jsonStr = $("#format").val();
+        var jsonObj = JSON.parse(jsonStr);
+        var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+
+        $("#format").val(jsonPretty);
+
+    }
+    var countParameter = 1;
+    var countRequest = 1;
+
+
+
+    function addParameterRow() {
+        countParameter++;
+        $("#parameterTable").append("<tr>" +
+
+            "<td>" + countParameter + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='paramName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "</tr>");
+    }
+
+    function addRequestRow() {
+        countRequest++;
+        $("#requestTable").append("<tr>" +
+
+            "<td> " + countRequest + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='requestName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "</tr>");
+
+    }
+    function deleterowRequest(tableID) {
+        var table = document.getElementById(tableID);
+        table.deleteRow(-1);
+        countRequest--;
+
+    }
+    function deleterowParameter(tableID) {
+        var table = document.getElementById(tableID);
+        table.deleteRow(-1);
+        countParameter--;
+    }
+    function Add() {
+        var listrequest = new Array();
+        var listparameter = new Array();
+
+        $("#requestTable TBODY TR").each(function () {
+            var request = {};
+            var x = $(this).find("td:eq(1)").text();
+            request.APIOutputParamDescription = $(this).find("td").eq(1).children().val();
+            request.APIOutputParamName = $(this).find("td:eq(2)").children().val();
+            request.APIOutputParamType = $(this).find("td:eq(3)").children().val();
+            listrequest.push(request);
+        });
+        $("#parameterTable TBODY TR").each(function () {
+            var parameter = {};
+            parameter.APIInputParamDescription = $(this).find("td:eq(1)").children().val();
+            parameter.APIInputParamName = $(this).find("td:eq(2)").children().val();
+            parameter.APIInputParamType = $(this).find("td:eq(3)").children().val();
+            listparameter.push(parameter);
+
+        });
+        var data = {
+            listrequest: listrequest,
+            listparameter: listparameter,
+            materialize: $('#method').val(),
+            uri: $('#uri').val(),
+            description: $('#description').val(),
+            username: $('#username').val(),
+            password: $('#password').val(),
+            response: $("#format").val(),
+        }
+        var arrparam = [];
+        $(".paramName").each(function () {
+            var value = $(this).val();
+            if (arrparam.indexOf(value) == -1) {
+                arrparam.push(value);
+                $(this).removeClass("duplicate");
+            }
+            else
+                $(this).addClass("duplicate");
+        });
+        var arrrequest = [];
+        $(".requestName").each(function () {
+            var value = $(this).val();
+            if (arrrequest.indexOf(value) == -1) {
+                arrrequest.push(value);
+                $(this).removeClass("duplicate");
+            }
+            else
+                $(this).addClass("duplicate");
+        });
+        if ($(".duplicate").length > 0) { errorAlert('Lỗi', 'Những physic này đã tồn tại'); }
+        else {
+            $("#pre-load").show();
+            $.ajax({
+                type: "POST",
+                url: "/api/them-moi-api/add",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    successAlert('Thành công', 'Thao tác thành công');
+                    $("#pre-load").hide();
+
+
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    errorAlert('Lỗi', 'Xin vui lòng kiểm tra lại');
+                    $("#pre-load").hide();
+                }
+
+            });
+
+        }
+    }
+
+</script>
+

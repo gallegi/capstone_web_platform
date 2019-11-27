@@ -16,7 +16,6 @@
 </head>
 
 <body>
-
     <!--navbar-->
     <div class="wrapper">
         <div id="pre-load" hidden>
@@ -107,7 +106,7 @@
         <div id="register-container">
             <div class="container">
                 <div class="row m-b-none">
-                    <form method="post">
+                
                         <div class='input-authen input-field col s12'>
                             <i class="material-icons prefix">person</i>
                             <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
@@ -138,17 +137,57 @@
                             </label>
                         </div>
                         <br />
-                        <div class='input-authen input-field col s12'>
-                            <i class="material-icons prefix">phone</i>
-                            <input type="text" placeholder="Số điện thoại" class="icon_prefix2" />
+
+                        <div class="col s12 input-authen input-field col s12" style="font-size:35px;color: #848484;">
+                            <i class="material-icons prefix" style="font-size:40px;color: #848484;">location_city</i>
+                            <select id="province" class="addr-select" onchange="getDis()">
+                            </select>
+
                         </div>
-                        <div class='input-authen input-field col s12'>
-                            <i class="material-icons prefix">email</i>
-                            <input type="text" placeholder="Email" class="icon_prefix2" />
+                        <div class="col s12 input-authen input-field col s12" style="font-size:35px;color: #848484;">
+                            <i class="material-icons prefix" style="font-size:40px;color: #848484;"></i>
+                            <select id="district" class="addr-select" name="distrint">
+                            </select>
+                        </div>
+                        <div class="col s12  sdt-or-email-checkbox">
+                            <label div class="left" id="sdt-checkbox">
+                                <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
+                                <span>Số điện thoại</span>
+                            </label>
+                            <label div class="left" id="email-checkbox">
+                                <input type="checkbox" id="emailcheck" class="ep-checkboxes">
+                                <span>Email</span>
+                            </label>
+                        </div>
+                        <div class='input-authen input-field col s12' id="checkboxphone">
+                            <div class="col s9">
+                                <i class="material-icons prefix">phone</i>
+                                <input type="text" placeholder="Số điện thoại" class="icon_prefix2" />
+                            </div>
+                            <div class="col s3">
+                                <button class="red btn small waves-effect waves-light" id="sdt-confirm-btn">GỬI MÃ</button>
+                            </div>
+                            <div class="col s9">
+                                <i class="material-icons prefix"></i>
+                                <input type="text" placeholder="Mã xác thực SĐT" class="icon_prefix2" id="sdt-confirm-code" hidden/>
+                            </div>
+                        </div>
+                        <div class='input-authen input-field col s12' id="checkboxemail">
+                            <div class="col s9">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" placeholder="Email" class="icon_prefix2" />
+                            </div>
+                            <div class="col s3">
+                                <button class="red btn small waves-effect waves-light" id="email-confirm-btn">GỬI MÃ</button>
+                            </div>
+                            <div class="col s9">
+                                <i class="material-icons prefix"></i>
+                                <input type="text" placeholder="Mã xác thực Email" class="icon_prefix2"  id="email-confirm-code" hidden/>
+                            </div>
                         </div>
                         <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG KÝ</button>
 
-                    </form>
+                 
                 </div>
             </div>
         </div>
@@ -190,7 +229,9 @@
         </div>
 
     </div>
-
+    <input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
+    <input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
+    <input type="text" id="tem1" value="@ViewBag.messe" hidden />
     <!---->
     <script>
         $(document).ready(function () {
@@ -201,10 +242,112 @@
         $(document).ready(function () {
             $('.tabs').tabs();
         });
+        $('#checkboxemail').find("input").prop("readonly",true);
+                    $('#checkboxemail').find("button").prop("disabled",true);
     </script>
 
     <script src="~/assets/materialize/js/materialize.js"></script>
-        <script>
+    <script>
+        $(".ep-checkboxes").click(function (e) {
+            var email = $("#emailcheck").is(":checked");
+            var phone = $("#phonecheck").is(":checked");
+            if (email === false && phone === false) {
+                e.preventDefault();
+            } else {
+                if ($("#emailcheck").is(":checked") === true) {
+                    $('#checkboxemail').find("input").prop("readonly",false);
+                    $('#checkboxemail').find("button").prop("disabled", false);
+                } else {
+                    $('#checkboxemail').find("input").prop("readonly", true);
+                    $('#checkboxemail').find("input").val("");
+                    $('#checkboxemail').find("button").prop("disabled", true);
+                     $("#email-confirm-code").hide("slow", function () { });
+                }
+                if ($("#phonecheck").is(":checked") === true) {
+                    $('#checkboxphone').find("input").prop("readonly",false);
+                    $('#checkboxphone').find("button").prop("disabled",false);
+                } else {
+                    $('#checkboxphone').find("input").prop("readonly",true);
+                    $('#checkboxphone').find("input").val("");
+                    $('#checkboxphone').find("button").prop("disabled", true);
+                     $("#sdt-confirm-code").hide("slow", function () { });
+                }
+            }
+
+        });
+    </script>
+    <script>
+        $("#sdt-confirm-btn").click(function () {
+            $("#sdt-confirm-code").show("slow", function () { });
+        });
+        $("#email-confirm-btn").click(function () {
+            $("#email-confirm-code").show("slow", function () { });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            if (document.getElementById('tem').value != '') {
+                $('#validCodePhone-err').text('Mã xác thực không đúng');
+            }
+            if (document.getElementById('tem2').value != '') {
+                $('#validCodeEmail-err').text('Mã xác thực không đúng');
+                $('#emailcheck').attr('checked', 'checked');
+                document.getElementById('emailcheck').value = 1;
+            }
+            if (document.getElementById('tem1').value != '') {
+                s
+                $('#messe').text(document.getElementById('tem1').value);
+            }
+            var windowWidth = $(window).width();
+            if (windowWidth < 768) {
+                $(".set-btn").remove();
+            }
+            getPro();
+            //chen1();
+            //chen2();
+        });
+
+        function getDis() {
+            var emp = {
+                id: document.getElementById('province').value
+            };
+            $.ajax({
+                url: "/LoginCustomer/GetDis",
+                type: "POST",
+                data: JSON.stringify(emp),
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    $('#district').empty();
+                    var string = "<option value='' selected disabled>Quận/Huyện</option>";
+                    result.forEach(function (key) {
+                        string += "<option value='" + key.PostalDistrictCode + "'>" + key.PostalDistrictName + "</option>";
+                    });
+                    $('#district').append(string);
+                    $('#district').formSelect();
+                },
+                error: function (errormessage) {
+                }
+            });
+        }
+
+        function getPro() {
+            $.ajax({
+                url: "/LoginCustomer/GetPro",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    var string = "<option value='' selected disabled>Tỉnh/Thành</option>";
+                    result.forEach(function (key) {
+                        string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                    });
+                    $('#province').append(string);
+                    $('#province').formSelect();
+                },
+                error: function (errormessage) {
+                }
+            });
+        }
+
         $(document).ready(function () {
             if (document.getElementById('tem').value != '') {
                 $('#validCodePhone-err').text('Mã xác thực không đúng');
@@ -221,8 +364,6 @@
             if (windowWidth < 768) {
                 $(".set-btn").remove();
             }
-            chen1();
-            chen2();
         });
 
         function Login() {
@@ -234,7 +375,7 @@
                 $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
                 return;
             }
-            if (!password.length == 0) { $('#password_failed').html('');}
+            if (!password.length == 0) { $('#password_failed').html(''); }
             else {
                 $('#password_failed').html('Mật khẩu không được để trống');
                 return;
@@ -244,7 +385,7 @@
                 pass: document.getElementById('pass').value,
                 checkbox: $('#remem').is(":checked")
             };
-             $('#pre-load').show();
+            $('#pre-load').show();
             $.ajax({
                 url: "/LoginCustomer/Login",
                 type: "POST",
@@ -268,40 +409,7 @@
             });
         }
 
-        function chen1() {
-            if (document.getElementById('phonecheck').value == 1) {
-                $('#checkboxphone').show();
-                document.getElementById('phonecheck').value = 0;
-            } else {
-                $('#checkboxphone').hide();
-                document.getElementById('phonecheck').value = 1;
-            }
-        }
-        function chen2() {
-            if (document.getElementById('emailcheck').value == 1) {
-                $('#checkboxemail').show();
-                document.getElementById('emailcheck').value = 0;
-            } else {
-                $('#checkboxemail').hide();
-                document.getElementById('emailcheck').value = 1;
-            }
-        }
-        //$("#btn_login").click(function () {
-        //    var check = 0;
-        //    if ($("#user").val() == "01234") {
-        //        $("#user_failed").show();
-        //        $("#password_failed").hide();
-        //        check = 1;
-        //    }
-        //    if ($("#pass").val() == "123") {
-        //        $("#user_failed").hide();
-        //        $("#password_failed").show();
-        //        check = 1;
-        //    }
-        //    if (check == 0) {
-        //        window.location.href = "/tai-khoan/thong-tin-tai-khoan";
-        //    }
-        //});
+
         $(document).ready(function () {
             var windowWidth = $(window).width();
             if (windowWidth <= 1023) {
