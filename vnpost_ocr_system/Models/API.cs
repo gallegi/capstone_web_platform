@@ -26,7 +26,7 @@ namespace vnpost_ocr_system.Models
         public string APIUri { get; set; }
         public string APIDescription { get; set; }
         public System.DateTime LastMofifiedTime { get; set; }
-        public string SampleRespone { get; set; }
+        public string SampleResponse { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
     

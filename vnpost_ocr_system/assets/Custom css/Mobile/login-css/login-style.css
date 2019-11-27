@@ -125,9 +125,6 @@ ul:not(.browser-default) {
     height: 80px !important;
 }
 
-.row .col.s3 {
-    width: 50% !important;
-}
 
 .gender-container .prefix {
     width: 2rem;
@@ -161,4 +158,36 @@ input#number-email-reset {
 #remember_check_label {
     margin-top:65px;
     font-size: 35px !important;
+}
+ul.dropdown-content {
+    min-height: 500px;
+}
+
+ul * {
+    font-size: 35px !important;
+}
+.select-wrapper input.select-dropdown {
+    font-size: 35px !important;
+    width: 95% !important;
+}
+.select-dropdown {
+    margin-left: 30px !important;
+}
+.dropdown-content li{
+    padding-bottom:30px !important;
+}
+span {
+    font-size: 40px !important;
+    color:gray;
+}
+.sdt-or-email-checkbox *{
+    padding-right:20px !important;
+    margin-bottom:20px;
+    margin-top:20px;
+}
+button.red.btn.small.waves-effect.waves-light {
+    font-size: 35px;
+    height: 5%;
+    width: 100%;
+    border-radius:10px;
 }

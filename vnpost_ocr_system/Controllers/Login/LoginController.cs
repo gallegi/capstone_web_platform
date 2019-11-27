@@ -33,13 +33,12 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             try
             {
-                string passXc = Encrypt.EncryptString(password, "PD");
                 var admin = db.Admins.Where(x => x.AdminUsername.Equals(username)).FirstOrDefault();
                 if (admin != null)
                 {
-                    string pass = string.Concat(admin.AdminPasswordHash, admin.AdminPasswordSalt);
-                    passXc = string.Concat(passXc, admin.AdminPasswordSalt);
-                    if (passXc.Equals(pass))
+                    password = string.Concat(password, admin.AdminPasswordSalt.Substring(0,6));
+                    string passXc = Encrypt.EncryptString(password, "PD");
+                    if (passXc.Equals(admin.AdminPasswordHash))
                     {
                         Session["useradminID"] = admin.AdminID;
                         Session["useradminName"] = admin.AdminName;

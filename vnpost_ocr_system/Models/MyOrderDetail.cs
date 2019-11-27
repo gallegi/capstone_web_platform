@@ -11,5 +11,8 @@ namespace vnpost_ocr_system.Models
         public int m { get; set; }
         public int d { get; set; }
         public string hour { get; set; }
+        public string display { get; set; }
+        public string StatusName { get; set; }
+        public string PosName { get; set; }
     }
 }

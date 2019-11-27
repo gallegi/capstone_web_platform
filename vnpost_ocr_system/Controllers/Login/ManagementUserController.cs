@@ -54,7 +54,7 @@ namespace vnpost_ocr_system.Controllers.Login
 
                 foreach (Admindb a in searchList)
                 {
-                    if (!string.IsNullOrEmpty(province)) { searchList.Remove(a); }
+                    if (!string.IsNullOrEmpty(province) && Convert.ToInt32(Session["adminRole"]) == 1) { searchList.Remove(a); }
                     else
                     {
                         if (a.AdminRoleName.Equals("Tổng công ty")) a.PostalProvinceName = "Tổng công ty";
@@ -85,13 +85,17 @@ namespace vnpost_ocr_system.Controllers.Login
             {
                 try
                 {
-                    string passXc = Encrypt.EncryptString(password, "PD");
+                    var check = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                    if (check.Count > 0) return Json("Tên tài khoản đã tồn tại. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
                     Random r = new Random();
+                    int ran = r.Next(100000, 999999);
+                    password = string.Concat(password, ran);
+                    string passXc = Encrypt.EncryptString(password, "PD");
                     Admin a = new Admin();
                     a.AdminName = name;
                     a.AdminUsername = username;
                     a.AdminPasswordHash = passXc;
-                    a.AdminPasswordSalt = r.Next(100000, 999999).ToString();
+                    a.AdminPasswordSalt = ran.ToString();
                     a.Role = role;
                     if (province == 0) province = 1;
                     a.PostalProvinceCode = province.ToString();
@@ -119,6 +123,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 try
                 {
                     var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
+                    password = string.Concat(password, admin.AdminPasswordSalt);
                     string passXc = Encrypt.EncryptString(password, "PD");
                     admin.AdminName = name;
                     admin.AdminUsername = username;
@@ -127,7 +132,8 @@ namespace vnpost_ocr_system.Controllers.Login
                     if (province == 0) province = 10;
                     admin.PostalProvinceCode = province.ToString();
                     admin.IsActive = Convert.ToBoolean(active);
-                    admin.CreatedTime = DateTime.Now;
+                    admin.ModifiedBy = Convert.ToInt64(Session["useradminID"]);
+                    admin.ModifiedTime = DateTime.Now;
                     db.Entry(admin).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json("Chỉnh sửa tài khoản thành công", JsonRequestBehavior.AllowGet);
@@ -165,12 +171,12 @@ namespace vnpost_ocr_system.Controllers.Login
             var listS = db.Provinces.ToList();
             return Json(new { listsearch = listS, listAE = listA }, JsonRequestBehavior.AllowGet);
         }
-        [Auther(Roles = "1,2,3")]
         public ActionResult GetEdit(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
             var obj = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-            obj.AdminPasswordHash = Encrypt.DecryptString(obj.AdminPasswordHash, "PD");
+            string pass = Encrypt.DecryptString(obj.AdminPasswordHash, "PD").Trim();
+            obj.AdminPasswordHash = pass.Remove(pass.Length - 6, 6);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
         [Auther(Roles = "1,2,3")]
@@ -195,7 +201,14 @@ namespace vnpost_ocr_system.Controllers.Login
                 return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult GenUsername(int id, string province)
+        {
+            string username = "sample";
+            if (id == 2) { username = "tongcongty"; }
+            else if (id == 3) { username = "Admin" + province; }
+            else if (id == 4) { username = "giaodichvien"; }
+            return Json(username, JsonRequestBehavior.AllowGet);
+        }
     }
     public class Admindb
     {

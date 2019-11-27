@@ -39,7 +39,6 @@ namespace vnpost_ocr_system.Controllers.Login
         }
         public ActionResult Login(string user,string pass,string checkbox)
         {
-            string passXc = Encrypt.EncryptString(pass, "PD");
             var custom = db.Customers.Where(x => x.Email.Equals(user) || x.Phone.Equals(user)).FirstOrDefault();
             bool check = true;
             if(custom != null)
@@ -64,9 +63,9 @@ namespace vnpost_ocr_system.Controllers.Login
                     }
                 }
                 if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
-                string password = string.Concat(custom.PasswordHash, custom.PasswordSalt);
-                passXc = string.Concat(passXc, custom.PasswordSalt);
-                if (passXc.Equals(password))
+                pass = string.Concat(pass, custom.PasswordSalt.Substring(0,6));
+                string passXc = Encrypt.EncryptString(pass, "PD");
+                if (passXc.Equals(custom.PasswordHash))
                 {
                     Session["userID"] = custom.CustomerID;
                     Session["userName"] = custom.FullName;
@@ -128,9 +127,10 @@ namespace vnpost_ocr_system.Controllers.Login
                         return View("/Views/Login/Login_Cutomer.cshtml");
                     }
                 }
-                string passXc = Encrypt.EncryptString(tbPass, "PD");
                 Random r = new Random();
                 int salt = r.Next(100000, 999999);
+                tbPass = string.Concat(tbPass, salt);
+                string passXc = Encrypt.EncryptString(tbPass, "PD");
                 Customer c = new Customer();
                 c.PasswordHash = passXc;
                 c.PasswordSalt = salt.ToString();
