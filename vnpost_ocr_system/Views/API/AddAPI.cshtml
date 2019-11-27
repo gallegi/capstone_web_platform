@@ -299,7 +299,12 @@
             else
                 $(this).addClass("duplicate");
         });
-        if ($(".duplicate").length > 0) { errorAlert('Lỗi', 'Những physic này đã tồn tại'); }
+        if ($(".duplicate").length > 0) {
+             $("html body").animate({
+                scrollTop: $(".duplicate").offset().top
+            }, 500);
+            errorAlert('Lỗi', 'Những physic này đã tồn tại');
+        }
         else {
             $("#pre-load").show();
             $.ajax({
