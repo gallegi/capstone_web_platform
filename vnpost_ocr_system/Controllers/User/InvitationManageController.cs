@@ -17,7 +17,14 @@ namespace vnpost_ocr_system.Controllers.User
         [Route("tai-khoan/quan-ly-giay-hen")]
         public ActionResult Index()
         {
-            return View("/Views/User/InvitationManage.cshtml");
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Users/InvitationManage.cshtml");
+            }
+            else
+            {
+                return View("/Views/User/InvitationManage.cshtml");
+            }
         }
 
         [Route("tai-khoan/quan-ly-giay-hen/danh-sach")]

@@ -19,7 +19,14 @@ namespace vnpost_ocr_system.Controllers.User
         [Route("tai-khoan/thong-tin-tai-khoan")]
         public ActionResult Index()
         {
-            return View("/Views/User/AccountInfo.cshtml");
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Users/AccountInfo.cshtml");
+            }
+            else
+            {
+                return View("/Views/User/AccountInfo.cshtml");
+            }
         }
         public ActionResult Info()
         {

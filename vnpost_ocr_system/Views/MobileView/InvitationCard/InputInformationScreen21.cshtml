@@ -39,7 +39,9 @@
 @*<link href="~/assets/uploader/style_uploader.css" rel="stylesheet" />*@
 
 <style>
- 
+ .steps.clearfix{
+     display:none !important;
+ }
 </style>
 <div class="container">
     <div class="row">
@@ -97,7 +99,7 @@
                                 <div id="img-capture" class="image-input center col s5 m5 l5">
                                     <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
                                 </div>
-                                <input type="file" id="img-chooser-file" onchange="readURL(this);" class="img-input" hidden>
+                                <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
                                 </div>
@@ -555,10 +557,11 @@
                             <div class="col l12 s12 m12">
                                 <h6 class="center step-title">6. Xác nhận thanh toán</h6>
                             </div>
-                            <h4>Hình thức thanh toán</h4>
+                            
                             <div class="col l9 s12 bill-container">
                                 <div class="card-shadow p-20 resize-card">
                                     <div>
+                                        <h5>Hình thức thanh toán</h5>
                                         <label>
                                             <input id="r1" type="radio" checked />
                                             <span>Thanh toán tiền mặt khi nhận hàng</span>
@@ -1417,9 +1420,9 @@ Dropzone.options.myAwesomeDropzone = {
     }
 </script>
 <script>
-    $(function () {
-        $(".steps.clearfix").hide();
-    })
+    //$(function () {
+    //    $(".steps.clearfix").hide();
+    //})
     $("#img-chooser").click(function () {
         $("#img-chooser-file").click();
     })
