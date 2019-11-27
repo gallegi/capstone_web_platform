@@ -69,6 +69,7 @@
         $('#failed').text(document.getElementById('err').value);
     });
     function valid() {
+        $('#pre-load').show();
         var user = document.getElementById('username').value;
         var pass = document.getElementById('password').value;
         if (user.length == 0) {
@@ -83,6 +84,7 @@
             $('#failed').text('Mật khẩu gồm 6-32 kí tự');
             return false;
         }
+        $('#pre-load').hide();
         return true;
     }
     //function Login() {
