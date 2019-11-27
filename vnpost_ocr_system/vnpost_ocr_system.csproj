@@ -153,8 +153,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\API\EditAPIController.cs" />
-    <Compile Include="Controllers\API\ListAPIController.cs" />
+    <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
+    <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
+    <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
@@ -179,7 +180,6 @@
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\MobileViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\API\AddAPIController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
     <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
