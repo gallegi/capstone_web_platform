@@ -26,6 +26,7 @@
     <!--Font css-->
     <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
     <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+    <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
     <!-- Apps -->
     <script src="~/dist/js/pages/dashboards/dashboard1.js"></script>
     <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -163,12 +164,20 @@
                                 </ul>
                             </div>
                         </li>
-                        <li>
-                            <a href="/phan-quyen-tai-khoan" class="collapsible-header"><i class="material-icons">person</i><span class="hide-menu">Người dùng</span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="collapsible-header" id="khohoso"><i class="material-icons">content_paste</i><span class="hide-menu">Danh sách API</span></a>
-                        </li>
+                        @{
+                            if (!Session["Role"].ToString().Equals("4"))
+                            {
+                                <li>
+                                    <a href="/phan-quyen-tai-khoan" class="collapsible-header"><i class="material-icons">person</i><span class="hide-menu">Người dùng</span></a>
+                                </li>
+                            }
+                            if (Session["Role"].ToString().Equals("1"))
+                            {
+                                <li>
+                                    <a href="javascript:void(0);" class="collapsible-header" id="khohoso"><i class="material-icons">content_paste</i><span class="hide-menu">Danh sách API</span></a>
+                                </li>
+                            }
+                        }
                     </ul>
                 </li>
             </ul>
@@ -229,7 +238,7 @@
 </html>
 <script>
     $(function () {
-        $("#pre-load").hide("slow", function () { });
+        $("#pre-load").css("z-index", 99999);
         $(".datepicker-inline").remove();
     })
     $(".loading").css("z-index", 99999);
