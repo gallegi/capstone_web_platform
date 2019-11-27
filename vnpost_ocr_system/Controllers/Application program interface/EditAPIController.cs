@@ -59,7 +59,7 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
                         string bulk_update = String.Empty;
                         DateTime today = DateTime.Today;
                         string updateApi = $"update api set APIMethodID={api.APIMethodID},APIUri='{api.APIUri}',APIDescription=N'{api.APIDescription}',LastMofifiedTime=getdate(),"+
-                              $"SampleResponse = N'{api.SampleRespone}',Username = N'{api.Username}',Password = N'{api.Password}' where api.APIID={api.APIID} ";
+                              $"SampleResponse = N'{api.SampleResponse}',Username = N'{api.Username}',Password = N'{api.Password}' where api.APIID={api.APIID} ";
                         bulk_update = string.Concat(bulk_update, updateApi);
 
                         foreach (APIInputParam input in listParameter)

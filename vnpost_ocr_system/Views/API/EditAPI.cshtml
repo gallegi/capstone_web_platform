@@ -3,12 +3,12 @@
 }
 
 
-    <style>
-        .duplicate {
-            border: 1px solid red !important;
-            color: red !important;
-        }
-    </style>
+<style>
+    .duplicate {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+</style>
 <link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
 <script src="~/assets/extra-libs/jquery-datatables-editable/jquery.dataTables.js"></script>
 <script src="~/assets/extra-libs/tiny-editable/mindmup-editabletable.js"></script>
@@ -307,12 +307,12 @@
         table.deleteRow(-1);
         countParameter--;
     }
-   
+
 
     function Edit() {
         var listrequest = new Array();
         var listparameter = new Array();
-        
+
         $("#requestTable TBODY TR").each(function () {
             var request = {};
 
@@ -345,29 +345,37 @@
             api: api,
 
         }
-         var arrparam = [];
+        var arrparam = [];
         $(".paramName").each(function () {
             var value = $(this).val();
             if (arrparam.indexOf(value) == -1) {
                 arrparam.push(value);
                 $(this).removeClass("duplicate");
             }
-            else
+            else {
                 $(this).addClass("duplicate");
+            }
         });
-         var arrrequest = [];
+        var arrrequest = [];
         $(".requestName").each(function () {
             var value = $(this).val();
             if (arrrequest.indexOf(value) == -1) {
                 arrrequest.push(value);
-                 $(this).removeClass("duplicate");
+                $(this).removeClass("duplicate");
             }
-            else
+            else {
                 $(this).addClass("duplicate");
+
+            }
         });
-        if ($(".duplicate").length > 0) { errorAlert('Lỗi', 'Những physic này đã tồn tại'); }
+        if ($(".duplicate").length > 0) {
+            $("html body").animate({
+                scrollTop: $(".duplicate").offset().top
+            }, 500);
+            errorAlert('Lỗi', 'Những physic này đã tồn tại');
+        }
         else {
-             $("#pre-load").show();
+            $("#pre-load").show();
             $.ajax({
                 type: "POST",
                 url: "/api/chinh-sua-api/edit",
@@ -376,14 +384,15 @@
                 dataType: "json",
                 success: function (r) {
                     successAlert('Thành công', 'Thao tác thành công');
-                     $("#pre-load").hide();
+                    $("#pre-load").hide();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
                     errorAlert('Lỗi', 'Xin Kiểm tra lại');
+
                     $("#pre-load").hide();
                 }
-                
+
             });
         }
 
