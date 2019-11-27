@@ -155,8 +155,9 @@ a#save_profile1 {
 .card {
     margin-left: -50px;
     margin-right: -50px;
-    height: 100vh;
-    padding-bottom:50px !important;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-bottom: 50px !important;
 }
 
 .card-title {
