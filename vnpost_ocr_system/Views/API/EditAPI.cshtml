@@ -2,288 +2,404 @@
     Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
 }
 
+
+<style>
+    .duplicate {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+</style>
 <link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
 <script src="~/assets/extra-libs/jquery-datatables-editable/jquery.dataTables.js"></script>
 <script src="~/assets/extra-libs/tiny-editable/mindmup-editabletable.js"></script>
 <script src="~/assets/extra-libs/tiny-editable/numeric-input-example.js"></script>
 <script src="~/CustomJS/API.js"></script>
 
-<div class="page-titles">
-    <div class="d-flex align-items-center">
-        <h4 class="font-medium m-b-0 pdleft">Thêm mới API</h4>
-    </div>
-</div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 m12 l12">
             <div class="card">
-                <form class="h-form b-form">
-                    <div class="form-body">
-                        <div class="card-content">
-                            <h4 class="font-medium">Request</h4>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label m-t-15">
-                                                <label for="f-name">HTTP Request</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <select tabindex="-1" class="card-border">
-                                                    <option value="1" selected>GET</option>
-                                                    <option value="2">POST</option>
-                                                    <option value="3">PUT</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label m-t-15">
-                                                <label for="f-name">URI</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <input id="URI-field" type="text" value="https://vnpost/lay-thong-tin-ma-ho-so">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label m-t-15">
-                                                <label for="f-name">Description</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <input id="description-field" type="text" value="API lấy thông tin về mã hồ sơ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="card-content">
+                    <h4 class="font-medium">Request</h4>
+                    <!----------->
+                    <div class="row">
+                        <div class="col s12 m 5 l5">
+                            <label><b>Materialize Select</b></label>
+                            <div class="h-form-label">
+                                <select tabindex="-1" class="card-border" id="method">
+                                    <option value="1" selected>GET</option>
+                                    <option value="2">POST</option>
+                                    <option value="3">PUT</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="card-content">
-                            <h4 class="font-medium">Request Header</h4>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Authorization</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Basic Authentication</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label for="f-name">Content-type</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label for="f-name">application/json</label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label m-t-15">
-                                                <label for="f-name">Username</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <input id="username-field" type="text" value="test">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 l6">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <div class="h-form-label m-t-15">
-                                                <label for="f-name">Password</label>
-                                            </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <input id="password-field" type="text" value="123456">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-content">
-                            <h4 class="font-medium">Parameter</h4>
-                            <div class="row">
-                                <div class="col l11">
-                                    <div class="row">
-                                        <table id="mainTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
-                                            <thead class="clgray">
-                                                <tr>
-                                                    <th rowspan="2">STT</th>
-                                                    <th colspan="2">Request</th>
-                                                    <th rowspan="2">Kiểu dữ liệu</th>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 45%">Logic</th>
-                                                    <th style="width: 30%">Physics</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td class="stt">VD1</td>
-                                                    <td>Mã số của bưu gửi muốn lấy thông tin</td>
-                                                    <td>MaBuuGui</td>
-                                                    <td>varchar(13)</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <br />
-                                        <div class="center-align">
-                                            <div id="addrow" class="waves-effect waves-light btn blue ju"><i class="fas fa-plus"></i> Thêm param mới</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-content">
-                            <h4 class="font-medium">Request Data</h4>
-                            <div class="row">
-                                <div class="col l11">
-                                    <div class="row">
-                                        <table id="mainTable2" class="centered table-bordered editable-table table" style="cursor: pointer;">
-                                            <thead class="clgray">
-                                                <tr>
-                                                    <th rowspan="2">STT</th>
-                                                    <th colspan="2">Request</th>
-                                                    <th rowspan="2">Kiểu dữ liệu</th>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 45%">Logic</th>
-                                                    <th style="width: 30%">Physics</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td contenteditable="true">VD</td>
-                                                    <td contenteditable="true">Mã khách hàng của đơn hàng này</td>
-                                                    <td contenteditable="true">MaKH</td>
-                                                    <td contenteditable="true">varchar(50)</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <br />
-                                        <div class="center-align">
-                                            <div id="addrow" class="waves-effect waves-light btn blue ju bt-add"><i class="fas fa-plus"></i> Thêm Request data mới</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-content">
-                            <h4 class="font-medium">Response Data</h4>
-                            <div class="row">
-                                <div class="col l11">
-                                    <div class="row">
-                                        <div class="response-data">
-                                            <div class="response-data-left">
-                                                <p>Sample Data</p>
-                                            </div>
-                                            <div class="response-data-right">
-                                                <p>
-                                                    {
-                                                    <br /><br />
-                                                    "MaBuuGui": "EN980000239VN",
-                                                    <br /><br />
-                                                    "MaKH": "42001O84000029000",
-                                                    <br /><br />
-                                                    "MaBuuCucDauMoiHCC": "421650",
-                                                    <br /><br />
-                                                    "HoTenNguoiNhan": "Trần Thị B",
-                                                    <br /><br />
-                                                    "DiaChiNguoiNhan": "Hà Nội",
-                                                    <br /><br />
-                                                    "DienThoaiNguoiNhan": "0972111757",
-                                                    <br /><br />
-                                                    }
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                        <div class="col s2 m2 l2"></div>
+                        <div class="col s12 m5 l5">
+                            <label><b>URI</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="uri">
+                                <input type="hidden" id="apiid" value="@ViewBag.api" />
                             </div>
                         </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col l11">
-                                    <div class="row">
-                                        <div class="form-action right-align">
-                                            <a href="" class="waves-effect waves-light btn blue ju">Tự động căn chỉnh JSON format</a>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+                    <!------------->
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <label><b>Description</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="description">
                             </div>
                         </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col l11">
-                                    <div class="row">
-                                        <div class="form-action right-align">
-                                            <a href="" class="waves-effect waves-light btn blue ju">Xác nhận</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <!------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Header</h4>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Authorization</b></label>
+                        <input type="text" value="Basic Authentication" disabled="disabled">
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Content-type</b></label>
+                        <input type="text" value="application/json" disabled="disabled">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Username</b></label>
+                        <input type="text" id="username" />
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Password</b></label>
+                        <input type="password" id="password" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Parameter</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="parameterTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+                                </tr>
+                            </thead>
 
-    <script>
-        $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-        $('#mainTable2').editableTableWidget().numericInputExample().find('td:first').focus();
-        $('#editable-datatable').editableTableWidget().numericInputExample().find('tdLfirst').focus();
-        $(function () {
-            $('#editable-datatable').DataTable();
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="center-align">
+                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <button id='remove' class='@*waves-effect waves-light btn blue ju*@ btn light-blue lighten-1' onclick="deleterowParameter('parameterTable')"><i class='large material-icons'>remove</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Data</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="requestTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="center-align">
+                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <button id='remove' class='btn light-blue lighten-1' onclick="deleterowRequest('requestTable')"><i class='large material-icons'>remove</i></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Response Data</h4>
+                <div class="row">
+                    <div class="col l11">
+                        <div class="row">
+                            <div class="response-data">
+                                <div class="response-data-left">
+                                    <p>Sample Data</p>
+                                </div>
+                                <div class="response-data-right">
+                                    <textarea style="height: 100%" id="format"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l12 m12">
+                    <a class="btn blue btn-small darken-2" onclick="FormatJson()">Tự động căn chỉnh JSON Format</a>
+                    <a class="btn blue btn-small darken-2" onclick="Edit()">Xác nhận</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#mainTable').editableTableWidget().numericInputExample().find('td').focus();
+    $('#mainTable2').editableTableWidget().numericInputExample().find('td').focus();
+    $('#editable-datatable').editableTableWidget().numericInputExample().find('td').focus();
+    $(function () {
+        $('#editable-datatable').DataTable();
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        drawTable();
+    });
+    var beforeforma;
+    function FormatJson() {
+        var jsonStr = $("#format").val();
+        var jsonObj = JSON.parse(jsonStr);
+        var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+
+        $("#format").val(jsonPretty);
+
+    }
+
+    var countParameter;
+    var countRequest;
+
+    function drawTable() {
+        $("#pre-load").show();
+        var apiid = $("#apiid").val();
+        $.ajax({
+            url: "/api/chinh-sua-api/getinformation",
+            type: "Post",
+
+            datatype: "json",
+            data: {
+                apiid: Number(apiid)
+            },
+            cache: false,
+            success: function (data) {
+
+                var jsonObj = JSON.parse(data.api.SampleResponse);
+                var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                $("#format").val(jsonPretty);
+                $("#method").val(data.api.APIMethodID);
+                $('#method').formSelect();
+                $("#uri").val(data.api.APIUri);
+                $("#description").val(data.api.APIDescription);
+                $("#username").val(data.api.Username);
+                $("#password").val(data.api.Password);
+
+                $.each(data.listAPIInputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td class='countParameter'>" + i + "</td>" +
+                        "<td><input type='text'  value='" + item.APIInputParamDescription + "'></td>" +
+                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "'></td>" +
+                        "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
+                        "</tr>";
+
+                    $("#parameterTable").find("tbody").append(tbData);
+                }
+                );
+                $.each(data.listAPIOutputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td class='countRequest'>" + i + "</td>" +
+                        "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
+                        "<td><input type='text' class='requestName' value='" + item.APIOutputParamName + "'></td>" +
+                        "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
+                        "</tr>";
+
+                    $("#requestTable").find("tbody").append(tbData);
+                }
+                );
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                var a = $(".countParameter").length;
+                if (a == null) { countParameter = 0; }
+                else { countParameter = a; }
+                var b = $(".countRequest").length;
+                if (b == null) { countRequest = 0; }
+                else { countRequest = b; }
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $("#pre-load").hide();
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
         });
 
-    </script>
+    }
+
+    function addParameterRow() {
+        countParameter++;
+        $("#parameterTable").append("<tr>" +
+
+            "<td>" + countParameter + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='paramName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "</tr>");
+    }
+
+    function addRequestRow() {
+        countRequest++;
+        $("#requestTable").append("<tr>" +
+
+            "<td>" + countRequest + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='requestName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "</tr>");
+
+    }
+    function deleterowRequest(tableID) {
+        var table = document.getElementById(tableID);
+        table.deleteRow(-1);
+        countRequest--;
+
+    }
+    function deleterowParameter(tableID) {
+        var table = document.getElementById(tableID);
+        table.deleteRow(-1);
+        countParameter--;
+    }
+
+
+    function Edit() {
+        var listrequest = new Array();
+        var listparameter = new Array();
+
+        $("#requestTable TBODY TR").each(function () {
+            var request = {};
+
+            request.APIOutputParamDescription = $(this).find("td").eq(1).children().val();
+            request.APIOutputParamName = $(this).find("td:eq(2)").children().val();
+            request.APIOutputParamType = $(this).find("td:eq(3)").children().val();
+
+            listrequest.push(request);
+        });
+        $("#parameterTable TBODY TR").each(function () {
+            var parameter = {};
+            parameter.APIInputParamDescription = $(this).find("td:eq(1)").children().val();
+            parameter.APIInputParamName = $(this).find("td:eq(2)").children().val();
+            parameter.APIInputParamType = $(this).find("td:eq(3)").children().val();
+            listparameter.push(parameter);
+
+        });
+        var api = {
+            APIMethodID: $('#method').val(),
+            APIUri: $('#uri').val(),
+            APIDescription: $('#description').val(),
+            Username: $('#username').val(),
+            Password: $('#password').val(),
+            SampleRespone: $("#format").val(),
+            APIID: $("#apiid").val(),
+        };
+        var data = {
+            listrequest: listrequest,
+            listparameter: listparameter,
+            api: api,
+
+        }
+        var arrparam = [];
+        $(".paramName").each(function () {
+            var value = $(this).val();
+            if (arrparam.indexOf(value) == -1) {
+                arrparam.push(value);
+                $(this).removeClass("duplicate");
+            }
+            else {
+                $(this).addClass("duplicate");
+            }
+        });
+        var arrrequest = [];
+        $(".requestName").each(function () {
+            var value = $(this).val();
+            if (arrrequest.indexOf(value) == -1) {
+                arrrequest.push(value);
+                $(this).removeClass("duplicate");
+            }
+            else {
+                $(this).addClass("duplicate");
+
+            }
+        });
+        if ($(".duplicate").length > 0) {
+            $("html body").animate({
+                scrollTop: $(".duplicate").offset().top
+            }, 500);
+            errorAlert('Lỗi', 'Những physic này đã tồn tại');
+        }
+        else {
+            $("#pre-load").show();
+            $.ajax({
+                type: "POST",
+                url: "/api/chinh-sua-api/edit",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    successAlert('Thành công', 'Thao tác thành công');
+                    $("#pre-load").hide();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    errorAlert('Lỗi', 'Xin Kiểm tra lại');
+
+                    $("#pre-load").hide();
+                }
+
+            });
+        }
+
+    }
+
+
+
+
+</script>
+

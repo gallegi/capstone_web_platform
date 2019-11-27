@@ -16,9 +16,13 @@
         border-right: 2px solid #5e35b1 !important;
         border-bottom: 2px solid #5e35b1 !important;
     }
-    select{
+
+    select {
         border-radius: 5px !important;
         box-shadow: none !important;
+    }
+    td, th {
+        padding : 5px 5px !important;
     }
 </style>
 <link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
@@ -225,7 +229,7 @@
                             <li><a href="#vattu" class="modal-trigger">Chỉnh sửa</a></li>
                             <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
                         </ul>
-                        <table class="table highlight responsive-table mana-user-table striped" id="mainTable">
+                        <table class="table-bordered  " id="mainTable">
                             <thead>
                                 <tr>
                                     <th class="center-align">STT</th>
@@ -234,8 +238,7 @@
                                     <th class="center-align">Vai trò</th>
                                     <th class="center-align">Khu vực</th>
                                     <th class="center-align">Hoạt động</th>
-                                    <th class="center-align"></th>
-                                    <th class="center-align"></th>
+                                    <th class="center-align" colspan="2"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -306,21 +309,21 @@
                 <tr>
                     <td>Vai trò</td>
                     <td>
-                        <select class="browser-default" id="role_edit" onchange="ProChanE()">
+                        <select class="browser-default" id="role_edit" onchange="ProChanE()" disabled>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tỉnh/Thành Phố</td>
                     <td>
-                        <select class="browser-default" id="province_edit">
+                        <select class="browser-default" id="province_edit" disabled>
                             <option value="0" hidden>Tổng công ty</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tài khoản</td>
-                    <td><input class="form-control" type="text" id="username_edit"></td>
+                    <td><input class="form-control" type="text" id="username_edit" readonly ></td>
                 </tr>
 
                 <tr>
@@ -399,8 +402,8 @@
     function ProChan() {
         if (document.getElementById('role_add').value == 2) {
             document.getElementById('province_add').value = 0;
-            $('#province_add').attr('disabled','true');
-        }else{
+            $('#province_add').attr('disabled', 'true');
+        } else {
             document.getElementById('province_add').value = 1;
             $('#province_add').removeAttr('disabled');
         }
@@ -409,8 +412,8 @@
         $('#pre-load').show();
         if (document.getElementById('role_edit').value == 2) {
             document.getElementById('province_edit').value = 0;
-            $('#province_edit').attr('disabled','disabled');
-        }else{
+            $('#province_edit').attr('disabled', 'disabled');
+        } else {
             document.getElementById('province_edit').value = 1;
             $('#province_edit').removeAttr('disabled');
         }
@@ -435,13 +438,13 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                $('#text_notifi').text(result);
-                $('#notifi').modal('open');
+                if (result == 0) successAlert('Thành công', 'Thêm tài khoản thành công');
+                else if (result == 1) errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                else if(result == 2)errorAlert('Lỗi', 'Tên tài khoản đã tồn tại. Vui lòng thử lại');
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
-                $('#notifi').modal('open');
-                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
             }
         });
     }
@@ -465,20 +468,20 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                $('#text_notifi').text(result);
-                $('#notifi').modal('open');
+                if (result == 0) successAlert('Thành công', 'Chỉnh sửa tài khoản thành công');
+                else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
-                $('#notifi').modal('open');
-                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
             }
         });
     }
 
     function Delete(id) {
-        document.getElementById('temp_id').value = id;
-        $('#deleteModal').modal('open');
+        confirmAlert("Xóa tài khoản", "Bạn không thể khôi phục lại khi xóa", function () {
+            DeleteAdmin();
+        });
     }
     function DeleteAdmin() {
         $('#pre-load').show();
@@ -494,13 +497,12 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                $('#text_notifi').text(result);
-                $('#notifi').modal('open');
+                if (result == 0) successAlert('Thành công', 'Xóa tài khoản thành công');
+                else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
-                $('#notifi').modal('open');
-                $('#text_notifi').text('Có lỗi xảy ra. Vui lòng thử lại');
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
             }
         });
     }
@@ -518,8 +520,8 @@
                 document.getElementById('name_edit').value = result.AdminName;
                 document.getElementById('username_edit').value = result.AdminUsername;
                 document.getElementById('password_edit').value = result.AdminPasswordHash;
-                if (result.Role == 2) { document.getElementById('province_edit').value = 0; $('#province_edit').attr('disabled', 'disabled'); }
-                else { document.getElementById('province_edit').value = result.PostalProvinceCode; $('#province_edit').removeAttr('disabled');  }
+                if (result.Role == 2) { document.getElementById('province_edit').value = 0;  }
+                else { document.getElementById('province_edit').value = result.PostalProvinceCode; }
                 document.getElementById('role_edit').value = result.Role;
                 if (result.IsActive == true) $('#active_edit').attr('checked', 'true');
                 else $('#active_edit').removeAttr('checked');

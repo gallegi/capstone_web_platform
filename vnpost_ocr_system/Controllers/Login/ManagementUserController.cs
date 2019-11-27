@@ -86,7 +86,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 try
                 {
                     var check = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
-                    if (check.Count > 0) return Json("Tên tài khoản đã tồn tại. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                    if (check.Count > 0) return Json(2, JsonRequestBehavior.AllowGet);
                     Random r = new Random();
                     int ran = r.Next(100000, 999999);
                     password = string.Concat(password, ran);
@@ -103,11 +103,11 @@ namespace vnpost_ocr_system.Controllers.Login
                     a.CreatedTime = DateTime.Now;
                     db.Admins.Add(a);
                     db.SaveChanges();
-                    return Json("Thêm tài khoản thành công", JsonRequestBehavior.AllowGet);
+                    return Json(0, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
-                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -136,16 +136,16 @@ namespace vnpost_ocr_system.Controllers.Login
                     admin.ModifiedTime = DateTime.Now;
                     db.Entry(admin).State = EntityState.Modified;
                     db.SaveChanges();
-                    return Json("Chỉnh sửa tài khoản thành công", JsonRequestBehavior.AllowGet);
+                    return Json(0, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception)
                 {
-                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
-                return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -189,24 +189,28 @@ namespace vnpost_ocr_system.Controllers.Login
                 {
                     db.Admins.Remove(admin);
                     db.SaveChanges();
-                    return Json("Thao tác thành công", JsonRequestBehavior.AllowGet);
+                    return Json(0, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception)
             {
-                return Json("Có lỗi xảy ra. Vui lòng thử lại", JsonRequestBehavior.AllowGet);
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GenUsername(int id, string province)
         {
             string username = "sample";
-            if (id == 2) { username = "tongcongty"; }
-            else if (id == 3) { username = "Admin" + province; }
-            else if (id == 4) { username = "giaodichvien"; }
+            if (id == 2) { var tct = db.Admins.Where(x => x.Role == 2).ToList(); username = "Admin00"+tct.Count(); }
+            else if (id == 3) { username = "Admin" + province+"_0"; var adt = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                if(adt.Count > 0) { var adtt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList(); username += adtt.Count(); }
+            }
+            else if (id == 4) { username = "giaodichvien"+province; var gdv = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                if(gdv.Count > 0) { var gdvv = db.Admins.Where(x => x.Role == 4 && x.PostalProvinceCode.Equals(province)).ToList(); username +="_"+ gdvv.Count(); }
+            }
             return Json(username, JsonRequestBehavior.AllowGet);
         }
     }

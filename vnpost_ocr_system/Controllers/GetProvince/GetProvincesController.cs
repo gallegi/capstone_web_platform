@@ -27,10 +27,13 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetProfile")]
         [HttpPost]
-        public ActionResult GetProfileByPAId(int code)
+        public ActionResult GetProfileByPAId(string code)
         {
+            int code_number;
+            if (!int.TryParse(code, out code_number))
+                return null;
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
+            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code_number)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
             {
                 ProfileID = x.ProfileID,
                 ProfileName = x.ProfileName
