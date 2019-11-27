@@ -35,8 +35,21 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
     <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="VNPOST_AppointmentEntities-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.%3bInitial Catalog=VNPOST_Appointment%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\VNPOST_AppointmentEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -709,32 +722,15 @@
     <Content Include="assets\images\big\img5.jpg" />
     <Content Include="assets\images\big\img6.jpg" />
     <Content Include="assets\images\big\socialbg.jpg" />
-    <Content Include="assets\images\caption.jpg" />
-    <Content Include="assets\images\cards\active-bg.jpg" />
-    <Content Include="assets\images\cards\h-card.jpg" />
-    <Content Include="assets\images\cards\office.jpg" />
-    <Content Include="assets\images\cards\sample-1.jpg" />
-    <Content Include="assets\images\carousel\1.jpg" />
-    <Content Include="assets\images\carousel\2.jpg" />
-    <Content Include="assets\images\carousel\3.jpg" />
-    <Content Include="assets\images\carousel\4.jpg" />
-    <Content Include="assets\images\carousel\ca1.jpg" />
-    <Content Include="assets\images\carousel\ca2.jpg" />
-    <Content Include="assets\images\carousel\img6.jpg" />
-    <Content Include="assets\images\collections\yuna.jpg" />
+    <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\logo-icon.png" />
+    <Content Include="assets\images\logo-light-icon.png" />
+    <Content Include="assets\images\logo-light-text.png" />
+    <Content Include="assets\images\logo-text.png" />
     <Content Include="assets\images\Logo.jpg" />
-    <Content Include="assets\images\office.jpg" />
-    <Content Include="assets\images\parallax1.jpg" />
-    <Content Include="assets\images\parallax2.jpg" />
-    <Content Include="assets\images\product\chair.png" />
-    <Content Include="assets\images\product\chair2.png" />
-    <Content Include="assets\images\product\chair3.png" />
-    <Content Include="assets\images\product\chair4.png" />
-    <Content Include="assets\images\product\ipad.png" />
-    <Content Include="assets\images\product\iphone.png" />
-    <Content Include="assets\images\product\iwatch.png" />
+    <Content Include="assets\images\Logo.PNG" />
     <Content Include="assets\images\rating\cancel-off.png" />
     <Content Include="assets\images\rating\cancel-on.png" />
     <Content Include="assets\images\rating\heart.png" />
@@ -743,28 +739,13 @@
     <Content Include="assets\images\rating\star-half.png" />
     <Content Include="assets\images\rating\star-off.png" />
     <Content Include="assets\images\rating\star-on.png" />
-    <Content Include="assets\images\sample-1.jpg" />
-    <Content Include="assets\images\user-bg.jpg" />
-    <Content Include="assets\images\users\1.jpg" />
-    <Content Include="assets\images\users\1.png" />
     <Content Include="assets\images\users\2.jpg" />
-    <Content Include="assets\images\users\2.png" />
-    <Content Include="assets\images\users\3.jpg" />
-    <Content Include="assets\images\users\3.png" />
-    <Content Include="assets\images\users\4.jpg" />
-    <Content Include="assets\images\users\5.jpg" />
-    <Content Include="assets\images\users\6.jpg" />
-    <Content Include="assets\images\users\7.jpg" />
-    <Content Include="assets\images\users\8.jpg" />
     <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
     <Content Include="assets\images\users\d2.jpg" />
     <Content Include="assets\images\users\d3.jpg" />
-    <Content Include="assets\images\users\d4.jpg" />
-    <Content Include="assets\images\users\d5.jpg" />
     <Content Include="assets\images\login-logo.png" />
-    <Content Include="assets\images\users\profile.png" />
-    <Content Include="assets\images\yuna.jpg" />
+    <Content Include="assets\images\vnpost.png" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\index.html" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\jquery.minicolors.css" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\jquery.minicolors.min.js" />
@@ -1092,10 +1073,6 @@
     <Content Include="assets\libs\ckeditor\plugins\balloontoolbar\skins\moono-lisa\balloontoolbar.css" />
     <Content Include="assets\libs\ckeditor\plugins\balloontoolbar\skins\moono\balloontoolbar.css" />
     <Content Include="assets\libs\ckeditor\plugins\bbcode\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\bidi\icons\bidiltr.png" />
-    <Content Include="assets\libs\ckeditor\plugins\bidi\icons\bidirtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\bidi\icons\hidpi\bidiltr.png" />
-    <Content Include="assets\libs\ckeditor\plugins\bidi\icons\hidpi\bidirtl.png" />
     <Content Include="assets\libs\ckeditor\plugins\bidi\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\bidi\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\bidi\lang\az.js" />
@@ -1171,8 +1148,6 @@
     <Content Include="assets\libs\ckeditor\plugins\cloudservices\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippetgeshi\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\dialogs\codesnippet.js" />
-    <Content Include="assets\libs\ckeditor\plugins\codesnippet\icons\codesnippet.png" />
-    <Content Include="assets\libs\ckeditor\plugins\codesnippet\icons\hidpi\codesnippet.png" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\lang\az.js" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\lang\bg.js" />
@@ -1276,10 +1251,6 @@
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\lib\highlight\styles\xcode.css" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\lib\highlight\styles\zenburn.css" />
     <Content Include="assets\libs\ckeditor\plugins\codesnippet\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\colorbutton\icons\bgcolor.png" />
-    <Content Include="assets\libs\ckeditor\plugins\colorbutton\icons\hidpi\bgcolor.png" />
-    <Content Include="assets\libs\ckeditor\plugins\colorbutton\icons\hidpi\textcolor.png" />
-    <Content Include="assets\libs\ckeditor\plugins\colorbutton\icons\textcolor.png" />
     <Content Include="assets\libs\ckeditor\plugins\colorbutton\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\colorbutton\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\colorbutton\lang\az.js" />
@@ -1426,8 +1397,6 @@
     <Content Include="assets\libs\ckeditor\plugins\colordialog\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
     <Content Include="assets\libs\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
-    <Content Include="assets\libs\ckeditor\plugins\copyformatting\icons\copyformatting.png" />
-    <Content Include="assets\libs\ckeditor\plugins\copyformatting\icons\hidpi\copyformatting.png" />
     <Content Include="assets\libs\ckeditor\plugins\copyformatting\lang\az.js" />
     <Content Include="assets\libs\ckeditor\plugins\copyformatting\lang\de.js" />
     <Content Include="assets\libs\ckeditor\plugins\copyformatting\lang\en.js" />
@@ -1507,8 +1476,6 @@
     <Content Include="assets\libs\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="assets\libs\ckeditor\plugins\divarea\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\div\dialogs\div.js" />
-    <Content Include="assets\libs\ckeditor\plugins\div\icons\creatediv.png" />
-    <Content Include="assets\libs\ckeditor\plugins\div\icons\hidpi\creatediv.png" />
     <Content Include="assets\libs\ckeditor\plugins\div\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\div\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\div\lang\az.js" />
@@ -1581,10 +1548,6 @@
     <Content Include="assets\libs\ckeditor\plugins\div\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\div\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\docprops\dialogs\docprops.js" />
-    <Content Include="assets\libs\ckeditor\plugins\docprops\icons\docprops-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\docprops\icons\docprops.png" />
-    <Content Include="assets\libs\ckeditor\plugins\docprops\icons\hidpi\docprops-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\docprops\icons\hidpi\docprops.png" />
     <Content Include="assets\libs\ckeditor\plugins\docprops\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\docprops\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\docprops\lang\az.js" />
@@ -1657,20 +1620,6 @@
     <Content Include="assets\libs\ckeditor\plugins\docprops\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\docprops\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\easyimage\dialogs\easyimagealt.js" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimagealigncenter.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimagealignleft.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimagealignright.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimagealt.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimagefull.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimageside.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\easyimageupload.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimagealigncenter.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimagealignleft.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimagealignright.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimagealt.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimagefull.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimageside.png" />
-    <Content Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\easyimageupload.png" />
     <Content Include="assets\libs\ckeditor\plugins\easyimage\lang\en.js" />
     <Content Include="assets\libs\ckeditor\plugins\easyimage\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\easyimage\styles\easyimage.css" />
@@ -1713,19 +1662,9 @@
     <Content Include="assets\libs\ckeditor\plugins\embedbase\lang\zh-cn.js" />
     <Content Include="assets\libs\ckeditor\plugins\embedbase\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\embedbase\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\embedsemantic\icons\embedsemantic.png" />
-    <Content Include="assets\libs\ckeditor\plugins\embedsemantic\icons\hidpi\embedsemantic.png" />
     <Content Include="assets\libs\ckeditor\plugins\embedsemantic\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\embed\icons\embed.png" />
-    <Content Include="assets\libs\ckeditor\plugins\embed\icons\hidpi\embed.png" />
     <Content Include="assets\libs\ckeditor\plugins\embed\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\find\dialogs\find.js" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\find-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\find.png" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\hidpi\find-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\hidpi\find.png" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\hidpi\replace.png" />
-    <Content Include="assets\libs\ckeditor\plugins\find\icons\replace.png" />
     <Content Include="assets\libs\ckeditor\plugins\find\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\find\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\find\lang\az.js" />
@@ -1798,8 +1737,6 @@
     <Content Include="assets\libs\ckeditor\plugins\find\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\find\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\flash\dialogs\flash.js" />
-    <Content Include="assets\libs\ckeditor\plugins\flash\icons\flash.png" />
-    <Content Include="assets\libs\ckeditor\plugins\flash\icons\hidpi\flash.png" />
     <Content Include="assets\libs\ckeditor\plugins\flash\images\placeholder.png" />
     <Content Include="assets\libs\ckeditor\plugins\flash\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\flash\lang\ar.js" />
@@ -1951,30 +1888,6 @@
     <Content Include="assets\libs\ckeditor\plugins\forms\dialogs\select.js" />
     <Content Include="assets\libs\ckeditor\plugins\forms\dialogs\textarea.js" />
     <Content Include="assets\libs\ckeditor\plugins\forms\dialogs\textfield.js" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\button.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\checkbox.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\form.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hiddenfield.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\button.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\checkbox.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\form.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\hiddenfield.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\imagebutton.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\radio.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\select-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\select.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\textarea-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\textarea.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\textfield-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\textfield.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\imagebutton.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\radio.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\select-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\select.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\textarea-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\textarea.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\textfield-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\forms\icons\textfield.png" />
     <Content Include="assets\libs\ckeditor\plugins\forms\images\hiddenfield.gif" />
     <Content Include="assets\libs\ckeditor\plugins\forms\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\forms\lang\ar.js" />
@@ -2051,8 +1964,6 @@
     <Content Include="assets\libs\ckeditor\plugins\icons_hidpi.png" />
     <Content Include="assets\libs\ckeditor\plugins\iframedialog\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\iframe\dialogs\iframe.js" />
-    <Content Include="assets\libs\ckeditor\plugins\iframe\icons\hidpi\iframe.png" />
-    <Content Include="assets\libs\ckeditor\plugins\iframe\icons\iframe.png" />
     <Content Include="assets\libs\ckeditor\plugins\iframe\images\placeholder.png" />
     <Content Include="assets\libs\ckeditor\plugins\iframe\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\iframe\lang\ar.js" />
@@ -2126,8 +2037,6 @@
     <Content Include="assets\libs\ckeditor\plugins\iframe\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\iframe\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\image2\dialogs\image2.js" />
-    <Content Include="assets\libs\ckeditor\plugins\image2\icons\hidpi\image.png" />
-    <Content Include="assets\libs\ckeditor\plugins\image2\icons\image.png" />
     <Content Include="assets\libs\ckeditor\plugins\image2\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\image2\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\image2\lang\az.js" />
@@ -2205,17 +2114,7 @@
     <Content Include="assets\libs\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="assets\libs\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="assets\libs\ckeditor\plugins\indentblock\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\hidpi\justifyblock.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\hidpi\justifycenter.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\hidpi\justifyleft.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\hidpi\justifyright.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\justifyblock.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\justifycenter.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\justifyleft.png" />
-    <Content Include="assets\libs\ckeditor\plugins\justify\icons\justifyright.png" />
     <Content Include="assets\libs\ckeditor\plugins\justify\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\language\icons\hidpi\language.png" />
-    <Content Include="assets\libs\ckeditor\plugins\language\icons\language.png" />
     <Content Include="assets\libs\ckeditor\plugins\language\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\language\lang\az.js" />
     <Content Include="assets\libs\ckeditor\plugins\language\lang\bg.js" />
@@ -2349,8 +2248,6 @@
     <Content Include="assets\libs\ckeditor\plugins\magicline\images\icon-rtl.png" />
     <Content Include="assets\libs\ckeditor\plugins\magicline\images\icon.png" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\dialogs\mathjax.js" />
-    <Content Include="assets\libs\ckeditor\plugins\mathjax\icons\hidpi\mathjax.png" />
-    <Content Include="assets\libs\ckeditor\plugins\mathjax\icons\mathjax.png" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\images\loader.gif" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\lang\ar.js" />
@@ -2405,10 +2302,6 @@
     <Content Include="assets\libs\ckeditor\plugins\mathjax\lang\zh-cn.js" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\mathjax\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\newpage\icons\hidpi\newpage-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\newpage\icons\hidpi\newpage.png" />
-    <Content Include="assets\libs\ckeditor\plugins\newpage\icons\newpage-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\newpage\icons\newpage.png" />
     <Content Include="assets\libs\ckeditor\plugins\newpage\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\newpage\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\newpage\lang\az.js" />
@@ -2480,10 +2373,6 @@
     <Content Include="assets\libs\ckeditor\plugins\newpage\lang\zh-cn.js" />
     <Content Include="assets\libs\ckeditor\plugins\newpage\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\newpage\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\pagebreak\icons\hidpi\pagebreak-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\pagebreak\icons\hidpi\pagebreak.png" />
-    <Content Include="assets\libs\ckeditor\plugins\pagebreak\icons\pagebreak-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\pagebreak\icons\pagebreak.png" />
     <Content Include="assets\libs\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
     <Content Include="assets\libs\ckeditor\plugins\pagebreak\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\pagebreak\lang\ar.js" />
@@ -2559,8 +2448,6 @@
     <Content Include="assets\libs\ckeditor\plugins\panelbutton\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\dialogs\placeholder.js" />
-    <Content Include="assets\libs\ckeditor\plugins\placeholder\icons\hidpi\placeholder.png" />
-    <Content Include="assets\libs\ckeditor\plugins\placeholder\icons\placeholder.png" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\lang\az.js" />
@@ -2618,10 +2505,6 @@
     <Content Include="assets\libs\ckeditor\plugins\placeholder\lang\zh-cn.js" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\placeholder\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\preview\icons\hidpi\preview-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\preview\icons\hidpi\preview.png" />
-    <Content Include="assets\libs\ckeditor\plugins\preview\icons\preview-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\preview\icons\preview.png" />
     <Content Include="assets\libs\ckeditor\plugins\preview\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\preview\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\preview\lang\az.js" />
@@ -2694,8 +2577,6 @@
     <Content Include="assets\libs\ckeditor\plugins\preview\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\preview\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\preview\preview.html" />
-    <Content Include="assets\libs\ckeditor\plugins\print\icons\hidpi\print.png" />
-    <Content Include="assets\libs\ckeditor\plugins\print\icons\print.png" />
     <Content Include="assets\libs\ckeditor\plugins\print\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\print\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\print\lang\az.js" />
@@ -2767,8 +2648,6 @@
     <Content Include="assets\libs\ckeditor\plugins\print\lang\zh-cn.js" />
     <Content Include="assets\libs\ckeditor\plugins\print\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\print\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\save\icons\hidpi\save.png" />
-    <Content Include="assets\libs\ckeditor\plugins\save\icons\save.png" />
     <Content Include="assets\libs\ckeditor\plugins\save\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\save\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\save\lang\az.js" />
@@ -2844,8 +2723,6 @@
     <Content Include="assets\libs\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="assets\libs\ckeditor\plugins\scayt\dialogs\toolbar.css" />
     <Content Include="assets\libs\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
-    <Content Include="assets\libs\ckeditor\plugins\selectall\icons\hidpi\selectall.png" />
-    <Content Include="assets\libs\ckeditor\plugins\selectall\icons\selectall.png" />
     <Content Include="assets\libs\ckeditor\plugins\selectall\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\selectall\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\selectall\lang\az.js" />
@@ -2918,10 +2795,6 @@
     <Content Include="assets\libs\ckeditor\plugins\selectall\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\selectall\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\sharedspace\plugin.js" />
-    <Content Include="assets\libs\ckeditor\plugins\showblocks\icons\hidpi\showblocks-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\showblocks\icons\hidpi\showblocks.png" />
-    <Content Include="assets\libs\ckeditor\plugins\showblocks\icons\showblocks-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\showblocks\icons\showblocks.png" />
     <Content Include="assets\libs\ckeditor\plugins\showblocks\images\block_address.png" />
     <Content Include="assets\libs\ckeditor\plugins\showblocks\images\block_blockquote.png" />
     <Content Include="assets\libs\ckeditor\plugins\showblocks\images\block_div.png" />
@@ -3005,8 +2878,6 @@
     <Content Include="assets\libs\ckeditor\plugins\showblocks\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\showblocks\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\smiley\dialogs\smiley.js" />
-    <Content Include="assets\libs\ckeditor\plugins\smiley\icons\hidpi\smiley.png" />
-    <Content Include="assets\libs\ckeditor\plugins\smiley\icons\smiley.png" />
     <Content Include="assets\libs\ckeditor\plugins\smiley\images\angel_smile.gif" />
     <Content Include="assets\libs\ckeditor\plugins\smiley\images\angel_smile.png" />
     <Content Include="assets\libs\ckeditor\plugins\smiley\images\angry_smile.gif" />
@@ -3123,10 +2994,6 @@
     <Content Include="assets\libs\ckeditor\plugins\smiley\lang\zh.js" />
     <Content Include="assets\libs\ckeditor\plugins\smiley\plugin.js" />
     <Content Include="assets\libs\ckeditor\plugins\sourcedialog\dialogs\sourcedialog.js" />
-    <Content Include="assets\libs\ckeditor\plugins\sourcedialog\icons\hidpi\sourcedialog-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\sourcedialog\icons\hidpi\sourcedialog.png" />
-    <Content Include="assets\libs\ckeditor\plugins\sourcedialog\icons\sourcedialog-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\sourcedialog\icons\sourcedialog.png" />
     <Content Include="assets\libs\ckeditor\plugins\sourcedialog\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\sourcedialog\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\sourcedialog\lang\az.js" />
@@ -3264,10 +3131,6 @@
     <Content Include="assets\libs\ckeditor\plugins\table\dialogs\table.js" />
     <Content Include="assets\libs\ckeditor\plugins\templates\dialogs\templates.css" />
     <Content Include="assets\libs\ckeditor\plugins\templates\dialogs\templates.js" />
-    <Content Include="assets\libs\ckeditor\plugins\templates\icons\hidpi\templates-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\templates\icons\hidpi\templates.png" />
-    <Content Include="assets\libs\ckeditor\plugins\templates\icons\templates-rtl.png" />
-    <Content Include="assets\libs\ckeditor\plugins\templates\icons\templates.png" />
     <Content Include="assets\libs\ckeditor\plugins\templates\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\templates\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\templates\lang\az.js" />
@@ -3345,8 +3208,6 @@
     <Content Include="assets\libs\ckeditor\plugins\templates\templates\images\template3.gif" />
     <Content Include="assets\libs\ckeditor\plugins\uicolor\dialogs\uicolor.css" />
     <Content Include="assets\libs\ckeditor\plugins\uicolor\dialogs\uicolor.js" />
-    <Content Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\uicolor.png" />
-    <Content Include="assets\libs\ckeditor\plugins\uicolor\icons\uicolor.png" />
     <Content Include="assets\libs\ckeditor\plugins\uicolor\lang\af.js" />
     <Content Include="assets\libs\ckeditor\plugins\uicolor\lang\ar.js" />
     <Content Include="assets\libs\ckeditor\plugins\uicolor\lang\az.js" />
@@ -3820,7 +3681,6 @@
     <Content Include="assets\libs\jquery-steps\lib\jquery.cookie-1.3.1.js" />
     <Content Include="assets\libs\jquery-steps\lib\modernizr-2.6.2.min.js" />
     <Content Include="assets\libs\jquery-steps\LICENSE.txt" />
-    <Content Include="assets\libs\jquery-steps\nuget\NuGet.exe" />
     <Content Include="assets\libs\jquery-steps\steps.css" />
     <Content Include="assets\libs\jquery-validation\dist\additional-methods.js" />
     <Content Include="assets\libs\jquery-validation\dist\jquery.validate.min.js" />
@@ -5609,7 +5469,6 @@
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
     <Content Include="CustomCSS\preloader\DisplayStatus.css" />
     <Content Include="CustomCSS\preloader\css.css" />
-    <Content Include="CustomCSS\preloader\logo.png" />
     <Content Include="CustomCSS\preloader\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
     <Content Include="CustomCSS\User\AddressInfo.css" />
@@ -6112,7 +5971,6 @@
     <Content Include="assets\extra-libs\taskboard\less\lobilist.less" />
     <Content Include="assets\extra-libs\taskboard\less\mixins.less" />
     <Content Include="assets\extra-libs\taskboard\less\variables.less" />
-    <Content Include="assets\images\big\Thumbs.db" />
     <Content Include="assets\libs\%40claviska\jquery-minicolors\component.json" />
     <Content Include="assets\libs\.DS_Store" />
     <Content Include="assets\libs\block-ui\blockUI.jquery.json" />
@@ -6138,8 +5996,6 @@
     <Content Include="assets\libs\jquery-asGradient\LICENSE" />
     <Content Include="assets\libs\jquery-asGradient\package.json" />
     <Content Include="assets\libs\jquery-asGradient\README.md" />
-    <Content Include="assets\libs\jquery-steps\build\jquery.steps-1.1.0.zip" />
-    <Content Include="assets\libs\jquery-steps\build\jQuery.Steps.1.1.0.nupkg" />
     <Content Include="assets\libs\jquery-steps\nuget\jQuery.Steps.nuspec" />
     <Content Include="assets\libs\jquery-steps\steps.jquery.json" />
     <Content Include="assets\libs\jquery.repeater\repeater.jquery.json" />
@@ -6152,8 +6008,6 @@
     <Content Include="assets\libs\jvectormap\_CookieConsentPartial.cshtml" />
     <Content Include="assets\libs\morris.js\bower.travis.json" />
     <Content Include="assets\libs\node-sass\binding.gyp" />
-    <Content Include="assets\libs\node-sass\bin\emcc" />
-    <Content Include="assets\libs\node-sass\bin\node-sass" />
     <Content Include="assets\libs\node-sass\node_modules\gaze\LICENSE-MIT" />
     <Content Include="assets\libs\node-sass\vendor\win32-x64-57\binding.node" />
     <Content Include="assets\libs\raty-js\lib\fonts\raty.eot" />
@@ -6162,7 +6016,6 @@
     <Content Include="assets\libs\summernote\dist\font\summernote.eot" />
     <Content Include="assets\libs\summernote\dist\font\summernote.ttf" />
     <Content Include="assets\libs\summernote\dist\font\summernote.woff" />
-    <Content Include="assets\libs\summernote\dist\summernote-0.8.10-dist.zip" />
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
@@ -6170,46 +6023,25 @@
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="assets\libs\tinymce\skins\lightgray\fonts\tinymce.woff" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.0.0.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.0.0.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.0.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.0.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.0.2.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.0.2.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.0.3.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.0.3.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.0.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.0.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.2.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.2.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.3.nupkg" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.2.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.2.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.4.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.1.5.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.1.5.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.2.0.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.2.0.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.2.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.2.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.2.2.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.2.2.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.3.0.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.3.0.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.1.3.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.1.3.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.2.0.0-rc1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.2.0.0-rc1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.2.0.1.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.2.0.1.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.2.0.2.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.2.0.2.nuspec" />
-    <Content Include="assets\libs\toastr\nuget\toastr.2.0.3.nupkg" />
     <Content Include="assets\libs\toastr\nuget\toastr.2.0.3.nuspec" />
     <Content Include="dist\.DS_Store" />
     <Content Include="dist\css\.DS_Store" />
@@ -6457,6 +6289,36 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\libs\ckeditor\plugins\bidi\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\codesnippet\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\colorbutton\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\copyformatting\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\div\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\docprops\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\easyimage\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\embedsemantic\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\embed\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\find\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\flash\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\forms\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\iframe\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\image2\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\justify\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\language\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\mathjax\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\newpage\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\pagebreak\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\placeholder\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\preview\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\print\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\save\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\selectall\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\showblocks\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\smiley\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\sourcedialog\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\templates\icons\hidpi\" />
+    <Folder Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\" />
+    <Folder Include="assets\libs\node-sass\bin\" />
     <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\AccountInfo\" />
