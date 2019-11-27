@@ -21,7 +21,7 @@
         border-radius: 5px !important;
         box-shadow: none !important;
     }
-    td, th {
+    td {
         padding : 5px 5px !important;
     }
 </style>
@@ -95,7 +95,7 @@
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn modal-close blue" onclick="Insert()">Lưu</a>
+        <a class="btn blue" onclick="Insert()">Lưu</a>
         <a class="btn modal-close blue darken-2">Đóng</a>
     </div>
 </div>
@@ -229,7 +229,7 @@
                             <li><a href="#vattu" class="modal-trigger">Chỉnh sửa</a></li>
                             <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
                         </ul>
-                        <table class="table-bordered  " id="mainTable">
+                        <table class="table-bordered" id="mainTable">
                             <thead>
                                 <tr>
                                     <th class="center-align">STT</th>
@@ -296,7 +296,7 @@
 <!-- Pop-up ------  DEMO PROTOTYPE ---- edit user-->
 <div id="editUser" class="modal p-20" tabindex="0" style="z-index: 1003; display: none; opacity: 0; top: 10%; transform: scaleX(0.8) scaleY(0.8);">
     <div class="modal-header center">
-        <h4>Nhập thông tin tài khoản</h4>
+        <h4>Sửa thông tin tài khoản</h4>
     </div>
     <div class="modal-body">
         <table id="Table" class="centered striped">
@@ -330,7 +330,7 @@
                     <td>Mật khẩu</td>
                     <td><input class="form-control" type="password" id="password_edit"></td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td class="col">Hiển thị mật khẩu</td>
                     <td>
                         <span class="col">
@@ -341,7 +341,7 @@
                             </label>
                         </span>
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td>Hoạt động</td>
                     <td>
@@ -355,7 +355,7 @@
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn modal-close blue" onclick="Update()">Lưu</a>
+        <a class="btn blue" onclick="Update()">Lưu</a>
         <a class="btn modal-close blue darken-2">Đóng</a>
     </div>
 </div>
@@ -420,6 +420,10 @@
         $('#pre-load').hide();
     }
     function Insert() {
+        if (document.getElementById('password_add').value.length < 6) {
+            errorAlert('Lỗi', 'Mật khẩu phải có ít nhất 6 kí tự');
+            return false;
+        }
         $('#pre-load').show();
         var emb = {
             name: document.getElementById('name_add').value,
@@ -440,16 +444,22 @@
                 });
                 if (result == 0) successAlert('Thành công', 'Thêm tài khoản thành công');
                 else if (result == 1) errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
-                else if(result == 2)errorAlert('Lỗi', 'Tên tài khoản đã tồn tại. Vui lòng thử lại');
+                else if (result == 2) errorAlert('Lỗi', 'Tên tài khoản đã tồn tại. Vui lòng thử lại');
+                $('#vattu').modal('close');
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
                 errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#vattu').modal('close');
             }
         });
     }
 
     function Update() {
+        if (document.getElementById('password_edit').value.length < 6) {
+            errorAlert('Lỗi', 'Mật khẩu phải có ít nhất 6 kí tự');
+            return false;
+        }
         var emb = {
             id: document.getElementById('temp_id').value,
             name: document.getElementById('name_edit').value,
@@ -470,10 +480,12 @@
                 });
                 if (result == 0) successAlert('Thành công', 'Chỉnh sửa tài khoản thành công');
                 else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#editUser').modal('close');
             },
             error: function (errormessage) {
                 $('#pre-load').hide();
                 errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#editUser').modal('close');
             }
         });
     }
