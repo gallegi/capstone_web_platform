@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers
 {
@@ -13,12 +14,13 @@ namespace vnpost_ocr_system.Controllers
     {
         // GET: Payment
 
-        [Route("don-hang/thanh-toan")]
-        public ActionResult Index()
-        {
-            return View("/Views/Payment/Payment.cshtml");
-        }
+        //[Route("don-hang/thanh-toan")]
+        //public ActionResult Index()
+        //{
+        //    return View("/Views/Payment/Payment.cshtml");
+        //}
 
+        [Auther(Roles = "0")]
         [HttpPost]
         [Route("don-hang/thanh-toan")]
         public ActionResult Add()
