@@ -52,12 +52,13 @@ namespace vnpost_ocr_system.Controllers.User
                 custom.PostalDistrictID = dis;
                 if (!string.IsNullOrEmpty(oldpass))
                 {
-                    oldpass = string.Concat(oldpass, custom.PasswordSalt);
-                    string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
+                    oldpass = string.Concat(oldpass, custom.PasswordSalt.Substring(0, 6));
+                    //string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
+                    string oldpassXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(oldpass, "pd");
                     if (oldpassXc.Equals(custom.PasswordHash))
                     {
-                        newpass = string.Concat(newpass, custom.PasswordSalt);
-                        custom.PasswordHash = Encrypt.EncryptString(newpass, "PD");
+                        newpass = string.Concat(newpass, custom.PasswordSalt.Substring(0, 6));
+                        custom.PasswordHash = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(newpass, "pd");
                         db.Entry(custom).State = EntityState.Modified;
                         db.SaveChanges();
                         return Json(1, JsonRequestBehavior.AllowGet);
