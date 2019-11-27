@@ -16,6 +16,8 @@ namespace vnpost_ocr_system.Controllers.Document
         string district_ori = "";
         string hcc_ori = "";
         string profile_ori = "";
+        OrderDashBorad odb_ori;
+        OrderDashBorad odb_ori_year;
         public void load()
         {
             string year = DateTime.Now.ToString("yyyy");
@@ -52,6 +54,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 , new SqlParameter("file", profile_ori)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
             ViewBag.odb = odb;
+            odb_ori = odb;
 
             string date = DateTime.Now.ToString("dd/MM/yyyy");
             ViewBag.date = date;
@@ -153,7 +156,40 @@ namespace vnpost_ocr_system.Controllers.Document
                 , new SqlParameter("file", profile_ori)).ToList();
             string chua = JsonConvert.SerializeObject(list_chua);
             ViewBag.list_chua = chua;
+
+            sql = "select " +
+                  " (case when a.total_cho is null then 0 else a.total_cho end) as 'total_cho', " +
+                  " (case when a.total_da is null then 0 else a.total_cho end) as 'total_da', " +
+                  " (case when a.total_xong is null then 0 else a.total_cho end) as 'total_xong' " +
+                  " from( " +
+                  " select " +
+                  "  SUM(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
+                  "  SUM(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
+                  "  SUM(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
+                  "  from[Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                  "  inner join Profile p on o.ProfileID = p.ProfileID " +
+                  "  inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                  "  inner join PostOffice po on pa.PosCode = po.PosCode " +
+                  "  inner join District d on po.DistrictCode = d.DistrictCode " +
+                  "  inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
+                  "  where year(os.CreatedTime) = @year AND ";
+            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            sql = sql.Substring(0, sql.Length - 5);
+            sql += ") a";
+            odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("year", year)
+                , new SqlParameter("pro", provine_ori)
+                , new SqlParameter("dis", district_ori)
+                , new SqlParameter("pub", hcc_ori)
+                , new SqlParameter("file", profile_ori)).FirstOrDefault();
+            if (odb == null) odb = new OrderDashBorad();
+            ViewBag.odbyear = odb;
+            odb_ori_year = odb;
+
         }
+
 
         // GET: DisplayStatisticChart
         [Auther(Roles = "1,2,3,4")]
@@ -403,7 +439,7 @@ namespace vnpost_ocr_system.Controllers.Document
             hcc_ori = hcc;
             profile_ori = profile;
             load();
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, xong = odb_ori.total_xong, da = odb_ori.total_da, cho = odb_ori.total_cho, xongyear = odb_ori_year.total_xong, dayear = odb_ori_year.total_da, choyear = odb_ori_year.total_cho }, JsonRequestBehavior.AllowGet);
         }
 
     }
