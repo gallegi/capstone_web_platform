@@ -91,7 +91,7 @@
                     <div class="row" id="paperDetail">
                         <div class="row m-b-30">
                             <div class="col s12 l5 m5 p-t-10">
-                                Mã số giấy tờ tùy thân:
+                                Mã số giấy tờ tùy thân:<span class="red-text">*</span>
                             </div>
                             <div class="col s12 l5 m5">
                                 <input id="editCode" type="text">
@@ -100,17 +100,13 @@
 
                         <div class="row m-b-30">
                             <div class="col s12 l5 m5 p-t-10">
-                                Ngày cấp:<span class="red-text">*</span>
+                                Ngày cấp:
                             </div>
-                            <div class="col s12 l5 m5">
-                                <div>
-                                    <div class="row">
-                                        <input name="date" id="editDate" type="datetime"
-                                               class="datepicker-here col offset-s1 s9 offset-l1 l10" autocomplete="off"
-                                               data-language='vi' />
-                                        <i class="fas fa-calendar-alt col s2 l1" style="font-size: 1.5rem;"></i>
-                                    </div>
-                                </div>
+                            <div class="col s10 l4 m4">
+                                <input name="date" id="editDate" type="datetime"
+                                       class="datepicker-here" autocomplete="off"
+                                       data-language='vi' value="" />
+                                <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
                             </div>
                         </div>
 
