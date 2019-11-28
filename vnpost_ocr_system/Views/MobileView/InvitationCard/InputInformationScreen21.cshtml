@@ -42,6 +42,9 @@
  .steps.clearfix{
      display:none !important;
  }
+ #img-capture-file{
+     display:none !important;
+ }
 </style>
 <div class="container">
     <div class="row">
@@ -100,6 +103,7 @@
                                     <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
                                 </div>
                                 <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
+                                <input type="file" accept="image/*" onchange="readURL(this);" id="img-capture-file" capture="camera" hidden>
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
                                 </div>
