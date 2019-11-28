@@ -27,9 +27,34 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult getData(string province, string role, string active, string username, string name)
         {
             string query = "";
-            if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2) query = "select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
-            if (Convert.ToInt32(Session["adminRole"]) == 3) query = "select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from Admin a,Province p,AdminRole ar where ar.AdminRoleID=a.[Role] and a.PostalProvinceCode = p.PostalProvinceCode and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
-            if (!string.IsNullOrEmpty(province)) { query += " and a.PostalProvinceCode = @province "; }
+            if (province.Equals("0"))
+            {
+                if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2)
+                    query = @"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from
+                             Admin a inner join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                             inner join AdminRole ar on a.Role = ar.AdminRoleID
+                             and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username
+                             and a.Role = 2";
+                if (Convert.ToInt32(Session["adminRole"]) == 3)
+                    query = @"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from
+                             Admin a inner join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                             inner join AdminRole ar on a.Role = ar.AdminRoleID
+                             and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+            }
+            else
+            {
+                if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2)
+                    query = @"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from
+                             Admin a inner join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                             inner join AdminRole ar on a.Role = ar.AdminRoleID
+                             and a.IsActive like @active and a.Role > @currrole and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+                if (!string.IsNullOrEmpty(province)) query += " and a.PostalProvinceCode = @province";
+                if (Convert.ToInt32(Session["adminRole"]) == 3)
+                    query = @"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT,a.AdminID,a.AdminName,a.AdminUsername,p.PostalProvinceName,ar.AdminRoleName,a.IsActive from
+                             Admin a inner join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                             inner join AdminRole ar on a.Role = ar.AdminRoleID
+                             and a.IsActive like @active and a.Role > @currrole and a.PostalProvinceCode = @currprovince and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username";
+            }
             query += " order by a.Role";
             List<Admindb> searchList = null;
             int totalrows = 0;
@@ -54,7 +79,7 @@ namespace vnpost_ocr_system.Controllers.Login
 
                 foreach (Admindb a in searchList)
                 {
-                    if (!string.IsNullOrEmpty(province) && Convert.ToInt32(Session["adminRole"]) == 1) { searchList.Remove(a); }
+                    if (a.AdminRoleName.Equals("Tổng công ty") && !province.Equals("0") && !string.IsNullOrEmpty(province)) { searchList.Remove(a); }
                     else
                     {
                         if (a.AdminRoleName.Equals("Tổng công ty")) a.PostalProvinceName = "Tổng công ty";
@@ -123,7 +148,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 try
                 {
                     var admin = db.Admins.Where(x => x.AdminID == id).FirstOrDefault();
-                    if (!password.Equals(admin.AdminPasswordHash)) {
+                    if (!password.Equals(admin.AdminPasswordHash))
+                    {
                         password = string.Concat(password, admin.AdminPasswordSalt.Substring(0, 6));
                         string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                         admin.AdminPasswordHash = passXc;
@@ -206,12 +232,16 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult GenUsername(int id, string province)
         {
             string username = "sample";
-            if (id == 2) { var tct = db.Admins.Where(x => x.Role == 2).ToList(); username = "Admin00"+tct.Count(); }
-            else if (id == 3) { username = "Admin" + province+"_0"; var adt = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
-                if(adt.Count > 0) { var adtt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList(); username += adtt.Count(); }
+            if (id == 2) { var tct = db.Admins.Where(x => x.Role == 2).ToList(); username = "Admin00" + tct.Count(); }
+            else if (id == 3)
+            {
+                username = "Admin" + province + "_0"; var adt = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                if (adt.Count > 0) { var adtt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList(); username += adtt.Count(); }
             }
-            else if (id == 4) { username = "giaodichvien"+province; var gdv = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
-                if(gdv.Count > 0) { var gdvv = db.Admins.Where(x => x.Role == 4 && x.PostalProvinceCode.Equals(province)).ToList(); username +="_"+ gdvv.Count(); }
+            else if (id == 4)
+            {
+                username = "giaodichvien" + province; var gdv = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                if (gdv.Count > 0) { var gdvv = db.Admins.Where(x => x.Role == 4 && x.PostalProvinceCode.Equals(province)).ToList(); username += "_" + gdvv.Count(); }
             }
             return Json(username, JsonRequestBehavior.AllowGet);
         }
