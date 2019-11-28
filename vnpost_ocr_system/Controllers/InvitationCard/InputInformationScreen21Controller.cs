@@ -70,7 +70,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     c.Phone = Phone;
                     c.PostalDistrictCode = PostalDistrictCode;
                     c.Street = Street;
-                    c.PersonalPaperTypeID = PersonalPaperTypeID == "" ? null : (int?)int.Parse(PersonalPaperTypeID);
+                    c.PersonalPaperTypeID = (PersonalPaperTypeID == "" || PersonalPaperTypeID == "-1") ? null : (int?)int.Parse(PersonalPaperTypeID);
                     c.PersonalPaperNumber = PersonalPaperNumber == "" ? null : PersonalPaperNumber;
                     c.PersonalPaperIssuedDate = PersonalPaperIssuedDateString == "" ? null: (DateTime?)DateTime.ParseExact(PersonalPaperIssuedDateString, "dd/MM/yyyy", null);
                     c.PersonalPaperIssuedPlace = PersonalPaperIssuedPlace == "" ? null : PersonalPaperIssuedPlace;
@@ -121,7 +121,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     return Json(new { success = true, add = false, message = "Chỉnh sửa thành công" });
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Json(new { success = false, message = "Có lỗi xảy ra" });
             }

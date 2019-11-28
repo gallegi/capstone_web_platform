@@ -163,7 +163,7 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 m12 l12">
+                            <div class="col s12 l12">
                                 <br />
                                 <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
@@ -183,13 +183,13 @@
                     <h6>Thông tin yêu cầu giải quyết TTHC</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -219,26 +219,26 @@
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 3 -->
                     <h6>Thông tin người gửi</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -264,26 +264,26 @@
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 4 -->
                     <h6>Thông tin người nhận</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -309,13 +309,13 @@
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 5 -->
@@ -779,62 +779,67 @@
 <div id="myform1" class="modal fade">
     <div class="form-wrapper">
         <div class="row">
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <p class="col l3 m3 p-t-10 s12">Họ và tên <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input required id="name_edit" type="text">
                     </div>
                 </div>
             </div>
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <p class="col l3 m3 p-t-10 s12">Số điện thoại <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input id="phone_edit" type="text">
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
-                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
-                <div class="col l9 m9 s12">
-                    <select required tabindex="-1" id="province_edit" class="card-border">
-                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
-                        {
-                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                        }
-                    </select>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <p class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
+                    <div class="col l9 m9 s12">
+                        <select required tabindex="-1" id="province_edit" class="card-border">
+                            @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                            {
+                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
+            <div class="input-field col s12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
+                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <select required tabindex="-1" id="district_edit" class="card-border"></select>
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
+            <div class="input-field col s12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
+                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <textarea required id="street_edit"></textarea>
                     </div>
                 </div>
             </div>
             <div id="showmore">
-                <div class="input-field col s12 m12">
-                    <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
-                    <div class="col l9 m9 s12">
-                        <select tabindex="-1" id="paper_type_edit" class="card-border">
-                            @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
-                            {
-                                <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
-                            }
-                        </select>
+                <div class="input-field col s12">
+                    <div class="select-wrapper row">
+                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
+                        <div class="col l9 m9 s12">
+                            <select tabindex="-1" id="paper_type_edit" class="card-border">
+                                <option selected value="-1">Không có</option>
+                                @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
+                                {
+                                    <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
+                                }
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
                         <div class="col l9 m9 s12">
@@ -842,7 +847,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
@@ -853,7 +858,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
                         <div class="col l9 m9 s12">
@@ -865,7 +870,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="input-field col s12 m12">
+                <div class="input-field col s12">
                     <div class="select-wrapper row">
                         <div class="col l3 m3 p-t-10 s12 "></div>
                         <div class="col l9 m9 s12">
@@ -1110,6 +1115,14 @@
     })
 
     $(document).on("click", "#save_profile1", function () {
+        if ($('#name_edit').val() == "" || $('#phone_edit').val() == "" || $('#province_edit').val() == "90" || $('#district_edit').val() == null) {
+            errorAlert("Bạn chưa điền đầy đủ thông tin")
+            return;
+        }
+        if (type == 1 && $('#paper_type_edit').val() == "-1" && $('#paper_number_edit').val() != "") {
+            errorAlert("Bạn chưa chọn loại giấy tờ")
+            return;
+        }
         $('#pre-load').show()
         $.ajax({
             type: "POST",
@@ -1286,6 +1299,7 @@
                     }
                     else
                         errorAlert(response.message)
+                    $('#pre-load').hide();
                 }
             });
             //return form.submit();
