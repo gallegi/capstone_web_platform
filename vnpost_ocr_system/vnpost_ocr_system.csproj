@@ -306,6 +306,7 @@
     <Content Include="assets\Custom css\font-family.css" />
     <Content Include="assets\Custom css\form-input-border.css" />
     <Content Include="assets\Custom css\Mobile\layout-style.css" />
+    <Content Include="assets\Custom css\Mobile\login-css\icon.css" />
     <Content Include="assets\Custom css\Mobile\login-css\login-style.css" />
     <Content Include="assets\Custom css\Mobile\home-css.css" />
     <Content Include="assets\Custom css\Table-Not-Border.css" />
@@ -6219,6 +6220,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\Custom css\Mobile\login-css\flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
