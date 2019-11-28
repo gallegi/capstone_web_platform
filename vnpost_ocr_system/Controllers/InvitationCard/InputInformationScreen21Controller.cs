@@ -46,22 +46,22 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         [HttpPost]
         public ActionResult Add()
         {
+            string FullName = Request["FullName"];
+            string Phone = Request["Phone"];
+            string PostalDistrictCode = Request["PostalDistrictCode"];
+            string PostalDistrictName = Request["PostalDistrictName"];
+            string Street = Request["Street"];
+            if (FullName == "" || Phone == "" || PostalDistrictCode == "" || PostalDistrictName == "")
+                return Json(new { success = false, message = "Không được để trống" });
+
+            string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
+            string PersonalPaperNumber = Request["PersonalPaperNumber"];
+            string PersonalPaperIssuedDateString = Request["PersonalPaperIssuedDateString"];
+            string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
+            string ContactInfoID = Request["ContactInfoID"];
+            string PostalProvinceName = Request["PostalProvinceName"];
             try
             {
-                string FullName = Request["FullName"];
-                string Phone = Request["Phone"];
-                string PostalDistrictCode = Request["PostalDistrictCode"];
-                string PostalDistrictName = Request["PostalDistrictName"];
-                string Street = Request["Street"];
-                if (FullName == "" || Phone == "" || PostalDistrictCode == "" || PostalDistrictName == "")
-                    return Json(new { success = false, message = "Không được để trống" });
-
-                string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
-                string PersonalPaperNumber = Request["PersonalPaperNumber"];
-                string PersonalPaperIssuedDateString = Request["PersonalPaperIssuedDateString"];
-                string PersonalPaperIssuedPlace = Request["PersonalPaperIssuedPlace"];
-                string ContactInfoID = Request["ContactInfoID"];
-                string PostalProvinceName = Request["PostalProvinceName"];
                 using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                 {
                     ContactInfo c = ContactInfoID == "" ? new ContactInfo() : db.ContactInfoes.Find(int.Parse(ContactInfoID));

@@ -460,6 +460,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
+                                                <label hidden id="ProcedurerPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -473,6 +474,7 @@
                                             <div class="col s7">
                                                 <div class="h-form-label">
                                                     <label id="ProcedurerPersonalPaperTypeName"></label>
+                                                    <label hidden id="ProcedurerPersonalPaperTypeID"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -554,6 +556,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
+                                                <label hidden id="SenderPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -596,6 +599,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
+                                                <label hidden id="ReceiverPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -769,7 +773,7 @@
                             </div>
                         </div>
                     </section>
-                    <input name="id_raw" id="id_raw" readonly hidden />
+                    <input name="id" id="id_raw" readonly hidden />
                 </form>
             </div>
         </div>
@@ -898,7 +902,7 @@
     var validate2 = false;
     var validate3 = false;
 
-    var data = new FormData();
+    var data1 = new FormData();
 
     function getDistrict() {
         $('#pre-load').show()
@@ -1189,11 +1193,9 @@
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
         $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
-        data.delete("ProcedurerPostalDistrictCode");
-        data.append("ProcedurerPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
-        data.delete("ProcedurerPersonalPaperTypeID");
-        data.append("ProcedurerPersonalPaperTypeID", Adminprofile.find('#PersonalPaperTypeName').data("papertype"))
+        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('#PersonalPaperTypeName').data("papertype"));
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
@@ -1209,8 +1211,7 @@
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
-        data.delete("SenderPostalDistrictCode");
-        data.append("SenderPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
@@ -1222,9 +1223,8 @@
         $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
+        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
-        data.delete("ReceiverPostalDistrictCode");
-        data.append("ReceiverPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
@@ -1250,7 +1250,7 @@
                     toastr.error('Hãy điền đầy đủ thông tin!', '');
                     return false;
                 }
-                else if (data.get("img") == null) {
+                else if (data1.get("img") == null) {
                     toastr.error('Bạn chưa nhập ảnh giấy hẹn!', '');
                     return false;
                 }
@@ -1271,20 +1271,27 @@
         },
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
+            var data = new FormData();
+            data.append("img", data1.get("img"));
+            data.append("imgName", data1.get("imgName"));
             data.append("ProfileID", $('#item4').val());
             data.append("AppointmentLetterCode", $('#item5').val());
             data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
             data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
+            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text());
+            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text())
             data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
             data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
             data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
             data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
             data.append("SenderFullName", $('#SenderFullName').text());
             data.append("SenderPhone", $('#SenderPhone').text());
+            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text())
             data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('.ReceiverFullName').text());
+            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text());
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverStreet", $('.ReceiverStreet').text());
+            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text())
+            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text());
             data.append("OrderNote", $('#OrderNote').val());
             $.ajax({
                 type: "POST",
@@ -1297,9 +1304,10 @@
                         $('#id_raw').val(response.data)
                         $('#myform').submit();
                     }
-                    else
+                    else {
                         errorAlert(response.message)
-                    $('#pre-load').hide();
+                        $('#pre-load').hide();
+                    }
                 }
             });
             //return form.submit();
@@ -1365,8 +1373,8 @@ Dropzone.options.myAwesomeDropzone = {
             }
         });
         this.on("removedfile", function () {
-            data.delete("img")
-            data.delete("imgName")
+            data1.delete("img")
+            data1.delete("imgName")
             $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
@@ -1381,8 +1389,8 @@ Dropzone.options.myAwesomeDropzone = {
             myDropzone.processQueue();
         });
         this.on('sending', function (file, xhr, formData) {
-            data.append("img", file);
-            data.append("imgName", file.name)
+            data1.append("img", file);
+            data1.append("imgName", file.name)
         });
         //this.on('sending', function (file, xhr, formData) {
         //        data.append("file", file);
