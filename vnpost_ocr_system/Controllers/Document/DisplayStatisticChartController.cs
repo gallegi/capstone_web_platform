@@ -159,8 +159,8 @@ namespace vnpost_ocr_system.Controllers.Document
 
             sql = "select " +
                   " (case when a.total_cho is null then 0 else a.total_cho end) as 'total_cho', " +
-                  " (case when a.total_da is null then 0 else a.total_cho end) as 'total_da', " +
-                  " (case when a.total_xong is null then 0 else a.total_cho end) as 'total_xong' " +
+                  " (case when a.total_da is null then 0 else a.total_da end) as 'total_da', " +
+                  " (case when a.total_xong is null then 0 else a.total_xong end) as 'total_xong' " +
                   " from( " +
                   " select " +
                   "  SUM(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
@@ -271,8 +271,8 @@ namespace vnpost_ocr_system.Controllers.Document
 
             sql = "select " +
                   " (case when a.total_cho is null then 0 else a.total_cho end) as 'total_cho', " +
-                  " (case when a.total_da is null then 0 else a.total_cho end) as 'total_da', " +
-                  " (case when a.total_xong is null then 0 else a.total_cho end) as 'total_xong' " +
+                  " (case when a.total_da is null then 0 else a.total_da end) as 'total_da', " +
+                  " (case when a.total_xong is null then 0 else a.total_xong end) as 'total_xong' " +
                   " from( " +
                   " select " +
                   "  SUM(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
@@ -285,17 +285,17 @@ namespace vnpost_ocr_system.Controllers.Document
                   "  inner join District d on po.DistrictCode = d.DistrictCode " +
                   "  inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
                   "  where year(os.CreatedTime) = @year AND ";
-            if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
-            if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
-            if (profile_ori != "Tất cả" && profile_ori != "") sql += "p.ProfileName  = @file and ";
+            if (provine != "Tất cả" && provine!= "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
+            if (hcc!= "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
             sql += ") a";
             OrderDashBorad odb = db.Database.SqlQuery<OrderDashBorad>(sql, new SqlParameter("year", year)
-                , new SqlParameter("pro", provine_ori)
-                , new SqlParameter("dis", district_ori)
-                , new SqlParameter("pub", hcc_ori)
-                , new SqlParameter("file", profile_ori)).FirstOrDefault();
+                , new SqlParameter("pro", provine)
+                , new SqlParameter("dis", district)
+                , new SqlParameter("pub", hcc)
+                , new SqlParameter("file", profile)).FirstOrDefault();
             if (odb == null) odb = new OrderDashBorad();
 
             return Json(new { success = true, cxong = xong, cda = da, cchua = chua, xong = odb.total_xong, da = odb.total_da, cho = odb.total_cho }, JsonRequestBehavior.AllowGet);
