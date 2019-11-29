@@ -72,12 +72,12 @@
                     <td><input class="form-control" type="password" id="password_add"></td>
                 </tr>
                 <tr>
-                    <td class="col">Hiển thị mật khẩu</td>
+                    <td class="col"></td>
                     <td>
                         <span class="col">
                             <label style=" margin-top: 20px">
                                 <input type="checkbox" id="checkbox_add" />
-                                <span></span>
+                                <span class="black-text">Hiển thị mật khẩu</span>
                             </label>
                         </span>
                     </td>
@@ -200,7 +200,8 @@
                 </div>
                 <div class="col l2">
                     <select class="browser-default" id="province">
-                        <option value="">Tổng công ty</option>
+                        <option value="">Tất cả</option>
+                        <option value="0">Tổng công ty</option>
                     </select>
                 </div>
             </div>
@@ -586,8 +587,10 @@
             contentType: "application/json;charset=utf-8",
             success: function (result) {
                 var string = "";
+                let cou = 0;
                 result.forEach(function (key) {
                     string += "<option value='" + key.AdminRoleID + "'>" + key.AdminRoleName + "</option>";
+                    cou++;
                 });
                 $('#role').append(string);
                 $('#role').formSelect();
@@ -596,6 +599,10 @@
                 $('#role_edit').formSelect();
                 $('#role_add').append(string);
                 $('#role_add').formSelect();
+                if (cou == 1) {
+                    document.getElementById('role').value = result[0].AdminRoleID;
+                    $('#role').attr('disabled', true)
+                }
             },
             error: function (errormessage) {
             }
