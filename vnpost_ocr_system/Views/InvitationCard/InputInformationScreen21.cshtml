@@ -55,10 +55,6 @@
         z-index: 9999;
     }
 
-    a#save_profile1 {
-        margin-left: 20px;
-    }
-
     .dropzone .dz-preview .dz-image {
         margin: auto;
     }
@@ -202,7 +198,7 @@
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@(item.PersonalPaperTypeID == null ? -1 : (int?)item.PersonalPaperTypeID)" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
                                             <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
                                             <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                             <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
@@ -210,10 +206,10 @@
                                         <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
@@ -255,10 +251,10 @@
                                         <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
@@ -300,10 +296,10 @@
                                         <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="3" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
@@ -816,7 +812,9 @@
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
-                        <select required tabindex="-1" id="district_edit" class="card-border"></select>
+                        <select required tabindex="-1" id="district_edit" class="card-border">
+                            @ViewBag.select
+                        </select>
                     </div>
                 </div>
             </div>
@@ -873,15 +871,14 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="input-field col s12">
-                    <div class="select-wrapper row">
-                        <div class="col l3 m3 p-t-10 s12 "></div>
-                        <div class="col l9 m9 s12">
-                            <button class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close" id="close-modal">Hủy Bỏ</button>
-                            <a class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" id="save_profile1">Lưu</a>
-                        </div>
+            <div class="input-field col s12">
+                <div class="select-wrapper row m-b-20">
+                    <div class="col l2 m2 p-t-10 s12 "></div>
+                    <div class="col l8 m8 s12">
+                        <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_profile1">Lưu</a>
+                        <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common modal-close" id="close-modal">Hủy Bỏ</button>
                     </div>
+                    <div class="col l2 m2 p-t-10 s12 "></div>
                 </div>
             </div>
         </div>
@@ -897,6 +894,7 @@
 <script src="~/assets/uploader/dropzoneMultiple.js"></script>
 
 <script>
+    var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
     var validate1 = false;
     var validate2 = false;
@@ -1028,6 +1026,13 @@
 
     $(document).on("click", ".modal-trigger", function () {
         $('#myform1').find("input[type=text], textarea").val("");
+        $('#paper_type_edit').val($("#paper_type_edit option:first").val());
+        $('#paper_type_edit').formSelect()
+        $('#province_edit').val($("#province_edit option:first").val());
+        $('#province_edit').formSelect()
+        $('#district_edit').empty()
+        $('#district_edit').append(dist)
+        $('#district_edit').formSelect()
     })
 
     $(document).on("click", "#add", function () {
@@ -1119,7 +1124,7 @@
     })
 
     $(document).on("click", "#save_profile1", function () {
-        if ($('#name_edit').val() == "" || $('#phone_edit').val() == "" || $('#province_edit').val() == "90" || $('#district_edit').val() == null) {
+        if ($('#name_edit').val() == "" || $('#phone_edit').val() == "" || $('#province_edit').val() == null || $('#district_edit').val() == null || $('#street_edit').val() == "") {
             errorAlert("Bạn chưa điền đầy đủ thông tin")
             return;
         }
@@ -1137,15 +1142,13 @@
                 FullName: $('#name_edit').val(),
                 Phone: $('#phone_edit').val(),
                 PostalDistrictCode: $('#district_edit').val(),
-                PostalDistrictName: $('#district_edit option:selected').text(),
                 Street: $('#street_edit').val(),
                 PersonalPaperTypeID: $('#paper_type_edit').val(),
                 PersonalPaperNumber: $('#paper_number_edit').val(),
                 PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
                 PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
                 ContactInfoID: $('#info_edit').val(),
-                Type: type,
-                PostalProvinceName: $('#province_edit option:selected').text()
+                Type: type
             },
             success: function (response) {
                 if (response.success) {

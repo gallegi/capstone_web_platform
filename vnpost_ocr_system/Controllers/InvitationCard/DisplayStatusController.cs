@@ -121,7 +121,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
                 if (o == null)
                 {
-                    o = new orderDB();
+                    sql = @"select distinct o.*, os.PosCode
+                        from [Order] o left outer join Status s on o.StatusID = s.StatusID
+                        inner join OrderStatusDetail os on o.OrderID = os.OrderID
+                        where o.AppointmentLetterCode = @id";
+                    o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
+                    Console.WriteLine();
                 }
                 else
                 {
@@ -134,7 +139,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 else if (o.StatusID == -2) o.step = 1;
                 else if (o.StatusID == 1) o.step = 2;
                 else if (o.StatusID == 5) o.step = 4;
-                else o.step = 3;
+                else if(o.StatusID == -1)o.step = 3; 
+                else o.step = 0;
                 return View("/Views/InvitationCard/DisplayStatus.cshtml");
             }
 
