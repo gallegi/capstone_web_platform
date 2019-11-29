@@ -240,6 +240,7 @@
 </div>
 <script>
     $(document).ready(function () {
+
         $("#pre-load").show("slow", function () {
         });
         $("#pre-load").css("z-index", "999999");
@@ -375,7 +376,6 @@
         getDistrict();
 
         $('#district').change(function () {
-            $('#pre-load').show()
             getAdmins();
         })
 
@@ -392,11 +392,10 @@
         })
     })
 
-</script>
-<script>
 
     function getDistrict() {
-        $('#pre-load').show()
+        $("#pre-load").show("slow", function () {
+        });
         $('#PostalProvinceName').text($('#province').find("option:selected").text())
         $.ajax({
             type: "POST",
@@ -416,6 +415,7 @@
                 $('#district').append(option);
                 $('#district').formSelect();
                 getAdmins()
+                $('#pre-load').hide()
             },
             error: function () {
                 $('#pre-load').hide()
@@ -424,8 +424,16 @@
     }
 
     function getAdmins() {
-        $('#pre-load').show()
-        $('#PostalDistrictName').text($('#district').find('option:selected').text());
+        if ($('#district').val() == "") {
+            $('#organ').empty();
+            $('#organ').append('<option value="">Tất cả</option>');
+            $('#organ').formSelect();
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
+        $("#pre-load").show();
         $.ajax({
             type: "POST",
             url: "/GetAdmins",
@@ -444,6 +452,8 @@
                 $('#organ').append(option);
                 $('#organ').formSelect();
                 getProfiles();
+                $('#pre-load').hide()
+
             },
             error: function () {
                 $('#pre-load').hide()
@@ -452,9 +462,13 @@
     }
 
     function getProfiles() {
-        $('#pre-load').show()
-        $("#AdminName").text($('#organ').find('option:selected').text());
-        $('#PA_Address').text($('#organ').find('option:selected').data("address"))
+        if ($('#organ').val() == "") {
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
+        $("#pre-load").show();
         $.ajax({
             type: "POST",
             url: "/GetProfile",
@@ -479,7 +493,6 @@
             }
         })
     }
-
 
     $("#excel").click(function () {
         $("#pre-load").show();
