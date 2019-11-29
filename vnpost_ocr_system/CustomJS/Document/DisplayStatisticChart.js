@@ -103,6 +103,13 @@ function SubmitFormYear(form) {
                 temp = temp.split("\"").join("");
                 chua = temp.split(",");
 
+                temp = response.xong;
+                $("#xongyear").text(temp);
+                temp = response.da;
+                $("#dayear").text(temp);
+                temp = response.cho;
+                $("#dangyear").text(temp);
+
 
                 chartYear();
                 $("#pre-load").hide("slow", function () {
