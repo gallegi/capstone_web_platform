@@ -244,11 +244,8 @@
 <script>
 
     $(document).ready(function () {
-        $("#pre-load").show("slow", function () {
-        });
-        $("#pre-load").css("z-index", "99999");
-        getDistrict();
 
+        getDistrict();
         $('#district').change(function () {
             getAdmins();
         })
@@ -257,21 +254,16 @@
             getProfiles();
         })
 
-        $('#profile').change(function () {
-            $(".ProfileName").text($(this).find('option:selected').text());
-        })
-
-        $('#item5').change(function () {
-            $('.AppointmentLetterCode').text($(item5).val())
-        })
-
-        $('#mainTable')
+        $("#pre-load").show("slow", function () {
+        });
+        $("#pre-load").css("z-index", 99999);
+        DataTable = $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
-                //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+                ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
                 $("#pre-load").show("slow", function () {
                 });
-                $("#pre-load").css("z-index", "99999");
-                //    ////////////////////////////////////////////////////////////////////////
+                $("#pre-load").css("z-index", 99999);
+                ////////////////////////////////////////////////////////////////////////
             })
             .DataTable({
                 "ajax": {
@@ -326,9 +318,11 @@
                 ],
                 "drawCallback": function (settings) {
                     ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
+                    //index = 1;
                     $("#pre-load").hide("slow", function () {
                     });
                     ////////////////////////////////////////////////
+
                 },
                 "serverSide": "true",
                 "language": {
@@ -387,8 +381,6 @@
 
 
     function getDistrict() {
-        $("#pre-load").show("slow", function () {
-        });
         $('#PostalProvinceName').text($('#province').find("option:selected").text())
         $.ajax({
             type: "POST",
@@ -408,17 +400,24 @@
                 $('#district').append(option);
                 $('#district').formSelect();
                 getAdmins()
-                $('#pre-load').hide()
+                $("#pre-load").hide("slow");
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
 
     function getAdmins() {
+        if ($('#district').val() == "") {
+            $('#coQuan').empty();
+            $('#coQuan').append('<option value="">Tất cả</option>');
+            $('#coQuan').formSelect();
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
         $("#pre-load").show();
-        $('#PostalDistrictName').text($('#district').find('option:selected').text());
         $.ajax({
             type: "POST",
             url: "/GetAdmins",
@@ -437,19 +436,21 @@
                 $('#coQuan').append(option);
                 $('#coQuan').formSelect();
                 getProfiles();
-                $('#pre-load').hide()
-
+                $("#pre-load").hide("slow");
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
 
     function getProfiles() {
+        if ($('#coQuan').val() == "") {
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
         $("#pre-load").show();
-        $("#AdminName").text($('#coQuan').find('option:selected').text());
-        $('#PA_Address').text($('#coQuan').find('option:selected').data("address"))
         $.ajax({
             type: "POST",
             url: "/GetProfile",
@@ -467,10 +468,10 @@
                 }
                 $('#profile').append(option);
                 $('#profile').formSelect();
-                $('#pre-load').hide()
+                $("#pre-load").hide("slow");
+
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
