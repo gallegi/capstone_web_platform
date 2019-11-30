@@ -103,6 +103,13 @@ function SubmitFormYear(form) {
                 temp = temp.split("\"").join("");
                 chua = temp.split(",");
 
+                temp = response.xong;
+                $("#xongyear").text(temp);
+                temp = response.da;
+                $("#dayear").text(temp);
+                temp = response.cho;
+                $("#dangyear").text(temp);
+
 
                 chartYear();
                 $("#pre-load").hide("slow", function () {
@@ -184,8 +191,22 @@ function SubmitFormAll(form) {
             url: form.action,
             data: $(form).serialize(),
             success: function (response) {
+                var temp = response.xong;
+                $("#xongall").text(temp);
+                temp = response.da;
+                $("#daall").text(temp);
+                temp = response.cho;
+                $("#dangall").text(temp);
+
+                temp = response.xongyear;
+                $("#xongyear").text(temp);
+                temp = response.dayear;
+                $("#dayear").text(temp);
+                temp = response.choyear;
+                $("#dangyear").text(temp);
                 $("#pre-load").hide("slow", function () {
                 });
+                
 
             }
         });

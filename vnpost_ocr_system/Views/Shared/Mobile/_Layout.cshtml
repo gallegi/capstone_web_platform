@@ -9,20 +9,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <title>Materialart Admin Template</title>
     <link href="~/dist/css/style.css" rel="stylesheet">
-    <!-- This page CSS -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
     <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <link href="~/assets/Custom css/Mobile/layout-style.css" rel="stylesheet" />
-
-
-
-
-
     <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
     <!-- ============================================================== -->
     <!-- Apps -->
@@ -126,7 +115,7 @@
         <!-- Sidebar scss in sidebar.scss -->
         <!-- ============================================================== -->
         <aside class="left-sidebar">
-            <ul id="slide-out" class="sidenav">
+            <ul id="slide-out" class="sidenav" hidden>
                 <li>
                     <ul class="collapsible">
                         <li class="small-cap"><span class="hide-menu">TÀI KHOẢN</span></li>
@@ -150,6 +139,9 @@
                             }
                         }
 
+                        <li style="margin-top:10px">
+                            <a href="/Home/index" class="collapsible-header"><i class="material-icons dp48">home</i><span class="hide-menu">Trang chủ</span></a>
+                        </li>
 
                         <li class="small-cap"><span class="hide-menu">QUẢN LÝ</span></li>
                         <li>
@@ -247,6 +239,10 @@
         $("#pre-load").css("z-index", 99999);
         $('body').css('overflow', '');
 
+
+        $(function () {
+            $("#slide-out").show();
+        })
     </script>
 </body>
 

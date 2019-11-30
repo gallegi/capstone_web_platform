@@ -47,8 +47,9 @@
                     <div class="input-field col s12 m6">
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Cơ quan hành chính:</label>
-                            <div class="col l6 m6 s12">
+                            <div class="col l6 m6 s12 it3">
                                 <select tabindex="-1" id="item3">
+                                    <option selected value="0">Tất cả</option>
                                 </select>
                             </div>
                         </div>
@@ -59,8 +60,9 @@
                     <div class="input-field col s12 m6">
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Quận/Huyện:</label>
-                            <div class="col l6 m6 s12">
+                            <div class="col l6 m6 s12 it2">
                                 <select tabindex="-1" id="item2">
+                                    <option selected value="0">Tất cả</option>
                                 </select>
                             </div>
                         </div>
@@ -68,8 +70,9 @@
                     <div class="input-field col s12 m6">
                         <div class="select-wrapper row">
                             <label class="col l4 m4 p-t-10 s12 normal-size">Thủ tục hành chính:</label>
-                            <div class="col l6 m6 s12">
+                            <div class="col l6 m6 s12 it4">
                                 <select tabindex="-1" id="item4">
+                                    <option selected value="0">Tất cả</option>
                                 </select>
                             </div>
                         </div>
@@ -118,7 +121,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_cho</h2>
+                                        <h2 id="dangall" class="white-text m-b-5">@ViewBag.odb.total_cho</h2>
 
                                     </div>
 
@@ -133,7 +136,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
-                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_da</h2>
+                                        <h2 id="daall" class="white-text m-b-5">@ViewBag.odb.total_da</h2>
 
                                     </div>
 
@@ -149,7 +152,7 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h6 class="white-text">Số hồ sơ đã xử lý</h6>
-                                        <h2 class="white-text m-b-5">@ViewBag.odb.total_xong</h2>
+                                        <h2 id="xongall" class="white-text m-b-5">@ViewBag.odb.total_xong</h2>
 
                                     </div>
 
@@ -158,8 +161,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
             @using (Html.BeginForm("ChangeMonth", "DisplayStatisticChart", FormMethod.Post, new
             {
@@ -209,7 +210,7 @@
                                     <div class="d-flex no-block align-items-center">
                                         <div>
                                             <h6 class="white-text">Số hồ sơ đang tiếp nhận</h6>
-                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_cho</h2>
+                                            <h2 id="dangyear" class="white-text m-b-5">@ViewBag.odbyear.total_cho</h2>
 
                                         </div>
 
@@ -224,7 +225,7 @@
                                     <div class="d-flex no-block align-items-center">
                                         <div>
                                             <h6 class="white-text">Số hồ sơ đã tiếp nhận</h6>
-                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_da</h2>
+                                            <h2 id="dayear" class="white-text m-b-5">@ViewBag.odbyear.total_da</h2>
 
                                         </div>
 
@@ -240,7 +241,7 @@
                                     <div class="d-flex no-block align-items-center">
                                         <div>
                                             <h6 class="white-text">Số hồ sơ đã xử lý</h6>
-                                            <h2 class="white-text m-b-5">@ViewBag.odb.total_xong</h2>
+                                            <h2 id="xongyear" class="white-text m-b-5">@ViewBag.odbyear.total_xong</h2>
 
                                         </div>
 
@@ -532,7 +533,6 @@
 
 
     $(document).ready(function () {
-
         year();
         $('.datepicker-inline').hide();
         var d = '@ViewBag.date';

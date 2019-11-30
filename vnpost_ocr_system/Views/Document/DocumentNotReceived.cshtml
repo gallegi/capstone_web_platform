@@ -242,19 +242,28 @@
 </div>
 
 <script>
-    $(".datepicker-inline").remove();
+
     $(document).ready(function () {
+
+        getDistrict();
+        $('#district').change(function () {
+            getAdmins();
+        })
+
+        $('#coQuan').change(function () {
+            getProfiles();
+        })
 
         $("#pre-load").show("slow", function () {
         });
-        $("#pre-load").css("z-index", "99999");
-        $('#mainTable')
+        $("#pre-load").css("z-index", 99999);
+        DataTable = $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
-                //    ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+                ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
                 $("#pre-load").show("slow", function () {
                 });
-                $("#pre-load").css("z-index", "99999");
-                //    ////////////////////////////////////////////////////////////////////////
+                $("#pre-load").css("z-index", 99999);
+                ////////////////////////////////////////////////////////////////////////
             })
             .DataTable({
                 "ajax": {
@@ -309,9 +318,11 @@
                 ],
                 "drawCallback": function (settings) {
                     ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
+                    //index = 1;
                     $("#pre-load").hide("slow", function () {
                     });
                     ////////////////////////////////////////////////
+
                 },
                 "serverSide": "true",
                 "language": {
@@ -356,8 +367,7 @@
         var date = day + "/" + month + "/" + year;
         return (date);
     }
-</script>
-<script>
+
     $(document).ready(function () {
         var dataTable = $('#mainTable').DataTable();
         $("#filter").click(function () {
@@ -365,34 +375,12 @@
             });
         });
     })
-</script>
-<script>
-    $(document).ready(function () {
-        getDistrict();
 
-        $('#district').change(function () {
-            $('#pre-load').show()
-            getAdmins();
-        })
 
-        $('#coQuan').change(function () {
-            getProfiles();
-        })
 
-        $('#profile').change(function () {
-            $(".ProfileName").text($(this).find('option:selected').text());
-        })
 
-        $('#item5').change(function () {
-            $('.AppointmentLetterCode').text($(item5).val())
-        })
-    })
-
-</script>
-<script>
 
     function getDistrict() {
-        $('#pre-load').show()
         $('#PostalProvinceName').text($('#province').find("option:selected").text())
         $.ajax({
             type: "POST",
@@ -412,16 +400,24 @@
                 $('#district').append(option);
                 $('#district').formSelect();
                 getAdmins()
+                $("#pre-load").hide("slow");
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
 
     function getAdmins() {
-        $('#pre-load').show()
-        $('#PostalDistrictName').text($('#district').find('option:selected').text());
+        if ($('#district').val() == "") {
+            $('#coQuan').empty();
+            $('#coQuan').append('<option value="">Tất cả</option>');
+            $('#coQuan').formSelect();
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
+        $("#pre-load").show();
         $.ajax({
             type: "POST",
             url: "/GetAdmins",
@@ -440,17 +436,21 @@
                 $('#coQuan').append(option);
                 $('#coQuan').formSelect();
                 getProfiles();
+                $("#pre-load").hide("slow");
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
 
     function getProfiles() {
-        $('#pre-load').show()
-        $("#AdminName").text($('#coQuan').find('option:selected').text());
-        $('#PA_Address').text($('#coQuan').find('option:selected').data("address"))
+        if ($('#coQuan').val() == "") {
+            $('#profile').empty();
+            $('#profile').append('<option value="">Tất cả</option>');
+            $('#profile').formSelect();
+            return;
+        }
+        $("#pre-load").show();
         $.ajax({
             type: "POST",
             url: "/GetProfile",
@@ -468,10 +468,10 @@
                 }
                 $('#profile').append(option);
                 $('#profile').formSelect();
-                $('#pre-load').hide()
+                $("#pre-load").hide("slow");
+
             },
             error: function () {
-                $('#pre-load').hide()
             }
         })
     }
@@ -490,25 +490,28 @@
     });
 
 
-   function printDiv() {
-            //Get the HTML of div
-            var divElements = document.getElementById('table-card').innerHTML;
-            //Get the HTML of whole page
-            var oldPage = document.body.innerHTML;
+    function printDiv() {
+        $(".m-t-20").remove();
+        //Get the HTML of div
+        var divElements = document.getElementById('table-card').innerHTML;
+        //Get the HTML of whole page
+        var oldPage = document.body.innerHTML;
 
-            //Reset the page's HTML with div's HTML only
-            document.body.innerHTML = 
-              "<html><head><title></title></head><body>" + 
-              divElements + "</body>";
+        //Reset the page's HTML with div's HTML only
+        document.body.innerHTML =
+            "<html><head><title></title></head><body>" +
+            divElements + "</body>";
 
-            //Print Page
-            window.print();
 
-            //Restore orignal HTML
-            document.body.innerHTML = oldPage;
+        //Print Page
+        window.print();
 
-          
-        }
+        //Restore orignal HTML
+        document.body.innerHTML = oldPage;
+        window.location.reload();
+
+
+    }
 </script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 @*<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>*@

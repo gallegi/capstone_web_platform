@@ -55,10 +55,6 @@
         z-index: 9999;
     }
 
-    a#save_profile1 {
-        margin-left: 20px;
-    }
-
     .dropzone .dz-preview .dz-image {
         margin: auto;
     }
@@ -163,7 +159,7 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 m12 l12">
+                            <div class="col s12 l12">
                                 <br />
                                 <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
@@ -183,13 +179,13 @@
                     <h6>Thông tin yêu cầu giải quyết TTHC</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -202,7 +198,7 @@
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@item.PersonalPaperTypeID" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@(item.PersonalPaperTypeID == null ? -1 : (int?)item.PersonalPaperTypeID)" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
                                             <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
                                             <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                             <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
@@ -210,35 +206,35 @@
                                         <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 3 -->
                     <h6>Thông tin người gửi</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -255,35 +251,35 @@
                                         <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 4 -->
                     <h6>Thông tin người nhận</h6>
                     <section>
                         <div class="row">
-                            @if (ViewBag.contactInfos == null)
+                            @if (ViewBag.contactInfos.Count == 0)
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <span class="show-form light-blue-text hover-pointer hover-underline">
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
                                         Tạo thông tin mới
-                                    </span>
+                                    </a>
                                 </p>
                             }
                             else
@@ -300,22 +296,22 @@
                                         <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
-                                            <div class="col l4 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
                                             </div>
-                                            <div class="col l2 s12 p-t-10">
+                                            <div class="col p-t-10">
                                                 <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="3" id="edit" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
+                                <p class="col s12 big-heading m-b-15">
+                                    Bạn muốn sử dụng thông tin khác?
+                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                        Nhập thông tin mới
+                                    </a>
+                                </p>
                             }
-                            <p class="col s12 big-heading m-b-15">
-                                Bạn muốn sử dụng thông tin khác?
-                                <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
-                                    Nhập thông tin mới
-                                </a>
-                            </p>
                         </div>
                     </section>
                     <!-- Step 5 -->
@@ -460,6 +456,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
+                                                <label hidden id="ProcedurerPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -473,6 +470,7 @@
                                             <div class="col s7">
                                                 <div class="h-form-label">
                                                     <label id="ProcedurerPersonalPaperTypeName"></label>
+                                                    <label hidden id="ProcedurerPersonalPaperTypeID"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -554,6 +552,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
+                                                <label hidden id="SenderPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -596,6 +595,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label">
                                                 <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
+                                                <label hidden id="ReceiverPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -769,7 +769,7 @@
                             </div>
                         </div>
                     </section>
-                    <input name="id_raw" id="id_raw" readonly hidden />
+                    <input name="id" id="id_raw" readonly hidden />
                 </form>
             </div>
         </div>
@@ -779,62 +779,69 @@
 <div id="myform1" class="modal fade">
     <div class="form-wrapper">
         <div class="row">
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <p class="col l3 m3 p-t-10 s12">Họ và tên <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input required id="name_edit" type="text">
                     </div>
                 </div>
             </div>
-            <div class="col s12 l12 m12">
-                <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <p class="col l3 m3 p-t-10 s12">Số điện thoại <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input id="phone_edit" type="text">
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
-                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố:</div>
-                <div class="col l9 m9 s12">
-                    <select required tabindex="-1" id="province_edit" class="card-border">
-                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
-                        {
-                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="input-field col s12 m12">
+            <div class="input-field col s12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
+                    <p class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
-                        <select required tabindex="-1" id="district_edit" class="card-border"></select>
+                        <select required tabindex="-1" id="province_edit" class="card-border">
+                            @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                            {
+                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
+            <div class="input-field col s12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
+                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
+                    <div class="col l9 m9 s12">
+                        <select required tabindex="-1" id="district_edit" class="card-border">
+                            @ViewBag.select
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="input-field col s12">
+                <div class="select-wrapper row">
+                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <textarea required id="street_edit"></textarea>
                     </div>
                 </div>
             </div>
             <div id="showmore">
-                <div class="input-field col s12 m12">
-                    <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
-                    <div class="col l9 m9 s12">
-                        <select tabindex="-1" id="paper_type_edit" class="card-border">
-                            @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
-                            {
-                                <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
-                            }
-                        </select>
+                <div class="input-field col s12">
+                    <div class="select-wrapper row">
+                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
+                        <div class="col l9 m9 s12">
+                            <select tabindex="-1" id="paper_type_edit" class="card-border">
+                                <option selected value="-1">Không có</option>
+                                @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
+                                {
+                                    <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
+                                }
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
                         <div class="col l9 m9 s12">
@@ -842,7 +849,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
@@ -853,7 +860,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s12 l12 m12">
+                <div class="input-field col s12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
                         <div class="col l9 m9 s12">
@@ -864,15 +871,14 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="input-field col s12 m12">
-                    <div class="select-wrapper row">
-                        <div class="col l3 m3 p-t-10 s12 "></div>
-                        <div class="col l9 m9 s12">
-                            <button class="hide-form col l5 s12 btn waves-effect waves-light bt-color-common m-b-20 modal-close" id="close-modal">Hủy Bỏ</button>
-                            <a class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common p-l-40 p-r-40" id="save_profile1">Lưu</a>
-                        </div>
+            <div class="input-field col s12">
+                <div class="select-wrapper row m-b-20">
+                    <div class="col l2 m2 p-t-10 s12 "></div>
+                    <div class="col l8 m8 s12">
+                        <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_profile1">Lưu</a>
+                        <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common modal-close" id="close-modal">Hủy Bỏ</button>
                     </div>
+                    <div class="col l2 m2 p-t-10 s12 "></div>
                 </div>
             </div>
         </div>
@@ -888,12 +894,13 @@
 <script src="~/assets/uploader/dropzoneMultiple.js"></script>
 
 <script>
+    var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
     var validate1 = false;
     var validate2 = false;
     var validate3 = false;
 
-    var data = new FormData();
+    var data1 = new FormData();
 
     function getDistrict() {
         $('#pre-load').show()
@@ -1019,6 +1026,13 @@
 
     $(document).on("click", ".modal-trigger", function () {
         $('#myform1').find("input[type=text], textarea").val("");
+        $('#paper_type_edit').val($("#paper_type_edit option:first").val());
+        $('#paper_type_edit').formSelect()
+        $('#province_edit').val($("#province_edit option:first").val());
+        $('#province_edit').formSelect()
+        $('#district_edit').empty()
+        $('#district_edit').append(dist)
+        $('#district_edit').formSelect()
     })
 
     $(document).on("click", "#add", function () {
@@ -1110,6 +1124,14 @@
     })
 
     $(document).on("click", "#save_profile1", function () {
+        if ($('#name_edit').val() == "" || $('#phone_edit').val() == "" || $('#province_edit').val() == null || $('#district_edit').val() == null || $('#street_edit').val() == "") {
+            errorAlert("Bạn chưa điền đầy đủ thông tin")
+            return;
+        }
+        if (type == 1 && $('#paper_type_edit').val() == "-1" && $('#paper_number_edit').val() != "") {
+            errorAlert("Bạn chưa chọn loại giấy tờ")
+            return;
+        }
         $('#pre-load').show()
         $.ajax({
             type: "POST",
@@ -1120,15 +1142,13 @@
                 FullName: $('#name_edit').val(),
                 Phone: $('#phone_edit').val(),
                 PostalDistrictCode: $('#district_edit').val(),
-                PostalDistrictName: $('#district_edit option:selected').text(),
                 Street: $('#street_edit').val(),
                 PersonalPaperTypeID: $('#paper_type_edit').val(),
                 PersonalPaperNumber: $('#paper_number_edit').val(),
                 PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
                 PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
                 ContactInfoID: $('#info_edit').val(),
-                Type: type,
-                PostalProvinceName: $('#province_edit option:selected').text()
+                Type: type
             },
             success: function (response) {
                 if (response.success) {
@@ -1176,11 +1196,9 @@
         $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
         $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
         $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
-        data.delete("ProcedurerPostalDistrictCode");
-        data.append("ProcedurerPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
-        data.delete("ProcedurerPersonalPaperTypeID");
-        data.append("ProcedurerPersonalPaperTypeID", Adminprofile.find('#PersonalPaperTypeName').data("papertype"))
+        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('#PersonalPaperTypeName').data("papertype"));
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
@@ -1196,8 +1214,7 @@
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
-        data.delete("SenderPostalDistrictCode");
-        data.append("SenderPostalDistrictCode", Adminprofile.find('#Address').data("district"));
+        $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
@@ -1209,9 +1226,8 @@
         $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
+        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
-        data.delete("ReceiverPostalDistrictCode");
-        data.append("ReceiverPostalDistrictCode", Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
@@ -1237,7 +1253,7 @@
                     toastr.error('Hãy điền đầy đủ thông tin!', '');
                     return false;
                 }
-                else if (data.get("img") == null) {
+                else if (data1.get("img") == null) {
                     toastr.error('Bạn chưa nhập ảnh giấy hẹn!', '');
                     return false;
                 }
@@ -1258,20 +1274,27 @@
         },
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
+            var data = new FormData();
+            data.append("img", data1.get("img"));
+            data.append("imgName", data1.get("imgName"));
             data.append("ProfileID", $('#item4').val());
             data.append("AppointmentLetterCode", $('#item5').val());
             data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
             data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
+            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text());
+            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text())
             data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
             data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
             data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
             data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
             data.append("SenderFullName", $('#SenderFullName').text());
             data.append("SenderPhone", $('#SenderPhone').text());
+            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text())
             data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('.ReceiverFullName').text());
+            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text());
             data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverStreet", $('.ReceiverStreet').text());
+            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text())
+            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text());
             data.append("OrderNote", $('#OrderNote').val());
             $.ajax({
                 type: "POST",
@@ -1284,8 +1307,10 @@
                         $('#id_raw').val(response.data)
                         $('#myform').submit();
                     }
-                    else
+                    else {
                         errorAlert(response.message)
+                        $('#pre-load').hide();
+                    }
                 }
             });
             //return form.submit();
@@ -1351,8 +1376,8 @@ Dropzone.options.myAwesomeDropzone = {
             }
         });
         this.on("removedfile", function () {
-            data.delete("img")
-            data.delete("imgName")
+            data1.delete("img")
+            data1.delete("imgName")
             $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
@@ -1367,8 +1392,8 @@ Dropzone.options.myAwesomeDropzone = {
             myDropzone.processQueue();
         });
         this.on('sending', function (file, xhr, formData) {
-            data.append("img", file);
-            data.append("imgName", file.name)
+            data1.append("img", file);
+            data1.append("imgName", file.name)
         });
         //this.on('sending', function (file, xhr, formData) {
         //        data.append("file", file);
