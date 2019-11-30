@@ -24,7 +24,7 @@
                     <!----------->
                     <div class="row">
                         <div class="col s12 m 5 l5">
-                            <label><b>Materialize Select</b></label>
+                            <label><b>Phương thức request</b></label>
                             <div class="h-form-label">
                                 <select tabindex="-1" class="card-border" id="method">
                                     <option value="1" selected>GET</option>
@@ -44,7 +44,7 @@
                     <!------------->
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <label><b>Description</b></label>
+                            <label><b>Mô tả API</b></label>
                             <div class="h-form-label">
                                 <input type="text" id="description">
                             </div>
@@ -184,7 +184,7 @@
                 </div>
                 <div class="col s12 l12 m12">
                     <a class="btn blue btn-small darken-2" onclick="FormatJson()">Tự động căn chỉnh JSON Format</a>
-                    <a class="btn blue btn-small darken-2" onclick="Add()">Xác nhận</a>
+                    <a class="btn blue btn-small darken-2" id="xacnhan_them" onclick="Add()">Xác nhận</a>
                 </div>
             </div>
         </div>
@@ -300,8 +300,8 @@
                 $(this).addClass("duplicate");
         });
         if ($(".duplicate").length > 0) {
-             $("html body").animate({
-                scrollTop: $(".duplicate").offset().top
+            $("html body").animate({
+                scrollTop: ($(".duplicate").offset().top) - 100
             }, 500);
             errorAlert('Lỗi', 'Những physic này đã tồn tại');
         }

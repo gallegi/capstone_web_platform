@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
-                        <h3 class="center"><b>DANH SÁCH API</b></h3>
+                        <h2 class="center"><b>DANH SÁCH API</b></h2>
                         <div>
                             <a href="/api/them-moi-api" class="waves-effect waves-light btn blue input-field" style="background-color: #2196F3;">Thêm API</a>
                         </div>
@@ -68,12 +68,12 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <div  id="information"><h3 class="center"><b>THÔNG TIN CỦA API 1</b></h3> </div>
+                    <div id="information"><h3  class="center"><b>THÔNG TIN CỦA API 1</b></h3> </div>
                     <h4 class="font-medium">Request</h4>
                     <!----------->
                     <div class="row">
                         <div class="col s12 m 5 l5">
-                            <label><b>Materialize Select</b></label>
+                            <label><b>Phương thức request</b></label>
                             <div class="h-form-label">
                                 <select tabindex="-1" id="method" class="card-border">
                                     <option value="1">GET</option>
@@ -94,7 +94,7 @@
                     <!------------->
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <label><b>Description</b></label>
+                            <label><b>Mô tả API</b></label>
                             <div class="h-form-label">
                                 <input type="text" id="description">
                             </div>
@@ -254,9 +254,9 @@
                     i++;
                     var tbData = "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td><input type='text' value='" + item.APIInputParamDescription + "'></td>" +
-                        "<td><input type='text' value='" + item.APIInputParamName + "'></td>" +
-                        "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
+                        "<td>" + item.APIInputParamDescription + "</td>" +
+                        "<td>" + item.APIInputParamName + "</td>" +
+                        "<td>" + item.APIInputParamType + "</td>" +
                         "</tr>";
 
                     $("#parameterTable").find("tbody").append(tbData);
@@ -266,9 +266,9 @@
                     i++;
                     var tbData = "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamName + "'></td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
+                        "<td>" + item.APIOutputParamDescription + "</td>" +
+                        "<td>" + item.APIOutputParamName + "</td>" +
+                        "<td>" + item.APIOutputParamType + "</td>" +
                         "</tr>";
 
                     $("#requestTable").find("tbody").append(tbData);
@@ -303,8 +303,8 @@
     function getInformationOfApi(apiid) {
         $("#pre-load").show();
 
-        $("#parameterTable").find("tr:gt(0)").remove();
-        $("#requestTable").find("tr:gt(0)").remove();
+        $("#parameterTable").find("tr:gt(1)").remove();
+        $("#requestTable").find("tr:gt(1)").remove();
         $.ajax({
             url: "/api/danh-sach-api/getinformationofapi",
             type: "Post",
@@ -332,9 +332,9 @@
                     i++;
                     var tbData = "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td><input type='text' value='" + item.APIInputParamDescription + "'></td>" +
-                        "<td><input type='text' value='" + item.APIInputParamName + "'></td>" +
-                        "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
+                        "<td>" + item.APIInputParamDescription + "</td>" +
+                        "<td>" + item.APIInputParamName + "</td>" +
+                        "<td>" + item.APIInputParamType + "</td>" +
                         "</tr>";
 
                     $("#parameterTable").find("tbody").append(tbData);
@@ -344,9 +344,9 @@
                     i++;
                     var tbData = "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamName + "'></td>" +
-                        "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
+                        "<td>" + item.APIOutputParamDescription + "</td>" +
+                        "<td>" + item.APIOutputParamName + "</td>" +
+                        "<td>" + item.APIOutputParamType + "</td>" +
                         "</tr>";
 
                     $("#requestTable").find("tbody").append(tbData);
