@@ -23,9 +23,25 @@ namespace vnpost_ocr_system.Controllers.Document
             string year = DateTime.Now.ToString("yyyy");
             OrderDashBorad odb = new OrderDashBorad();
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            Province p = new Province();
             string sql = "select distinct * from Province order by PostalProvinceName";
-            List<Province> listPro = db.Database.SqlQuery<Province>(sql).ToList();
-            ViewBag.listPro = listPro;
+            string aid = Session["useradminID"].ToString();
+            if (!Session["Role"].ToString().Equals("1"))
+            {
+                sql = @"select p.*
+                        from Admin a join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                        where a.AdminID = @id";
+
+                p = db.Database.SqlQuery<Province>(sql, new SqlParameter("id", aid)).FirstOrDefault();
+                provine_ori = p.PostalProvinceName;
+                ViewBag.p = p;
+            }
+            else
+            {
+                List<Province> listPro = db.Database.SqlQuery<Province>(sql).ToList();
+                ViewBag.listPro = listPro;
+            }
+
             sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
                 "from(select a.date, " +
                "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
@@ -285,9 +301,9 @@ namespace vnpost_ocr_system.Controllers.Document
                   "  inner join District d on po.DistrictCode = d.DistrictCode " +
                   "  inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
                   "  where year(os.CreatedTime) = @year AND ";
-            if (provine != "Tất cả" && provine!= "") sql += "pr.PostalProvinceName  = @pro and ";
+            if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
-            if (hcc!= "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
+            if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
             if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
             sql += ") a";
@@ -323,7 +339,7 @@ namespace vnpost_ocr_system.Controllers.Document
             if (profile != "Tất cả" && profile != "") sql += "p.ProfileName  = @file and ";
             sql = sql.Substring(0, sql.Length - 5);
             sql += " group by year(os.CreatedTime), MONTH(os.CreatedTime), DAY(os.CreatedTime) ";
-            List<DataChart> list_xong = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year), new SqlParameter("month",month)
+            List<DataChart> list_xong = db.Database.SqlQuery<DataChart>(sql, new SqlParameter("year", year), new SqlParameter("month", month)
                 , new SqlParameter("pro", provine)
                 , new SqlParameter("dis", district)
                 , new SqlParameter("pub", hcc)
