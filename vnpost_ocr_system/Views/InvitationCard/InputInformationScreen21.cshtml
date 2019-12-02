@@ -109,15 +109,15 @@
         background: #fcaf17 !important;
     }
 
-        .wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
-            background-color: #fff !important;
-        }
-        .summary-label{
-            font-weight:bold !important;
-        }
-        .summary-content{
-           font-style:italic !important;
-        }
+    .wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
+        background-color: #fff !important;
+    }
+    .summary-label{
+        font-weight:bold !important;
+    }
+    /*.summary-content{
+        font-style:italic !important;
+    }*/
 </style>
 <div class="container-fluid">
     <div class="col s12">
@@ -134,7 +134,7 @@
                                     <select id="item1">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
-                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            <option @(ViewBag.UserProvinceCode == item.PostalProvinceCode? "selected" : "") value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
                                     <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
@@ -315,7 +315,7 @@
                         </div>
                     </section>
                     <!-- Step 5 -->
-                    <h6>Phiếu gửi hồ sơ</h6>
+                    <h6>Xác nhận hồ sơ</h6>
                     <section>
                         <div class="row">
                             <div class="form-body">
@@ -422,25 +422,27 @@
                                     <h4 class="font-medium">Thông tin người yêu cầu giải quyết thủ tục hành chính</h4>
                                     <hr />
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Họ và tên:</label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Họ và tên:</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label id="ProcedurerFullName"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerFullName"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
                                         <div class="row clgray">
-                                            <div class="col s5">
+                                            <div class="col s3">
                                                 <div class="h-form-label">
                                                     <label class="summary-label">Số điện thoại</label>
                                                 </div>
                                             </div>
-                                            <div class="col s7">
+                                            <div class="col s9">
                                                 <div class="h-form-label">
                                                     <label id="ProcedurerPhone"></label>
                                                 </div>
@@ -448,26 +450,28 @@
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Địa chỉ: </label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Địa chỉ: </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
-                                                <label hidden id="ProcedurerPostalDistrictCode"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
+                                                    <label hidden id="ProcedurerPostalDistrictCode"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
                                         <div class="row clgray">
-                                            <div class="col s5">
+                                            <div class="col s3">
                                                 <div class="h-form-label">
                                                     <label class="summary-label">Loại GTTT: </label>
                                                 </div>
                                             </div>
-                                            <div class="col s7">
+                                            <div class="col s9">
                                                 <div class="h-form-label">
                                                     <label id="ProcedurerPersonalPaperTypeName"></label>
                                                     <label hidden id="ProcedurerPersonalPaperTypeID"></label>
@@ -476,25 +480,27 @@
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Số GTTT: </label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Số GTTT: </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label id="ProcedurerPersonalPaperNumber"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerPersonalPaperNumber"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
                                         <div class="row clgray">
-                                            <div class="col s5">
+                                            <div class="col s3">
                                                 <div class="h-form-label">
                                                     <label class="summary-label">Ngày cấp: </label>
                                                 </div>
                                             </div>
-                                            <div class="col s7">
+                                            <div class="col s9">
                                                 <div class="h-form-label">
                                                     <label id="ProcedurerPersonalPaperIssuedDate"></label>
                                                 </div>
@@ -502,14 +508,16 @@
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Nơi cấp: </label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Nơi cấp: </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label id="ProcedurerPersonalPaperIssuedPlace"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label id="ProcedurerPersonalPaperIssuedPlace"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -518,25 +526,27 @@
                                     <h4 class="font-medium">Thông tin người gửi</h4>
                                     <hr />
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Họ và tên:</label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Họ và tên:</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label id="SenderFullName"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label id="SenderFullName"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
                                         <div class="row clgray">
-                                            <div class="col s5">
+                                            <div class="col s3">
                                                 <div class="h-form-label">
                                                     <label class="summary-label">Số điện thoại</label>
                                                 </div>
                                             </div>
-                                            <div class="col s7">
+                                            <div class="col s9">
                                                 <div class="h-form-label">
                                                     <label id="SenderPhone"></label>
                                                 </div>
@@ -544,15 +554,17 @@
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Địa chỉ: </label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Địa chỉ: </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
-                                                <label hidden id="SenderPostalDistrictCode"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
+                                                    <label hidden id="SenderPostalDistrictCode"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -561,25 +573,27 @@
                                     <h4 class="font-medium">Thông tin người nhận</h4>
                                     <hr />
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Họ và tên:</label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Họ và tên:</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label class="ReceiverFullName"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label class="ReceiverFullName"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
                                         <div class="row clgray">
-                                            <div class="col s5">
+                                            <div class="col s3">
                                                 <div class="h-form-label">
                                                     <label class="summary-label">Số điện thoại</label>
                                                 </div>
                                             </div>
-                                            <div class="col s7">
+                                            <div class="col s9">
                                                 <div class="h-form-label">
                                                     <label id="ReceiverPhone"></label>
                                                 </div>
@@ -587,26 +601,30 @@
                                         </div>
                                     </div>
                                     <div class="col s12 l6">
-                                        <div class="col s5">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Địa chỉ: </label>
+                                        <div class="row clgray">
+                                            <div class="col s3">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Địa chỉ: </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s7">
-                                            <div class="h-form-label">
-                                                <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
-                                                <label hidden id="ReceiverPostalDistrictCode"></label>
+                                            <div class="col s9">
+                                                <div class="h-form-label">
+                                                    <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
+                                                    <label hidden id="ReceiverPostalDistrictCode"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col s12">
-                                        <div class="col s12">
-                                            <div class="h-form-label">
-                                                <label class="summary-label">Ghi chú:</label>
+                                        <div class="row clgray">
+                                            <div class="col s12">
+                                                <div class="h-form-label">
+                                                    <label class="summary-label">Ghi chú:</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col s12">
-                                            <textarea id="OrderNote"></textarea>
+                                            <div class="col s12">
+                                                <textarea id="OrderNote"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -894,6 +912,7 @@
 <script src="~/assets/uploader/dropzoneMultiple.js"></script>
 
 <script>
+    var UserDistrictsID = @ViewBag.UserDistrictsID;
     var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
     var validate1 = false;
@@ -927,6 +946,10 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#item2').append(option);
+                if (UserDistrictsID != "") {
+                    $('#item2').val(UserDistrictsID);
+                    UserDistrictsID = ""
+                }
                 $('#item2').formSelect();
                 getAdmins()
             },
@@ -1069,7 +1092,7 @@
                 $('#district_edit').val(response.info.PostalDistrictCode);
                 $('#district_edit').formSelect();
                 $('#street_edit').val(response.info.Street);
-                $('#paper_type_edit').val(response.info.PersonalPaperTypeID)
+                $('#paper_type_edit').val(response.info.PersonalPaperTypeID == null ? "-1" : response.info.PersonalPaperTypeID)
                 $('#paper_type_edit').formSelect();
                 $('#paper_number_edit').val(response.info.PersonalPaperNumber);
                 $('#paper_date_edit').val(response.info.PersonalPaperIssuedDateString);
@@ -1128,8 +1151,12 @@
             errorAlert("Bạn chưa điền đầy đủ thông tin")
             return;
         }
-        if (type == 1 && $('#paper_type_edit').val() == "-1" && $('#paper_number_edit').val() != "") {
+        if (type == 1 && $('#paper_type_edit').val() == "-1" && ($('#paper_number_edit').val() != "" || $('#paper_date_edit').val() != "" || $('#paper_place_edit').val() != "")) {
             errorAlert("Bạn chưa chọn loại giấy tờ")
+            return;
+        }
+        if (type == 1 && $('#paper_type_edit').val() != "-1" && $('#paper_number_edit').val() == "") {
+            errorAlert("Bạn chưa nhập số giấy tờ")
             return;
         }
         $('#pre-load').show()
