@@ -30,7 +30,7 @@
         $('#profile_chy').val(text);
         $('#profile_chm').val(text);
     }
-    $('#item1').change(function () {
+    function change() {
         $('#pre-load').show()
         var text = $("#item1 option:selected").html();
         if (text == "Tất cả") {
@@ -89,6 +89,10 @@
         $('#form3').submit();
         $("#cmonth").hide();
         $("#cyear").show();
+    }
+
+    $('#item1').change(function () {
+        change();
     })
 
     $('#item2').change(function () {

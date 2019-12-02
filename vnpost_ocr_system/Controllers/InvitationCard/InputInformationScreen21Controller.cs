@@ -11,11 +11,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
-            //if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
+            if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 District UserDistricts = db.Database.SqlQuery<District>("select d.* from District d inner join Customer c on d.PostalDistrictCode = c.PostalDistrictID where c.CustomerID = @CustomerID",
