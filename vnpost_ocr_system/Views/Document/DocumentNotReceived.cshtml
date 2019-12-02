@@ -11,8 +11,22 @@
 <link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
 <link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
 <link href="~/dist/css/pages/data-table.css" rel="stylesheet">
+<style>
+    .preloader-wrapper {
+        /* position: absolute; */
+        top: unset !important;
+        bottom: unset !important;
+        left: unset !important;
+        right: unset !important;
+        margin: auto !important;
+        position: relative !important;
+        height: 100%;
+    }
 
-
+    #overflow {
+        overflow-y: auto !important;
+    }
+</style>
 <div class="page-titles">
     <div class="d-flex align-items-center">
         <h4 class="font-medium m-b-0 pdleft black-text">Danh sách giấy hẹn - Chờ tiếp nhận</h4>
@@ -214,7 +228,7 @@
     <div class="row">
         <div class="col s12">
             <div class="card" id="table-card">
-                <div class="card-content">
+                <div class="card-content" id="overflow">
                     <div class="m-b-40 m-t-30">
                         <table id="mainTable" class="table-bordered">
                             <thead>
@@ -230,9 +244,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="preloader-wrapper small active">
+                                            <div class="spinner-layer spinner-green-only">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div><div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div><div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
-
                         <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
                     </div>
                 </div>
@@ -260,6 +288,7 @@
         DataTable = $('#mainTable')
             .on('preXhr.dt', function (e, settings, data) {
                 ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+
                 $("#pre-load").show("slow", function () {
                 });
                 $("#pre-load").css("z-index", 99999);
@@ -433,6 +462,8 @@
                         $("#AdminName").text(response[i].ProfileName)
                     option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
+                $('#coQuan').empty();
+                $('#coQuan').append('<option value="">Tất cả</option>');
                 $('#coQuan').append(option);
                 $('#coQuan').formSelect();
                 getProfiles();
@@ -466,6 +497,8 @@
                         $(".ProfileName").text(response[i].ProfileName)
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
+                $('#profile').empty();
+                $('#profile').append('<option value="">Tất cả</option>');
                 $('#profile').append(option);
                 $('#profile').formSelect();
                 $("#pre-load").hide("slow");
