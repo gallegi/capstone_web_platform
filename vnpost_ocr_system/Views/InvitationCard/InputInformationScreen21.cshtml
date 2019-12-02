@@ -134,7 +134,7 @@
                                     <select id="item1">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
-                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            <option @(ViewBag.UserProvinceCode == item.PostalProvinceCode? "selected" : "") value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
                                     <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
@@ -912,6 +912,7 @@
 <script src="~/assets/uploader/dropzoneMultiple.js"></script>
 
 <script>
+    var UserDistrictsID = @ViewBag.UserDistrictsID;
     var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
     var validate1 = false;
@@ -945,6 +946,10 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#item2').append(option);
+                if (UserDistrictsID != "") {
+                    $('#item2').val(UserDistrictsID);
+                    UserDistrictsID = ""
+                }
                 $('#item2').formSelect();
                 getAdmins()
             },

@@ -18,7 +18,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             //if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                District UserDistricts = db.Database.SqlQuery<District>("select d.* from District d inner join Customer c on d.PostalDistrictCode = c.PostalDistrictID where c.CustomerID = @CustomerID",
+                    new SqlParameter("CustomerID", Session["userID"].ToString())).FirstOrDefault();
+                ViewBag.UserProvinceCode = UserDistricts == null ? "" : UserDistricts.PostalProvinceCode;
+                ViewBag.UserDistrictsID = UserDistricts == null ? "" : UserDistricts.PostalDistrictCode;
+
+                List <Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
                 List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @PostalProvinceCode",
