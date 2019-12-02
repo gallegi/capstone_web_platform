@@ -196,6 +196,13 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult Index()
         {
             load();
+            string aid = Session["useradminID"].ToString();
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            string sql = @"select p.*
+                        from Admin a join Province p on a.PostalProvinceCode = p.PostalProvinceCode
+                        where a.AdminID = @id";
+            Province p = db.Database.SqlQuery<Province>(sql, new SqlParameter("id", aid)).FirstOrDefault();
+            ViewBag.p = p;
             return View("/Views/Document/DisplayStatisticChart.cshtml");
         }
 
