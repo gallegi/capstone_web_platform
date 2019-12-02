@@ -134,7 +134,7 @@
                                     <select id="item1">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
-                                            <option @(ViewBag.UserProvinceCode == item.PostalProvinceCode? "selected" : "") value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                                         }
                                     </select>
                                     <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
@@ -903,7 +903,7 @@
     </div>
 </div>
 
-
+<script src="~/Scripts/jquery.cookie.js"></script>
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
@@ -912,7 +912,21 @@
 <script src="~/assets/uploader/dropzoneMultiple.js"></script>
 
 <script>
-    var UserDistrictsID = @ViewBag.UserDistrictsID;
+    var UserInvitation = {}
+
+    if (!!$.cookie('CreateInvitation')) {
+        var CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
+        var UserProvinceCode = CreateInvitation.UserProvinceCode
+        var UserDistrictsID = CreateInvitation.PostalDistrictCode
+        var UserAdminLocationID = CreateInvitation.UserAdminLocationID
+        var UserProfileID = CreateInvitation.UserProfileID
+    } else {
+        var UserProvinceCode = @ViewBag.UserProvinceCode;
+        var UserDistrictsID = @ViewBag.UserDistrictsID;
+        var UserAdminLocationID = ""
+        var UserProfileID = ""
+    }
+
     var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
     var validate1 = false;
@@ -982,6 +996,10 @@
                     option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
                 $('#item3').append(option);
+                if (UserAdminLocationID != "") {
+                    $('#item3').val(UserAdminLocationID)
+                    UserAdminLocationID = ""
+                }
                 $('#item3').formSelect();
                 getProfiles();
             },
@@ -1013,6 +1031,10 @@
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
                 $('#item4').append(option);
+                if (UserProfileID != "") {
+                    $('#item4').val(UserProfileID)
+                    UserProfileID = ""
+                }
                 $('#item4').formSelect();
                 $('#pre-load').hide()
             },
@@ -1023,6 +1045,17 @@
     }
 
     $(document).ready(function () {
+        if (UserProvinceCode != "") {
+            $('#item1').val(UserProvinceCode)
+            $('#item1').formSelect()
+        }
+        if (CreateInvitation.UserLetterCode !== undefined) {
+            $('#item5').val(CreateInvitation.UserLetterCode)
+            $('#item5').focus()
+        }
+        if (CreateInvitation.UserOrderNote !== undefined) {
+            $('#OrderNote').val(CreateInvitation.UserOrderNote)
+        }
         getDistrict();
 
         $('#item1').change(function () {
@@ -1284,6 +1317,12 @@
                     toastr.error('Bạn chưa nhập ảnh giấy hẹn!', '');
                     return false;
                 }
+                UserInvitation.UserProvinceCode = $('#item1').val()
+                UserInvitation.PostalDistrictCode = $('#item2').val()
+                UserInvitation.UserAdminLocationID = $('#item3').val()
+                UserInvitation.UserProfileID = $('#item4').val()
+                UserInvitation.UserLetterCode = $('#item5').val()
+                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
             }
             else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!', '');
@@ -1296,6 +1335,10 @@
             else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người nhận!', '');
                 return false;
+            }
+            else if (currentIndex === 4) {
+                UserInvitation.UserOrderNote = $('#OrderNote').val()
+                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
             }
             return true;
         },
@@ -1331,6 +1374,7 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
+                        $.removeCookie('CreateInvitation')
                         $('#id_raw').val(response.data)
                         $('#myform').submit();
                     }

@@ -314,10 +314,11 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                    successAlert('Thành công', 'Thao tác thành công');
-                    $("#pre-load").hide();
-
-
+                     $("#pre-load").hide();
+                    //successAlert('Thành công', 'Thao tác thành công'), function () {
+                          
+                    //};
+                    window.location.replace("/api/danh-sach-api");
                 }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                     errorAlert('Lỗi', 'Xin vui lòng kiểm tra lại');
                     $("#pre-load").hide();
