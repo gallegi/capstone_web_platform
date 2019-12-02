@@ -90,65 +90,9 @@
         $("#cmonth").hide();
         $("#cyear").show();
     }
+
     $('#item1').change(function () {
-        $('#pre-load').show()
-        var text = $("#item1 option:selected").html();
-        if (text == "Tất cả") {
-            $('.tk1').hide();
-            $('.tk2').hide();
-            $('.tk3').hide();
-            $('.tk4').hide();
-        } else {
-            city(text);
-            $('.tk1').show();
-        }
-        $.ajax({
-            type: "POST",
-            url: "/GetDistrict",
-            cache: false,
-            dataType: 'json',
-            data: {
-                code: $(this).val()
-            },
-            success: function (response) {
-                $('#item2').empty();
-                var option = "<option value='Tất cả' selected>Tất cả</option>";
-                for (var i = 0; i < response.length; i++) {
-                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
-                }
-                $('#item2').append(option);
-                $('#item2').formSelect();
-
-                $('#item3').empty();
-                var option = "<option value='Tất cả' selected>Tất cả</option>";
-                $('#item3').append(option);
-                $('#item3').formSelect();
-
-                $('#item4').empty();
-                var option = "<option value='Tất cả' selected>Tất cả</option>";
-                $('#item4').append(option);
-                $('#item4').formSelect();
-
-                $('.tk2').hide();
-                $('.tk3').hide();
-                $('.tk4').hide();
-                $('#pre-load').hide();
-
-            },
-            error: function () {
-                $('#pre-load').hide()
-            }
-        });
-        $("div.it2 select").val("Tất cả");
-        $("div.it3 select").val("Tất cả");
-        $("div.it4 select").val("Tất cả");
-        getText();
-        $('#formall').submit();
-        change1();
-        change2();
-        $('#form3').submit();
-        $("#cmonth").hide();
-        $("#cyear").show();
+        change();
     })
 
     $('#item2').change(function () {
