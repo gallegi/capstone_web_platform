@@ -913,9 +913,10 @@
 
 <script>
     var UserInvitation = {}
+    var CreateInvitation = {}
 
     if (!!$.cookie('CreateInvitation')) {
-        var CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
+        CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
         var UserProvinceCode = CreateInvitation.UserProvinceCode
         var UserDistrictsID = CreateInvitation.PostalDistrictCode
         var UserAdminLocationID = CreateInvitation.UserAdminLocationID
