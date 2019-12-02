@@ -20,7 +20,7 @@ namespace vnpost_ocr_system.Controllers.User
             string customerID = Session["userID"].ToString();
             List<ContactInfo> listContactInfo = db.Database.SqlQuery<ContactInfo>("select * from ContactInfo where CustomerID = @customerID"
                     , new SqlParameter("customerID", customerID)).ToList();
-            List<Province> listProvince = db.Provinces.ToList<Province>();
+            List<Province> listProvince = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName").ToList();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listContactInfo = listContactInfo;
             ViewBag.listProvince = listProvince;
