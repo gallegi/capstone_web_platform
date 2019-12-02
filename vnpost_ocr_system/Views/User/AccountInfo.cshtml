@@ -303,14 +303,17 @@
                 return false;
             }
         }
+        var oldpassBlank = document.getElementById('oldpass').value;;
         if ($('#cb-change-pass').is(":checked")) {
-            var oldpass = document.getElementById('oldpass').value;
+            //var oldpass = document.getElementById('oldpass').value;
             var newpass = document.getElementById('newpass').value;
             var repass = document.getElementById('repass').value;
-            if (oldpass.length < 6 || oldpass.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
+            if (oldpassBlank.length < 6 || oldpassBlank.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
             if (newpass.length < 6 || newpass.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
             if (repass.length < 6 || repass.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
             if (newpass != repass) { $('#err').html('Mật khẩu nhập lại không khớp'); return false; }
+        } else {
+            oldpassBlank = '';
         }
         $('#preload').show();
         var emp = {
@@ -319,7 +322,7 @@
             email: document.getElementById('email').value,
             dob: document.getElementById('datepicker').value,
             gender: check,
-            oldpass: document.getElementById('oldpass').value,
+            oldpass: oldpassBlank,
             newpass: document.getElementById('newpass').value,
             repass: document.getElementById('repass').value,
             dis  : document.getElementById('dis_cus').value,
