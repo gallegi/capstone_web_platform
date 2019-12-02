@@ -20,9 +20,11 @@
     select {
         border-radius: 5px !important;
         box-shadow: none !important;
+        height: 34px !important;
     }
+
     td {
-        padding : 5px 5px !important;
+        padding: 5px 5px !important;
     }
 </style>
 <link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
@@ -324,7 +326,7 @@
                 </tr>
                 <tr>
                     <td>Tài khoản</td>
-                    <td><input class="form-control" type="text" id="username_edit" readonly ></td>
+                    <td><input class="form-control" type="text" id="username_edit" readonly></td>
                 </tr>
 
                 <tr>
@@ -332,17 +334,17 @@
                     <td><input class="form-control" type="password" id="password_edit"></td>
                 </tr>
                 @*<tr>
-                    <td class="col">Hiển thị mật khẩu</td>
-                    <td>
-                        <span class="col">
+                        <td class="col">Hiển thị mật khẩu</td>
+                        <td>
+                            <span class="col">
 
-                            <label style="margin-top: 20px">
-                                <input type="checkbox" id="showpass" />
-                                <span></span>
-                            </label>
-                        </span>
-                    </td>
-                </tr>*@
+                                <label style="margin-top: 20px">
+                                    <input type="checkbox" id="showpass" />
+                                    <span></span>
+                                </label>
+                            </span>
+                        </td>
+                    </tr>*@
                 <tr>
                     <td>Hoạt động</td>
                     <td>
@@ -401,12 +403,15 @@
     }
 
     function ProChan() {
-        if (document.getElementById('role_add').value == 2) {
-            document.getElementById('province_add').value = 0;
-            $('#province_add').attr('disabled', 'true');
-        } else {
-            document.getElementById('province_add').value = 1;
-            $('#province_add').removeAttr('disabled');
+        if (document.getElementById('role_add').value == 4) { }
+        else {
+            if (document.getElementById('role_add').value == 2) {
+                document.getElementById('province_add').value = 0;
+                $('#province_add').attr('disabled', 'true');
+            } else {
+                document.getElementById('province_add').value = 1;
+                $('#province_add').removeAttr('disabled');
+            }
         }
     }
     function ProChanE() {
@@ -423,6 +428,10 @@
     function Insert() {
         if (document.getElementById('password_add').value.length < 6) {
             errorAlert('Lỗi', 'Mật khẩu phải có ít nhất 6 kí tự');
+            return false;
+        }
+        if (document.getElementById('username_add').value == '') {
+            errorAlert('Lỗi', 'Tên tài khoản không thể để trống');
             return false;
         }
         $('#pre-load').show();
@@ -492,6 +501,7 @@
     }
 
     function Delete(id) {
+        document.getElementById('temp_id').value = id;
         confirmAlert("Xóa tài khoản", "Bạn không thể khôi phục lại khi xóa", function () {
             DeleteAdmin();
         });
@@ -533,7 +543,7 @@
                 document.getElementById('name_edit').value = result.AdminName;
                 document.getElementById('username_edit').value = result.AdminUsername;
                 document.getElementById('password_edit').value = result.AdminPasswordHash;
-                if (result.Role == 2) { document.getElementById('province_edit').value = 0;  }
+                if (result.Role == 2) { document.getElementById('province_edit').value = 0; }
                 else { document.getElementById('province_edit').value = result.PostalProvinceCode; }
                 document.getElementById('role_edit').value = result.Role;
                 if (result.IsActive == true) $('#active_edit').attr('checked', 'true');
@@ -573,7 +583,9 @@
                 $('#province_add').formSelect();
                 if (cou == 1) {
                     document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
-                    $('#province').attr('disabled', true)
+                    $('#province').attr('disabled', true);
+                    document.getElementById('province_add').value = result.listAE[0].PostalProvinceCode;
+                    $('#province_add').attr('disabled', true);
                 }
             },
             error: function (errormessage) {

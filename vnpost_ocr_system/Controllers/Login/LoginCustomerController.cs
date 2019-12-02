@@ -63,6 +63,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     }
                 }
                 if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
+                string pass_temp = pass;
                 pass = string.Concat(pass, custom.PasswordSalt.Substring(0,6));
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pd");
                 if (passXc.Equals(custom.PasswordHash))
@@ -77,7 +78,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         {
                             HttpCookie remme = new HttpCookie("remmem");
                             remme["user"] = user;
-                            remme["pass"] = pass;
+                            remme["pass"] = pass_temp;
                             remme.Expires = DateTime.Now.AddDays(365);
                             HttpContext.Response.Cookies.Add(remme);
                         }
@@ -146,6 +147,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 var custom = db.Customers.Where(x => x.Email.Equals(tbEmail) || x.Phone.Equals(tbPhone)).FirstOrDefault();
                 Session["userID"] = custom.CustomerID;
                 Session["userName"] = custom.FullName;
+                Session["Role"] = "0";
+                Session["url"] = "/";
                 return Redirect("/");
             }
             catch (Exception e)

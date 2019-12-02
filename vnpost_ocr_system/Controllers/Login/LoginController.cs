@@ -36,6 +36,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 var admin = db.Admins.Where(x => x.AdminUsername.Equals(username)).FirstOrDefault();
                 if (admin != null)
                 {
+                    string pass_t = password;
                     password = string.Concat(password, admin.AdminPasswordSalt.Substring(0,6));
                     string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                     if (passXc.Equals(admin.AdminPasswordHash))
@@ -52,7 +53,7 @@ namespace vnpost_ocr_system.Controllers.Login
                             {
                                 HttpCookie remme = new HttpCookie("remmemadmin");
                                 remme["user"] = admin.AdminUsername;
-                                remme["pass"] = password;
+                                remme["pass"] = pass_t;
                                 remme.Expires = DateTime.Now.AddDays(365);
                                 HttpContext.Response.Cookies.Add(remme);
                             }

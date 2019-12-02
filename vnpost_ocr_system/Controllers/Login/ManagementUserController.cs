@@ -77,7 +77,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     new SqlParameter("username", '%' + username + '%')
                     ).ToList();
 
-                foreach (Admindb a in searchList)
+                foreach (Admindb a in searchList.ToList())
                 {
                     if (a.AdminRoleName.Equals("Tổng công ty") && !province.Equals("0") && !string.IsNullOrEmpty(province)) { searchList.Remove(a); }
                     else
@@ -224,7 +224,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -235,8 +235,8 @@ namespace vnpost_ocr_system.Controllers.Login
             if (id == 2) { var tct = db.Admins.Where(x => x.Role == 2).ToList(); username = "Admin00" + tct.Count(); }
             else if (id == 3)
             {
-                username = "Admin" + province + "_0"; var adt = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
-                if (adt.Count > 0) { var adtt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList(); username += adtt.Count(); }
+                username = "Admin" + province ; var adt = db.Admins.Where(x => x.AdminUsername.Equals(username)).ToList();
+                if (adt.Count > 0) { var adtt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList(); username += "_"+adtt.Count(); }
             }
             else if (id == 4)
             {
