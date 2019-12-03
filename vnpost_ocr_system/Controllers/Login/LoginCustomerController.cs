@@ -105,13 +105,27 @@ namespace vnpost_ocr_system.Controllers.Login
                     if (!tbValidCodePhone.Equals("123456"))
                     {
                         ViewBag.invalidcode = "Mã xác thực không đúng";
-                        return View("/Views/Login/Login_Cutomer.cshtml");
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Cutomer.cshtml");
+                        }
                     }
                     var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
                     if (cus.Count > 0)
                     {
                         ViewBag.messe = "Số điện thoại đã được đăng kí cho tài khoản khác";
-                        return View("/Views/Login/Login_Cutomer.cshtml");
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Cutomer.cshtml");
+                        }
                     }
                 }
                 if (!string.IsNullOrEmpty(tbEmail))
@@ -119,13 +133,27 @@ namespace vnpost_ocr_system.Controllers.Login
                     if (!tbValidCodeEmail.Equals("123456"))
                     {
                         ViewBag.invalidcode1 = "Mã xác thực không đúng";
-                        return View("/Views/Login/Login_Cutomer.cshtml");
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Cutomer.cshtml");
+                        }
                     }
                     var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
                     if (cus.Count > 0)
                     {
                         ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
-                        return View("/Views/Login/Login_Cutomer.cshtml");
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Cutomer.cshtml");
+                        }
                     }
                 }
                 Random r = new Random();
@@ -154,7 +182,14 @@ namespace vnpost_ocr_system.Controllers.Login
             catch (Exception e)
             {
                 ViewBag.messe = "Có lỗi xảy ra. Vui lòng thử lại";
-                return View("/Views/Login/Login_Cutomer.cshtml");
+                if (Request.Browser.IsMobileDevice)
+                {
+                    return View("/Views/MobileView/Login.cshtml");
+                }
+                else
+                {
+                    return View("/Views/Login/Login_Cutomer.cshtml");
+                }
             }
         }
         [Route("Logout")]

@@ -46,9 +46,9 @@
 
         <div class="row">
             <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab col s3 tab-lr"><a class="active" href="#login-container"><h4>Đăng nhập</h4></a></li>
-                    <li class="tab col s3 tab-lr"><a href="#register-container"><h4>Đăng ký</h4></a></li>
+                <ul class="tabs" id="tabs-swipe-demo">
+                    <li class="tab col s3 tab-lr"><a href="#login-container" class="active" id="logintab"><h4>Đăng nhập</h4></a></li>
+                    <li class="tab col s3 tab-lr"><a href="#register-container" id="registab"><h4>Đăng ký</h4></a></li>
                 </ul>
             </div>
         </div>
@@ -106,33 +106,67 @@
         <div id="register-container">
             <div class="container">
                 <div class="row m-b-none">
-                
-                        <div class='input-authen input-field col s12'>
-                            <i class="material-icons prefix">person</i>
-                            <input type="text" placeholder="Tên đăng nhập" class="icon_prefix2" />
+                    @using (Html.BeginForm("DangKi", "LoginCustomer", FormMethod.Post, new { onsubmit = "return valid()" }))
+                    {
+                        <div class="col s12  sdt-or-email-checkbox">
+                            <label div class="left" id="sdt-checkbox">
+                                <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
+                                <span>Số điện thoại</span>
+                            </label>
+                            <label div class="left" id="email-checkbox">
+                                <input type="checkbox" id="emailcheck" class="ep-checkboxes">
+                                <span>Email</span>
+                            </label>
+                        </div>
+                        <div class='input-authen input-field col s12' id="checkboxphone">
+                            <div class="col s9">
+                                <i class="material-icons prefix">phone</i>
+                                <input type="text" placeholder="Số điện thoại" class="icon_prefix2" id="tbPhone" name="tbPhone" />
+                            </div>
+                            <div class="col s3">
+                                <button type="button" class="red btn small waves-effect waves-light" id="sdt-confirm-btn">GỬI MÃ</button>
+                            </div>
+                            <div class="col s9">
+                                <i class="material-icons prefix"></i>
+                                <input type="text" placeholder="Mã xác thực SĐT" class="icon_prefix2" id="sdt-confirm-code" name="tbValidCodePhone" hidden />
+                            </div>
+                        </div>
+                        <div class='input-authen input-field col s12' id="checkboxemail">
+                            <div class="col s9">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" placeholder="Email" class="icon_prefix2" id="tbEmail" name="tbEmail" />
+                            </div>
+                            <div class="col s3">
+                                <button type="button" class="red btn small waves-effect waves-light" id="email-confirm-btn">GỬI MÃ</button>
+                            </div>
+                            <div class="col s9">
+                                <i class="material-icons prefix"></i>
+                                <input type="text" placeholder="Mã xác thực Email" class="icon_prefix2" id="email-confirm-code" name="tbValidCodeEmail" hidden />
+                            </div>
+                        </div>
+
+                        <div class='input-authen input-field col s12 padder-x'>
+                            <i class="material-icons prefix">lock</i>
+                            <input type="password" placeholder="Mật khẩu" class="icon_prefix2" id="tbPass" name="tbPass" />
                         </div>
                         <div class='input-authen input-field col s12 padder-x'>
                             <i class="material-icons prefix">lock</i>
-                            <input type="password" placeholder="Mật khẩu" class="icon_prefix2" />
-                        </div>
-                        <div class='input-authen input-field col s12 padder-x'>
-                            <i class="material-icons prefix">lock</i>
-                            <input type="password" placeholder="Nhập lại mật khẩu" class="icon_prefix2" />
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="icon_prefix2" id="tbRePass" name="tbRePass" />
                         </div>
 
                         <div class='input-authen input-field col s12'>
                             <i class="material-icons prefix">create</i>
-                            <input type="text" placeholder="Họ và tên" class="icon_prefix2" />
+                            <input type="text" placeholder="Họ và tên" class="icon_prefix2" id="tbName" name="tbName" />
                         </div>
 
                         <div class='input-authen col s12 gender-container'>
                             <i class="material-icons dp48 prefix">face</i>
                             <label>
-                                <input class="with-gap" name="gender" value="1" type="radio" />
+                                <input class="with-gap" name="group1" value="1" type="radio" />
                                 <span>Nam</span>
                             </label>
                             <label>
-                                <input class="with-gap" name="gender" value="0" type="radio" />
+                                <input class="with-gap" name="group1" value="0" type="radio" />
                                 <span>Nữ</span>
                             </label>
                         </div>
@@ -149,45 +183,8 @@
                             <select id="district" class="addr-select" name="distrint">
                             </select>
                         </div>
-                        <div class="col s12  sdt-or-email-checkbox">
-                            <label div class="left" id="sdt-checkbox">
-                                <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
-                                <span>Số điện thoại</span>
-                            </label>
-                            <label div class="left" id="email-checkbox">
-                                <input type="checkbox" id="emailcheck" class="ep-checkboxes">
-                                <span>Email</span>
-                            </label>
-                        </div>
-                        <div class='input-authen input-field col s12' id="checkboxphone">
-                            <div class="col s9">
-                                <i class="material-icons prefix">phone</i>
-                                <input type="text" placeholder="Số điện thoại" class="icon_prefix2" />
-                            </div>
-                            <div class="col s3">
-                                <button class="red btn small waves-effect waves-light" id="sdt-confirm-btn">GỬI MÃ</button>
-                            </div>
-                            <div class="col s9">
-                                <i class="material-icons prefix"></i>
-                                <input type="text" placeholder="Mã xác thực SĐT" class="icon_prefix2" id="sdt-confirm-code" hidden/>
-                            </div>
-                        </div>
-                        <div class='input-authen input-field col s12' id="checkboxemail">
-                            <div class="col s9">
-                                <i class="material-icons prefix">email</i>
-                                <input type="text" placeholder="Email" class="icon_prefix2" />
-                            </div>
-                            <div class="col s3">
-                                <button class="red btn small waves-effect waves-light" id="email-confirm-btn">GỬI MÃ</button>
-                            </div>
-                            <div class="col s9">
-                                <i class="material-icons prefix"></i>
-                                <input type="text" placeholder="Mã xác thực Email" class="icon_prefix2"  id="email-confirm-code" hidden/>
-                            </div>
-                        </div>
-                        <button class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG KÝ</button>
-
-                 
+                        <button type="submit" class='login-btn col s12 btn waves-effect waves-light btn btn-large m-md yellow darken-4'>ĐĂNG KÝ</button>
+                    }
                 </div>
             </div>
         </div>
@@ -228,6 +225,15 @@
             </div>
         </div>
 
+        <div id="reg-err" style="padding-bottom:70px" class="modal">
+            <div class="modal-content">
+                <h2>Thông báo</h2>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:45px; font-weight:600; color:red;" id="err-mess" class="m-l-20 center">
+                </p>
+            </div>
+        </div>
     </div>
     <input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
     <input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
@@ -238,12 +244,32 @@
             $('.modal').modal();
             $("#pre-load").css('z-index', 99999);
         });
-
         $(document).ready(function () {
             $('.tabs').tabs();
+            if (document.getElementById('tem').value != '') {
+                $('#logintab').removeClass('active');
+                $('#registab').attr('class', 'active');
+                $('#err-mess').text('Mã xác thực số điện thoại không đúng');
+                $("#reg-err").modal('open');
+                $('.tabs').tabs();
+            }
+            if (document.getElementById('tem2').value != '') {
+                $('#logintab').removeClass('active');
+                $('#registab').attr('class', 'active');
+                $('#err-mess').text('Mã xác thực email không đúng');
+                $("#reg-err").modal('open');
+                $('.tabs').tabs();
+            }
+            if (document.getElementById('tem1').value != '') {
+                $('#err-mess').text(document.getElementById('tem1').value);
+                $("#reg-err").modal('open');
+                $('#logintab').removeClass('active');
+                $('#registab').attr('class', 'active');
+                $('.tabs').tabs();
+            }
         });
-        $('#checkboxemail').find("input").prop("readonly",true);
-                    $('#checkboxemail').find("button").prop("disabled",true);
+        $('#checkboxemail').find("input").prop("readonly", true);
+        $('#checkboxemail').find("button").prop("disabled", true);
     </script>
 
     <script src="~/assets/materialize/js/materialize.js"></script>
@@ -255,22 +281,22 @@
                 e.preventDefault();
             } else {
                 if ($("#emailcheck").is(":checked") === true) {
-                    $('#checkboxemail').find("input").prop("readonly",false);
+                    $('#checkboxemail').find("input").prop("readonly", false);
                     $('#checkboxemail').find("button").prop("disabled", false);
                 } else {
                     $('#checkboxemail').find("input").prop("readonly", true);
                     $('#checkboxemail').find("input").val("");
                     $('#checkboxemail').find("button").prop("disabled", true);
-                     $("#email-confirm-code").hide("slow", function () { });
+                    $("#email-confirm-code").hide("slow", function () { });
                 }
                 if ($("#phonecheck").is(":checked") === true) {
-                    $('#checkboxphone').find("input").prop("readonly",false);
-                    $('#checkboxphone').find("button").prop("disabled",false);
+                    $('#checkboxphone').find("input").prop("readonly", false);
+                    $('#checkboxphone').find("button").prop("disabled", false);
                 } else {
-                    $('#checkboxphone').find("input").prop("readonly",true);
+                    $('#checkboxphone').find("input").prop("readonly", true);
                     $('#checkboxphone').find("input").val("");
                     $('#checkboxphone').find("button").prop("disabled", true);
-                     $("#sdt-confirm-code").hide("slow", function () { });
+                    $("#sdt-confirm-code").hide("slow", function () { });
                 }
             }
 
@@ -286,18 +312,6 @@
     </script>
     <script>
         $(document).ready(function () {
-            if (document.getElementById('tem').value != '') {
-                $('#validCodePhone-err').text('Mã xác thực không đúng');
-            }
-            if (document.getElementById('tem2').value != '') {
-                $('#validCodeEmail-err').text('Mã xác thực không đúng');
-                $('#emailcheck').attr('checked', 'checked');
-                document.getElementById('emailcheck').value = 1;
-            }
-            if (document.getElementById('tem1').value != '') {
-                s
-                $('#messe').text(document.getElementById('tem1').value);
-            }
             var windowWidth = $(window).width();
             if (windowWidth < 768) {
                 $(".set-btn").remove();
@@ -349,17 +363,6 @@
         }
 
         $(document).ready(function () {
-            if (document.getElementById('tem').value != '') {
-                $('#validCodePhone-err').text('Mã xác thực không đúng');
-            }
-            if (document.getElementById('tem2').value != '') {
-                $('#validCodeEmail-err').text('Mã xác thực không đúng');
-                $('#emailcheck').attr('checked', 'checked');
-                document.getElementById('emailcheck').value = 1;
-            }
-            if (document.getElementById('tem1').value != '') {
-                $('#messe').text(document.getElementById('tem1').value);
-            }
             var windowWidth = $(window).width();
             if (windowWidth < 768) {
                 $(".set-btn").remove();
@@ -422,71 +425,96 @@
 
 
         function valid() {
-            $('#name-err').text('');
-            $('#phone-err').text('');
-            $('#validCodePhone-err').text('');
-            $('#validCodeEmail-err').text('');
-            $('#email-err').text('');
-            $('#pass-err').text('');
-            $('#rePass-err').text('');
+            $('#err-mess').text('');
             var name = document.getElementById('tbName').value;
             var phone = document.getElementById('tbPhone').value;
-            var validCodePhone = document.getElementById('tbValidCodePhone').value;
-            var validCodeEmail = document.getElementById('tbValidCodeEmail').value;
+            var validCodePhone = document.getElementById('sdt-confirm-code').value;
+            var validCodeEmail = document.getElementById('email-confirm-code').value;
+            var pro = document.getElementById('province').value;
+            var dis = document.getElementById('district').value;
             var email = document.getElementById('tbEmail').value;
             var pass = document.getElementById('tbPass').value;
             var rePass = document.getElementById('tbRePass').value;
             var valid = true;
 
-            if (name.length == 0) {
-
-                $('#name-err').text('Vui lòng nhập tên');
-                return false;
-            }
-            if (document.getElementById('phonecheck').value == 0) {
+            if ($("#phonecheck").is(":checked") === true) {
                 if (phone.length == 0) {
-
-                    $('#phone-err').text('Vui lòng nhập số điện thoại');
+                    $('#err-mess').text('Vui lòng nhập số điện thoại');
+                    $("#reg-err").modal('open');
                     return false;
                 }
                 if (phone.length != 10 && phone.length > 0) {
-                    $('#phone-err').text('Số điện thoại không tồn tại');
+                    $('#err-mess').text('Số điện thoại không tồn tại');
+                    $("#reg-err").modal('open');
                     return false;
                 }
                 if (validCodePhone.length == 0) {
-
-                    $('#validCodePhone-err').text('Vui lòng nhập mã xác thực');
+                    $('#err-mess').text('Vui lòng nhập mã xác thực');
+                    $("#reg-err").modal('open');
                     return false;
                 }
 
                 if (validCodePhone.length <= 5) {
-
-                    $('#validCodePhone-err').text('Mã xác thực không đúng');
+                    $('#err-mess').text('Mã xác thực không đúng');
+                    $("#reg-err").modal('open');
                     return false;
                 }
             }
-            if (document.getElementById('emailcheck').value == 0) {
+            if ($("#emailcheck").is(":checked") === true) {
                 if (email.length == 0) {
-
-                    $('#email-err').text('Vui lòng nhập email');
+                    $('#err-mess').text('Vui lòng nhập email');
+                    $("#reg-err").modal('open');
                     return false;
                 }
                 if (validCodeEmail.length == 0) {
-
-                    $('#validCodeEmail-err').text('Vui lòng nhập mã xác thực');
+                    $('#err-mess').text('Vui lòng nhập mã xác thực');
+                    $("#reg-err").modal('open');
                     return false;
                 }
 
                 if (validCodeEmail.length <= 5) {
-
-                    $('#validCodeEmail-err').text('Mã xác thực không đúng');
+                    $('#err-mess').text('Mã xác thực không đúng');
+                    $("#reg-err").modal('open');
                     return false;
                 }
             }
-            if (document.getElementById('emailcheck').value == 1 && document.getElementById('phonecheck').value == 1) {
-                $('#messe').text('Bạn cần xác thực bằng số điện thoại hoặc email để có thể đăng ký');
+
+
+            if (pass.length == 0) {
+                $('#err-mess').text('Vui lòng nhập mật khẩu');
+                $("#reg-err").modal('open');
                 return false;
             }
+            if (pass.length < 6 || pass.length > 32) {
+                $('#err-mess').text('Mật khẩu gồm 6-32 kí tự');
+                $("#reg-err").modal('open');
+                return false;
+            }
+            if (rePass.length == 0) {
+                $('#err-mess').text('Vui lòng điền trường nhập lại mật khẩu');
+                $("#reg-err").modal('open');
+                return false;
+            }
+            if (rePass != pass) {
+                $('#err-mess').text('Mật khẩu nhập lại không khớp');
+                $("#reg-err").modal('open');
+                return false;
+            }
+            if (name.length == 0) {
+                $('#err-mess').text('Vui lòng nhập tên');
+                $("#reg-err").modal('open');
+                return false;
+            }
+            if (pro == '' || dis == '') {
+                $('#err-mess').text('Vui lòng chọn nơi cư trú');
+                $("#reg-err").modal('open');
+                return false;
+            }
+
+            //if (document.getElementById('emailcheck').value == 1 && document.getElementById('phonecheck').value == 1) {
+            //    $('#messe').text('Bạn cần xác thực bằng số điện thoại hoặc email để có thể đăng ký');
+            //    return false;
+            //}
 
 
 
@@ -496,29 +524,6 @@
             //    $('#email-err').text('Địa chỉ email không hợp lệ');
             //    return false;
             //}
-
-
-
-            if (pass.length == 0) {
-
-                $('#pass-err').text('Vui lòng nhập mật khẩu');
-                return false;
-            }
-            if (pass.length < 6 || pass.length > 32) {
-
-                $('#pass-err').text('Mật khẩu gồm 6-32 kí tự');
-                return false;
-            }
-            if (rePass.length == 0) {
-
-                $('#rePass-err').text('Vui lòng nhập trường nhập lại mật khẩu');
-                return false;
-            }
-            if (rePass != pass) {
-
-                $('#rePass-err').text('Mật khẩu nhập lại không khớp');
-                return false;
-            }
             return valid;
         }
     </script>
