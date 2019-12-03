@@ -552,6 +552,9 @@
         $('#start2').val(d);
         $('#end2').val(d);
 
+        var y = '@ViewBag.y';
+        $("#dateyear").val(y);
+
         d = '@ViewBag.d';
         $('#talbe').find('tr:eq(2)').find('td:eq(0)').text(d);
         $('#talbe').find('tr:eq(2)').find('td:eq(1)').text(@ViewBag.detail.total_cho);
