@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -63,7 +64,8 @@ namespace vnpost_ocr_system.Controllers.User
         public ActionResult getDistrict(string provinceID)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> listDistrict = db.Districts.Where(x => x.PostalProvinceCode.Equals(provinceID)).ToList();
+            List<District> listDistrict = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @provinceID order by PostalDistrictName "
+                , new SqlParameter("provinceID", provinceID)).ToList();
             listDistrict = listDistrict.Select(x => new District
             {
                 PostalDistrictCode = x.PostalDistrictCode,
