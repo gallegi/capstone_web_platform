@@ -21,3 +21,11 @@ a.brand-logo {
 .card {
     padding: 20px 20px 20px 20px !important;
 }
+.title {
+    font-size: 27px !important;
+    font-weight: 500 !important;
+}
+
+.this-is-chart {
+    margin-bottom: 30px !important;
+}
