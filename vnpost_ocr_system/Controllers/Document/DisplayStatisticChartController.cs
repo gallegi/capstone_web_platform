@@ -74,6 +74,8 @@ namespace vnpost_ocr_system.Controllers.Document
 
             string date = DateTime.Now.ToString("dd/MM/yyyy");
             ViewBag.date = date;
+            string valyear = DateTime.Now.ToString("yyyy");
+            ViewBag.y = valyear;
             ViewBag.d = date + " - " + date;
 
             string[] data = date.Split('/');
