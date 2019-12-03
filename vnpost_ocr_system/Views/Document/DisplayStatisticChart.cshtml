@@ -46,11 +46,20 @@
                             <label class="col l4 m4 p-t-10 s12 normal-size">Tỉnh/Thành phố:</label>
                             <div class="col l6 m6 s12">
                                 <select tabindex="-1" id="item1">
-                                    <option selected value="0">Tất cả</option>
                                     @{
-                                        foreach (var item in ViewBag.listPro)
+                                        if (Session["Role"].ToString().Equals("1"))
                                         {
-                                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            <option selected value="0">Tất cả</option>
+
+                                            foreach (var item in ViewBag.listPro)
+                                            {
+                                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@ViewBag.p.PostalProvinceCode">@ViewBag.p.PostalProvinceName</option>
                                         }
                                     }
                                 </select>
@@ -499,6 +508,8 @@
         </div>
     </div>
 </div>
+<script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
+
 <script>
     var xong, chua, da;
     var xongm, chuam, dam;
@@ -545,6 +556,9 @@
         $('#start2').val(d);
         $('#end2').val(d);
 
+        var y = '@ViewBag.y';
+        $("#dateyear").val(y);
+
         d = '@ViewBag.d';
         $('#talbe').find('tr:eq(2)').find('td:eq(0)').text(d);
         $('#talbe').find('tr:eq(2)').find('td:eq(1)').text(@ViewBag.detail.total_cho);
@@ -561,6 +575,7 @@
         chartYear();
         chartMonth();
         $("#cmonth").hide();
+        change();
     });
 
     $("#back").click(function () {
@@ -571,7 +586,6 @@
 <script src="~/CustomJS/Document/bar.js"></script>
 <script src="~/CustomJS/Document/barMonth.js"></script>
 <script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>
-<script src="~/CustomJS/Document/CustomDisplayStatisticChartWithSubmit.js"></script>
 @*<script src="~/CustomJS/Document/DisplayStatisticChart.js"></script>*@
 
 <!-- ============================================================== -->

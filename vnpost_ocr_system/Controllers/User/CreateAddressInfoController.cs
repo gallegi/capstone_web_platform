@@ -18,7 +18,7 @@ namespace vnpost_ocr_system.Controllers.User
         public ActionResult Index()
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> listProvince = db.Provinces.ToList<Province>();
+            List<Province> listProvince = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName").ToList();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listProvince = listProvince;
             ViewBag.listPaperType = listPaperType;

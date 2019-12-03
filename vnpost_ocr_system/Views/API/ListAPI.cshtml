@@ -68,7 +68,7 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <div id="information"><h3  class="center"><b>THÔNG TIN CỦA API 1</b></h3> </div>
+                    <div id="information"><h3  class="center"><b>Thông tin của API lấy thông tin của từng hồ sơ bằng mã hồ sơ</b></h3> </div>
                     <h4 class="font-medium">Request</h4>
                     <!----------->
                     <div class="row">
@@ -228,8 +228,7 @@
 
     $(document).on("click", "#delete", function () {
         id = $(this).data("id");
-
-    })
+       })
 
     function drawTable() {
         $.ajax({
@@ -239,9 +238,15 @@
             datatype: "json",
             cache: false,
             success: function (data) {
-                var jsonObj = JSON.parse(data.api.SampleResponse);
-                var jsonPretty = JSON.stringify(jsonObj, null, '\t');
-                $("#format").val(jsonPretty);
+                
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
                 $("#method").val(data.api.APIMethodID);
                 $('#method').formSelect();
                 //$("#method").val(data.api.APIMethodID);
@@ -317,10 +322,16 @@
             success: function (data) {
                 $( "h3" ).remove();
 
-                $( "#information" ).append( "<h3 class='center'><b>THÔNG TIN CỦA API "+apiid+"</b></h3>" );
-                var jsonObj = JSON.parse(data.api.SampleResponse);
-                var jsonPretty = JSON.stringify(jsonObj, null, '\t');
-                $("#format").val(jsonPretty);
+                $("#information").append("<h3 class='center'><b>Thông tin của " + data.api.APIDescription + "</b></h3>");
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
+                 //$("#format").val(data.api.SampleResponse);
                 $("#method").val(data.api.APIMethodID);
                $('#method').formSelect();
                 $("#uri").val(data.api.APIUri);
