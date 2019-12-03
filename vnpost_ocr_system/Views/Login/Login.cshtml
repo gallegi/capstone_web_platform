@@ -74,14 +74,17 @@
         var pass = document.getElementById('password').value;
         if (user.length == 0) {
             $('#failed').text('Vui lòng nhập tài khoản');
+            $('#pre-load').hide();
             return false;
         }
         if (pass.length == 0) {
             $('#failed').text('Vui lòng nhập mật khẩu');
+            $('#pre-load').hide();
             return false;
         }
         if (pass.length < 6 || pass.length > 32) {
             $('#failed').text('Mật khẩu gồm 6-32 kí tự');
+            $('#pre-load').hide();
             return false;
         }
         $('#pre-load').hide();
