@@ -123,7 +123,7 @@ table.dataTable thead .sorting:after {
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   outline: none;
-  background-color: #eef5f9; }
+  background-color: #f1f1f1; }
 
 .dataTables_wrapper .dataTables_paginate .ellipsis {
   padding: 0 1em; }

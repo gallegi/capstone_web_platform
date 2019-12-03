@@ -2,9 +2,9 @@
     $('.tk1').hide(); $('.tk2').hide();$('.tk3').hide(); $('.tk4').hide();
     $('#item1').change(function () {
         $('#pre-load').show()
-        var text = $("#item1 option:selected").html();
-        city(text);
-        $('.tk1').show();
+        //var text = $("#item1 option:selected").html();
+        //city(text);
+        //$('.tk1').show();
         $.ajax({
             type: "POST",
             url: "/GetDistrict",
@@ -32,9 +32,9 @@
 
     $('#item2').change(function () {
         $('#pre-load').show()
-        var text = $("#item2 option:selected").html();
-        district(text);
-        $('.tk2').show();
+        //var text = $("#item2 option:selected").html();
+        //district(text);
+        //$('.tk2').show();
         $.ajax({
             type: "POST",
             url: "/GetAdmins",
@@ -62,9 +62,9 @@
 
     $('#item3').change(function () {
         $('#pre-load').show()
-        var text = $("#item3 option:selected").html();
-        org(text);
-        $('.tk3').show();
+        //var text = $("#item3 option:selected").html();
+        //org(text);
+        //$('.tk3').show();
         $.ajax({
             type: "POST",
             url: "/GetProfile",
@@ -89,28 +89,28 @@
         })
     })
 
-    $('#item4').change(function () {
-        var text = $("#item4 option:selected").html();
-        procedure(text);
-        $('.tk4').show();
-    })
+    //$('#item4').change(function () {
+    //    var text = $("#item4 option:selected").html();
+    //    procedure(text);
+    //    $('.tk4').show();
+    //})
 });
 
-function city(value) {
+//function city(value) {
 
-    document.getElementById('city').innerHTML = value;
-}
-function district(value) {
+//    document.getElementById('city').innerHTML = value;
+//}
+//function district(value) {
 
-    document.getElementById('district').innerHTML = value;
-}
-function org(value) {
+//    document.getElementById('district').innerHTML = value;
+//}
+//function org(value) {
 
-    document.getElementById('org').innerHTML = value;
-}
-function procedure(value) {
+//    document.getElementById('org').innerHTML = value;
+//}
+//function procedure(value) {
 
-    document.getElementById('procedure').innerHTML = value;
-}
+//    document.getElementById('procedure').innerHTML = value;
+//}
 
 
