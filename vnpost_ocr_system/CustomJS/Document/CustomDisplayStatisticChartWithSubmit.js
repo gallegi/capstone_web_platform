@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.tk1').hide(); $('.tk2').hide(); $('.tk3').hide(); $('.tk4').hide();
+    //$('.tk1').hide(); $('.tk2').hide(); $('.tk3').hide(); $('.tk4').hide();
 
     function getText() {
         var text = $("#item1 option:selected").html();
@@ -30,18 +30,18 @@
         $('#profile_chy').val(text);
         $('#profile_chm').val(text);
     }
-    $('#item1').change(function () {
+    function change() {
         $('#pre-load').show()
         var text = $("#item1 option:selected").html();
-        if (text == "Tất cả") {
-            $('.tk1').hide();
-            $('.tk2').hide();
-            $('.tk3').hide();
-            $('.tk4').hide();
-        } else {
-            city(text);
-            $('.tk1').show();
-        }
+        //if (text == "Tất cả") {
+        //    $('.tk1').hide();
+        //    $('.tk2').hide();
+        //    $('.tk3').hide();
+        //    $('.tk4').hide();
+        //} else {
+        //    city(text);
+        //    $('.tk1').show();
+        //}
         $.ajax({
             type: "POST",
             url: "/GetDistrict",
@@ -69,9 +69,9 @@
                 $('#item4').append(option);
                 $('#item4').formSelect();
 
-                $('.tk2').hide();
-                $('.tk3').hide();
-                $('.tk4').hide();
+                //$('.tk2').hide();
+                //$('.tk3').hide();
+                //$('.tk4').hide();
                 $('#pre-load').hide();
 
             },
@@ -89,19 +89,23 @@
         $('#form3').submit();
         $("#cmonth").hide();
         $("#cyear").show();
+    }
+
+    $('#item1').change(function () {
+        change();
     })
 
     $('#item2').change(function () {
         $('#pre-load').show()
         var text = $("#item2 option:selected").html();
-        if (text == "Tất cả") {
-            $('.tk2').hide();
-            $('.tk3').hide();
-            $('.tk4').hide();
-        } else {
-            district(text);
-            $('.tk2').show();
-        }
+        //if (text == "Tất cả") {
+        //    $('.tk2').hide();
+        //    $('.tk3').hide();
+        //    $('.tk4').hide();
+        //} else {
+        //    district(text);
+        //    $('.tk2').show();
+        //}
         
         $.ajax({
             type: "POST",
@@ -125,8 +129,8 @@
                 $('#item4').append(option);
                 $('#item4').formSelect();
 
-                $('.tk3').hide();
-                $('.tk4').hide();
+                //$('.tk3').hide();
+                //$('.tk4').hide();
                 $('#pre-load').hide()
             },
             error: function () {
@@ -147,13 +151,13 @@
     $('#item3').change(function () {
         $('#pre-load').show()
         var text = $("#item3 option:selected").html();
-        if (text == "Tất cả") {
-            $('.tk3').hide();
-            $('.tk4').hide();
-        } else {
-            org(text);
-            $('.tk3').show();
-        }
+        //if (text == "Tất cả") {
+        //    $('.tk3').hide();
+        //    $('.tk4').hide();
+        //} else {
+        //    org(text);
+        //    $('.tk3').show();
+        //}
        
         $.ajax({
             type: "POST",
@@ -172,7 +176,7 @@
                 $('#item4').append(option);
                 $('#item4').formSelect();
 
-                $('.tk4').hide();
+                //$('.tk4').hide();
                 $('#pre-load').hide()
             },
             error: function () {
@@ -191,12 +195,12 @@
 
     $('#item4').change(function () {
         var text = $("#item4 option:selected").html();
-        if (text == "Tất cả") {
-            $('.tk4').hide();
-        } else {
-            procedure(text);
-            $('.tk4').show();
-        }
+        //if (text == "Tất cả") {
+        //    $('.tk4').hide();
+        //} else {
+        //    procedure(text);
+        //    $('.tk4').show();
+        //}
         
         getText();
         $('#formall').submit();
@@ -208,21 +212,21 @@
     })
 });
 
-function city(value) {
+//function city(value) {
 
-    document.getElementById('city').innerHTML = value;
-}
-function district(value) {
+//    document.getElementById('city').innerHTML = value;
+//}
+//function district(value) {
 
-    document.getElementById('district').innerHTML = value;
-}
-function org(value) {
+//    document.getElementById('district').innerHTML = value;
+//}
+//function org(value) {
 
-    document.getElementById('org').innerHTML = value;
-}
-function procedure(value) {
+//    document.getElementById('org').innerHTML = value;
+//}
+//function procedure(value) {
 
-    document.getElementById('procedure').innerHTML = value;
-}
+//    document.getElementById('procedure').innerHTML = value;
+//}
 
 

@@ -11,14 +11,18 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
-            //if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
+            if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                District UserDistricts = db.Database.SqlQuery<District>("select d.* from District d inner join Customer c on d.PostalDistrictCode = c.PostalDistrictID where c.CustomerID = @CustomerID",
+                    new SqlParameter("CustomerID", Session["userID"].ToString())).FirstOrDefault();
+                ViewBag.UserProvinceCode = UserDistricts == null ? "" : UserDistricts.PostalProvinceCode;
+                ViewBag.UserDistrictsID = UserDistricts == null ? "" : UserDistricts.PostalDistrictCode;
+
+                List <Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
                 List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @PostalProvinceCode",
@@ -118,7 +122,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                                                     <p class='content-text col s12'>Số điện thoại: <span id='Phone'>" + c.Phone + @"</span></p>";
                             html += i == 1 ? @"
                                                     <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' id='PersonalPaperTypeName'>" + (type == null ? "" : type.PersonalPaperTypeName) + @"</span></p>
-                                                    <p class='content-text col s12'>Số giấy tờ tùy thân: <span id='PersonalPaperNumber'>" + (c.PersonalPaperNumber == null ? "-1" : c.PersonalPaperNumber) + @"</span></p>
+                                                    <p class='content-text col s12'>Số giấy tờ tùy thân: <span id='PersonalPaperNumber'>" + (c.PersonalPaperNumber == null ? "" : c.PersonalPaperNumber) + @"</span></p>
                                                     <p class='content-text col s12'>Ngày cấp: <span id='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
                                                     <p class='content-text col s12'>Nơi cấp: <span id='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>"
                                         : "";
@@ -161,17 +165,23 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         {
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                ContactInfoDB info = db.Database.SqlQuery<ContactInfoDB>(@"select * from ContactInfo c inner join District d on c.PostalDistrictCode = d.PostalDistrictCode 
+                ContactInfoDB info = db.Database.SqlQuery<ContactInfoDB>(@"select c.*, p.PostalProvinceCode from ContactInfo c inner join District d on c.PostalDistrictCode = d.PostalDistrictCode 
                         inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where ContactInfoID = @ContactInfoID",
                     new SqlParameter("ContactInfoID", id)).FirstOrDefault();
                 if (!info.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return null;
                 if (info == null) return null;
 
-                List<District> districts = db.Database.SqlQuery<District>("select d.* from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
+                List<distric> districts = db.Database.SqlQuery<distric>("select d.PostalDistrictCode, d.PostalDistrictName from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
 
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? "" : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
                 return Json(new { info = info, list = districts });
             }
+        }
+
+        private class distric
+        {
+            public string PostalDistrictCode { get; set; }
+            public string PostalDistrictName { get; set; }
         }
     }
 }

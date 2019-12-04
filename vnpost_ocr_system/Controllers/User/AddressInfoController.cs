@@ -20,7 +20,7 @@ namespace vnpost_ocr_system.Controllers.User
             string customerID = Session["userID"].ToString();
             List<ContactInfo> listContactInfo = db.Database.SqlQuery<ContactInfo>("select * from ContactInfo where CustomerID = @customerID"
                     , new SqlParameter("customerID", customerID)).ToList();
-            List<Province> listProvince = db.Provinces.ToList<Province>();
+            List<Province> listProvince = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName").ToList();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listContactInfo = listContactInfo;
             ViewBag.listProvince = listProvince;
@@ -62,9 +62,8 @@ namespace vnpost_ocr_system.Controllers.User
                     new SqlParameter("ContactInfoID", contactInfoId)).FirstOrDefault();
                 if (!info.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return null;
                 if (info == null) return null;
-
-                List<District> districts = db.Database.SqlQuery<District>("select d.* from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
-                //List<PersonalPaperType> listType = db.Database.SqlQuery<PersonalPaperType>(" @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
+                List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @provinceID order by PostalDistrictName "
+                , new SqlParameter("provinceID", info.PostalProvinceCode)).ToList();
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
                 return Json(new { info = info, list = districts});
             }

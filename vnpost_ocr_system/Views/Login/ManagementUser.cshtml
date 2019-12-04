@@ -26,6 +26,20 @@
     td {
         padding: 5px 5px !important;
     }
+    .preloader-wrapper {
+        /* position: absolute; */
+        top: unset !important;
+        bottom: unset !important;
+        left: unset !important;
+        right: unset !important;
+        margin: auto !important;
+        position: relative !important;
+        height: 100%;
+    }
+
+    #overflow {
+        overflow-y: auto !important;
+    }
 </style>
 <link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
@@ -97,8 +111,8 @@
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn blue" onclick="Insert()">Lưu</a>
-        <a class="btn modal-close blue darken-2">Đóng</a>
+        <a class="btn blue darken-2" onclick="Insert()">Lưu</a>
+        <a class="btn modal-close blue">Đóng</a>
     </div>
 </div>
 
@@ -245,8 +259,25 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="preloader-wrapper small active">
+                                            <div class="spinner-layer spinner-green-only">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div><div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div><div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
+                        <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
+
                     </div>
                 </div>
             </div>
@@ -358,8 +389,8 @@
         </table>
     </div>
     <div class="modal-footer">
-        <a class="btn blue" onclick="Update()">Lưu</a>
-        <a class="btn modal-close blue darken-2">Đóng</a>
+        <a class="btn blue darken-2" onclick="Update()">Lưu</a>
+        <a class="btn modal-close blue">Đóng</a>
     </div>
 </div>
 <input type="text" hidden id="temp_id" />
@@ -403,7 +434,7 @@
     }
 
     function ProChan() {
-        if (document.getElementById('role_add').value == 4) { }
+        if (document.getElementById('role_add').value == 4) {document.getElementById('province_add').value = 1;$('#province_add').removeAttr('disabled'); }
         else {
             if (document.getElementById('role_add').value == 2) {
                 document.getElementById('province_add').value = 0;

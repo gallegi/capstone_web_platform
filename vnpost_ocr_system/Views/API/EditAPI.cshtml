@@ -220,10 +220,14 @@
             },
             cache: false,
             success: function (data) {
-
-                var jsonObj = JSON.parse(data.api.SampleResponse);
-                var jsonPretty = JSON.stringify(jsonObj, null, '\t');
-                $("#format").val(jsonPretty);
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
                 $("#method").val(data.api.APIMethodID);
                 $('#method').formSelect();
                 $("#uri").val(data.api.APIUri);
@@ -336,7 +340,7 @@
             APIDescription: $('#description').val(),
             Username: $('#username').val(),
             Password: $('#password').val(),
-            SampleRespone: $("#format").val(),
+            SampleResponse: $("#format").val(),
             APIID: $("#apiid").val(),
         };
         var data = {
@@ -383,8 +387,12 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                    successAlert('Thành công', 'Thao tác thành công');
                     $("#pre-load").hide();
+                    //confirmAlert('Thành công', 'Thao tác thành công'), function () {
+                         
+                    //};
+                    
+                    window.location.replace("/api/danh-sach-api");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
