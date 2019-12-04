@@ -29,14 +29,25 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 string address = "";
                 List<Province> proList = new List<Province>();
-                if (Session["adminPro"] != null)
+                if (Session["adminRole"] != null)
                 {
-                    address = Session["adminPro"].ToString();
-                    proList = db.Provinces.Where(x => x.PostalProvinceCode == address).OrderBy(x => x.PostalProvinceName).ToList();
-                }
-                else
-                {
-                    proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+
+                    if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2)
+                    {
+                        proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                    }
+                    else
+                    {
+                        if (Session["adminPro"] != null)
+                        {
+                            address = Session["adminPro"].ToString();
+                            proList = db.Provinces.Where(x => x.PostalProvinceCode == address).OrderBy(x => x.PostalProvinceName).ToList();
+                        }
+                        else
+                        {
+                            proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                        }
+                    }
                 }
                 ViewBag.proList = proList;
             }
@@ -127,7 +138,7 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                       new SqlParameter("dateFrom", from),
                                                                       new SqlParameter("dateTo", to)).ToList();
 
-            
+
             }
             catch (Exception e)
             {
