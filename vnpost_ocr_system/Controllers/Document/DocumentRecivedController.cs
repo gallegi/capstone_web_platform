@@ -26,14 +26,25 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 string address = "";
                 List<Province> proList = new List<Province>();
-                if (Session["adminPro"] != null)
+                if (Session["adminRole"] != null)
                 {
-                    address = Session["adminPro"].ToString();
-                    proList = db.Provinces.Where(x => x.PostalProvinceCode == address).OrderBy(x => x.PostalProvinceName).ToList();
-                }
-                else
-                {
-                    proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+
+                    if (Convert.ToInt32(Session["adminRole"]) == 1 || Convert.ToInt32(Session["adminRole"]) == 2)
+                    {
+                        proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                    }
+                    else
+                    {
+                        if (Session["adminPro"] != null)
+                        {
+                            address = Session["adminPro"].ToString();
+                            proList = db.Provinces.Where(x => x.PostalProvinceCode == address).OrderBy(x => x.PostalProvinceName).ToList();
+                        }
+                        else
+                        {
+                            proList = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                        }
+                    }
                 }
                 ViewBag.proList = proList;
             }
@@ -69,11 +80,11 @@ namespace vnpost_ocr_system.Controllers.Document
                 string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
                 string sortDirection = Request["order[0][dir]"];
 
-                    query = "select o.*,pro.PostalProvinceName, p.ProfileName, p.PublicAdministrationLocationID,pa.PublicAdministrationName from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
-                            "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                            "join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
-                            "join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
-                            "where o.StatusID = -2";
+                query = "select o.*,pro.PostalProvinceName, p.ProfileName, p.PublicAdministrationLocationID,pa.PublicAdministrationName from [Order] o join [Profile] p on o.ProfileID = p.ProfileID " +
+                        "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
+                        "join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
+                        "join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
+                        "where o.StatusID = -2";
                 if (!province.Equals(""))
                 {
                     query += " and pro.PostalProvinceCode = @province ";
@@ -128,7 +139,7 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                       new SqlParameter("dateFrom", from),
                                                                       new SqlParameter("dateTo", to)).FirstOrDefault();
                 totalrowsafterfiltering = totalrows;
-                excelList = db.Database.SqlQuery<recieve>(query,new SqlParameter("profile", profile),
+                excelList = db.Database.SqlQuery<recieve>(query, new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
                                                                  new SqlParameter("province", province),
