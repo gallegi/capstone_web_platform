@@ -84,6 +84,7 @@ namespace vnpost_ocr_system.Controllers
                             o.ReceiverPostalDistrictCode = ReceiverPostalDistrictCode;
                             o.ReceiverStreet = ReceiverStreet;
                             o.OrderNote = OrderNote;
+                            o.StatusID = -3;
                             db.Orders.Add(o);
 
                             OrderStatusDetail detail = new OrderStatusDetail();
@@ -97,6 +98,12 @@ namespace vnpost_ocr_system.Controllers
                             image.ImageName = DateTime.Now.ToFileTime().ToString()+"."+imgName.Split('.')[imgName.Split('.').Length-1];
                             image.OrderID = o.OrderID;
                             db.OrderImages.Add(image);
+
+                            Payment payment = new Payment();
+                            payment.OrderID = o.OrderID;
+                            payment.PaymentMethodID = 1;
+                            payment.PaymentStatusID = 0;
+                            db.Payments.Add(payment);
 
                             db.SaveChanges();
                             transaction.Commit();
