@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
@@ -209,6 +210,56 @@ namespace vnpost_ocr_system.Controllers.Login
             db.Configuration.ProxyCreationEnabled = false;
             var list = db.Districts.Where(x => x.PostalProvinceCode == id).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ResetPassword(string emailORphone)
+        {
+            var user = db.Customers.Where(x => x.Email.Equals(emailORphone) || x.Phone.Equals(emailORphone)).FirstOrDefault();
+            if(user != null)
+            {
+                try
+                {
+                    Random r = new Random();
+                    int token = r.Next(100000,999999);
+                    ResetPasswordToken re = new ResetPasswordToken();
+                    re.CustomerID = user.CustomerID;
+                    re.Token = token.ToString();
+                    re.Status = true;
+                    re.CreatedDate = DateTime.Now;
+                    db.ResetPasswordTokens.Add(re);
+                    db.SaveChanges();
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(emailORphone);
+                    mail.From = new MailAddress("shidoundie@gmail.com");
+                    mail.Subject = "Thay đổi mật khẩu";
+                    mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid="+user.CustomerID+"&token="+ token;
+                    mail.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+                    smtp.Credentials = new System.Net.NetworkCredential("shidoundie@gmail.com", "********");
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
+                catch (Exception ex)
+                {
+                    return Json(-1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        [Route("khach-hang/thay-doi-mat-khau")]
+        public ActionResult PasswordForm(string customerid,int token)
+        {
+            var user = db.ResetPasswordTokens.Where(x => x.CustomerID.Equals(customerid) && x.Token.Equals(token.ToString()) && x.CreatedDate == DateTime.Now.Date).LastOrDefault();
+            if(user != null)
+            {
+                return View("/Views/Login/Success.cshtml");
+            }
+            return View("/Views/Login/Success.cshtml");
         }
     }
     public class login
