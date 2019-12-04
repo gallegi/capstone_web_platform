@@ -202,13 +202,13 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult GetPro()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Provinces.ToList();
+            var list = db.Provinces.OrderBy(x=>x.PostalProvinceName).ToList();
             return Json(list,JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetDis(string id)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Districts.Where(x => x.PostalProvinceCode == id).ToList();
+            var list = db.Districts.Where(x => x.PostalProvinceCode == id).OrderBy(x=>x.PostalDistrictName).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ResetPassword(string emailORphone)
@@ -234,7 +234,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid="+user.CustomerID+"&token="+ token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+                    smtp.Host = "smtp.gmail.com";
                     smtp.Credentials = new System.Net.NetworkCredential("shidoundie@gmail.com", "********");
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
