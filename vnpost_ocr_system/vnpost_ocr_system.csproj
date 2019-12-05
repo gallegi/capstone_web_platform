@@ -726,6 +726,9 @@
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\login-banner-left.png" />
+    <Content Include="assets\images\login-banner-right.png" />
+    <Content Include="assets\images\login-banner.png" />
     <Content Include="assets\images\logo-icon.png" />
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
@@ -5462,6 +5465,7 @@
     <Content Include="CustomCSS\InvitationCard\InputSenderLib.css" />
     <Content Include="CustomCSS\Login\Authentication.css" />
     <Content Include="CustomCSS\Login\ManagementUser.css" />
+    <Content Include="CustomCSS\Login\newlogin.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\MaterialStepper\mstepper.css" />
@@ -5470,7 +5474,7 @@
     <Content Include="CustomCSS\MasterPage\MasterPage.css" />
     <Content Include="CustomCSS\preloader\DisplayStatus.css" />
     <Content Include="CustomCSS\preloader\css.css" />
-    <Content Include="CustomCSS\preloader\Search.css" />
+    <Content Include="CustomCSS\InvitationCard\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
@@ -6289,6 +6293,7 @@
     <Content Include="Views\MobileView\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\MobileView\Users\AccountInfo.cshtml" />
     <Content Include="Views\MobileView\Users\InvitationManage.cshtml" />
+    <Content Include="Views\Login\NewLogin.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>

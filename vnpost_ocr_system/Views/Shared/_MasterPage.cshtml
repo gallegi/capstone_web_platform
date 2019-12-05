@@ -58,7 +58,12 @@
     <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
     <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
     <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
-
+    <style>
+        #dropdown1 {
+            left: auto !important;
+            right: 0 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -92,7 +97,7 @@
                         <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="nav-link"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
                         <li><a href="/giay-hen/tim-giay-hen" class="nav-link"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
                         @{ if (Session["userID"] != null)
-                            {       
+                            {
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">person</i>@Session["userName"]</a></li>
                             }
                             else
