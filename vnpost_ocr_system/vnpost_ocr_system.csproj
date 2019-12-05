@@ -5465,6 +5465,7 @@
     <Content Include="CustomCSS\InvitationCard\InputSenderLib.css" />
     <Content Include="CustomCSS\Login\Authentication.css" />
     <Content Include="CustomCSS\Login\ManagementUser.css" />
+    <Content Include="CustomCSS\Login\newlogin.css" />
     <Content Include="CustomCSS\MasterPage\AdminMasterPage.css" />
     <Content Include="CustomCSS\InvitationCard\ConfirmInfor.css" />
     <Content Include="CustomCSS\MaterialStepper\mstepper.css" />
