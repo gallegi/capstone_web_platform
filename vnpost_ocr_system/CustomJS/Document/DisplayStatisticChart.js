@@ -145,27 +145,27 @@ function SubmitFormMonth(form) {
                 temp = temp.split("\"").join("");
                 xongm = temp.split(",");
 
-                temp = response.cda;
-                temp = temp.split("&quot;").join("");
-                temp = temp.split("[").join("");
-                temp = temp.split("]").join("");
-                temp = temp.split("}").join("");
-                temp = temp.split("{").join("");
-                temp = temp.split("sum").join("");
-                temp = temp.split(":").join("");
-                temp = temp.split("\"").join("");
-                dam = temp.split(",");
+                var temp2 = response.cda;
+                temp2 = temp2.split("&quot;").join("");
+                temp2 = temp2.split("[").join("");
+                temp2 = temp2.split("]").join("");
+                temp2 = temp2.split("}").join("");
+                temp2 = temp2.split("{").join("");
+                temp2 = temp2.split("sum").join("");
+                temp2 = temp2.split(":").join("");
+                temp2 = temp2.split("\"").join("");
+                dam = temp2.split(",");
 
-                temp = response.cchua;
-                temp = temp.split("&quot;").join("");
-                temp = temp.split("[").join("");
-                temp = temp.split("]").join("");
-                temp = temp.split("}").join("");
-                temp = temp.split("{").join("");
-                temp = temp.split("sum").join("");
-                temp = temp.split(":").join("");
-                temp = temp.split("\"").join("");
-                chuam = temp.split(",");
+                var temp3 = response.cchua;
+                temp3 = temp3.split("&quot;").join("");
+                temp3 = temp3.split("[").join("");
+                temp3 = temp3.split("]").join("");
+                temp3 = temp3.split("}").join("");
+                temp3 = temp3.split("{").join("");
+                temp3 = temp3.split("sum").join("");
+                temp3 = temp3.split(":").join("");
+                temp3 = temp3.split("\"").join("");
+                chuam = temp3.split(",");
 
                 chartMonth();
 
