@@ -73,7 +73,7 @@
                 <tr>
                     <td>Tỉnh/Thành Phố</td>
                     <td>
-                        <select class="browser-default" id="province_add" disabled="disabled">
+                        <select class="browser-default" id="province_add" disabled="disabled" onchange="GenUsername()">
                             <option value="0" hidden>Tổng công ty</option>
                         </select>
 
@@ -81,7 +81,7 @@
                 </tr>
                 <tr>
                     <td>Tài khoản</td>
-                    <td><input class="form-control" type="text" id="username_add" onfocus="GenUsername()" readonly></td>
+                    <td><input class="form-control" type="text" id="username_add" readonly></td>
                 </tr>
                 <tr>
                     <td>Mật khẩu</td>
@@ -444,6 +444,7 @@
                 $('#province_add').removeAttr('disabled');
             }
         }
+        GenUsername();
     }
     function ProChanE() {
         $('#pre-load').show();

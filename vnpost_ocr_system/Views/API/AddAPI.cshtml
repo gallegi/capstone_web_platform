@@ -105,18 +105,19 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>1</td>
+                                <tr id='parameter1'>
+                                    <td class='countP'>1</td>
                                     <td><input type='text' class="logic" /></td>
                                     <td><input type='text' class="physics paramName" /></td>
                                     <td><input type='text' class="type" /></td>
+                                    <td><a class='black-text modal-trigger' id='removeParamter' name='parameter1'><i class='fa fa-times'></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
                         <br />
                         <div class="center-align">
                             <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
-                            <button id='remove' class='@*waves-effect waves-light btn blue ju*@ btn light-blue lighten-1' onclick="deleterowParameter('parameterTable')"><i class='large material-icons'>remove</i></button>
+                           
                         </div>
                     </div>
                 </div>
@@ -144,18 +145,19 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>1</td>
+                                <tr id='request1'>
+                                    <td class='countR'>1</td>
                                     <td><input type='text' /></td>
                                     <td><input type='text' class='requestName' /></td>
                                     <td><input type='text' /></td>
+                                    <td><a class='black-text modal-trigger' id='removeRequest' name='request1'><i class='fa fa-times'></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
                         <br />
                         <div class="center-align">
                             <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
-                            <button id='remove' class='btn light-blue lighten-1' onclick="deleterowRequest('requestTable')"><i class='large material-icons'>remove</i></button></a>
+                          
                         </div>
                     </div>
                 </div>
@@ -218,37 +220,51 @@
 
     function addParameterRow() {
         countParameter++;
-        $("#parameterTable").append("<tr>" +
+       
+        $("#parameterTable").append("<tr id=\"parameter" + countParameter + "\">" +
 
-            "<td>" + countParameter + "</td>" +
+            "<td class='countP'></td>" +
             "<td><input type='text' /></td>" +
             "<td><input type='text' class='paramName' /></td>" +
             "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeParamter' name='parameter"+countParameter+"' ><i class='fa fa-times'></i></a></td>"+
             "</tr>");
+         updateSTT("countP");
     }
 
     function addRequestRow() {
+        
         countRequest++;
-        $("#requestTable").append("<tr>" +
+        updateSTT("countR");
+        $("#requestTable").append("<tr id=\"request" + countRequest + "\">" +
 
-            "<td> " + countRequest + "</td>" +
+            "<td class='countR'> </td>" +
             "<td><input type='text' /></td>" +
             "<td><input type='text' class='requestName' /></td>" +
             "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeRequest' name='request"+countRequest+"' ><i class='fa fa-times'></i></a></td>"+
             "</tr>");
+         updateSTT("countR");
+    }
+     $("#requestTable").on("click", "#removeRequest", function () {
+         $("tr#" + $(this).attr("name")).remove();
+         updateSTT("countR");
+         
+    })
+     $("#parameterTable").on("click", "#removeParamter", function () {
+         $("tr#" + $(this).attr("name")).remove();
+         updateSTT("countP");
 
+       })
+    
+    function updateSTT(a) {
+        let i = 1;
+        $("." + a).each(function () {
+            $(this).html(i++);
+        })
+        
     }
-    function deleterowRequest(tableID) {
-        var table = document.getElementById(tableID);
-        table.deleteRow(-1);
-        countRequest--;
-
-    }
-    function deleterowParameter(tableID) {
-        var table = document.getElementById(tableID);
-        table.deleteRow(-1);
-        countParameter--;
-    }
+   
     function Add() {
         var listrequest = new Array();
         var listparameter = new Array();

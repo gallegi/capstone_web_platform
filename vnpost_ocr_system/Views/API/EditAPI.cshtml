@@ -98,10 +98,12 @@
                                     <th rowspan="2">STT</th>
                                     <th colspan="2">Request</th>
                                     <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
                                 </tr>
                                 <tr>
                                     <th style="width: 45%">Logic</th>
                                     <th style="width: 30%">Physics</th>
+                                    
                                 </tr>
                             </thead>
 
@@ -110,8 +112,8 @@
                         </table>
                         <br />
                         <div class="center-align">
-                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
-                            <button id='remove' class='@*waves-effect waves-light btn blue ju*@ btn light-blue lighten-1' onclick="deleterowParameter('parameterTable')"><i class='large material-icons'>remove</i></button>
+                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'></i>Thêm Parameter data mới</button></a>
+                            
                         </div>
                     </div>
                 </div>
@@ -131,10 +133,12 @@
                                     <th rowspan="2">STT</th>
                                     <th colspan="2">Request</th>
                                     <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
                                 </tr>
                                 <tr>
                                     <th style="width: 45%">Logic</th>
                                     <th style="width: 30%">Physics</th>
+                                   
                                 </tr>
                             </thead>
 
@@ -143,8 +147,8 @@
                         </table>
                         <br />
                         <div class="center-align">
-                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
-                            <button id='remove' class='btn light-blue lighten-1' onclick="deleterowRequest('requestTable')"><i class='large material-icons'>remove</i></button></a>
+                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'></i>Thêm Request data mới</button></a>
+                            
                         </div>
                     </div>
                 </div>
@@ -238,10 +242,11 @@
                 $.each(data.listAPIInputParam, function (i, item) {
                     i++;
                     var tbData = "<tr>" +
-                        "<td class='countParameter'>" + i + "</td>" +
+                        "<td class='countP'>" + i + "</td>" +
                         "<td><input type='text'  value='" + item.APIInputParamDescription + "'></td>" +
-                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "'></td>" +
+                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "' onclick =''></td>" +
                         "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
+                        "<td><a  class='black-text modal-trigger' name='action' onclick='deleteParameter(\""+item.APIInputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
                         "</tr>";
 
                     $("#parameterTable").find("tbody").append(tbData);
@@ -250,10 +255,11 @@
                 $.each(data.listAPIOutputParam, function (i, item) {
                     i++;
                     var tbData = "<tr>" +
-                        "<td class='countRequest'>" + i + "</td>" +
+                        "<td class='countR'>" + i + "</td>" +
                         "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
                         "<td><input type='text' class='requestName' value='" + item.APIOutputParamName + "'></td>" +
                         "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
+                        "<td><a class='black-text modal-trigger' name='action' onclick='deleteRequest(\""+item.APIOutputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
                         "</tr>";
 
                     $("#requestTable").find("tbody").append(tbData);
@@ -280,38 +286,43 @@
 
     function addParameterRow() {
         countParameter++;
-        $("#parameterTable").append("<tr>" +
+        $("#parameterTable").append("<tr id=\"parameter" + countParameter + "\">" +
 
-            "<td>" + countParameter + "</td>" +
+            "<td class='countP'>" + countParameter + "</td>" +
             "<td><input type='text' /></td>" +
             "<td><input type='text' class='paramName' /></td>" +
             "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeParamter' name='parameter"+countParameter+"' ><i class='fa fa-times'></i></a></td></td>"+
             "</tr>");
+         updateSTT("countP");
     }
 
     function addRequestRow() {
         countRequest++;
-        $("#requestTable").append("<tr>" +
+        $("#requestTable").append("<tr id=\"request" + countRequest + "\">" +
 
-            "<td>" + countRequest + "</td>" +
+            "<td class='countR'>" + countRequest + "</td>" +
             "<td><input type='text' /></td>" +
             "<td><input type='text' class='requestName' /></td>" +
             "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeRequest' name='request"+countRequest+"' ><i class='fa fa-times'></i></a></td></td>"+
             "</tr>");
-
+        updateSTT("countR");
     }
-    function deleterowRequest(tableID) {
-        var table = document.getElementById(tableID);
-        table.deleteRow(-1);
-        countRequest--;
-
+    $("#requestTable").on("click", "#removeRequest", function () {
+        $("tr#" + $(this).attr("name")).remove();
+        updateSTT("countR");
+    })
+     $("#parameterTable").on("click", "#removeParamter", function () {
+         $("tr#" + $(this).attr("name")).remove();
+          updateSTT("countP");
+       })
+    function updateSTT(a) {
+        let i = 1;
+        $("." + a).each(function () {
+            $(this).html(i++);
+        })
     }
-    function deleterowParameter(tableID) {
-        var table = document.getElementById(tableID);
-        table.deleteRow(-1);
-        countParameter--;
-    }
-
 
     function Edit() {
         var listrequest = new Array();
@@ -406,7 +417,52 @@
 
     }
 
+    function deleteRequest(requestName) {
+        confirmAlert("Xóa Request Data", "Bạn không thể khôi phục lại khi xóa", function () {
 
+            $.ajax({
+                type: "POST",
+                url: "/api/chinh-sua-api/deleterequest",
+                dataType: "json",
+                data: {
+                    apiid: $("#apiid").val(),
+                    requestName: JSON.stringify(requestName),
+                },
+
+                success: function () {
+                    location.reload();
+                },
+                error: function (response) {
+                    errorAlert('Lỗi', 'Có lỗi xảy ra , không thể xóa được');
+                    $('#pre-load').hide();
+                }
+            });
+        });
+
+    }
+    function deleteParameter(parameterName) {
+        
+         confirmAlert("Xóa Parameter", "Bạn không thể khôi phục lại khi xóa", function () {
+
+             $.ajax({
+                 type: "POST",
+                 url: "/api/chinh-sua-api/deleteparameter",
+                 dataType: "json",
+                 data: {
+                     apiid: $("#apiid").val(),
+                     paramterName: JSON.stringify(parameterName),
+                 },
+
+                 success: function () {
+                     location.reload();
+                 },
+                 error: function (response) {
+                     errorAlert('Lỗi', 'Có lỗi xảy ra , không thể xóa được');
+
+                 }
+             });
+         });
+    }
 
 
 </script>

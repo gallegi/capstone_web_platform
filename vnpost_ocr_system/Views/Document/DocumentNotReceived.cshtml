@@ -411,7 +411,14 @@
 
 
     function getDistrict() {
-        $('#PostalProvinceName').text($('#province').find("option:selected").text())
+        if ($('#province').val() == "") {
+            $('#district').empty();
+            $('#district').append('<option value="">Tất cả</option>');
+            $('#district').formSelect();
+            return;
+        }
+        $("#pre-load").show("slow", function () {
+        });
         $.ajax({
             type: "POST",
             url: "/GetDistrict",
@@ -427,12 +434,15 @@
                         $("#PostalDistrictName").text(response[i].ProfileName)
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
+                $('#district').empty();
+                $('#district').append('<option value="">Tất cả</option>');
                 $('#district').append(option);
                 $('#district').formSelect();
                 getAdmins()
-                $("#pre-load").hide("slow");
+                $('#pre-load').hide()
             },
             error: function () {
+                $('#pre-load').hide()
             }
         })
     }

@@ -5,49 +5,8 @@
 }
 
 <style>
-    .auth-wrapper .auth-sidebar {
-        position: fixed;
-        height: 100%;
-        left: 0px !important;
-        overflow: auto;
-        margin: 0px;
-        top: 60px !important;
-    }
-
-
-    .page_wrapper {
-        margin-left: 5% !important;
-        margin-right: 5% !important;
-        margin-top: 0px !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    div#main-wrapper {
-        background: url(../../assets/images/123.png) top center;
-        background-size: cover !important;
-    }
-
-    .content_all {
-        background-color: transparent !important;
-    }
-
-    .col.s12.l8.m6.demo-text {
-        float: right !important;
-    }
-
-    .db img {
-        width: 20%;
-    }
-
-    .demo-text * {
-        color: white !important;
-    }
-
-    .auth-wrapper .auth-box {
-        background: #f5f5f5 !important;
-    }
 </style>
+<link href="~/CustomCSS/Login/newlogin.css" rel="stylesheet" />
 @{
     var username = "";
     var password = "";
@@ -71,14 +30,14 @@
             </div>
         </div>
         <div class="auth-box auth-sidebar">
-            <div id="loginform">
-                <div class="p-l-10">
-                    <h5 class="font-medium m-b-0 m-t-40">Đăng nhập</h5>
-                    <small>Hãy điền thông tin đăng nhập</small>
-                </div>
-                <!-- Form -->
-                <div class="row">
-                   
+            <div id="login-container">
+                <div id="loginform">
+                    <div class="p-l-10">
+                        <h5 class="font-medium m-b-0 m-t-40">Đăng nhập</h5>
+                        <small>Hãy điền thông tin đăng nhập</small>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
                         <!-- email -->
                         <div class="row">
                             <div class="input-field col s12">
@@ -108,7 +67,7 @@
                                     <span>Ghi nhớ mật khẩu</span>
                                 </label>
                             </div>
-                            <div class="col s5 right-align"><a href="#" class="btn-forget" id="to-recover">Quên mật khẩu?</a></div>
+                            <div class="col s5 right-align"><a href="#resetModal" class="btn-forget modal-trigger" id="to-recover">Quên mật khẩu?</a></div>
                         </div>
                         <!-- pwd -->
                         <div class="row m-t-40">
@@ -116,90 +75,289 @@
                                 <button class="btn-large w100 green accent-4 waves-effect waves-light" id="login-btn" onclick="Login()">Đăng nhập</button>
                             </div>
                         </div>
-                    
+
+                    </div>
+                    <div class="center-align m-t-20 db">
+                        <a href="#" class="btn indigo darken-1 tooltipped m-r-5" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-facebook-f"></i></a> <a href="#" class="btn orange darken-4 tooltipped" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                    <div class="center-align m-t-20 db">
+                        Chưa có tài khoản? <a href="#regModal" class="modal-trigger">Đăng ký!</a>
+                    </div>
                 </div>
-                <div class="center-align m-t-20 db">
-                    <a href="#" class="btn indigo darken-1 tooltipped m-r-5" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-facebook-f"></i></a> <a href="#" class="btn orange darken-4 tooltipped" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-google-plus-g"></i></a>
-                </div>
-                <div class="center-align m-t-20 db">
-                    Chưa có tài khoản? <a href="authentication-register2.html">Đăng ký!</a>
+                <div id="recoverform">
+                    <div class="p-l-10">
+                        <h5 class="font-medium m-b-0 m-t-40">Recover password</h5>
+                        <small>Enter your Email and instructions will be sent to you!</small>
+                    </div>
+                    <div class="row">
+                        <!-- Form -->
+                        <form class="col s12" action="index.html">
+                            <!-- email -->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="email1" type="email" class="validate" required>
+                                    <label for="email1">Email</label>
+                                </div>
+                            </div>
+                            <!-- pwd -->
+                            <div class="row m-t-20">
+                                <div class="col s12">
+                                    <button class="btn-large w100 red" type="submit" name="action">Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div id="recoverform">
-                <div class="p-l-10">
-                    <h5 class="font-medium m-b-0 m-t-40">Recover password</h5>
-                    <small>Enter your Email and instructions will be sent to you!</small>
-                </div>
-                <div class="row">
-                    <!-- Form -->
-                    <form class="col s12" action="index.html">
-                        <!-- email -->
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="email1" type="email" class="validate" required>
-                                <label for="email1">Email</label>
-                            </div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-20">
-                            <div class="col s12">
-                                <button class="btn-large w100 red" type="submit" name="action">Reset</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
+<div id="regModal" class="modal">
+    <div class="modal-content">
+        <div id="reg-container">
+            <h5 class="font-medium ">Đăng ký</h5>
+            <hr />
+            @using (Html.BeginForm("DangKi", "LoginCustomer", FormMethod.Post, new { onsubmit = "return valid()" }))
+            {
+                <div id="err-message" class="col s8 l9 err center" style="color: red" hidden>
+
+                </div>
+                <!--Full Name-->
+                <div class="row container-reg">
+                    <div class="input-field col s12">
+                        <input id="tbName" name="tbName" type="text" class="p-l-10" required>
+                        <label for="email">Họ và tên</label>
+                    </div>
+                </div>
+                <div class="col l12 m12 s12 input_login">
+                    <span style="color:red" id="name-err"></span>
+                </div>
+                <!--gender-->
+                <div class="row container-reg">
+                    <p style="" class="col s12 l3 m3">Giới tính: </p>
+                    <div class="col s12 l8 m8">
+                        <label class="gender-radio">
+                            <input name="group1" class="with-gap" value="1" type="radio" id="male" checked />
+                            <span>Nam</span>
+                        </label>
+                        <label class="gender-radio">
+                            <input name="group1" class="with-gap" value="0" type="radio" />
+                            <span>Nữ</span>
+                        </label>
+
+                        <label class="gender-radio">
+                            <input name="group1" class="with-gap" value="2" type="radio" />
+                            <span>Khác</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!--Email-sdt-->
+                <div class="row container-reg">
+                    <p style="" class="col s12 l3 m3">Email hoặc số điện thoại: </p>
+                    <div class="col s12 l8 m8 sdt-or-email-checkbox">
+                        <label div class="" id="sdt-checkbox">
+                            <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
+                            <span>Số điện thoại</span>
+                        </label>
+                        <label div class="" id="email-checkbox">
+                            <input type="checkbox" id="emailcheck" class="ep-checkboxes">
+                            <span>Email</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row container-reg">
+
+                    <div id="checkboxphone" class="col l5 m5 s12 code-verify-container">
+                        <div class="row">
+                            <div class="input-field col s12 l7 m-b-0">
+                                <input id="tbPhone" name="tbPhone" class="validate my-input p-l-10" placeholder="Nhập số điện thoại">
+                            </div>
+                            <div class="col l5 s12 m-t-10 m-b-0">
+                                <button class="btn-small w100 yellow-logo-bg accent-4 send-code-btn" type="button" style="height: 45px; margin-top: 5px;" onclick="SendTokenPhone()">Gửi mã</button>
+                            </div>
+                        </div>
+
+                        <!-- phone valid -->
+                        <div class="row">
+                            <div class="col s3 l3 m-t-20 m-l-20">
+                            </div>
+                            <div id="phone-err" class="col s8 l9 err m-l-20" style="color: red">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 l7 m-b-0">
+                                <input id="tbValidCodePhone" name="tbValidCodePhone" class="validate my-input" placeholder="Nhập mã xác thực">
+                            </div>
+                        </div>
+                        <!-- valid -->
+                        <div class="row">
+                            <div class="col s3 l2 m-t-20 m-l-20">
+                            </div>
+                            <div id="validCodePhone-err" class="col s8 l9 err" style="color: red">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="checkboxemail" class="col l5 m5 s12 code-verify-container" hidden>
+                        <div class="row">
+                            <div class="input-field col s12 l7 m7 m-b-0">
+                                <input id="tbEmail" name="tbEmail" class="validate my-input p-l-10" placeholder="Nhập địa chỉ email">
+                            </div>
+                            <div class="col l5 m5 s12 m-t-10 m-b-0">
+                                <button class="btn-small w100 yellow-logo-bg accent-4 send-code-btn" type="button" style="height: 45px; margin-top: 5px;">Gửi mã</button>
+                            </div>
+                        </div>
+
+                        <!-- email valid -->
+                        <div class="row">
+                            <div class="col s3 l2 m-t-20 m-l-20">
+                            </div>
+                            <div id="email-err" class="col s8 l9 err m-l-20" style="color: red">
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="input-field col s12 l7 m7 m-b-0">
+                                <input id="tbValidCodeEmail" name="tbValidCodeEmail" class="validate my-input p-l-10" placeholder="Nhập mã xác thực">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s3 l2 m-t-20 m-l-20">
+                            </div>
+                            <div id="validCodeEmail-err" class="col s8 l9 err" style="color:red">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--TỈNH THÀNH-->
+                <div class="row container-reg">
+                    <p class="grey-text col l6 m6 s6">Tỉnh thành:</p>
+                    <p class="grey-text col l6 m6 s6">Quận huyện:</p>
+                </div>
+                <div class="row">
+                    <div class=" col l6 m6 s6">
+                        <select id="province" onchange="getDis()">
+                        </select>
+                    </div>
+                    <div class=" col l6 m6 s6">
+                        <select id="district" name="distrint">
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div id="diachi-err" class="col s12 l12 err" style="color: red">
+                    </div>
+                </div>
+                <!--MẬT KHẨU-->
+                <div class="row container-reg">
+                    <div class=" col l6 m6 s6 input-field">
+                        <input id="tbPass" name="tbPass" type="password" class="validate my-input p-l-10" placeholder="Mật khẩu (Từ 6 - 32 kí tự)">
+                    </div>
+                    <div class="input-field col l6 m6 s6">
+                        <input id="tbRePass" type="password" name="tbRePass" class="validate my-input p-l-10" placeholder="Nhập lại mật khẩu">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s3 l2 m-t-20 m-l-20">
+                    </div>
+                    <div id="rePass-err" class="col s8 l9 err" style="color: red">
+
+                    </div>
+                </div>
+                <!--CREATE BUTTON-->
+                <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
+                    <div class="col s12 center">
+                        <button class="btn-large w100 yellow-logo-bg accent-4 black-text center waves-effect waves-light" id="create-button" type="submit">Tạo tài khoản</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="resetModal" class="modal">
+    <div class="modal-content">
+        <h3>Đặt lại mật khẩu</h3>
+        <p style="font-size:17px">
+            <i> Số điện thoại hoặc email đăng ký:</i>
+            <input type="text" placeholder="SĐT/Email" id="number-email-reset" class="icon_prefix2" />
+        </p>
+        <div class="row">
+            <p style="font-size:25px !important; font-weight:600; color:red;" id="err-mess" class="m-l-20 center">
+            </p>
+            <p style="font-size:25px !important; font-weight:600; color:green;" id="suc-mess" class="m-l-20 center">
+            </p>
+            <button class='login-btn col s12 btn waves-effect waves-light btn-large m-md yellow darken-4' onclick="ResetPassword()">Gửi mã xác nhận</button>
+        </div>
+    </div>
+</div>
+<input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
+<input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
+<input type="text" id="tem1" value="@ViewBag.messe" hidden />
 <script>
     $(function () {
         $("#user").focus();
-    })
+    });
+    //$("#reg-link").click(function () {
+    //    $("#login-container").hide("slow", "swing", function () { });
+    //    $("#reg-container").show("slow", "swing", function () { });
+    //});
+    //$("#back").click(function () {
+    //    $("#login-container").show("slow", "swing", function () { });
+    //    $("#reg-container").hide("slow", "swing", function () { });
+    //});
 </script>
 <script>
-     function Login() {
-            var username = document.getElementById('user').value;
-            var password = document.getElementById('pass').value;
-            if (!username.length == 0) {
-                $('#user_failed').html('');
-            } else {
-                $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
-                return false;
-            }
-            if (!password.length == 0) { $('#password_failed').html(''); }
-            else {
-                $('#password_failed').html('Mật khẩu không được để trống');
-                return false;
-            }
-            $('#pre-load').show();
-            var emb = {
-                user: document.getElementById('user').value,
-                pass: document.getElementById('pass').value,
-                checkbox: $('#remem').is(":checked")
-            };
-            $.ajax({
-                url: "/LoginCustomer/Login",
-                type: "POST",
-                data: JSON.stringify(emb),
-                contentType: "application/json;charset=utf-8",
-                success: function (result) {
-                    if (result == 1) {
-                        $('#user_failed').html('Số điện thoại / Email không đúng');
-                    }
-                    if (result == 2) {
-                        $('#password_failed').html('Mật khẩu không đúng');
-                    }
-                    if (result == 3) {
-                        window.location.href = '/';
-                    }
-                    $('#pre-load').hide();
-                },
-                error: function (errormessage) {
-                    $('#pre-load').hide();
-                }
-            });
+    function Login() {
+        var username = document.getElementById('user').value;
+        var password = document.getElementById('pass').value;
+        if (!username.length == 0) {
+            $('#user_failed').html('');
+        } else {
+            $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
+            return false;
         }
+        if (!password.length == 0) { $('#password_failed').html(''); }
+        else {
+            $('#password_failed').html('Mật khẩu không được để trống');
+            return false;
+        }
+        $('#pre-load').show();
+        var emb = {
+            user: document.getElementById('user').value,
+            pass: document.getElementById('pass').value,
+            checkbox: $('#remem').is(":checked")
+        };
+        $.ajax({
+            url: "/LoginCustomer/Login",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                if (result == 1) {
+                    $('#user_failed').html('Số điện thoại / Email không đúng');
+                }
+                if (result == 2) {
+                    $('#password_failed').html('Mật khẩu không đúng');
+                }
+                if (result == 3) {
+                    window.location.href = '/';
+                }
+                $('#pre-load').hide();
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+            }
+        });
+    }
 
 </script>
 <script>
@@ -208,4 +366,255 @@
             $("#login-btn").click();
         }
     })
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var windowWidth = $(window).width();
+        if (windowWidth < 768) {
+            $(".set-btn").remove();
+        }
+        getPro();
+        //chen1();
+        //chen2();
+    });
+
+    function ResetPassword() {
+        var emailORphone = document.getElementById('number-email-reset').value;
+        $('#err-mess').text('');
+        if (emailORphone.length == 0) {
+            $('#err-mess').text('Vui lòng nhập số điện thoại hoặc email');
+            return false;
+        }
+        $('#pre-load').show();
+        var emp = {
+            emailORphone: emailORphone,
+        }
+        $.ajax({
+            url: "/LoginCustomer/ResetPassword",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                if (result == 1) $('#suc-mess').text('Mã đã gửi đến email của bạn');
+                if (result == -1) $('#err-mess').text('Có lỗi xảy ra. Vui lòng thử lại');
+                if (result == 0) $('#err-mess').text('Email hoặc số điện thoại không tồn tại');
+                $('#pre-load').hide();
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+            }
+        });
+
+    }
+
+    function getDis() {
+        var emp = {
+            id: document.getElementById('province').value
+        };
+        $.ajax({
+            url: "/LoginCustomer/GetDis",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#district').empty();
+                var string = "";/*"<option value='' selected disabled>Quận/Huyện</option>";*/
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalDistrictCode + "'>" + key.PostalDistrictName + "</option>";
+                });
+                $('#district').append(string);
+                $('#district').formSelect();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function getPro() {
+        $.ajax({
+            url: "/LoginCustomer/GetPro",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "<option value='' selected disabled>Tỉnh/Thành</option>";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                $('#province').append(string);
+                $('#province').formSelect();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+
+    $(".ep-checkboxes").click(function (e) {
+        var email = $("#emailcheck").is(":checked");
+        var phone = $("#phonecheck").is(":checked");
+        if (email === false && phone === false) {
+            e.preventDefault();
+        } else {
+            if ($("#emailcheck").is(":checked") === true) {
+                $('#checkboxemail').show();
+            } else {
+                $('#checkboxemail').hide();
+            }
+            if ($("#phonecheck").is(":checked") === true) {
+                $('#checkboxphone').show();
+            } else {
+                $('#checkboxphone').hide();
+            }
+        }
+
+    });
+
+    //$("#btn_login").click(function () {
+    //    var check = 0;
+    //    if ($("#user").val() == "01234") {
+    //        $("#user_failed").show();
+    //        $("#password_failed").hide();
+    //        check = 1;
+    //    }
+    //    if ($("#pass").val() == "123") {
+    //        $("#user_failed").hide();
+    //        $("#password_failed").show();
+    //        check = 1;
+    //    }
+    //    if (check == 0) {
+    //        window.location.href = "/tai-khoan/thong-tin-tai-khoan";
+    //    }
+    //});
+    $(document).ready(function () {
+        if (document.getElementById('tem').value != '') {
+            $('#err-message').text(document.getElementById('tem').value);
+            $('#err-message').removeAttr('hidden');
+            $('#regModal').modal('open');
+        }
+        if (document.getElementById('tem2').value != '') {
+            $('#err-message').text(document.getElementById('tem2').value);
+            $('#err-message').removeAttr('hidden');
+            $('#regModal').modal('open');
+        }
+        if (document.getElementById('tem1').value != '') {
+            $('#err-message').text(document.getElementById('tem1').value);
+            $('#err-message').removeAttr('hidden');
+            $('#regModal').modal('open');
+        }
+        var windowWidth = $(window).width();
+        if (windowWidth <= 1023) {
+            $("#login-web").remove();
+        }
+        if (windowWidth > 1023) {
+            $("#login-mobile").remove();
+        }
+    });
+
+
+    function valid() {
+        $('#messe').text('');
+        $('#name-err').text('');
+        $('#phone-err').text('');
+        $('#validCodePhone-err').text('');
+        $('#validCodeEmail-err').text('');
+        $('#email-err').text('');
+        $('#diachi-err').text('');
+        $('#pass-err').text('');
+        $('#rePass-err').text('');
+        var name = document.getElementById('tbName').value;
+        var phone = document.getElementById('tbPhone').value;
+        var validCodePhone = document.getElementById('tbValidCodePhone').value;
+        var validCodeEmail = document.getElementById('tbValidCodeEmail').value;
+        var pro = document.getElementById('province').value;
+        var dis = document.getElementById('district').value;
+        var email = document.getElementById('tbEmail').value;
+        var pass = document.getElementById('tbPass').value;
+        var rePass = document.getElementById('tbRePass').value;
+        var valid = true;
+
+        if (name.length == 0) {
+
+            $('#name-err').text('Vui lòng nhập tên');
+            return false;
+        }
+        if ($("#phonecheck").is(":checked") === true) {
+            if (phone.length == 0) {
+
+                $('#phone-err').text('Vui lòng nhập số điện thoại');
+                return false;
+            }
+            if (phone.length != 10 && phone.length > 0) {
+                $('#phone-err').text('Số điện thoại không tồn tại');
+                return false;
+            }
+            if (validCodePhone.length == 0) {
+
+                $('#validCodePhone-err').text('Vui lòng nhập mã xác thực');
+                return false;
+            }
+
+            if (validCodePhone.length != 6) {
+
+                $('#validCodePhone-err').text('Mã xác thực không đúng');
+                return false;
+            }
+        }
+        if ($("#emailcheck").is(":checked") === true) {
+            if (email.length == 0) {
+
+                $('#email-err').text('Vui lòng nhập email');
+                return false;
+            }
+            if (validCodeEmail.length == 0) {
+
+                $('#validCodeEmail-err').text('Vui lòng nhập mã xác thực');
+                return false;
+            }
+
+            if (validCodeEmail.length != 6) {
+
+                $('#validCodeEmail-err').text('Mã xác thực không đúng');
+                return false;
+            }
+        }
+
+        if (pro == '' || dis == '') {
+            $('#diachi-err').text('Vui lòng chọn nơi cư trú');
+            return false;
+        }
+
+        //var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
+        //if (isEmail == false) {
+
+        //    $('#email-err').text('Địa chỉ email không hợp lệ');
+        //    return false;
+        //}
+
+
+
+        if (pass.length == 0) {
+
+            $('#rePass-err').text('Vui lòng nhập mật khẩu');
+            return false;
+        }
+        if (pass.length < 6 || pass.length > 32) {
+
+            $('#rePass-err').text('Mật khẩu gồm 6-32 kí tự');
+            return false;
+        }
+        if (rePass.length == 0) {
+
+            $('#rePass-err').text('Vui lòng nhập trường nhập lại mật khẩu');
+            return false;
+        }
+        if (rePass != pass) {
+
+            $('#rePass-err').text('Mật khẩu nhập lại không khớp');
+            return false;
+        }
+        return valid;
+    }
 </script>
