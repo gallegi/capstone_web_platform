@@ -1148,10 +1148,6 @@
                 $('#street_edit').val(response.info.Street);
                 $('#paper_type_edit').val(response.info.PersonalPaperTypeID == null ? "-1" : response.info.PersonalPaperTypeID)
                 $('#paper_type_edit').formSelect();
-                if ($('#paper_type_edit').val() != -1)
-                    $('#have_paper').show()
-                else
-                    $('#have_paper').hide()
                 $('#paper_number_edit').val(response.info.PersonalPaperNumber);
                 $('#paper_date_edit').val(response.info.PersonalPaperIssuedDateString);
                 $('#paper_place_edit').val(response.info.PersonalPaperIssuedPlace);
