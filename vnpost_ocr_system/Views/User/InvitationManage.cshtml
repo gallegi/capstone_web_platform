@@ -30,23 +30,6 @@
                         <th class="width-10"></th>
                     </tr>
                 </thead>
-                @*<tbody>
-                        @foreach (var item in ViewBag.listOrder)
-                        {
-                            <tr>
-                                <td>
-                                    <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                        <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
-                                    </a>
-                                </td>
-                                <td>@item.OrderDate</td>
-                                <td>@item.ProfileName</td>
-                                <td>@item.ItemCode</td>
-                                <td>@item.Amount</td>
-                                <td>@item.StatusName</td>
-                            </tr>
-                        }
-                    </tbody>*@
             </table>
         </div>
     </div>
@@ -106,7 +89,7 @@
             "bFilter": false,
             "bInfo": false,
             "bAutoWidth": false,
-            "order": [0, "asc"],
+            "order": [1, "desc"],
             "initComplete": function (settings, json) {
                 ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
                 $("#pre-load").hide("slow", function () {

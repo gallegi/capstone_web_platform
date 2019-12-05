@@ -6293,6 +6293,8 @@
     <Content Include="Views\MobileView\Users\AccountInfo.cshtml" />
     <Content Include="Views\MobileView\Users\InvitationManage.cshtml" />
     <Content Include="Views\Login\NewLogin.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

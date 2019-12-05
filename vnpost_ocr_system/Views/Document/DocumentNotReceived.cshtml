@@ -269,7 +269,12 @@
 
     $(document).ready(function () {
 
+
         getDistrict();
+
+        $('#province').change(function () {
+            getDistrict();
+        })
         $('#district').change(function () {
             getAdmins();
         })

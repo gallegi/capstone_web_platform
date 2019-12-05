@@ -15,119 +15,129 @@
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+<link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 
-<form action="tai-khoan/so-dia-chi" method="POST" id="myeditform" role="form">
-    <input type="hidden" class="form-control" id="id-edit" />
-    <div class="modal fade" id="myEdit">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Sửa thông tin</h3>
-            </div>
-            <div class="modal-body">
-                <div class="address-list-div card">
-                    <div class="row">
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Họ và tên:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <input id="editName" type="text">
-                            </div>
-                        </div>
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Số điện thoại:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <input id="editPhone" type="text">
-                            </div>
-                        </div>
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Tỉnh/Thành phố:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <select tabindex="-1" class="card-border" id="province">
-                                    @foreach (var item in ViewBag.listProvince)
-                                    {
-                                        <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Quận/Huyện:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <select tabindex="-1" class="card-border" id="editDistrict">
+<style>
+    #toast-container {
+        min-width: 10%;
+        top: 0;
+        right: 50%;
+        transform: translateX(50%) translateY(50%);
+    }
+</style>
 
-                                </select>
-                            </div>
+<input type="hidden" class="form-control" id="id-edit" />
+<div class="modal fade" id="myEdit">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Sửa thông tin</h3>
+        </div>
+        <div class="modal-body">
+            <div class="address-list-div card">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Họ và tên:<span class="red-text">*</span>
                         </div>
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Địa chỉ:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <textarea id="editAddress"></textarea>
-                            </div>
-                        </div>
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Loại giấy tờ tùy thân:
-                            </div>
-                            <div class="col s12 l5 m5"> 
-                                <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
-                                    @foreach (var item in ViewBag.listPaperType)
-                                    {
-                                        <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
-                                    }
-                                    <option value=""> Không có </option>
-                                </select>
-                            </div>
+                        <div class="col s12 l5 m5">
+                            <input id="editName" type="text">
                         </div>
                     </div>
-                    <div class="row" id="paperDetail">
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Mã số giấy tờ tùy thân:<span class="red-text">*</span>
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <input id="editCode" type="text">
-                            </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Số điện thoại:<span class="red-text">*</span>
                         </div>
-
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Ngày cấp:
-                            </div>
-                            <div class="col s10 l4 m4">
-                                <input name="date" id="editDate" type="datetime"
-                                       class="datepicker-here" autocomplete="off"
-                                       data-language='vi' value="" />
-                                <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
-                            </div>
+                        <div class="col s12 l5 m5">
+                            <input id="editPhone" type="text">
                         </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Tỉnh/Thành phố:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="province">
+                                @foreach (var item in ViewBag.listProvince)
+                                {
+                                    <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Quận/Huyện:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="editDistrict">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Địa chỉ:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <textarea id="editAddress"></textarea>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Loại giấy tờ tùy thân:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                                @foreach (var item in ViewBag.listPaperType)
+                                {
+                                    <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
+                                }
+                                <option value=""> Không có </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="paperDetail">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Mã số giấy tờ tùy thân:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="editCode" type="text">
+                        </div>
+                    </div>
 
-                        <div class="row m-b-30">
-                            <div class="col s12 l5 m5 p-t-10">
-                                Nơi cấp:
-                            </div>
-                            <div class="col s12 l5 m5">
-                                <input id="editPlaceOfIssue" type="text">
-                            </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Ngày cấp:
+                        </div>
+                        <div class="col s10 l4 m4">
+                            <input name="date" id="editDate" type="datetime"
+                                   class="datepicker-here" autocomplete="off"
+                                   data-language='vi' value="" />
+                            <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Nơi cấp:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="editPlaceOfIssue" type="text">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn blue darken-2 modal-close save-category">Lưu</button>
-                <button type="button" class="btn light-blue lighten-1 modal-close" id="exit-add-button">Thoát</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn waves-effect waves-light bt-color-common" type="submit"
+               onclick="save()">
+                Lưu
+            </a>
+            <button type="button" class="btn light-blue lighten-1 modal-close" id="exit-add-button">Thoát</button>
         </div>
     </div>
-</form>
+</div>
 
 <div class="main-wrapper p-t-20 black-text">
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Sổ địa chỉ</h2>
@@ -154,7 +164,7 @@
                     <div class="container-fluid col offset-s1 s9 ">
                         <div class="row p-20 p-b-0">
                             <div class="col s12 l3">
-                                <b>Người nhận:</b> 
+                                <b>Người nhận:</b>
                             </div>
                             <div class="col s12 l9">
                                 @item.FullName
@@ -206,8 +216,8 @@
                 $('#province').val(data.info.PostalProvinceCode);
                 $('#province').formSelect();
                 $('#editDistrict').empty();
-                var option = "";
-                for (var i = 0; i < data.list.length; i++){
+                var option = "<option value='' selected disabled> Tỉnh/Thành Phố </option>";
+                for (var i = 0; i < data.list.length; i++) {
                     option += "<option value='" + data.list[i].PostalDistrictCode + "'>" + data.list[i].PostalDistrictName + "</option>";
                 }
                 $('#editDistrict').html(option);
@@ -231,36 +241,52 @@
             },
             cache: false
         })
-    }); 
-
-    $("#myeditform").submit(function (e) {
-        $.ajax({
-            type: "POST",
-            url: "/tai-khoan/so-dia-chi/chinh-sua",
-            dataType: "text",
-            success: function () {
-                //successAlert('Thành công', 'Chỉnh sửa thành công ');
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
-            },
-            data: {
-                name: $("#editName").val(),
-                phone: $('#editPhone').val(),
-                address: $('#editAddress').val(),
-                PaperTypeCode: document.getElementById("paperType").value,
-                paperNumber : $('#editCode').val(),
-                districtCode: document.getElementById("editDistrict").value,
-                date: $('#editDate').val(),
-                placeOfIssue: $('#editPlaceOfIssue').val(),
-                id: $('#id-edit').val()
-            },
-            cache: false
-        }).done(function () {
-            location.reload();
-        })
-        return false;
     });
+
+    function save() {
+        var data = {
+            date: $('#editDate').val(),
+            name: $("#editName").val(),
+            phone: $('#editPhone').val(),
+            province: document.getElementById("province").value,
+            districtCode: document.getElementById("editDistrict").value,
+            address: $('#editAddress').val(),
+            PaperTypeCode: document.getElementById("paperType").value,
+            paperNumber: $('#editCode').val(),
+            placeOfIssue: $('#editPlaceOfIssue').val(),
+            id: $('#id-edit').val()
+        };
+
+        var valid;
+        if (data.PaperTypeCode == "") {
+            if (data.name == "" || data.phone == "" || data.province == "" || data.districtCode == "" || data.address == "") {
+                valid = false;
+            } else {
+                valid = true;
+            }
+        } else {
+            if (data.name == "" || data.phone == "" || data.province == "" || data.districtCode == "" || data.address == "" || data.paperNumber == "") {
+                valid = false;
+            } else {
+                valid = true;
+            }
+        }
+
+        if (valid) {
+            $.ajax({
+                url: "/tai-khoan/so-dia-chi/chinh-sua",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    location.reload();
+                }
+            });
+        } else {
+            toastr.error('Hãy điền đầy đủ thông tin!', '');
+        }
+    }
 
     $(document).ready(function () {
         $('#province').change(function () {
@@ -275,7 +301,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#editDistrict').empty();
-                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
@@ -287,7 +313,7 @@
         }
         )
     });
-        
+
     function getDelete(code) {
         confirmAlert("Xóa địa chỉ", "Bạn không thể khôi phục lại khi xóa", function () {
             $.ajax({
@@ -298,7 +324,6 @@
                     Code: JSON.stringify(code)
                 },
                 success: function () {
-                    //swal("Đã xóa thành công!", "");
                     window.location.href = '/tai-khoan/so-dia-chi';
                 }
             })
@@ -313,11 +338,9 @@
         }
     }
 
-    function setDefault() {
-
-    }
-
 </script>
 
+<script src="~/assets/libs/toastr/build/toastr.min.js"></script>
+<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
