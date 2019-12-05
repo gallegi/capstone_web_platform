@@ -74,8 +74,8 @@
                     <div class="row">
                         <div class="col s12 m 5 l5">
                             <label><b>Phương thức request</b></label>
-                            <div class="h-form-label">
-                                <select tabindex="-1" id="method" class="card-border">
+                            <div class="h-form-label" >
+                                <select tabindex="-1" id="method" class="card-border" disabled>
                                     <option value="1">GET</option>
                                     <option value="2">POST</option>
                                     <option value="3">PUT</option>
@@ -86,7 +86,7 @@
                         <div class="col s12 m5 l5">
                             <label><b>URI</b></label>
                             <div class="h-form-label">
-                                <input type="text" id="uri">
+                                <input type="text" id="uri" disabled="disabled">
 
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="col s12 m12 l12">
                             <label><b>Mô tả API</b></label>
                             <div class="h-form-label">
-                                <input type="text" id="description">
+                                <input type="text" id="description" disabled="disabled">
                             </div>
                         </div>
                     </div>
@@ -123,12 +123,12 @@
                 <div class="row">
                     <div class="col s12 m5 l5">
                         <label><b>Username</b></label>
-                        <input type="text" id="username" />
+                        <input type="text" id="username" disabled="disabled"/>
                     </div>
                     <div class="col s12 m2 l2"></div>
                     <div class="col s12 m5 l5">
                         <label><b>Password</b></label>
-                        <input type="password" id="password" />
+                        <input type="password" id="password" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -388,7 +388,8 @@
             url: "/api/danh-sach-api/delete",
             dataType: "json",
             data: {
-                apiid: id
+                apiid: id,
+
             },
 
             success: function () {

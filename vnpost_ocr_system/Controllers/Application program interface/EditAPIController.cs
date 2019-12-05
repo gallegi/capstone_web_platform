@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 
@@ -101,8 +102,64 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
                 }
             }
         }
+        [Auther(Roles = "1")]
+        [Route("api/chinh-sua-api/deleterequest")]
+        [HttpPost]
+        public ActionResult DeleteRequest(int apiid,string requestName)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string name = js.Deserialize<string>(requestName);
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                {
+
+                    try
+                    {
+                        db.Database.ExecuteSqlCommand("delete from APIOutputParam where APIID=@apiid and APIOutputParamName=@requestName"
+                         , new SqlParameter("apiid", apiid),new SqlParameter("requestName",name));
+                        transaction.Commit();
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
 
 
+                        return new HttpStatusCodeResult(400);
+                    }
+                }
+            }
+        }
+        [Auther(Roles = "1")]
+        [Route("api/chinh-sua-api/deleteparameter")]
+        [HttpPost]
+        public ActionResult DeleteParameter(int apiid, string paramterName)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string name = js.Deserialize<string>(paramterName);
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                {
+
+                    try
+                    {
+                        db.Database.ExecuteSqlCommand("delete from APIInputParam where APIID=@apiid and APIInputParamName=@paramterName"
+                         , new SqlParameter("apiid", apiid), new SqlParameter("paramterName", name));
+                        transaction.Commit();
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+
+
+                        return new HttpStatusCodeResult(400);
+                    }
+                }
+            }
+        }
     }
     public class APIEdit
     {
