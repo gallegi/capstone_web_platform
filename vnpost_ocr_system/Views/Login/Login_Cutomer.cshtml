@@ -20,6 +20,10 @@
     .card .card-content {
         padding-top: 0px !important;
     }
+
+    .modal-content * {
+        font-size: 16px !important;
+    }
 </style>
 <div class="row title_login">
     <div class="row">
@@ -99,7 +103,7 @@
                                         <span>Ghi nhớ</span>
                                     </label>
                                     <label div class="right">
-                                        <span class="btn-forget"><a href="javascript:void(0)">Quên mật khẩu?</a></span>
+                                        <span class="btn-forget"><a href="#resetModal" class="modal-trigger">Quên mật khẩu?</a></span>
                                     </label>
                                 </div>
                                 <div class="col l12 s12 fix-space">
@@ -373,6 +377,22 @@
                 </div>
             </div>
         </div>
+        <div id="resetModal" class="modal">
+            <div class="modal-content">
+                <h2>Đặt lại mật khẩu</h2>
+                <p style="font-size:35px">
+                    <i> Số điện thoại hoặc email đăng ký:</i>
+                    <input type="text" placeholder="SĐT/Email" id="number-email-reset" class="icon_prefix2" />
+                </p>
+                <div class="row">
+                    <p style="font-size:25px !important; font-weight:600; color:red;" id="err-mess" class="m-l-20 center">
+                    </p>
+                    <p style="font-size:25px !important; font-weight:600; color:green;" id="suc-mess" class="m-l-20 center">
+                    </p>
+                    <button class='login-btn col s12 btn waves-effect waves-light btn-large m-md yellow darken-4' onclick="ResetPassword()">Gửi mã xác nhận</button>
+                </div>
+            </div>
+        </div>
     </div>
     <input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
     <input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
@@ -398,6 +418,35 @@
             //chen1();
             //chen2();
         });
+
+        function ResetPassword() {
+            var emailORphone = document.getElementById('number-email-reset').value;
+            $('#err-mess').text('');
+            if (emailORphone.length == 0) {
+                $('#err-mess').text('Vui lòng nhập số điện thoại hoặc email');
+                return false;
+            }
+            $('#pre-load').show();
+            var emp = {
+                emailORphone: emailORphone,
+            }
+            $.ajax({
+                url: "/LoginCustomer/ResetPassword",
+                type: "POST",
+                data: JSON.stringify(emp),
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    if (result == 1) $('#suc-mess').text('Mã đã gửi đến email của bạn');
+                    if (result == -1) $('#err-mess').text('Có lỗi xảy ra. Vui lòng thử lại');
+                    if (result == 0) $('#err-mess').text('Email hoặc số điện thoại không tồn tại');
+                    $('#pre-load').hide();
+                },
+                error: function (errormessage) {
+                    $('#pre-load').hide();
+                }
+            });
+
+        }
 
         function getDis() {
             var emp = {

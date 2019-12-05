@@ -118,6 +118,9 @@
     /*.summary-content{
         font-style:italic !important;
     }*/
+    .wizard > .content > .body label[hidden] {
+        display: none !important;
+    }
 </style>
 <div class="container-fluid">
     <div class="col s12">
@@ -859,32 +862,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-field col s12">
-                    <div class="input-field row">
-                        <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
-                        <div class="col l9 m9 s12">
-                            <input id="paper_number_edit" type="text">
+                <div hidden id="have_paper">
+                    <div class="input-field col s12">
+                        <div class="input-field row">
+                            <p class="col l3 m3 p-t-10 s12">Số giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
+                            <div class="col l9 m9 s12">
+                                <input id="paper_number_edit" type="text">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-field col s12">
-                    <div class="input-field row">
-                        <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
-                        <div class="col l9 m9 s12 datepicker-calendar-container row">
-                            <input name="dateTLHD" id="paper_date_edit" type='text' readonly
-                                   class="col s10 l10 datepicker-here centerText" autocomplete="off"
-                                   data-language='vi' />
-                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                    <div class="input-field col s12">
+                        <div class="input-field row">
+                            <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
+                            <div class="col l9 m9 s12 datepicker-calendar-container row">
+                                <input name="dateTLHD" id="paper_date_edit" type='text' readonly
+                                       class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                       data-language='vi' />
+                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-field col s12">
-                    <div class="input-field row">
-                        <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
-                        <div class="col l9 m9 s12">
-                            <input id="paper_place_edit" type="text">
-                            <input hidden readonly id="info_edit" type="text" />
-                            <input hidden readonly id="type" />
+                    <div class="input-field col s12">
+                        <div class="input-field row">
+                            <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
+                            <div class="col l9 m9 s12">
+                                <input id="paper_place_edit" type="text">
+                                <input hidden readonly id="info_edit" type="text" />
+                                <input hidden readonly id="type" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1052,6 +1057,7 @@
         }
         if (CreateInvitation.UserLetterCode !== undefined) {
             $('#item5').val(CreateInvitation.UserLetterCode)
+            $('.AppointmentLetterCode').text(CreateInvitation.UserLetterCode)
             $('#item5').focus()
         }
         if (CreateInvitation.UserOrderNote !== undefined) {
@@ -1078,6 +1084,16 @@
 
         $('#item5').change(function () {
             $('.AppointmentLetterCode').text($(item5).val())
+        })
+
+        $('#paper_type_edit').change(function () {
+            if ($(this).val() != -1)
+                $('#have_paper').show()
+            else {
+                $('#have_paper').hide()
+                $('#paper_date_edit').val('')
+                $('#paper_place_edit').val('')
+            }
         })
     })
 

@@ -72,7 +72,7 @@
                                 <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
                                 foreach (var x in item.listOrder)
                                 {
-                                    <div class="line">@x.hour: @if (x.Note != null) { @x.Note; } else { @x.StatusName; }</div>
+                                    <div class="line">@x.hour: @x.StatusName @if (x.Note != null) { <label>(@x.Note)</label>}</div>
                                 }
                             }
                         }
@@ -605,7 +605,10 @@
 <script>
     jQuery(document).ready(function () {
         jQuery('.form-wrapper').hide();
-
+    $('.myStep').each(function (index) {
+            if (index < @ViewBag.order.step) $(this).addClass("done");
+            if (index == @ViewBag.order.step) $(this).addClass("current");
+        });
         jQuery(".show-form").click(function () {
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
             $('.form-wrapper').fadeIn(300);

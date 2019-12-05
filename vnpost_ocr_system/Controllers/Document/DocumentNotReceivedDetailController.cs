@@ -46,14 +46,14 @@ namespace vnpost_ocr_system.Controllers.Document
                     osd.OrderID = Convert.ToInt64(id);
                     osd.StatusID = Convert.ToInt32(status);
                     osd.Note = note;
-                    osd.CreatedTime = DateTime.Today;
+                    osd.CreatedTime = DateTime.Now;
                     db.OrderStatusDetails.Add(osd);
                     db.SaveChanges();
-                    //Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
-                    //o.ItemCode = itemCode;
+                    Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
+                    o.ItemCode = itemCode;
                     //o.StatusID = Convert.ToInt32(status);
-                    //db.Entry(o).State = EntityState.Modified;
-                    //db.SaveChanges();
+                    db.Entry(o).State = EntityState.Modified;
+                    db.SaveChanges();
                     con.Commit();
                     return Redirect("/ho-so/ho-so-cho-nhan");
                 }
