@@ -78,7 +78,12 @@ namespace vnpost_ocr_system.Controllers.Login
                     new SqlParameter("name", '%' + name + '%'),
                     new SqlParameter("username", '%' + username + '%')
                     ).ToList();
-                append = db.Database.SqlQuery<Admindb>("select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT, a.AdminID,a.AdminName,a.AdminUsername,a.PostalProvinceCode,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar where a.Role=ar.AdminRoleID and a.Role in (2)").ToList();
+                append = db.Database.SqlQuery<Admindb>(@"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT, a.AdminID,a.AdminName,a.AdminUsername,a.PostalProvinceCode,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar where a.Role=ar.AdminRoleID and a.Role in (2) and
+                                                        a.IsActive like @active and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username",
+                                                        new SqlParameter("active", '%' + active + '%'),
+                                                        new SqlParameter("role", '%' + role + '%'),
+                                                        new SqlParameter("name", '%' + name + '%'),
+                                                        new SqlParameter("username", '%' + username + '%')).ToList();
                 append.AddRange(searchList);
                 foreach (Admindb a in append.ToList())
                 {
@@ -200,11 +205,12 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             db.Configuration.ProxyCreationEnabled = false;
             var listA = new List<Province>();
-            if (Convert.ToInt32(Session["adminRole"]) == 3) {
+            if (Convert.ToInt32(Session["adminRole"]) == 3)
+            {
                 string adminPro = Session["adminPro"].ToString();
                 listA = db.Provinces.Where(x => x.PostalProvinceCode.Equals(adminPro)).ToList();
             }
-            else listA = db.Provinces.OrderBy(b=>b.PostalProvinceName).ToList();
+            else listA = db.Provinces.OrderBy(b => b.PostalProvinceName).ToList();
             var listS = db.Provinces.OrderBy(b => b.PostalProvinceName).ToList();
             return Json(new { listsearch = listS, listAE = listA }, JsonRequestBehavior.AllowGet);
         }
