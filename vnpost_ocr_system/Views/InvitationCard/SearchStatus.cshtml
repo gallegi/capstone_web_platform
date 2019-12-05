@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
-<link href="~/CustomCSS/preloader/Search.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/Search.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
 <div class="card p-5 search-card" style="margin-top: 0% !important; padding-top: 150px !important; width: 100% !important; height: 300px !important">
@@ -12,9 +12,9 @@
         <div class="row">
             <form action="/giay-hen/trang-thai-giay-hen" method="post">
                 <input required name="id" id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;"
-                       placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" onclick="changeColor()" onfocusout="loseFocus()">
-                <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" type="submit">
-                    <a class="col l2 s1"> <i class="fa fa-search" style="color: #b2b9bf;"></i></a>
+                       placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" >
+                <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" id="search-button" type="submit">
+                    <a class="col l2 s1"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
             </form>
         </div>
@@ -32,14 +32,5 @@
             }
         }
     });
-    function changeColor() {
-        document.getElementById("input").style.border = "0.5px solid #000000";
 
-    }
-
-    function loseFocus() {
-
-        document.getElementById("input").style.border = "0.5px solid #e9ecef";
-
-    }
 </script>
