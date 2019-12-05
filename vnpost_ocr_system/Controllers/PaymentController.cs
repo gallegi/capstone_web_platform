@@ -103,6 +103,7 @@ namespace vnpost_ocr_system.Controllers
                             payment.OrderID = o.OrderID;
                             payment.PaymentMethodID = 1;
                             payment.PaymentStatusID = 0;
+                            payment.PaymentDate = DateTime.Now;
                             db.Payments.Add(payment);
 
                             db.SaveChanges();
