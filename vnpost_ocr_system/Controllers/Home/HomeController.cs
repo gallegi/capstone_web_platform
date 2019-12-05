@@ -12,6 +12,7 @@ namespace vnpost_ocr_system.Controllers.Home
 
         public ActionResult Index()
         {
+            ViewBag.video = "https://www.youtube.com/embed/OHR3gC3fsns";
             if (Request.Browser.IsMobileDevice)
             {
                 return View("/Views/MobileView/Home.cshtml");
