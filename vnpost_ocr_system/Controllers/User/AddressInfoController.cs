@@ -64,7 +64,7 @@ namespace vnpost_ocr_system.Controllers.User
                 if (info == null) return null;
                 List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @provinceID order by PostalDistrictName "
                 , new SqlParameter("provinceID", info.PostalProvinceCode)).ToList();
-                info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
+                info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? null : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
                 return Json(new { info = info, list = districts});
             }
             catch (Exception ex)
@@ -99,7 +99,6 @@ namespace vnpost_ocr_system.Controllers.User
         public ActionResult Edit(string name, string phone, string address, string PaperTypeCode,
             string paperNumber, string districtCode, string date, string placeOfIssue, string id)
         {
-            DateTime formatDate = DateTime.ParseExact(date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             string query = "update ContactInfo set FullName = @name "
                     + " , Phone = @phone "
@@ -114,33 +113,19 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 try
                 {
-                    if (PaperTypeCode.Equals(""))
-                    {
-                        db.Database.ExecuteSqlCommand(query
-                        , new SqlParameter("name", name)
-                        , new SqlParameter("phone", phone)
-                        , new SqlParameter("districtCode", districtCode)
-                        , new SqlParameter("address", address)
-                        , new SqlParameter("PaperTypeCode", DBNull.Value)
-                        , new SqlParameter("paperNumber", DBNull.Value)
-                        , new SqlParameter("date", DBNull.Value)
-                        , new SqlParameter("placeOfIssue", DBNull.Value)
-                        , new SqlParameter("id", id));
-                    } else
-                    {
-                        db.Database.ExecuteSqlCommand(query
-                        , new SqlParameter("name", name)
-                        , new SqlParameter("phone", phone)
-                        , new SqlParameter("districtCode", districtCode)
-                        , new SqlParameter("address", address)
-                        , new SqlParameter("PaperTypeCode", PaperTypeCode)
-                        , new SqlParameter("paperNumber", paperNumber)
-                        , new SqlParameter("date", formatDate)
-                        , new SqlParameter("placeOfIssue", placeOfIssue)
-                        , new SqlParameter("id", id));
-                    }
+                    DateTime? formatDate = string.IsNullOrEmpty(date) ? (DateTime?) null : DateTime.ParseExact(date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    db.Database.ExecuteSqlCommand(query
+                    , new SqlParameter("name", name)
+                    , new SqlParameter("phone", phone)
+                    , new SqlParameter("districtCode", districtCode)
+                    , new SqlParameter("address", address)
+                    , new SqlParameter("PaperTypeCode", PaperTypeCode == null ? DBNull.Value : (Object)PaperTypeCode)
+                    , new SqlParameter("paperNumber", paperNumber == null ? DBNull.Value : (Object)paperNumber)
+                    , new SqlParameter("date", formatDate == null ? DBNull.Value : (Object)formatDate)
+                    , new SqlParameter("placeOfIssue", placeOfIssue == null ? DBNull.Value : (Object)placeOfIssue)
+                    , new SqlParameter("id", id));
                     transaction.Commit();
-                    return new HttpStatusCodeResult(200);
+                    return Json("", JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {

@@ -57,7 +57,7 @@ namespace vnpost_ocr_system.Controllers.User
                     return new HttpStatusCodeResult(400);
                 }
             }
-            return new HttpStatusCodeResult(200);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [Route("tai-khoan/tao-dia-chi-moi/lay-quan-huyen")]

@@ -11,6 +11,16 @@
 <link href="~/CustomCSS/User/AddressInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+<link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+
+<style>
+    #toast-container {
+        min-width: 10%;
+        top: 0;
+        right: 50%;
+        transform: translateX(50%) translateY(50%);
+    }
+</style>
 
 <div class="main-wrapper p-t-20 black-text">
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
@@ -22,7 +32,7 @@
                         Họ và tên:<span class="red-text">*</span>
                     </div>
                     <div class="col s12 l5 m5">
-                        <input id="name" type="text" value="Nguyễn Vân Anh">
+                        <input id="name" type="text" value="">
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -30,7 +40,7 @@
                         Số điện thoại:<span class="red-text">*</span>
                     </div>
                     <div class="col s12 l5 m5">
-                        <input id="phone" type="text" value="0915123123">
+                        <input id="phone" type="text" value="">
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -39,6 +49,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="card-border" id="province">
+                            <option value='' selected disabled> Tỉnh/Thành Phố </option>
                             @foreach (var item in ViewBag.listProvince)
                             {
                                 <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -114,7 +125,7 @@
                 </div>
                 <div class="col s12 l5 m5 right-align">
                     <a class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
-                       style="margin-right: -11px;" href="/tai-khoan/so-dia-chi" onclick="add()">
+                       style="margin-right: -11px;" onclick="add()">
                         Cập nhật
                     </a>
                 </div>
@@ -137,13 +148,37 @@
             code: document.getElementById("code").value,
             placeOfIssue: document.getElementById("placeOfIssue").value
         };
-        $.ajax({
-            url: "/tai-khoan/tao-dia-chi-moi/them",
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json;charset=utf-8",
-            dataType: "json"
-        });
+
+        var valid;
+        if (data.paperType == "") {
+            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "") {
+                valid = false;
+            } else {
+                valid = true;
+            }
+        } else {
+            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "" || data.code == "") {
+                valid = false;
+            } else {
+                valid = true;
+            }
+        }
+
+        //handling input cases
+        if (valid) {
+            $.ajax({
+                url: "/tai-khoan/tao-dia-chi-moi/them",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    window.location.href = '/tai-khoan/so-dia-chi';
+                }
+            });
+        } else {
+            toastr.error('Hãy điền đầy đủ thông tin!', '');
+        }
     }
 
     $(document).ready(function () {
@@ -159,7 +194,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#district').empty();
-                    var option = "<option value='Quận/Huyện' selected disabled>Quận/Huyện</option>";
+                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
@@ -169,7 +204,7 @@
                 }
             });
         }
-        )  
+        )
     })
 
     function toggleDiv(divId, element) {
@@ -182,6 +217,7 @@
 
 </script>
 
-
+<script src="~/assets/libs/toastr/build/toastr.min.js"></script>
+<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
