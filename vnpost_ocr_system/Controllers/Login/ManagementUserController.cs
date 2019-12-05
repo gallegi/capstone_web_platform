@@ -204,8 +204,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 string adminPro = Session["adminPro"].ToString();
                 listA = db.Provinces.Where(x => x.PostalProvinceCode.Equals(adminPro)).ToList();
             }
-            else listA = db.Provinces.ToList();
-            var listS = db.Provinces.ToList();
+            else listA = db.Provinces.OrderBy(b=>b.PostalProvinceName).ToList();
+            var listS = db.Provinces.OrderBy(b => b.PostalProvinceName).ToList();
             return Json(new { listsearch = listS, listAE = listA }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetEdit(int id)

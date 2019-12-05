@@ -38,11 +38,11 @@ namespace vnpost_ocr_system.Controllers.Login
                 return View("/Views/Login/Login_Cutomer.cshtml");
             }
         }
-        public ActionResult Login(string user,string pass,string checkbox)
+        public ActionResult Login(string user, string pass, string checkbox)
         {
             var custom = db.Customers.Where(x => x.Email.Equals(user) || x.Phone.Equals(user)).FirstOrDefault();
             bool check = true;
-            if(custom != null)
+            if (custom != null)
             {
                 if (!string.IsNullOrEmpty(custom.Phone))
                 {
@@ -53,19 +53,19 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 if (!string.IsNullOrEmpty(custom.Email))
                 {
-                    if(check == false)
-                    if (!custom.Email.Equals(user))
-                    {
-                        check = false;
-                    }
-                    else
-                    {
-                        check = true;
-                    }
+                    if (check == false)
+                        if (!custom.Email.Equals(user))
+                        {
+                            check = false;
+                        }
+                        else
+                        {
+                            check = true;
+                        }
                 }
-                if(check == false) return Json(1, JsonRequestBehavior.AllowGet);
+                if (check == false) return Json(1, JsonRequestBehavior.AllowGet);
                 string pass_temp = pass;
-                pass = string.Concat(pass, custom.PasswordSalt.Substring(0,6));
+                pass = string.Concat(pass, custom.PasswordSalt.Substring(0, 6));
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pd");
                 if (passXc.Equals(custom.PasswordHash))
                 {
@@ -97,7 +97,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
         }
         [HttpPost]
-        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone,string tbValidCodeEmail, string tbEmail, string tbPass,string distrint, string tbRePass, string group1)
+        public ActionResult DangKi(string tbName, string tbPhone, string tbValidCodePhone, string tbValidCodeEmail, string tbEmail, string tbPass, string distrint, string tbRePass, string group1)
         {
             try
             {
@@ -202,39 +202,48 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult GetPro()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Provinces.ToList();
-            return Json(list,JsonRequestBehavior.AllowGet);
+            var list = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetDis(string id)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Districts.Where(x => x.PostalProvinceCode == id).ToList();
+            var list = db.Districts.Where(x => x.PostalProvinceCode == id).OrderBy(x => x.PostalDistrictName).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ResetPassword(string emailORphone)
         {
             var user = db.Customers.Where(x => x.Email.Equals(emailORphone) || x.Phone.Equals(emailORphone)).FirstOrDefault();
-            if(user != null)
+            if (user != null)
             {
                 try
                 {
-                    Random r = new Random();
-                    int token = r.Next(100000,999999);
-                    ResetPasswordToken re = new ResetPasswordToken();
-                    re.CustomerID = user.CustomerID;
-                    re.Token = token.ToString();
-                    re.Status = true;
-                    re.CreatedDate = DateTime.Now;
-                    db.ResetPasswordTokens.Add(re);
-                    db.SaveChanges();
+                    int token;
+                    var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Status == false).ToList().LastOrDefault();
+                    if (custom_token != null && DateTime.Now.Subtract(custom_token.CreatedDate).TotalMinutes <= 15)
+                    {
+                        token = Convert.ToInt32(custom_token.Token);
+                    }
+                    else
+                    {
+                        Random r = new Random();
+                        token = r.Next(100000, 999999);
+                        ResetPasswordToken re = new ResetPasswordToken();
+                        re.CustomerID = user.CustomerID;
+                        re.Token = token.ToString();
+                        re.Status = false;
+                        re.CreatedDate = DateTime.Now;
+                        db.ResetPasswordTokens.Add(re);
+                        db.SaveChanges();
+                    }
                     MailMessage mail = new MailMessage();
                     mail.To.Add(emailORphone);
                     mail.From = new MailAddress("shidoundie@gmail.com");
                     mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid="+user.CustomerID+"&token="+ token;
+                    mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid=" + user.CustomerID + "&token=" + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+                    smtp.Host = "smtp.gmail.com";
                     smtp.Credentials = new System.Net.NetworkCredential("shidoundie@gmail.com", "********");
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
@@ -252,14 +261,37 @@ namespace vnpost_ocr_system.Controllers.Login
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         [Route("khach-hang/thay-doi-mat-khau")]
-        public ActionResult PasswordForm(string customerid,int token)
+        public ActionResult PasswordForm(string customerid, int token)
         {
-            var user = db.ResetPasswordTokens.Where(x => x.CustomerID.Equals(customerid) && x.Token.Equals(token.ToString()) && x.CreatedDate == DateTime.Now.Date).LastOrDefault();
-            if(user != null)
+            Int64 id = Convert.ToInt64(customerid);
+            var user = db.ResetPasswordTokens.Where(x => x.CustomerID == id && x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
+            if (user != null)
             {
-                return View("/Views/Login/Success.cshtml");
+                ViewBag.userid = user.CustomerID;
+                return View("/Views/Login/ResetPassword.cshtml");
             }
-            return View("/Views/Login/Success.cshtml");
+            return Redirect("/khach-hang/dang-nhap");
+        }
+        public ActionResult ChangePass(string password, int userid)
+        {
+            try
+            {
+                Int64 id = Convert.ToInt64(userid);
+                var user = db.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
+                var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Status == false).ToList().LastOrDefault();
+                custom_token.Status = true;
+                db.Entry(custom_token).State = System.Data.Entity.EntityState.Modified;
+                password = string.Concat(password, user.PasswordSalt.Substring(0, 6));
+                string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
+                user.PasswordHash = passXc;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
     }
     public class login
