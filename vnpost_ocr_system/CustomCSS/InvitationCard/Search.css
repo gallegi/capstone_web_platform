@@ -5,10 +5,10 @@ a{
     color: white;
 }
 .fa-search {
-    background-color: #e9ecef !important;
+    background-color: #fcaf17 !important;
 }
-.btn {
-    background-color: #e9ecef !important;
+#search-button {
+    background-color: #fcaf17 !important;
 }
 .margin-search > row > input{
     margin-top: 25% !important;
