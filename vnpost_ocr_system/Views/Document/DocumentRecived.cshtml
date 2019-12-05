@@ -22,7 +22,8 @@
         position: relative !important;
         height: 100%;
     }
-     #overflow {
+
+    #overflow {
         overflow-y: auto !important;
     }
 </style>
@@ -222,7 +223,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="card" id="table-card">
                 <div class="card-content" id="overflow">
                     <table id="mainTable" class="table-bordered" style="width:100%">
@@ -400,7 +401,7 @@
     $(document).ready(function () {
         getDistrict();
 
-         $('#province').change(function () {
+        $('#province').change(function () {
             getDistrict();
         })
         $('#district').change(function () {
@@ -422,9 +423,14 @@
 
 
     function getDistrict() {
+        if ($('#province').val() == "") {
+            $('#district').empty();
+            $('#district').append('<option value="">Tất cả</option>');
+            $('#district').formSelect();
+            return;
+        }
         $("#pre-load").show("slow", function () {
         });
-        $('#PostalProvinceName').text($('#province').find("option:selected").text())
         $.ajax({
             type: "POST",
             url: "/GetDistrict",
@@ -440,6 +446,8 @@
                         $("#PostalDistrictName").text(response[i].ProfileName)
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
+                $('#district').empty();
+                $('#district').append('<option value="">Tất cả</option>');
                 $('#district').append(option);
                 $('#district').formSelect();
                 getAdmins()
