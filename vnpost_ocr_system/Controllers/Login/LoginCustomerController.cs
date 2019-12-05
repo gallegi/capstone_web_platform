@@ -105,14 +105,14 @@ namespace vnpost_ocr_system.Controllers.Login
                 {
                     if (!tbValidCodePhone.Equals("123456"))
                     {
-                        ViewBag.invalidcode = "Mã xác thực không đúng";
+                        ViewBag.invalidcode = "Mã xác thực điện thoại không chính xác";
                         if (Request.Browser.IsMobileDevice)
                         {
                             return View("/Views/MobileView/Login.cshtml");
                         }
                         else
                         {
-                            return View("/Views/Login/Login_Cutomer.cshtml");
+                            return View("/Views/Login/NewLogin.cshtml");
                         }
                     }
                     var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
@@ -125,7 +125,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/Login_Cutomer.cshtml");
+                            return View("/Views/Login/NewLogin.cshtml");
                         }
                     }
                 }
@@ -133,14 +133,14 @@ namespace vnpost_ocr_system.Controllers.Login
                 {
                     if (!tbValidCodeEmail.Equals("123456"))
                     {
-                        ViewBag.invalidcode1 = "Mã xác thực không đúng";
+                        ViewBag.invalidcode1 = "Mã xác thực email không chính xác";
                         if (Request.Browser.IsMobileDevice)
                         {
                             return View("/Views/MobileView/Login.cshtml");
                         }
                         else
                         {
-                            return View("/Views/Login/Login_Cutomer.cshtml");
+                            return View("/Views/Login/NewLogin.cshtml");
                         }
                     }
                     var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
@@ -153,7 +153,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/Login_Cutomer.cshtml");
+                            return View("/Views/Login/NewLogin.cshtml");
                         }
                     }
                 }
@@ -189,7 +189,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 else
                 {
-                    return View("/Views/Login/Login_Cutomer.cshtml");
+                    return View("/Views/Login/NewLogin.cshtml");
                 }
             }
         }
