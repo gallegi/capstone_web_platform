@@ -726,6 +726,9 @@
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\login-banner-left.png" />
+    <Content Include="assets\images\login-banner-right.png" />
+    <Content Include="assets\images\login-banner.png" />
     <Content Include="assets\images\logo-icon.png" />
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
@@ -6289,6 +6292,7 @@
     <Content Include="Views\MobileView\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\MobileView\Users\AccountInfo.cshtml" />
     <Content Include="Views\MobileView\Users\InvitationManage.cshtml" />
+    <Content Include="Views\Login\NewLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,7 +34,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             else
             {
-                return View("/Views/Login/Login_Cutomer.cshtml");
+                return View("/Views/Login/NewLogin.cshtml");
             }
         }
         public ActionResult Login(string user,string pass,string checkbox)
