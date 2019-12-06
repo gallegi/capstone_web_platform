@@ -426,12 +426,13 @@
                         <div></div>
                         <div class="card-content">
                             <div class="form-action right-align">
-                                <input type="hidden" value="@ViewBag.Order.OrderID" name="id"/>
+                                <input type="hidden" value="@ViewBag.Order.OrderID" name="id" />
+                                <input type="hidden" value="@ViewBag.letterid" name="letterid" />
                                 <button class="my-blue-btn btn" type="submit">Cập nhật</button>
                                 <a class="my-blue-btn btn" href="/ho-so/ho-so-cho-nhan">Trở về</a>
 
                                 @*<button class="my-blue-btn btn" formaction="/ho-so/ho-so-da-nhan/chi-tiet">Cập nhật</button>
-                                    <button class="my-blue-btn btn" formaction="/ho-so/ho-so-cho-nhan">Trở về</button>*@
+        <button class="my-blue-btn btn" formaction="/ho-so/ho-so-cho-nhan">Trở về</button>*@
                             </div>
                         </div>
                     </form>
@@ -565,14 +566,13 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="err" value="@ViewBag.error"/>
 </div>
-
+<input type="hidden" value="@ViewBag.error" id="err_update"/>
 <script>
 
     $(document).ready(function () {
-        if (document.getElementById('err').value != '') {
-            errorAlert('Lỗi', 'Có lỗi ảy ra');
+        if (document.getElementById('err_update').value != '') {
+            errorAlert('Lỗi', 'Có lỗi xảy ra. Vui lòng thử lại');
         }
     });
 </script>

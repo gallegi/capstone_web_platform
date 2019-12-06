@@ -16,7 +16,7 @@ namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentNotReceivedDetailController : Controller
     {
-        public bool err = false;
+        public static bool err;
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan/chi-tiet")]
         //Tuấn: Tôi tạm comment đoạn này đang bị lỗi lại để ae rebuild được, ô fix nhanh nhé
@@ -33,12 +33,14 @@ namespace vnpost_ocr_system.Controllers.Document
                         "where o.AppointmentLetterCode = @id";
             order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
+            ViewBag.letterid = id;
+            if (err == true) ViewBag.error = "err";
             return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
         }
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan/chi-tiet/cap-nhat")]
         [HttpPost]
-        public ActionResult Update(string itemCode, string status, string note, string id)
+        public ActionResult Update(string itemCode, string status, string note, string id,string letterid)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             using (DbContextTransaction con = db.Database.BeginTransaction())
@@ -60,15 +62,15 @@ namespace vnpost_ocr_system.Controllers.Document
                     db.Entry(o).State = EntityState.Modified;
                     db.SaveChanges();
                     con.Commit();
-                    Session["errorDocument"] = "";
-                    return Redirect("/ho-so/ho-so-cho-nhan");
+                    err = false;
+                    return Redirect("/ho-so/ho-so-da-nhan");
                 }
                 catch (Exception e)
                 {
                     e.Message.ToString();
                     con.Rollback();
-                    Session["errorDocument"] = "error";
-                    return Redirect("/ho-so/ho-so-cho-nhan");
+                    err = true;
+                    return RedirectToAction("Detail", new {id = letterid });
                 }
             }
         }
