@@ -394,7 +394,7 @@
                                     <div class="input-field row">
                                         <p class="col l4 m4 p-t-10 s12 p-t-15">Mã bưu gửi:</p>
                                         <div class="col l6 m6 s12">
-                                            <input class="no-border" id="con1" type="text" value="" name="itemCode">
+                                            <input class="no-border" autocomplete="off" id="con1" type="text" value="" name="itemCode">
                                         </div>
                                     </div>
                                 </div>
@@ -565,25 +565,14 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="err" value="@ViewBag.error"/>
 </div>
 
 <script>
 
-    @*$(document).ready(function () {
-        function dateFormat(d) {
-            if (d == null) {
-                return "";
-            }
-            var dateString = d.substr(6);
-            var currentTime = new Date(parseInt(dateString));
-            var month = currentTime.getMonth() + 1;
-            var day = currentTime.getDate();
-            var year = currentTime.getFullYear();
-            var date = day + "/" + month + "/" + year;
-            return (date);
+    $(document).ready(function () {
+        if (document.getElementById('err').value != '') {
+            errorAlert('Lỗi', 'Có lỗi ảy ra');
         }
-        var format = '@ViewBag.Order.ProcedurerPersonalPaperIssuedDate';
-        $("#ProcedurerPersonalPaperIssuedDate").append(dateFormat(format));
-
-    })*@
+    });
 </script>

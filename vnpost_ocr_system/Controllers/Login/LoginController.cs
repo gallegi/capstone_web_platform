@@ -47,6 +47,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         Session["adminPro"] = admin.PostalProvinceCode;
                         Session["Role"] = admin.Role.ToString();
                         Session["url"] = "/ho-so/thong-ke-tong-quat";
+                        Session["errorDocument"] = "";
                         if (!String.IsNullOrEmpty(checkbox))
                         {
                             if (checkbox.Equals("on"))

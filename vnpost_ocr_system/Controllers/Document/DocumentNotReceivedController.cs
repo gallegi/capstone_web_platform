@@ -49,6 +49,11 @@ namespace vnpost_ocr_system.Controllers.Document
                         }
                     }
                 }
+                if (!string.IsNullOrEmpty(Session["errorDocument"].ToString()))
+                {
+                    ViewBag.error = "error";
+                    Session["errorDocument"] = string.Empty;
+                }
                 ViewBag.proList = proList;
             }
             return View("/Views/Document/DocumentNotReceived.cshtml");
