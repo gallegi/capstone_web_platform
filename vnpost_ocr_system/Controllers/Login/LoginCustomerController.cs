@@ -238,13 +238,13 @@ namespace vnpost_ocr_system.Controllers.Login
                     }
                     MailMessage mail = new MailMessage();
                     mail.To.Add(emailORphone);
-                    mail.From = new MailAddress("shidoundie@gmail.com");
+                    mail.From = new MailAddress("vnposttest1@gmail.com");
                     mail.Subject = "Thay đổi mật khẩu";
                     mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid=" + user.CustomerID + "&token=" + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
-                    smtp.Credentials = new System.Net.NetworkCredential("shidoundie@gmail.com", "********");
+                    smtp.Credentials = new System.Net.NetworkCredential("vnposttest1@gmail.com", "fpt@12345");
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
