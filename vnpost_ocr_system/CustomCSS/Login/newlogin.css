@@ -74,7 +74,7 @@ div#main-wrapper {
 .sdt-or-email-checkbox label{
     margin-left:20px;
 }
-#regModal{
+.modal{
     padding:35px 35px 35px 35px;
 }
 input[name="group1"]{
