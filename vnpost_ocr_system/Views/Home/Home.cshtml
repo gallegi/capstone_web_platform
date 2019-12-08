@@ -10,9 +10,9 @@
         border-radius: 10px;
     }
 
-    .cell p, h3, .cell i {
-        color: black;
-    }
+        .cell p, h3, .cell i {
+            color: black;
+        }
 
     .video-wrapper {
         position: relative;
@@ -21,55 +21,84 @@
         overflow: hidden;
     }
 
-    .video-wrapper iframe {
-        position: absolute;
-        top:0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    .main-container {
+        padding: 20px 20px 20px 20px;
     }
 </style>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0"></script>
 
-<div class="card" style="padding: 50px">
+<div class="card">
     <div class="carousel carousel-slider">
-        <a class="carousel-item" href="#one!"><img src="http://www.vnpost.vn/Portals/0/banner/Banner-Voi.jpg"></a>
-        <a class="carousel-item" href="#two!"><img src="http://www.vnpost.vn/Portals/0/banner/Banner%20iPostal.png"></a>
-        <a class="carousel-item" href="#three!"><img src="http://www.vnpost.vn/Portals/0/banner/Banner%20Cong%20PostGreen.jpg"></a>
-        <a class="carousel-item" href="#four!"><img src="http://www.vnpost.vn/Portals/0/banner/BANNER%20POSTMART%2002.jpg"></a>
+        <a class="carousel-item" href="#one!">
+            <img src="~/assets/images/slider/1.jpg" />
+        </a>
+        <a class="carousel-item" href="#two!">
+<img src="~/assets/images/slider/2.png" /></a>
+        <a class="carousel-item" href="#three!">
+            <img src="~/assets/images/slider/3.jpg" />
+        </a>
+        <a class="carousel-item" href="#four!">
+<img src="~/assets/images/slider/4.jpg" />></a>
     </div>
     <br />
     <br />
-    <div class="row center">
-        <h3>Phương thức hoạt động</h3>
-        <div class="col s12">
-            <div class="cell col s3">
-                <i class="large material-icons">border_color</i>
-                <p>Người dân tạo đơn hàng mới</p>
-            </div>
-            <div class="cell col s3">
-                <i class="large material-icons">swap_vert</i>
-                <p>VNPost tiếp nhận đơn hàng</p>
-            </div>
-            <div class="cell col s3">
-                <i class="large material-icons">local_shipping</i>
-                <p>Lấy giấy tờ từ CQHC và chuyển giao giữa các bưu cục</p>
-            </div>
-            <div class="cell col s3">
-                <i class="large material-icons">markunread_mailbox</i>
-                <p>Gửi giấy tờ đến người dân</p>
-            </div>
-        </div>
-        <div class="col s12 center">
-            <br />
-            <br />
-            <h3>Video hướng dẫn sử dụng</h3>
-            <div class="video-wrapper">
-                <iframe width="560" height="315" src="@Html.Raw(ViewBag.video)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
+    <div class="main-container">
+        <i>Đang update nội dung</i>
+        @*<div class="row center">
+                <h3>Phương thức hoạt động</h3>
+                <div class="col s12">
+                    <div class="cell col s3">
+                        <i class="large material-icons">border_color</i>
+                        <p>Người dân tạo đơn hàng mới</p>
+                    </div>
+                    <div class="cell col s3">
+                        <i class="large material-icons">swap_vert</i>
+                        <p>VNPost tiếp nhận đơn hàng</p>
+                    </div>
+                    <div class="cell col s3">
+                        <i class="large material-icons">local_shipping</i>
+                        <p>Lấy giấy tờ từ CQHC và chuyển giao giữa các bưu cục</p>
+                    </div>
+                    <div class="cell col s3">
+                        <i class="large material-icons">markunread_mailbox</i>
+                        <p>Gửi giấy tờ đến người dân</p>
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <br />
+                    <br />
+                    <h3>Video hướng dẫn sử dụng</h3>
+                    <div class="video-wrapper">
+                        <iframe width="560" height="315" src="@Html.Raw(ViewBag.video)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>*@
     </div>
 
 </div>
+<footer class="page-footer">
+    <div class="">
+        <div class="row">
+            <div class="col l6 s12">
+                <img src="~/assets/images/logo-light-with-text.png" width="15%" style="margin-bottom:20px" />
+                <h6 class="white-text"><b>TỔNG CÔNG TY BƯU ĐIỆN VIỆT NAM - VIETNAM POST</b></h6>
+                <p class="grey-text text-lighten-4">Địa chỉ: Số 05 đường Phạm Hùng - Mỹ Đình 2 - Nam Từ Liêm - Hà Nội - Việt Nam</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Fanpage</h5>
+                <div class="fb-page" data-href="https://www.facebook.com/vnpost.vn/" data-tabs="timeline" data-width="400" data-height="100" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vnpost.vn/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vnpost.vn/">Bưu điện Việt Nam - VNPost</a></blockquote></div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 <script>
@@ -86,5 +115,5 @@
     var cw = $('.cell').width();
     $('.cell').css({ 'height': cw + 'px' });
     var i = $('.cell i').height();
-    $('.cell i').css({ 'padding-top' : (cw - i)*0.2 + 'px'})
+    $('.cell i').css({ 'padding-top': (cw - i) * 0.2 + 'px' })
 </script>
