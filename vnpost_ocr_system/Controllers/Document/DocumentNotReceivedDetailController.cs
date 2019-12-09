@@ -34,7 +34,11 @@ namespace vnpost_ocr_system.Controllers.Document
             order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
-            if (err == true) ViewBag.error = "err";
+            if (err == true)
+            {
+                ViewBag.error = "err";
+                err = false;
+            }
             return View("/Views/Document/DocumentNotReceivedDetail.cshtml");
         }
         [Auther(Roles = "1,2,3,4")]
