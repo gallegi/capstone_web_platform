@@ -6,7 +6,15 @@
 
 
 <link href="~/CustomCSS/Document/DocumentNotReceivedDetailController.css" rel="stylesheet" />
+<style>
+    .swal2-content input {
+        display: none !important;
+    }
 
+    svg {
+        display: none !important;
+    }
+</style>
 <div class="page-titles">
     <div class="d-flex align-items-center">
         <h4 class="font-medium m-b-0 pdleft">Chi tiết giấy hẹn - Chờ tiếp nhận</h4>
@@ -399,7 +407,7 @@
                                     </div>
                                 </div>
                                 <div class="input-field col s12 l6">
-                                    <div class="select-wrapper row">
+                                    <div class="row">
                                         <div class="col l4 m4 p-t-10 s12 p-t-15">Trạng thái:</div>
                                         <div class="col l6 m6 s12">
                                             <select tabindex="-1" name="status">
@@ -428,11 +436,11 @@
                             <div class="form-action right-align">
                                 <input type="hidden" value="@ViewBag.Order.OrderID" name="id" />
                                 <input type="hidden" value="@ViewBag.letterid" name="letterid" />
-                                <button class="my-blue-btn btn" type="submit">Cập nhật</button>
+                                <button class="my-blue-btn btn" id="update-btn" type="submit">Cập nhật</button>
                                 <a class="my-blue-btn btn" href="/ho-so/ho-so-cho-nhan">Trở về</a>
 
                                 @*<button class="my-blue-btn btn" formaction="/ho-so/ho-so-da-nhan/chi-tiet">Cập nhật</button>
-        <button class="my-blue-btn btn" formaction="/ho-so/ho-so-cho-nhan">Trở về</button>*@
+                                    <button class="my-blue-btn btn" formaction="/ho-so/ho-so-cho-nhan">Trở về</button>*@
                             </div>
                         </div>
                     </form>
@@ -567,9 +575,8 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="@ViewBag.error" id="err_update"/>
+<input type="hidden" value="@ViewBag.error" id="err_update" />
 <script>
-
     $(document).ready(function () {
         if (document.getElementById('err_update').value != '') {
             errorAlert('Lỗi', 'Có lỗi xảy ra. Vui lòng thử lại');
