@@ -704,6 +704,7 @@
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview-init.js" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.css" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.js" />
+    <Content Include="assets\images\123.png" />
     <Content Include="assets\images\account-info-background.png" />
     <Content Include="assets\images\alert\alert.png" />
     <Content Include="assets\images\alert\alert2.png" />
@@ -730,6 +731,7 @@
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
     <Content Include="assets\images\logo-light-with-text.png" />
+    <Content Include="assets\images\Logo-light.png" />
     <Content Include="assets\images\logo-text.png" />
     <Content Include="assets\images\Logo.jpg" />
     <Content Include="assets\images\Logo.PNG" />
