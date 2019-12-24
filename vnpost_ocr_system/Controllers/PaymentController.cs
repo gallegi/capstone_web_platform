@@ -60,7 +60,7 @@ namespace vnpost_ocr_system.Controllers
                             Order o = db.Database.SqlQuery<Order>("select * from [Order] where AppointmentLetterCode = @AppointmentLetterCode",
                                 new SqlParameter("AppointmentLetterCode", AppointmentLetterCode)).FirstOrDefault();
                             if (o != null)
-                                return Json(new { success = false, message = "Mã đơn hàng đã tồn tại" });
+                                return Json(new { success = false, message = "Mã giấy hẹn này đã được tạo bởi 1 đơn hàng trước đó, vào mục tìm kiếm để xem đơn hàng tương ứng với mã giấy hẹn này" });
                             o = new Order();
                             long userID = Convert.ToInt64(Session["userID"].ToString());
                             o.CustomerID = userID;

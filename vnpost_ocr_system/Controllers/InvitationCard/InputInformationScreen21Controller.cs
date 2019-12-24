@@ -177,6 +177,19 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 return Json(new { info = info, list = districts });
             }
         }
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/CheckAppointmentLetterCode")]
+        [HttpPost]
+        public ActionResult CheckAppointmentLetterCode(string AppointmentLetterCode)
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                Order o = db.Orders.Where(x => x.AppointmentLetterCode.Equals(AppointmentLetterCode.Trim()) && x.StatusID != 0).FirstOrDefault();
+                if (o == null)
+                    return Json(true);
+                else
+                    return Json(false);
+            }
+        }
 
         private class distric
         {
