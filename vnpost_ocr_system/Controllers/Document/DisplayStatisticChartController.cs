@@ -26,7 +26,7 @@ namespace vnpost_ocr_system.Controllers.Document
             Province p = new Province();
             string sql = "select distinct * from Province order by PostalProvinceName";
             string aid = Session["useradminID"].ToString();
-            if (!Session["Role"].ToString().Equals("1"))
+            if (!Session["Role"].ToString().Equals("1") && !Session["Role"].ToString().Equals("2"))
             {
                 sql = @"select p.*
                         from Admin a join Province p on a.PostalProvinceCode = p.PostalProvinceCode
