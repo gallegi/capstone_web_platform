@@ -26,6 +26,7 @@
     td {
         padding: 5px 5px !important;
     }
+
     .preloader-wrapper {
         /* position: absolute; */
         top: unset !important;
@@ -434,7 +435,7 @@
     }
 
     function ProChan() {
-        if (document.getElementById('role_add').value == 4) {document.getElementById('province_add').value = 1;$('#province_add').removeAttr('disabled'); }
+        if (document.getElementById('role_add').value == 4) { document.getElementById('province_add').value = 1; $('#province_add').removeAttr('disabled'); }
         else {
             if (document.getElementById('role_add').value == 2) {
                 document.getElementById('province_add').value = 0;
@@ -458,12 +459,18 @@
         $('#pre-load').hide();
     }
     function Insert() {
-        if (document.getElementById('password_add').value.length < 6) {
-            errorAlert('Lỗi', 'Mật khẩu phải có ít nhất 6 kí tự');
+        var name = document.getElementById('name_add').value;
+        if (name.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập họ tên');
             return false;
         }
-        if (document.getElementById('username_add').value == '') {
-            errorAlert('Lỗi', 'Tên tài khoản không thể để trống');
+        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
+        if (isName == true) {
+            errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
+        if (document.getElementById('password_add').value.length < 6 || document.getElementById('password_add').value.length > 32) {
+            errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
             return false;
         }
         $('#pre-load').show();
@@ -498,8 +505,18 @@
     }
 
     function Update() {
-        if (document.getElementById('password_edit').value.length < 6) {
-            errorAlert('Lỗi', 'Mật khẩu phải có ít nhất 6 kí tự');
+        var name = document.getElementById('name_edit').value;
+        if (name.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập họ tên');
+            return false;
+        }
+        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
+        if (isName == true) {
+            errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
+        if (document.getElementById('password_edit').value.length < 6 || document.getElementById('password_edit').value.length > 32) {
+            errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
             return false;
         }
         var emb = {
@@ -520,7 +537,7 @@
                 $('#pre-load').hide();
                 DataTable.ajax.reload(function () {
                 });
-                if (result == 0) successAlert('Thành công', 'Chỉnh sửa tài khoản thành công');
+                if (result == 0) successAlert('Thành công', 'Cập nhật thành công');
                 else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
                 $('#editUser').modal('close');
             },
@@ -534,7 +551,7 @@
 
     function Delete(id) {
         document.getElementById('temp_id').value = id;
-        confirmAlert("Xóa tài khoản", "Bạn không thể khôi phục lại khi xóa", function () {
+        confirmAlert('Xóa tài khoản', 'Bạn có chắc chắn muốn xóa tài khoản này không?', function () {
             DeleteAdmin();
         });
     }
