@@ -44,9 +44,24 @@ namespace vnpost_ocr_system.Controllers.Document
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan/chi-tiet/cap-nhat")]
         [HttpPost]
-        public ActionResult Update(string itemCode, string status, string note, string id,string letterid)
+        public ActionResult Update()
         {
+            string itemCode = Request["itemCode"];
+            string status = Request["status"];
+            string note = Request["note"];
+            string id = Request["id"];
+            string letterid = Request["letterid"];
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            //da huy
+            if (status.Equals("0"))
+            {
+                Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id)).FirstOrDefault();
+                order.StatusID = 0;
+                db.SaveChanges();
+                return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
+            }
+
+            
             using (DbContextTransaction con = db.Database.BeginTransaction())
             {
                 try
@@ -67,14 +82,20 @@ namespace vnpost_ocr_system.Controllers.Document
                     db.SaveChanges();
                     con.Commit();
                     err = false;
-                    return Redirect("/ho-so/ho-so-da-nhan");
+
+                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -3).FirstOrDefault();
+                    if(order != null)
+                    {
+                        return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(new { message = "Success" }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
                     e.Message.ToString();
                     con.Rollback();
                     err = true;
-                    return RedirectToAction("Detail", new {id = letterid });
+                    return Json(new { message = "Detail" }, JsonRequestBehavior.AllowGet);
                 }
             }
         }
