@@ -84,7 +84,7 @@
                             <label class="col l4 m4 p-t-10 s12 normal-size">Quận/Huyện:</label>
                             <div class="col l6 m6 s12 it2">
                                 <select tabindex="-1" id="item2">
-                                    <option selected value="0">Tất cả</option>
+                                    @*<option selected value="0">Tất cả</option>*@
                                 </select>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                 <div id="cmonth" class="this-is-chart col l12">
                     <div class="card">
                         <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">arrow_back</i>
-                        <a id="back" class="col l1 m4 p-t-10 s12" style="margin-top:2px; color:black">Trở lại</a>
+                        <a id="back" class="col l1 m4 p-t-10 s12" style="margin-top:2px; color:black; cursor:pointer">Trở lại</a>
                         <div class="card-content analytics-info">
                             <div id="basic-bar-month" style="height:400px"></div>
                         </div>
@@ -546,17 +546,42 @@
     var da1; var da2;
     var xong1; var xong2;
 
+    function getText() {
+        var text = $("#item1 option:selected").html();
+        $('#provine').val(text);
+        $('#provine_ch1').val(text);
+        $('#provine_ch2').val(text);
+        $('#provine_chy').val(text);
+        $('#provine_chm').val(text);
+
+        text = $("#item2 option:selected").html();
+        $('#district_c').val(text);
+        $('#district_c_ch1').val(text);
+        $('#district_c_ch2').val(text);
+        $('#district_c_chy').val(text);
+        $('#district_c_chm').val(text);
+
+        text = $("#item3 option:selected").html();
+        $('#hcc').val(text);
+        $('#hcc_ch1').val(text);
+        $('#hcc_ch2').val(text);
+        $('#hcc_chy').val(text);
+        $('#hcc_chm').val(text);
+
+        text = $("#item4 option:selected").html();
+        $('#profile').val(text);
+        $('#profile_ch1').val(text);
+        $('#profile_ch2').val(text);
+        $('#profile_chy').val(text);
+        $('#profile_chm').val(text);
+    }
+
+    $('#item1').change(function () {
+        change();
+    })
+
     function change() {
         $('#pre-load').show();
-        //if (text == "Tất cả") {
-        //    $('.tk1').hide();
-        //    $('.tk2').hide();
-        //    $('.tk3').hide();
-        //    $('.tk4').hide();
-        //} else {
-        //    city(text);
-        //    $('.tk1').show();
-        //}
 
         $.ajax({
             type: "POST",
@@ -595,7 +620,6 @@
     }
 
     $(document).ready(function () {
-        
         year();
         $('.datepicker-inline').hide();
         var d = '@ViewBag.date';
