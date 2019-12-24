@@ -30,7 +30,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
                         "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode " +
                         "join PersonalPaperType ppt on o.ProcedurerPersonalPaperTypeID = ppt.PersonalPaperTypeID " +
-                        "where o.AppointmentLetterCode = @id";
+                        "where o.OrderID = @id";
             order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
