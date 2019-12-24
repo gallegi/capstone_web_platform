@@ -65,7 +65,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             string Phone = Request["Phone"];
             string PostalDistrictCode = Request["PostalDistrictCode"];
             string Street = Request["Street"];
-            if (FullName == "" || Phone == "" || PostalDistrictCode == "")
+            if (FullName.Trim() == "")
+                return Json(new { success = false, message = "Vui lòng nhập Họ và tên" });
+            if (Phone.Trim() == "" || PostalDistrictCode == "")
                 return Json(new { success = false, message = "Không được để trống" });
 
             string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
