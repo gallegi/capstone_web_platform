@@ -288,8 +288,14 @@
         if (document.getElementById("M").checked) var check = 1;
         if (document.getElementById("F").checked) var check = 0;
         if (document.getElementById("K").checked) var check = 2;
+        var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
+        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
+        if (isName == true) {
+            $('#err').html('Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
         if (phone.length != 0) {
             if (phone.length != 10) {
                 $('#err').html('Số điện thoại không tồn tại');
@@ -308,9 +314,9 @@
             //var oldpass = document.getElementById('oldpass').value;
             var newpass = document.getElementById('newpass').value;
             var repass = document.getElementById('repass').value;
-            if (oldpassBlank.length < 6 || oldpassBlank.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
-            if (newpass.length < 6 || newpass.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
-            if (repass.length < 6 || repass.length > 32) { $('#err').html('Mật khẩu gồm 6-32 kí tự'); return false; }
+            if (oldpassBlank.length < 6 || oldpassBlank.length > 32) { $('#err').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
+            if (newpass.length < 6 || newpass.length > 32) { $('#err').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
+            if (repass.length < 6 || repass.length > 32) { $('#err').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
             if (newpass != repass) { $('#err').html('Mật khẩu nhập lại không khớp'); return false; }
         } else {
             oldpassBlank = '';
@@ -325,7 +331,7 @@
             oldpass: oldpassBlank,
             newpass: document.getElementById('newpass').value,
             repass: document.getElementById('repass').value,
-            dis  : document.getElementById('dis_cus').value,
+            dis: document.getElementById('dis_cus').value,
         };
         $.ajax({
             url: "/AccountInfo/Update",
