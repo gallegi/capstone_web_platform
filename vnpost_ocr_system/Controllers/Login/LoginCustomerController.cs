@@ -197,7 +197,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Logout()
         {
             Session.Abandon();
-            return RedirectToAction("Index");
+            return Redirect("/");
         }
         public ActionResult GetPro()
         {

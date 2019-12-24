@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     //$('.tk1').hide(); $('.tk2').hide(); $('.tk3').hide(); $('.tk4').hide();
-
     function getText() {
         var text = $("#item1 option:selected").html();
         $('#provine').val(text);
@@ -30,11 +29,7 @@
         $('#profile_chy').val(text);
         $('#profile_chm').val(text);
     }
-    
-
-    $('#item1').change(function () {
-        change();
-    })
+   
 
     $('#item2').change(function () {
         $('#pre-load').show()

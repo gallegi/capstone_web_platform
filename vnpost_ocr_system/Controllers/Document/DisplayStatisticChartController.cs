@@ -355,7 +355,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
                 "inner join District  d on po.DistrictCode = d.DistrictCode " +
                 "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-                "where o.StatusID = -3 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
+                "where o.StatusID = -2 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
             if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -376,7 +376,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
                 "inner join District  d on po.DistrictCode = d.DistrictCode " +
                 "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-                "where o.StatusID = -2 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
+                "where o.StatusID = -3 and year(os.CreatedTime) = @year and MONTH(os.CreatedTime) = @month AND ";
             if (provine != "Tất cả" && provine != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district != "Tất cả" && district != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc != "Tất cả" && hcc != "") sql += "pa.PublicAdministrationName  = @pub and ";
