@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     //$('.tk1').hide(); $('.tk2').hide(); $('.tk3').hide(); $('.tk4').hide();
-
     function getText() {
         var text = $("#item1 option:selected").html();
         $('#provine').val(text);
