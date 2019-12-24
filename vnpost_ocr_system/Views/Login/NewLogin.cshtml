@@ -126,13 +126,14 @@
                 <!--Full Name-->
                 <div class="row container-reg">
                     <div class="input-field col s12">
-                        <input id="tbName" name="tbName" type="text" class="p-l-10" required>
+                        <input id="tbName" name="tbName" type="text" class="p-l-10">
                         <label for="email">Họ và tên</label>
                     </div>
+                    <div class="col l12 m12 s12 input_login">
+                        <span style="color:red" id="name-err"></span>
+                    </div>
                 </div>
-                <div class="col l12 m12 s12 input_login">
-                    <span style="color:red" id="name-err"></span>
-                </div>
+
                 <!--gender-->
                 <div class="row container-reg">
                     <p style="" class="col s12 l3 m3">Giới tính: </p>
@@ -241,22 +242,23 @@
                 <div class="row container-reg">
                     <p class="grey-text col l6 m6 s6">Tỉnh thành:</p>
                     <p class="grey-text col l6 m6 s6">Quận huyện:</p>
+                    <div class="row">
+                        <div class=" col l6 m6 s6">
+                            <select id="province" onchange="getDis()">
+                            </select>
+                        </div>
+                        <div class=" col l6 m6 s6">
+                            <select id="district" name="distrint">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="diachi-err" class="col s12 l12 err" style="color: red">
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class=" col l6 m6 s6">
-                        <select id="province" onchange="getDis()">
-                        </select>
-                    </div>
-                    <div class=" col l6 m6 s6">
-                        <select id="district" name="distrint">
-                        </select>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div id="diachi-err" class="col s12 l12 err" style="color: red">
-                    </div>
-                </div>
+
                 <!--MẬT KHẨU-->
                 <div class="row container-reg">
                     <div class=" col l6 m6 s6 input-field">
@@ -265,14 +267,14 @@
                     <div class="input-field col l6 m6 s6">
                         <input id="tbRePass" type="password" name="tbRePass" class="validate my-input p-l-10" placeholder="Nhập lại mật khẩu">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s3 l2 m-t-20 m-l-20">
+                    <div class="row">
+                        <div class="col s3 l2 m-t-20 m-l-20">
+                        </div>
+                        <div id="rePass-err" class="col s8 l9 err" style="color: red">
+                        </div>
                     </div>
-                    <div id="rePass-err" class="col s8 l9 err" style="color: red">
+                </div>
 
-                    </div>
-                </div>
                 <!--CREATE BUTTON-->
                 <div class="row m-t-40 m-b-40 m-l-20 m-r-20">
                     <div class="col s12 center">
@@ -537,7 +539,7 @@
 
         if (name.length == 0) {
 
-            $('#name-err').text('Vui lòng nhập tên');
+            $('#name-err').text('Vui lòng nhập họ tên');
             return false;
         }
         if ($("#phonecheck").is(":checked") === true) {
@@ -547,7 +549,7 @@
                 return false;
             }
             if (phone.length != 10 && phone.length > 0) {
-                $('#phone-err').text('Số điện thoại không tồn tại');
+                $('#phone-err').text('Số điện thoại không hợp lệ');
                 return false;
             }
             if (validCodePhone.length == 0) {
@@ -566,6 +568,12 @@
             if (email.length == 0) {
 
                 $('#email-err').text('Vui lòng nhập email');
+                return false;
+            }
+
+            var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,}([.]{1}[a-z]{1,3})?$/.test(email);
+            if (isEmail == false) {
+                $('#email-err').text('Địa chỉ email không hợp lệ');
                 return false;
             }
             if (validCodeEmail.length == 0) {
