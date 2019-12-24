@@ -30,11 +30,7 @@
         $('#profile_chy').val(text);
         $('#profile_chm').val(text);
     }
-    
-
-    $('#item1').change(function () {
-        change();
-    })
+   
 
     $('#item2').change(function () {
         $('#pre-load').show()
