@@ -153,7 +153,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
         }
         [Auther(Roles = "1,2,3")]
-        public ActionResult Update(int id, string name, string username, string password, int province, int role, int active)
+        public ActionResult Update(int id, string name, string username, string password, string province, int role, int active)
         {
             if (Convert.ToInt32(Session["adminRole"]) < role)
             {
@@ -169,8 +169,8 @@ namespace vnpost_ocr_system.Controllers.Login
                     admin.AdminName = name;
                     admin.AdminUsername = username;
                     admin.Role = role;
-                    if (province == 0) province = 10;
-                    admin.PostalProvinceCode = province.ToString();
+                    if (province.Equals("0")) province = null;
+                    admin.PostalProvinceCode = province;
                     admin.IsActive = Convert.ToBoolean(active);
                     admin.ModifiedBy = Convert.ToInt64(Session["useradminID"]);
                     admin.ModifiedTime = DateTime.Now;
