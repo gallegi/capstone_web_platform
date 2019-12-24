@@ -115,7 +115,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         to = DateTime.ParseExact(dateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                 }
-                searchList = db.Database.SqlQuery<Non_revieve>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY", new SqlParameter("profile", profile),
+                searchList = db.Database.SqlQuery<Non_revieve>(query + " order by OrderDate DESC" + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY", new SqlParameter("profile", profile),
                                                                       new SqlParameter("coQuan", coQuan),
                                                                       new SqlParameter("district", district),
                                                                       new SqlParameter("province", province),

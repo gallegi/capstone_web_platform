@@ -122,7 +122,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     }
                 }
 
-                searchList = db.Database.SqlQuery<recieve>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
+                searchList = db.Database.SqlQuery<recieve>(query + " order by OrderDate DESC" + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
                                                                  new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),

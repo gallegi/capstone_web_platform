@@ -318,16 +318,15 @@
 </script>
 <script>
     function Login() {
+        $('#user_failed').html('');
+        $('#password_failed').html('');
         var username = document.getElementById('user').value;
         var password = document.getElementById('pass').value;
-        if (!username.length == 0) {
-            $('#user_failed').html('');
-        } else {
+        if (username.length == 0) {
             $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
             return false;
         }
-        if (!password.length == 0) { $('#password_failed').html(''); }
-        else {
+        if (password.length == 0) {
             $('#password_failed').html('Mật khẩu không được để trống');
             return false;
         }
