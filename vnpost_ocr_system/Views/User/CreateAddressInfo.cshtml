@@ -20,6 +20,10 @@
         right: 50%;
         transform: translateX(50%) translateY(50%);
     }
+
+    .validation {
+        color: red;
+    }
 </style>
 
 <div class="main-wrapper p-t-20 black-text">
@@ -33,6 +37,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="name" type="text" value="">
+                        <p class="validation" name="check-name"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -41,6 +46,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="phone" type="text" value="">
+                        <p class="validation" name="check-phone"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -55,6 +61,7 @@
                                 <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                             }
                         </select>
+                        <p class="validation" name="check-province"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -64,6 +71,7 @@
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="card-border" id="district">
                         </select>
+                        <p class="validation" name="check-district"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -72,6 +80,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <textarea id="address"></textarea>
+                        <p class="validation" name="check-address"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -96,6 +105,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="code" type="text" value="">
+                        <p class="validation" name="check-code"></p>
                     </div>
                 </div>
 
@@ -148,22 +158,67 @@
             code: document.getElementById("code").value,
             placeOfIssue: document.getElementById("placeOfIssue").value
         };
-
+        var checkName = $('#name').val().trim();
+        var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        var checkPhone = $('#phone').val().trim();
+        var regexPhone = /^[0-9\-\+]{10}$/;
+        var isPhone = regexPhone.test(checkPhone);
         var valid;
+
         if (data.paperType == "") {
-            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "") {
+            if (checkName == "") {
+                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+                valid = false;
+            } else if (invalidName) {
+                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+                valid = false;
+            } else if (checkPhone == "") {
+                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại');
+                valid = false;
+            } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+                valid = false;
+            } else if ($('#address').val().trim() == "") {
+                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ');
+                valid = false;
+            } else if (data.province == "") {
+                $('p[name="check-province"]').text('Vui lòng nhập tỉnh/thành');
+                valid = false;
+            } else if (data.district == "") {
+                $('p[name="check-district"]').text('Vui lòng nhập quận/huyện');
                 valid = false;
             } else {
                 valid = true;
             }
         } else {
-            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "" || data.code == "") {
+            if (checkName == "") {
+                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+                valid = false;
+            } else if (invalidName) {
+                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+                valid = false;
+            } else if (checkPhone == "") {
+                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại');
+                valid = false;
+            } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+                valid = false;
+            } else if ($('#address').val().trim() == "") {
+                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ');
+                valid = false;
+            } else if (data.province == "") {
+                $('p[name="check-province"]').text('Vui lòng nhập tỉnh/thành');
+                valid = false;
+            } else if (data.district == "") {
+                $('p[name="check-district"]').text('Vui lòng nhập quận/huyện');
+                valid = false;
+            } else if ($('#code').val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập mã số giấy tờ tùy thân');
                 valid = false;
             } else {
                 valid = true;
             }
         }
-
         //handling input cases
         if (valid) {
             $.ajax({
@@ -177,10 +232,56 @@
                 }
             });
         } else {
-            toastr.error('Hãy điền đầy đủ thông tin!', '');
+            toastr.error('Hãy điền đầy đủ thông tin chính xác!', '');
         }
     }
 
+    $(document).ready(function () {
+        $('#name').focusout(function () {
+            var checkName = $('#name').val().trim();
+            var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            if (checkName == "") {
+                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên')
+            } else if (invalidName) {
+                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            } else {
+                $('p[name="check-name"]').text('');
+            }
+        })
+        
+        $('#phone').focusout(function () {
+            var checkPhone = $('#phone').val().trim();
+            var regexPhone = /^[0-9\-\+]{10}$/;
+            var isPhone = regexPhone.test(checkPhone);
+            if (checkPhone == "") {
+                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại')
+            } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else {
+                $('p[name="check-phone"]').text('');
+            }
+        })
+
+        $('#address').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ')
+            } else {
+                $('p[name="check-address"]').text('');
+            }
+        })
+
+        $('#code').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập mã số giấy tờ tùy thân')
+            } else {
+                $('p[name="check-code"]').text('');
+            }
+        })
+    })
+
+</script>
+
+<script>
     $(document).ready(function () {
         $('#province').change(function () {
             var data = {
@@ -221,3 +322,4 @@
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
