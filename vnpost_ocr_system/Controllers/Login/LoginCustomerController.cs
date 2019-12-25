@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 using XCrypt;
+using System.IO;
 namespace vnpost_ocr_system.Controllers.Login
 {
     public class LoginCustomerController : Controller
@@ -213,6 +214,8 @@ namespace vnpost_ocr_system.Controllers.Login
         }
         public ActionResult ResetPassword(string emailORphone)
         {
+            string[] absolutepath = Request.Url.ToString().Split('/');
+            string path = absolutepath[0] + "//"+absolutepath[2];
             var user = db.Customers.Where(x => x.Email.Equals(emailORphone) || x.Phone.Equals(emailORphone)).FirstOrDefault();
             if (user != null)
             {
@@ -236,11 +239,12 @@ namespace vnpost_ocr_system.Controllers.Login
                         db.ResetPasswordTokens.Add(re);
                         db.SaveChanges();
                     }
+                    
                     MailMessage mail = new MailMessage();
                     mail.To.Add(emailORphone);
                     mail.From = new MailAddress("vnposttest1@gmail.com");
                     mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: http://localhost:50796/khach-hang/thay-doi-mat-khau?customerid=" + user.CustomerID + "&token=" + token;
+                    mail.Body = "Click vào đường dẫn này để thay đổi mật khẩu: "+path+"/khach-hang/thay-doi-mat-khau?customerid=" + user.CustomerID + "&token=" + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
@@ -265,7 +269,7 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             Int64 id = Convert.ToInt64(customerid);
             var user = db.ResetPasswordTokens.Where(x => x.CustomerID == id && x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
-            if (user != null)
+            if (user != null && DateTime.Now.Subtract(user.CreatedDate).TotalMinutes <= 15)
             {
                 ViewBag.userid = user.CustomerID;
                 return View("/Views/Login/ResetPassword.cshtml");
