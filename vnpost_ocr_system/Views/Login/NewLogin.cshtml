@@ -293,18 +293,36 @@
             <i> Số điện thoại hoặc email đăng ký:</i>
             <input type="text" placeholder="SĐT/Email" id="number-email-reset" class="icon_prefix2" />
         </p>
-        <div class="row">
+        <div class="row m-b-10">
             <p style="font-size:20px !important; font-weight:600; color:red;" id="err-mess" class="m-l-20 center">
             </p>
             <p style="font-size:20px !important; font-weight:600; color:green;" id="suc-mess" class="m-l-20 center">
             </p>
             <button class='login-btn col s12 btn waves-effect waves-light btn-small m-md yellow darken-4' onclick="ResetPassword()">Gửi mã xác nhận</button>
         </div>
+        <hr />
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col l8">
+                        <input type="text" class="icon_prefix2" id="token" placeholder="Nhập mã Token" />
+                    </div>
+                    <div class="col l4 center m-t-20">
+                        <button type="button" class="login-btn col s12 btn waves-effect waves-light btn-small m-md yellow darken-4" onclick="checktoken()">Xác nhận</button>
+                    </div>
+                    <div class="col l12 ">
+                        <p style="font-size:20px !important; font-weight:600; color:red;" id="err-token" class="center">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
 <input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
 <input type="text" id="tem1" value="@ViewBag.messe" hidden />
+<input type="text" id="userid" hidden />
 <script>
     $(function () {
         $("#user").focus();
@@ -383,9 +401,37 @@
         //chen2();
     });
 
+    function checktoken() {
+        $('#err-mess').text('');
+        $('#err-token').text('');
+        if (document.getElementById('token').value == '') return false;
+        $('#pre-load').show();
+        var emp = {
+            token: document.getElementById('token').value
+        };
+        $.ajax({
+            url: "/LoginCustomer/CheckToken",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                if (result == 1) window.location.href = "/khach-hang/thay-doi-mat-khau?token=" + document.getElementById('token').value;
+                if (result == 0) $('#err-token').text('Mã token không đúng.');
+                if (result == -1) $('#err-token').text('Mã token đã hết hạn sử dụng.');
+                if (result == -2) $('#err-token').text('Có lỗi xảy ra.Vui lòng thử lại');
+                $('#pre-load').hide();
+            },
+            error: function (errormessage) {
+                $('#err-token').text('Có lỗi xảy ra.Vui lòng thử lại');
+                $('#pre-load').hide();
+            }
+        });
+    }
+
     function ResetPassword() {
         var emailORphone = document.getElementById('number-email-reset').value;
         $('#err-mess').text('');
+        $('#err-token').text('');
         if (emailORphone.length == 0) {
             $('#err-mess').text('Vui lòng nhập số điện thoại hoặc email');
             return false;
@@ -400,7 +446,10 @@
             data: JSON.stringify(emp),
             contentType: "application/json;charset=utf-8",
             success: function (result) {
-                if (result == 1) $('#suc-mess').text('Mã đã gửi đến email của bạn');
+                if (result != -1 && result != 0) {
+                    document.getElementById('userid').value = result;
+                    $('#suc-mess').text('Mã đã gửi đến email của bạn');
+                }
                 if (result == -1) $('#err-mess').text('Có lỗi xảy ra. Vui lòng thử lại');
                 if (result == 0) $('#err-mess').text('Email hoặc số điện thoại không tồn tại');
                 $('#pre-load').hide();
