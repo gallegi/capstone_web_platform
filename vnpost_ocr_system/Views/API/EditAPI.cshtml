@@ -399,6 +399,13 @@
 
             }
         });
+        if ($('#uri').val() === '') {
+            $('#uri-err').text('Vui lòng nhập URI');
+            return false;
+        }
+        else {
+            $('#uri-err').text('');
+        }
          if (!validURL($('#uri').val())) {
            $('#uri-err').text('URI không hợp lệ');
            
@@ -406,7 +413,14 @@
         }else {
             $('#uri-err').text('');
         }
-
+     if ($('#format').val()==='') {
+            
+             $('#response-data-err').text('Vui lòng nhập SampleData');;
+            return false;
+         }
+    else {
+            $('#response-data-err').text('');
+        }
         try { 
                 JSON.parse($('#format').val()); 
               $('#response-data-err').text('');

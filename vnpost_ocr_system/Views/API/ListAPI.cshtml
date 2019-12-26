@@ -240,7 +240,24 @@
             datatype: "json",
             cache: false,
             success: function (data) {
-                
+                 if (data.listAPI.length == 0) { $("#apiTable").find("tbody").append("<tr><td colspan=\"6\"><i>Không có dữ liệu</i></td></tr>") }
+                else {
+                    $.each(data.listAPI, function (i, item) {
+
+                        i++;
+                        var tbData = "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
+                            "<td>" + item.APIDescription + "</td>" +
+                            "<td>" + item.APIUri + "</td>" +
+                            "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
+                            "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
+                            "</tr>";
+
+                        $("#apiTable").find("tbody").append(tbData);
+                    }
+                    );
+                }
                 if (data.api.SampleResponse != '') {
                     var jsonObj = JSON.parse(data.api.SampleResponse);
                     var jsonPretty = JSON.stringify(jsonObj, null, '\t');
@@ -281,20 +298,7 @@
                     $("#requestTable").find("tbody").append(tbData);
                 }
                 );
-                $.each(data.listAPI, function (i, item) {
-                    i++;
-                    var tbData = "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
-                        "<td>" + item.APIDescription + "</td>" +
-                        "<td>" + item.APIUri + "</td>" +
-                        "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
-                        "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
-                        "</tr>";
-
-                    $("#apiTable").find("tbody").append(tbData);
-                }
-                );
+               
 
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -317,21 +321,22 @@
            
             cache: false,
             success: function (data) {
-              
-                 $.each(data.listapi, function (i, item) {
-                    i++;
-                    var tbData = "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
-                        "<td>" + item.APIDescription + "</td>" +
-                        "<td>" + item.APIUri + "</td>" +
-                        "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
-                        "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
-                        "</tr>";
+                
+                    $.each(data.listapi, function (i, item) {
+                        i++;
+                        var tbData = "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
+                            "<td>" + item.APIDescription + "</td>" +
+                            "<td>" + item.APIUri + "</td>" +
+                            "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
+                            "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
+                            "</tr>";
 
-                    $("#apiTable").find("tbody").append(tbData);
-                }
-                );
+                        $("#apiTable").find("tbody").append(tbData);
+                    }
+                    );
+                
                 
 
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
