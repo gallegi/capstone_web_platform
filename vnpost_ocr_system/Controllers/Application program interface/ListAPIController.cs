@@ -31,12 +31,13 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
             {
                 List<APIDB> listAPI = db.Database.SqlQuery<APIDB>("select APIID,APIUri,APIDescription" +
                     " from API").ToList();
+               
                 APIEdit api = db.Database.SqlQuery<APIEdit>("select  APIMethodID,APIUri,APIDescription,SampleResponse,Username," +
-                   "Password from API where APIID=1").FirstOrDefault();
+                   "Password from API where APIID=(select top 1 apiid from API )").FirstOrDefault();
                 List<APIInputParam> listAPIInputParam = db.Database.SqlQuery<APIInputParam>("select APIID,APIInputParamName,APIInputParamType,APIInputParamDescription," +
-                    "LastMofifiedTime from APIInputParam where APIID=1").ToList();
+                    "LastMofifiedTime from APIInputParam where APIID=(select top 1 apiid from API )").ToList();
                 List<APIOutputParam> listAPIOutputParam = db.Database.SqlQuery<APIOutputParam>("select APIID,APIOutputParamName,APIOutputParamType,APIOutputParamDescription,LastMofifiedTime" +
-                    " from APIOutputParam where APIID=1").ToList();
+                    " from APIOutputParam where APIID=(select top 1 apiid from API )").ToList();
                 return Json(new
                 {
                     listAPI = listAPI,
@@ -116,7 +117,7 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
                     listAPIOutputParam = listAPIOutputParam
                 }, JsonRequestBehavior.AllowGet); 
 
-            }
+            } 
         }
     }
     public class APIDB 
