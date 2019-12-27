@@ -247,6 +247,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult GenUsername(int id, string province)
         {
             string username = "sample";
+            var provincedb = db.Provinces.Where(x => x.PostalProvinceCode.Equals(province)).FirstOrDefault();
             if (id == 2)
             {
                 username = "admin00"; var tct = db.Admins.Where(x => x.Role == 2).ToList();
@@ -259,9 +260,9 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             else if (id == 3)
             {
-                username = "admin" + province; var adt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList();
-                if (adt.Count == 1) { username += "_1"; }
-                if (adt.Count > 1)
+                username = "admin_" + provincedb.ProvinceShortName; var adt = db.Admins.Where(x => x.Role == 3 && x.PostalProvinceCode.Equals(province)).ToList();
+                if (adt.Count == 0) { username += "_1"; }
+                if (adt.Count >= 1)
                 {
                     int ind = username.Length;
                     string adttt = adt.Last().AdminUsername;
@@ -270,9 +271,9 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             else if (id == 4)
             {
-                username = "giaodichvien" + province; var gdv = db.Admins.Where(x => x.Role == 4 && x.PostalProvinceCode.Equals(province)).ToList();
-                if (gdv.Count == 1) { username += "_1"; }
-                if (gdv.Count > 1)
+                username = "giaodichvien_" + provincedb.ProvinceShortName; var gdv = db.Admins.Where(x => x.Role == 4 && x.PostalProvinceCode.Equals(province)).ToList();
+                if (gdv.Count == 0) { username += "_1"; }
+                if (gdv.Count >= 1)
                 {
                     int ind = username.Length;
                     string gdvv = gdv.Last().AdminUsername;
