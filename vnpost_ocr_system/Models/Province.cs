@@ -24,6 +24,7 @@ namespace vnpost_ocr_system.Models
         public string PostalProvinceCode { get; set; }
         public string PostalProvinceName { get; set; }
         public string ProvinceCode { get; set; }
+        public string ProvinceShortName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admin> Admins { get; set; }
