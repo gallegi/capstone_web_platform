@@ -12,17 +12,11 @@ namespace vnpost_ocr_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Payment
+    public partial class ServiceTimer
     {
-        public long PaymentID { get; set; }
-        public long OrderID { get; set; }
-        public int PaymentMethodID { get; set; }
-        public int PaymentStatusID { get; set; }
-        public Nullable<System.DateTime> PaymentDate { get; set; }
-        public string OtherDetails { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual PaymentMethod PaymentMethod { get; set; }
-        public virtual PaymentStatu PaymentStatu { get; set; }
+        public int ServiceTimeID { get; set; }
+        public Nullable<int> ServiceTimeHour { get; set; }
+        public Nullable<int> ServiceTimeMinute { get; set; }
+        public Nullable<bool> isActive { get; set; }
     }
 }
