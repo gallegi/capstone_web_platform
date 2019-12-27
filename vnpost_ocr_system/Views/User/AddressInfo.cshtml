@@ -272,64 +272,84 @@
         var checkPhone = $('#editPhone').val().trim();
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
-        var valid;
+        var sub = checkPhone.substring(0, 2);
 
-        if (data.PaperTypeCode == "") {
-            if (checkName == "") {
-                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
-                valid = false;
-            } else if (invalidName) {
-                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
-                valid = false;
-            } else if (checkPhone == "") {
-                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại');
-                valid = false;
-            } else if (isPhone === false) {
-                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
-                valid = false;
-            } else if ($('#editAddress').val().trim() == "") {
-                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ');
-                valid = false;
-            } else if (data.province == "") {
-                $('p[name="check-province"]').text('Vui lòng nhập tỉnh/thành');
-                valid = false;
-            } else if (data.districtCode == "") {
-                $('p[name="check-district"]').text('Vui lòng nhập quận/huyện');
-                valid = false;
-            } else {
-                valid = true;
-            }
-        } else {
-            if (checkName == "") {
-                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
-                valid = false;
-            } else if (invalidName) {
-                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
-                valid = false;
-            } else if (checkPhone == "") {
-                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại');
-                valid = false;
-            } else if (isPhone === false) {
-                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
-                valid = false;
-            } else if ($('#editAddress').val().trim() == "") {
-                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ');
-                valid = false;
-            } else if (data.province == "") {
-                $('p[name="check-province"]').text('Vui lòng nhập tỉnh/thành');
-                valid = false;
-            } else if (data.districtCode == "") {
-                $('p[name="check-district"]').text('Vui lòng nhập quận/huyện');
-                valid = false;
-            } else if ($('#editCode').val().trim() == "") {
-                $('p[name="check-code"]').text('Vui lòng nhập mã số giấy tờ tùy thân');
-                valid = false;
-            } else {
-                valid = true;
+        //boolean 
+        var valid_address = true;
+        var valid_name = true;
+        var valid_phone = true;
+        var valid_province = true;
+        var valid_district = true;
+        var valid_code = true;
+
+        //check Name
+        if (checkName == "") {
+            $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+            valid_name = false;
+        } else if (invalidName) {
+            $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            valid_name = false;
+        }
+
+        //check Phone
+        if (checkPhone == "") {
+            $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại');
+            valid_phone = false;
+        } else if (isPhone === false) {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        }
+
+        //check Address
+        if ($('#editAddress').val().trim() == "") {
+            $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ');
+            valid_address = false;
+        }
+
+        //check Province
+        if (data.province == "") {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/thành');
+            valid_province = false;
+        }
+
+        //check District
+        if (data.districtCode == "") {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/huyện');
+            valid_district = false;
+        }
+
+        //case paperType
+        if (data.PaperTypeCode != "") {
+            if ($('#editCode').val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân');
+                valid_code = false;
             }
         }
 
-        if (valid) {
+        //update status of input:
+        if (valid_name) {
+            $('p[name="check-name"]').text('');
+        }
+        if (valid_phone) {
+            $('p[name="check-phone"]').text('');
+        }
+        if (valid_address) {
+            $('p[name="check-address"]').text('');
+        }
+        if (valid_province) {
+            $('p[name="check-province"]').text('');
+        }
+        if (valid_district) {
+            $('p[name="check-district"]').text('');
+        }
+        if (valid_code) {
+            $('p[name="check-code"]').text('');
+        }
+
+        if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code) {
             $.ajax({
                 url: "/tai-khoan/so-dia-chi/chinh-sua",
                 type: "POST",
@@ -360,11 +380,15 @@
         
         $('#editPhone').focusout(function () {
             var checkPhone = $('#editPhone').val().trim();
+            //Using sub to check 03 05 07 09 04
+            var sub = checkPhone.substring(0, 2);
             var regexPhone = /^[0-9\-\+]{10}$/;
             var isPhone = regexPhone.test(checkPhone);
             if (checkPhone == "") {
                 $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại')
             } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
                 $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
             } else {
                 $('p[name="check-phone"]').text('');
@@ -373,7 +397,7 @@
 
         $('#editAddress').focusout(function () {
             if ($(this).val().trim() == "") {
-                $('p[name="check-address"]').text('Vui lòng nhập địa chỉ')
+                $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ')
             } else {
                 $('p[name="check-address"]').text('');
             }
@@ -381,7 +405,7 @@
 
         $('#editCode').focusout(function () {
             if ($(this).val().trim() == "") {
-                $('p[name="check-code"]').text('Vui lòng nhập mã số giấy tờ tùy thân')
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tuỳ thân')
             } else {
                 $('p[name="check-code"]').text('');
             }
