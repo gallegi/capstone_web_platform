@@ -818,6 +818,7 @@
                     <p class="col l3 m3 p-t-10 s12">Họ và tên <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input required id="name_edit" type="text">
+                        <p class="validation" name="name_edit"></p>
                     </div>
                 </div>
             </div>
@@ -826,6 +827,7 @@
                     <p class="col l3 m3 p-t-10 s12">Số điện thoại <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input id="phone_edit" type="text">
+                        <p class="validation" name="phone_edit"></p>
                     </div>
                 </div>
             </div>
@@ -849,6 +851,7 @@
                         <select required tabindex="-1" id="district_edit" class="card-border">
                             @ViewBag.select
                         </select>
+                        <p class="validation" name="district_edit"></p>
                     </div>
                 </div>
             </div>
@@ -857,6 +860,7 @@
                     <div class="col l3 m3 p-t-10 s12 ">Địa chỉ <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <textarea required id="street_edit"></textarea>
+                        <p class="validation" name="street_edit"></p>
                     </div>
                 </div>
             </div>
@@ -866,7 +870,6 @@
                         <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
                         <div class="col l9 m9 s12">
                             <select tabindex="-1" id="paper_type_edit" class="card-border">
-                                <option selected value="-1">Không có</option>
                                 @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
                                 {
                                     <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
@@ -875,34 +878,33 @@
                         </div>
                     </div>
                 </div>
-                <div hidden id="have_paper">
-                    <div class="input-field col s12">
-                        <div class="input-field row">
-                            <p class="col l3 m3 p-t-10 s12">Số giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
-                            <div class="col l9 m9 s12">
-                                <input id="paper_number_edit" type="text">
-                            </div>
+                <div class="input-field col s12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Số giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
+                        <div class="col l9 m9 s12">
+                            <input id="paper_number_edit" type="text">
+                            <p class="validation" name="paper_number_edit"></p>
                         </div>
                     </div>
-                    <div class="input-field col s12">
-                        <div class="input-field row">
-                            <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
-                            <div class="col l9 m9 s12 datepicker-calendar-container row">
-                                <input name="dateTLHD" id="paper_date_edit" type='text' readonly
-                                       class="col s10 l10 datepicker-here centerText" autocomplete="off"
-                                       data-language='vi' />
-                                <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
-                            </div>
+                </div>
+                <div class="input-field col s12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
+                        <div class="col l9 m9 s12 datepicker-calendar-container row">
+                            <input name="dateTLHD" id="paper_date_edit" type='text' readonly
+                                    class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                    data-language='vi' />
+                            <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                         </div>
                     </div>
-                    <div class="input-field col s12">
-                        <div class="input-field row">
-                            <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
-                            <div class="col l9 m9 s12">
-                                <input id="paper_place_edit" type="text">
-                                <input hidden readonly id="info_edit" type="text" />
-                                <input hidden readonly id="type" />
-                            </div>
+                </div>
+                <div class="input-field col s12">
+                    <div class="input-field row">
+                        <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
+                        <div class="col l9 m9 s12">
+                            <input id="paper_place_edit" type="text">
+                            <input hidden readonly id="info_edit" type="text" />
+                            <input hidden readonly id="type" />
                         </div>
                     </div>
                 </div>
@@ -981,6 +983,8 @@
                     UserDistrictsID = ""
                 }
                 $('#item2').formSelect();
+                if ($('#item2').val() != null)
+                    $('p[name="item2"]').text("")
                 getAdmins()
             },
             error: function () {
@@ -1017,6 +1021,8 @@
                     UserAdminLocationID = ""
                 }
                 $('#item3').formSelect();
+                if ($('#item3').val() != null)
+                    $('p[name="item3"]').text("")
                 getProfiles();
             },
             error: function () {
@@ -1052,6 +1058,8 @@
                     UserProfileID = ""
                 }
                 $('#item4').formSelect();
+                if ($('#item4').val() != null)
+                    $('p[name="item4"]').text("")
                 $('#pre-load').hide()
             },
             error: function () {
@@ -1095,16 +1103,6 @@
         $('#item5').change(function () {
             $('.AppointmentLetterCode').text($(item5).val())
         })
-
-        $('#paper_type_edit').change(function () {
-            if ($(this).val() != -1)
-                $('#have_paper').show()
-            else {
-                $('#have_paper').hide()
-                $('#paper_date_edit').val('')
-                $('#paper_place_edit').val('')
-            }
-        })
     })
 
     $(document).on("click", ".modal-trigger", function () {
@@ -1120,6 +1118,11 @@
 
     $(document).on("click", "#add", function () {
         type = $(this).data("type");
+        $('p[name="name_edit"]').text("")
+        $('p[name="phone_edit"]').text("")
+        $('p[name="district_edit"]').text("")
+        $('p[name="street_edit"]').text("")
+        $('p[name="paper_number_edit"]').text("")
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
     })
@@ -1154,10 +1157,6 @@
                 $('#street_edit').val(response.info.Street);
                 $('#paper_type_edit').val(response.info.PersonalPaperTypeID == null ? "-1" : response.info.PersonalPaperTypeID)
                 $('#paper_type_edit').formSelect();
-                if ($('#paper_type_edit').val() != -1)
-                    $('#have_paper').show()
-                else
-                    $('#have_paper').hide()
                 $('#paper_number_edit').val(response.info.PersonalPaperNumber);
                 $('#paper_date_edit').val(response.info.PersonalPaperIssuedDateString);
                 $('#paper_place_edit').val(response.info.PersonalPaperIssuedPlace);
@@ -1211,67 +1210,104 @@
     })
 
     $(document).on("click", "#save_profile1", function () {
-        if ($('#name_edit').val() == "" || $('#phone_edit').val() == "" || $('#province_edit').val() == null || $('#district_edit').val() == null || $('#street_edit').val() == "") {
-            errorAlert("Bạn chưa điền đầy đủ thông tin")
-            return;
+        var check = true;
+        if ($('#name_edit').val().trim() == "") {
+            $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
+            check = false;
         }
-        if (type == 1 && $('#paper_type_edit').val() == "-1" && ($('#paper_number_edit').val() != "" || $('#paper_date_edit').val() != "" || $('#paper_place_edit').val() != "")) {
-            errorAlert("Bạn chưa chọn loại giấy tờ")
-            return;
+        else {
+            $('p[name="name_edit"]').text("")
         }
-        if (type == 1 && $('#paper_type_edit').val() != "-1" && $('#paper_number_edit').val() == "") {
-            errorAlert("Bạn chưa nhập số giấy tờ")
-            return;
+        var patt1 = new RegExp("^0[34579]\\d{8}$");
+        if (!patt1.test($('#phone_edit').val().trim())) {
+            $('p[name="phone_edit"]').text("Số điện thoại không hợp lệ")
+            check = false;
         }
-        $('#pre-load').show()
-        $.ajax({
-            type: "POST",
-            url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc",
-            cache: false,
-            dataType: "json",
-            data: {
-                FullName: $('#name_edit').val(),
-                Phone: $('#phone_edit').val(),
-                PostalDistrictCode: $('#district_edit').val(),
-                Street: $('#street_edit').val(),
-                PersonalPaperTypeID: $('#paper_type_edit').val(),
-                PersonalPaperNumber: $('#paper_number_edit').val(),
-                PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
-                PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
-                ContactInfoID: $('#info_edit').val(),
-                Type: type
-            },
-            success: function (response) {
-                if (response.success) {
-                    if (response.add) {
-                        for (var i = 2; i < 5; i++) {
-                            $('section:nth-child(' + i*2 + ') .row').children('p').remove()
-                            $('section:nth-child(' + i*2 + ') .row').append(response.html[i-2])
+        else {
+            $('p[name="phone_edit"]').text("")
+        }
+        if ($('#province_edit').val() == null || $('#district_edit').val() == null) {
+            $('p[name="district_edit"]').text("Vui lòng chọn Quận/Huyện");
+            check = false;
+        }
+        else {
+            $('p[name="district_edit"]').text("")
+        }
+        if ($('#street_edit').val().trim() == "") {
+            $('p[name="street_edit"]').text("Vui lòng nhập Địa chỉ")
+            check = false;
+        }
+        else {
+            $('p[name="street_edit"]').text("")
+        }
+        if (type == 1 && $('#paper_number_edit').val() == "") {
+            $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
+            check = false;
+        }
+        else {
+            $('p[name="paper_number_edit"]').text("")
+        }
+        var patt2 = new RegExp("^ +$")
+        if (type == 1 && patt2.test($('#paper_number_edit').val())) {
+            $('p[name="paper_number_edit"]').text("Số giấy tờ tùy thân không hợp lệ")
+            check = false;
+        }
+        else {
+            $('p[name="paper_number_edit"]').text("")
+        }
+        if (check === false)
+            return;
+        else {
+            $('#pre-load').show()
+            $.ajax({
+                type: "POST",
+                url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc",
+                cache: false,
+                dataType: "json",
+                data: {
+                    FullName: $('#name_edit').val(),
+                    Phone: $('#phone_edit').val(),
+                    PostalDistrictCode: $('#district_edit').val(),
+                    Street: $('#street_edit').val(),
+                    PersonalPaperTypeID: $('#paper_type_edit').val(),
+                    PersonalPaperNumber: $('#paper_number_edit').val(),
+                    PersonalPaperIssuedDateString: $('#paper_date_edit').val(),
+                    PersonalPaperIssuedPlace: $('#paper_place_edit').val(),
+                    ContactInfoID: $('#info_edit').val(),
+                    Type: type
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.add) {
+                            for (var i = 2; i < 5; i++) {
+                                $('section:nth-child(' + i*2 + ') .row').children('p').remove()
+                                $('section:nth-child(' + i*2 + ') .row').append(response.html[i-2])
+                            }
                         }
+                        else {
+                            $(contact).find('#FullName').text($('#name_edit').val())
+                            $(contact).find('#Street').text($('#street_edit').val())
+                            $(contact).find('#Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
+                            $(contact).find('#Address').data('district', $('#district_edit').val())
+                            $(contact).find('#Phone').text($('#phone_edit').val())
+                            $(contact).find('#PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
+                            $(contact).find('#PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
+                            $(contact).find('#PersonalPaperNumber').text($('#paper_number_edit').val())
+                            $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
+                            $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
+                        }
+                        $('#close-modal').click();
+                        successAlert(response.message);
                     }
-                    else {
-                        $(contact).find('#FullName').text($('#name_edit').val())
-                        $(contact).find('#Street').text($('#street_edit').val())
-                        $(contact).find('#Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
-                        $(contact).find('#Address').data('district', $('#district_edit').val())
-                        $(contact).find('#Phone').text($('#phone_edit').val())
-                        $(contact).find('#PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
-                        $(contact).find('#PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
-                        $(contact).find('#PersonalPaperNumber').text($('#paper_number_edit').val())
-                        $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
-                        $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
-                    }
-                    $('#close-modal').click();
-                    successAlert(response.message);
+                    else
+                        errorAlert(response.message)
+                    $('#pre-load').hide()
+                },
+                error: function () {
+                    $('#pre-load').hide()
                 }
-                else
-                    errorAlert(response.message)
-                $('#pre-load').hide()
-            },
-            error: function () {
-                $('#pre-load').hide()
-            }
-        })
+            })
+        }
     })
 
     $(document).on("click", "#profile1", function () {
@@ -1414,15 +1450,15 @@
                 }
             }
             else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
-                toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!');
+                toastr.error('Vui lòng chọn thông tin người yêu cầu giải quyết TTHC');
                 return false;
             }
             else if (currentIndex === 2 && !validate2 && newIndex > currentIndex) {
-                toastr.error('Hãy chọn thông tin người gửi!');
+                toastr.error('Vui lòng chọn thông tin người gửi');
                 return false;
             }
             else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
-                toastr.error('Hãy chọn thông tin người nhận!');
+                toastr.error('Vui lòng chọn thông tin người nhận');
                 return false;
             }
             else if (currentIndex === 4) {

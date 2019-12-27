@@ -87,7 +87,7 @@
                             <label><b>URI</b></label>
                             <div class="h-form-label">
                                 <input type="text" id="uri" disabled="disabled">
-
+                                <input type="hidden" id="apiid" value="@ViewBag.api" />
                             </div>
                         </div>
                     </div>
@@ -221,9 +221,11 @@
 </div>
 <script>
     var id = "";
-    var apiid = ""
+   
     $(document).ready(function () {
-        drawTable();
+        if ($("#apiid").val() == '') { drawTable(); }
+        else { listapi();getInformationOfApi();}
+       
     });
 
     $(document).on("click", "#delete", function () {
@@ -283,7 +285,7 @@
                     i++;
                     var tbData = "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td> <a href='#' onclick='getInformationOfApi(" + item.APIID + ")'  id='getapiid'>" + item.APIID + "</a></td>" +
+                        "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
                         "<td>" + item.APIDescription + "</td>" +
                         "<td>" + item.APIUri + "</td>" +
                         "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
@@ -305,9 +307,49 @@
         });
 
     }
-    function getInformationOfApi(apiid) {
-        $("#pre-load").show();
+    function listapi() {
+         $("#pre-load").show();
+     $.ajax({
+            url: "/api/danh-sach-api/listAPI",
+            type: "Post",
 
+            datatype: "json",
+           
+            cache: false,
+            success: function (data) {
+              
+                 $.each(data.listapi, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
+                        "<td>" + item.APIDescription + "</td>" +
+                        "<td>" + item.APIUri + "</td>" +
+                        "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
+                        "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
+                        "</tr>";
+
+                    $("#apiTable").find("tbody").append(tbData);
+                }
+                );
+                
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $("#pre-load").hide();
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+    }
+
+
+    function getInformationOfApi() {
+        $("#pre-load").show();
+        
         $("#parameterTable").find("tr:gt(1)").remove();
         $("#requestTable").find("tr:gt(1)").remove();
         $.ajax({
@@ -316,7 +358,7 @@
 
             datatype: "json",
             data: {
-                apiid: apiid
+                apiid: $("#apiid").val(),
             },
             cache: false,
             success: function (data) {
@@ -338,7 +380,7 @@
                 $("#description").val(data.api.APIDescription);
                 $("#username").val(data.api.Username);
                 $("#password").val(data.api.Password);
-
+                
                 $.each(data.listAPIInputParam, function (i, item) {
                     i++;
                     var tbData = "<tr>" +
