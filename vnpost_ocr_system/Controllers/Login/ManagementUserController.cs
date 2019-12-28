@@ -57,7 +57,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             query += " order by a.Role,a.PostalProvinceCode";
             List<Admindb> searchList = null;
-            List<Admindb> append = null;
+            List<Admindb> append = new List<Admindb>();
             int stt = 0;
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
@@ -78,32 +78,32 @@ namespace vnpost_ocr_system.Controllers.Login
                     new SqlParameter("name", '%' + name + '%'),
                     new SqlParameter("username", '%' + username + '%')
                     ).ToList();
-                append = db.Database.SqlQuery<Admindb>(@"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT, a.AdminID,a.AdminName,a.AdminUsername,a.PostalProvinceCode,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar where a.Role=ar.AdminRoleID and a.Role in (2) and
-                                                        a.IsActive like @active and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username",
-                                                        new SqlParameter("active", '%' + active + '%'),
-                                                        new SqlParameter("role", '%' + role + '%'),
-                                                        new SqlParameter("name", '%' + name + '%'),
-                                                        new SqlParameter("username", '%' + username + '%')).ToList();
-                append.AddRange(searchList);
-                foreach (Admindb a in append.ToList())
+                if (Convert.ToInt32(Session["adminRole"]) == 1)
                 {
-                    if (a.AdminRoleName.Equals("Tổng công ty") && !province.Equals("0") && !string.IsNullOrEmpty(province)) { append.Remove(a); }
-                    else
+                    append = db.Database.SqlQuery<Admindb>(@"select CAST(ROW_NUMBER() OVER(ORDER BY a.AdminName ASC) as int) AS STT, a.AdminID,a.AdminName,a.AdminUsername,a.PostalProvinceCode,ar.AdminRoleName,a.IsActive from Admin a,AdminRole ar where a.Role=ar.AdminRoleID and a.Role in (2) and
+                                                        a.IsActive like @active and a.Role like @role and a.AdminName like @name and a.AdminUsername like @username",
+                                        new SqlParameter("active", '%' + active + '%'),
+                                        new SqlParameter("role", '%' + role + '%'),
+                                        new SqlParameter("name", '%' + name + '%'),
+                                        new SqlParameter("username", '%' + username + '%')).ToList();
+                    append.AddRange(searchList);
+                    foreach (Admindb a in append.ToList())
                     {
-                        if (a.AdminRoleName.Equals("Tổng công ty"))
+                        if (a.AdminRoleName.Equals("Tổng công ty") && !province.Equals("0") && !string.IsNullOrEmpty(province)) { append.Remove(a); }
+                        else
                         {
-                            a.PostalProvinceName = "Tổng công ty";
+                            if (a.AdminRoleName.Equals("Tổng công ty"))
+                            {
+                                a.PostalProvinceName = "Tổng công ty";
+                            }
                         }
+                        a.STT = ++stt;
                     }
-                    a.STT = ++stt;
-                }
-                db.Configuration.LazyLoadingEnabled = false;
+                }else append.AddRange(searchList);
 
+                db.Configuration.LazyLoadingEnabled = false;
                 totalrows = append.Count;
                 totalrowsafterfiltering = append.Count;
-                //sorting
-                //searchList = searchList.OrderBy(sortColumnName + " " + sortDirection).ToList<Admindb>();
-                //paging
                 append = append.Skip(start).Take(length).ToList<Admindb>();
             }
             catch (Exception e)
