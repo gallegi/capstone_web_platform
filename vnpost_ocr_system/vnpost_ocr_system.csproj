@@ -196,6 +196,7 @@
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\MobileViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\Services\ServicesController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
     <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
@@ -6302,6 +6303,7 @@
     <Content Include="Views\MobileView\Users\InvitationManage.cshtml" />
     <Content Include="Views\Login\NewLogin.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Services\Services.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
