@@ -1,0 +1,95 @@
+﻿
+
+@{
+    ViewBag.Title = "DisplayStatisticChart";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+<style>
+    .time-table-container table td input {
+        width: auto !important;
+        text-align: center;
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+
+    .remove-btn {
+        cursor: pointer;
+    }
+
+    .switch label input[type=checkbox]:checked + .lever:after {
+        background-color: #4bc74d !important;
+    }
+
+    .switch label input[type=checkbox]:checked + .lever {
+        background-color: #33ad50 !important;
+    }
+    .btn{
+        margin-top:20px;
+    }
+    .btn * {
+    vertical-align: middle;
+    }
+    #add-btn{
+        background-color:#4fb155;
+    }
+     #save-btn{
+        background-color:#f34646;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-content">
+            <h3 class="font-medium title">Services</h3>
+            <span style="color:gray"> Cấu hình thời điểm cập nhật trạng thái cho services</span>
+            <hr />
+            <div class="time-table-container">
+                <table id="time-table" class="table-bordered table-striped">
+                    <tr>
+                        <td class="stt">1</td>
+                        <td class="time-set">
+                            <input type="number" name="hours" min="0" max="23">giờ<input type="number" name="minutes" min="0" max="59"> phút
+                        </td>
+                        <td>
+                            <div class="switch">
+                                <label>
+                                    Tắt
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                    Kích hoạt
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="remove-btn">
+                                <i class="material-icons dp48" style="color:red; font-size:25px">remove_circle</i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="stt">2</td>
+                        <td class="time-set">
+                            <input type="number" name="hours" min="0" max="23">giờ<input type="number" name="minutes" min="0" max="59"> phút
+                        </td>
+                        <td>
+                            <div class="switch">
+                                <label>
+                                    Tắt
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                    Kích hoạt
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="remove-btn">
+                                <i class="material-icons dp48" style="color:red; font-size:25px">remove_circle</i>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn mdi-grid-large waves-effect waves-light"  id="add-btn"><i class="material-icons dp48">library_add</i> Thêm</button>
+            <button class="btn mdi-grid-large waves-effect waves-light"  id="save-btn"><i class="material-icons dp48">save</i> Lưu</button>
+        </div>
+    </div>
+</div>

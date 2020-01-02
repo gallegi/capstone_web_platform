@@ -377,6 +377,9 @@
         
        
         if ($('#uri').val() === '') {
+            $("html, body").animate({
+                scrollTop: $("#uri-err").offset().top
+            }, 500);
             $('#uri-err').text('Vui lòng nhập URI');
             return false;
         }
@@ -384,6 +387,9 @@
             $('#uri-err').text('');
         }
         if (!validURL($('#uri').val())) {
+            $("html, body").animate({
+                scrollTop: $("#uri-err").offset().top
+            }, 500);
            $('#uri-err').text('URI không hợp lệ');
            
             return false;
@@ -391,8 +397,12 @@
             $('#uri-err').text('');
         }
        
-         if ($('#description').val() === '') {
-                $('#description-err').text('Vui lòng nhập mô tả API');
+        if ($('#description').val() === '') {
+             $("html, body").animate({
+                scrollTop: $("#description-err").offset().top
+            }, 500);
+             $('#description-err').text('Vui lòng nhập mô tả API');
+             
             return false;
         }
      else {
@@ -401,7 +411,9 @@
         
        
          if ($('#format').val()==='') {
-            
+            $("html, body").animate({
+                scrollTop: $("#response-data-err").offset().top
+            }, 500);
              $('#response-data-err').text('Vui lòng nhập SampleData');;
             return false;
          }
@@ -412,7 +424,10 @@
        try { 
                 JSON.parse($('#format').val()); 
               $('#response-data-err').text('');
-            } catch (error) { 
+       } catch (error) { 
+           $("html, body").animate({
+                scrollTop: $("#response-data-err").offset().top
+            }, 500);
                   $('#response-data-err').text('SampleData không hợp lệ');;
             return false; 
         } 
@@ -420,24 +435,24 @@
         
 
         if ($(".duplicate1").length > 0) {
-            $("html body").animate({
-                scrollTop: ($(".duplicate1").offset().top)
+            $("html, body").animate({
+                scrollTop: $(".duplicate1").offset().top
             }, 500);
             errorAlert('Lỗi', 'Vui lòng nhập những trường còn trống');
         } else if ($(".has-space").length > 0) {
-            $("html body").animate({
-                scrollTop: ($(".has-space").offset().top)
+            $("html, body").animate({
+                scrollTop: $(".has-space").offset().top
             }, 500);
             errorAlert('Lỗi', 'Physics không hợp lệ');
         }
         else if ($(".duplicate").length > 0) {
-            $("html body").animate({
-                scrollTop: ($(".duplicate").offset().top)
+            $("html, body").animate({
+                scrollTop: $(".duplicate").offset().top
             }, 500);
             errorAlert('Lỗi', 'Những physic này đã tồn tại');
         }
         else {
-            $("#pre-load").show();
+            
             $.ajax({
                 type: "POST",
                 url: "/api/them-moi-api/add",
@@ -445,8 +460,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                     $("#pre-load").hide();
-                    
+                     
                     window.location.replace("/api/danh-sach-api");
                 }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                     errorAlert('Lỗi', 'Xin vui lòng kiểm tra lại');
