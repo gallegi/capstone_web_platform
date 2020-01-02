@@ -4,19 +4,29 @@
 
 
 <style>
-    .duplicate {
+    .duplicate-request {
         border: 1px solid red !important;
         color: red !important;
     }
-    .err{
+    .duplicate-parameter {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+    .has-space-request {
+         color:red !important;
+        
+       }
+    .has-space-parameter {
+        color:red !important;
+       }
+   .err{
        color:red !important;
    }
-     .duplicate1 {
+    .empty-paramter {
         border: 1px solid red !important;
-       
-    }
-     .has-space{
-       color:red !important;
+     }
+   .empty-request{
+      border: 1px solid red !important;
    }
 </style>
 <link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
@@ -118,17 +128,23 @@
                                 <tr>
                                     <th style="width: 45%">Logic</th>
                                     <th style="width: 30%">Physics</th>
-                                    
+
                                 </tr>
                             </thead>
 
                             <tbody>
                             </tbody>
                         </table>
+                        <div id="parameter-err" class="err">
+                        </div>
+                        <div id="parameter-err1" class="err">
+                        </div>
+                        <div id="parameter-err2" class="err">
+                        </div>
                         <br />
                         <div class="center-align">
                             <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'></i>Thêm Parameter data mới</button></a>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -153,17 +169,23 @@
                                 <tr>
                                     <th style="width: 45%">Logic</th>
                                     <th style="width: 30%">Physics</th>
-                                   
+
                                 </tr>
                             </thead>
 
                             <tbody>
                             </tbody>
                         </table>
+                        <div id="request-err" class="err">
+                        </div>
+                        <div id="request-err1" class="err">
+                        </div>
+                        <div id="request-err2" class="err">
+                        </div>
                         <br />
                         <div class="center-align">
                             <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'></i>Thêm Request data mới</button></a>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -302,23 +324,23 @@
 
     }
     function checkValidate() {
-        $("#parameterTable TBODY TR TD input").each(function () {
-            var value = $(this).val();
+       $("#parameterTable TBODY TR TD input").each(function () {
+            var value = $(this).val().trim();
             if (value === '') {
                 
-                $(this).addClass("duplicate1");
+                $(this).addClass("empty-paramter");
             }
             else
-                $(this).removeClass("duplicate1");
+                $(this).removeClass("empty-paramter");
         });
         $("#requestTable TBODY TR TD input").each(function () {
-            var value = $(this).val();
+            var value = $(this).val().trim();
             if (value === '') {
 
-                $(this).addClass("duplicate1");
+                $(this).addClass("empty-request");
             }
             else
-                $(this).removeClass("duplicate1");
+                $(this).removeClass("empty-request");
         });
          
     }
@@ -373,7 +395,7 @@
     function Edit() {
         var listrequest = new Array();
         var listparameter = new Array();
-
+        var check = true;
         $("#requestTable TBODY TR").each(function () {
             var request = {};
 
@@ -407,103 +429,160 @@
 
         }
         var arrparam = [];
-        $(".paramName").each(function () {
+       $(".paramName").each(function () {
             var value = $(this).val();
-             var hasSpace = value.match(/\s/g);
-            hasSpace ?  $(this).addClass("has-space") :  $(this).removeClass("has-space")
+            var hasSpace = value.match(/\s/g);
+            hasSpace ?  $(this).addClass("has-space-parameter") :  $(this).removeClass("has-space-parameter")
             if (arrparam.indexOf(value) == -1) {
                 arrparam.push(value);
-                $(this).removeClass("duplicate");
+                $(this).removeClass("duplicate-parameter");
             }
             else {
-                $(this).addClass("duplicate");
+                $(this).addClass("duplicate-parameter");
+                $(this).focus();
             }
         });
         var arrrequest = [];
         $(".requestName").each(function () {
             var value = $(this).val();
-             var hasSpace = value.match(/\s/g);
-            hasSpace ?  $(this).addClass("has-space") :  $(this).removeClass("has-space")
+            var hasSpace = value.match(/\s/g);
+            hasSpace ?  $(this).addClass("has-space-request") :  $(this).removeClass("has-space-request")
             if (arrrequest.indexOf(value) == -1) {
                 arrrequest.push(value);
-                $(this).removeClass("duplicate");
+                $(this).removeClass("duplicate-request");
             }
             else {
-                $(this).addClass("duplicate");
-
+                $(this).addClass("duplicate-request");
+                $(this).focus();
             }
         });
-        if ($('#uri').val() === '') {
+        
+       
+        if ($('#uri').val().trim() === '') {
             $("html, body").animate({
                 scrollTop: $("#uri-err").offset().top
             }, 500);
             $('#uri-err').text('Vui lòng nhập URI');
-            return false;
+            check=false;
         }
         else {
             $('#uri-err').text('');
         }
         if (!validURL($('#uri').val())) {
-             $("html, body").animate({
+            $("html, body").animate({
                 scrollTop: $("#uri-err").offset().top
             }, 500);
            $('#uri-err').text('URI không hợp lệ');
            
-            return false;
+            check=false;
         }else {
             $('#uri-err').text('');
         }
-        if ($('#description').val() === '') {
-            $("html, body").animate({
+       
+        if ($('#description').val().trim() === '') {
+             $("html, body").animate({
                 scrollTop: $("#description-err").offset().top
             }, 500);
-                $('#description-err').text('Vui lòng nhập mô tả API');
-            return false;
+             $('#description-err').text('Vui lòng nhập Mô tả API');
+             
+            check=false;
         }
      else {
             $('#description-err').text('');
         }
-     if ($('#format').val()==='') {
+        
+       
+         if ($('#format').val().trim()==='') {
             $("html, body").animate({
                 scrollTop: $("#response-data-err").offset().top
             }, 500);
-             $('#response-data-err').text('Vui lòng nhập SampleData');;
-            return false;
+             $('#response-data-err').text('Vui lòng nhập SampleData');
+            check=false;
          }
     else {
             $('#response-data-err').text('');
         }
 
-        try { 
+       try { 
                 JSON.parse($('#format').val()); 
               $('#response-data-err').text('');
-        } catch (error) { 
-            $("html, body").animate({
+       } catch (error) { 
+           $("html, body").animate({
                 scrollTop: $("#response-data-err").offset().top
             }, 500);
                   $('#response-data-err').text('SampleData không hợp lệ');;
-            return false; 
+            check=false; 
         } 
-         checkValidate();
+        checkValidate();
         
 
-        if ($(".duplicate1").length > 0) {
+        if ($(".duplicate-parameter").length > 0) {
             $("html, body").animate({
-                scrollTop: $(".duplicate1").offset().top
+                scrollTop: $(".duplicate-parameter").offset().top
             }, 500);
-            errorAlert('Lỗi', 'Vui lòng nhập những trường còn trống');
-        } else if ($(".has-space").length > 0) {
-            $("html, body").animate({
-                scrollTop: $(".has-space").offset().top
-            }, 500);
-            errorAlert('Lỗi', 'Physics không hợp lệ');
+            
+            $('#parameter-err2').text('Những physic này đã tồn tại');
+            check = false;
         }
-        else if ($(".duplicate").length > 0) {
-            $("html, body").animate({
-                scrollTop: $(".duplicate").offset().top
-            }, 500);
-            errorAlert('Lỗi', 'Những physic này đã tồn tại');
+        else {
+            $('#parameter-err2').text('');
         }
+        if ($(".duplicate-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".duplicate-request").offset().top
+            }, 500);
+            
+            $('#request-err2').text('Những physic này đã tồn tại');
+            check = false;
+        }
+        else {
+            $('#request-err2').text('');
+        }
+        if ($(".has-space-parameter").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".has-space-parameter").offset().top
+            }, 500);
+            $('#parameter-err1').text('Physics không hợp lệ');
+            check = false;
+        }
+        else {
+            $('#parameter-err1').text('');
+        }
+        if ($(".has-space-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".has-space-request").offset().top
+            }, 500);
+          
+            $('#request-err1').text('Physics không hợp lệ');
+            check = false;
+        }
+        else {
+            $('#request-err1').text('');
+        }
+        if ($(".empty-paramter").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".empty-paramter").offset().top
+            }, 500);
+            $('#parameter-err').text('Không được bỏ trống trường này');
+            check = false;
+        }
+        else {
+            $('#parameter-err').text('');
+        }
+        if ($(".empty-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".empty-request").offset().top
+            }, 500);
+            $('#request-err').text('Không được bỏ trống trường này');
+            check = false;
+        }
+        else {
+            $('#request-err').text('');
+        }
+
+        if (check === false)
+            return;
+        
         else {
            
             $.ajax({
