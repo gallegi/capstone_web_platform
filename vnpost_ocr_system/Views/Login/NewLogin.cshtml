@@ -591,6 +591,11 @@
             $('#name-err').text('Vui lòng nhập họ tên');
             return false;
         }
+        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
+        if (isName == true) {
+            $('#name-err').html('Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
         if ($("#phonecheck").is(":checked") === true) {
             if (phone.length == 0) {
 

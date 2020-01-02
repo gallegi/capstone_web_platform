@@ -63,16 +63,16 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 if (od == null) ViewBag.ck = 1;
                 else ViewBag.ck = 0;
 
-                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail where OrderID = @id  order by y,m,d desc";
+                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = 32400  order by CreatedTime desc";
                 List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", odb.OrderID)).ToList();
-                query = "select os.*,s.StatusName,p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = @id and os.StatusID != 0  order by y,m,d desc";
+                query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = 32400 and os.StatusID != 0  order by CreatedTime desc";
                 List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", odb.OrderID)).ToList();
                 foreach (var item in list)
                 {
                     item.listOrder = new List<MyOrderDetail>();
                     foreach (var x in listOrderDB)
                     {
-                        x.hour = x.CreatedTime.ToString("HH:MM");
+                        x.hour = x.h + ":" + x.mi;
                         if (x.y == item.y && x.m == item.m && x.d == item.d)
                         {
                             if (x.StatusID == 2) x.display = "Đã xác nhận đi khỏi bưu cục - " + x.PosCode + " - " + x.PosName;
@@ -110,7 +110,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
                             inner join PublicAdministration pa on pr.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
