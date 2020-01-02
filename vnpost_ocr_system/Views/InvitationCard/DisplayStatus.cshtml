@@ -614,6 +614,7 @@
         else $('#detail').show();
         $('.myStep').each(function (index) {
             if (index < @ViewBag.order.step) $(this).addClass("done");
+            if (index == @ViewBag.order.step && @ViewBag.order.StatusID == 0) $(this).addClass("error");
             if (index == @ViewBag.order.step) $(this).addClass("current");
         });
         if(@ViewBag.order.step == 4) $('#step5').addClass("done");

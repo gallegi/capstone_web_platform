@@ -55,17 +55,19 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             {
                 if (cusid != "")
                 {
-                    string checksql = "select o.* " +
+                    string checksql = "select o.*," +
+                        "(case when o.StatusID = 0 then 0 else 1 end) as 'active' " +
                         "from [Order] o inner join Customer c on o.CustomerID = c.CustomerID " +
-                        "where c.CustomerID = @cusid and o.AppointmentLetterCode = @oid and o.StatusID != 0";
+                        "where c.CustomerID = @cusid and o.AppointmentLetterCode = @oid " +
+                        "order by active desc";
                     od = db.Database.SqlQuery<Order>(checksql, new SqlParameter("cusid", cusid), new SqlParameter("oid", id)).FirstOrDefault();
                 }
                 if (od == null) ViewBag.ck = 1;
                 else ViewBag.ck = 0;
 
-                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = 32400  order by CreatedTime desc";
+                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
                 List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", odb.OrderID)).ToList();
-                query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = 32400 and os.StatusID != 0  order by CreatedTime desc";
+                query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = @id order by CreatedTime desc";
                 List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", odb.OrderID)).ToList();
                 foreach (var item in list)
                 {
@@ -110,7 +112,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC'
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC',
+                            (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
                             inner join PublicAdministration pa on pr.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
@@ -118,16 +121,18 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                             inner join District d on d.DistrictCode = p.DistrictCode
 							inner join OrderStatusDetail os on o.OrderID = os.OrderID
 							inner join Status s on os.StatusID = s.StatusID
-                            where o.AppointmentLetterCode = @id and o.StatusID != 0";
+                            where o.AppointmentLetterCode = @id
+                            order by active desc";
                 orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
                 if (o == null)
                 {
-                    sql = @"select distinct o.*, os.PosCode
+                    sql = @"select distinct o.*, os.PosCode,
+                        (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                         from [Order] o left outer join Status s on o.StatusID = s.StatusID
                         inner join OrderStatusDetail os on o.OrderID = os.OrderID
-                        where o.AppointmentLetterCode = @id and o.StatusID != 0";
+                        where o.AppointmentLetterCode = @id
+                        order by active desc";
                     o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
-                    Console.WriteLine();
                 }
                 else
                 {
