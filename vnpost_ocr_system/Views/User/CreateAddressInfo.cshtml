@@ -20,6 +20,10 @@
         right: 50%;
         transform: translateX(50%) translateY(50%);
     }
+
+    .validation {
+        color: red;
+    }
 </style>
 
 <div class="main-wrapper p-t-20 black-text">
@@ -33,6 +37,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="name" type="text" value="">
+                        <p class="validation" name="check-name"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -41,6 +46,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="phone" type="text" value="">
+                        <p class="validation" name="check-phone"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -49,12 +55,13 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="card-border" id="province">
-                            <option value='' selected disabled> Tỉnh/Thành Phố </option>
+                            @*<option value='' selected disabled> Tỉnh/Thành Phố </option>*@
                             @foreach (var item in ViewBag.listProvince)
                             {
                                 <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
                             }
                         </select>
+                        <p class="validation" name="check-province"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -64,6 +71,7 @@
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="card-border" id="district">
                         </select>
+                        <p class="validation" name="check-district"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -72,6 +80,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <textarea id="address"></textarea>
+                        <p class="validation" name="check-address"></p>
                     </div>
                 </div>
                 <div class="row m-b-30">
@@ -96,6 +105,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <input id="code" type="text" value="">
+                        <p class="validation" name="check-code"></p>
                     </div>
                 </div>
 
@@ -105,7 +115,7 @@
                     </div>
                     <div class="col s10 l4 m4">
                         <input name="date" id="date" type="datetime"
-                               class="datepicker-here" autocomplete="off"
+                               class="datepicker-here center date-click" autocomplete="off"
                                data-language='vi' value="" />
                         <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
                     </div>
@@ -148,24 +158,90 @@
             code: document.getElementById("code").value,
             placeOfIssue: document.getElementById("placeOfIssue").value
         };
+        var checkName = $('#name').val().trim();
+        var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        var checkPhone = $('#phone').val().trim();
+        var regexPhone = /^[0-9\-\+]{10}$/;
+        var isPhone = regexPhone.test(checkPhone);
+        var sub = checkPhone.substring(0, 2);
 
-        var valid;
-        if (data.paperType == "") {
-            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "") {
-                valid = false;
-            } else {
-                valid = true;
-            }
-        } else {
-            if (data.name == "" || data.phone == "" || data.province == "" || data.district == "" || data.address == "" || data.code == "") {
-                valid = false;
-            } else {
-                valid = true;
+        //boolean 
+        var valid_address = true;
+        var valid_name = true;
+        var valid_phone = true;
+        var valid_province = true;
+        var valid_district = true;
+        var valid_code = true;
+
+        //check Name
+        if (checkName == "") {
+            $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+            valid_name = false;
+        } else if (invalidName) {
+            $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            valid_name = false;
+        }
+
+        //check Phone
+        if (checkPhone == "") {
+            $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại');
+            valid_phone = false;
+        } else if (isPhone === false) {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        }
+
+        //check Address
+        if ($('#address').val().trim() == "") {
+            $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ');
+            valid_address = false;
+        }
+
+        //check Province
+        if (data.province == "") {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/thành');
+            valid_province = false;
+        }
+
+        //check District
+        if (data.district == "") {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/huyện');
+            valid_district = false;
+        }
+
+        //case paperType
+        if (data.paperType != "") {
+            if ($('#code').val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân');
+                valid_code = false;
             }
         }
 
+        //update status of input:
+        if (valid_name) {
+            $('p[name="check-name"]').text('');
+        }
+        if (valid_phone) {
+            $('p[name="check-phone"]').text('');
+        }
+        if (valid_address) {
+            $('p[name="check-address"]').text('');
+        }
+        if (valid_province) {
+            $('p[name="check-province"]').text('');
+        }
+        if (valid_district) {
+            $('p[name="check-district"]').text('');
+        }
+        if (valid_code) {
+            $('p[name="check-code"]').text('');
+        }
+
         //handling input cases
-        if (valid) {
+        if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code) {
             $.ajax({
                 url: "/tai-khoan/tao-dia-chi-moi/them",
                 type: "POST",
@@ -177,10 +253,60 @@
                 }
             });
         } else {
-            toastr.error('Hãy điền đầy đủ thông tin!', '');
+            toastr.error('Hãy điền đầy đủ thông tin chính xác!', '');
         }
     }
 
+    $(document).ready(function () {
+        $('#name').focusout(function () {
+            var checkName = $('#name').val().trim();
+            var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            if (checkName == "") {
+                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên')
+            } else if (invalidName) {
+                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            } else {
+                $('p[name="check-name"]').text('');
+            }
+        })
+        
+        $('#phone').focusout(function () {
+            var checkPhone = $('#phone').val().trim();
+            //Using sub to check 03 05 07 09 04
+            var sub = checkPhone.substring(0, 2);
+            var regexPhone = /^[0-9\-\+]{10}$/;
+            var isPhone = regexPhone.test(checkPhone);
+            if (checkPhone == "") {
+                $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại')
+            } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else {
+                $('p[name="check-phone"]').text('');
+            }
+        })
+
+        $('#address').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ')
+            } else {
+                $('p[name="check-address"]').text('');
+            }
+        })
+
+        $('#code').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân')
+            } else {
+                $('p[name="check-code"]').text('');
+            }
+        })
+    })
+
+</script>
+
+<script>
     $(document).ready(function () {
         $('#province').change(function () {
             var data = {
@@ -194,7 +320,8 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#district').empty();
-                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                    //var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                    var option;
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
@@ -203,8 +330,7 @@
                     $('#pre-load').hide()
                 }
             });
-        }
-        )
+        })
     })
 
     function toggleDiv(divId, element) {
@@ -215,9 +341,14 @@
         }
     }
 
+    $('#date').keypress(function (e) {
+        e.preventDefault();
+    });
+
 </script>
 
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>

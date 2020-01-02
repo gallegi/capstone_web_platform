@@ -17,9 +17,12 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
         [Route("api/danh-sach-api")]
         public ActionResult Index()
         {
+            string api = Request.QueryString["apiid"];
+            ViewBag.api = api;
             return View("/Views/API/ListAPI.cshtml");
 
         }
+        [Auther(Roles = "1")]
         [Route("api/danh-sach-api/getinformation")]
         [HttpPost]
         public ActionResult GetInformation()
@@ -28,18 +31,37 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
             {
                 List<APIDB> listAPI = db.Database.SqlQuery<APIDB>("select APIID,APIUri,APIDescription" +
                     " from API").ToList();
+               
                 APIEdit api = db.Database.SqlQuery<APIEdit>("select  APIMethodID,APIUri,APIDescription,SampleResponse,Username," +
-                   "Password from API where APIID=1").FirstOrDefault();
+                   "Password from API where APIID=(select top 1 apiid from API )").FirstOrDefault();
                 List<APIInputParam> listAPIInputParam = db.Database.SqlQuery<APIInputParam>("select APIID,APIInputParamName,APIInputParamType,APIInputParamDescription," +
-                    "LastMofifiedTime from APIInputParam where APIID=1").ToList();
+                    "LastMofifiedTime from APIInputParam where APIID=(select top 1 apiid from API )").ToList();
                 List<APIOutputParam> listAPIOutputParam = db.Database.SqlQuery<APIOutputParam>("select APIID,APIOutputParamName,APIOutputParamType,APIOutputParamDescription,LastMofifiedTime" +
-                    " from APIOutputParam where APIID=1").ToList();
+                    " from APIOutputParam where APIID=(select top 1 apiid from API )").ToList();
                 return Json(new
                 {
                     listAPI = listAPI,
                     api=api,
                     listAPIInputParam = listAPIInputParam,
                     listAPIOutputParam = listAPIOutputParam
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+        [Auther(Roles = "1")]
+        [Route("api/danh-sach-api/listAPI")]
+        [HttpPost]
+        public ActionResult ListAPI()
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                List<APIDB> listapi = db.Database.SqlQuery<APIDB>("select APIID,APIUri,APIDescription" +
+                    " from API").ToList();
+              
+                return Json(new
+                {
+                    listapi = listapi
+                    
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -73,12 +95,15 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
                 }
             }
         }
+
         [Route("api/danh-sach-api/getinformationofapi")]
         [HttpPost]
         public ActionResult GetInformationOfApi(int apiid)
         {
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
+                List<APIDB> listAPI = db.Database.SqlQuery<APIDB>("select APIID,APIUri,APIDescription" +
+                    " from API").ToList();
                 APIEdit api = db.Database.SqlQuery<APIEdit>("select  APIMethodID,APIUri,APIDescription,SampleResponse,Username," +
                    "Password from API where APIID=@apiid", new SqlParameter("apiid", apiid)).FirstOrDefault();
                 List<APIInputParam> listAPIInputParam = db.Database.SqlQuery<APIInputParam>("select APIID,APIInputParamName,APIInputParamType,APIInputParamDescription," +
@@ -86,13 +111,13 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
                 List<APIOutputParam> listAPIOutputParam = db.Database.SqlQuery<APIOutputParam>("select APIID,APIOutputParamName,APIOutputParamType,APIOutputParamDescription,LastMofifiedTime" +
                     " from APIOutputParam where APIID=@apiid", new SqlParameter("apiid", apiid)).ToList();
                 return Json(new
-                {
+                {   listAPI= listAPI,
                     api = api,
                     listAPIInputParam = listAPIInputParam,
                     listAPIOutputParam = listAPIOutputParam
                 }, JsonRequestBehavior.AllowGet); 
 
-            }
+            } 
         }
     }
     public class APIDB 

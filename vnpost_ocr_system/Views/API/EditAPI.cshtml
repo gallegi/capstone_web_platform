@@ -8,6 +8,16 @@
         border: 1px solid red !important;
         color: red !important;
     }
+    .err{
+       color:red !important;
+   }
+     .duplicate1 {
+        border: 1px solid red !important;
+       
+    }
+     .has-space{
+       color:red !important;
+   }
 </style>
 <link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
 <script src="~/assets/extra-libs/jquery-datatables-editable/jquery.dataTables.js"></script>
@@ -39,6 +49,8 @@
                             <div class="h-form-label">
                                 <input type="text" id="uri">
                                 <input type="hidden" id="apiid" value="@ViewBag.api" />
+                                <div id="uri-err" class="err">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,7 +60,10 @@
                             <label><b>Mô tả API</b></label>
                             <div class="h-form-label">
                                 <input type="text" id="description">
+                                <div id="description-err" class="err">
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -169,7 +184,10 @@
                                 </div>
                                 <div class="response-data-right">
                                     <textarea style="height: 100%" id="format"></textarea>
+                                    <div id="response-data-err" class="err">
+                                    </div>
                                 </div>
+                                
                             </div>
 
                         </div>
@@ -283,7 +301,27 @@
         });
 
     }
+    function checkValidate() {
+        $("#parameterTable TBODY TR TD input").each(function () {
+            var value = $(this).val();
+            if (value === '') {
+                
+                $(this).addClass("duplicate1");
+            }
+            else
+                $(this).removeClass("duplicate1");
+        });
+        $("#requestTable TBODY TR TD input").each(function () {
+            var value = $(this).val();
+            if (value === '') {
 
+                $(this).addClass("duplicate1");
+            }
+            else
+                $(this).removeClass("duplicate1");
+        });
+         
+    }
     function addParameterRow() {
         countParameter++;
         $("#parameterTable").append("<tr id=\"parameter" + countParameter + "\">" +
@@ -323,7 +361,15 @@
             $(this).html(i++);
         })
     }
-
+      function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+    }
     function Edit() {
         var listrequest = new Array();
         var listparameter = new Array();
@@ -363,6 +409,8 @@
         var arrparam = [];
         $(".paramName").each(function () {
             var value = $(this).val();
+             var hasSpace = value.match(/\s/g);
+            hasSpace ?  $(this).addClass("has-space") :  $(this).removeClass("has-space")
             if (arrparam.indexOf(value) == -1) {
                 arrparam.push(value);
                 $(this).removeClass("duplicate");
@@ -374,6 +422,8 @@
         var arrrequest = [];
         $(".requestName").each(function () {
             var value = $(this).val();
+             var hasSpace = value.match(/\s/g);
+            hasSpace ?  $(this).addClass("has-space") :  $(this).removeClass("has-space")
             if (arrrequest.indexOf(value) == -1) {
                 arrrequest.push(value);
                 $(this).removeClass("duplicate");
@@ -383,14 +433,79 @@
 
             }
         });
-        if ($(".duplicate").length > 0) {
-            $("html body").animate({
+        if ($('#uri').val() === '') {
+            $("html, body").animate({
+                scrollTop: $("#uri-err").offset().top
+            }, 500);
+            $('#uri-err').text('Vui lòng nhập URI');
+            return false;
+        }
+        else {
+            $('#uri-err').text('');
+        }
+        if (!validURL($('#uri').val())) {
+             $("html, body").animate({
+                scrollTop: $("#uri-err").offset().top
+            }, 500);
+           $('#uri-err').text('URI không hợp lệ');
+           
+            return false;
+        }else {
+            $('#uri-err').text('');
+        }
+        if ($('#description').val() === '') {
+            $("html, body").animate({
+                scrollTop: $("#description-err").offset().top
+            }, 500);
+                $('#description-err').text('Vui lòng nhập mô tả API');
+            return false;
+        }
+     else {
+            $('#description-err').text('');
+        }
+     if ($('#format').val()==='') {
+            $("html, body").animate({
+                scrollTop: $("#response-data-err").offset().top
+            }, 500);
+             $('#response-data-err').text('Vui lòng nhập SampleData');;
+            return false;
+         }
+    else {
+            $('#response-data-err').text('');
+        }
+
+        try { 
+                JSON.parse($('#format').val()); 
+              $('#response-data-err').text('');
+        } catch (error) { 
+            $("html, body").animate({
+                scrollTop: $("#response-data-err").offset().top
+            }, 500);
+                  $('#response-data-err').text('SampleData không hợp lệ');;
+            return false; 
+        } 
+         checkValidate();
+        
+
+        if ($(".duplicate1").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".duplicate1").offset().top
+            }, 500);
+            errorAlert('Lỗi', 'Vui lòng nhập những trường còn trống');
+        } else if ($(".has-space").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".has-space").offset().top
+            }, 500);
+            errorAlert('Lỗi', 'Physics không hợp lệ');
+        }
+        else if ($(".duplicate").length > 0) {
+            $("html, body").animate({
                 scrollTop: $(".duplicate").offset().top
             }, 500);
             errorAlert('Lỗi', 'Những physic này đã tồn tại');
         }
         else {
-            $("#pre-load").show();
+           
             $.ajax({
                 type: "POST",
                 url: "/api/chinh-sua-api/edit",
@@ -398,12 +513,8 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                    $("#pre-load").hide();
-                    //confirmAlert('Thành công', 'Thao tác thành công'), function () {
-                         
-                    //};
-                    
-                    window.location.replace("/api/danh-sach-api");
+                   
+                     window.location.replace("/api/danh-sach-api?apiid=" + $("#apiid").val() + "");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 

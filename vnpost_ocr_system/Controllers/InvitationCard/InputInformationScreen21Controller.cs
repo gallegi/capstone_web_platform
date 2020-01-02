@@ -65,7 +65,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             string Phone = Request["Phone"];
             string PostalDistrictCode = Request["PostalDistrictCode"];
             string Street = Request["Street"];
-            if (FullName == "" || Phone == "" || PostalDistrictCode == "")
+            if (FullName.Trim() == "")
+                return Json(new { success = false, message = "Vui lòng nhập Họ và tên" });
+            if (Phone.Trim() == "" || PostalDistrictCode == "")
                 return Json(new { success = false, message = "Không được để trống" });
 
             string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
@@ -175,6 +177,19 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? "" : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
                 return Json(new { info = info, list = districts });
+            }
+        }
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/CheckAppointmentLetterCode")]
+        [HttpPost]
+        public ActionResult CheckAppointmentLetterCode(string AppointmentLetterCode)
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                Order o = db.Orders.Where(x => x.AppointmentLetterCode.Equals(AppointmentLetterCode.Trim()) && x.StatusID != 0).FirstOrDefault();
+                if (o == null)
+                    return Json(true);
+                else
+                    return Json(false);
             }
         }
 

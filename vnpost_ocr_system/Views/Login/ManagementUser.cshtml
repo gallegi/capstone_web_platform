@@ -435,7 +435,7 @@
     }
 
     function ProChan() {
-        if (document.getElementById('role_add').value == 4) { document.getElementById('province_add').value = 1; $('#province_add').removeAttr('disabled'); }
+        if (document.getElementById('role_add').value == 4) {  $('#province_add').removeAttr('disabled'); }
         else {
             if (document.getElementById('role_add').value == 2) {
                 document.getElementById('province_add').value = 0;
@@ -631,10 +631,11 @@
                 $('#province_add').append(stringA);
                 $('#province_add').formSelect();
                 if (cou == 1) {
-                    document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
-                    $('#province').attr('disabled', true);
                     document.getElementById('province_add').value = result.listAE[0].PostalProvinceCode;
                     $('#province_add').attr('disabled', true);
+                    document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
+                    $('#province').attr('disabled', true);
+
                 }
             },
             error: function (errormessage) {

@@ -182,7 +182,7 @@
           <Property Name="OrderID" Type="bigint" Nullable="false" />
           <Property Name="PaymentMethodID" Type="int" Nullable="false" />
           <Property Name="PaymentStatusID" Type="int" Nullable="false" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" />
           <Property Name="OtherDetails" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PaymentMethod">
@@ -241,6 +241,7 @@
           <Property Name="PostalProvinceCode" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="PostalProvinceName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ProvinceCode" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="ProvinceShortName" Type="nvarchar" MaxLength="3" />
         </EntityType>
         <EntityType Name="PublicAdministration">
           <Key>
@@ -262,6 +263,15 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ServiceTimer">
+          <Key>
+            <PropertyRef Name="ServiceTimeID" />
+          </Key>
+          <Property Name="ServiceTimeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceTimeHour" Type="int" />
+          <Property Name="ServiceTimeMinute" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="StatusID" />
@@ -269,7 +279,7 @@
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Admin__CreatedBy__6D0D32F4">
+        <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__ModifiedB__6E01572D">
+        <Association Name="FK__Admin__ModifiedB__71D1E811">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__PostalPro__6EF57B66">
+        <Association Name="FK__Admin__PostalPro__72C60C4A">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__Role__6FE99F9F">
+        <Association Name="FK__Admin__Role__73BA3083">
           <End Role="AdminRole" Type="Self.AdminRole" Multiplicity="1" />
           <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +351,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Custo__73BA3083">
+        <Association Name="FK__ContactIn__Custo__778AC167">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,7 +363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Perso__74AE54BC">
+        <Association Name="FK__ContactIn__Perso__787EE5A0">
           <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="0..1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -365,7 +375,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Posta__75A278F5">
+        <Association Name="FK__ContactIn__Posta__797309D9">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__District__Postal__778AC167">
+        <Association Name="FK__District__Postal__7B5B524B">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
           <End Role="District" Type="Self.District" Multiplicity="*" />
           <ReferentialConstraint>
@@ -497,7 +507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderImag__Order__787EE5A0">
+        <Association Name="FK__OrderImag__Order__04E4BC85">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderImage" Type="Self.OrderImage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -521,7 +531,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderStat__PosCo__02FC7413">
+        <Association Name="FK__OrderStat__PosCo__06CD04F7">
           <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="0..1" />
           <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -533,7 +543,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderStat__Statu__03F0984C">
+        <Association Name="FK__OrderStat__Statu__07C12930">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -557,7 +567,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Payment__Payment__05D8E0BE">
+        <Association Name="FK__Payment__Payment__09A971A2">
           <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -569,7 +579,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Payment__Payment__06CD04F7">
+        <Association Name="FK__Payment__Payment__0A9D95DB">
           <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -582,9 +592,9 @@
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__PostOffic__Distr__07C12930" />-->
-        <Association Name="FK__Profile__PublicA__08B54D69">
+warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__PostOffic__Distr__0B91BA14" />-->
+        <Association Name="FK__Profile__PublicA__0C85DE4D">
           <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="1" />
           <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
           <ReferentialConstraint>
@@ -596,7 +606,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PublicAdm__PosCo__09A971A2">
+        <Association Name="FK__PublicAdm__PosCo__0D7A0286">
           <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="1" />
           <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="*" />
           <ReferentialConstraint>
@@ -608,7 +618,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResetPass__Custo__0A9D95DB">
+        <Association Name="FK__ResetPass__Custo__0E6E26BF">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ResetPasswordToken" Type="Self.ResetPasswordToken" Multiplicity="*" />
           <ReferentialConstraint>
@@ -668,20 +678,21 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PublicAdministration" EntityType="Self.PublicAdministration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResetPasswordToken" EntityType="Self.ResetPasswordToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceTimer" EntityType="Self.ServiceTimer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Admin__CreatedBy__6D0D32F4" Association="Self.FK__Admin__CreatedBy__6D0D32F4">
+          <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="Admin1" EntitySet="Admin" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__ModifiedB__6E01572D" Association="Self.FK__Admin__ModifiedB__6E01572D">
+          <AssociationSet Name="FK__Admin__ModifiedB__71D1E811" Association="Self.FK__Admin__ModifiedB__71D1E811">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="Admin1" EntitySet="Admin" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__PostalPro__6EF57B66" Association="Self.FK__Admin__PostalPro__6EF57B66">
+          <AssociationSet Name="FK__Admin__PostalPro__72C60C4A" Association="Self.FK__Admin__PostalPro__72C60C4A">
             <End Role="Province" EntitySet="Province" />
             <End Role="Admin" EntitySet="Admin" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__Role__6FE99F9F" Association="Self.FK__Admin__Role__6FE99F9F">
+          <AssociationSet Name="FK__Admin__Role__73BA3083" Association="Self.FK__Admin__Role__73BA3083">
             <End Role="AdminRole" EntitySet="AdminRole" />
             <End Role="Admin" EntitySet="Admin" />
           </AssociationSet>
@@ -693,19 +704,19 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="API" EntitySet="API" />
             <End Role="APIOutputParam" EntitySet="APIOutputParam" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Custo__73BA3083" Association="Self.FK__ContactIn__Custo__73BA3083">
+          <AssociationSet Name="FK__ContactIn__Custo__778AC167" Association="Self.FK__ContactIn__Custo__778AC167">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ContactInfo" EntitySet="ContactInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Perso__74AE54BC" Association="Self.FK__ContactIn__Perso__74AE54BC">
+          <AssociationSet Name="FK__ContactIn__Perso__787EE5A0" Association="Self.FK__ContactIn__Perso__787EE5A0">
             <End Role="PersonalPaperType" EntitySet="PersonalPaperType" />
             <End Role="ContactInfo" EntitySet="ContactInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Posta__75A278F5" Association="Self.FK__ContactIn__Posta__75A278F5">
+          <AssociationSet Name="FK__ContactIn__Posta__797309D9" Association="Self.FK__ContactIn__Posta__797309D9">
             <End Role="District" EntitySet="District" />
             <End Role="ContactInfo" EntitySet="ContactInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__District__Postal__778AC167" Association="Self.FK__District__Postal__778AC167">
+          <AssociationSet Name="FK__District__Postal__7B5B524B" Association="Self.FK__District__Postal__7B5B524B">
             <End Role="Province" EntitySet="Province" />
             <End Role="District" EntitySet="District" />
           </AssociationSet>
@@ -745,7 +756,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderImag__Order__787EE5A0" Association="Self.FK__OrderImag__Order__787EE5A0">
+          <AssociationSet Name="FK__OrderImag__Order__04E4BC85" Association="Self.FK__OrderImag__Order__04E4BC85">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderImage" EntitySet="OrderImage" />
           </AssociationSet>
@@ -753,11 +764,11 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderStat__PosCo__02FC7413" Association="Self.FK__OrderStat__PosCo__02FC7413">
+          <AssociationSet Name="FK__OrderStat__PosCo__06CD04F7" Association="Self.FK__OrderStat__PosCo__06CD04F7">
             <End Role="PostOffice" EntitySet="PostOffice" />
             <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderStat__Statu__03F0984C" Association="Self.FK__OrderStat__Statu__03F0984C">
+          <AssociationSet Name="FK__OrderStat__Statu__07C12930" Association="Self.FK__OrderStat__Statu__07C12930">
             <End Role="Status" EntitySet="Status" />
             <End Role="OrderStatusDetail" EntitySet="OrderStatusDetail" />
           </AssociationSet>
@@ -765,23 +776,23 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Order" EntitySet="Order" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Payment__Payment__05D8E0BE" Association="Self.FK__Payment__Payment__05D8E0BE">
+          <AssociationSet Name="FK__Payment__Payment__09A971A2" Association="Self.FK__Payment__Payment__09A971A2">
             <End Role="PaymentMethod" EntitySet="PaymentMethod" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Payment__Payment__06CD04F7" Association="Self.FK__Payment__Payment__06CD04F7">
+          <AssociationSet Name="FK__Payment__Payment__0A9D95DB" Association="Self.FK__Payment__Payment__0A9D95DB">
             <End Role="PaymentStatus" EntitySet="PaymentStatus" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Profile__PublicA__08B54D69" Association="Self.FK__Profile__PublicA__08B54D69">
+          <AssociationSet Name="FK__Profile__PublicA__0C85DE4D" Association="Self.FK__Profile__PublicA__0C85DE4D">
             <End Role="PublicAdministration" EntitySet="PublicAdministration" />
             <End Role="Profile" EntitySet="Profile" />
           </AssociationSet>
-          <AssociationSet Name="FK__PublicAdm__PosCo__09A971A2" Association="Self.FK__PublicAdm__PosCo__09A971A2">
+          <AssociationSet Name="FK__PublicAdm__PosCo__0D7A0286" Association="Self.FK__PublicAdm__PosCo__0D7A0286">
             <End Role="PostOffice" EntitySet="PostOffice" />
             <End Role="PublicAdministration" EntitySet="PublicAdministration" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResetPass__Custo__0A9D95DB" Association="Self.FK__ResetPass__Custo__0A9D95DB">
+          <AssociationSet Name="FK__ResetPass__Custo__0E6E26BF" Association="Self.FK__ResetPass__Custo__0E6E26BF">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ResetPasswordToken" EntitySet="ResetPasswordToken" />
           </AssociationSet>
@@ -815,12 +826,12 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Admin1" Relationship="Self.FK__Admin__CreatedBy__6D0D32F4" FromRole="Admin" ToRole="Admin1" />
-          <NavigationProperty Name="Admin2" Relationship="Self.FK__Admin__CreatedBy__6D0D32F4" FromRole="Admin1" ToRole="Admin" />
-          <NavigationProperty Name="Admin11" Relationship="Self.FK__Admin__ModifiedB__6E01572D" FromRole="Admin" ToRole="Admin1" />
-          <NavigationProperty Name="Admin3" Relationship="Self.FK__Admin__ModifiedB__6E01572D" FromRole="Admin1" ToRole="Admin" />
-          <NavigationProperty Name="Province" Relationship="Self.FK__Admin__PostalPro__6EF57B66" FromRole="Admin" ToRole="Province" />
-          <NavigationProperty Name="AdminRole" Relationship="Self.FK__Admin__Role__6FE99F9F" FromRole="Admin" ToRole="AdminRole" />
+          <NavigationProperty Name="Admin1" Relationship="Self.FK__Admin__CreatedBy__70DDC3D8" FromRole="Admin" ToRole="Admin1" />
+          <NavigationProperty Name="Admin2" Relationship="Self.FK__Admin__CreatedBy__70DDC3D8" FromRole="Admin1" ToRole="Admin" />
+          <NavigationProperty Name="Admin11" Relationship="Self.FK__Admin__ModifiedB__71D1E811" FromRole="Admin" ToRole="Admin1" />
+          <NavigationProperty Name="Admin3" Relationship="Self.FK__Admin__ModifiedB__71D1E811" FromRole="Admin1" ToRole="Admin" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Admin__PostalPro__72C60C4A" FromRole="Admin" ToRole="Province" />
+          <NavigationProperty Name="AdminRole" Relationship="Self.FK__Admin__Role__73BA3083" FromRole="Admin" ToRole="AdminRole" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__ModifiedB__7B5B524B" FromRole="Admin" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="Self.FK__Order__Processed__7E37BEF6" FromRole="Admin" ToRole="Order" />
         </EntityType>
@@ -830,7 +841,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           </Key>
           <Property Name="AdminRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminRoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__Role__6FE99F9F" FromRole="AdminRole" ToRole="Admin" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__Role__73BA3083" FromRole="AdminRole" ToRole="Admin" />
         </EntityType>
         <EntityType Name="API">
           <Key>
@@ -895,9 +906,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="PersonalPaperIssuedDate" Type="DateTime" Precision="3" />
           <Property Name="PersonalPaperIssuedPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CustomerID" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__ContactIn__Custo__73BA3083" FromRole="ContactInfo" ToRole="Customer" />
-          <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__ContactIn__Perso__74AE54BC" FromRole="ContactInfo" ToRole="PersonalPaperType" />
-          <NavigationProperty Name="District" Relationship="Self.FK__ContactIn__Posta__75A278F5" FromRole="ContactInfo" ToRole="District" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__ContactIn__Custo__778AC167" FromRole="ContactInfo" ToRole="Customer" />
+          <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__ContactIn__Perso__787EE5A0" FromRole="ContactInfo" ToRole="PersonalPaperType" />
+          <NavigationProperty Name="District" Relationship="Self.FK__ContactIn__Posta__797309D9" FromRole="ContactInfo" ToRole="District" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -912,9 +923,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostalDistrictID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Custo__73BA3083" FromRole="Customer" ToRole="ContactInfo" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Custo__778AC167" FromRole="Customer" ToRole="ContactInfo" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Customer" ToRole="Order" />
-          <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__0A9D95DB" FromRole="Customer" ToRole="ResetPasswordToken" />
+          <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__0E6E26BF" FromRole="Customer" ToRole="ResetPasswordToken" />
           <NavigationProperty Name="District" Relationship="Self.FK_Customer_District" FromRole="Customer" ToRole="District" />
         </EntityType>
         <EntityType Name="District">
@@ -925,9 +936,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="PostalDistrictName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Posta__75A278F5" FromRole="District" ToRole="ContactInfo" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Posta__797309D9" FromRole="District" ToRole="ContactInfo" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_District" FromRole="District" ToRole="Customer" />
-          <NavigationProperty Name="Province" Relationship="Self.FK__District__Postal__778AC167" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__District__Postal__7B5B524B" FromRole="District" ToRole="Province" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="District" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="District" ToRole="Order" />
           <NavigationProperty Name="Orders2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="District" ToRole="Order" />
@@ -985,7 +996,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="Order" ToRole="PersonalPaperType" />
           <NavigationProperty Name="Profile" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Order" ToRole="Profile" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Order" ToRole="Status" />
-          <NavigationProperty Name="OrderImages" Relationship="Self.FK__OrderImag__Order__787EE5A0" FromRole="Order" ToRole="OrderImage" />
+          <NavigationProperty Name="OrderImages" Relationship="Self.FK__OrderImag__Order__04E4BC85" FromRole="Order" ToRole="OrderImage" />
           <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="Order" ToRole="OrderStatusDetail" />
           <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Order" ToRole="Payment" />
         </EntityType>
@@ -996,7 +1007,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="OrderID" Type="Int64" Nullable="false" />
           <Property Name="ImageName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ImageRealName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__OrderImag__Order__787EE5A0" FromRole="OrderImage" ToRole="Order" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderImag__Order__04E4BC85" FromRole="OrderImage" ToRole="Order" />
         </EntityType>
         <EntityType Name="OrderStatusDetail">
           <Key>
@@ -1009,8 +1020,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="PosCode" Type="Int64" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Order" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="OrderStatusDetail" ToRole="Order" />
-          <NavigationProperty Name="PostOffice" Relationship="Self.FK__OrderStat__PosCo__02FC7413" FromRole="OrderStatusDetail" ToRole="PostOffice" />
-          <NavigationProperty Name="Status" Relationship="Self.FK__OrderStat__Statu__03F0984C" FromRole="OrderStatusDetail" ToRole="Status" />
+          <NavigationProperty Name="PostOffice" Relationship="Self.FK__OrderStat__PosCo__06CD04F7" FromRole="OrderStatusDetail" ToRole="PostOffice" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__OrderStat__Statu__07C12930" FromRole="OrderStatusDetail" ToRole="Status" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -1020,11 +1031,11 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="OrderID" Type="Int64" Nullable="false" />
           <Property Name="PaymentMethodID" Type="Int32" Nullable="false" />
           <Property Name="PaymentStatusID" Type="Int32" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
           <Property Name="OtherDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Order" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Payment" ToRole="Order" />
-          <NavigationProperty Name="PaymentMethod" Relationship="Self.FK__Payment__Payment__05D8E0BE" FromRole="Payment" ToRole="PaymentMethod" />
-          <NavigationProperty Name="PaymentStatu" Relationship="Self.FK__Payment__Payment__06CD04F7" FromRole="Payment" ToRole="PaymentStatus" />
+          <NavigationProperty Name="PaymentMethod" Relationship="Self.FK__Payment__Payment__09A971A2" FromRole="Payment" ToRole="PaymentMethod" />
+          <NavigationProperty Name="PaymentStatu" Relationship="Self.FK__Payment__Payment__0A9D95DB" FromRole="Payment" ToRole="PaymentStatus" />
         </EntityType>
         <EntityType Name="PaymentMethod">
           <Key>
@@ -1032,7 +1043,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           </Key>
           <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentMethodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__05D8E0BE" FromRole="PaymentMethod" ToRole="Payment" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__09A971A2" FromRole="PaymentMethod" ToRole="Payment" />
         </EntityType>
         <EntityType Name="PaymentStatu">
           <Key>
@@ -1040,7 +1051,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           </Key>
           <Property Name="PaymentStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentStatusDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__06CD04F7" FromRole="PaymentStatus" ToRole="Payment" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__0A9D95DB" FromRole="PaymentStatus" ToRole="Payment" />
         </EntityType>
         <EntityType Name="PersonalPaperType">
           <Key>
@@ -1048,7 +1059,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           </Key>
           <Property Name="PersonalPaperTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonalPaperTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Perso__74AE54BC" FromRole="PersonalPaperType" ToRole="ContactInfo" />
+          <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Perso__787EE5A0" FromRole="PersonalPaperType" ToRole="ContactInfo" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="PersonalPaperType" ToRole="Order" />
         </EntityType>
         <EntityType Name="PhoneVerification">
@@ -1070,8 +1081,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__PosCo__02FC7413" FromRole="PostOffice" ToRole="OrderStatusDetail" />
-          <NavigationProperty Name="PublicAdministrations" Relationship="Self.FK__PublicAdm__PosCo__09A971A2" FromRole="PostOffice" ToRole="PublicAdministration" />
+          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__PosCo__06CD04F7" FromRole="PostOffice" ToRole="OrderStatusDetail" />
+          <NavigationProperty Name="PublicAdministrations" Relationship="Self.FK__PublicAdm__PosCo__0D7A0286" FromRole="PostOffice" ToRole="PublicAdministration" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -1081,7 +1092,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="ProfileName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PublicAdministrationLocationID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Profile" ToRole="Order" />
-          <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Profile__PublicA__08B54D69" FromRole="Profile" ToRole="PublicAdministration" />
+          <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Profile__PublicA__0C85DE4D" FromRole="Profile" ToRole="PublicAdministration" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1090,8 +1101,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostalProvinceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__PostalPro__6EF57B66" FromRole="Province" ToRole="Admin" />
-          <NavigationProperty Name="Districts" Relationship="Self.FK__District__Postal__778AC167" FromRole="Province" ToRole="District" />
+          <Property Name="ProvinceShortName" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__PostalPro__72C60C4A" FromRole="Province" ToRole="Admin" />
+          <NavigationProperty Name="Districts" Relationship="Self.FK__District__Postal__7B5B524B" FromRole="Province" ToRole="District" />
         </EntityType>
         <EntityType Name="PublicAdministration">
           <Key>
@@ -1102,8 +1114,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PosCode" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="PostOffice" Relationship="Self.FK__PublicAdm__PosCo__09A971A2" FromRole="PublicAdministration" ToRole="PostOffice" />
-          <NavigationProperty Name="Profiles" Relationship="Self.FK__Profile__PublicA__08B54D69" FromRole="PublicAdministration" ToRole="Profile" />
+          <NavigationProperty Name="PostOffice" Relationship="Self.FK__PublicAdm__PosCo__0D7A0286" FromRole="PublicAdministration" ToRole="PostOffice" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK__Profile__PublicA__0C85DE4D" FromRole="PublicAdministration" ToRole="Profile" />
         </EntityType>
         <EntityType Name="ResetPasswordToken">
           <Key>
@@ -1114,7 +1126,16 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="Token" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__ResetPass__Custo__0A9D95DB" FromRole="ResetPasswordToken" ToRole="Customer" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__ResetPass__Custo__0E6E26BF" FromRole="ResetPasswordToken" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="ServiceTimer">
+          <Key>
+            <PropertyRef Name="ServiceTimeID" />
+          </Key>
+          <Property Name="ServiceTimeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceTimeHour" Type="Int32" />
+          <Property Name="ServiceTimeMinute" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1123,9 +1144,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Status" ToRole="Order" />
-          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Statu__03F0984C" FromRole="Status" ToRole="OrderStatusDetail" />
+          <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Statu__07C12930" FromRole="Status" ToRole="OrderStatusDetail" />
         </EntityType>
-        <Association Name="FK__Admin__CreatedBy__6D0D32F4">
+        <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1137,7 +1158,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__ModifiedB__6E01572D">
+        <Association Name="FK__Admin__ModifiedB__71D1E811">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1149,7 +1170,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__PostalPro__6EF57B66">
+        <Association Name="FK__Admin__PostalPro__72C60C4A">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1161,7 +1182,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__Role__6FE99F9F">
+        <Association Name="FK__Admin__Role__73BA3083">
           <End Role="AdminRole" Type="Self.AdminRole" Multiplicity="1" />
           <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1233,7 +1254,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Custo__73BA3083">
+        <Association Name="FK__ContactIn__Custo__778AC167">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1245,7 +1266,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Perso__74AE54BC">
+        <Association Name="FK__ContactIn__Perso__787EE5A0">
           <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="0..1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1257,7 +1278,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ContactIn__Posta__75A278F5">
+        <Association Name="FK__ContactIn__Posta__797309D9">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1281,7 +1302,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResetPass__Custo__0A9D95DB">
+        <Association Name="FK__ResetPass__Custo__0E6E26BF">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ResetPasswordToken" Type="Self.ResetPasswordToken" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1305,7 +1326,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__District__Postal__778AC167">
+        <Association Name="FK__District__Postal__7B5B524B">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
           <End Role="District" Type="Self.District" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1389,7 +1410,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderImag__Order__787EE5A0">
+        <Association Name="FK__OrderImag__Order__04E4BC85">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderImage" Type="Self.OrderImage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1425,7 +1446,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderStat__PosCo__02FC7413">
+        <Association Name="FK__OrderStat__PosCo__06CD04F7">
           <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="0..1" />
           <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1437,7 +1458,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderStat__Statu__03F0984C">
+        <Association Name="FK__OrderStat__Statu__07C12930">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="OrderStatusDetail" Type="Self.OrderStatusDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1449,7 +1470,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Payment__Payment__05D8E0BE">
+        <Association Name="FK__Payment__Payment__09A971A2">
           <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1461,7 +1482,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Payment__Payment__06CD04F7">
+        <Association Name="FK__Payment__Payment__0A9D95DB">
           <End Role="PaymentStatus" Type="Self.PaymentStatu" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1473,7 +1494,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PublicAdm__PosCo__09A971A2">
+        <Association Name="FK__PublicAdm__PosCo__0D7A0286">
           <End Role="PostOffice" Type="Self.PostOffice" Multiplicity="1" />
           <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1485,7 +1506,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Profile__PublicA__08B54D69">
+        <Association Name="FK__Profile__PublicA__0C85DE4D">
           <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="1" />
           <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1521,20 +1542,21 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="PublicAdministrations" EntityType="Self.PublicAdministration" />
           <EntitySet Name="ResetPasswordTokens" EntityType="Self.ResetPasswordToken" />
+          <EntitySet Name="ServiceTimers" EntityType="Self.ServiceTimer" />
           <EntitySet Name="Status" EntityType="Self.Status" />
-          <AssociationSet Name="FK__Admin__CreatedBy__6D0D32F4" Association="Self.FK__Admin__CreatedBy__6D0D32F4">
+          <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admins" />
             <End Role="Admin1" EntitySet="Admins" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__ModifiedB__6E01572D" Association="Self.FK__Admin__ModifiedB__6E01572D">
+          <AssociationSet Name="FK__Admin__ModifiedB__71D1E811" Association="Self.FK__Admin__ModifiedB__71D1E811">
             <End Role="Admin" EntitySet="Admins" />
             <End Role="Admin1" EntitySet="Admins" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__PostalPro__6EF57B66" Association="Self.FK__Admin__PostalPro__6EF57B66">
+          <AssociationSet Name="FK__Admin__PostalPro__72C60C4A" Association="Self.FK__Admin__PostalPro__72C60C4A">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Admin" EntitySet="Admins" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__Role__6FE99F9F" Association="Self.FK__Admin__Role__6FE99F9F">
+          <AssociationSet Name="FK__Admin__Role__73BA3083" Association="Self.FK__Admin__Role__73BA3083">
             <End Role="AdminRole" EntitySet="AdminRoles" />
             <End Role="Admin" EntitySet="Admins" />
           </AssociationSet>
@@ -1558,15 +1580,15 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="APIMethod" EntitySet="APIMethods" />
             <End Role="API" EntitySet="APIs" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Custo__73BA3083" Association="Self.FK__ContactIn__Custo__73BA3083">
+          <AssociationSet Name="FK__ContactIn__Custo__778AC167" Association="Self.FK__ContactIn__Custo__778AC167">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="ContactInfo" EntitySet="ContactInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Perso__74AE54BC" Association="Self.FK__ContactIn__Perso__74AE54BC">
+          <AssociationSet Name="FK__ContactIn__Perso__787EE5A0" Association="Self.FK__ContactIn__Perso__787EE5A0">
             <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
             <End Role="ContactInfo" EntitySet="ContactInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__ContactIn__Posta__75A278F5" Association="Self.FK__ContactIn__Posta__75A278F5">
+          <AssociationSet Name="FK__ContactIn__Posta__797309D9" Association="Self.FK__ContactIn__Posta__797309D9">
             <End Role="District" EntitySet="Districts" />
             <End Role="ContactInfo" EntitySet="ContactInfoes" />
           </AssociationSet>
@@ -1574,7 +1596,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResetPass__Custo__0A9D95DB" Association="Self.FK__ResetPass__Custo__0A9D95DB">
+          <AssociationSet Name="FK__ResetPass__Custo__0E6E26BF" Association="Self.FK__ResetPass__Custo__0E6E26BF">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="ResetPasswordToken" EntitySet="ResetPasswordTokens" />
           </AssociationSet>
@@ -1582,7 +1604,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="District" EntitySet="Districts" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <AssociationSet Name="FK__District__Postal__778AC167" Association="Self.FK__District__Postal__778AC167">
+          <AssociationSet Name="FK__District__Postal__7B5B524B" Association="Self.FK__District__Postal__7B5B524B">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="District" EntitySet="Districts" />
           </AssociationSet>
@@ -1610,7 +1632,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderImag__Order__787EE5A0" Association="Self.FK__OrderImag__Order__787EE5A0">
+          <AssociationSet Name="FK__OrderImag__Order__04E4BC85" Association="Self.FK__OrderImag__Order__04E4BC85">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderImage" EntitySet="OrderImages" />
           </AssociationSet>
@@ -1622,27 +1644,27 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
             <End Role="Order" EntitySet="Orders" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderStat__PosCo__02FC7413" Association="Self.FK__OrderStat__PosCo__02FC7413">
+          <AssociationSet Name="FK__OrderStat__PosCo__06CD04F7" Association="Self.FK__OrderStat__PosCo__06CD04F7">
             <End Role="PostOffice" EntitySet="PostOffices" />
             <End Role="OrderStatusDetail" EntitySet="OrderStatusDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderStat__Statu__03F0984C" Association="Self.FK__OrderStat__Statu__03F0984C">
+          <AssociationSet Name="FK__OrderStat__Statu__07C12930" Association="Self.FK__OrderStat__Statu__07C12930">
             <End Role="Status" EntitySet="Status" />
             <End Role="OrderStatusDetail" EntitySet="OrderStatusDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Payment__Payment__05D8E0BE" Association="Self.FK__Payment__Payment__05D8E0BE">
+          <AssociationSet Name="FK__Payment__Payment__09A971A2" Association="Self.FK__Payment__Payment__09A971A2">
             <End Role="PaymentMethod" EntitySet="PaymentMethods" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Payment__Payment__06CD04F7" Association="Self.FK__Payment__Payment__06CD04F7">
+          <AssociationSet Name="FK__Payment__Payment__0A9D95DB" Association="Self.FK__Payment__Payment__0A9D95DB">
             <End Role="PaymentStatus" EntitySet="PaymentStatus" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK__PublicAdm__PosCo__09A971A2" Association="Self.FK__PublicAdm__PosCo__09A971A2">
+          <AssociationSet Name="FK__PublicAdm__PosCo__0D7A0286" Association="Self.FK__PublicAdm__PosCo__0D7A0286">
             <End Role="PostOffice" EntitySet="PostOffices" />
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Profile__PublicA__08B54D69" Association="Self.FK__Profile__PublicA__08B54D69">
+          <AssociationSet Name="FK__Profile__PublicA__0C85DE4D" Association="Self.FK__Profile__PublicA__0C85DE4D">
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
@@ -1906,6 +1928,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
                 <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
                 <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
                 <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+                <ScalarProperty Name="ProvinceShortName" ColumnName="ProvinceShortName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1928,6 +1951,16 @@ warning 6035: The relationship 'FK__PostOffic__Distr__07C12930' has columns that
                 <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTimers">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ServiceTimer">
+              <MappingFragment StoreEntitySet="ServiceTimer">
+                <ScalarProperty Name="ServiceTimeID" ColumnName="ServiceTimeID" />
+                <ScalarProperty Name="ServiceTimeHour" ColumnName="ServiceTimeHour" />
+                <ScalarProperty Name="ServiceTimeMinute" ColumnName="ServiceTimeMinute" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
