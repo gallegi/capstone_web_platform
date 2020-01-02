@@ -6,7 +6,6 @@
 
 
 
-<link href="~/CustomCSS/InvitationCard/InputInforScreen21.css" rel="stylesheet" />
 <script src="~/CustomJS/InputInforScreen21.js"></script>
 <link href="~/CustomCSS/InvitationCard/InputInforScreen21.css" rel="stylesheet" />
 
@@ -16,11 +15,9 @@
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
 
-<link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
-<link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
 
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
@@ -30,21 +27,23 @@
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
-<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet" />
 <link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
-@*<script src="~/assets/libs/dropzone/dist/dropzone.js"></script>*@
 <link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
 <link href="~/assets/uploader/icons.min.css" rel="stylesheet" />
-@*<link href="~/assets/uploader/style_uploader.css" rel="stylesheet" />*@
 
 <style>
- .steps.clearfix{
-     display:none !important;
- }
- #img-capture-file{
-     display:none !important;
- }
+    .steps.clearfix {
+        display: none !important;
+    }
+
+    #img-capture-file {
+        display: none !important;
+    }
+
+    .validation {
+        color: red;
+    }
 </style>
 <div class="container">
     <div class="row">
@@ -68,24 +67,29 @@
                                         }
                                     </select>
                                     <label for="item1" class="">Tỉnh/TP <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                    <p class="validation" name="item1"></p>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item2"></select>
                                     <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                    <p class="validation" name="item2"></p>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" id="item5" class="required" />
                                     <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                    <p class="validation" name="item5"></p>
                                 </div>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12">
                                     <select id="item3" tabindex="-1"></select>
                                     <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                    <p class="validation" name="item3"></p>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="item4" tabindex="-1"></select>
                                     <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
+                                    <p class="validation" name="item4"></p>
                                 </div>
                             </div>
 
@@ -107,6 +111,7 @@
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
                                 </div>
+                                <p class="validation" name="item6"></p>
                             </div>
                         </div>
                     </section>
@@ -561,7 +566,7 @@
                             <div class="col l12 s12 m12">
                                 <h6 class="center step-title">6. Xác nhận thanh toán</h6>
                             </div>
-                            
+
                             <div class="col l9 s12 bill-container">
                                 <div class="card-shadow p-20 resize-card">
                                     <div>
@@ -726,22 +731,24 @@
         <div class="row">
             <div class="col s12 l12 m12">
                 <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Họ và tên:</p>
+                    <p class="col l3 m3 p-t-10 s12">Họ và tên <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input required id="name_edit" type="text">
+                        <p class="validation" name="name_edit"></p>
                     </div>
                 </div>
             </div>
             <div class="col s12 l12 m12">
                 <div class="input-field row">
-                    <p class="col l3 m3 p-t-10 s12">Số điện thoại:</p>
+                    <p class="col l3 m3 p-t-10 s12">Số điện thoại <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
                         <input id="phone_edit" type="text">
+                        <p class="validation" name="phone_edit"></p>
                     </div>
                 </div>
             </div>
             <div class="input-field col s12 m12">
-                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/TP:</div>
+                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/TP <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
                 <div class="col l9 m9 s12">
                     <select required tabindex="-1" id="province_edit" class="card-border">
                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
@@ -753,17 +760,19 @@
             </div>
             <div class="input-field col s12 m12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện:</div>
+                    <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <select required tabindex="-1" id="district_edit" class="card-border"></select>
+                        <p class="validation" name="district_edit"></p>
                     </div>
                 </div>
             </div>
             <div class="input-field col s12 m12">
                 <div class="select-wrapper row">
-                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ:</div>
+                    <div class="col l3 m3 p-t-10 s12 ">Địa chỉ <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
                         <textarea required id="street_edit"></textarea>
+                        <p class="validation" name="street_edit"></p>
                     </div>
                 </div>
             </div>
@@ -781,9 +790,10 @@
                 </div>
                 <div class="col s12 l12 m12">
                     <div class="input-field row">
-                        <p class="col l3 m3 p-t-10 s12">Số GTGT:</p>
+                        <p class="col l3 m3 p-t-10 s12">Số giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
                         <div class="col l9 m9 s12">
                             <input id="paper_number_edit" type="text">
+                            <p class="validation" name="paper_number_edit"></p>
                         </div>
                     </div>
                 </div>
@@ -1249,8 +1259,10 @@
                         $('#id_raw').val(response.data)
                         $('#myform').submit();
                     }
-                    else
+                    else {
                         errorAlert(response.message)
+                        $('#pre-load').hide();
+                    }
                 }
             });
             //return form.submit();
@@ -1279,10 +1291,10 @@
     })
 </script>
 <script>
-    //Create by TUANKQ
+    //Create by TUANKQ, THANGDV
 Dropzone.options.myAwesomeDropzone = {
     paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 10, // MB
+    maxFilesize: 5, // MB
     addRemoveLinks: true,
     autoProcessQueue: true,
     dictRemoveFile: 'Hủy',
