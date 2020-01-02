@@ -112,7 +112,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC',
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, 
                             (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
@@ -120,7 +120,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                             inner join PostOffice p on pa.PosCode = p.PosCode
                             inner join District d on d.DistrictCode = p.DistrictCode
 							inner join OrderStatusDetail os on o.OrderID = os.OrderID
-							inner join Status s on os.StatusID = s.StatusID
+							inner join Status s on o.StatusID = s.StatusID
                             where o.AppointmentLetterCode = @id
                             order by active desc";
                 orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
