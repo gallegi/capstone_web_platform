@@ -271,7 +271,7 @@
 
         var checkName = $('#editName').val().trim();
         //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
-        var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
+        var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
         var checkPhone = $('#editPhone').val().trim();
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
@@ -372,7 +372,7 @@
         $('#editName').focusout(function () {
             var checkName = $('#editName').val().trim();
             //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
-            var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
+            var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
             if (checkName == "") {
                 $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
             } else if (!validName) {
@@ -476,6 +476,6 @@
 </script>
 
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
-<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
+<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>    
 <script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
 <script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
