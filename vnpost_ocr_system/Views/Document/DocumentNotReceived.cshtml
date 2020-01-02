@@ -26,6 +26,10 @@
     #overflow {
         overflow-y: auto !important;
     }
+
+    .pagination li.active a {
+        color: #444;
+    }
 </style>
 
 <div class="container-fluid">
@@ -335,7 +339,7 @@
                     {
                         "data": "OrderDate", "name": "OrderDate", "render": function (data) {
                             return dateFormat(data);
-                        }
+                        },
                     },
                     { "data": "ReceiverFullName", "name": "ReceiverFullName" },
                     { "data": "ReceiverStreet", "name": "ReceiverStreet" },
@@ -348,7 +352,7 @@
                         "searchable": false,
                     }
                 ],
-                ordering: false,
+                "order": [[4, "desc"]],
                 "drawCallback": function (settings) {
                     ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
                     //index = 1;
@@ -371,7 +375,6 @@
                     info: "Đang hiện START đến END của TOTAL bản ghi",
                     infoEmpty: "Đang hiện 0 đến 0 của 0 bản ghi",
                 },
-                "order": [0, "asc"],
                 "bLengthChange": false,
                 "bFilter": false,
                 "bInfo": false,
