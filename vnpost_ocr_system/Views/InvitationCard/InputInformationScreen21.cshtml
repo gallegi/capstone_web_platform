@@ -176,7 +176,7 @@
 
                             <div class="col s12 l12">
                                 <br />
-                                <label>Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                <label>Ảnh chụp giấy hẹn (dung lượng tối đa 5Mb) <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" class="form-control" single />
@@ -1128,6 +1128,11 @@
     })
 
     $(document).on("click", "#edit", function () {
+        $('p[name="name_edit"]').text("")
+        $('p[name="phone_edit"]').text("")
+        $('p[name="district_edit"]').text("")
+        $('p[name="street_edit"]').text("")
+        $('p[name="paper_number_edit"]').text("")
         $('#pre-load').show()
         type = $(this).data("type");
         if (type != 1) $('#showmore').hide();
@@ -1197,6 +1202,20 @@
 
     var contact = "";
 
+    $("#phone_edit").keydown(function (e) {
+        var arr = [];
+        for (var i = 96; i <= 105; i++) {
+            arr.push(i);
+        }
+        for (var i = 48; i <= 57; i++) {
+            arr.push(i);
+        }
+        arr.push(8);
+        if (arr.indexOf(e.keyCode) == -1 || ($(this).val().length >= 10 && e.keyCode!=8)) {
+            e.preventDefault();
+        }
+    });
+
     $(document).on("click", 'section #contact1', function () {
         contact = 'section #contact1:nth-child(' + ($(this).index() + 1) + ')';
     })
@@ -1240,16 +1259,8 @@
         else {
             $('p[name="street_edit"]').text("")
         }
-        if (type == 1 && $('#paper_number_edit').val() == "") {
+        if (type == 1 && $('#paper_number_edit').val().trim() == "") {
             $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
-            check = false;
-        }
-        else {
-            $('p[name="paper_number_edit"]').text("")
-        }
-        var patt2 = new RegExp("^ +$")
-        if (type == 1 && patt2.test($('#paper_number_edit').val())) {
-            $('p[name="paper_number_edit"]').text("Số giấy tờ tùy thân không hợp lệ")
             check = false;
         }
         else {
@@ -1537,10 +1548,10 @@
     })
 </script>
 <script>
-    //Create by TUANKQ
+    //Create by TUANKQ, THANGDV
 Dropzone.options.myAwesomeDropzone = {
     paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 10, // MB
+    maxFilesize: 5, // MB
     addRemoveLinks: true,
     autoProcessQueue: true,
     dictRemoveFile: 'Hủy',
