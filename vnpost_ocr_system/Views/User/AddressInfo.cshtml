@@ -211,6 +211,8 @@
             </div>
         </div>
     }
+    
+
 </div>
 
 <script>
@@ -268,13 +270,14 @@
         };
 
         var checkName = $('#editName').val().trim();
-        var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
         var checkPhone = $('#editPhone').val().trim();
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
         var sub = checkPhone.substring(0, 2);
 
-        //boolean 
+        //boolean
         var valid_address = true;
         var valid_name = true;
         var valid_phone = true;
@@ -284,9 +287,9 @@
 
         //check Name
         if (checkName == "") {
-            $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+            $('p[name="check-name"]').text('Vui lòng nhập Họ và tên');
             valid_name = false;
-        } else if (invalidName) {
+        } else if (!validName) {
             $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
             valid_name = false;
         }
@@ -311,13 +314,13 @@
 
         //check Province
         if (data.province == "") {
-            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/thành');
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
             valid_province = false;
         }
 
         //check District
         if (data.districtCode == "") {
-            $('p[name="check-district"]').text('Vui lòng nhập Quận/huyện');
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
             valid_district = false;
         }
 
@@ -368,16 +371,17 @@
     $(document).ready(function () {
         $('#editName').focusout(function () {
             var checkName = $('#editName').val().trim();
-            var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
             if (checkName == "") {
-                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên')
-            } else if (invalidName) {
+                $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
+            } else if (!validName) {
                 $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
             } else {
                 $('p[name="check-name"]').text('');
             }
         })
-        
+
         $('#editPhone').focusout(function () {
             var checkPhone = $('#editPhone').val().trim();
             //Using sub to check 03 05 07 09 04
@@ -385,7 +389,7 @@
             var regexPhone = /^[0-9\-\+]{10}$/;
             var isPhone = regexPhone.test(checkPhone);
             if (checkPhone == "") {
-                $('p[name="check-phone"]').text('Vui lòng nhập số điện thoại')
+                $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại')
             } else if (isPhone === false) {
                 $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
             } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
@@ -461,6 +465,13 @@
             $("#" + divId).show();
         }
     }
+
+    $(document).ready(function () {
+        var count = @ViewBag.contactCount;
+        if (count == 0) {
+            toastr.error('Chưa có địa chỉ nào trong sổ địa chỉ', '');
+        }
+    })
 
 </script>
 

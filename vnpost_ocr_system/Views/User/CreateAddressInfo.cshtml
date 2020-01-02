@@ -159,7 +159,8 @@
             placeOfIssue: document.getElementById("placeOfIssue").value
         };
         var checkName = $('#name').val().trim();
-        var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
         var checkPhone = $('#phone').val().trim();
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
@@ -175,9 +176,9 @@
 
         //check Name
         if (checkName == "") {
-            $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên');
+            $('p[name="check-name"]').text('Vui lòng nhập Họ và tên');
             valid_name = false;
-        } else if (invalidName) {
+        } else if (!validName) {
             $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
             valid_name = false;
         }
@@ -202,13 +203,13 @@
 
         //check Province
         if (data.province == "") {
-            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/thành');
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
             valid_province = false;
         }
 
         //check District
         if (data.district == "") {
-            $('p[name="check-district"]').text('Vui lòng nhập Quận/huyện');
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
             valid_district = false;
         }
 
@@ -260,10 +261,11 @@
     $(document).ready(function () {
         $('#name').focusout(function () {
             var checkName = $('#name').val().trim();
-            var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            var validName = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
             if (checkName == "") {
-                $('p[name="check-name"]').text('Vui lòng nhập đầy đủ Họ và tên')
-            } else if (invalidName) {
+                $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
+            } else if (!validName) {
                 $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
             } else {
                 $('p[name="check-name"]').text('');
