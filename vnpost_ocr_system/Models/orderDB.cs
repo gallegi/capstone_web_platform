@@ -7,6 +7,7 @@ namespace vnpost_ocr_system.Models
 {
     public class orderDB : Order
     {
+        public int active { get; set; }
         public string NgayCap { get; set; }
         public string PublicAdministrationName { get; set; }
         public string Address { get; set; }
