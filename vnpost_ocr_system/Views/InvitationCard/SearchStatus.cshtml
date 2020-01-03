@@ -6,23 +6,87 @@
 <link href="~/CustomCSS/InvitationCard/Search.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
-<div class="card p-5 search-card" style="margin-top: 0% !important; padding-top: 150px !important; width: 100% !important; height: 300px !important">
+<div class="card p-5 search-card" style="margin-top: 0% !important; padding-top: 150px !important; width: 100% !important; min-height: 300px !important">
     <div class="input-group m-t-0 p-l-10 p-r-15">
         <h5 class="center">Tra cứu giấy hẹn</h5>
         <div class="row">
-            <form action="/giay-hen/trang-thai-giay-hen" method="post">
+            @using (Html.BeginForm("Search", "SearchStatus", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data",
+                onSubmit = "return Change(this);",
+                data_restUrl = Url.Action("Search", "SearchStatus", new { id = "" })
+            }))
+            {
                 <input required name="id" id="input" type="text" class="form-control col offset-l4 offset-s1 l4 s8 my-form" style="border: 2px solid #e9ecef;padding-left: 10px"
-                       placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng" >
+                       placeholder="Nhập mã giấy hẹn để kiểm tra tình trạng">
                 <button class="align-self-stretch btn btn-secondary input-group-append my-btn col" id="search-button" type="submit">
                     <a class="col l2 s1"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
-            </form>
+            }
+            
         </div>
+        <div class="row">
+            <table id="re-table" class="table-bordered col l7 offset-l3" style="margin-top: 60px">
+                <thead>
+                    <tr>
+                        <th>Mã giấy hẹn</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="re-table_body">
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
+<form action="/giay-hen/trang-thai-giay-hen" id="myform" method="post">
+    <input type="hidden" name="id" id="s-id" />
+</form>
 
+<script>
+    function Change(form) {
+        //alert("abc");
+        $("#pre-load").show("slow", function () {
+        });
+        $("#pre-load").css("z-index", "99999");
+        //$.validator.unobtrusive.parse(form);
+
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: $(form).serialize(),
+                success: function (response) {
+                    $('#re-table').show();
+                    $("#re-table_body").empty();
+                    for (i = 0; i < response.data.length; i++) {
+                        $("#re-table_body").append("<tr>" +
+                            "<td>" + response.data[i].AppointmentLetterCode + "</td>" +
+                            "<td>" + response.data[i].OrderID + "</td>" +
+                            "<td>" + response.data[i].StatusName + "</td>" +
+                            "<td><a class='btnSelect btn blue btn-small center'>Chi tiết</a></td>" +
+                            "</tr> ");
+                    }
+                    $("#pre-load").hide("slow", function () {
+                    });
+
+                }
+            });
+        }
+
+
+        return false;
+
+
+    }
+</script>
 <script type="text/javascript">
+
     $(document).ready(function () {
+        $('#re-table').hide();
         var mess = '@ViewBag.mess';
         if (mess != "") {
             if (mess == "2") {
@@ -31,6 +95,14 @@
                 errorAlert("Lỗi", mess);
             }
         }
+        $("#re-table").on('click', '.btnSelect', function () {
+            // get the current row
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").text();
+            document.getElementById("s-id").value = data;
+            //alert(data);
+            $("#myform").submit();
+        });
     });
 
 </script>
