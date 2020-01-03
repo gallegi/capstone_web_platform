@@ -86,18 +86,21 @@ namespace vnpost_ocr_system.Controllers
                             o.OrderNote = OrderNote;
                             o.StatusID = -3;
                             db.Orders.Add(o);
+                            db.SaveChanges();
 
                             OrderStatusDetail detail = new OrderStatusDetail();
                             detail.OrderID = o.OrderID;
                             detail.StatusID = -3;
                             detail.CreatedTime = DateTime.Now;
                             db.OrderStatusDetails.Add(detail);
+                            db.SaveChanges();
 
                             OrderImage image = new OrderImage();
                             image.ImageRealName = imgName;
                             image.ImageName = DateTime.Now.ToFileTime().ToString()+"."+imgName.Split('.')[imgName.Split('.').Length-1];
                             image.OrderID = o.OrderID;
                             db.OrderImages.Add(image);
+                            db.SaveChanges();
 
                             Payment payment = new Payment();
                             payment.OrderID = o.OrderID;

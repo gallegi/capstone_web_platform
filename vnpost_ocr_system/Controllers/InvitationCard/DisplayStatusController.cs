@@ -43,7 +43,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             Order od = null;
             Order odb = null;
 
-            odb = db.Database.SqlQuery<Order>("select o.* from [Order] o where o.AppointmentLetterCode = @id and o.StatusID != 0", new SqlParameter("id", id)).FirstOrDefault();
+            odb = db.Database.SqlQuery<Order>("select o.* from [Order] o where o.OrderID = @id", new SqlParameter("id", id)).FirstOrDefault();
 
             if (odb == null)
             {
@@ -58,7 +58,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     string checksql = "select o.*," +
                         "(case when o.StatusID = 0 then 0 else 1 end) as 'active' " +
                         "from [Order] o inner join Customer c on o.CustomerID = c.CustomerID " +
-                        "where c.CustomerID = @cusid and o.AppointmentLetterCode = @oid " +
+                        "where c.CustomerID = @cusid and o.OrderID = @oid " +
                         "order by active desc";
                     od = db.Database.SqlQuery<Order>(checksql, new SqlParameter("cusid", cusid), new SqlParameter("oid", id)).FirstOrDefault();
                 }
@@ -112,7 +112,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC',
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, 
                             (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
@@ -120,8 +120,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                             inner join PostOffice p on pa.PosCode = p.PosCode
                             inner join District d on d.DistrictCode = p.DistrictCode
 							inner join OrderStatusDetail os on o.OrderID = os.OrderID
-							inner join Status s on os.StatusID = s.StatusID
-                            where o.AppointmentLetterCode = @id
+							inner join Status s on o.StatusID = s.StatusID
+                            where o.OrderID = @id
                             order by active desc";
                 orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
                 if (o == null)
@@ -130,7 +130,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                         from [Order] o left outer join Status s on o.StatusID = s.StatusID
                         inner join OrderStatusDetail os on o.OrderID = os.OrderID
-                        where o.AppointmentLetterCode = @id
+                        where o.OrderID = @id
                         order by active desc";
                     o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
                 }
