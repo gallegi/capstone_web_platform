@@ -84,7 +84,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         "join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on d.DistrictCode = po.DistrictCode " +
                         "join Province pro on pro.PostalProvinceCode = d.PostalProvinceCode " +
-                        "where o.StatusID = -2";
+                        "where o.StatusID != 0 and o.StatusID != -3 and o.StatusID != 5";
                 if (!province.Equals(""))
                 {
                     query += " and pro.PostalProvinceCode = @province ";
