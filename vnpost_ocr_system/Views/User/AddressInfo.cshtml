@@ -62,7 +62,7 @@
                             Tỉnh/Thành phố:<span class="red-text">*</span>
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="province">
+                            <select tabindex="-1" class="browser-default" id="province" onblur="checkProvince()">
                                 @foreach (var item in ViewBag.listProvince)
                                 {
                                     <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -76,7 +76,7 @@
                             Quận/Huyện:<span class="red-text">*</span>
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="editDistrict">
+                            <select tabindex="-1" class="browser-default" id="editDistrict" onblur="checkDistrict()">
                             </select>
                         </div>
                         <p class="validation" name="check-district"></p>
@@ -95,7 +95,7 @@
                             Loại giấy tờ tùy thân:
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                            <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
                                 @foreach (var item in ViewBag.listPaperType)
                                 {
                                     <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="col s2">
                         <div class="row">
-                            <a href="#myEdit" class="modal-trigger open-EditModal" id="editButton" data-edit="@item.ContactInfoID">
+                            <a href="#myEdit" class="modal-trigger open-EditModal" id="editButton" data-edit="@item.ContactInfoID" onclick="resetCheck()">
                                 <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
                             </a>
                             <a href="#" class="modal-trigger" id="deleteButton" onclick="getDelete(@item.ContactInfoID)">
@@ -278,7 +278,7 @@
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
         var sub = checkPhone.substring(0, 2);
-        var regexDate = '^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$';
+        var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
         var validDate = regexDate.test(checkDate);
 
         //boolean
@@ -367,6 +367,7 @@
             $('p[name="check-date"]').text('');
         }
 
+        //handling input cases
         if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code && valid_date) {
             $.ajax({
                 url: "/tai-khoan/so-dia-chi/chinh-sua",
@@ -383,10 +384,19 @@
         }
     }
 
+    function resetCheck() {
+        $('p[name="check-name"]').text('');
+        $('p[name="check-phone"]').text('');
+        $('p[name="check-address"]').text('');
+        $('p[name="check-province"]').text('');
+        $('p[name="check-district"]').text('');
+        $('p[name="check-code"]').text('');
+        $('p[name="check-date"]').text('');
+    }
+
     $(document).ready(function () {
         $('#editName').focusout(function () {
             var checkName = $('#editName').val().trim();
-            //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
             var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
             if (checkName == "") {
                 $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
@@ -441,6 +451,24 @@
             }
         })
     })
+
+    function checkProvince() {
+        var checkProvince = $('#province').val();
+        if (checkProvince == null) {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
+        } else {
+            $('p[name="check-province"]').text('');
+        }
+    }
+
+    function checkDistrict() {
+        var checkDistrict = $('#editDistrict').val();
+        if (checkDistrict == null) {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
+        } else {
+            $('p[name="check-district"]').text('');
+        }
+    }
 
     $(document).ready(function () {
         $('#province').change(function () {

@@ -55,7 +55,7 @@
                         Tỉnh/Thành phố:<span class="red-text">*</span>
                     </div>
                     <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="province" >
+                        <select tabindex="-1" class="browser-default" id="province" onblur="checkProvince()">
                             <option value='' selected disabled> Tỉnh/Thành Phố </option>
                             @foreach (var item in ViewBag.listProvince)
                             {
@@ -70,7 +70,7 @@
                         Quận/Huyện:<span class="red-text">*</span>
                     </div>
                     <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="district" >
+                        <select tabindex="-1" class="browser-default" id="district" onblur="checkDistrict()" >
                         </select>
                         <p class="validation" name="check-district"></p>
                     </div>
@@ -89,7 +89,7 @@
                         Loại giấy tờ tùy thân:
                     </div>
                     <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                        <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
                             @foreach (var item in ViewBag.listPaperType)
                             {
                                 <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
@@ -336,9 +336,8 @@
     })
 
     function checkProvince() {
-        //alert('ahihi1');
-        var checkProvince = $('#province').val().trim();
-        if (checkProvince == "") {
+        var checkProvince = $('#province').val();
+        if (checkProvince == null) {
             $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
         } else {
             $('p[name="check-province"]').text('');
@@ -346,20 +345,14 @@
     }
 
     function checkDistrict() {
-        //alert('ahihi2');
-        var checkDistrict = $('#district').val().trim();
-        if (checkDistrict == "") {
+        var checkDistrict = $('#district').val();
+        if (checkDistrict == null) {
             $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
         } else {
             $('p[name="check-district"]').text('');
         }
     }
 
-    document.getElementById("province").onblur = function () { myFunction() };
-
-    function myFunction() {
-        alert("Input field lost focus.");
-    }
 </script>
 
 <script>
