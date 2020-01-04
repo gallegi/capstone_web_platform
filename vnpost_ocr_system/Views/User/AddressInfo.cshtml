@@ -62,7 +62,7 @@
                             Tỉnh/Thành phố:<span class="red-text">*</span>
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="province">
+                            <select tabindex="-1" class="browser-default" id="province" onblur="checkProvince()">
                                 @foreach (var item in ViewBag.listProvince)
                                 {
                                     <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -76,7 +76,7 @@
                             Quận/Huyện:<span class="red-text">*</span>
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="editDistrict">
+                            <select tabindex="-1" class="browser-default" id="editDistrict" onblur="checkDistrict()">
                             </select>
                         </div>
                         <p class="validation" name="check-district"></p>
@@ -95,7 +95,7 @@
                             Loại giấy tờ tùy thân:
                         </div>
                         <div class="col s12 l5 m5">
-                            <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                            <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
                                 @foreach (var item in ViewBag.listPaperType)
                                 {
                                     <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
@@ -125,7 +125,8 @@
                                    class="datepicker-here" autocomplete="off"
                                    data-language='vi' value="" />
                             <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
-                        </div>
+                            <p class="validation" name="check-date"></p>
+                        </div>   
                     </div>
 
                     <div class="row m-b-30">
@@ -199,7 +200,7 @@
                     </div>
                     <div class="col s2">
                         <div class="row">
-                            <a href="#myEdit" class="modal-trigger open-EditModal" id="editButton" data-edit="@item.ContactInfoID">
+                            <a href="#myEdit" class="modal-trigger open-EditModal" id="editButton" data-edit="@item.ContactInfoID" onclick="resetCheck()">
                                 <i class="cal-icon material-icons dp48 col l5 s12">edit</i>
                             </a>
                             <a href="#" class="modal-trigger" id="deleteButton" onclick="getDelete(@item.ContactInfoID)">
@@ -270,12 +271,15 @@
         };
 
         var checkName = $('#editName').val().trim();
+        var checkDate = $('#editDate').val().trim();
         //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
         var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
         var checkPhone = $('#editPhone').val().trim();
         var regexPhone = /^[0-9\-\+]{10}$/;
         var isPhone = regexPhone.test(checkPhone);
         var sub = checkPhone.substring(0, 2);
+        var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+        var validDate = regexDate.test(checkDate);
 
         //boolean
         var valid_address = true;
@@ -284,6 +288,7 @@
         var valid_province = true;
         var valid_district = true;
         var valid_code = true;
+        var valid_date = true;
 
         //check Name
         if (checkName == "") {
@@ -301,7 +306,7 @@
         } else if (isPhone === false) {
             $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
             valid_phone = false;
-        } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
+        } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '08') {
             $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
             valid_phone = false;
         }
@@ -326,9 +331,16 @@
 
         //case paperType
         if (data.PaperTypeCode != "") {
+            //check code
             if ($('#editCode').val().trim() == "") {
                 $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân');
                 valid_code = false;
+            }
+
+            //check date
+            if (!validDate) {
+                $('p[name="check-date"]').text('Ngày cấp không hợp lệ (không đúng định dạng ngày/tháng/năm)');
+                valid_date = false;
             }
         }
 
@@ -351,8 +363,12 @@
         if (valid_code) {
             $('p[name="check-code"]').text('');
         }
+        if (valid_date) {
+            $('p[name="check-date"]').text('');
+        }
 
-        if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code) {
+        //handling input cases
+        if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code && valid_date) {
             $.ajax({
                 url: "/tai-khoan/so-dia-chi/chinh-sua",
                 type: "POST",
@@ -368,10 +384,19 @@
         }
     }
 
+    function resetCheck() {
+        $('p[name="check-name"]').text('');
+        $('p[name="check-phone"]').text('');
+        $('p[name="check-address"]').text('');
+        $('p[name="check-province"]').text('');
+        $('p[name="check-district"]').text('');
+        $('p[name="check-code"]').text('');
+        $('p[name="check-date"]').text('');
+    }
+
     $(document).ready(function () {
         $('#editName').focusout(function () {
             var checkName = $('#editName').val().trim();
-            //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
             var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
             if (checkName == "") {
                 $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
@@ -392,7 +417,7 @@
                 $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại')
             } else if (isPhone === false) {
                 $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
-            } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '04') {
+            } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '08') {
                 $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
             } else {
                 $('p[name="check-phone"]').text('');
@@ -414,7 +439,36 @@
                 $('p[name="check-code"]').text('');
             }
         })
+
+        $('#editDate').focusout(function () {
+            var checkDate = $('#editDate').val().trim();
+            var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+            var validDate = regexDate.test(checkDate);
+            if (!validDate) {
+                $('p[name="check-date"]').text('Ngày cấp không hợp lệ (không đúng định dạng ngày/tháng/năm)');
+            } else {
+                $('p[name="check-date"]').text('');
+            }
+        })
     })
+
+    function checkProvince() {
+        var checkProvince = $('#province').val();
+        if (checkProvince == null) {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
+        } else {
+            $('p[name="check-province"]').text('');
+        }
+    }
+
+    function checkDistrict() {
+        var checkDistrict = $('#editDistrict').val();
+        if (checkDistrict == null) {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
+        } else {
+            $('p[name="check-district"]').text('');
+        }
+    }
 
     $(document).ready(function () {
         $('#province').change(function () {
