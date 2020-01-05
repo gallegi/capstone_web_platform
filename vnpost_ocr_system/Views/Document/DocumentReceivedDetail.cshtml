@@ -21,48 +21,73 @@
                         <p class="code-order">Mã đơn hàng: #@ViewBag.order.OrderID</p>
                     </div>
                     <!--wizard form-->
-                    <div class="col s12">
-                        <div class="card">
-                            <div class="card-content wizard-content">
-                                <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
-                                    <div class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
-                                                <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
-                                                    <span class="step">1</span>
-                                                    Đang chờ tiếp nhận
-                                                </a>
-                                            </li>
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
-                                                <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
-                                                    <span class="step">2</span>
-                                                    Đã tiếp nhận
-                                                </a>
-                                            </li>
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
-                                                <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
-                                                    <span class="step">3</span>
-                                                    Lấy giấy tờ thành công
-                                                </a>
-                                            </li>
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
-                                                <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
-                                                    <span class="current-info audible">current step:</span><span class="step">4</span>
-                                                    Đang phát
-                                                </a>
-                                            </li>
-                                            <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
-                                                <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
-                                                    <span class="current-info audible">current step:</span><span class="step">5</span>
-                                                    Đã phát thành công
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </form>
+                    @if (ViewBag.checkCancelled == true)
+                    {
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content wizard-content">
+                                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                        <span class="step" style="background-color:red!important;border-color:red !important">X</span>
+                                                        Đã hủy
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content wizard-content">
+                                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                        <span class="step">1</span>
+                                                        Đang chờ tiếp nhận
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                        <span class="step">2</span>
+                                                        Đã tiếp nhận
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                        <span class="step">3</span>
+                                                        Lấy giấy tờ thành công
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
+                                                    <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                        <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                        Đang phát
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
+                                                    <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                        <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                        Đã phát thành công
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     <!--end wizard form-->
                     <h3>Chi tiết trạng thái đơn hàng</h3>
                     <div class="card detailOrder">
@@ -72,7 +97,10 @@
                                 <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
                                 foreach (var x in item.listOrder)
                                 {
-                                    <div class="line">@x.hour: @x.StatusName @if (x.Note != null) { <label>(@x.Note)</label>}</div>
+                                    <div class="line">
+                                        @x.hour: @x.StatusName @if (x.Note != null)
+                                        {<label>(@x.Note)</label>}
+                                    </div>
                                 }
                             }
                         }
