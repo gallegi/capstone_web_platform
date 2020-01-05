@@ -177,6 +177,10 @@
                             <div class="col s12 l12">
                                 <br />
                                 <label>Ảnh chụp giấy hẹn (dung lượng tối đa 5Mb) <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
+                                </div>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" class="form-control" single />
@@ -429,10 +433,6 @@
                                             </div>
                                         </div>
                                         <div class="col s12 center">
-                                            <div class="input-field">
-                                                <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
-                                                <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
-                                            </div>
                                             <div class="h-form-label" id="img">
                                                 <canvas id="c"></canvas>
                                             </div>
@@ -1479,7 +1479,6 @@
             }
             else if (currentIndex === 4) {
                 UserInvitation.UserOrderNote = $('#OrderNote').val()
-                postCanvasToURL();
                 $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
                 return true;
             }
@@ -1683,6 +1682,8 @@ Dropzone.options.myAwesomeDropzone = {
             ctx.rotate(90 * Math.PI / 180);
             ctx.translate(0, -canvas.width);
             ctx.drawImage(image, 0, 0);
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            postCanvasToURL();
         };
     }
 
@@ -1698,6 +1699,8 @@ Dropzone.options.myAwesomeDropzone = {
             ctx.rotate(270 * Math.PI / 180);
             ctx.translate(-canvas.height, 0);
             ctx.drawImage(image, 0, 0);
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            postCanvasToURL();
         };
     }
 
