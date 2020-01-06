@@ -83,6 +83,14 @@ namespace vnpost_ocr_system.Controllers.Document
             else if (o.StatusID == 1) o.step = 2;
             else if (o.StatusID == 5) o.step = 4;
             else o.step = 3;
+            if(o.StatusID == 0)
+            {
+                ViewBag.checkCancelled = true;
+            }
+            else
+            {
+                ViewBag.checkCancelled = false;
+            }
             return View("/Views/Document/DocumentReceivedDetail.cshtml");
         }
 
