@@ -25,15 +25,18 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             Non_revieve_detail order = new Non_revieve_detail();
-            string sql = "select *,pa.Phone as 'PAPhone',pa.Address as 'PAAddress', po.Phone as 'POPhone', po.Address as 'POAddress' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
+            string sql = "select *, oi.ImageName, oi.ImageRealName ,pa.Phone as 'PAPhone',pa.Address as 'PAAddress', po.Phone as 'POPhone', po.Address as 'POAddress' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
                         "join Province pro on d.PostalProvinceCode = pro.PostalProvinceCode " +
                         "join PersonalPaperType ppt on o.ProcedurerPersonalPaperTypeID = ppt.PersonalPaperTypeID " +
+                        "join OrderImage oi on o.[OrderID] = oi.[OrderID] " +
                         "where o.OrderID = @id";
             order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
+            ViewBag.imageUrl = id + "/" + order.ImageName; 
+            ViewBag.imageRUrl = order.ImageRealName; 
             if (err == true)
             {
                 ViewBag.error = "err";

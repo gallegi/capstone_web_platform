@@ -20,5 +20,7 @@ namespace vnpost_ocr_system.Models
         public string POAddress { get; set; }
         public string PosName { get; set; }
         public string PersonalPaperTypeName { get; set; }
+        public string ImageName { get; set; }
+        public string ImageRealName { get; set; }
     }
 }
