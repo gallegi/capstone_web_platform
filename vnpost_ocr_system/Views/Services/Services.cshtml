@@ -23,73 +23,172 @@
     .switch label input[type=checkbox]:checked + .lever {
         background-color: #33ad50 !important;
     }
-    .btn{
-        margin-top:20px;
+
+    .btn {
+        margin-top: 20px;
     }
-    .btn * {
-    vertical-align: middle;
+
+        .btn * {
+            vertical-align: middle;
+        }
+
+    #add-btn {
+        background-color: #4fb155;
     }
-    #add-btn{
-        background-color:#4fb155;
+
+    #save-btn {
+        background-color: #f34646;
     }
-     #save-btn{
-        background-color:#f34646;
+
+    [type="radio"]:checked + span:after {
+        background-color: #35b139;
+    }
+
+    .select-dropdown dropdown-trigger input {
+        display: none;
+    }
+
+    .select-wrapper input.select-dropdown {
+        display: none !important;
+    }
+
+    .caret {
+        display: none !important;
+    }
+
+    .form-control {
+        width: 70% !important
     }
 </style>
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-content">
-            <h3 class="font-medium title">Services</h3>
-            <span style="color:gray"> Cấu hình thời điểm cập nhật trạng thái cho services</span>
-            <hr />
-            <div class="time-table-container">
-                <table id="time-table" class="table-bordered table-striped">
-                    <tr>
-                        <td class="stt">1</td>
-                        <td class="time-set">
-                            <input type="number" name="hours" min="0" max="23">giờ<input type="number" name="minutes" min="0" max="59"> phút
-                        </td>
-                        <td>
-                            <div class="switch">
-                                <label>
-                                    Tắt
-                                    <input type="checkbox">
-                                    <span class="lever"></span>
-                                    Kích hoạt
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="remove-btn">
-                                <i class="material-icons dp48" style="color:red; font-size:25px">remove_circle</i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="stt">2</td>
-                        <td class="time-set">
-                            <input type="number" name="hours" min="0" max="23">giờ<input type="number" name="minutes" min="0" max="59"> phút
-                        </td>
-                        <td>
-                            <div class="switch">
-                                <label>
-                                    Tắt
-                                    <input type="checkbox">
-                                    <span class="lever"></span>
-                                    Kích hoạt
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="remove-btn">
-                                <i class="material-icons dp48" style="color:red; font-size:25px">remove_circle</i>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+@using (Html.BeginForm("Save", "Services", FormMethod.Post, new
+{
+    enctype = "multipart/form-data",
+    onSubmit = "return SaveChange(this);",
+    data_restUrl = Url.Action("Save", "Services")
+}))
+{
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="font-medium title">Services</h3>
+                <span style="color:gray"> Cấu hình thời điểm cập nhật trạng thái cho services</span>
+                <hr />
+                <div class="time-table-container">
+                    <table id="time-table" class="table-bordered table-striped">
+                        @{
+                            foreach (var item in ViewBag.time)
+                            {
+                                <tr>
+                                    <td class="stt"></td>
+                                    <td class="time-set">
+                                        <input type="number" name="hours" min="0" max="23" value="@item.ServiceTimeHour">giờ<input value="@item.ServiceTimeMinute" type="number" name="minutes" min="0" max="59"> phút
+                                    </td>
+                                    <td class="center-align">
+                                        <select class="form-control" name="active">
+                                            @if (item.isActive)
+                                            {
+                                                <option value="false">Tắt</option>
+                                                <option value="true" selected>Kích hoạt</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="false" selected>Tắt</option>
+                                                <option value="true">Kích hoạt</option>
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="remove-btn">
+                                            <i class="btnSelect material-icons dp48" data-target="del" style="color:red; font-size:25px">remove_circle</i>
+                                        </div>
+                                    </td>
+                                    <td style="display:none">@item.ServiceTimeID<input value="@item.ServiceTimeID" name="id" /></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <a class="btn mdi-grid-large waves-effect waves-light" id="add-btn"><i class="material-icons dp48">library_add</i> Thêm</a>
+                <button class="btn mdi-grid-large waves-effect waves-light" type="submit" id="save-btn"><i class="material-icons dp48">save</i> Lưu</button>
             </div>
-            <button class="btn mdi-grid-large waves-effect waves-light"  id="add-btn"><i class="material-icons dp48">library_add</i> Thêm</button>
-            <button class="btn mdi-grid-large waves-effect waves-light"  id="save-btn"><i class="material-icons dp48">save</i> Lưu</button>
         </div>
     </div>
-</div>
+}
+<script>
+    $(document).ready(function () {
+        stt();
+    });
+    function stt() {
+        var rowCount = $('#time-table tr').length;
+        for (var i = 0; i < rowCount; i++) {
+            $('#time-table tr:eq(' + i + ') td:eq(0)').html(i + 1);
+        }
+    }
+    $("#add-btn").click(function () {
+        $("#time-table").append(' <tr> ' +
+            '<td class="stt"></td> ' +
+            '<td class="time-set"> ' +
+            '    <input type="number" name="hours" min="0" max="23" value="">giờ<input value="" type="number" name="minutes" min="0" max="59"> phút ' +
+            '</td> ' +
+            '<td> ' +
+            '<select class="form-control" name="active"> ' +
+            '          <option value="false" >Tắt</option> ' +
+            '          <option value="true" >Kích hoạt</option> ' +
+            '</select> ' +
+            '</td> ' +
+            '<td> ' +
+            '   <div class="remove-btn"> ' +
+            '      <i class="btnSelect material-icons dp48" data-target="del" style="color:red; font-size:25px">remove_circle</i> ' +
+            '  </div> ' +
+            '</td> ' +
+            '<td style="display:none"><input value="" name="id"/></td> ' +
+            '</tr>');
+        stt();
+    });
+
+    var index;
+    $("#time-table").on('click', '.btnSelect', function () {
+        // get the current row
+        var currentRow = $(this).closest("tr");
+        index = currentRow.find("td:eq(0)").text();
+        var temp = currentRow.find("td:eq(4)").text();
+        confirmAlert("Bạn có muốn xóa không?", "Xác nhận", function () {
+            $.ajax({
+                type: "POST",
+                url: "/delete",
+                data: { "id": temp },
+                success: function (data) {
+                    if (data.success == true) {
+                        document.getElementById("time-table").deleteRow(index - 1);
+                        stt();
+                        successAlert('Thành công', 'Xóa thành công');
+                    } else {
+                        errorAlert('Có lỗi', 'Xóa không thành công');
+                    }
+                }
+            });
+        })
+    });
+
+    function SaveChange(form) {
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: $(form).serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        successAlert('Thành công', 'Thêm thành công');
+                    } else {
+                        errorAlert('Có lỗi', 'Thêm không thành công');
+                    }
+                }
+            });
+
+        }
+        return false;
+    }
+
+
+</script>
