@@ -23,6 +23,7 @@ namespace vnpost_ocr_system.Controllers.User
             List<Province> listProvince = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName").ToList();
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listContactInfo = listContactInfo;
+            ViewBag.contactCount = listContactInfo.Count();
             ViewBag.listProvince = listProvince;
             ViewBag.listPaperType = listPaperType;
             return View("/Views/User/AddressInfo.cshtml");
