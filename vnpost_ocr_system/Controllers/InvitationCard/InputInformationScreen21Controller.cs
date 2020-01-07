@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
@@ -69,6 +70,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 return Json(new { success = false, message = "Vui lòng nhập Họ và tên" });
             if (Phone.Trim() == "" || PostalDistrictCode == "")
                 return Json(new { success = false, message = "Không được để trống" });
+            if (!Regex.IsMatch(Phone, "^0[35789]\\d{8}$"))
+                return Json(new { success = false, message = "Số điện thoại không hợp lệ" });
 
             string PersonalPaperTypeID = Request["PersonalPaperTypeID"];
             string PersonalPaperNumber = Request["PersonalPaperNumber"];

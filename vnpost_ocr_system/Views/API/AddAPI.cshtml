@@ -124,6 +124,7 @@
                                     <th rowspan="2">STT</th>
                                     <th colspan="2">Request</th>
                                     <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
                                 </tr>
                                 <tr>
                                     <th style="width: 45%">Logic</th>
@@ -149,7 +150,7 @@
                         </div>
                         <br />
                         <div class="center-align">
-                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'></i> Thêm Parameter data mới</button></a>
 
                         </div>
                     </div>
@@ -170,6 +171,7 @@
                                     <th rowspan="2">STT</th>
                                     <th colspan="2">Request</th>
                                     <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
                                 </tr>
                                 <tr>
                                     <th style="width: 45%">Logic</th>
@@ -195,7 +197,7 @@
                         </div>
                         <br />
                         <div class="center-align">
-                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'>add</i> @*Thêm Request data mới*@</button></a>
+                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'></i> Thêm Request data mới</button></a>
 
                         </div>
                     </div>
@@ -401,68 +403,45 @@
        
         if ($('#uri').val().trim() === '') {
             $("html, body").animate({
-                scrollTop: $("#uri-err").offset().top
+                scrollTop: $("#uri").offset().top
             }, 500);
             $('#uri-err').text('Vui lòng nhập URI');
-            check=false;
+            check = false;
+            return false;
         }
         else {
             $('#uri-err').text('');
         }
         if (!validURL($('#uri').val())) {
             $("html, body").animate({
-                scrollTop: $("#uri-err").offset().top
+                scrollTop: $("#uri").offset().top
             }, 500);
-           $('#uri-err').text('URI không hợp lệ');
-           
-            check=false;
+            $('#uri-err').text('URI không hợp lệ');
+            check = false;
+            return false;
         }else {
             $('#uri-err').text('');
         }
        
         if ($('#description').val().trim() === '') {
              $("html, body").animate({
-                scrollTop: $("#description-err").offset().top
+                scrollTop: $("#description").offset().top
             }, 500);
              $('#description-err').text('Vui lòng nhập Mô tả API');
-             
-            check=false;
+             check = false;
+            return false;
         }
      else {
             $('#description-err').text('');
         }
-        
        
-         if ($('#format').val().trim()==='') {
-            $("html, body").animate({
-                scrollTop: $("#response-data-err").offset().top
-            }, 500);
-             $('#response-data-err').text('Vui lòng nhập SampleData');
-            check=false;
-         }
-    else {
-            $('#response-data-err').text('');
-        }
-
-       try { 
-                JSON.parse($('#format').val()); 
-              $('#response-data-err').text('');
-       } catch (error) { 
-           $("html, body").animate({
-                scrollTop: $("#response-data-err").offset().top
-            }, 500);
-                  $('#response-data-err').text('SampleData không hợp lệ');;
-            check=false; 
-        } 
         checkValidate();
-        
-
         if ($(".duplicate-parameter").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".duplicate-parameter").offset().top
             }, 500);
             $('#parameter-err').text('Những physic này đã tồn tại');
-            check = false;
+           check=false;
         }
         else {
             $('#parameter-err').text('');
@@ -472,7 +451,7 @@
                 scrollTop: $(".duplicate-request").offset().top
             }, 500);
             $('#request-err').text('Những physic này đã tồn tại');
-            check = false;
+           check=false;
         }
         else {
             $('#request-err').text('');
@@ -482,7 +461,7 @@
                 scrollTop: $(".has-space-parameter").offset().top
             }, 500);
             $('#parameter-err2').text('Physics không hợp lệ');
-            check = false;
+            check=false;
         }
         else {
             $('#parameter-err2').text('');
@@ -492,7 +471,7 @@
                 scrollTop: $(".has-space-request").offset().top
             }, 500);
             $('#request-err2').text('Physics không hợp lệ');
-            check = false;
+          check=false;
         }
         else {
             $('#request-err2').text('');
@@ -501,28 +480,46 @@
             $("html, body").animate({
                 scrollTop: $(".empty-paramter").offset().top
             }, 500);
-            $('#parameter-err1').text('Không được bỏ trống trường này');
-            check = false;
+            $('#parameter-err1').text('Vui lòng nhập những trường còn trống');
+            check=false;
         }
         else {
             $('#parameter-err1').text('');
         }
+        //
         if ($(".empty-request").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".empty-request").offset().top
             }, 500);
-            $('#request-err1').text('Không được bỏ trống trường này');
-            check = false;
+            $('#request-err1').text('Vui lòng nhập những trường còn trống');
+           check=false;
         }
         else {
             $('#request-err1').text('');
         }
+         if ($('#format').val().trim()==='') {
+           
+             $('#response-data-err').text('Vui lòng nhập SampleData');
+             check = false;
+            return false;
+         }
+    else {
+            $('#response-data-err').text('');
+        }
 
-        if (check === false)
-            return;
-        
+       try { 
+                JSON.parse($('#format').val()); 
+              $('#response-data-err').text('');
+       } catch (error) { 
+          
+           $('#response-data-err').text('SampleData không hợp lệ');
+           check = false;
+           return false;
+        } 
+         
+        if (check === false) return;
         else {
-            
+
             $.ajax({
                 type: "POST",
                 url: "/api/them-moi-api/add",
@@ -530,7 +527,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                     
+
                     window.location.replace("/api/danh-sach-api");
                 }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                     errorAlert('Lỗi', 'Xin vui lòng kiểm tra lại');

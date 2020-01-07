@@ -36,7 +36,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             else
             {
-                return View("/Views/Login/NewLogin.cshtml");
+                return View("/Views/Login/Login_Customer.cshtml");
             }
         }
         public ActionResult Login(string user, string pass, string checkbox)
@@ -113,7 +113,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/NewLogin.cshtml");
+                            return View("/Views/Login/Login_Customer.cshtml");
                         }
                     }
                     var cus = db.Customers.Where(x => x.Phone.Equals(tbPhone)).ToList();
@@ -126,7 +126,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/NewLogin.cshtml");
+                            return View("/Views/Login/Login_Customer.cshtml");
                         }
                     }
                 }
@@ -141,7 +141,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/NewLogin.cshtml");
+                            return View("/Views/Login/Login_Customer.cshtml");
                         }
                     }
                     var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
@@ -154,7 +154,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         else
                         {
-                            return View("/Views/Login/NewLogin.cshtml");
+                            return View("/Views/Login/Login_Customer.cshtml");
                         }
                     }
                 }
@@ -190,7 +190,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 else
                 {
-                    return View("/Views/Login/NewLogin.cshtml");
+                    return View("/Views/Login/Login_Customer.cshtml");
                 }
             }
         }
