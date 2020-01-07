@@ -177,6 +177,10 @@
                             <div class="col s12 l12">
                                 <br />
                                 <label>Ảnh chụp giấy hẹn (dung lượng tối đa 5Mb) <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
+                                </div>
                                 <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
                                     <div class="fallback">
                                         <input type="file" id="fUpload" class="form-control" single />
@@ -430,6 +434,7 @@
                                         </div>
                                         <div class="col s12 center">
                                             <div class="h-form-label" id="img">
+                                                <canvas id="c"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -867,7 +872,7 @@
             <div id="showmore">
                 <div class="input-field col s12">
                     <div class="select-wrapper row">
-                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
+                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                         <div class="col l9 m9 s12">
                             <select tabindex="-1" id="paper_type_edit" class="card-border">
                                 @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
@@ -892,8 +897,8 @@
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
                             <input name="dateTLHD" id="paper_date_edit" type='text' readonly
-                                    class="col s10 l10 datepicker-here centerText" autocomplete="off"
-                                    data-language='vi' />
+                                   class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                   data-language='vi' />
                             <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                         </div>
                     </div>
@@ -1237,7 +1242,7 @@
         else {
             $('p[name="name_edit"]').text("")
         }
-        var patt1 = new RegExp("^0[34579]\\d{8}$");
+        var patt1 = new RegExp("^0[35789]\\d{8}$");
         if (!patt1.test($('#phone_edit').val().trim())) {
             $('p[name="phone_edit"]').text("Số điện thoại không hợp lệ")
             check = false;
@@ -1578,10 +1583,15 @@ Dropzone.options.myAwesomeDropzone = {
                 $('p[name="item6"]').text('')
                 var base64String = event.target.result;
                 var image = new Image();
+                var canvas = document.getElementById("c");
+                var ctx = canvas.getContext("2d");
+
                 image.src = base64String;
-                $('#img').empty();
-                $('#img').append(image);
-                $('#img').children().width("100%")
+                image.onload = function() {
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    ctx.drawImage(image, 0, 0);
+                };
             };
             reader.readAsDataURL(file);
             if (this.files.length > 1) {
@@ -1593,7 +1603,6 @@ Dropzone.options.myAwesomeDropzone = {
         this.on("removedfile", function () {
             data1.delete("img")
             data1.delete("imgName")
-            $('#img').empty();
         });
         this.on("thumbnail", function (file, dataUrl) {
             $('.dz-image').last().find('img').attr({ width: '100%', height: '100%' });
@@ -1659,6 +1668,67 @@ Dropzone.options.myAwesomeDropzone = {
     dictInvalidFileType: "File không hợp lệ",
 };
 
+</script>
+<script>
+    function rotateRight() {
+        data1.delete("img")
+        var canvas = document.getElementById("c");
+        var ctx = canvas.getContext("2d");
+        var image = new Image()
+        image.src = canvas.toDataURL();
+        image.onload = function () {
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.translate(0, -canvas.width);
+            ctx.drawImage(image, 0, 0);
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            postCanvasToURL();
+        };
+    }
+
+    function rotateLeft() {
+        data1.delete("img")
+        var canvas = document.getElementById("c");
+        var ctx = canvas.getContext("2d");
+        var image = new Image()
+        image.src = canvas.toDataURL();
+        image.onload = function () {
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(270 * Math.PI / 180);
+            ctx.translate(-canvas.height, 0);
+            ctx.drawImage(image, 0, 0);
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            postCanvasToURL();
+        };
+    }
+
+    function postCanvasToURL() {
+        var canvas = document.getElementById("c");
+        // Convert canvas image to Base64
+        var img = canvas.toDataURL();
+        // Convert Base64 image to binary
+        var file = dataURItoBlob(img);
+        data1.append("img", file);
+    }
+
+    function dataURItoBlob(dataURI) {
+        // convert base64/URLEncoded data component to raw binary data held in a string
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        // write the bytes of the string to a typed array
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ia], { type: mimeString });
+    }
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>

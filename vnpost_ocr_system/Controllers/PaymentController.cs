@@ -112,7 +112,7 @@ namespace vnpost_ocr_system.Controllers
                             db.SaveChanges();
                             transaction.Commit();
                             ViewBag.id_raw = o.OrderID;
-                            string path = "/OrderImage/";
+                            string path = "/OrderImage/" + o.OrderID + "/";
                             if (!Directory.Exists(HostingEnvironment.MapPath(path)))
                             {
                                 Directory.CreateDirectory(HostingEnvironment.MapPath(path));
@@ -121,7 +121,7 @@ namespace vnpost_ocr_system.Controllers
                             {
                                 sourceimage.Save(HostingEnvironment.MapPath(path + image.ImageName));
                             }
-                            return Json(new { success = true, message = "Thêm thành công", data = o.AppointmentLetterCode });
+                            return Json(new { success = true, message = "Thêm thành công", data = o.OrderID });
                         }
                         catch (Exception e)
                         {
