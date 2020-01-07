@@ -6,9 +6,10 @@
 <link href="~/CustomCSS/InvitationCard/Search.css" rel="stylesheet" />
 <link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
 
-<div class="card p-5 search-card" style="margin-top: 0% !important; padding-top: 150px !important; width: 100% !important; min-height: 300px !important">
+<div class="card search-card" style="">
     <div class="input-group m-t-0 p-l-10 p-r-15">
-        <h5 class="center">Tra cứu giấy hẹn</h5>
+        <h4 class="center"><b>TRA CỨU GIẤY HẸN</b></h4>
+        <br />
         <div class="row">
             @using (Html.BeginForm("Search", "SearchStatus", FormMethod.Post, new
             {
@@ -23,9 +24,11 @@
                     <a class="col l2 s1"> <i class="fa fa-search" style="color: white;"></i></a>
                 </button>
             }
-            
+
         </div>
+        <hr />
         <div class="row">
+
             <table id="re-table" class="table-bordered col l7 offset-l3" style="margin-top: 60px">
                 <thead>
                     <tr>
