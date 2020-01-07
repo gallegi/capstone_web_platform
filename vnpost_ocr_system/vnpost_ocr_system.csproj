@@ -6292,7 +6292,7 @@
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
-    <Content Include="Views\Login\Login_Cutomer.cshtml" />
+    <Content Include="Views\Login\Login_Cutomer_Old.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
@@ -6301,9 +6301,11 @@
     <Content Include="Views\MobileView\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\MobileView\Users\AccountInfo.cshtml" />
     <Content Include="Views\MobileView\Users\InvitationManage.cshtml" />
-    <Content Include="Views\Login\NewLogin.cshtml" />
+    <Content Include="Views\Login\Login_Customer.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Services\Services.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

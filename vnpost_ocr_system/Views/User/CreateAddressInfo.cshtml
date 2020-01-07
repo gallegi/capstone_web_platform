@@ -27,120 +27,126 @@
 </style>
 
 <div class="main-wrapper p-t-20 black-text">
-    <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
-    <div class="card content-text">
-        <div class="account-info">
-            <div class="row">
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Họ và tên:<span class="red-text">*</span>
+    
+    <div class="card ">
+        <div class="card-content">
+            <h4 class="title">
+                <b>Tạo địa chỉ</b>
+            </h4>
+            <div class="account-info">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Họ và tên:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="name" type="text" value="">
+                            <p class="validation" name="check-name"></p>
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="name" type="text" value="">
-                        <p class="validation" name="check-name"></p>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Số điện thoại:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="phone" type="text" value="">
+                            <p class="validation" name="check-phone"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Số điện thoại:<span class="red-text">*</span>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Tỉnh/Thành phố:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="province">
+                                @*<option value='' selected disabled> Tỉnh/Thành Phố </option>*@
+                                @foreach (var item in ViewBag.listProvince)
+                                {
+                                    <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                }
+                            </select>
+                            <p class="validation" name="check-province"></p>
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="phone" type="text" value="">
-                        <p class="validation" name="check-phone"></p>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Quận/Huyện:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="district">
+                            </select>
+                            <p class="validation" name="check-district"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Tỉnh/Thành phố:<span class="red-text">*</span>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Địa chỉ:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <textarea id="address"></textarea>
+                            <p class="validation" name="check-address"></p>
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="province">
-                            @*<option value='' selected disabled> Tỉnh/Thành Phố </option>*@
-                            @foreach (var item in ViewBag.listProvince)
-                            {
-                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                            }
-                        </select>
-                        <p class="validation" name="check-province"></p>
-                    </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Quận/Huyện:<span class="red-text">*</span>
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="district">
-                        </select>
-                        <p class="validation" name="check-district"></p>
-                    </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Địa chỉ:<span class="red-text">*</span>
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <textarea id="address"></textarea>
-                        <p class="validation" name="check-address"></p>
-                    </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Loại giấy tờ tùy thân:
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
-                            @foreach (var item in ViewBag.listPaperType)
-                            {
-                                <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
-                            }
-                            <option value=""> Không có </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row" id="paperDetail">
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Mã số giấy tờ tùy thân:<span class="red-text">*</span>
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <input id="code" type="text" value="">
-                        <p class="validation" name="check-code"></p>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Loại giấy tờ tùy thân:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="card-border" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                                @foreach (var item in ViewBag.listPaperType)
+                                {
+                                    <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
+                                }
+                                <option value=""> Không có </option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <div class="row" id="paperDetail">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Mã số giấy tờ tùy thân:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="code" type="text" value="">
+                            <p class="validation" name="check-code"></p>
+                        </div>
+                    </div>
 
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Ngày cấp:
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Ngày cấp:
+                        </div>
+                        <div class="col s10 l4 m4">
+                            <input name="date" id="date" type="datetime"
+                                   class="datepicker-here center date-click" autocomplete="off"
+                                   data-language='vi' value="" />
+                            <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
+                        </div>
                     </div>
-                    <div class="col s10 l4 m4">
-                        <input name="date" id="date" type="datetime"
-                               class="datepicker-here center date-click" autocomplete="off"
-                               data-language='vi' value="" />
-                        <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
-                    </div>
-                </div>
 
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5 p-t-10">
-                        Nơi cấp:
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Nơi cấp:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="placeOfIssue" type="text" value="">
+                        </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col s12 l5 m5">
-                        <input id="placeOfIssue" type="text" value="">
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 l5 m5">
-                </div>
-                <div class="col s12 l5 m5 right-align">
-                    <a class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
-                       style="margin-right: -11px;" onclick="add()">
-                        Cập nhật
-                    </a>
+                    <div class="col s12 l5 m5 right-align">
+                        <a class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
+                           style="margin-right: -11px;" onclick="add()">
+                            Cập nhật
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

@@ -60,3 +60,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
     margin: 0 !important;
     padding: 0 !important;
 }
+.search-card {
+    min-height: 760px;
+    margin-top: 0% !important;
+    padding-top: 200px !important;
+    width: 100% !important;
+}
