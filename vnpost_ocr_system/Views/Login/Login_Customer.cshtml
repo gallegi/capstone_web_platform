@@ -588,18 +588,18 @@
 
         if (name.length == 0) {
 
-            $('#name-err').text('Vui lòng nhập họ tên');
+            $('#name-err').text('Vui lòng nhập Họ và tên');
             return false;
         }
         var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
         if (isName == true) {
-            $('#name-err').html('Họ tên không chứa kí tự đặc biệt và số');
+            $('#name-err').html('Họ và tên không chứa kí tự đặc biệt và số');
             return false;
         }
         if ($("#phonecheck").is(":checked") === true) {
             if (phone.length == 0) {
 
-                $('#phone-err').text('Vui lòng nhập số điện thoại');
+                $('#phone-err').text('Vui lòng nhập Số điện thoại');
                 return false;
             }
             if (phone.length != 10 && phone.length > 0) {
@@ -621,13 +621,13 @@
         if ($("#emailcheck").is(":checked") === true) {
             if (email.length == 0) {
 
-                $('#email-err').text('Vui lòng nhập email');
+                $('#email-err').text('Vui lòng nhập Email');
                 return false;
             }
 
             var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,}([.]{1}[a-z]{1,3})?$/.test(email);
             if (isEmail == false) {
-                $('#email-err').text('Địa chỉ email không hợp lệ');
+                $('#email-err').text('Địa chỉ Email không hợp lệ');
                 return false;
             }
             if (validCodeEmail.length == 0) {
@@ -659,7 +659,7 @@
 
         if (pass.length == 0) {
 
-            $('#rePass-err').text('Vui lòng nhập mật khẩu');
+            $('#rePass-err').text('Vui lòng nhập Mật khẩu');
             return false;
         }
         if (pass.length < 6 || pass.length > 32) {
@@ -669,7 +669,7 @@
         }
         if (rePass.length == 0) {
 
-            $('#rePass-err').text('Vui lòng nhập trường nhập lại mật khẩu');
+            $('#rePass-err').text('Vui lòng nhập trường Nhập lại mật khẩu');
             return false;
         }
         if (rePass != pass) {

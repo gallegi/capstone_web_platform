@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -35,6 +36,8 @@ namespace vnpost_ocr_system.Controllers
                 string AppointmentLetterCode = Request["AppointmentLetterCode"].ToString();
                 string ProcedurerFullName = Request["ProcedurerFullName"].ToString();
                 string ProcedurerPhone = Request["ProcedurerPhone"].ToString();
+                if (!Regex.IsMatch(ProcedurerPhone, "^0[35789]\\d{8}$"))
+                    return Json(new { success = false, message = "Số điện thoại không hợp lệ" });
                 string ProcedurerPostalDistrictCode = Request["ProcedurerPostalDistrictCode"].ToString();
                 string ProcedurerStreet = Request["ProcedurerStreet"].ToString();
                 int ProcedurerPersonalPaperTypeID = int.Parse(Request["ProcedurerPersonalPaperTypeID"].ToString());
@@ -112,7 +115,7 @@ namespace vnpost_ocr_system.Controllers
                             db.SaveChanges();
                             transaction.Commit();
                             ViewBag.id_raw = o.OrderID;
-                            string path = "/OrderImage/";
+                            string path = "/OrderImage/" + o.OrderID + "/";
                             if (!Directory.Exists(HostingEnvironment.MapPath(path)))
                             {
                                 Directory.CreateDirectory(HostingEnvironment.MapPath(path));
@@ -121,7 +124,7 @@ namespace vnpost_ocr_system.Controllers
                             {
                                 sourceimage.Save(HostingEnvironment.MapPath(path + image.ImageName));
                             }
-                            return Json(new { success = true, message = "Thêm thành công", data = o.AppointmentLetterCode });
+                            return Json(new { success = true, message = "Thêm thành công", data = o.OrderID });
                         }
                         catch (Exception e)
                         {
