@@ -25,156 +25,162 @@
 
 
 <div class="main-wrapper p-t-20">
-    <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Thông tin tài khoản</h2>
-    <div class="card no-collapse-m-p">
-        <div class="account-info">
-            <div class="row">
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5">
-                        Họ và tên:
+    <div class="card">
+        <div class="card-content">
+            <div class="card-title">
+                <h4>
+                    <b>Thông tin tài khoản</b>
+                </h4>
+            </div>
+            <div class="account-info">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Họ và tên:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="name" type="text" class="p-l-15">
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="name" type="text" class="p-l-15">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Số điện thoại:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="phone" type="text" class="p-l-15 readonly">
+                        </div>
                     </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5">
-                        Số điện thoại:
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Email:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="email" type="text" class="p-l-15 readonly">
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="phone" type="text" class="p-l-15 readonly">
-                    </div>
-                </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5">
-                        Email:
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <input id="email" type="text" class="p-l-15 readonly">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col s12 l5 m5">
-                        Giới tính:
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <div class="row">
-                            <div class="col l4 m4 s12">
-                                <label>
-                                    <input class="with-gap" name="group1" value="1" type="radio" id="M" />
-                                    <span>Nam</span>
-                                </label>
-                            </div>
-                            <div class="col l4 m4 s12">
-                                <label>
-                                    <input class="with-gap" name="group1" value="0" type="radio" id="F" />
-                                    <span>Nữ</span>
-                                </label>
-                            </div>
-                            <div class="col l4 m4 s12">
-                                <label>
-                                    <input class="with-gap" name="group1" value="2" type="radio" id="K" />
-                                    <span>Khác</span>
-                                </label>
+                    <div class="row mb-3">
+                        <div class="col s12 l5 m5">
+                            Giới tính:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="1" type="radio" id="M" />
+                                        <span>Nam</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="0" type="radio" id="F" />
+                                        <span>Nữ</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="2" type="radio" id="K" />
+                                        <span>Khác</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col s12 l5 m5">
-                        Ngày sinh:
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <div class="row">
-                            <div class="col l11 s10">
-                                <input name="dateTLHD" id="datepicker"
-                                       class="datepicker-here p-l-15 " autocomplete="off"
-                                       data-language='vi' style="border: 1px solid #000000;
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                            Ngày sinh:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <input name="dateTLHD" id="datepicker"
+                                           class="datepicker-here p-l-15 " autocomplete="off"
+                                           data-language='vi' style="border: 1px solid #000000;
                                border-radius: 10px; width: 100%!important;" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row mb-4">
-                    <div class="col s12 l5 m5 m-t-15">
-                        Tỉnh/Thành phố
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <div class="row">
-                            <div class="col l11 s10">
-                                <select class="form-control" id="province_cus" onchange="getDis()">
-                                </select>
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5 m-t-15">
+                            Tỉnh/Thành phố
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <select class="form-control" id="province_cus" onchange="getDis()">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row mb-4">
-                    <div class="col s12 l5 m5 m-t-15">
-                        Quận/Huyện
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <div class="row">
-                            <div class="col l11 s10">
-                                <select class="form-control" id="dis_cus">
-                                </select>
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5 m-t-15">
+                            Quận/Huyện
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <select class="form-control" id="dis_cus">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row mb-4">
-                    <div class="col s12 l5 m5">
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <label>
-                            <input id="cb-change-pass" type="checkbox" class="filled-in" />
-                            <span>Thay đổi mật khẩu</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row fading">
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5">
-                        Mật khẩu cũ:
-                    </div>
-                    <div class="col s12 l5 m5">
-                        <input id="oldpass" type="password" class="p-l-15" placeholder="Nhập mật khẩu cũ"
-                               onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <label>
+                                <input id="cb-change-pass" type="checkbox" class="filled-in" />
+                                <span>Thay đổi mật khẩu</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="row m-b-30">
-                    <div class="col s12 l5 m5">
-                        Mật khẩu mới:
+                <div class="row fading">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu cũ:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="oldpass" type="password" class="p-l-15" placeholder="Nhập mật khẩu cũ"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="newpass" type="password" class="p-l-15" placeholder="Mật khẩu từ 6 đến 32 ký tự"
-                               onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu mới:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="newpass" type="password" class="p-l-15" placeholder="Mật khẩu từ 6 đến 32 ký tự"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                    </div>
+                    <div class="row m-b-40">
+                        <div class="col s12 l5 m5">
+                            Nhập lại:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="repass" type="password" class="p-l-15" placeholder="Nhập lại mật khẩu mới"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
                     </div>
                 </div>
-                <div class="row m-b-40">
+                <div class="row">
                     <div class="col s12 l5 m5">
-                        Nhập lại:
                     </div>
-                    <div class="col s12 l5 m5">
-                        <input id="repass" type="password" class="p-l-15" placeholder="Nhập lại mật khẩu mới"
-                               onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                    <div class="col s12 l5 m5 right-align">
+                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit" onclick="Update()">
+                            Cập nhật
+                        </button>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 l5 m5">
-                </div>
-                <div class="col s12 l5 m5 right-align">
-                    <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit" onclick="Update()">
-                        Cập nhật
-                    </button>
-                </div>
-                <div class="col s12 l12 m12 err center" id="err">
-                </div>
-                <div class="col s12 l12 m12 succ center" id="succ">
+                    <div class="col s12 l12 m12 err center" id="err">
+                    </div>
+                    <div class="col s12 l12 m12 succ center" id="succ">
+                    </div>
                 </div>
             </div>
         </div>
