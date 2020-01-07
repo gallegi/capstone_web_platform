@@ -284,7 +284,7 @@
                     var tbData = "<tr>" +
                         "<td class='countP'>" + i + "</td>" +
                         "<td><input type='text'  value='" + item.APIInputParamDescription + "'></td>" +
-                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "' onclick =''></td>" +
+                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "' disabled='disabled'></td>" +
                         "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
                         "<td><a  class='black-text modal-trigger' name='action' onclick='deleteParameter(\""+item.APIInputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
                         "</tr>";
@@ -297,7 +297,7 @@
                     var tbData = "<tr>" +
                         "<td class='countR'>" + i + "</td>" +
                         "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
-                        "<td><input type='text' class='requestName' value='" + item.APIOutputParamName + "'></td>" +
+                        "<td><input type='text' class='requestName' value='" + item.APIOutputParamName + "' disabled='disabled'></td>" +
                         "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
                         "<td><a class='black-text modal-trigger' name='action' onclick='deleteRequest(\""+item.APIOutputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
                         "</tr>";
@@ -429,10 +429,10 @@
 
         }
         var arrparam = [];
-       $(".paramName").each(function () {
+        $(".paramName").each(function () {
             var value = $(this).val();
             var hasSpace = value.match(/\s/g);
-            hasSpace ?  $(this).addClass("has-space-parameter") :  $(this).removeClass("has-space-parameter")
+            hasSpace ? $(this).addClass("has-space-parameter") : $(this).removeClass("has-space-parameter")
             if (arrparam.indexOf(value) == -1) {
                 arrparam.push(value);
                 $(this).removeClass("duplicate-parameter");
@@ -446,7 +446,7 @@
         $(".requestName").each(function () {
             var value = $(this).val();
             var hasSpace = value.match(/\s/g);
-            hasSpace ?  $(this).addClass("has-space-request") :  $(this).removeClass("has-space-request")
+            hasSpace ? $(this).addClass("has-space-request") : $(this).removeClass("has-space-request")
             if (arrrequest.indexOf(value) == -1) {
                 arrrequest.push(value);
                 $(this).removeClass("duplicate-request");
@@ -456,71 +456,52 @@
                 $(this).focus();
             }
         });
-        
-       
+
+
         if ($('#uri').val().trim() === '') {
-            $("html, body").animate({
-                scrollTop: $("#uri-err").offset().top
+            $("html, body").animate({ 
+                scrollTop: $("#uri").offset().top
             }, 500);
             $('#uri-err').text('Vui lòng nhập URI');
-            check=false;
+            check = false;
+            return false;
         }
         else {
             $('#uri-err').text('');
         }
         if (!validURL($('#uri').val())) {
             $("html, body").animate({
-                scrollTop: $("#uri-err").offset().top
+                scrollTop: $("#uri").offset().top
             }, 500);
-           $('#uri-err').text('URI không hợp lệ');
-           
-            check=false;
-        }else {
+            $('#uri-err').text('URI không hợp lệ');
+            check = false;
+            return false;
+        } else {
             $('#uri-err').text('');
         }
-       
+
         if ($('#description').val().trim() === '') {
-             $("html, body").animate({
-                scrollTop: $("#description-err").offset().top
+            $("html, body").animate({
+                scrollTop: $("#description").offset().top
             }, 500);
-             $('#description-err').text('Vui lòng nhập Mô tả API');
-             
-            check=false;
+            $('#description-err').text('Vui lòng nhập Mô tả API');
+            check = false;
+            return false;
         }
-     else {
+        else {
             $('#description-err').text('');
         }
-        
-       
-         if ($('#format').val().trim()==='') {
-            $("html, body").animate({
-                scrollTop: $("#response-data-err").offset().top
-            }, 500);
-             $('#response-data-err').text('Vui lòng nhập SampleData');
-            check=false;
-         }
-    else {
-            $('#response-data-err').text('');
-        }
 
-       try { 
-                JSON.parse($('#format').val()); 
-              $('#response-data-err').text('');
-       } catch (error) { 
-           $("html, body").animate({
-                scrollTop: $("#response-data-err").offset().top
-            }, 500);
-                  $('#response-data-err').text('SampleData không hợp lệ');;
-            check=false; 
-        } 
+
+
         checkValidate();
-        
+
 
         if ($(".duplicate-parameter").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".duplicate-parameter").offset().top
             }, 500);
-            
+
             $('#parameter-err2').text('Những physic này đã tồn tại');
             check = false;
         }
@@ -531,7 +512,7 @@
             $("html, body").animate({
                 scrollTop: $(".duplicate-request").offset().top
             }, 500);
-            
+
             $('#request-err2').text('Những physic này đã tồn tại');
             check = false;
         }
@@ -548,43 +529,65 @@
         else {
             $('#parameter-err1').text('');
         }
+        //
         if ($(".has-space-request").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".has-space-request").offset().top
             }, 500);
-          
+
             $('#request-err1').text('Physics không hợp lệ');
             check = false;
         }
         else {
             $('#request-err1').text('');
         }
+        //
         if ($(".empty-paramter").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".empty-paramter").offset().top
             }, 500);
-            $('#parameter-err').text('Không được bỏ trống trường này');
+            $('#parameter-err').text('Vui lòng nhập những trường còn trống');
             check = false;
         }
         else {
             $('#parameter-err').text('');
         }
+        //
         if ($(".empty-request").length > 0) {
             $("html, body").animate({
                 scrollTop: $(".empty-request").offset().top
             }, 500);
-            $('#request-err').text('Không được bỏ trống trường này');
+            $('#request-err').text('Vui lòng nhập những trường còn trống');
             check = false;
         }
         else {
             $('#request-err').text('');
         }
 
-        if (check === false)
-            return;
-        
+
+        //
+        if ($('#format').val().trim() === '') {
+          
+            $('#response-data-err').text('Vui lòng nhập SampleData');
+            check = false;
+            return false;
+        }
         else {
-           
+            $('#response-data-err').text('');
+        }
+
+        try {
+            JSON.parse($('#format').val());
+            $('#response-data-err').text('');
+        } catch (error) {
+            
+            $('#response-data-err').text('SampleData không hợp lệ');
+            check = false;
+            return false;
+        }
+        if (check === false) return;
+        else {
+
             $.ajax({
                 type: "POST",
                 url: "/api/chinh-sua-api/edit",
@@ -592,8 +595,8 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                   
-                     window.location.replace("/api/danh-sach-api?apiid=" + $("#apiid").val() + "");
+
+                    window.location.replace("/api/danh-sach-api?apiid=" + $("#apiid").val() + "");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
