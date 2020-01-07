@@ -20,9 +20,9 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             int id = Convert.ToInt32(id_raw);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd'  from OrderStatusDetail where OrderID = @id  order by y,m,d desc";
+            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
             List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", id)).ToList();
-            query = "select osd.*,YEAR(osd.CreatedTime) as 'y', MONTH(osd.CreatedTime) as 'm', DAY(osd.CreatedTime) as 'd', s.StatusName from OrderStatusDetail osd join Status s on osd.StatusID = s.StatusID where OrderID = @id order by y,m,d desc";
+            query = "select osd.*,YEAR(osd.CreatedTime) as 'y', MONTH(osd.CreatedTime) as 'm', DAY(osd.CreatedTime) as 'd', s.StatusName from OrderStatusDetail osd join Status s on osd.StatusID = s.StatusID where OrderID = @id order by osd.CreatedTime desc";
             List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", id)).ToList();
             foreach (var item in list)
             {
@@ -57,7 +57,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     case "Sat":
                         item.dayOfWeek = "Thứ bảy";
                         break;
-                    case "Sub":
+                    case "Sun":
                         item.dayOfWeek = "Chủ nhật";
                         break;
                 }
