@@ -60,7 +60,7 @@
             },
             "columns": [
                 {
-                    "data": "AppointmentLetterCode", "name": "AppointmentLetterCode", "render": function (data) {
+                    "data": "OrderID", "name": "OrderID", "render": function (data) {
                         return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value="+data+" hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
                     }
                 },
@@ -71,8 +71,8 @@
                 { "data": "StatusName", "name": "StatusName" },
                 {
                     "data": {}, "render": function (data) {
-                        if (data.StatusID == -3) {
-                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel("+data.OrderID +")'>Hủy đơn hàng</a>";
+                        if (data.StatusID == -3 || data.StatusID == -2) {
+                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel(" +'"' +  data.OrderID + '|' + data.StatusID + '"' + ")'>Hủy đơn hàng</a>";
                         } else {
                             return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" disabled>Hủy đơn hàng</a>";
                         }
@@ -99,20 +99,45 @@
         });
     }
 
-    function getCancel(code) {
-        confirmAlert("Hủy đơn hàng", "Bạn muốn hủy đơn hàng ?", function () {
-            $.ajax({
-                type: "POST",
-                url: "/tai-khoan/quan-ly-giay-hen/huy",
-                dataType: "json",
-                data: {
-                    Code: JSON.stringify(code)
-                },
-                success: function () {
-                    window.location.href = '/tai-khoan/quan-ly-giay-hen';
-                }
-            })
+    function inform(info) {
+        var data = {
+            orderID: info
+        };
+        $.ajax({
+            type: "POST",
+            url: "/tai-khoan/quan-ly-giay-hen/danh-sach/poscode",
+            data: JSON.stringify(data),
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            success: function (response) {
+                errorAlert("Đơn hàng đã được tiếp nhận", response);
+            }
         });
+    }
+
+    function getCancel(data) {
+        var token = data.split("|");
+        //token[0] = orderID ; token[1] = statusID
+        //alert(token[0]);
+        if (token[1] == -3) {
+            confirmAlert("Hủy đơn hàng", "Bạn muốn hủy đơn hàng ?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/tai-khoan/quan-ly-giay-hen/huy",
+                    dataType: "json",
+                    data: {
+                        Code: token[0]
+                    },
+                    success: function () {
+                        window.location.href = '/tai-khoan/quan-ly-giay-hen';
+                    }
+                })
+            });
+        } else if (token[1] == -2) {
+            inform(token[0]);
+        } else {
+
+        }
     }
 
     function submit() {

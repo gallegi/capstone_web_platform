@@ -64,6 +64,30 @@ namespace vnpost_ocr_system.Controllers.User
             return Json(new { success = true, data = listOrder , draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrows }, JsonRequestBehavior.AllowGet);
         }
 
+        [Route("tai-khoan/quan-ly-giay-hen/danh-sach/poscode")]
+        public ActionResult getInfoPoscode(string orderID)
+        {
+            try
+            {
+                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+                
+                string queryInfo = "SELECT dbo.PublicAdministration.PosCode, dbo.[Order].OrderID "+
+                                " FROM dbo.PublicAdministration INNER JOIN " +
+                                " dbo.Profile ON dbo.PublicAdministration.PublicAdministrationLocationID = dbo.Profile.PublicAdministrationLocationID INNER JOIN " +
+                                " dbo.[Order] ON dbo.Profile.ProfileID = dbo.[Order].ProfileID " +
+                                " where dbo.[Order].OrderID = @orderID";
+                string queryPos = " select * from PostOffice where PosCode = @PosCode";
+                PoscodeInfo info = db.Database.SqlQuery<PoscodeInfo>(queryInfo, new SqlParameter("orderID", orderID)).FirstOrDefault();
+                PostOffice pos = db.Database.SqlQuery<PostOffice>(queryPos, new SqlParameter("PosCode", info.PosCode)).FirstOrDefault();
+                string mess = "Quý khách muốn hủy vui lòng liên hệ Bưu cục " + pos.PosName + " với số điện thoại " + pos.Phone ;
+                return Json(mess);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(400);
+            }                  
+        }
+
         [Route("tai-khoan/quan-ly-giay-hen/huy")]
         public ActionResult cancel(string Code)
         {
@@ -101,5 +125,11 @@ namespace vnpost_ocr_system.Controllers.User
         public string ProfileName { get; set; }
         public string StatusName { get; set; }
         public string stringDate { get; set; }
+    }
+
+    public class PoscodeInfo 
+    { 
+        public long PosCode { get; set; }
+        public long OrderID { get; set; }
     }
 }
