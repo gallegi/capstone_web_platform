@@ -434,7 +434,7 @@
                                         </div>
                                         <div class="col s12 center">
                                             <div class="h-form-label" id="img">
-                                                <canvas id="c"></canvas>
+                                                <img id="c" />
                                             </div>
                                         </div>
                                     </div>
@@ -1462,6 +1462,7 @@
                     UserInvitation.UserProfileID = $('#item4').val()
                     UserInvitation.UserLetterCode = $('#item5').val()
                     $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
+                    $('#c').css("width", $('#myform-p-0').width());
                     return true;
                 }
             }
@@ -1525,6 +1526,10 @@
                         errorAlert(response.message)
                         $('#pre-load').hide();
                     }
+                },
+                error: function (request, status, error) {
+                    errorAlert("Có lỗi xảy ra");
+                    $('#pre-load').hide();
                 }
             });
             //return form.submit();
@@ -1556,7 +1561,7 @@
     //Create by TUANKQ, THANGDV
 Dropzone.options.myAwesomeDropzone = {
     paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 5, // MB
+    maxFilesize: 6, // MB
     addRemoveLinks: true,
     autoProcessQueue: true,
     dictRemoveFile: 'Hủy',
@@ -1582,16 +1587,7 @@ Dropzone.options.myAwesomeDropzone = {
                 }
                 $('p[name="item6"]').text('')
                 var base64String = event.target.result;
-                var image = new Image();
-                var canvas = document.getElementById("c");
-                var ctx = canvas.getContext("2d");
-
-                image.src = base64String;
-                image.onload = function() {
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    ctx.drawImage(image, 0, 0);
-                };
+                $('#c').attr("src", base64String);
             };
             reader.readAsDataURL(file);
             if (this.files.length > 1) {
@@ -1671,63 +1667,71 @@ Dropzone.options.myAwesomeDropzone = {
 </script>
 <script>
     function rotateRight() {
+        if (data1.get("img") == null) return;
+        $('#pre-load').show();
         data1.delete("img")
-        var canvas = document.getElementById("c");
-        var ctx = canvas.getContext("2d");
-        var image = new Image()
-        image.src = canvas.toDataURL();
+        var image = new Image();
+        image.src = $('#c').attr("src");
         image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
             canvas.width = image.height;
             canvas.height = image.width;
             ctx.rotate(90 * Math.PI / 180);
             ctx.translate(0, -canvas.width);
             ctx.drawImage(image, 0, 0);
-            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
-            postCanvasToURL();
+            var URL = canvas.toDataURL('image/jpeg');
+            $('img[data-dz-thumbnail]').attr("src", URL);
+            $('#c').attr("src", URL);
+            dataURItoBlob(URL);
         };
     }
 
     function rotateLeft() {
+        if (data1.get("img") == null) return;
+        $('#pre-load').show();
         data1.delete("img")
-        var canvas = document.getElementById("c");
-        var ctx = canvas.getContext("2d");
-        var image = new Image()
-        image.src = canvas.toDataURL();
+        var image = new Image();
+        image.src = $('#c').attr("src");
         image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
             canvas.width = image.height;
             canvas.height = image.width;
             ctx.rotate(270 * Math.PI / 180);
             ctx.translate(-canvas.height, 0);
             ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
             $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
-            postCanvasToURL();
+            $('#c').attr("src", URL);
+            dataURItoBlob(URL);
         };
     }
 
-    function postCanvasToURL() {
-        var canvas = document.getElementById("c");
-        // Convert canvas image to Base64
-        var img = canvas.toDataURL();
-        // Convert Base64 image to binary
-        var file = dataURItoBlob(img);
-        data1.append("img", file);
-    }
-
     function dataURItoBlob(dataURI) {
-        // convert base64/URLEncoded data component to raw binary data held in a string
-        var byteString;
-        if (dataURI.split(',')[0].indexOf('base64') >= 0)
-            byteString = atob(dataURI.split(',')[1]);
-        else
-            byteString = unescape(dataURI.split(',')[1]);
-        // separate out the mime component
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        // write the bytes of the string to a typed array
-        var ia = new Uint8Array(byteString.length);
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
+        var blobBin = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
         }
-        return new Blob([ia], { type: mimeString });
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var file = new Blob([new Uint8Array(array)], { type: mimeString });
+        data1.append("img", file);
+        //var saveData = (function () {
+        //    var a = document.createElement("a");
+        //    document.body.appendChild(a);
+        //    a.style = "display: none";
+        //    return function (data) {
+        //        url = window.URL.createObjectURL(data);
+        //        a.href = url;
+        //        a.download = 'testing.jfif';
+        //        a.click();
+        //        window.URL.revokeObjectURL(url);
+        //    };
+        //}());
+        //saveData(file);
+
+        $('#pre-load').hide();
     }
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
