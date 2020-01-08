@@ -65,13 +65,20 @@
                 success: function (response) {
                     $('#re-table').show();
                     $("#re-table_body").empty();
-                    for (i = 0; i < response.data.length; i++) {
+                    if (response.mes != "") {
                         $("#re-table_body").append("<tr>" +
-                            "<td>" + response.data[i].AppointmentLetterCode + "</td>" +
-                            "<td>" + response.data[i].OrderID + "</td>" +
-                            "<td>" + response.data[i].StatusName + "</td>" +
-                            "<td><a class='btnSelect btn blue btn-small center'>Chi tiết</a></td>" +
+                            "<td colspan='4' style='text-align: center'>" + response.mes + "</td>" +
                             "</tr> ");
+                    }
+                    else {
+                        for (i = 0; i < response.data.length; i++) {
+                            $("#re-table_body").append("<tr>" +
+                                "<td>" + response.data[i].AppointmentLetterCode + "</td>" +
+                                "<td>" + response.data[i].OrderID + "</td>" +
+                                "<td>" + response.data[i].StatusName + "</td>" +
+                                "<td><a class='btnSelect btn blue btn-small center'>Chi tiết</a></td>" +
+                                "</tr> ");
+                        }
                     }
                     $("#pre-load").hide("slow", function () {
                     });
