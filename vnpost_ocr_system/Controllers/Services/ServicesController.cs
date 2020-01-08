@@ -6,12 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.Services
 {
     public class ServicesController : Controller
     {
         // GET: Services
+        [Auther(Roles = "1")]
         [Route("services/thiet-lap-services")]
         public ActionResult Index()
         {
@@ -22,6 +24,7 @@ namespace vnpost_ocr_system.Controllers.Services
             return View("/Views/Services/Services.cshtml");
         }
 
+        [Auther(Roles = "1")]
         public JsonResult Save(string[] hours, string[] minutes, string[] active, string[] id)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
@@ -65,6 +68,7 @@ namespace vnpost_ocr_system.Controllers.Services
                 }
             }
         }
+        [Auther(Roles = "1")]
         [Route("delete")]
         public JsonResult Delete(string id)
         {
