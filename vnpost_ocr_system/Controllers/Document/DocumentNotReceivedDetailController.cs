@@ -86,7 +86,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     con.Commit();
                     err = false;
 
-                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -3).FirstOrDefault();
+                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
                     if(order != null)
                     {
                         return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
