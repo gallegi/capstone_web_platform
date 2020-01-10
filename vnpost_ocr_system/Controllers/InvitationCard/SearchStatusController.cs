@@ -41,7 +41,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             string mess = "";
             if (list.Count == 0)
             {
-                mess = "Không tìm thấy kết quả nào";
+                mess = "Không tìm thấy kết quả nào với mã giấy hẹn trên";
             }
             return Json(new { success = true, data = list, mes = mess }, JsonRequestBehavior.AllowGet);
         }
