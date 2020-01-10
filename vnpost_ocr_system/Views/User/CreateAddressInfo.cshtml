@@ -30,7 +30,6 @@
     <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
     <div class="card content-text">
         <div class="account-info">
-
             <div class="row">
                 <div class="row m-b-30">
                     <div class="col s12 l5 m5 p-t-10">
@@ -56,7 +55,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="browser-default" id="province" onblur="checkProvince()">
-                            <option value='' selected disabled> Tỉnh/Thành Phố </option>
+                            <option value='' selected disabled> Chọn Tỉnh/Thành Phố </option>
                             @foreach (var item in ViewBag.listProvince)
                             {
                                 <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -70,7 +69,8 @@
                         Quận/Huyện:<span class="red-text">*</span>
                     </div>
                     <div class="col s12 l5 m5">
-                        <select tabindex="-1" class="browser-default" id="district" onblur="checkDistrict()" >
+                        <select tabindex="-1" class="browser-default" id="district" onblur="checkDistrict()">
+                            <option value='' selected disabled> Chọn Quận/Huyện </option>
                         </select>
                         <p class="validation" name="check-district"></p>
                     </div>
@@ -90,11 +90,11 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                            <option value="" selected disabled> Chọn loại giấy tờ tùy thân </option>
                             @foreach (var item in ViewBag.listPaperType)
                             {
                                 <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
                             }
-                            <option value=""> Không có </option>
                         </select>
                     </div>
                 </div>
@@ -369,7 +369,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#district').empty();
-                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                    var option = "<option value='' selected disabled>Chọn Quận/Huyện</option>";
                     //var option;
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
@@ -382,7 +382,14 @@
         })
     })
 
+    //default toggleDiv (fix bug)
+    $(document).ready(function () {
+         $("#paperDetail").hide();
+    })
+
+    //after change
     function toggleDiv(divId, element) {
+        //alert("#" + divId);
         if (element.value == '') {
             $("#" + divId).hide();
         } else {
