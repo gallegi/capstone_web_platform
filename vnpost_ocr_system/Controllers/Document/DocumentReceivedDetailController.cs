@@ -20,7 +20,7 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             int id = Convert.ToInt32(id_raw);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
+            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CAST(CreatedTime AS date) as 'CreatedTime' from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
             List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", id)).ToList();
             query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = @id order by CreatedTime desc";
             List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", id)).ToList();
