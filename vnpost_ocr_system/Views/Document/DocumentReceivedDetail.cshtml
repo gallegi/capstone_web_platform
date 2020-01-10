@@ -31,7 +31,7 @@
                                             <ul role="tablist">
                                                 <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
                                                     <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
-                                                        <span class="step" style="background-color:red!important;border-color:red !important">X</span>
+                                                        <span class="step" style="background-color:red!important;border-color:red !important;color:white">X</span>
                                                         Đã hủy
                                                     </a>
                                                 </li>
@@ -98,7 +98,7 @@
                                 foreach (var x in item.listOrder)
                                 {
                                     <div class="line">
-                                        @x.hour: @x.StatusName @if (x.Note != null)
+                                        @x.hour : @x.StatusName @if (x.Note != null)
                                         {<label>(@x.Note)</label>}
                                     </div>
                                 }
