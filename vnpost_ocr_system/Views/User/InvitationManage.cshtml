@@ -66,7 +66,8 @@
             "columns": [
                 {
                     "data": "OrderID", "name": "OrderID", "render": function (data) {
-                        return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value="+data+" hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
+                        return "<form id=\"submit-" +data + "\""  + " action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value="+ '"' + data+ '"' + " hidden></input><a href=\"#\" onclick='submit("+ '"' + data+ '"' + ")'>"+ data +"</a></form>";
+                        //return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value="+ '"' + data+ '"' + " hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
                     }
                 },
                 { "data": "stringDate", "name": "OrderDate" },
@@ -145,8 +146,8 @@
         }
     }
 
-    function submit() {
-        document.getElementById("submit").submit();
+    function submit(data) {
+        document.getElementById("submit-" + data).submit();
     }
 
 </script>
