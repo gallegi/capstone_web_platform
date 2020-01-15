@@ -28,9 +28,10 @@
     .validation {
         color: red;
     }
+
     .main-wrapper.p-t-20.black-text {
-    min-height: 700px;
-}
+        min-height: 700px;
+    }
 </style>
 
 <input type="hidden" class="form-control" id="id-edit" />
@@ -80,6 +81,7 @@
                         </div>
                         <div class="col s12 l5 m5">
                             <select tabindex="-1" class="browser-default" id="editDistrict" onblur="checkDistrict()">
+                                <option value='' selected disabled> Chọn Quận/Huyện </option>
                             </select>
                         </div>
                         <p class="validation" name="check-district"></p>
@@ -232,7 +234,7 @@
                 $('#province').val(data.info.PostalProvinceCode);
                 $('#province').formSelect();
                 $('#editDistrict').empty();
-                var option = "<option value='' selected disabled> Tỉnh/Thành Phố </option>";
+                var option = "<option value='' selected disabled> Chọn Tỉnh/Thành Phố </option>";
                 for (var i = 0; i < data.list.length; i++) {
                     option += "<option value='" + data.list[i].PostalDistrictCode + "'>" + data.list[i].PostalDistrictName + "</option>";
                 }
@@ -486,7 +488,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#editDistrict').empty();
-                    var option = "<option value='' selected disabled>Quận/Huyện</option>";
+                    var option = "<option value='' selected disabled>Chọn Quận/Huyện</option>";
                     for (var i = 0; i < response.length; i++) {
                         option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                     }
@@ -526,7 +528,7 @@
     $(document).ready(function () {
         var count = @ViewBag.contactCount;
         if (count == 0) {
-            toastr.error('Chưa có địa chỉ nào trong sổ địa chỉ', '');
+            //toastr.error('Chưa có địa chỉ nào trong sổ địa chỉ', '');
         }
     })
 

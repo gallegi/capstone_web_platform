@@ -20,19 +20,23 @@ namespace vnpost_ocr_system.Controllers.Document
         {
             int id = Convert.ToInt32(id_raw);
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
+            string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CAST(CreatedTime AS date) as 'CreatedTime' from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
             List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", id)).ToList();
-            query = "select osd.*,YEAR(osd.CreatedTime) as 'y', MONTH(osd.CreatedTime) as 'm', DAY(osd.CreatedTime) as 'd', s.StatusName from OrderStatusDetail osd join Status s on osd.StatusID = s.StatusID where OrderID = @id order by osd.CreatedTime desc";
+            query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = @id order by CreatedTime desc";
             List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", id)).ToList();
             foreach (var item in list)
             {
                 item.listOrder = new List<MyOrderDetail>();
                 foreach (var x in listOrderDB)
                 {
-                    x.hour = x.CreatedTime.ToString("HH:MM");
+                    x.hour = x.h + ":" + x.mi;
                     if (x.y == item.y && x.m == item.m && x.d == item.d)
                     {
-                        item.StatusID = x.StatusID;
+                        if (x.StatusID == 2) x.display = "Đã xác nhận đi khỏi bưu cục - " + x.PosCode + " - " + x.PosName;
+                        else if (x.StatusID == 3) x.display = "Đã xác nhận đến bưu cục - " + x.PosCode + " - " + x.PosName;
+                        else x.display = x.StatusName;
+
+                        if (x.Note != null) x.display += " (" + x.Note + ")";
                         item.listOrder.Add(x);
                         item.dayOfWeek = x.CreatedTime.ToString("ddd");
                     }
@@ -63,27 +67,44 @@ namespace vnpost_ocr_system.Controllers.Document
                 }
             }
             ViewBag.list = list;
+            //////////////////////////////////////////////////////////////////////
 
-
-            string sql = "select distinct o.*,s.StatusName, pa.PublicAdministrationName, pa.Phone, pa.[Address], p.ProfileName, " +
-                        " po.PosName, po.[Address] as 'Address_BC', po.Phone as 'Phone_BC' from[Order] o" +
-                        " left join[Profile] p on o.ProfileID = p.ProfileID" +
-                        " left join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID" +
-                        " left join PostOffice po on pa.PosCode = po.PosCode" +
-                        " left join District d on po.DistrictCode = d.DistrictCode" +
-                        " left join[Status] s on o.StatusID = s.StatusID" +
-                        " left join OrderStatusDetail osd on o.OrderID = osd.OrderID" +
-                        " where o.OrderID = @id";
+            string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, 
+                            (case when o.StatusID = 0 then 0 else 1 end) as 'active'
+                            from [Order] o 
+                            inner join Profile pr on pr.ProfileID = o.ProfileID
+                            inner join PublicAdministration pa on pr.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
+                            inner join PostOffice p on pa.PosCode = p.PosCode
+                            inner join District d on d.DistrictCode = p.DistrictCode
+							inner join OrderStatusDetail os on o.OrderID = os.OrderID
+							inner join Status s on o.StatusID = s.StatusID
+                            where o.OrderID = @id
+                            order by active desc";
             orderDB o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
-            o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
-            o.displayAmount = formatAmount(o.Amount);
+            if (o == null)
+            {
+                sql = @"select distinct o.*, os.PosCode,
+                        (case when o.StatusID = 0 then 0 else 1 end) as 'active'
+                        from [Order] o left outer join Status s on o.StatusID = s.StatusID
+                        inner join OrderStatusDetail os on o.OrderID = os.OrderID
+                        where o.OrderID = @id
+                        order by active desc";
+                o = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).FirstOrDefault();
+            }
+            else
+            {
+                o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                o.displayAmount = formatAmount(o.Amount);
+            }
+
             ViewBag.order = o;
             if (o.StatusID == -3) o.step = 0;
             else if (o.StatusID == -2) o.step = 1;
             else if (o.StatusID == 1) o.step = 2;
             else if (o.StatusID == 5) o.step = 4;
-            else o.step = 3;
-            if(o.StatusID == 0)
+            else if (o.StatusID == -1) o.step = 3;
+            else o.step = 0;
+            if (o.StatusID == 0)
             {
                 ViewBag.checkCancelled = true;
             }
@@ -91,6 +112,7 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 ViewBag.checkCancelled = false;
             }
+
             return View("/Views/Document/DocumentReceivedDetail.cshtml");
         }
 

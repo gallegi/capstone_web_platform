@@ -65,7 +65,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 if (od == null) ViewBag.ck = 1;
                 else ViewBag.ck = 0;
 
-                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd', CreatedTime  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
+                string query = "select distinct YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd',CAST(CreatedTime AS date) as 'CreatedTime'  from OrderStatusDetail where OrderID = @id order by CreatedTime desc";
                 List<OrderByDay> list = db.Database.SqlQuery<OrderByDay>(query, new SqlParameter("id", odb.OrderID)).ToList();
                 query = "select os.*,s.StatusName,DATEPART(HOUR, CreatedTime) as 'h',DATEPART(MINUTE, CreatedTime) as 'mi',p.PosName,YEAR(CreatedTime) as 'y', MONTH(CreatedTime) as 'm', DAY(CreatedTime) as 'd' from OrderStatusDetail os inner join Status s on os.StatusID = s.StatusID left outer join PostOffice p on os.PosCode = p.PosCode where OrderID = @id order by CreatedTime desc";
                 List<MyOrderDetail> listOrderDB = db.Database.SqlQuery<MyOrderDetail>(query, new SqlParameter("id", odb.OrderID)).ToList();
@@ -140,13 +140,14 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     o.displayAmount = formatAmount(o.Amount);
                 }
 
-                ViewBag.order = o;
                 if (o.StatusID == -3) o.step = 0;
                 else if (o.StatusID == -2) o.step = 1;
                 else if (o.StatusID == 1) o.step = 2;
                 else if (o.StatusID == 5) o.step = 4;
                 else if(o.StatusID == -1)o.step = 3; 
                 else o.step = 0;
+                ViewBag.order = o;
+
                 return View("/Views/InvitationCard/DisplayStatus.cshtml");
             }
 

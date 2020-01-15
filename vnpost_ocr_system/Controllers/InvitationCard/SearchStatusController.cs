@@ -38,7 +38,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         where o.AppointmentLetterCode = @id";
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             var list = db.Database.SqlQuery<orderDB>(sql, new SqlParameter("id", id)).ToList();
-            return Json(new { success = true, data = list }, JsonRequestBehavior.AllowGet);
+            string mess = "";
+            if (list.Count == 0)
+            {
+                mess = "Không tìm thấy kết quả nào với mã giấy hẹn trên";
+            }
+            return Json(new { success = true, data = list, mes = mess }, JsonRequestBehavior.AllowGet);
         }
 
         public void getMess(string s)
