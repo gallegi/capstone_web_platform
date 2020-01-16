@@ -190,6 +190,7 @@
     <Compile Include="Controllers\InvitationCard\InputInformationScreen21Controller.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationScreen22Controller.cs" />
     <Compile Include="Controllers\InvitationCard\InputSenderInfoController.cs" />
+    <Compile Include="Controllers\InvitationCard\OCRController.cs" />
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
@@ -6302,6 +6303,7 @@
     <Content Include="Views\Services\Services.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\InvitationCard\OCR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6353,6 +6355,7 @@
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />
     <Folder Include="Views\LoginCustomer\" />
+    <Folder Include="Views\OCR\" />
     <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
