@@ -12,6 +12,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
@@ -56,8 +57,62 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
             
         }
+
+
         [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
+        [HttpPost]
+        public ActionResult PostIndex()
+        {
+            if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
+            /*Receive request*/
+
+
+
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                District UserDistricts = db.Database.SqlQuery<District>("select d.* from District d inner join Customer c on d.PostalDistrictCode = c.PostalDistrictID where c.CustomerID = @CustomerID",
+                    new SqlParameter("CustomerID", Session["userID"].ToString())).FirstOrDefault();
+                ViewBag.UserProvinceCode = UserDistricts == null ? "" : UserDistricts.PostalProvinceCode;
+                ViewBag.UserDistrictsID = UserDistricts == null ? "" : UserDistricts.PostalDistrictCode;
+
+                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                ViewBag.provinces = provinces;
+
+                List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @PostalProvinceCode",
+                    new SqlParameter("PostalProvinceCode", provinces.First().PostalProvinceCode)).ToList();
+                string select = "";
+                foreach (District item in districts)
+                {
+                    select += "<option value=" + item.PostalDistrictCode + ">" + item.PostalDistrictName + "</option>";
+                }
+                ViewBag.select = select;
+
+                List<ContactInfoDB> contactInfos = db.Database.SqlQuery<ContactInfoDB>(@"select ci.*, ppt.PersonalPaperTypeName, d.PostalDistrictName, p.PostalProvinceName 
+                    from Customer c inner join ContactInfo ci on c.CustomerID = ci.CustomerID
+                    left join PersonalPaperType ppt on ci.PersonalPaperTypeID = ppt.PersonalPaperTypeID
+					inner join District d on ci.PostalDistrictCode = d.PostalDistrictCode
+					inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode
+                    where c.CustomerID = @CustomerID", new SqlParameter("CustomerID", Session["userID"].ToString())).ToList();
+                ViewBag.contactInfos = contactInfos;
+
+                List<PersonalPaperType> papertypes = db.PersonalPaperTypes.ToList();
+                ViewBag.papertypes = papertypes;
+            }
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/InvitationCard/InputInformationScreen21.cshtml");
+            }
+            else
+            {
+                return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
+            }
+
+        }
+
+
+        [Auther(Roles = "0")]
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/Add")]
         [HttpPost]
         public ActionResult Add()
         {
