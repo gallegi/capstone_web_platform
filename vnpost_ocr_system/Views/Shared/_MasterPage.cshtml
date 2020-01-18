@@ -63,12 +63,21 @@
             left: auto !important;
             right: 0 !important;
         }
-        .page-footer{
+
+        .page-footer {
             padding: 70px 30px 50px 100px;
         }
-        .payment-list img{
-            margin-right:10px;
 
+        .payment-list img {
+            margin-right: 10px;
+        }
+
+        .user-menu {
+            min-width: 300px !important;
+        }
+
+        label#input-error {
+            display: none !important;
         }
     </style>
 </head>
@@ -118,7 +127,7 @@
                     </div>
                 </nav>
             </header>
-            <ul id="dropdown1" class="dropdown-content">
+            <ul id="dropdown1" class="dropdown-content user-menu">
                 <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">settings</i>Tài khoản</a></li>
                 <li class="divider"></li>
                 <li><a href="/tai-khoan/quan-ly-giay-hen" class="nav-link"><i class="material-icons dp48">bookmark_border</i>Quản lý giấy hẹn</a></li>
