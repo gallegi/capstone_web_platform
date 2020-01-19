@@ -6287,7 +6287,6 @@
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
-    <Content Include="Views\InvitationCard\InputSenderInfo.cshtml" />
     <Content Include="Views\Login\Login_Cutomer_Old.cshtml" />
     <Content Include="Views\Login\Login_Cutomer.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
@@ -6355,6 +6354,7 @@
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />
     <Folder Include="Views\LoginCustomer\" />
+    <Folder Include="Views\OCR\" />
     <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>

@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
+        [Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
@@ -23,7 +26,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 ViewBag.UserProvinceCode = UserDistricts == null ? "" : UserDistricts.PostalProvinceCode;
                 ViewBag.UserDistrictsID = UserDistricts == null ? "" : UserDistricts.PostalDistrictCode;
 
-                List <Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
+                List<Province> provinces = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
                 ViewBag.provinces = provinces;
 
                 List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @PostalProvinceCode",
@@ -54,10 +57,12 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             {
                 return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
             }
-            
+
         }
+
+
         [Auther(Roles = "0")]
-        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/Add")]
         [HttpPost]
         public ActionResult Add()
         {
@@ -195,6 +200,59 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     return Json(false);
             }
         }
+
+        public string getMatchResult(string text, dynamic pattern)
+        {
+
+            var match = Regex.Match(text, (string) pattern);
+            if (match.Success)
+                return match.Groups[1].Value;
+            else
+                return null;
+        }
+
+        [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult")]
+        [HttpPost]
+        public ActionResult GetOCRResult(string ProfileID, string text)
+        {
+            string filePath = Server.MapPath("~/Regex/") + ProfileID + ".json";
+            if (!System.IO.File.Exists(filePath))
+            {
+                return Json(new {});
+            }
+            using (StreamReader r = new StreamReader(filePath))
+            {
+                string pattern = r.ReadToEnd();
+                dynamic parsed_pattern = JsonConvert.DeserializeObject(pattern);
+                dynamic test = parsed_pattern.AppointmentLetterCode;
+                string AppointmentLetterCode = getMatchResult(text, parsed_pattern.AppointmentLetterCode);
+                string ProcedurerFullName = getMatchResult(text, parsed_pattern.ProcedurerFullName);
+                string ProcedurerPhone = getMatchResult(text, parsed_pattern.ProcedurerPhone);
+                string ProcedurerPostalProvince = getMatchResult(text, parsed_pattern.ProcedurerPostalProvince);
+                string ProcedurerPostalDistrict = getMatchResult(text, parsed_pattern.ProcedurerPostalDistrict);
+                string ProcedurerStreet = getMatchResult(text, parsed_pattern.ProcedurerStreet);
+                string ProcedurerPersonalPaperType = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperType);
+                string ProcedurerPersonalPaperNumber = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperNumber);
+                string ProcedurerPersonalPaperIssuedDate = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperIssuedDate);
+                string ProcedurerPersonalPaperIssuedPlace = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperIssuedPlace);
+
+                return Json(new
+                {
+                    AppointmentLetterCode = AppointmentLetterCode,
+                    ProcedurerFullName = ProcedurerFullName,
+                    ProcedurerPhone = ProcedurerPhone,
+                    ProcedurerPostalProvince = ProcedurerPostalProvince,
+                    ProcedurerPostalDistrict = ProcedurerPostalDistrict,
+                    ProcedurerStreet = ProcedurerStreet,
+                    ProcedurerPersonalPaperType = ProcedurerPersonalPaperType,
+                    ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber,
+                    ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate,
+                    ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace
+                });
+            }
+        }
+
+
 
         private class distric
         {

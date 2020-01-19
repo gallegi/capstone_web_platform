@@ -16,9 +16,9 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetDistrictByProvinceCode(string code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            //3 cách lấy dữ liệu trong database, select để lọc data thừa trả về view cho nhẹ, dùng hay không thì tùy
             List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
-                .Select(x => new District {
+                .Select(x => new District
+                {
                     PostalDistrictCode = x.PostalDistrictCode,
                     PostalDistrictName = x.PostalDistrictName
                 }).ToList();
@@ -46,9 +46,10 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetPublicAdministrationByDistrictCode(string code)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<PublicAdministration> list = (from pd in db.Districts.Where(x => x.PostalDistrictCode.Equals(code))
+            List<PublicAdministration> list = (from pd in db.Districts
                                                join po in db.PostOffices on pd.DistrictCode equals po.DistrictCode
                                                join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
+                                               where pd.PostalDistrictCode.Equals(code)
                                                orderby pa.PublicAdministrationName
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {
@@ -66,6 +67,27 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 return Json(db.PublicAdministrations.Find(code).PublicAdministrationName);
+            }
+        }
+
+        [Route("getProvinceDistrictPublicAdmins")]
+        [HttpPost]
+        public ActionResult getProvinceDistrictPublicAdmins(int ProfileID)
+        {
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
+            {
+                var data = (from d in db.Districts
+                            join po in db.PostOffices on d.DistrictCode equals po.DistrictCode
+                            join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
+                            join p in db.Profiles on pa.PublicAdministrationLocationID equals p.PublicAdministrationLocationID
+                            where p.ProfileID.Equals(ProfileID)
+                            select new
+                            {
+                                d.PostalProvinceCode,
+                                d.PostalDistrictCode,
+                                pa.PublicAdministrationLocationID
+                            }).FirstOrDefault();
+                return Json(new { success = data == null ? false : true, data = data});
             }
         }
     }

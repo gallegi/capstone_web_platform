@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_MasterPage.cshtml";
 }
 
-
-
 <script src="~/CustomJS/InputInforScreen21.js"></script>
 <link href="~/CustomCSS/InvitationCard/InputInforScreen21.css" rel="stylesheet" />
 
@@ -14,20 +12,15 @@
 
 <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
 
-<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
-<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
 <script src="~/CustomJS/InputInfo.js"></script>
 
-<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
-<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet" />
-<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
-<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet" />
 <link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 <link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
 <link href="~/assets/uploader/icons.min.css" rel="stylesheet" />
@@ -136,6 +129,29 @@
                 <h2 class="card-title">Tạo giấy hẹn mới</h2>
                 <form id="myform" action="/giay-hen/trang-thai-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
+                    <h6>Ảnh chụp giấy hẹn</h6>
+                    <section>
+                        <div class="row">
+                            <div class="col s12 l12">
+                                <label>Dung lượng tối đa 5Mb <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
+                                </div>
+                                <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
+                                    <div class="fallback">
+                                        <input type="file" id="fUpload" class="form-control" single />
+                                    </div>
+                                    <div class="dz-message needsclick">
+                                        <i class="medium material-icons dp48">cloud_upload</i>
+                                        <h3 id="title_uploader">Kéo thả file hoặc click vào đây để tải lên</h3>
+                                        <span class="text-muted font-13">(File hợp lệ: jpg, png)</span>
+                                    </div>
+                                </div>
+                                <p class="validation" name="item6"></p>
+                            </div>
+                        </div>
+                    </section>
                     <h6>Thông tin thủ tục</h6>
                     <section>
                         <div class="row">
@@ -172,26 +188,6 @@
                                     <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item4"></p>
                                 </div>
-                            </div>
-
-                            <div class="col s12 l12">
-                                <br />
-                                <label>Ảnh chụp giấy hẹn (dung lượng tối đa 5Mb) <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
-                                <div class="input-field center">
-                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
-                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
-                                </div>
-                                <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
-                                    <div class="fallback">
-                                        <input type="file" id="fUpload" class="form-control" single />
-                                    </div>
-                                    <div class="dz-message needsclick">
-                                        <i class="medium material-icons dp48">cloud_upload</i>
-                                        <h3 id="title_uploader">Kéo thả file hoặc click vào đây để tải lên</h3>
-                                        <span class="text-muted font-13">(File hợp lệ: jpg, png)</span>
-                                    </div>
-                                </div>
-                                <p class="validation" name="item6"></p>
                             </div>
                         </div>
                     </section>
@@ -936,6 +932,7 @@
 <script>
     var UserInvitation = {}
     var CreateInvitation = {}
+    var OCRResult = {}
 
     if (!!$.cookie('CreateInvitation')) {
         CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
@@ -949,6 +946,7 @@
         var UserAdminLocationID = ""
         var UserProfileID = ""
     }
+
 
     var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
@@ -1130,6 +1128,14 @@
         $('p[name="paper_number_edit"]').text("")
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
+
+        if (!$.isEmptyObject(OCRResult)) {
+            $('input#name_edit').val(OCRResult.ProcedurerFullName)
+            $('input#phone_edit').val(OCRResult.ProcedurerPhone)
+            $('#province_edit').val($('#item1').find("option:selected").val());
+            $('#province_edit').formSelect()
+            $('#province_edit').change();
+        }
     })
 
     $(document).on("click", "#edit", function () {
@@ -1196,6 +1202,9 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#district_edit').append(option);
+                if ($("#province_edit").val() == $('#item1').val() && $('#item2').val() > 0) {
+                    $('#district_edit').val($('#item2').val())
+                }
                 $('#district_edit').formSelect();
                 $('#pre-load').hide()
             },
@@ -1277,7 +1286,7 @@
             $('#pre-load').show()
             $.ajax({
                 type: "POST",
-                url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc",
+                url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/Add",
                 cache: false,
                 dataType: "json",
                 data: {
@@ -1378,6 +1387,7 @@
 <script>
     var form = $(".validation-wizard").show();
     var error = true;
+    var sentAPI = false;
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1422,6 +1432,84 @@
         },
         onStepChanging: function (event, currentIndex, newIndex) {
             if (currentIndex === 0) {
+                if (data1.get("img") == null) {
+                    $('p[name="item6"]').text('Vui lòng chọn Ảnh chụp giấy hẹn');
+                    return false;
+                }
+                else {
+                    $('p[name="item6"]').text('');
+                    var data = new FormData();
+                    data.append('image', data1.get('img'));
+                    if (!sentAPI) {
+                        $('#pre-load').show();
+                        $.ajax({
+                            type: "POST",
+                            url: "http://54.197.16.66:8080/",
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response);
+                                sentAPI = true;
+                                if (response.hasOwnProperty('ProfileID') && response.ProfileID != "") {
+                                    UserProfileID = response.ProfileID;
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
+                                        dataType: "json",
+                                        cache: false,
+                                        data: {
+                                            ProfileID: UserProfileID,
+                                            text: response.text
+                                        },
+                                        success: function (result) {
+                                            OCRResult = result;
+                                            $("#item5").val(OCRResult.AppointmentLetterCode)
+                                            $("#item5").next().addClass('active')
+                                            $("#item5").blur()
+                                        }
+                                    })
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/getProvinceDistrictPublicAdmins",
+                                        cache: false,
+                                        dataType: "json",
+                                        data: {
+                                            ProfileID: UserProfileID
+                                        },
+                                        success: function (response2) {
+                                            console.log(response2)
+                                            if (response2.success) {
+                                                $('#item1').val(response2.data.PostalProvinceCode);
+                                                $('#item1').formSelect();
+                                                UserDistrictsID = response2.data.PostalDistrictCode;
+                                                UserAdminLocationID = response2.data.PublicAdministrationLocationID;
+                                                getDistrict();
+                                            }
+                                        }
+                                    }).done(function () {
+                                        $('#pre-load').hide();
+                                        $('a[role="menuitem"]').eq(1).click();
+                                        return true;
+                                    });
+                                }
+                            },
+                            error: function () {
+                                sentAPI = true;
+                                $('#pre-load').hide();
+                                $('a[role="menuitem"]').eq(1).click();
+                                return true;
+                            }
+                        })
+                    }
+                    else
+                        return true;
+                }
+            }
+            else if (currentIndex === 1 && newIndex > currentIndex) {
                 var pass = true;
                 if ($('#item1').val() == null) {
                     $('p[name="item1"]').text('Vui lòng chọn Thành phố');
@@ -1443,10 +1531,6 @@
                     $('p[name="item5"]').text('Vui lòng nhập Mã giấy hẹn')
                     pass = false;
                 }
-                if (data1.get("img") == null) {
-                    $('p[name="item6"]').text('Vui lòng chọn Ảnh chụp giấy hẹn')
-                    pass = false;
-                }
                 if (pass === false || error === false)
                     return;
                 else {
@@ -1455,7 +1539,6 @@
                     $('p[name="item3"]').text('');
                     $('p[name="item4"]').text('');
                     $('p[name="item5"]').text('');
-                    $('p[name="item6"]').text('');
                     UserInvitation.UserProvinceCode = $('#item1').val()
                     UserInvitation.PostalDistrictCode = $('#item2').val()
                     UserInvitation.UserAdminLocationID = $('#item3').val()
@@ -1466,19 +1549,19 @@
                     return true;
                 }
             }
-            else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
+            else if (currentIndex === 2 && !validate1 && newIndex > currentIndex) {
                 toastr.error('Vui lòng chọn thông tin người yêu cầu giải quyết TTHC');
                 return false;
             }
-            else if (currentIndex === 2 && !validate2 && newIndex > currentIndex) {
+            else if (currentIndex === 3 && !validate2 && newIndex > currentIndex) {
                 toastr.error('Vui lòng chọn thông tin người gửi');
                 return false;
             }
-            else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
+            else if (currentIndex === 4 && !validate3 && newIndex > currentIndex) {
                 toastr.error('Vui lòng chọn thông tin người nhận');
                 return false;
             }
-            else if (currentIndex === 4) {
+            else if (currentIndex === 5) {
                 UserInvitation.UserOrderNote = $('#OrderNote').val()
                 $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
                 return true;
