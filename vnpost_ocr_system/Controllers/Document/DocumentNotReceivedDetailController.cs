@@ -80,13 +80,16 @@ namespace vnpost_ocr_system.Controllers.Document
                     Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
                     o.ItemCode = itemCode;
                     o.Amount = Convert.ToDouble(getAllInfo(itemCode)["TongCuocChuyenPhat"]);
+                    //processed
+                    long usernameID = Convert.ToInt64((Session["useradminID"]).ToString());
+                    o.ProcessedBy = usernameID;
                     //o.StatusID = Convert.ToInt32(status);
                     db.Entry(o).State = EntityState.Modified;
                     db.SaveChanges();
                     con.Commit();
                     err = false;
 
-                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -3).FirstOrDefault();
+                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
                     if(order != null)
                     {
                         return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);

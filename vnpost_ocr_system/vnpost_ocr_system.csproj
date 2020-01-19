@@ -717,6 +717,7 @@
     <Content Include="assets\images\alert\alert5.png" />
     <Content Include="assets\images\alert\alert6.png" />
     <Content Include="assets\images\alert\alert7.png" />
+    <Content Include="assets\images\background-mobile-login.jpg" />
     <Content Include="assets\images\background.png" />
     <Content Include="assets\images\big\auth-bg.jpg" />
     <Content Include="assets\images\big\auth-bg2.jpg" />
@@ -6301,6 +6302,7 @@
     <Content Include="Views\Services\Services.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\MobileView\LoginView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
