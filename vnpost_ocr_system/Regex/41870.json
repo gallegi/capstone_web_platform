@@ -1,0 +1,12 @@
+{
+    "AppointmentLetterCode": "Số:\\s(.+?)\\n",
+    "ProcedurerFullName": "Tên đơn vị nộp hồ sơ:\\s(.+?)\n",
+    "ProcedurerPhone": "Số điện thoại:\\s*(\\d{10})\\n",
+    "ProcedurerPostalProvince": "",
+    "ProcedurerPostalDistrict": "",
+    "ProcedurerStreet": "",
+    "ProcedurerPersonalPaperType": "",
+    "ProcedurerPersonalPaperNumber": "",
+    "ProcedurerPersonalPaperIssuedDate": "",
+    "ProcedurerPersonalPaperIssuedPlace": ""
+}

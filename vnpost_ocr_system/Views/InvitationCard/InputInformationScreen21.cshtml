@@ -932,6 +932,7 @@
 <script>
     var UserInvitation = {}
     var CreateInvitation = {}
+    var OCRResult = {}
 
     if (!!$.cookie('CreateInvitation')) {
         CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
@@ -945,6 +946,7 @@
         var UserAdminLocationID = ""
         var UserProfileID = ""
     }
+
 
     var dist = '@Html.Raw(ViewBag.select)'
     var type = "";
@@ -1126,6 +1128,14 @@
         $('p[name="paper_number_edit"]').text("")
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
+
+        if (!$.isEmptyObject(OCRResult)) {
+            $('input#name_edit').val(OCRResult.ProcedurerFullName)
+            $('input#phone_edit').val(OCRResult.ProcedurerPhone)
+            $('#province_edit').val($('#item1').find("option:selected").val());
+            $('#province_edit').formSelect()
+            $('#province_edit').change();
+        }
     })
 
     $(document).on("click", "#edit", function () {
@@ -1192,6 +1202,9 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#district_edit').append(option);
+                if ($("#province_edit").val() == $('#item1').val() && $('#item2').val() > 0) {
+                    $('#district_edit').val($('#item2').val())
+                }
                 $('#district_edit').formSelect();
                 $('#pre-load').hide()
             },
@@ -1425,17 +1438,40 @@
                 }
                 else {
                     $('p[name="item6"]').text('');
+                    var data = new FormData();
+                    data.append('image', data1.get('img'));
                     if (!sentAPI) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://www.mocky.io/v2/5e21c3432f0000570077d8ff",
+                            url: "http://54.197.16.66:8080/",
+                            data: data,
+                            contentType: false,
+                            processData: false,
                             cache: false,
                             dataType: "json",
                             success: function (response) {
+                                console.log(response);
                                 sentAPI = true;
-                                if (response.hasOwnProperty('ProfileID')) {
+                                if (response.hasOwnProperty('ProfileID') && response.ProfileID != "") {
                                     UserProfileID = response.ProfileID;
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
+                                        dataType: "json",
+                                        cache: false,
+                                        data: {
+                                            ProfileID: UserProfileID,
+                                            text: response.text
+                                        },
+                                        success: function (result) {
+                                            OCRResult = result;
+                                            $("#item5").val(OCRResult.AppointmentLetterCode)
+                                            $("#item5").next().addClass('active')
+                                            $("#item5").blur()
+                                        }
+                                    })
+
                                     $.ajax({
                                         type: "POST",
                                         url: "/getProvinceDistrictPublicAdmins",
@@ -1445,6 +1481,7 @@
                                             ProfileID: UserProfileID
                                         },
                                         success: function (response2) {
+                                            console.log(response2)
                                             if (response2.success) {
                                                 $('#item1').val(response2.data.PostalProvinceCode);
                                                 $('#item1').formSelect();
