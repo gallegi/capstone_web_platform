@@ -35,10 +35,6 @@ label * {
 html {
     background: url('../../../images/background-mobile-login.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: bottom;
     height: 100%
 }
 
