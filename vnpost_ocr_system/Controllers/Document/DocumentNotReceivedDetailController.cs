@@ -69,6 +69,11 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 try
                 {
+                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
+                    if (order != null)
+                    {
+                        return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
+                    }
                     int conId = Convert.ToInt32(id);
                     OrderStatusDetail osd = new OrderStatusDetail();
                     osd.OrderID = Convert.ToInt64(id);
@@ -88,12 +93,6 @@ namespace vnpost_ocr_system.Controllers.Document
                     db.SaveChanges();
                     con.Commit();
                     err = false;
-
-                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
-                    if(order != null)
-                    {
-                        return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
-                    }
                     return Json(new { message = "Success" }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
