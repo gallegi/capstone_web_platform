@@ -44,9 +44,9 @@ namespace vnpost_ocr_system.Controllers.Document
 
             sql = "select (case when sum(a.tong_cho) is null then 0 else sum(a.tong_cho) end) as 'total_cho', (case when sum(a.tong_da) is null then 0 else sum(a.tong_da) end) as 'total_da', (case when sum(a.tong_xong) is null then 0 else sum(a.tong_xong) end) as 'total_xong' " +
                 "from(select a.date, " +
-               "SUM(case when a.StatusID = -3 then 1 else 0 end) as 'tong_cho', " +
-               "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
-               "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
+               "SUM(case when a.StatusID = -3 and day(a.date) <= day(getdate()) then 1 else 0 end) as 'tong_cho',  " +
+               "SUM(case when a.StatusID = -2 and day(a.date) = day(getdate()) then 1 else 0 end) as 'tong_da',  " +
+               "SUM(case when a.StatusID = 5 and day(a.date) = day(getdate()) then 1 else 0 end) as 'tong_xong' " +
                "from " +
                "  (select distinct CONVERT(date, os.CreatedTime) as 'date', o.StatusID, o.OrderID  " +
                "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
@@ -55,7 +55,7 @@ namespace vnpost_ocr_system.Controllers.Document
                " inner join District  d on po.DistrictCode = d.DistrictCode " +
                " inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
                " inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-               "where year(os.CreatedTime) = year(getdate()) and month(os.CreatedTime) = month(getdate()) and day(os.CreatedTime) = day(getdate()) AND ";
+               "where year(os.CreatedTime) = year(getdate()) and month(os.CreatedTime) = month(getdate()) AND ";
             //"where year(os.CreatedTime) = 2017 and month(os.CreatedTime) = 4 and day(os.CreatedTime) = 26 AND ";
             if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
