@@ -48,7 +48,7 @@ namespace vnpost_ocr_system.Controllers.Document
                "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
                "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
                "from " +
-               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               "  (select distinct CONVERT(date, os.CreatedTime) as 'date', o.StatusID, o.OrderID  " +
                "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
                " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                " inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -89,7 +89,7 @@ namespace vnpost_ocr_system.Controllers.Document
                "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
                "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
                "from " +
-               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               " (select distinct CONVERT(date, os.CreatedTime) as 'date', o.StatusID,o.OrderID " +
                "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
                " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                " inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -111,14 +111,14 @@ namespace vnpost_ocr_system.Controllers.Document
             if (odb == null) odb = new OrderDashBorad();
             ViewBag.detail = odb;
 
-            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-                "inner join Profile p on o.ProfileID = p.ProfileID " +
-                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                "inner join PostOffice po on pa.PosCode = po.PosCode " +
-                "inner join District  d on po.DistrictCode = d.DistrictCode " +
-                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-                "where o.StatusID = 5 and year(os.CreatedTime) = @year AND ";
+            sql = @"select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum'
+                        from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID
+                        inner join Profile p on o.ProfileID = p.ProfileID
+                        inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
+                        inner join PostOffice po on pa.PosCode = po.PosCode
+                        inner join District  d on po.DistrictCode = d.DistrictCode
+                        inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode
+                        where o.StatusID = 5 and year(os.CreatedTime) = @year AND ";
             if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -133,14 +133,14 @@ namespace vnpost_ocr_system.Controllers.Document
             string xong = JsonConvert.SerializeObject(list_xong);
             ViewBag.list_xong = xong;
 
-            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-                "inner join Profile p on o.ProfileID = p.ProfileID " +
-                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                "inner join PostOffice po on pa.PosCode = po.PosCode " +
-                "inner join District  d on po.DistrictCode = d.DistrictCode " +
-                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-                "where o.StatusID = -2 and year(os.CreatedTime) = @year AND ";
+            sql = @"select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum'
+                        from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID
+                        inner join Profile p on o.ProfileID = p.ProfileID
+                        inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
+                        inner join PostOffice po on pa.PosCode = po.PosCode
+                        inner join District  d on po.DistrictCode = d.DistrictCode
+                        inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode
+                        where o.StatusID = -2 and year(os.CreatedTime) = @year AND ";
             if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -155,14 +155,14 @@ namespace vnpost_ocr_system.Controllers.Document
             string da = JsonConvert.SerializeObject(list_da);
             ViewBag.list_da = da;
 
-            sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
-                "inner join Profile p on o.ProfileID = p.ProfileID " +
-                "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
-                "inner join PostOffice po on pa.PosCode = po.PosCode " +
-                "inner join District  d on po.DistrictCode = d.DistrictCode " +
-                "inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode " +
-                "where o.StatusID = -3 and year(os.CreatedTime) = @year AND ";
+            sql = @"select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum'
+                        from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID
+                        inner join Profile p on o.ProfileID = p.ProfileID
+                        inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
+                        inner join PostOffice po on pa.PosCode = po.PosCode
+                        inner join District  d on po.DistrictCode = d.DistrictCode
+                        inner join Province pr  on d.PostalProvinceCode = pr.PostalProvinceCode
+                        where o.StatusID = -3 and year(os.CreatedTime) = @year AND ";
             if (provine_ori != "Tất cả" && provine_ori != "") sql += "pr.PostalProvinceName  = @pro and ";
             if (district_ori != "Tất cả" && district_ori != "") sql += "d.PostalDistrictName  = @dis and ";
             if (hcc_ori != "Tất cả" && hcc_ori != "") sql += "pa.PublicAdministrationName  = @pub and ";
@@ -186,7 +186,7 @@ namespace vnpost_ocr_system.Controllers.Document
                   "  SUM(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                   "  SUM(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                   "  SUM(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-                  "  from[Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                  "  from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                   "  inner join Profile p on o.ProfileID = p.ProfileID " +
                   "  inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                   "  inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -227,7 +227,7 @@ namespace vnpost_ocr_system.Controllers.Document
             if (year == "") year = date;
 
             string sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -248,7 +248,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string xong = JsonConvert.SerializeObject(list_xong);
 
             sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -269,7 +269,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string da = JsonConvert.SerializeObject(list_da);
 
             sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -298,7 +298,7 @@ namespace vnpost_ocr_system.Controllers.Document
                   "  SUM(case when o.StatusID = -3 then 1 else 0 end) as 'total_cho', " +
                   "  SUM(case when o.StatusID = -2 then 1 else 0 end) as 'total_da', " +
                   "  SUM(case when o.StatusID = 5 then 1 else 0 end) as 'total_xong' " +
-                  "  from[Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                  "  from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                   "  inner join Profile p on o.ProfileID = p.ProfileID " +
                   "  inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                   "  inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -330,7 +330,7 @@ namespace vnpost_ocr_system.Controllers.Document
             date = DateTime.Now.ToString("MM");
             if (month == "") month = date;
             string sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -351,7 +351,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string xong = JsonConvert.SerializeObject(list_xong);
 
             sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -372,7 +372,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string da = JsonConvert.SerializeObject(list_da);
 
             sql = "select year(os.CreatedTime) as 'year', MONTH(os.CreatedTime) as 'month', DAY(os.CreatedTime) as 'day', count(o.OrderID) as 'sum' " +
-                "from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID " +
+                "from [Order] o inner join (select distinct o.OrderID, CONVERT(date, os.CreatedTime) as 'CreatedTime' from [Order] o inner join OrderStatusDetail os on o.OrderID = os.OrderID) os on o.OrderID = os.OrderID " +
                 "inner join Profile p on o.ProfileID = p.ProfileID " +
                 "inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                 "inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -414,7 +414,7 @@ namespace vnpost_ocr_system.Controllers.Document
                "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
                "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
                "from " +
-               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               " (select distinct CONVERT(date, os.CreatedTime) as 'date', o.StatusID,o.OrderID " +
                "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
                " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                " inner join PostOffice po on pa.PosCode = po.PosCode " +
@@ -456,7 +456,7 @@ namespace vnpost_ocr_system.Controllers.Document
                "SUM(case when a.StatusID = -2 then 1 else 0 end) as 'tong_da', " +
                "SUM(case when a.StatusID = 5 then 1 else 0 end) as 'tong_xong' " +
                "from " +
-               " (select CONVERT(date, os.CreatedTime) as 'date', o.StatusID " +
+               " (select distinct CONVERT(date, os.CreatedTime) as 'date', o.StatusID,o.OrderID " +
                "from[Order] o  inner join Profile p on o.ProfileID = p.ProfileID " +
                " inner join PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                " inner join PostOffice po on pa.PosCode = po.PosCode " +
