@@ -147,7 +147,14 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 else if(o.StatusID == -1)o.step = 3; 
                 else o.step = 0;
                 ViewBag.order = o;
-
+                if (o.StatusID == 0)
+                {
+                    ViewBag.checkCancelled = true;
+                }
+                else
+                {
+                    ViewBag.checkCancelled = false;
+                }
                 return View("/Views/InvitationCard/DisplayStatus.cshtml");
             }
 
