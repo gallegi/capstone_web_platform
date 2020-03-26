@@ -604,3 +604,6 @@ MigrationBackup/
 # DB attached files
 *.mdf
 *.LDF
+
+FormImage/*
+OrderImage/*
