@@ -202,6 +202,7 @@
     <Compile Include="Controllers\User\AccountInfoController.cs" />
     <Compile Include="Controllers\User\InvitationManageController.cs" />
     <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
+    <Compile Include="Controllers\Form\ListFormController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6300,6 +6301,7 @@
     <Content Include="Views\Services\Services.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Form\ListFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6333,6 +6335,7 @@
     <Folder Include="assets\libs\ckeditor\plugins\templates\icons\hidpi\" />
     <Folder Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\" />
     <Folder Include="assets\libs\node-sass\bin\" />
+    <Folder Include="FormImage\" />
     <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\AccountInfo\" />
@@ -6350,6 +6353,7 @@
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\InputReceiverInformation\" />
     <Folder Include="Views\ListAPI\" />
+    <Folder Include="Views\ListForm\" />
     <Folder Include="Views\LoginCustomer\" />
     <Folder Include="Views\OCR\" />
     <Folder Include="Views\SearchStatus\" />
