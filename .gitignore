@@ -604,3 +604,6 @@ MigrationBackup/
 # DB attached files
 *.mdf
 *.LDF
+
+vnpost_ocr_system/FormImage/*
+vnpost_ocr_system/OrderImage/*
