@@ -605,5 +605,5 @@ MigrationBackup/
 *.mdf
 *.LDF
 
-FormImage/*
-OrderImage/*
+vnpost_ocr_system/FormImage/*
+vnpost_ocr_system/OrderImage/*
