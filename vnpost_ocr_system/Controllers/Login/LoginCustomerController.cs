@@ -227,9 +227,9 @@ namespace vnpost_ocr_system.Controllers.Login
                     db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
+                // delete cookies
+                AuthCookie.Expires = DateTime.Now.AddDays(-1d);
             }    
-            // delete cookies
-            AuthCookie.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(AuthCookie);
 
             Session.Abandon();
