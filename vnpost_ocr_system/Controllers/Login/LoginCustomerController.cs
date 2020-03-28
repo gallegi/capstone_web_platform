@@ -217,15 +217,17 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Logout()
         {
             HttpCookie AuthCookie = Request.Cookies["VNPostORCAuthToken"];
-
-            // set token status
-            var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
-            if (dbToken != null)
+            if(AuthCookie!=null)
             {
-                dbToken.Status = false;
-                db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-            }
+                // set token status
+                var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
+                if (dbToken != null)
+                {
+                    dbToken.Status = false;
+                    db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }    
             // delete cookies
             AuthCookie.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(AuthCookie);
