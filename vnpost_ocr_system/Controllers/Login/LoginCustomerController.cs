@@ -229,9 +229,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 // delete cookies
                 AuthCookie.Expires = DateTime.Now.AddDays(-1d);
-            }    
-            Response.Cookies.Add(AuthCookie);
-
+                Response.Cookies.Add(AuthCookie);
+            }
             Session.Abandon();
             return Redirect("/");
         }
