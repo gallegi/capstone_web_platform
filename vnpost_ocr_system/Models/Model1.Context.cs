@@ -50,5 +50,6 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<AuthenticationToken> AuthenticationTokens { get; set; }
     }
 }

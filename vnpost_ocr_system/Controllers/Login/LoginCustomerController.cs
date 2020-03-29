@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
-using vnpost_ocr_system.SupportClass;
 using XCrypt;
-using System.IO;
+using vnpost_ocr_system.Controllers.CustomController;
+
 namespace vnpost_ocr_system.Controllers.Login
 {
-    public class LoginCustomerController : Controller
+    public class LoginCustomerController : BaseUserController
     {
         private VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
         // GET: LoginCustomer
@@ -38,6 +37,7 @@ namespace vnpost_ocr_system.Controllers.Login
             {
                 return View("/Views/Login/Login_Customer.cshtml");
             }
+
         }
         public ActionResult Login(string user, string pass, string checkbox)
         {
@@ -70,6 +70,17 @@ namespace vnpost_ocr_system.Controllers.Login
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pd");
                 if (passXc.Equals(custom.PasswordHash))
                 {
+                    // Generate unique token
+                    string AuthToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                    // Save Token to DB
+                    AuthenticationToken au = new AuthenticationToken();
+                    au.CustomerID = custom.CustomerID;
+                    au.Token = AuthToken;
+                    au.Status = true;
+                    au.CreateDate = DateTime.Now;
+                    db.AuthenticationTokens.Add(au);
+                    db.SaveChanges();
+
                     Session["userID"] = custom.CustomerID;
                     Session["userName"] = custom.FullName;
                     Session["Role"] = "0";
@@ -78,6 +89,14 @@ namespace vnpost_ocr_system.Controllers.Login
                     {
                         if (checkbox.Equals("True"))
                         {
+                            // Save Token to cookie
+                            HttpCookie AuthCookie = new HttpCookie("VNPostORCAuthToken");
+                            AuthCookie.Value = AuthToken;
+                            // Set the cookie expiration date.
+                            AuthCookie.Expires = DateTime.Now.AddHours(12);
+                            // Add the cookie.
+                            Response.Cookies.Add(AuthCookie);
+
                             HttpCookie remme = new HttpCookie("remmem");
                             remme["user"] = user;
                             remme["pass"] = pass_temp;
@@ -197,6 +216,21 @@ namespace vnpost_ocr_system.Controllers.Login
         [Route("Logout")]
         public ActionResult Logout()
         {
+            HttpCookie AuthCookie = Request.Cookies["VNPostORCAuthToken"];
+            if(AuthCookie!=null)
+            {
+                // set token status
+                var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
+                if (dbToken != null)
+                {
+                    dbToken.Status = false;
+                    db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                // delete cookies
+                AuthCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(AuthCookie);
+            }
             Session.Abandon();
             return Redirect("/");
         }
@@ -215,7 +249,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult ResetPassword(string emailORphone)
         {
             string[] absolutepath = Request.Url.ToString().Split('/');
-            string path = absolutepath[0] + "//"+absolutepath[2];
+            string path = absolutepath[0] + "//" + absolutepath[2];
             var user = db.Customers.Where(x => x.Email.Equals(emailORphone) || x.Phone.Equals(emailORphone)).FirstOrDefault();
             if (user != null)
             {
@@ -239,7 +273,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         db.ResetPasswordTokens.Add(re);
                         db.SaveChanges();
                     }
-                    
+
                     MailMessage mail = new MailMessage();
                     mail.To.Add(emailORphone);
                     mail.From = new MailAddress("vnposttest1@gmail.com");
@@ -285,7 +319,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 if (DateTime.Now.Subtract(checktoken.CreatedDate).TotalMinutes > 15) return Json(-1, JsonRequestBehavior.AllowGet);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(-2, JsonRequestBehavior.AllowGet);
             }
@@ -311,6 +345,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
+
     }
     public class login
     {

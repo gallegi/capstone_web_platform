@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.Home
 {
-    public class HomeController : Controller
+    public class HomeController : BaseUserController
     {
         // GET: Home
 
