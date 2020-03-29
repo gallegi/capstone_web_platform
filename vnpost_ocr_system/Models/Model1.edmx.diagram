@@ -69,6 +69,8 @@
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__Payment__0A9D95DB" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__PublicAdm__PosCo__0D7A0286" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Profile__PublicA__0C85DE4D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.AuthenticationToken" Width="1.5" PointX="7.5" PointY="21.125" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK_FirebaseToken_Customer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
