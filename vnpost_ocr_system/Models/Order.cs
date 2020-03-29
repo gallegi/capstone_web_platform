@@ -26,7 +26,7 @@ namespace vnpost_ocr_system.Models
         public long CustomerID { get; set; }
         public System.DateTime OrderDate { get; set; }
         public Nullable<System.DateTime> ShipDate { get; set; }
-        public int ProfileID { get; set; }
+        public long ProfileID { get; set; }
         public string AppointmentLetterCode { get; set; }
         public string ProcedurerFullName { get; set; }
         public string ProcedurerPhone { get; set; }
