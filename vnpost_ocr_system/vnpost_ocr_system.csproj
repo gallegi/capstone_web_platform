@@ -242,6 +242,9 @@
     <Compile Include="Models\EmailVerification.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Form.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,6 +308,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -5470,6 +5476,7 @@
     <Content Include="CustomCSS\Document\DocumentNotReceived.css" />
     <Content Include="CustomCSS\Document\DocumentNotReceivedDetailController.css" />
     <Content Include="CustomCSS\Document\DocumentReceived.css" />
+    <Content Include="CustomCSS\Form\ListForm.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\InvitationCard\InputReceiverInfo.css" />
