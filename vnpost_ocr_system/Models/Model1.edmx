@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -130,6 +130,16 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="FirebaseToken">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirebaseToken" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="AuthTokenID" Type="bigint" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Form">
           <Key>
             <PropertyRef Name="FormID" />
@@ -217,6 +227,16 @@
           <Property Name="ReceiverStreetRegex" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NotificationMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContentText" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SentDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -810,6 +830,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FirebaseToken_AuthenticationToken">
+          <End Role="AuthenticationToken" Type="Self.AuthenticationToken" Multiplicity="1" />
+          <End Role="FirebaseToken" Type="Self.FirebaseToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthenticationToken">
+              <PropertyRef Name="TokenID" />
+            </Principal>
+            <Dependent Role="FirebaseToken">
+              <PropertyRef Name="AuthTokenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FirebaseToken_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="AuthenticationToken" Type="Self.AuthenticationToken" Multiplicity="*" />
@@ -818,6 +850,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               <PropertyRef Name="CustomerID" />
             </Principal>
             <Dependent Role="AuthenticationToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationMessage_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="NotificationMessage">
               <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
@@ -834,7 +878,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailVerification" EntityType="Self.EmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FirebaseToken" EntityType="Self.FirebaseToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationMessage" EntityType="Self.NotificationMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderImage" EntityType="Self.OrderImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatusDetail" EntityType="Self.OrderStatusDetail" Schema="dbo" store:Type="Tables" />
@@ -991,13 +1037,20 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="District" EntitySet="District" />
             <End Role="Customer" EntitySet="Customer" />
           </AssociationSet>
+          <AssociationSet Name="FK_FirebaseToken_AuthenticationToken" Association="Self.FK_FirebaseToken_AuthenticationToken">
+            <End Role="AuthenticationToken" EntitySet="AuthenticationToken" />
+            <End Role="FirebaseToken" EntitySet="FirebaseToken" />
+          </AssociationSet>
           <AssociationSet Name="FK_FirebaseToken_Customer" Association="Self.FK_FirebaseToken_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="AuthenticationToken" EntitySet="AuthenticationToken" />
           </AssociationSet>
+          <AssociationSet Name="FK_NotificationMessage_Customer" Association="Self.FK_NotificationMessage_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="NotificationMessage" EntitySet="NotificationMessage" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VNPOST_AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1093,6 +1146,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_FirebaseToken_Customer" FromRole="AuthenticationToken" ToRole="Customer" />
+          <NavigationProperty Name="FirebaseTokens" Relationship="VNPOST_AppointmentModel.FK_FirebaseToken_AuthenticationToken" FromRole="AuthenticationToken" ToRole="FirebaseToken" />
         </EntityType>
         <EntityType Name="ContactInfo">
           <Key>
@@ -1130,6 +1184,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__0E6E26BF" FromRole="Customer" ToRole="ResetPasswordToken" />
           <NavigationProperty Name="District" Relationship="Self.FK_Customer_District" FromRole="Customer" ToRole="District" />
+          <NavigationProperty Name="NotificationMessages" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Customer" FromRole="Customer" ToRole="NotificationMessage" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -2060,7 +2115,63 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
+          <EntitySet Name="NotificationMessages" EntityType="VNPOST_AppointmentModel.NotificationMessage" />
+          <AssociationSet Name="FK_NotificationMessage_Customer" Association="VNPOST_AppointmentModel.FK_NotificationMessage_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="NotificationMessage" EntitySet="NotificationMessages" />
+          </AssociationSet>
+          <EntitySet Name="FirebaseTokens" EntityType="VNPOST_AppointmentModel.FirebaseToken" />
+          <AssociationSet Name="FK_FirebaseToken_AuthenticationToken" Association="VNPOST_AppointmentModel.FK_FirebaseToken_AuthenticationToken">
+            <End Role="AuthenticationToken" EntitySet="AuthenticationTokens" />
+            <End Role="FirebaseToken" EntitySet="FirebaseTokens" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="NotificationMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContentText" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Customer" FromRole="NotificationMessage" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_NotificationMessage_Customer">
+          <End Type="VNPOST_AppointmentModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="VNPOST_AppointmentModel.NotificationMessage" Role="NotificationMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="NotificationMessage">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FirebaseToken">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirebaseToken1" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="AuthTokenID" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AuthenticationToken" Relationship="VNPOST_AppointmentModel.FK_FirebaseToken_AuthenticationToken" FromRole="FirebaseToken" ToRole="AuthenticationToken" />
+        </EntityType>
+        <Association Name="FK_FirebaseToken_AuthenticationToken">
+          <End Type="VNPOST_AppointmentModel.AuthenticationToken" Role="AuthenticationToken" Multiplicity="1" />
+          <End Type="VNPOST_AppointmentModel.FirebaseToken" Role="FirebaseToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthenticationToken">
+              <PropertyRef Name="TokenID" />
+            </Principal>
+            <Dependent Role="FirebaseToken">
+              <PropertyRef Name="AuthTokenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2472,6 +2583,28 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationMessages">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
+              <MappingFragment StoreEntitySet="NotificationMessage">
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FirebaseTokens">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.FirebaseToken">
+              <MappingFragment StoreEntitySet="FirebaseToken">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AuthTokenID" ColumnName="AuthTokenID" />
+                <ScalarProperty Name="FirebaseToken1" ColumnName="FirebaseToken" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -70,17 +70,6 @@ namespace vnpost_ocr_system.Controllers.Login
                 string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(pass, "pd");
                 if (passXc.Equals(custom.PasswordHash))
                 {
-                    // Generate unique token
-                    string AuthToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-                    // Save Token to DB
-                    AuthenticationToken au = new AuthenticationToken();
-                    au.CustomerID = custom.CustomerID;
-                    au.Token = AuthToken;
-                    au.Status = true;
-                    au.CreateDate = DateTime.Now;
-                    db.AuthenticationTokens.Add(au);
-                    db.SaveChanges();
-
                     Session["userID"] = custom.CustomerID;
                     Session["userName"] = custom.FullName;
                     Session["Role"] = "0";
@@ -89,6 +78,26 @@ namespace vnpost_ocr_system.Controllers.Login
                     {
                         if (checkbox.Equals("True"))
                         {
+                            // Generate unique token
+                            string AuthToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                            // Save Token to DB
+                            AuthenticationToken au = new AuthenticationToken();
+                            au.CustomerID = custom.CustomerID;
+                            au.Token = AuthToken;
+                            au.Status = true;
+                            au.CreateDate = DateTime.Now;
+                            db.AuthenticationTokens.Add(au);
+                            db.SaveChanges();
+                            if (Session["DeviceToken"] != null)
+                            {
+                                FirebaseToken fbt = new FirebaseToken();
+                                fbt.AuthTokenID = au.TokenID;
+                                fbt.CreateDate = DateTime.Now;
+                                fbt.FirebaseToken1 = Session["DeviceToken"].ToString();
+                                fbt.Status = true;
+                                db.FirebaseTokens.Add(fbt);
+                                db.SaveChanges();
+                            }
                             // Save Token to cookie
                             HttpCookie AuthCookie = new HttpCookie("VNPostORCAuthToken");
                             AuthCookie.Value = AuthToken;
@@ -96,7 +105,6 @@ namespace vnpost_ocr_system.Controllers.Login
                             AuthCookie.Expires = DateTime.Now.AddHours(12);
                             // Add the cookie.
                             Response.Cookies.Add(AuthCookie);
-
                             HttpCookie remme = new HttpCookie("remmem");
                             remme["user"] = user;
                             remme["pass"] = pass_temp;
@@ -216,22 +224,30 @@ namespace vnpost_ocr_system.Controllers.Login
         [Route("Logout")]
         public ActionResult Logout()
         {
+            Session.Abandon();
             HttpCookie AuthCookie = Request.Cookies["VNPostORCAuthToken"];
-            if(AuthCookie!=null)
+            if (AuthCookie != null)
             {
-                // set token status
-                var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
-                if (dbToken != null)
+                var AuthToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
+                if (AuthToken != null)
                 {
-                    dbToken.Status = false;
-                    db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
+                    // set Firebasetoken status
+                    var FBToken = db.FirebaseTokens.Where(x => x.AuthTokenID.Equals(AuthToken.TokenID) && x.Status.Equals(true)).FirstOrDefault();
+                    if (FBToken != null)
+                    {
+                        FBToken.Status = false;
+                        db.Entry(FBToken).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    // set Authtoken status
+                    AuthToken.Status = false;
+                    db.Entry(AuthToken).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
                 // delete cookies
                 AuthCookie.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(AuthCookie);
             }
-            Session.Abandon();
             return Redirect("/");
         }
         public ActionResult GetPro()

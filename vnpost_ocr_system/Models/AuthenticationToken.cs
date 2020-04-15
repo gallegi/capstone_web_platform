@@ -14,6 +14,12 @@ namespace vnpost_ocr_system.Models
     
     public partial class AuthenticationToken
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AuthenticationToken()
+        {
+            this.FirebaseTokens = new HashSet<FirebaseToken>();
+        }
+    
         public long TokenID { get; set; }
         public long CustomerID { get; set; }
         public string Token { get; set; }
@@ -21,5 +27,7 @@ namespace vnpost_ocr_system.Models
         public System.DateTime CreateDate { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FirebaseToken> FirebaseTokens { get; set; }
     }
 }

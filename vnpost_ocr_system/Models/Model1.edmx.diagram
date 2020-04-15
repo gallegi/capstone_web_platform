@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d35e554ea05d4e8b95be5623f72e47d9" Name="Diagram1">
+      <Diagram DiagramId="d35e554ea05d4e8b95be5623f72e47d9" Name="Diagram1" ZoomLevel="109">
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Admin" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.AdminRole" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.API" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
@@ -69,9 +69,11 @@
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__Payment__0A9D95DB" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__PublicAdm__PosCo__0D7A0286" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Profile__PublicA__0C85DE4D" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="VNPOST_AppointmentModel.AuthenticationToken" Width="1.5" PointX="7.5" PointY="21.125" />
-        <AssociationConnector Association="VNPOST_AppointmentModel.FK_FirebaseToken_Customer" />
-      </Diagram>
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.NotificationMessage" Width="1.5" PointX="7.5" PointY="39.625" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK_NotificationMessage_Customer" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.FirebaseToken" Width="1.5" PointX="9.75" PointY="33" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK_FirebaseToken_AuthenticationToken" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
