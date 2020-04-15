@@ -21,7 +21,7 @@ namespace vnpost_ocr_system.Models
             this.ContactInfoes = new HashSet<ContactInfo>();
             this.Orders = new HashSet<Order>();
             this.ResetPasswordTokens = new HashSet<ResetPasswordToken>();
-            this.AuthenticationTokens = new HashSet<AuthenticationToken>();
+            this.NotificationMessages = new HashSet<NotificationMessage>();
         }
     
         public long CustomerID { get; set; }
@@ -44,6 +44,6 @@ namespace vnpost_ocr_system.Models
         public virtual ICollection<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuthenticationToken> AuthenticationTokens { get; set; }
+        public virtual ICollection<NotificationMessage> NotificationMessages { get; set; }
     }
 }

@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -196,6 +196,7 @@
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\MobileViewController.cs" />
+    <Compile Include="Controllers\Mobile\MobileAppController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\Services\ServicesController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
@@ -242,6 +243,9 @@
     <Compile Include="Models\EmailVerification.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FirebaseToken.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Form.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -262,6 +266,9 @@
     </Compile>
     <Compile Include="Models\MyOrderDetail.cs" />
     <Compile Include="Models\Non_Recive.cs" />
+    <Compile Include="Models\NotificationMessage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -6362,6 +6369,7 @@
     <Folder Include="Views\DocumentNotReceived\" />
     <Folder Include="Views\DocumentReceivedDetail\" />
     <Folder Include="Views\EditAPI\" />
+    <Folder Include="Views\FCM\" />
     <Folder Include="Views\GetProvinces\" />
     <Folder Include="Views\InputInformation\" />
     <Folder Include="Views\InputReceiverInformation\" />

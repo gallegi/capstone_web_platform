@@ -18,7 +18,8 @@ namespace vnpost_ocr_system.Controllers.CustomController
                 {
                     using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                     {
-                        var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
+                        DateTime minCreateDate = DateTime.Now.AddHours(-12);
+                        var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true) && x.CreateDate >= minCreateDate).FirstOrDefault();
                         if (dbToken != null)
                         {
                             Session["userID"] = dbToken.CustomerID;
