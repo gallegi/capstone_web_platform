@@ -254,62 +254,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             //});
         }
 
-
-        public class OCRParsed
-        {
-            public int PostalProvinceCode { get; set; }
-            public int PostalDistrictCode { get; set; }
-            public int PublicAdministrationLocationID { get; set; }
-            public int ProfileID { get; set; }
-            public string AppointmentLetterCode { get; set; }
-            public string ProcedurerFullName { get; set; }
-            public string ProcedurerPhone { get; set; }
-            public string ProcerdurerProvince { get; set; }
-            public string ProcedurerDistrict { get; set; }
-            public string ProcedurerStreet { get; set; }
-            public int ProcedurerPersonalPaperType { get; set; }
-            public string ProcedurerPersonalPaperNumber { get; set; }
-            public string ProcedurerPersonalPaperIssuedDate { get; set; }
-            public string ProcedurerPersonalPaperIssuedPlace { get; set; }
-            public string SenderFullName { get; set; }
-            public string SenderPhone { get; set; }
-            public string SenderrProvince { get; set; }
-            public string SenderDistrict { get; set; }
-            public string SenderStreet { get; set; }
-            public int SenderPersonalPaperType { get; set; }
-            public string SenderPersonalPaperNumber { get; set; }
-            public string SenderPersonalPaperIssuedDate { get; set; }
-            public string SenderPersonalPaperIssuedPlace { get; set; }
-            public string ReceiverFullName { get; set; }
-            public string ReceiverPhone { get; set; }
-            public string ReceiverrProvince { get; set; }
-            public string ReceiverDistrict { get; set; }
-            public string ReceiverStreet { get; set; }
-            public int ReceiverPersonalPaperType { get; set; }
-            public string ReceiverPersonalPaperNumber { get; set; }
-            public string ReceiverPersonalPaperIssuedDate { get; set; }
-            public string ReceiverPersonalPaperIssuedPlace { get; set; }
-        }
-
-        public class OCRRaw
-        {
-            public int form_id { get; set; }
-            public string raw_text { get; set; }
-            public string[] province { get; set; }
-            public string[] district { get; set; }
-            public string[] public_administration { get; set; }
-            public string[] profile { get; set; }
-            public string[] appointment_letter_code { get; set; }
-            public string[] name { get; set; }
-            public string[] phone_number { get; set; }
-            public string[] street { get; set; }
-            public string[] personal_paper_type { get; set; }
-            public string[] personal_paper_number { get; set; }
-            public string[] issued_date { get; set; }
-            public string[] issued_place { get; set; }
-        }
-
-
         private class district
         {
             public string PostalDistrictCode { get; set; }
