@@ -1444,27 +1444,23 @@
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://54.197.16.66:8080/",
+                            url: "http://www.mocky.io/v2/5e97d9943000004e00b6e0af",
                             data: data,
                             contentType: false,
                             processData: false,
                             cache: false,
                             dataType: "json",
                             success: function (response) {
-                                console.log(response);
                                 sentAPI = true;
-                                if (response.hasOwnProperty('ProfileID') && response.ProfileID != "") {
-                                    UserProfileID = response.ProfileID;
+                                if (response.hasOwnProperty('form_id') && response.form_id != "") {
                                     $.ajax({
                                         type: "POST",
                                         url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
                                         dataType: "json",
                                         cache: false,
-                                        data: {
-                                            ProfileID: UserProfileID,
-                                            text: response.text
-                                        },
+                                        data: response,
                                         success: function (result) {
+                                            console.log(result)
                                             OCRResult = result;
                                             $("#item5").val(OCRResult.AppointmentLetterCode)
                                             $("#item5").next().addClass('active')

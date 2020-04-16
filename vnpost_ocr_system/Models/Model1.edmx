@@ -72,6 +72,16 @@
           <Property Name="APIOutputParamDescription" Type="nvarchar(max)" />
           <Property Name="LastMofifiedTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="AuthenticationToken">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="ContactInfo">
           <Key>
             <PropertyRef Name="ContactInfoID" />
@@ -120,6 +130,94 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FormImageLink" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="APIOutput" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FormScopeLevel" Type="int" />
+          <Property Name="PostalProvinceCode" Type="varchar" MaxLength="2" />
+          <Property Name="ProvinceParseType" Type="int" />
+          <Property Name="ProvinceNERIndex" Type="int" />
+          <Property Name="ProvinceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="PostalDistrictCode" Type="varchar" MaxLength="4" />
+          <Property Name="DistrictParseType" Type="int" />
+          <Property Name="DistrictNERIndex" Type="int" />
+          <Property Name="DistrictRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="PublicAdministrationParseType" Type="int" />
+          <Property Name="PublicAdministrationLocationID" Type="bigint" />
+          <Property Name="PublicAdministrationNERIndex" Type="int" />
+          <Property Name="PublicAdministrationRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProfileParseType" Type="int" />
+          <Property Name="ProfileID" Type="bigint" />
+          <Property Name="ProfileNERIndex" Type="int" />
+          <Property Name="ProfileRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppointmentLetterCodeParseType" Type="int" />
+          <Property Name="AppointmentLetterCodeNERIndex" Type="int" />
+          <Property Name="AppointmentLetterCodeRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerFullNameParseType" Type="int" />
+          <Property Name="ProcedurerFullNameNERIndex" Type="int" />
+          <Property Name="ProcedurerFullNameRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerPhoneParseType" Type="int" />
+          <Property Name="ProcedurerPhoneNERIndex" Type="int" />
+          <Property Name="ProcedurerPhoneRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerProvinceParseType" Type="int" />
+          <Property Name="ProcedurerProvinceNERIndex" Type="int" />
+          <Property Name="ProcerdurerProvinceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerDistrictParseType" Type="int" />
+          <Property Name="ProcedurerDistrictNERIndex" Type="int" />
+          <Property Name="ProcedurerDistrictRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerStreetParseType" Type="int" />
+          <Property Name="ProcedurerStreetNERIndex" Type="int" />
+          <Property Name="ProcedurerStreetRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerPersonalPaperTypeParseType" Type="int" />
+          <Property Name="ProcedurerPersonalPaperTypeNERIndex" Type="int" />
+          <Property Name="ProcedurerPersonalPaperTypeRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerPersonalPaperNumberParseType" Type="int" />
+          <Property Name="ProcedurerPersonalPaperNumberNERIndex" Type="int" />
+          <Property Name="ProcedurerPersonalPaperNumberRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateParseType" Type="int" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateNERIndex" Type="int" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceParseType" Type="int" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceNERIndex" Type="int" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderFullNameParseType" Type="int" />
+          <Property Name="SenderFullNameNERIndex" Type="int" />
+          <Property Name="SenderFullNameRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderPhoneParseType" Type="int" />
+          <Property Name="SenderPhoneNERIndex" Type="int" />
+          <Property Name="SenderPhoneRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderProvinceParseType" Type="int" />
+          <Property Name="SenderProvinceNERIndex" Type="int" />
+          <Property Name="SenderProvinceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderDistrictParseType" Type="int" />
+          <Property Name="SenderDistrictNERIndex" Type="int" />
+          <Property Name="SenderDistrictRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderStreetParseType" Type="int" />
+          <Property Name="SenderStreetNERIndex" Type="int" />
+          <Property Name="SenderStreetRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReceiverFullNameParseType" Type="int" />
+          <Property Name="ReceiverFullNameNERIndex" Type="int" />
+          <Property Name="ReceiverFullNameRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReceiverPhoneParseType" Type="int" />
+          <Property Name="ReceiverPhoneNERIndex" Type="int" />
+          <Property Name="ReceiverPhoneRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReceiverProvinceParseType" Type="int" />
+          <Property Name="ReceiverProvinceNERIndex" Type="int" />
+          <Property Name="ReceiverProvinceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReceiverDistrictParseType" Type="int" />
+          <Property Name="ReceiverDistrictNERIndex" Type="int" />
+          <Property Name="ReceiverDistrictRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReceiverStreetParseType" Type="int" />
+          <Property Name="ReceiverStreetNERIndex" Type="int" />
+          <Property Name="ReceiverStreetRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="LastModifiedTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -128,7 +226,7 @@
           <Property Name="CustomerID" Type="bigint" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="ShipDate" Type="datetime" />
-          <Property Name="ProfileID" Type="int" Nullable="false" />
+          <Property Name="ProfileID" Type="bigint" Nullable="false" />
           <Property Name="AppointmentLetterCode" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ProcedurerFullName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ProcedurerPhone" Type="varchar" MaxLength="50" Nullable="false" />
@@ -230,9 +328,9 @@
           <Key>
             <PropertyRef Name="ProfileID" />
           </Key>
-          <Property Name="ProfileID" Type="int" Nullable="false" />
+          <Property Name="ProfileID" Type="bigint" Nullable="false" />
           <Property Name="ProfileName" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="PublicAdministrationLocationID" Type="int" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -247,7 +345,7 @@
           <Key>
             <PropertyRef Name="PublicAdministrationLocationID" />
           </Key>
-          <Property Name="PublicAdministrationLocationID" Type="int" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="bigint" Nullable="false" />
           <Property Name="PublicAdministrationName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
@@ -278,6 +376,16 @@
           </Key>
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
@@ -396,6 +504,54 @@
             </Principal>
             <Dependent Role="District">
               <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__PostalDist__32767D0B">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__PostalProv__318258D2">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__ProfileID__345EC57D">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__PublicAdmi__336AA144">
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="0..1" />
+          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicAdministration">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PublicAdministrationLocationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -654,6 +810,33 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FirebaseToken_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="AuthenticationToken" Type="Self.AuthenticationToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="AuthenticationToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_LevenshteinDistance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="searchString" Type="nvarchar" Mode="In" />
+          <Parameter Name="databaseString" Type="nvarchar" Mode="In" />
+          <Parameter Name="ingoreCase" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="QueryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="province" Type="nvarchar" Mode="In" />
+          <Parameter Name="province_limit" Type="int" Mode="In" />
+          <Parameter Name="district" Type="nvarchar" Mode="In" />
+          <Parameter Name="district_limit" Type="int" Mode="In" />
+          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
+          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+          <Parameter Name="profile_limit" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="VNPOST_AppointmentModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminRole" EntityType="Self.AdminRole" Schema="dbo" store:Type="Tables" />
@@ -661,10 +844,12 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="APIInputParam" EntityType="Self.APIInputParam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APIMethod" EntityType="Self.APIMethod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APIOutputParam" EntityType="Self.APIOutputParam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthenticationToken" EntityType="Self.AuthenticationToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailVerification" EntityType="Self.EmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderImage" EntityType="Self.OrderImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatusDetail" EntityType="Self.OrderStatusDetail" Schema="dbo" store:Type="Tables" />
@@ -680,6 +865,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="ResetPasswordToken" EntityType="Self.ResetPasswordToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTimer" EntityType="Self.ServiceTimer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="Admin1" EntitySet="Admin" />
@@ -719,6 +905,22 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <AssociationSet Name="FK__District__Postal__7B5B524B" Association="Self.FK__District__Postal__7B5B524B">
             <End Role="Province" EntitySet="Province" />
             <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__PostalDist__32767D0B" Association="Self.FK__Form__PostalDist__32767D0B">
+            <End Role="District" EntitySet="District" />
+            <End Role="Form" EntitySet="Form" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__PostalProv__318258D2" Association="Self.FK__Form__PostalProv__318258D2">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Form" EntitySet="Form" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__ProfileID__345EC57D" Association="Self.FK__Form__ProfileID__345EC57D">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Form" EntitySet="Form" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__PublicAdmi__336AA144" Association="Self.FK__Form__PublicAdmi__336AA144">
+            <End Role="PublicAdministration" EntitySet="PublicAdministration" />
+            <End Role="Form" EntitySet="Form" />
           </AssociationSet>
           <AssociationSet Name="FK__Order__CustomerI__7A672E12" Association="Self.FK__Order__CustomerI__7A672E12">
             <End Role="Customer" EntitySet="Customer" />
@@ -803,6 +1005,10 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <AssociationSet Name="FK_Customer_District" Association="Self.FK_Customer_District">
             <End Role="District" EntitySet="District" />
             <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirebaseToken_Customer" Association="Self.FK_FirebaseToken_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="AuthenticationToken" EntitySet="AuthenticationToken" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -892,6 +1098,17 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="API" Relationship="Self.FK__APIOutput__APIID__75A278F5" FromRole="APIOutputParam" ToRole="API" />
         </EntityType>
+        <EntityType Name="AuthenticationToken">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_FirebaseToken_Customer" FromRole="AuthenticationToken" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="ContactInfo">
           <Key>
             <PropertyRef Name="ContactInfoID" />
@@ -923,6 +1140,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostalDistrictID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuthenticationTokens" Relationship="Self.FK_FirebaseToken_Customer" FromRole="Customer" ToRole="AuthenticationToken" />
           <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Custo__778AC167" FromRole="Customer" ToRole="ContactInfo" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__0E6E26BF" FromRole="Customer" ToRole="ResetPasswordToken" />
@@ -939,6 +1157,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Posta__797309D9" FromRole="District" ToRole="ContactInfo" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_District" FromRole="District" ToRole="Customer" />
           <NavigationProperty Name="Province" Relationship="Self.FK__District__Postal__7B5B524B" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Forms" Relationship="Self.FK__Form__PostalDist__32767D0B" FromRole="District" ToRole="Form" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="District" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="District" ToRole="Order" />
           <NavigationProperty Name="Orders2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="District" ToRole="Order" />
@@ -953,6 +1172,98 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="FormTemplate">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FormImageLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APIOutput" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FormScopeLevel" Type="Int32" />
+          <Property Name="PostalProvinceCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceParseType" Type="Int32" />
+          <Property Name="ProvinceNERIndex" Type="Int32" />
+          <Property Name="ProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PostalDistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictParseType" Type="Int32" />
+          <Property Name="DistrictNERIndex" Type="Int32" />
+          <Property Name="DistrictRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PublicAdministrationParseType" Type="Int32" />
+          <Property Name="PublicAdministrationLocationID" Type="Int64" />
+          <Property Name="PublicAdministrationNERIndex" Type="Int32" />
+          <Property Name="PublicAdministrationRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileParseType" Type="Int32" />
+          <Property Name="ProfileID" Type="Int64" />
+          <Property Name="ProfileNERIndex" Type="Int32" />
+          <Property Name="ProfileRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentLetterCodeParseType" Type="Int32" />
+          <Property Name="AppointmentLetterCodeNERIndex" Type="Int32" />
+          <Property Name="AppointmentLetterCodeRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerFullNameParseType" Type="Int32" />
+          <Property Name="ProcedurerFullNameNERIndex" Type="Int32" />
+          <Property Name="ProcedurerFullNameRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerPhoneParseType" Type="Int32" />
+          <Property Name="ProcedurerPhoneNERIndex" Type="Int32" />
+          <Property Name="ProcedurerPhoneRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerProvinceParseType" Type="Int32" />
+          <Property Name="ProcedurerProvinceNERIndex" Type="Int32" />
+          <Property Name="ProcerdurerProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerDistrictParseType" Type="Int32" />
+          <Property Name="ProcedurerDistrictNERIndex" Type="Int32" />
+          <Property Name="ProcedurerDistrictRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerStreetParseType" Type="Int32" />
+          <Property Name="ProcedurerStreetNERIndex" Type="Int32" />
+          <Property Name="ProcedurerStreetRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerPersonalPaperTypeParseType" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperTypeNERIndex" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperTypeRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerPersonalPaperNumberParseType" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperNumberNERIndex" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperNumberRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateParseType" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateNERIndex" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperIssuedDateRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceParseType" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceNERIndex" Type="Int32" />
+          <Property Name="ProcedurerPersonalPaperIssuedPlaceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderFullNameParseType" Type="Int32" />
+          <Property Name="SenderFullNameNERIndex" Type="Int32" />
+          <Property Name="SenderFullNameRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderPhoneParseType" Type="Int32" />
+          <Property Name="SenderPhoneNERIndex" Type="Int32" />
+          <Property Name="SenderPhoneRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderProvinceParseType" Type="Int32" />
+          <Property Name="SenderProvinceNERIndex" Type="Int32" />
+          <Property Name="SenderProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderDistrictParseType" Type="Int32" />
+          <Property Name="SenderDistrictNERIndex" Type="Int32" />
+          <Property Name="SenderDistrictRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderStreetParseType" Type="Int32" />
+          <Property Name="SenderStreetNERIndex" Type="Int32" />
+          <Property Name="SenderStreetRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverFullNameParseType" Type="Int32" />
+          <Property Name="ReceiverFullNameNERIndex" Type="Int32" />
+          <Property Name="ReceiverFullNameRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverPhoneParseType" Type="Int32" />
+          <Property Name="ReceiverPhoneNERIndex" Type="Int32" />
+          <Property Name="ReceiverPhoneRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverProvinceParseType" Type="Int32" />
+          <Property Name="ReceiverProvinceNERIndex" Type="Int32" />
+          <Property Name="ReceiverProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverDistrictParseType" Type="Int32" />
+          <Property Name="ReceiverDistrictNERIndex" Type="Int32" />
+          <Property Name="ReceiverDistrictRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverStreetParseType" Type="Int32" />
+          <Property Name="ReceiverStreetNERIndex" Type="Int32" />
+          <Property Name="ReceiverStreetRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Form__PostalDist__32767D0B" FromRole="Form" ToRole="District" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Form__PostalProv__318258D2" FromRole="Form" ToRole="Province" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK__Form__ProfileID__345EC57D" FromRole="Form" ToRole="Profile" />
+          <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Form__PublicAdmi__336AA144" FromRole="Form" ToRole="PublicAdministration" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -961,7 +1272,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="CustomerID" Type="Int64" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ShipDate" Type="DateTime" Precision="3" />
-          <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="ProfileID" Type="Int64" Nullable="false" />
           <Property Name="AppointmentLetterCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProcedurerFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProcedurerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1088,9 +1399,10 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Key>
             <PropertyRef Name="ProfileID" />
           </Key>
-          <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="ProfileID" Type="Int64" Nullable="false" />
           <Property Name="ProfileName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PublicAdministrationLocationID" Type="Int32" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Forms" Relationship="Self.FK__Form__ProfileID__345EC57D" FromRole="Profile" ToRole="Form" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Profile" ToRole="Order" />
           <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Profile__PublicA__0C85DE4D" FromRole="Profile" ToRole="PublicAdministration" />
         </EntityType>
@@ -1104,16 +1416,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="ProvinceShortName" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__PostalPro__72C60C4A" FromRole="Province" ToRole="Admin" />
           <NavigationProperty Name="Districts" Relationship="Self.FK__District__Postal__7B5B524B" FromRole="Province" ToRole="District" />
+          <NavigationProperty Name="Forms" Relationship="Self.FK__Form__PostalProv__318258D2" FromRole="Province" ToRole="Form" />
         </EntityType>
         <EntityType Name="PublicAdministration">
           <Key>
             <PropertyRef Name="PublicAdministrationLocationID" />
           </Key>
-          <Property Name="PublicAdministrationLocationID" Type="Int32" Nullable="false" />
+          <Property Name="PublicAdministrationLocationID" Type="Int64" Nullable="false" />
           <Property Name="PublicAdministrationName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PosCode" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Forms" Relationship="Self.FK__Form__PublicAdmi__336AA144" FromRole="PublicAdministration" ToRole="Form" />
           <NavigationProperty Name="PostOffice" Relationship="Self.FK__PublicAdm__PosCo__0D7A0286" FromRole="PublicAdministration" ToRole="PostOffice" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK__Profile__PublicA__0C85DE4D" FromRole="PublicAdministration" ToRole="Profile" />
         </EntityType>
@@ -1145,6 +1459,16 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Status" ToRole="Order" />
           <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Statu__07C12930" FromRole="Status" ToRole="OrderStatusDetail" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
@@ -1254,6 +1578,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FirebaseToken_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="AuthenticationToken" Type="Self.AuthenticationToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="AuthenticationToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ContactIn__Custo__778AC167">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
@@ -1338,6 +1674,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Form__PostalDist__32767D0B">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Order__Procedure__7C4F7684">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -1371,6 +1719,42 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="SenderPostalDistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__PostalProv__318258D2">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PostalProvinceCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__ProfileID__345EC57D">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Form__PublicAdmi__336AA144">
+          <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="0..1" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicAdministration">
+              <PropertyRef Name="PublicAdministrationLocationID" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="PublicAdministrationLocationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1525,10 +1909,12 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="APIInputParams" EntityType="Self.APIInputParam" />
           <EntitySet Name="APIMethods" EntityType="Self.APIMethod" />
           <EntitySet Name="APIOutputParams" EntityType="Self.APIOutputParam" />
+          <EntitySet Name="AuthenticationTokens" EntityType="Self.AuthenticationToken" />
           <EntitySet Name="ContactInfoes" EntityType="Self.ContactInfo" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="EmailVerifications" EntityType="Self.EmailVerification" />
+          <EntitySet Name="FormTemplates" EntityType="VNPOST_AppointmentModel.FormTemplate" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderImages" EntityType="Self.OrderImage" />
           <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
@@ -1544,6 +1930,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="ResetPasswordTokens" EntityType="Self.ResetPasswordToken" />
           <EntitySet Name="ServiceTimers" EntityType="Self.ServiceTimer" />
           <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admins" />
             <End Role="Admin1" EntitySet="Admins" />
@@ -1580,6 +1967,10 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="APIMethod" EntitySet="APIMethods" />
             <End Role="API" EntitySet="APIs" />
           </AssociationSet>
+          <AssociationSet Name="FK_FirebaseToken_Customer" Association="Self.FK_FirebaseToken_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="AuthenticationToken" EntitySet="AuthenticationTokens" />
+          </AssociationSet>
           <AssociationSet Name="FK__ContactIn__Custo__778AC167" Association="Self.FK__ContactIn__Custo__778AC167">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="ContactInfo" EntitySet="ContactInfoes" />
@@ -1608,6 +1999,10 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="Province" EntitySet="Provinces" />
             <End Role="District" EntitySet="Districts" />
           </AssociationSet>
+          <AssociationSet Name="FK__Form__PostalDist__32767D0B" Association="Self.FK__Form__PostalDist__32767D0B">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Form" EntitySet="FormTemplates" />
+          </AssociationSet>
           <AssociationSet Name="FK__Order__Procedure__7C4F7684" Association="Self.FK__Order__Procedure__7C4F7684">
             <End Role="District" EntitySet="Districts" />
             <End Role="Order" EntitySet="Orders" />
@@ -1619,6 +2014,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <AssociationSet Name="FK__Order__SenderPos__01142BA1" Association="Self.FK__Order__SenderPos__01142BA1">
             <End Role="District" EntitySet="Districts" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__PostalProv__318258D2" Association="Self.FK__Form__PostalProv__318258D2">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Form" EntitySet="FormTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__ProfileID__345EC57D" Association="Self.FK__Form__ProfileID__345EC57D">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="Form" EntitySet="FormTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Form__PublicAdmi__336AA144" Association="Self.FK__Form__PublicAdmi__336AA144">
+            <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
+            <End Role="Form" EntitySet="FormTemplates" />
           </AssociationSet>
           <AssociationSet Name="FK__Order__Procedure__7D439ABD" Association="Self.FK__Order__Procedure__7D439ABD">
             <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
@@ -1668,7 +2075,32 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
+          <FunctionImport Name="QueryData" ReturnType="Collection(VNPOST_AppointmentModel.QueryData_Result)">
+            <Parameter Name="province" Mode="In" Type="String" />
+            <Parameter Name="province_limit" Mode="In" Type="Int32" />
+            <Parameter Name="district" Mode="In" Type="String" />
+            <Parameter Name="district_limit" Mode="In" Type="Int32" />
+            <Parameter Name="public_administration" Mode="In" Type="String" />
+            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="QueryData_Result">
+          <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalProvinceName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="ProvinceDistance" Nullable="true" />
+          <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="PostalDistrictName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="DistrictDistance" Nullable="true" />
+          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
+          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+          <Property Type="Double" Name="TotalDistance" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1746,6 +2178,17 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AuthenticationTokens">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AuthenticationToken">
+              <MappingFragment StoreEntitySet="AuthenticationToken">
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ContactInfoes">
             <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ContactInfo">
               <MappingFragment StoreEntitySet="ContactInfo">
@@ -1795,6 +2238,95 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
                 <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormTemplates">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.FormTemplate">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="FormImageLink" ColumnName="FormImageLink" />
+                <ScalarProperty Name="APIOutput" ColumnName="APIOutput" />
+                <ScalarProperty Name="FormScopeLevel" ColumnName="FormScopeLevel" />
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="ProvinceParseType" ColumnName="ProvinceParseType" />
+                <ScalarProperty Name="ProvinceNERIndex" ColumnName="ProvinceNERIndex" />
+                <ScalarProperty Name="ProvinceRegex" ColumnName="ProvinceRegex" />
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="DistrictParseType" ColumnName="DistrictParseType" />
+                <ScalarProperty Name="DistrictNERIndex" ColumnName="DistrictNERIndex" />
+                <ScalarProperty Name="DistrictRegex" ColumnName="DistrictRegex" />
+                <ScalarProperty Name="PublicAdministrationParseType" ColumnName="PublicAdministrationParseType" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationNERIndex" ColumnName="PublicAdministrationNERIndex" />
+                <ScalarProperty Name="PublicAdministrationRegex" ColumnName="PublicAdministrationRegex" />
+                <ScalarProperty Name="ProfileParseType" ColumnName="ProfileParseType" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileNERIndex" ColumnName="ProfileNERIndex" />
+                <ScalarProperty Name="ProfileRegex" ColumnName="ProfileRegex" />
+                <ScalarProperty Name="AppointmentLetterCodeParseType" ColumnName="AppointmentLetterCodeParseType" />
+                <ScalarProperty Name="AppointmentLetterCodeNERIndex" ColumnName="AppointmentLetterCodeNERIndex" />
+                <ScalarProperty Name="AppointmentLetterCodeRegex" ColumnName="AppointmentLetterCodeRegex" />
+                <ScalarProperty Name="ProcedurerFullNameParseType" ColumnName="ProcedurerFullNameParseType" />
+                <ScalarProperty Name="ProcedurerFullNameNERIndex" ColumnName="ProcedurerFullNameNERIndex" />
+                <ScalarProperty Name="ProcedurerFullNameRegex" ColumnName="ProcedurerFullNameRegex" />
+                <ScalarProperty Name="ProcedurerPhoneParseType" ColumnName="ProcedurerPhoneParseType" />
+                <ScalarProperty Name="ProcedurerPhoneNERIndex" ColumnName="ProcedurerPhoneNERIndex" />
+                <ScalarProperty Name="ProcedurerPhoneRegex" ColumnName="ProcedurerPhoneRegex" />
+                <ScalarProperty Name="ProcedurerProvinceParseType" ColumnName="ProcedurerProvinceParseType" />
+                <ScalarProperty Name="ProcedurerProvinceNERIndex" ColumnName="ProcedurerProvinceNERIndex" />
+                <ScalarProperty Name="ProcerdurerProvinceRegex" ColumnName="ProcerdurerProvinceRegex" />
+                <ScalarProperty Name="ProcedurerDistrictParseType" ColumnName="ProcedurerDistrictParseType" />
+                <ScalarProperty Name="ProcedurerDistrictNERIndex" ColumnName="ProcedurerDistrictNERIndex" />
+                <ScalarProperty Name="ProcedurerDistrictRegex" ColumnName="ProcedurerDistrictRegex" />
+                <ScalarProperty Name="ProcedurerStreetParseType" ColumnName="ProcedurerStreetParseType" />
+                <ScalarProperty Name="ProcedurerStreetNERIndex" ColumnName="ProcedurerStreetNERIndex" />
+                <ScalarProperty Name="ProcedurerStreetRegex" ColumnName="ProcedurerStreetRegex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperTypeParseType" ColumnName="ProcedurerPersonalPaperTypeParseType" />
+                <ScalarProperty Name="ProcedurerPersonalPaperTypeNERIndex" ColumnName="ProcedurerPersonalPaperTypeNERIndex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperTypeRegex" ColumnName="ProcedurerPersonalPaperTypeRegex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperNumberParseType" ColumnName="ProcedurerPersonalPaperNumberParseType" />
+                <ScalarProperty Name="ProcedurerPersonalPaperNumberNERIndex" ColumnName="ProcedurerPersonalPaperNumberNERIndex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperNumberRegex" ColumnName="ProcedurerPersonalPaperNumberRegex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedDateParseType" ColumnName="ProcedurerPersonalPaperIssuedDateParseType" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedDateNERIndex" ColumnName="ProcedurerPersonalPaperIssuedDateNERIndex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedDateRegex" ColumnName="ProcedurerPersonalPaperIssuedDateRegex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedPlaceParseType" ColumnName="ProcedurerPersonalPaperIssuedPlaceParseType" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedPlaceNERIndex" ColumnName="ProcedurerPersonalPaperIssuedPlaceNERIndex" />
+                <ScalarProperty Name="ProcedurerPersonalPaperIssuedPlaceRegex" ColumnName="ProcedurerPersonalPaperIssuedPlaceRegex" />
+                <ScalarProperty Name="SenderFullNameParseType" ColumnName="SenderFullNameParseType" />
+                <ScalarProperty Name="SenderFullNameNERIndex" ColumnName="SenderFullNameNERIndex" />
+                <ScalarProperty Name="SenderFullNameRegex" ColumnName="SenderFullNameRegex" />
+                <ScalarProperty Name="SenderPhoneParseType" ColumnName="SenderPhoneParseType" />
+                <ScalarProperty Name="SenderPhoneNERIndex" ColumnName="SenderPhoneNERIndex" />
+                <ScalarProperty Name="SenderPhoneRegex" ColumnName="SenderPhoneRegex" />
+                <ScalarProperty Name="SenderProvinceParseType" ColumnName="SenderProvinceParseType" />
+                <ScalarProperty Name="SenderProvinceNERIndex" ColumnName="SenderProvinceNERIndex" />
+                <ScalarProperty Name="SenderProvinceRegex" ColumnName="SenderProvinceRegex" />
+                <ScalarProperty Name="SenderDistrictParseType" ColumnName="SenderDistrictParseType" />
+                <ScalarProperty Name="SenderDistrictNERIndex" ColumnName="SenderDistrictNERIndex" />
+                <ScalarProperty Name="SenderDistrictRegex" ColumnName="SenderDistrictRegex" />
+                <ScalarProperty Name="SenderStreetParseType" ColumnName="SenderStreetParseType" />
+                <ScalarProperty Name="SenderStreetNERIndex" ColumnName="SenderStreetNERIndex" />
+                <ScalarProperty Name="SenderStreetRegex" ColumnName="SenderStreetRegex" />
+                <ScalarProperty Name="ReceiverFullNameParseType" ColumnName="ReceiverFullNameParseType" />
+                <ScalarProperty Name="ReceiverFullNameNERIndex" ColumnName="ReceiverFullNameNERIndex" />
+                <ScalarProperty Name="ReceiverFullNameRegex" ColumnName="ReceiverFullNameRegex" />
+                <ScalarProperty Name="ReceiverPhoneParseType" ColumnName="ReceiverPhoneParseType" />
+                <ScalarProperty Name="ReceiverPhoneNERIndex" ColumnName="ReceiverPhoneNERIndex" />
+                <ScalarProperty Name="ReceiverPhoneRegex" ColumnName="ReceiverPhoneRegex" />
+                <ScalarProperty Name="ReceiverProvinceParseType" ColumnName="ReceiverProvinceParseType" />
+                <ScalarProperty Name="ReceiverProvinceNERIndex" ColumnName="ReceiverProvinceNERIndex" />
+                <ScalarProperty Name="ReceiverProvinceRegex" ColumnName="ReceiverProvinceRegex" />
+                <ScalarProperty Name="ReceiverDistrictParseType" ColumnName="ReceiverDistrictParseType" />
+                <ScalarProperty Name="ReceiverDistrictNERIndex" ColumnName="ReceiverDistrictNERIndex" />
+                <ScalarProperty Name="ReceiverDistrictRegex" ColumnName="ReceiverDistrictRegex" />
+                <ScalarProperty Name="ReceiverStreetParseType" ColumnName="ReceiverStreetParseType" />
+                <ScalarProperty Name="ReceiverStreetNERIndex" ColumnName="ReceiverStreetNERIndex" />
+                <ScalarProperty Name="ReceiverStreetRegex" ColumnName="ReceiverStreetRegex" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1972,6 +2504,36 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="QueryData" FunctionName="VNPOST_AppointmentModel.Store.QueryData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.QueryData_Result">
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
+                <ScalarProperty Name="ProvinceDistance" ColumnName="ProvinceDistance" />
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
+                <ScalarProperty Name="DistrictDistance" ColumnName="DistrictDistance" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -17,15 +17,18 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PublicAdministration()
         {
+            this.Forms = new HashSet<FormTemplate>();
             this.Profiles = new HashSet<Profile>();
         }
     
-        public int PublicAdministrationLocationID { get; set; }
+        public long PublicAdministrationLocationID { get; set; }
         public string PublicAdministrationName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public long PosCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormTemplate> Forms { get; set; }
         public virtual PostOffice PostOffice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }

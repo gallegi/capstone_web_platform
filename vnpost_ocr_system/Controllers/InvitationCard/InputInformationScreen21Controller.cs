@@ -181,7 +181,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 if (!info.CustomerID.Equals(long.Parse(Session["userID"].ToString()))) return null;
                 if (info == null) return null;
 
-                List<distric> districts = db.Database.SqlQuery<distric>("select d.PostalDistrictCode, d.PostalDistrictName from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
+                List<district> districts = db.Database.SqlQuery<district>("select d.PostalDistrictCode, d.PostalDistrictName from District d inner join Province p on d.PostalProvinceCode = p.PostalProvinceCode where p.PostalProvinceCode = @PostalProvinceCode", new SqlParameter("PostalProvinceCode", info.PostalProvinceCode)).ToList();
 
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? "" : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
                 return Json(new { info = info, list = districts });
@@ -211,50 +211,106 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 return null;
         }
 
+
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult")]
         [HttpPost]
-        public ActionResult GetOCRResult(string ProfileID, string text)
+        public ActionResult GetOCRResult(OCRRaw OCRResponse)
         {
-            string filePath = Server.MapPath("~/Regex/") + ProfileID + ".json";
-            if (!System.IO.File.Exists(filePath))
+            using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                return Json(new {});
-            }
-            using (StreamReader r = new StreamReader(filePath))
-            {
-                string pattern = r.ReadToEnd();
-                dynamic parsed_pattern = JsonConvert.DeserializeObject(pattern);
-                dynamic test = parsed_pattern.AppointmentLetterCode;
-                string AppointmentLetterCode = getMatchResult(text, parsed_pattern.AppointmentLetterCode);
-                string ProcedurerFullName = getMatchResult(text, parsed_pattern.ProcedurerFullName);
-                string ProcedurerPhone = getMatchResult(text, parsed_pattern.ProcedurerPhone);
-                string ProcedurerPostalProvince = getMatchResult(text, parsed_pattern.ProcedurerPostalProvince);
-                string ProcedurerPostalDistrict = getMatchResult(text, parsed_pattern.ProcedurerPostalDistrict);
-                string ProcedurerStreet = getMatchResult(text, parsed_pattern.ProcedurerStreet);
-                string ProcedurerPersonalPaperType = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperType);
-                string ProcedurerPersonalPaperNumber = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperNumber);
-                string ProcedurerPersonalPaperIssuedDate = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperIssuedDate);
-                string ProcedurerPersonalPaperIssuedPlace = getMatchResult(text, parsed_pattern.ProcedurerPersonalPaperIssuedPlace);
-
-                return Json(new
+                FormTemplate form = db.FormTemplates.Where(record => record.FormID == OCRResponse.form_id).FirstOrDefault();
+                if (form != null)
                 {
-                    AppointmentLetterCode = AppointmentLetterCode,
-                    ProcedurerFullName = ProcedurerFullName,
-                    ProcedurerPhone = ProcedurerPhone,
-                    ProcedurerPostalProvince = ProcedurerPostalProvince,
-                    ProcedurerPostalDistrict = ProcedurerPostalDistrict,
-                    ProcedurerStreet = ProcedurerStreet,
-                    ProcedurerPersonalPaperType = ProcedurerPersonalPaperType,
-                    ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber,
-                    ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate,
-                    ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace
-                });
+                    switch (form.FormScopeLevel)
+                    {
+                        case 4:
+
+                            break;
+                        case 3:
+                            break;
+                        case 2:
+                            break;
+                        case 1:
+                            break;
+                        case 0:
+                            break;
+                    }
+                }
+                return Json(new { Hello = form.PostalProvinceCode });
             }
+
+            //return Json(new
+            //{
+            //    AppointmentLetterCode = AppointmentLetterCode,
+            //    ProcedurerFullName = ProcedurerFullName,
+            //    ProcedurerPhone = ProcedurerPhone,
+            //    ProcedurerPostalProvince = ProcedurerPostalProvince,
+            //    ProcedurerPostalDistrict = ProcedurerPostalDistrict,
+            //    ProcedurerStreet = ProcedurerStreet,
+            //    ProcedurerPersonalPaperType = ProcedurerPersonalPaperType,
+            //    ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber,
+            //    ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate,
+            //    ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace
+            //});
         }
 
 
+        public class OCRParsed
+        {
+            public int PostalProvinceCode { get; set; }
+            public int PostalDistrictCode { get; set; }
+            public int PublicAdministrationLocationID { get; set; }
+            public int ProfileID { get; set; }
+            public string AppointmentLetterCode { get; set; }
+            public string ProcedurerFullName { get; set; }
+            public string ProcedurerPhone { get; set; }
+            public string ProcerdurerProvince { get; set; }
+            public string ProcedurerDistrict { get; set; }
+            public string ProcedurerStreet { get; set; }
+            public int ProcedurerPersonalPaperType { get; set; }
+            public string ProcedurerPersonalPaperNumber { get; set; }
+            public string ProcedurerPersonalPaperIssuedDate { get; set; }
+            public string ProcedurerPersonalPaperIssuedPlace { get; set; }
+            public string SenderFullName { get; set; }
+            public string SenderPhone { get; set; }
+            public string SenderrProvince { get; set; }
+            public string SenderDistrict { get; set; }
+            public string SenderStreet { get; set; }
+            public int SenderPersonalPaperType { get; set; }
+            public string SenderPersonalPaperNumber { get; set; }
+            public string SenderPersonalPaperIssuedDate { get; set; }
+            public string SenderPersonalPaperIssuedPlace { get; set; }
+            public string ReceiverFullName { get; set; }
+            public string ReceiverPhone { get; set; }
+            public string ReceiverrProvince { get; set; }
+            public string ReceiverDistrict { get; set; }
+            public string ReceiverStreet { get; set; }
+            public int ReceiverPersonalPaperType { get; set; }
+            public string ReceiverPersonalPaperNumber { get; set; }
+            public string ReceiverPersonalPaperIssuedDate { get; set; }
+            public string ReceiverPersonalPaperIssuedPlace { get; set; }
+        }
 
-        private class distric
+        public class OCRRaw
+        {
+            public int form_id { get; set; }
+            public string raw_text { get; set; }
+            public string[] province { get; set; }
+            public string[] district { get; set; }
+            public string[] public_administration { get; set; }
+            public string[] profile { get; set; }
+            public string[] appointment_letter_code { get; set; }
+            public string[] name { get; set; }
+            public string[] phone_number { get; set; }
+            public string[] street { get; set; }
+            public string[] personal_paper_type { get; set; }
+            public string[] personal_paper_number { get; set; }
+            public string[] issued_date { get; set; }
+            public string[] issued_place { get; set; }
+        }
+
+
+        private class district
         {
             public string PostalDistrictCode { get; set; }
             public string PostalDistrictName { get; set; }

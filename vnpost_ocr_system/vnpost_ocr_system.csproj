@@ -224,6 +224,9 @@
     <Compile Include="Models\APIOutputParam.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthenticationToken.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ContactInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -236,6 +239,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailVerification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FormTemplate.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -294,6 +300,9 @@
     <Compile Include="Models\PublicAdministration.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QueryData_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResetPasswordToken.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -301,6 +310,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -6338,25 +6350,6 @@
     <Folder Include="FormImage\" />
     <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\AccountInfo\" />
-    <Folder Include="Views\AddAPI\" />
-    <Folder Include="Views\AddressInfo\" />
-    <Folder Include="Views\ConfirmInfor\" />
-    <Folder Include="Views\CreateAddressInfo\" />
-    <Folder Include="Views\DisplayCode\" />
-    <Folder Include="Views\DisplayStatisticChart\" />
-    <Folder Include="Views\DisplayStatus\" />
-    <Folder Include="Views\DocumentNotReceived\" />
-    <Folder Include="Views\DocumentReceivedDetail\" />
-    <Folder Include="Views\EditAPI\" />
-    <Folder Include="Views\GetProvinces\" />
-    <Folder Include="Views\InputInformation\" />
-    <Folder Include="Views\InputReceiverInformation\" />
-    <Folder Include="Views\ListAPI\" />
-    <Folder Include="Views\ListForm\" />
-    <Folder Include="Views\LoginCustomer\" />
-    <Folder Include="Views\OCR\" />
-    <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
