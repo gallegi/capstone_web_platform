@@ -54,6 +54,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
         public virtual ObjectResult<Query_Scope_0_Result> Query_Scope_0(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
@@ -150,7 +151,7 @@ namespace vnpost_ocr_system.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_2_Result>("Query_Scope_2", postal_district_codeParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
         }
     
-        public virtual ObjectResult<Query_Scope_3_Result> Query_Scope_3(Nullable<long> public_administration_location_id, string profile, Nullable<int> profile_limit)
+        public virtual ObjectResult<Query_Scope_3_Result> Query_Scope_3(Nullable<long> public_administration_location_id, string profile)
         {
             var public_administration_location_idParameter = public_administration_location_id.HasValue ?
                 new ObjectParameter("public_administration_location_id", public_administration_location_id) :
@@ -160,11 +161,7 @@ namespace vnpost_ocr_system.Models
                 new ObjectParameter("profile", profile) :
                 new ObjectParameter("profile", typeof(string));
     
-            var profile_limitParameter = profile_limit.HasValue ?
-                new ObjectParameter("profile_limit", profile_limit) :
-                new ObjectParameter("profile_limit", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_3_Result>("Query_Scope_3", public_administration_location_idParameter, profileParameter, profile_limitParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_3_Result>("Query_Scope_3", public_administration_location_idParameter, profileParameter);
         }
     }
 }

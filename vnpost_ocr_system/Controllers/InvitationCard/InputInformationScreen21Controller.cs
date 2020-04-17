@@ -350,34 +350,33 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             return procedurerStreet;
         }
 
-        public string parseProcedurerPaperTypeID(OCRRaw OCRResponse, FormTemplate form)
+        public string parseProcedurerPersonalPaperType(OCRRaw OCRResponse, FormTemplate form)
         {
-            string procedurerPaperType = null;
+            string procedurerPersonalPaperType = null;
             if (form.ProcedurerPersonalPaperTypeParseType == 0 && form.ProcedurerPersonalPaperTypeNERIndex.HasValue)
             {
-                procedurerPaperType = OCRResponse.personal_paper_type[form.ProcedurerPersonalPaperTypeNERIndex.Value];
+                procedurerPersonalPaperType = OCRResponse.personal_paper_type[form.ProcedurerPersonalPaperTypeNERIndex.Value];
             }
             else if (form.ProcedurerPersonalPaperTypeParseType == 1 && form.ProcedurerPersonalPaperTypeRegex != "")
             {
-                procedurerPaperType = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperTypeRegex);
+                procedurerPersonalPaperType = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperTypeRegex);
             }
-            //Get ID
 
-            return procedurerPaperType;
+            return procedurerPersonalPaperType;
         }
 
-        public string parseProcedurerPaperNumber(OCRRaw OCRResponse, FormTemplate form)
+        public string parseProcedurerPersonalPaperNumber(OCRRaw OCRResponse, FormTemplate form)
         {
-            string procedurerPaperNumber = null;
+            string procedurerPersonalPaperNumber = null;
             if (form.ProcedurerPersonalPaperNumberParseType == 0 && form.ProcedurerPersonalPaperNumberNERIndex.HasValue)
             {
-                procedurerPaperNumber = OCRResponse.personal_paper_number[form.ProcedurerPersonalPaperNumberNERIndex.Value];
+                procedurerPersonalPaperNumber = OCRResponse.personal_paper_number[form.ProcedurerPersonalPaperNumberNERIndex.Value];
             }
             else if (form.ProcedurerPersonalPaperNumberParseType == 1 && form.ProcedurerPersonalPaperNumberRegex != "")
             {
-                procedurerPaperNumber = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperNumberRegex);
+                procedurerPersonalPaperNumber = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperNumberRegex);
             }
-            return procedurerPaperNumber;
+            return procedurerPersonalPaperNumber;
         }
 
         public string parseProcedurerIssuedDate(OCRRaw OCRResponse, FormTemplate form)
@@ -548,8 +547,23 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
             return ReceiverStreet;
         }
+        
+        public void parseAllOther(OCRParsed parsed, OCRRaw OCRResponse, FormTemplate form)
+        {
+            parsed.AppointmentLetterCode = parseAppointmentLetterCode(OCRResponse, form);
+            parsed.ProcedurerFullName = parseProcedurerFullName(OCRResponse, form);
+            parsed.ProcedurerPhone = parseProcedurerPhone(OCRResponse, form);
+            parsed.ProcerdurerProvince = parseProcedurerProvince(OCRResponse, form);
+            parsed.ProcedurerDistrict = parseProcedurerDistrict(OCRResponse, form);
+            parsed.ProcedurerStreet = parseProcedurerStreet(OCRResponse, form);
 
-        public OCRParsed ParseOCRReusult(OCRRaw OCRResponse, FormTemplate form)
+            //parsed.ProcedurerPersonalPaperType = parseProcedurerPersonalPaperTypeID(OCRResponse, form);
+            parsed.ProcedurerPersonalPaperNumber = parseProcedurerPersonalPaperNumber(OCRResponse, form);
+            parsed.ProcedurerPersonalPaperIssuedDate = parseProcedurerIssuedDate(OCRResponse, form);
+            parsed.ProcedurerPersonalPaperIssuedPlace = parseProcedurerIssuedPlace(OCRResponse, form);
+        }
+
+        public OCRParsed ParseOCRReusult(VNPOST_AppointmentEntities db, OCRRaw OCRResponse, FormTemplate form)
         {
             OCRParsed OCRParsed = new OCRParsed();
             switch (form.FormScopeLevel)
@@ -564,15 +578,55 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
                     OCRParsed.PostalDistrictCode = form.PostalDistrictCode;
                     OCRParsed.PublicAdministrationLocationID = form.PublicAdministrationLocationID;
+                    Query_Scope_3_Result scope3Result = db.Query_Scope_3(
+                        OCRParsed.PublicAdministrationLocationID,
+                        parseProfile(OCRResponse, form)
+                        ).FirstOrDefault();
+                    OCRParsed.ProfileID = scope3Result.ProfileID;
                     break;
                 case 2:
                     OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
                     OCRParsed.PostalDistrictCode = form.PostalDistrictCode;
+                    Query_Scope_2_Result scope2Result = db.Query_Scope_2(
+                        OCRParsed.PostalDistrictCode,
+                        parsePublicAdministration(OCRResponse, form),
+                        3,
+                        parseProfile(OCRResponse, form),
+                        3
+                        ).FirstOrDefault();
+                    OCRParsed.PublicAdministrationLocationID = scope2Result.PublicAdministrationLocationID;
+                    OCRParsed.ProfileID = scope2Result.ProfileID;
                     break;
                 case 1:
                     OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
+                    Query_Scope_1_Result scope1Result = db.Query_Scope_1(
+                        OCRParsed.PostalProvinceCode,
+                        parseDistrict(OCRResponse, form),
+                        3,
+                        parsePublicAdministration(OCRResponse, form),
+                        3,
+                        parseProfile(OCRResponse, form),
+                        3
+                        ).FirstOrDefault();
+                    OCRParsed.PostalDistrictCode = scope1Result.PostalDistrictCode;
+                    OCRParsed.PublicAdministrationLocationID = scope1Result.PublicAdministrationLocationID;
+                    OCRParsed.ProfileID = scope1Result.ProfileID;
                     break;
                 case 0:
+                    Query_Scope_0_Result scope0Result = db.Query_Scope_0(
+                        parseProvince(OCRResponse, form),
+                        3,
+                        parseDistrict(OCRResponse, form),
+                        3,
+                        parsePublicAdministration(OCRResponse, form),
+                        3,
+                        parseProfile(OCRResponse, form),
+                        3
+                        ).FirstOrDefault();
+                    OCRParsed.PostalProvinceCode = scope0Result.PostalProvinceCode;
+                    OCRParsed.PostalDistrictCode = scope0Result.PostalDistrictCode;
+                    OCRParsed.PublicAdministrationLocationID = scope0Result.PublicAdministrationLocationID;
+                    OCRParsed.ProfileID = scope0Result.ProfileID;
                     break;
             }
             return OCRParsed;
