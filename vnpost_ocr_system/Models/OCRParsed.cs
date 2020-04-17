@@ -17,7 +17,7 @@ namespace vnpost_ocr_system.Models
         public string ProcedurerProvincePostalCode { get; set; }
         public string ProcedurerDistrictPostalCode { get; set; }
         public string ProcedurerStreet { get; set; }
-        public int ProcedurerPersonalPaperType { get; set; } = -1;
+        public int? ProcedurerPersonalPaperType { get; set; };
         public string ProcedurerPersonalPaperNumber { get; set; }
         public string ProcedurerPersonalPaperIssuedDate { get; set; }
         public string ProcedurerPersonalPaperIssuedPlace { get; set; }
