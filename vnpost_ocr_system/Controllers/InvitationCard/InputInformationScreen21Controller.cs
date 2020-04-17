@@ -296,16 +296,16 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
         public string parseProcedurerPhone(OCRRaw OCRResponse, FormTemplate form)
         {
-            string procedurerFullName = null;
-            if (form.ProcedurerFullNameParseType == 0 && form.ProcedurerFullNameNERIndex.HasValue)
+            string procedurerPhone = null;
+            if (form.ProcedurerPhoneParseType == 0 && form.ProcedurerPhoneNERIndex.HasValue)
             {
-                procedurerFullName = OCRResponse.name[form.ProcedurerFullNameNERIndex.Value];
+                procedurerPhone = OCRResponse.phone_number[form.ProcedurerPhoneNERIndex.Value];
             }
-            else if (form.ProcedurerFullNameParseType == 1 && form.ProcedurerFullNameRegex != "")
+            else if (form.ProcedurerPhoneParseType == 1 && form.ProcedurerPhoneRegex != "")
             {
-                procedurerFullName = getMatchResult(OCRResponse.raw_text, form.ProcedurerFullNameRegex);
+                procedurerPhone = getMatchResult(OCRResponse.raw_text, form.ProcedurerPhoneRegex);
             }
-            return procedurerFullName;
+            return procedurerPhone;
         }
 
         public string parseProcedurerProvince(OCRRaw OCRResponse, FormTemplate form)
@@ -423,16 +423,16 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
         public string parseSenderPhone(OCRRaw OCRResponse, FormTemplate form)
         {
-            string SenderFullName = null;
-            if (form.SenderFullNameParseType == 0 && form.SenderFullNameNERIndex.HasValue)
+            string senderPhone = null;
+            if (form.SenderPhoneParseType == 0 && form.SenderPhoneNERIndex.HasValue)
             {
-                SenderFullName = OCRResponse.name[form.SenderFullNameNERIndex.Value];
+                senderPhone = OCRResponse.phone_number[form.SenderPhoneNERIndex.Value];
             }
-            else if (form.SenderFullNameParseType == 1 && form.SenderFullNameRegex != "")
+            else if (form.SenderPhoneParseType == 1 && form.SenderPhoneRegex != "")
             {
-                SenderFullName = getMatchResult(OCRResponse.raw_text, form.SenderFullNameRegex);
+                senderPhone = getMatchResult(OCRResponse.raw_text, form.SenderPhoneRegex);
             }
-            return SenderFullName;
+            return senderPhone;
         }
 
         public string parseSenderProvince(OCRRaw OCRResponse, FormTemplate form)
@@ -494,16 +494,16 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
         public string parseReceiverPhone(OCRRaw OCRResponse, FormTemplate form)
         {
-            string ReceiverFullName = null;
-            if (form.ReceiverFullNameParseType == 0 && form.ReceiverFullNameNERIndex.HasValue)
+            string receiverPhone = null;
+            if (form.ReceiverPhoneParseType == 0 && form.ReceiverPhoneNERIndex.HasValue)
             {
-                ReceiverFullName = OCRResponse.name[form.ReceiverFullNameNERIndex.Value];
+                receiverPhone = OCRResponse.phone_number[form.ReceiverPhoneNERIndex.Value];
             }
-            else if (form.ReceiverFullNameParseType == 1 && form.ReceiverFullNameRegex != "")
+            else if (form.ReceiverPhoneParseType == 1 && form.ReceiverPhoneRegex != "")
             {
-                ReceiverFullName = getMatchResult(OCRResponse.raw_text, form.ReceiverFullNameRegex);
+                receiverPhone = getMatchResult(OCRResponse.raw_text, form.ReceiverPhoneRegex);
             }
-            return ReceiverFullName;
+            return receiverPhone;
         }
 
         public string parseReceiverProvince(OCRRaw OCRResponse, FormTemplate form)
@@ -548,24 +548,75 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             return ReceiverStreet;
         }
         
-        public void parseAllOther(OCRParsed parsed, OCRRaw OCRResponse, FormTemplate form)
+        public void parseAllOther(VNPOST_AppointmentEntities db, OCRParsed parsed, OCRRaw OCRResponse, FormTemplate form)
         {
             parsed.AppointmentLetterCode = parseAppointmentLetterCode(OCRResponse, form);
+
+            //Parse procedure information
             parsed.ProcedurerFullName = parseProcedurerFullName(OCRResponse, form);
             parsed.ProcedurerPhone = parseProcedurerPhone(OCRResponse, form);
-            parsed.ProcerdurerProvince = parseProcedurerProvince(OCRResponse, form);
-            parsed.ProcedurerDistrict = parseProcedurerDistrict(OCRResponse, form);
+            string parsedProcedurerProvince = parseProcedurerProvince(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedProcedurerProvince))
+            {
+                Province procedurerProvince = db.Provinces.SqlQuery("SELECT TOP 1 * FROM Province ORDER BY dbo.fn_LevenshteinDistance(@province_name, PostalProvinceName, 1) ASC", new SqlParameter("@province_name", parsedProcedurerProvince)).FirstOrDefault();
+                parsed.ProcedurerProvincePostalCode = procedurerProvince.PostalProvinceCode;
+            }
+            string parsedProcedurerDistrict = parseProcedurerDistrict(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedProcedurerDistrict))
+            {
+                District procedurerDistrict = db.Districts.SqlQuery("SELECT TOP 1 * FROM District ORDER BY dbo.fn_LevenshteinDistance(@district_name, PostalDistrictName, 1) ASC", new SqlParameter("@district_name", parsedProcedurerDistrict)).FirstOrDefault();
+                parsed.ProcedurerDistrictPostalCode = procedurerDistrict.PostalDistrictCode;
+            }
             parsed.ProcedurerStreet = parseProcedurerStreet(OCRResponse, form);
-
-            //parsed.ProcedurerPersonalPaperType = parseProcedurerPersonalPaperTypeID(OCRResponse, form);
+            string parsedPersonalPaperType = parseProcedurerPersonalPaperType(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedPersonalPaperType))
+            {
+                PersonalPaperType personalPaperType = db.PersonalPaperTypes.SqlQuery("SELECT TOP 1 * FROM PersonalPaperType ORDER BY dbo.fn_LevenshteinDistance(@personal_paper_name, PersonalPaperTypeName, 1) ASC", new SqlParameter("@personal_paper_name", parsedPersonalPaperType)).FirstOrDefault();
+                parsed.ProcedurerPersonalPaperType = personalPaperType.PersonalPaperTypeID;
+            }
             parsed.ProcedurerPersonalPaperNumber = parseProcedurerPersonalPaperNumber(OCRResponse, form);
             parsed.ProcedurerPersonalPaperIssuedDate = parseProcedurerIssuedDate(OCRResponse, form);
             parsed.ProcedurerPersonalPaperIssuedPlace = parseProcedurerIssuedPlace(OCRResponse, form);
+
+            //Parse sender information
+            parsed.SenderFullName = parseSenderFullName(OCRResponse, form);
+            parsed.SenderPhone = parseSenderPhone(OCRResponse, form);
+            string parsedSenderProvince = parseSenderProvince(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedSenderProvince))
+            {
+                Province senderProvince = db.Provinces.SqlQuery("SELECT TOP 1 * FROM Province ORDER BY dbo.fn_LevenshteinDistance(@province_name, PostalProvinceName, 1) ASC", new SqlParameter("@province_name", parsedSenderProvince)).FirstOrDefault();
+                parsed.SenderProvincePostalCode = senderProvince.PostalProvinceCode;
+            }
+            string parsedSenderDistrict = parseSenderDistrict(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedSenderDistrict))
+            {
+                District senderDistrict = db.Districts.SqlQuery("SELECT TOP 1 * FROM District ORDER BY dbo.fn_LevenshteinDistance(@district_name, PostalDistrictName, 1) ASC", new SqlParameter("@district_name", parsedSenderDistrict)).FirstOrDefault();
+                parsed.SenderDistrictPostalCode = senderDistrict.PostalDistrictCode;
+            }
+            parsed.SenderStreet = parseSenderStreet(OCRResponse, form);
+
+            //Parse receiver information
+            parsed.ReceiverFullName = parseReceiverFullName(OCRResponse, form);
+            parsed.ReceiverPhone = parseReceiverPhone(OCRResponse, form);
+            string parsedReceiverProvince = parseReceiverProvince(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedReceiverProvince))
+            {
+                Province receiverProvince = db.Provinces.SqlQuery("SELECT TOP 1 * FROM Province ORDER BY dbo.fn_LevenshteinDistance(@province_name, PostalProvinceName, 1) ASC", new SqlParameter("@province_name", parsedReceiverProvince)).FirstOrDefault();
+                parsed.ReceiverProvincePostalCode = receiverProvince.PostalProvinceCode;
+            }
+            string parsedReceiverDistrict = parseReceiverDistrict(OCRResponse, form);
+            if (!string.IsNullOrEmpty(parsedReceiverDistrict))
+            {
+                District receiverDistrict = db.Districts.SqlQuery("SELECT TOP 1 * FROM District ORDER BY dbo.fn_LevenshteinDistance(@district_name, PostalDistrictName, 1) ASC", new SqlParameter("@district_name", parsedReceiverDistrict)).FirstOrDefault();
+                parsed.ReceiverDistrictPostalCode = receiverDistrict.PostalDistrictCode;
+            }
+            parsed.ReceiverStreet = parseReceiverStreet(OCRResponse, form);
         }
 
-        public OCRParsed ParseOCRReusult(VNPOST_AppointmentEntities db, OCRRaw OCRResponse, FormTemplate form)
+        public OCRParsed parseOCRReusult(VNPOST_AppointmentEntities db, OCRRaw OCRResponse, FormTemplate form)
         {
             OCRParsed OCRParsed = new OCRParsed();
+            //Parse first screen combo box
             switch (form.FormScopeLevel)
             {
                 case 4:
@@ -582,7 +633,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         OCRParsed.PublicAdministrationLocationID,
                         parseProfile(OCRResponse, form)
                         ).FirstOrDefault();
-                    OCRParsed.ProfileID = scope3Result.ProfileID;
+                    if (scope3Result != null)
+                    {
+                        OCRParsed.ProfileID = scope3Result.ProfileID;
+                    }
                     break;
                 case 2:
                     OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
@@ -594,8 +648,11 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         parseProfile(OCRResponse, form),
                         3
                         ).FirstOrDefault();
-                    OCRParsed.PublicAdministrationLocationID = scope2Result.PublicAdministrationLocationID;
-                    OCRParsed.ProfileID = scope2Result.ProfileID;
+                    if (scope2Result != null)
+                    {
+                        OCRParsed.PublicAdministrationLocationID = scope2Result.PublicAdministrationLocationID;
+                        OCRParsed.ProfileID = scope2Result.ProfileID;
+                    }
                     break;
                 case 1:
                     OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
@@ -608,11 +665,19 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         parseProfile(OCRResponse, form),
                         3
                         ).FirstOrDefault();
-                    OCRParsed.PostalDistrictCode = scope1Result.PostalDistrictCode;
-                    OCRParsed.PublicAdministrationLocationID = scope1Result.PublicAdministrationLocationID;
-                    OCRParsed.ProfileID = scope1Result.ProfileID;
+                    if (scope1Result != null)
+                    {
+                        OCRParsed.PostalDistrictCode = scope1Result.PostalDistrictCode;
+                        OCRParsed.PublicAdministrationLocationID = scope1Result.PublicAdministrationLocationID;
+                        OCRParsed.ProfileID = scope1Result.ProfileID;
+                    }
+
                     break;
                 case 0:
+                    string province = parseProvince(OCRResponse, form);
+                    string district = parseDistrict(OCRResponse, form);
+                    string publicAdministration = parsePublicAdministration(OCRResponse, form);
+                    string profile = parseProfile(OCRResponse, form);
                     Query_Scope_0_Result scope0Result = db.Query_Scope_0(
                         parseProvince(OCRResponse, form),
                         3,
@@ -623,12 +688,18 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         parseProfile(OCRResponse, form),
                         3
                         ).FirstOrDefault();
-                    OCRParsed.PostalProvinceCode = scope0Result.PostalProvinceCode;
-                    OCRParsed.PostalDistrictCode = scope0Result.PostalDistrictCode;
-                    OCRParsed.PublicAdministrationLocationID = scope0Result.PublicAdministrationLocationID;
-                    OCRParsed.ProfileID = scope0Result.ProfileID;
+                    if (scope0Result != null)
+                    {
+                        OCRParsed.PostalProvinceCode = scope0Result.PostalProvinceCode;
+                        OCRParsed.PostalDistrictCode = scope0Result.PostalDistrictCode;
+                        OCRParsed.PublicAdministrationLocationID = scope0Result.PublicAdministrationLocationID;
+                        OCRParsed.ProfileID = scope0Result.ProfileID;
+                    }
                     break;
             }
+
+            //Parse all other information
+            parseAllOther(db, OCRParsed, OCRResponse, form);
             return OCRParsed;
         }
 
@@ -643,24 +714,11 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 FormTemplate form = db.FormTemplates.Where(record => record.FormID == OCRResponse.form_id).FirstOrDefault();
                 if (form != null)
                 {
-                    
+                    OCRParsed OCRParsed = parseOCRReusult(db, OCRResponse, form);
+                    return Json(OCRParsed);
                 }
-                return Json(new { Hello = form.FormName });
             }
-
-            //return Json(new
-            //{
-            //    AppointmentLetterCode = AppointmentLetterCode,
-            //    ProcedurerFullName = ProcedurerFullName,
-            //    ProcedurerPhone = ProcedurerPhone,
-            //    ProcedurerPostalProvince = ProcedurerPostalProvince,
-            //    ProcedurerPostalDistrict = ProcedurerPostalDistrict,
-            //    ProcedurerStreet = ProcedurerStreet,
-            //    ProcedurerPersonalPaperType = ProcedurerPersonalPaperType,
-            //    ProcedurerPersonalPaperNumber = ProcedurerPersonalPaperNumber,
-            //    ProcedurerPersonalPaperIssuedDate = ProcedurerPersonalPaperIssuedDate,
-            //    ProcedurerPersonalPaperIssuedPlace = ProcedurerPersonalPaperIssuedPlace
-            //});
+            return Json(new { Error = true});
         }
 
         private class district
