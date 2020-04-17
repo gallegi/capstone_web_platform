@@ -15,11 +15,11 @@ namespace vnpost_ocr_system.Models
     public partial class NotificationMessage
     {
         public long ID { get; set; }
-        public long CustomerID { get; set; }
+        public long OrderID { get; set; }
         public string Title { get; set; }
         public string ContentText { get; set; }
         public System.DateTime SentDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
