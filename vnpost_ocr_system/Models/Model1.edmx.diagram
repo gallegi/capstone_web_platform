@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="49aaccd155094f63840dd012d81c2752" Name="Diagram1">
+      <Diagram DiagramId="80210cec707348819c656f8bfe294883" Name="Diagram1">
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Admin" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.AdminRole" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.API" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
@@ -32,7 +32,6 @@
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.ResetPasswordToken" Width="1.5" PointX="7.5" PointY="31.875" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.ServiceTimer" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Status" Width="1.5" PointX="5.25" PointY="38.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="VNPOST_AppointmentModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__CreatedBy__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__ModifiedB__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Admin__PostalPro__72C60C4A" ManuallyRouted="false" />

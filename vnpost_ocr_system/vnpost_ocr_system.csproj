@@ -230,11 +230,9 @@
     <Compile Include="Models\ContactInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ContactInfoDB.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -259,6 +257,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\OCRParsed.cs" />
+    <Compile Include="Models\OCRRaw.cs" />
+    <Compile Include="Models\ContactInfoDB.cs" />
+    <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\MyOrderDetail.cs" />
     <Compile Include="Models\Non_Recive.cs" />
     <Compile Include="Models\Order.cs">
@@ -300,7 +302,16 @@
     <Compile Include="Models\PublicAdministration.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\QueryData_Result.cs">
+    <Compile Include="Models\Query_Scope_0_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_2_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_3_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResetPasswordToken.cs">
@@ -310,9 +321,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

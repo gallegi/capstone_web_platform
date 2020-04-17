@@ -10,14 +10,11 @@
 namespace vnpost_ocr_system.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Query_Scope_3_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public long ProfileID { get; set; }
+        public string ProfileName { get; set; }
+        public Nullable<double> ProfileDistance { get; set; }
     }
 }

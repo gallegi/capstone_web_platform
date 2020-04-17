@@ -54,9 +54,8 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
-        public virtual ObjectResult<QueryData_Result> QueryData(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
+        public virtual ObjectResult<Query_Scope_0_Result> Query_Scope_0(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
             var provinceParameter = province != null ?
                 new ObjectParameter("province", province) :
@@ -90,7 +89,82 @@ namespace vnpost_ocr_system.Models
                 new ObjectParameter("profile_limit", profile_limit) :
                 new ObjectParameter("profile_limit", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QueryData_Result>("QueryData", provinceParameter, province_limitParameter, districtParameter, district_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_0_Result>("Query_Scope_0", provinceParameter, province_limitParameter, districtParameter, district_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
+        }
+    
+        public virtual ObjectResult<Query_Scope_1_Result> Query_Scope_1(string province_code, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
+        {
+            var province_codeParameter = province_code != null ?
+                new ObjectParameter("province_code", province_code) :
+                new ObjectParameter("province_code", typeof(string));
+    
+            var districtParameter = district != null ?
+                new ObjectParameter("district", district) :
+                new ObjectParameter("district", typeof(string));
+    
+            var district_limitParameter = district_limit.HasValue ?
+                new ObjectParameter("district_limit", district_limit) :
+                new ObjectParameter("district_limit", typeof(int));
+    
+            var public_administrationParameter = public_administration != null ?
+                new ObjectParameter("public_administration", public_administration) :
+                new ObjectParameter("public_administration", typeof(string));
+    
+            var public_administration_limitParameter = public_administration_limit.HasValue ?
+                new ObjectParameter("public_administration_limit", public_administration_limit) :
+                new ObjectParameter("public_administration_limit", typeof(int));
+    
+            var profileParameter = profile != null ?
+                new ObjectParameter("profile", profile) :
+                new ObjectParameter("profile", typeof(string));
+    
+            var profile_limitParameter = profile_limit.HasValue ?
+                new ObjectParameter("profile_limit", profile_limit) :
+                new ObjectParameter("profile_limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_1_Result>("Query_Scope_1", province_codeParameter, districtParameter, district_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
+        }
+    
+        public virtual ObjectResult<Query_Scope_2_Result> Query_Scope_2(string postal_district_code, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
+        {
+            var postal_district_codeParameter = postal_district_code != null ?
+                new ObjectParameter("postal_district_code", postal_district_code) :
+                new ObjectParameter("postal_district_code", typeof(string));
+    
+            var public_administrationParameter = public_administration != null ?
+                new ObjectParameter("public_administration", public_administration) :
+                new ObjectParameter("public_administration", typeof(string));
+    
+            var public_administration_limitParameter = public_administration_limit.HasValue ?
+                new ObjectParameter("public_administration_limit", public_administration_limit) :
+                new ObjectParameter("public_administration_limit", typeof(int));
+    
+            var profileParameter = profile != null ?
+                new ObjectParameter("profile", profile) :
+                new ObjectParameter("profile", typeof(string));
+    
+            var profile_limitParameter = profile_limit.HasValue ?
+                new ObjectParameter("profile_limit", profile_limit) :
+                new ObjectParameter("profile_limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_2_Result>("Query_Scope_2", postal_district_codeParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
+        }
+    
+        public virtual ObjectResult<Query_Scope_3_Result> Query_Scope_3(Nullable<long> public_administration_location_id, string profile, Nullable<int> profile_limit)
+        {
+            var public_administration_location_idParameter = public_administration_location_id.HasValue ?
+                new ObjectParameter("public_administration_location_id", public_administration_location_id) :
+                new ObjectParameter("public_administration_location_id", typeof(long));
+    
+            var profileParameter = profile != null ?
+                new ObjectParameter("profile", profile) :
+                new ObjectParameter("profile", typeof(string));
+    
+            var profile_limitParameter = profile_limit.HasValue ?
+                new ObjectParameter("profile_limit", profile_limit) :
+                new ObjectParameter("profile_limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_3_Result>("Query_Scope_3", public_administration_location_idParameter, profileParameter, profile_limitParameter);
         }
     }
 }

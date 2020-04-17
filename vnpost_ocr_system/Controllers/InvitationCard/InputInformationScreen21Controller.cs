@@ -201,15 +201,383 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
         }
 
-        public string getMatchResult(string text, dynamic pattern)
+        public string getMatchResult(string text, string pattern)
         {
 
-            var match = Regex.Match(text, (string) pattern);
+            var match = Regex.Match(text, pattern);
             if (match.Success)
                 return match.Groups[1].Value;
             else
                 return null;
         }
+
+        public string parseProvince(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string province = null;
+            if (form.ProvinceParseType == 0 && form.ProvinceNERIndex.HasValue)
+            {
+                province = OCRResponse.province[form.ProvinceNERIndex.Value];
+            } else if (form.ProvinceParseType == 1 && form.ProvinceRegex != "")
+            {
+                province = getMatchResult(OCRResponse.raw_text, form.ProvinceRegex);
+            }
+            return province;
+        }
+
+        public string parseDistrict(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string district = null;
+            if (form.DistrictParseType == 0 && form.DistrictNERIndex.HasValue)
+            {
+                district = OCRResponse.district[form.DistrictNERIndex.Value];
+            }
+            else if (form.DistrictParseType == 1 && form.DistrictRegex != "")
+            {
+                district = getMatchResult(OCRResponse.raw_text, form.DistrictRegex);
+            }
+            return district;
+        }
+
+        public string parsePublicAdministration(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string publicAdministration = null;
+            if (form.PublicAdministrationParseType == 0 && form.PublicAdministrationNERIndex.HasValue)
+            {
+                publicAdministration = OCRResponse.public_administration[form.PublicAdministrationNERIndex.Value];
+            }
+            else if (form.PublicAdministrationParseType == 1 && form.PublicAdministrationRegex != "")
+            {
+                publicAdministration = getMatchResult(OCRResponse.raw_text, form.PublicAdministrationRegex);
+            }
+            return publicAdministration;
+        }
+
+        public string parseProfile(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string profile = null;
+            if (form.ProfileParseType == 0 && form.ProfileNERIndex.HasValue)
+            {
+                profile = OCRResponse.profile[form.ProfileNERIndex.Value];
+            }
+            else if (form.ProfileParseType == 1 && form.ProfileRegex != "")
+            {
+                profile = getMatchResult(OCRResponse.raw_text, form.ProfileRegex);
+            }
+            return profile;
+        }
+
+        public string parseAppointmentLetterCode(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string appointmentLetterCode = null;
+            if (form.AppointmentLetterCodeParseType == 0 && form.AppointmentLetterCodeNERIndex.HasValue)
+            {
+                appointmentLetterCode = OCRResponse.appointment_letter_code[form.AppointmentLetterCodeNERIndex.Value];
+            }
+            else if (form.AppointmentLetterCodeParseType == 1 && form.AppointmentLetterCodeRegex != "")
+            {
+                appointmentLetterCode = getMatchResult(OCRResponse.raw_text, form.AppointmentLetterCodeRegex);
+            }
+            return appointmentLetterCode;
+        }
+
+        public string parseProcedurerFullName(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerFullName = null;
+            if (form.ProcedurerFullNameParseType == 0 && form.ProcedurerFullNameNERIndex.HasValue)
+            {
+                procedurerFullName = OCRResponse.name[form.ProcedurerFullNameNERIndex.Value];
+            }
+            else if (form.ProcedurerFullNameParseType == 1 && form.ProcedurerFullNameRegex != "")
+            {
+                procedurerFullName = getMatchResult(OCRResponse.raw_text, form.ProcedurerFullNameRegex);
+            }
+            return procedurerFullName;
+        }
+
+        public string parseProcedurerPhone(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerFullName = null;
+            if (form.ProcedurerFullNameParseType == 0 && form.ProcedurerFullNameNERIndex.HasValue)
+            {
+                procedurerFullName = OCRResponse.name[form.ProcedurerFullNameNERIndex.Value];
+            }
+            else if (form.ProcedurerFullNameParseType == 1 && form.ProcedurerFullNameRegex != "")
+            {
+                procedurerFullName = getMatchResult(OCRResponse.raw_text, form.ProcedurerFullNameRegex);
+            }
+            return procedurerFullName;
+        }
+
+        public string parseProcedurerProvince(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerProvince = null;
+            if (form.ProcedurerProvinceParseType == 0 && form.ProcedurerProvinceNERIndex.HasValue)
+            {
+                procedurerProvince = OCRResponse.province[form.ProcedurerProvinceNERIndex.Value];
+            }
+            else if (form.ProcedurerProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            {
+                procedurerProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+            }
+            return procedurerProvince;
+        }
+
+        public string parseProcedurerDistrict(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerDistrict = null;
+            if (form.ProcedurerDistrictParseType == 0 && form.ProcedurerDistrictNERIndex.HasValue)
+            {
+                procedurerDistrict = OCRResponse.district[form.ProcedurerDistrictNERIndex.Value];
+            }
+            else if (form.ProcedurerDistrictParseType == 1 && form.ProcedurerDistrictRegex != "")
+            {
+                procedurerDistrict = getMatchResult(OCRResponse.raw_text, form.ProcedurerDistrictRegex);
+            }
+            return procedurerDistrict;
+        }
+
+        public string parseProcedurerStreet(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerStreet = null;
+            if (form.ProcedurerStreetParseType == 0 && form.ProcedurerStreetNERIndex.HasValue)
+            {
+                procedurerStreet = OCRResponse.street[form.ProcedurerStreetNERIndex.Value];
+            }
+            else if (form.ProcedurerStreetParseType == 1 && form.ProcedurerStreetRegex != "")
+            {
+                procedurerStreet = getMatchResult(OCRResponse.raw_text, form.ProcedurerStreetRegex);
+            }
+            return procedurerStreet;
+        }
+
+        public string parseProcedurerPaperTypeID(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerPaperType = null;
+            if (form.ProcedurerPersonalPaperTypeParseType == 0 && form.ProcedurerPersonalPaperTypeNERIndex.HasValue)
+            {
+                procedurerPaperType = OCRResponse.personal_paper_type[form.ProcedurerPersonalPaperTypeNERIndex.Value];
+            }
+            else if (form.ProcedurerPersonalPaperTypeParseType == 1 && form.ProcedurerPersonalPaperTypeRegex != "")
+            {
+                procedurerPaperType = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperTypeRegex);
+            }
+            //Get ID
+
+            return procedurerPaperType;
+        }
+
+        public string parseProcedurerPaperNumber(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerPaperNumber = null;
+            if (form.ProcedurerPersonalPaperNumberParseType == 0 && form.ProcedurerPersonalPaperNumberNERIndex.HasValue)
+            {
+                procedurerPaperNumber = OCRResponse.personal_paper_number[form.ProcedurerPersonalPaperNumberNERIndex.Value];
+            }
+            else if (form.ProcedurerPersonalPaperNumberParseType == 1 && form.ProcedurerPersonalPaperNumberRegex != "")
+            {
+                procedurerPaperNumber = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperNumberRegex);
+            }
+            return procedurerPaperNumber;
+        }
+
+        public string parseProcedurerIssuedDate(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerIssuedDate = null;
+            if (form.ProcedurerPersonalPaperIssuedDateParseType == 0 && form.ProcedurerPersonalPaperIssuedDateNERIndex.HasValue)
+            {
+                procedurerIssuedDate = OCRResponse.issued_date[form.ProcedurerPersonalPaperIssuedDateNERIndex.Value];
+            }
+            else if (form.ProcedurerPersonalPaperIssuedDateParseType == 1 && form.ProcedurerPersonalPaperIssuedDateRegex != "")
+            {
+                procedurerIssuedDate = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedDateRegex);
+            }
+            return procedurerIssuedDate;
+        }
+
+        public string parseProcedurerIssuedPlace(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string procedurerIssuedPlace = null;
+            if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 0 && form.ProcedurerPersonalPaperIssuedPlaceNERIndex.HasValue)
+            {
+                procedurerIssuedPlace = OCRResponse.issued_place[form.ProcedurerPersonalPaperIssuedPlaceNERIndex.Value];
+            }
+            else if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 1 && form.ProcedurerPersonalPaperIssuedPlaceRegex != "")
+            {
+                procedurerIssuedPlace = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedPlaceRegex);
+            }
+            return procedurerIssuedPlace;
+        }
+
+        public string parseSenderFullName(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string SenderFullName = null;
+            if (form.SenderFullNameParseType == 0 && form.SenderFullNameNERIndex.HasValue)
+            {
+                SenderFullName = OCRResponse.name[form.SenderFullNameNERIndex.Value];
+            }
+            else if (form.SenderFullNameParseType == 1 && form.SenderFullNameRegex != "")
+            {
+                SenderFullName = getMatchResult(OCRResponse.raw_text, form.SenderFullNameRegex);
+            }
+            return SenderFullName;
+        }
+
+        public string parseSenderPhone(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string SenderFullName = null;
+            if (form.SenderFullNameParseType == 0 && form.SenderFullNameNERIndex.HasValue)
+            {
+                SenderFullName = OCRResponse.name[form.SenderFullNameNERIndex.Value];
+            }
+            else if (form.SenderFullNameParseType == 1 && form.SenderFullNameRegex != "")
+            {
+                SenderFullName = getMatchResult(OCRResponse.raw_text, form.SenderFullNameRegex);
+            }
+            return SenderFullName;
+        }
+
+        public string parseSenderProvince(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string SenderProvince = null;
+            if (form.SenderProvinceParseType == 0 && form.SenderProvinceNERIndex.HasValue)
+            {
+                SenderProvince = OCRResponse.province[form.SenderProvinceNERIndex.Value];
+            }
+            else if (form.SenderProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            {
+                SenderProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+            }
+            return SenderProvince;
+        }
+
+        public string parseSenderDistrict(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string SenderDistrict = null;
+            if (form.SenderDistrictParseType == 0 && form.SenderDistrictNERIndex.HasValue)
+            {
+                SenderDistrict = OCRResponse.district[form.SenderDistrictNERIndex.Value];
+            }
+            else if (form.SenderDistrictParseType == 1 && form.SenderDistrictRegex != "")
+            {
+                SenderDistrict = getMatchResult(OCRResponse.raw_text, form.SenderDistrictRegex);
+            }
+            return SenderDistrict;
+        }
+
+        public string parseSenderStreet(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string SenderStreet = null;
+            if (form.SenderStreetParseType == 0 && form.SenderStreetNERIndex.HasValue)
+            {
+                SenderStreet = OCRResponse.street[form.SenderStreetNERIndex.Value];
+            }
+            else if (form.SenderStreetParseType == 1 && form.SenderStreetRegex != "")
+            {
+                SenderStreet = getMatchResult(OCRResponse.raw_text, form.SenderStreetRegex);
+            }
+            return SenderStreet;
+        }
+
+
+        public string parseReceiverFullName(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string ReceiverFullName = null;
+            if (form.ReceiverFullNameParseType == 0 && form.ReceiverFullNameNERIndex.HasValue)
+            {
+                ReceiverFullName = OCRResponse.name[form.ReceiverFullNameNERIndex.Value];
+            }
+            else if (form.ReceiverFullNameParseType == 1 && form.ReceiverFullNameRegex != "")
+            {
+                ReceiverFullName = getMatchResult(OCRResponse.raw_text, form.ReceiverFullNameRegex);
+            }
+            return ReceiverFullName;
+        }
+
+        public string parseReceiverPhone(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string ReceiverFullName = null;
+            if (form.ReceiverFullNameParseType == 0 && form.ReceiverFullNameNERIndex.HasValue)
+            {
+                ReceiverFullName = OCRResponse.name[form.ReceiverFullNameNERIndex.Value];
+            }
+            else if (form.ReceiverFullNameParseType == 1 && form.ReceiverFullNameRegex != "")
+            {
+                ReceiverFullName = getMatchResult(OCRResponse.raw_text, form.ReceiverFullNameRegex);
+            }
+            return ReceiverFullName;
+        }
+
+        public string parseReceiverProvince(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string ReceiverProvince = null;
+            if (form.ReceiverProvinceParseType == 0 && form.ReceiverProvinceNERIndex.HasValue)
+            {
+                ReceiverProvince = OCRResponse.province[form.ReceiverProvinceNERIndex.Value];
+            }
+            else if (form.ReceiverProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            {
+                ReceiverProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+            }
+            return ReceiverProvince;
+        }
+
+        public string parseReceiverDistrict(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string ReceiverDistrict = null;
+            if (form.ReceiverDistrictParseType == 0 && form.ReceiverDistrictNERIndex.HasValue)
+            {
+                ReceiverDistrict = OCRResponse.district[form.ReceiverDistrictNERIndex.Value];
+            }
+            else if (form.ReceiverDistrictParseType == 1 && form.ReceiverDistrictRegex != "")
+            {
+                ReceiverDistrict = getMatchResult(OCRResponse.raw_text, form.ReceiverDistrictRegex);
+            }
+            return ReceiverDistrict;
+        }
+
+        public string parseReceiverStreet(OCRRaw OCRResponse, FormTemplate form)
+        {
+            string ReceiverStreet = null;
+            if (form.ReceiverStreetParseType == 0 && form.ReceiverStreetNERIndex.HasValue)
+            {
+                ReceiverStreet = OCRResponse.street[form.ReceiverStreetNERIndex.Value];
+            }
+            else if (form.ReceiverStreetParseType == 1 && form.ReceiverStreetRegex != "")
+            {
+                ReceiverStreet = getMatchResult(OCRResponse.raw_text, form.ReceiverStreetRegex);
+            }
+            return ReceiverStreet;
+        }
+
+        public OCRParsed ParseOCRReusult(OCRRaw OCRResponse, FormTemplate form)
+        {
+            OCRParsed OCRParsed = new OCRParsed();
+            switch (form.FormScopeLevel)
+            {
+                case 4:
+                    OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
+                    OCRParsed.PostalDistrictCode = form.PostalDistrictCode;
+                    OCRParsed.PublicAdministrationLocationID = form.PublicAdministrationLocationID;
+                    OCRParsed.ProfileID = form.ProfileID;
+                    break;
+                case 3:
+                    OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
+                    OCRParsed.PostalDistrictCode = form.PostalDistrictCode;
+                    OCRParsed.PublicAdministrationLocationID = form.PublicAdministrationLocationID;
+                    break;
+                case 2:
+                    OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
+                    OCRParsed.PostalDistrictCode = form.PostalDistrictCode;
+                    break;
+                case 1:
+                    OCRParsed.PostalProvinceCode = form.PostalProvinceCode;
+                    break;
+                case 0:
+                    break;
+            }
+            return OCRParsed;
+        }
+
 
 
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult")]
@@ -221,22 +589,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 FormTemplate form = db.FormTemplates.Where(record => record.FormID == OCRResponse.form_id).FirstOrDefault();
                 if (form != null)
                 {
-                    switch (form.FormScopeLevel)
-                    {
-                        case 4:
-
-                            break;
-                        case 3:
-                            break;
-                        case 2:
-                            break;
-                        case 1:
-                            break;
-                        case 0:
-                            break;
-                    }
+                    
                 }
-                return Json(new { Hello = form.PostalProvinceCode });
+                return Json(new { Hello = form.FormName });
             }
 
             //return Json(new

@@ -11,14 +11,8 @@ namespace vnpost_ocr_system.Models
 {
     using System;
     
-    public partial class QueryData_Result
+    public partial class Query_Scope_2_Result
     {
-        public string PostalProvinceCode { get; set; }
-        public string PostalProvinceName { get; set; }
-        public Nullable<double> ProvinceDistance { get; set; }
-        public string PostalDistrictCode { get; set; }
-        public string PostalDistrictName { get; set; }
-        public Nullable<double> DistrictDistance { get; set; }
         public long PublicAdministrationLocationID { get; set; }
         public string PublicAdministrationName { get; set; }
         public Nullable<double> PublicAdministractionDistance { get; set; }
