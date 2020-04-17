@@ -31,7 +31,6 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<APIInputParam> APIInputParams { get; set; }
         public virtual DbSet<APIMethod> APIMethods { get; set; }
         public virtual DbSet<APIOutputParam> APIOutputParams { get; set; }
-        public virtual DbSet<AuthenticationToken> AuthenticationTokens { get; set; }
         public virtual DbSet<ContactInfo> ContactInfoes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<District> Districts { get; set; }
@@ -53,7 +52,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<AuthenticationToken> AuthenticationTokens { get; set; }
         public virtual DbSet<NotificationMessage> NotificationMessages { get; set; }
-        public virtual DbSet<FirebaseToken> FirebaseTokens { get; set; }
     }
 }

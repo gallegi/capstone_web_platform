@@ -18,14 +18,21 @@ namespace vnpost_ocr_system.Controllers.CustomController
                 {
                     using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
                     {
-                        DateTime minCreateDate = DateTime.Now.AddHours(-12);
-                        var dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true) && x.CreateDate >= minCreateDate).FirstOrDefault();
+                        DateTime dateTimeNow = DateTime.Now;
+                        AuthenticationToken dbToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true) && x.ExpireDate >= dateTimeNow).FirstOrDefault();
                         if (dbToken != null)
                         {
                             Session["userID"] = dbToken.CustomerID;
                             Session["Role"] = "0";
                             Session["userName"] = db.Customers.Where(x => x.CustomerID.Equals(dbToken.CustomerID)).FirstOrDefault().FullName;
+
+                            // Refesh ExpriesDate
+                            dbToken.ExpireDate = DateTime.Now.AddHours(12);
+                            db.Entry(dbToken).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
                         }
+                        else
+                            AuthCookie.Expires = DateTime.Now.AddDays(-1d);
                     }
                 }
             }
