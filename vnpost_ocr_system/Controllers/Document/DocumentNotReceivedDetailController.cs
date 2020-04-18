@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
+using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -61,6 +62,10 @@ namespace vnpost_ocr_system.Controllers.Document
                 Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id)).FirstOrDefault();
                 order.StatusID = 0;
                 db.SaveChanges();
+
+                //Send firebase message
+                MobileAppController.SendFCMMessage(order.OrderID, long.Parse(status));
+
                 return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
             }
 
@@ -92,6 +97,9 @@ namespace vnpost_ocr_system.Controllers.Document
                     db.Entry(o).State = EntityState.Modified;
                     db.SaveChanges();
                     con.Commit();
+
+                    //Send firebase message
+                    MobileAppController.SendFCMMessage(osd.OrderID, osd.StatusID);
                     err = false;
                     return Json(new { message = "Success" }, JsonRequestBehavior.AllowGet);
                 }
