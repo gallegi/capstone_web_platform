@@ -55,43 +55,6 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
     
-        public virtual ObjectResult<Query_Scope_Result> Query_Scope(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
-        {
-            var provinceParameter = province != null ?
-                new ObjectParameter("province", province) :
-                new ObjectParameter("province", typeof(string));
-    
-            var province_limitParameter = province_limit.HasValue ?
-                new ObjectParameter("province_limit", province_limit) :
-                new ObjectParameter("province_limit", typeof(int));
-    
-            var districtParameter = district != null ?
-                new ObjectParameter("district", district) :
-                new ObjectParameter("district", typeof(string));
-    
-            var district_limitParameter = district_limit.HasValue ?
-                new ObjectParameter("district_limit", district_limit) :
-                new ObjectParameter("district_limit", typeof(int));
-    
-            var public_administrationParameter = public_administration != null ?
-                new ObjectParameter("public_administration", public_administration) :
-                new ObjectParameter("public_administration", typeof(string));
-    
-            var public_administration_limitParameter = public_administration_limit.HasValue ?
-                new ObjectParameter("public_administration_limit", public_administration_limit) :
-                new ObjectParameter("public_administration_limit", typeof(int));
-    
-            var profileParameter = profile != null ?
-                new ObjectParameter("profile", profile) :
-                new ObjectParameter("profile", typeof(string));
-    
-            var profile_limitParameter = profile_limit.HasValue ?
-                new ObjectParameter("profile_limit", profile_limit) :
-                new ObjectParameter("profile_limit", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_Result>("Query_Scope", provinceParameter, province_limitParameter, districtParameter, district_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
-        }
-    
         public virtual ObjectResult<Query_Scope_0_Result> Query_Scope_0(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
             var provinceParameter = province != null ?

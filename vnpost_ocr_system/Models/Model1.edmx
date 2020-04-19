@@ -812,16 +812,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="Query_Scope" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="province" Type="nvarchar" Mode="In" />
-          <Parameter Name="province_limit" Type="int" Mode="In" />
-          <Parameter Name="district" Type="nvarchar" Mode="In" />
-          <Parameter Name="district_limit" Type="int" Mode="In" />
-          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
-          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
-          <Parameter Name="profile" Type="nvarchar" Mode="In" />
-          <Parameter Name="profile_limit" Type="int" Mode="In" />
-        </Function>
         <Function Name="Query_Scope_0" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="province" Type="nvarchar" Mode="In" />
           <Parameter Name="province_limit" Type="int" Mode="In" />
@@ -2078,16 +2068,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
-          <FunctionImport Name="Query_Scope" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_Result)">
-            <Parameter Name="province" Mode="In" Type="String" />
-            <Parameter Name="province_limit" Mode="In" Type="Int32" />
-            <Parameter Name="district" Mode="In" Type="String" />
-            <Parameter Name="district_limit" Mode="In" Type="Int32" />
-            <Parameter Name="public_administration" Mode="In" Type="String" />
-            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
-            <Parameter Name="profile" Mode="In" Type="String" />
-            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="Query_Scope_0" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_0_Result)">
             <Parameter Name="province" Mode="In" Type="String" />
             <Parameter Name="province_limit" Mode="In" Type="Int32" />
@@ -2119,21 +2099,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <Parameter Name="profile" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="Query_Scope_Result">
-          <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
-          <Property Type="String" Name="PostalProvinceName" Nullable="false" MaxLength="100" />
-          <Property Type="Double" Name="ProvinceDistance" Nullable="true" />
-          <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
-          <Property Type="String" Name="PostalDistrictName" Nullable="false" MaxLength="100" />
-          <Property Type="Double" Name="DistrictDistance" Nullable="true" />
-          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
-          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
-          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
-          <Property Type="Int64" Name="ProfileID" Nullable="false" />
-          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
-          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
-          <Property Type="Double" Name="TotalDistance" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="Query_Scope_0_Result">
           <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
           <Property Type="String" Name="PostalProvinceName" Nullable="false" MaxLength="100" />
@@ -2578,25 +2543,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Query_Scope" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_Result">
-                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
-                <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
-                <ScalarProperty Name="ProvinceDistance" ColumnName="ProvinceDistance" />
-                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
-                <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
-                <ScalarProperty Name="DistrictDistance" ColumnName="DistrictDistance" />
-                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
-                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
-                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
-                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
-                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
-                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Query_Scope_0" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_0">
             <ResultMapping>
               <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_0_Result">

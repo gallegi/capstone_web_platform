@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f89b4ff04dcf451da77fa9540a1f2887" Name="Diagram1">
+      <Diagram DiagramId="6a4ece154bfd4d3cb4c72bd026ffefb9" Name="Diagram1">
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Admin" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.AdminRole" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.API" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
