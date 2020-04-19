@@ -851,7 +851,7 @@
 
     var data1 = new FormData();
 
-    function getDistrict() {
+    function getDistrict(OCRResult) {
         $('#pre-load').show()
         $('#item2').empty();
         $('#item2').formSelect();
@@ -876,14 +876,17 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#item2').append(option);
-                if (UserDistrictsID != "") {
-                    $('#item2').val(UserDistrictsID);
-                    UserDistrictsID = ""
+                if (OCRResult != null && OCRResult.PostalDistrictCode != null) {
+                    $('#item2').val(OCRResult.PostalDistrictCode);
                 }
                 $('#item2').formSelect();
                 if ($('#item2').val() != null)
                     $('p[name="item2"]').text("")
-                getAdmins()
+                if (OCRResult != null) {
+                    getAdmins(OCRResult)
+                } else {
+                    $('#pre-load').hide()
+                }
             },
             error: function () {
                 $('#pre-load').hide()
@@ -891,7 +894,7 @@
         })
     }
 
-    function getAdmins() {
+    function getAdmins(OCRResult) {
         $('#pre-load').show()
         $('#item3').empty();
         $('#item3').formSelect();
@@ -914,14 +917,17 @@
                     option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
                 $('#item3').append(option);
-                if (UserAdminLocationID != "") {
-                    $('#item3').val(UserAdminLocationID)
-                    UserAdminLocationID = ""
+                if (OCRResult != null && OCRResult.PublicAdministrationLocationID != null) {
+                    $('#item3').val(OCRResult.PublicAdministrationLocationID)
                 }
                 $('#item3').formSelect();
                 if ($('#item3').val() != null)
                     $('p[name="item3"]').text("")
-                getProfiles();
+                if (OCRResult != null) {
+                    getProfiles(OCRResult);
+                } else {
+                    $('#pre-load').hide()
+                }
             },
             error: function () {
                 $('#pre-load').hide()
@@ -929,7 +935,7 @@
         })
     }
 
-    function getProfiles() {
+    function getProfiles(OCRResult) {
         $('#pre-load').show()
         $('#item4').empty();
         $('#item4').formSelect();
@@ -951,9 +957,8 @@
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
                 $('#item4').append(option);
-                if (UserProfileID != "") {
-                    $('#item4').val(UserProfileID)
-                    UserProfileID = ""
+                if (OCRResult != null && OCRResult.ProfileID != null) {
+                    $('#item4').val(OCRResult.ProfileID)
                 }
                 $('#item4').formSelect();
                 if ($('#item4').val() != null)
@@ -979,19 +984,18 @@
         if (CreateInvitation.UserOrderNote !== undefined) {
             $('#OrderNote').val(CreateInvitation.UserOrderNote)
         }
-        //getDistrict();
 
         $('#item1').change(function () {
-            getDistrict();
+            getDistrict(null);
         })
 
         $('#item2').change(function () {
             $('#pre-load').show()
-            getAdmins();
+            getAdmins(null);
         })
 
         $('#item3').change(function () {
-            getProfiles();
+            getProfiles(null);
         })
 
         $('#item4').change(function () {
@@ -1050,20 +1054,20 @@
             //Province
             ProcedurerProvincePostalCode = getSuitableCode(OCRResult.ProcedurerProvincePostalCode,
                 $('#item1').find("option:selected").val(), OCRResult.SenderProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
-            console.log("Procedurer: " + ProcedurerProvincePostalCode)
             if (ProcedurerProvincePostalCode != null)
                 $('#province_edit').val(ProcedurerProvincePostalCode);
                 $('#province_edit').formSelect()
-                $('#province_edit').change();
             //District
             ProcedurerDistrictPostalCode = getSuitableCode(OCRResult.ProcedurerDistrictPostalCode,
                 $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
-            console.log("Procedurer: " + ProcedurerDistrictPostalCode)
-            if (ProcedurerDistrictPostalCode != null)
-                $('#district_edit').val(ProcedurerDistrictPostalCode);
-                $('#district_edit').formSelect()
-                $('#district_edit').change();
-
+            selectDistrict(ProcedurerDistrictPostalCode);
+            //Street
+            $('#street_edit').val(OCRResult.ProcedurerStreet);
+            $('#paper_type_edit').val(OCRResult.ProcedurerPersonalPaperType);
+            $('#paper_type_edit').formSelect();
+            $('#paper_number_edit').val(OCRResult.ProcedurerPersonalPaperNumber);
+            $('#paper_date_edit').val(OCRResult.ProcedurerPersonalPaperIssuedDate);
+            $('#paper_place_edit').val(OCRResult.ProcedurerPersonalPaperIssuedPlace);
         }
     })
 
@@ -1120,8 +1124,7 @@
         }
     }
 
-
-    $('#province_edit').change(function () {
+    function selectDistrict(DistrictPostalCode){
         $('#pre-load').show()
         $.ajax({
             type: "POST",
@@ -1129,7 +1132,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                code: $('#province_edit').val()
             },
             success: function (response) {
                 $('#district_edit').empty();
@@ -1138,8 +1141,8 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#district_edit').append(option);
-                if ($("#province_edit").val() == $('#item1').val() && $('#item2').val() > 0) {
-                    $('#district_edit').val($('#item2').val())
+                if (DistrictPostalCode != null) {
+                    $('#district_edit').val(DistrictPostalCode)
                 }
                 $('#district_edit').formSelect();
                 $('#pre-load').hide()
@@ -1148,6 +1151,10 @@
                 $('#pre-load').hide()
             }
         })
+    }
+
+    $('#province_edit').change(function () {
+        selectDistrict(null)
     })
 
     var contact = "";
@@ -1381,7 +1388,7 @@
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://www.mocky.io/v2/5e9bd5653300009332bf1828",
+                            url: "http://www.mocky.io/v2/5e9c8e1c30000059000a7eeb",
                             data: data,
                             contentType: false,
                             processData: false,
@@ -1406,7 +1413,7 @@
                                             $("#item5").val(OCRResult.AppointmentLetterCode)
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
-                                            getDistrict();
+                                            getDistrict(OCRResult);
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
