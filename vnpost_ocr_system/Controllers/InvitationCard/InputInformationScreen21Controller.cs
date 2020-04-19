@@ -14,7 +14,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class InputInformationScreen21Controller : Controller
     {
-        [Auther(Roles = "0")]
+        //[Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
         public ActionResult Index()
         {
@@ -206,7 +206,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
             var match = Regex.Match(text, pattern);
             if (match.Success)
-                return match.Groups[1].Value;
+                return match.Groups[1].Value.Trim();
             else
                 return null;
         }

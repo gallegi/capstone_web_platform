@@ -49,15 +49,9 @@
     .dropzone .dz-preview .dz-progress .dz-upload {
         background: #29bb22 !important;
         background: linear-gradient(to bottom, #7ceb69, #29bb22) !important;
-        /*position: absolute;*/
         top: 0;
         bottom: 0;
         width: 0;
-        /*-webkit-transition: width 300ms ease-in-out;
-        -moz-transition: width 300ms ease-in-out;
-        -ms-transition: width 300ms ease-in-out;
-        -o-transition: width 300ms ease-in-out;
-        transition: width 300ms ease-in-out;*/
     }
 
     .wizard > .actions {
@@ -68,10 +62,7 @@
         margin: 0px !important;
         display: block;
     }
-    /*.dropzone .dz-preview .dz-image {
-        width: 250px !important;
-        height: 250px !important;
-    }*/
+
     #item5-error {
         color: white;
     }
@@ -106,9 +97,7 @@
     .summary-label {
         font-weight: bold !important;
     }
-    /*.summary-content{
-        font-style:italic !important;
-    }*/
+
     .wizard > .content > .body label[hidden] {
         display: none !important;
     }
@@ -669,103 +658,6 @@
                                             <span>Thẻ ATM nội địa/Internet Banking</span>
                                         </label><br />
                                     </div>
-
-                                    @*<div class="bank-list">
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/1.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/2.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/3.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/4.png" />
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/5.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/6.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/7.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/8.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/9.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/10.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/11.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/12.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/13.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/14.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/15.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/16.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/17.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/18.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/19.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/20.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/21.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/22.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/23.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/24.png" />
-                                                </div>
-                                            </div>
-
-
-                                        </div>*@
                                 </div>
                             </div>
 
@@ -933,6 +825,9 @@
     var UserInvitation = {}
     var CreateInvitation = {}
     var OCRResult = {}
+    var ImageData = null;
+    var _currentIndex = -1;
+    var _newIndex = -1;
 
     if (!!$.cookie('CreateInvitation')) {
         CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
@@ -1084,7 +979,7 @@
         if (CreateInvitation.UserOrderNote !== undefined) {
             $('#OrderNote').val(CreateInvitation.UserOrderNote)
         }
-        getDistrict();
+        //getDistrict();
 
         $('#item1').change(function () {
             getDistrict();
@@ -1108,6 +1003,8 @@
         })
     })
 
+
+    //Clear form 1 before add or edit data
     $(document).on("click", ".modal-trigger", function () {
         $('#myform1').find("input[type=text], textarea").val("");
         $('#paper_type_edit').val($("#paper_type_edit option:first").val());
@@ -1119,6 +1016,23 @@
         $('#district_edit').formSelect()
     })
 
+    function getSuitableCode(priorityCode, firstScreenCode, firstLeft, secondLeft) {
+        if (priorityCode != null) {
+            return priorityCode;
+        }
+        if (firstLeft != null) {
+            return firstLeft;
+        }
+        if (secondLeft != null) {
+            return secondLeft;
+        }
+        if (firstScreenCode != null) {
+            return firstScreenCode;
+        }
+        return null;
+    }
+
+
     $(document).on("click", "#add", function () {
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
@@ -1129,12 +1043,27 @@
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
 
-        if (!$.isEmptyObject(OCRResult)) {
+        if (!$.isEmptyObject(OCRResult) && _newIndex == 2) {
             $('input#name_edit').val(OCRResult.ProcedurerFullName)
             $('input#phone_edit').val(OCRResult.ProcedurerPhone)
-            $('#province_edit').val($('#item1').find("option:selected").val());
-            $('#province_edit').formSelect()
-            $('#province_edit').change();
+
+            //Province
+            ProcedurerProvincePostalCode = getSuitableCode(OCRResult.ProcedurerProvincePostalCode,
+                $('#item1').find("option:selected").val(), OCRResult.SenderProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
+            console.log("Procedurer: " + ProcedurerProvincePostalCode)
+            if (ProcedurerProvincePostalCode != null)
+                $('#province_edit').val(ProcedurerProvincePostalCode);
+                $('#province_edit').formSelect()
+                $('#province_edit').change();
+            //District
+            ProcedurerDistrictPostalCode = getSuitableCode(OCRResult.ProcedurerDistrictPostalCode,
+                $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
+            console.log("Procedurer: " + ProcedurerDistrictPostalCode)
+            if (ProcedurerDistrictPostalCode != null)
+                $('#district_edit').val(ProcedurerDistrictPostalCode);
+                $('#district_edit').formSelect()
+                $('#district_edit').change();
+
         }
     })
 
@@ -1184,6 +1113,13 @@
             }
         })
     })
+
+    function selectProvinceDistrict(data) {
+        if (data != null) {
+
+        }
+    }
+
 
     $('#province_edit').change(function () {
         $('#pre-load').show()
@@ -1387,7 +1323,6 @@
 <script>
     var form = $(".validation-wizard").show();
     var error = true;
-    var sentAPI = false;
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1431,6 +1366,8 @@
             finish: "Hoàn tất"
         },
         onStepChanging: function (event, currentIndex, newIndex) {
+            _currentIndex = currentIndex;
+            _newIndex = newIndex;
             if (currentIndex === 0) {
                 if (data1.get("img") == null) {
                     $('p[name="item6"]').text('Vui lòng chọn Ảnh chụp giấy hẹn');
@@ -1440,18 +1377,17 @@
                     $('p[name="item6"]').text('');
                     var data = new FormData();
                     data.append('image', data1.get('img'));
-                    if (!sentAPI) {
+                    if (ImageData != data1.get('img')) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://www.mocky.io/v2/5e97d9943000004e00b6e0af",
+                            url: "http://www.mocky.io/v2/5e9bd5653300009332bf1828",
                             data: data,
                             contentType: false,
                             processData: false,
                             cache: false,
                             dataType: "json",
                             success: function (response) {
-                                sentAPI = true;
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
                                     $.ajax({
                                         type: "POST",
@@ -1462,47 +1398,30 @@
                                         success: function (result) {
                                             console.log(result)
                                             OCRResult = result;
+                                            $('#item1').val(OCRResult.PostalProvinceCode);
+                                            $('#item1').formSelect();
+                                            UserDistrictsID = OCRResult.PostalDistrictCode;
+                                            UserAdminLocationID = OCRResult.PublicAdministrationLocationID;
+                                            UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode)
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
-                                        }
-                                    })
-
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/getProvinceDistrictPublicAdmins",
-                                        cache: false,
-                                        dataType: "json",
-                                        data: {
-                                            ProfileID: UserProfileID
-                                        },
-                                        success: function (response2) {
-                                            console.log(response2)
-                                            if (response2.success) {
-                                                $('#item1').val(response2.data.PostalProvinceCode);
-                                                $('#item1').formSelect();
-                                                UserDistrictsID = response2.data.PostalDistrictCode;
-                                                UserAdminLocationID = response2.data.PublicAdministrationLocationID;
-                                                getDistrict();
-                                            }
+                                            getDistrict();
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
                                         $('a[role="menuitem"]').eq(1).click();
-                                        return true;
+                                        ImageData = data1.get('img');
                                     });
                                 }
                             },
                             error: function () {
-                                sentAPI = true;
                                 $('#pre-load').hide();
                                 $('a[role="menuitem"]').eq(1).click();
-                                return true;
                             }
                         })
                     }
-                    else
-                        return true;
+                    return true;
                 }
             }
             else if (currentIndex === 1 && newIndex > currentIndex) {
@@ -1694,49 +1613,6 @@ Dropzone.options.myAwesomeDropzone = {
             data1.append("img", file);
             data1.append("imgName", file.name)
         });
-        //this.on('sending', function (file, xhr, formData) {
-        //        data.append("file", file);
-            //var n = myDropzone.getAcceptedFiles().length;
-            @*if (count3 === n) {
-                var ngaynhap = $("#ngay-chon").val();
-                data3.append("ngayNhap", ngaynhap);
-                data3.append("ca", ca3);
-
-                var link = window.location.href;
-                var phanxuong3 = "@ViewBag.phanxuong";
-
-                data3.append("phanxuong", phanxuong3);
-
-                var notes3 = [];
-                $(".file-description3").each(function () {
-                    notes3.push($(this).val());
-                });*@
-                //data3.append("notes", notes3);
-
-
-                //$.ajax({
-                //    type: "POST",
-                //    url: "/phan-xuong/upload-len-dk",
-                //    //beforeSend: function (xhr) {
-                //    //    xhr.setRequestHeader("XSRF-TOKEN",
-                //    //        $('input:hidden[name="__RequestVerificationToken"]').val());
-                //    //},
-                //    data: data3,
-                //    contentType: false,
-                //    processData: false,
-                //    success: function (data) {
-                //          $("#pre-load").hide("slow", function () {
-                //         });
-                //        if (data.success) {
-                //            reloadAlert("Tải lên thành công!", 1000);
-                //        } else {
-                //            errorAlert("Lỗi!", 1000);
-                //            window.location.reload();
-                //        }
-                //    }
-                //});
-        //    }
-        //});
     },
     dictResponseError: "Lỗi (Code: {{statusCode}})",
     dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
@@ -1796,20 +1672,6 @@ Dropzone.options.myAwesomeDropzone = {
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         var file = new Blob([new Uint8Array(array)], { type: mimeString });
         data1.append("img", file);
-        //var saveData = (function () {
-        //    var a = document.createElement("a");
-        //    document.body.appendChild(a);
-        //    a.style = "display: none";
-        //    return function (data) {
-        //        url = window.URL.createObjectURL(data);
-        //        a.href = url;
-        //        a.download = 'testing.jfif';
-        //        a.click();
-        //        window.URL.revokeObjectURL(url);
-        //    };
-        //}());
-        //saveData(file);
-
         $('#pre-load').hide();
     }
 </script>
