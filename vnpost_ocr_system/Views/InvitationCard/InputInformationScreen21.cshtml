@@ -14,6 +14,10 @@
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
@@ -785,7 +789,7 @@
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
                             <input name="dateTLHD" id="paper_date_edit" type='text' readonly
-                                   class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                   class="col s10 l10 datepicker-here" autocomplete="off"
                                    data-language='vi' />
                             <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                         </div>
@@ -1077,7 +1081,7 @@
                         $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
                     selectDistrict(ProcedurerDistrictPostalCode);
                 }
-                
+
                 //Street
                 $('#street_edit').val(
                     getSuitableString(OCRResult.ProcedurerStreet, OCRResult.SenderStreet, OCRResult.ReceiverStreet));
@@ -1098,12 +1102,12 @@
                 if (SenderProvincePostalCode != null) {
                     $('#province_edit').val(SenderProvincePostalCode);
                     $('#province_edit').formSelect()
-                    //District 
+                    //District
                     SenderDistrictPostalCode = getSuitableCode(OCRResult.SenderDistrictPostalCode,
                         $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
                     selectDistrict(SenderDistrictPostalCode);
                 }
-                
+
                 //Street
                 $('#street_edit').val(
                     getSuitableString(OCRResult.SenderStreet, OCRResult.ProcedurerStreet, OCRResult.ReceiverStreet));
@@ -1113,14 +1117,14 @@
                     getSuitableString(OCRResult.ReceiverFullName, OCRResult.ProcedurerFullName, OCRResult.SenderFullName))
                 $('input#phone_edit').val(
                     getSuitableString(OCRResult.ReceiverPhone, OCRResult.ProcedurerPhone, OCRResult.SenderPhone))
-              
+
                 //Province
                 ReceiverProvincePostalCode = getSuitableCode(OCRResult.ReceiverProvincePostalCode,
                     $('#item1').find("option:selected").val(), OCRResult.ProcedurerProvincePostalCode, OCRResult.SenderProvincePostalCode)
                 if (ReceiverProvincePostalCode != null) {
                     $('#province_edit').val(ReceiverProvincePostalCode);
                     $('#province_edit').formSelect()
-                //District 
+                //District
                     ReceiverDistrictPostalCode = getSuitableCode(OCRResult.ReceiverDistrictPostalCode,
                         $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.SenderDistrictPostalCode)
                     selectDistrict(ReceiverDistrictPostalCode);
@@ -1128,7 +1132,7 @@
                 //Street
                 $('#street_edit').val(
                     getSuitableString(OCRResult.ReceiverStreet, OCRResult.ProcedurerStreet, OCRResult.SenderStreet));            }
-            
+
         }
     })
 
@@ -1341,8 +1345,7 @@
 
     $(document).on("click", "#profile1", function () {
         var Adminprofile = $(this).closest('#contact1');
-        if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == ""
-            || Adminprofile.find('#PersonalPaperIssuedDate').text() == "" || Adminprofile.find('#PersonalPaperIssuedPlace').text() == "") {
+        if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == "") {
             toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
             return;
         }
@@ -1390,7 +1393,7 @@
 </script>
 <script>
     var form = $(".validation-wizard").show();
-    var error = true;``
+    var error = true; ``
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1745,3 +1748,5 @@ Dropzone.options.myAwesomeDropzone = {
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>

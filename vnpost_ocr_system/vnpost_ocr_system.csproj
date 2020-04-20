@@ -6305,7 +6305,6 @@
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
-    <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
