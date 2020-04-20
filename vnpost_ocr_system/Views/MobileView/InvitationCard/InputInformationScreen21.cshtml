@@ -56,7 +56,37 @@
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">1. Thông tin thủ tục</h6>
+                                <h6 class="center step-title">1. Ảnh chụp giấy hẹn</h6>
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <br />
+                                <label>Dung lượng tối đa 5Mb <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
+                                    <a class="btn waves-effect waves-light bt-color-common" onclick="rotateRight()"><i class="material-icons">rotate_right</i></a>
+                                </div>
+                                <div id="img-chooser" class="image-input center col s5 m5 l5">
+                                    <i class="small material-icons dp48">cloud_upload</i> Chọn ảnh
+                                </div>
+                                <div class="col s1 m1 l1"></div>
+                                <div id="img-capture" class="image-input center col s5 m5 l5">
+                                    <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
+                                </div>
+                                <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
+                                <input type="file" accept="image/*" onchange="readURL(this);" id="img-capture-file" capture="camera" hidden>
+                                <div id="img-display" hidden>
+                                    <img id="blah" src="#" alt="your image" />
+                                </div>
+                                <p class="validation" name="item6"></p>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 2 -->
+                    <h6 class="center step-title"></h6>
+                    <section>
+                        <div class="row">
+                            <div class="col l12 s12 m12">
+                                <h6 class="center step-title">2. Thông tin thủ tục</h6>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12">
@@ -92,35 +122,14 @@
                                     <p class="validation" name="item4"></p>
                                 </div>
                             </div>
-
-                            <div class="col s12 m12 l12">
-                                <br />
-                                <div class="row">
-                                    <label style="margin-left:10px;color:darkgray">Ảnh chụp giấy hẹn <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</label>
-                                </div>
-
-                                <div id="img-chooser" class="image-input center col s5 m5 l5">
-                                    <i class="small material-icons dp48">cloud_upload</i> Chọn ảnh
-                                </div>
-                                <div class="col s1 m1 l1"></div>
-                                <div id="img-capture" class="image-input center col s5 m5 l5">
-                                    <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
-                                </div>
-                                <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
-                                <input type="file" accept="image/*" onchange="readURL(this);" id="img-capture-file" capture="camera" hidden>
-                                <div id="img-display" hidden>
-                                    <img id="blah" src="#" alt="your image" />
-                                </div>
-                                <p class="validation" name="item6"></p>
-                            </div>
                         </div>
                     </section>
-                    <!-- Step 2 -->
-                    <h6>Thông tin yêu cầu giải quyết TTHC</h6>
+                    <!-- Step 3 -->
+                    <h6 class="center step-title"></h6>
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">2. Thông tin yêu cầu giải quyết TTHC</h6>
+                                <h6 class="center step-title">3. Thông tin yêu cầu giải quyết TTHC</h6>
                             </div>
                             @if (ViewBag.contactInfos == null)
                             {
@@ -165,12 +174,12 @@
                             </p>
                         </div>
                     </section>
-                    <!-- Step 3 -->
-                    <h6>Thông tin người gửi</h6>
+                    <!-- Step 4 -->
+                    <h6 class="center step-title"></h6>
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">3. Thông tin người gửi</h6>
+                                <h6 class="center step-title">4. Thông tin người gửi</h6>
                             </div>
                             @if (ViewBag.contactInfos == null)
                             {
@@ -213,12 +222,12 @@
                             </p>
                         </div>
                     </section>
-                    <!-- Step 4 -->
-                    <h6>Thông tin người nhận</h6>
+                    <!-- Step 5 -->
+                    <h6 class="center step-title"></h6>
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">4. Thông tin người nhận</h6>
+                                <h6 class="center step-title">5. Thông tin người nhận</h6>
                             </div>
                             @if (ViewBag.contactInfos == null)
                             {
@@ -261,12 +270,12 @@
                             </p>
                         </div>
                     </section>
-                    <!-- Step 5 -->
-                    <h6>Phiếu gửi hồ sơ</h6>
+                    <!-- Step 6 -->
+                    <h6 class="center step-title"></h6>
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">5. Phiếu gửi hồ sơ</h6>
+                                <h6 class="center step-title">6. Phiếu gửi hồ sơ</h6>
                             </div>
                             <div class="form-body">
 
@@ -560,11 +569,11 @@
                         </div>
                     </section>
                     <!-- Step 6 -->
-                    <h6>Xác nhận thanh toán</h6>
+                    <h6 class="center step-title"></h6>
                     <section>
                         <div class="row">
                             <div class="col l12 s12 m12">
-                                <h6 class="center step-title">6. Xác nhận thanh toán</h6>
+                                <h6 class="center step-title">7. Xác nhận thanh toán</h6>
                             </div>
 
                             <div class="col l9 s12 bill-container">
@@ -719,7 +728,7 @@
                             </div>
                         </div>
                     </section>
-                    <input name="id_raw" id="id_raw" readonly hidden />
+                    <input name="id" id="id_raw" readonly hidden />
                 </form>
             </div>
         </div>
@@ -747,15 +756,17 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12 m12">
-                <div class="col l3 m3 p-t-10 s12 ">Tỉnh/TP <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
-                <div class="col l9 m9 s12">
-                    <select required tabindex="-1" id="province_edit" class="card-border">
-                        @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
-                        {
-                            <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
-                        }
-                    </select>
+            <div class="col s12 l12 m12">
+                <div class="input-field row">
+                    <p class="col l3 m3 p-t-10 s12">Tỉnh/TP <i class="fa fa-asterisk" style="font-size:7px;color:red"></i> :</p>
+                    <div class="col l9 m9 s12">
+                        <select required tabindex="-1" id="province_edit" class="card-border">
+                            @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
+                            {
+                                <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="input-field col s12 m12">
@@ -1207,24 +1218,26 @@
                 behavior: 'smooth'
             });
             if (currentIndex === 0) {
-                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null || $('#item5').val() == "") {
-                    toastr.error('Hãy điền đầy đủ thông tin!', '');
-                    return false;
-                }
-                else if (data.get("img") == null) {
+                if (data.get("img") == null) {
                     toastr.error('Bạn chưa nhập ảnh giấy hẹn!', '');
                     return false;
                 }
             }
-            else if (currentIndex === 1 && !validate1 && newIndex > currentIndex) {
+            else if (currentIndex === 1 && newIndex > currentIndex) {
+                if ($('#item2').val() == null || $('#item3').val() == null || $('#item4').val() == null || $('#item5').val() == "") {
+                    toastr.error('Hãy điền đầy đủ thông tin!', '');
+                    return false;
+                }
+            }
+            else if (currentIndex === 2 && !validate1 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người yêu cầu thủ tục!', '');
                 return false;
             }
-            else if (currentIndex === 2 && !validate2 && newIndex > currentIndex) {
+            else if (currentIndex === 3 && !validate2 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người gửi!', '');
                 return false;
             }
-            else if (currentIndex === 3 && !validate3 && newIndex > currentIndex) {
+            else if (currentIndex === 4 && !validate3 && newIndex > currentIndex) {
                 toastr.error('Hãy chọn thông tin người nhận!', '');
                 return false;
             }
@@ -1433,6 +1446,61 @@ Dropzone.options.myAwesomeDropzone = {
             data.append("img", input.files[0]);
             data.append("imgName", input.files[0].name)
         }
+    }
+</script>
+<script>
+    function rotateRight() {
+        if (data.get("img") == null) return;
+        $('#pre-load').show();
+        data.delete("img")
+        var image = new Image();
+        image.src = $('#blah').attr("src");
+        $('#blah').attr("src", "#");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.translate(0, -canvas.width);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+            $('#blah').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
+
+    function rotateLeft() {
+        if (data.get("img") == null) return;
+        $('#pre-load').show();
+        data.delete("img")
+        var image = new Image();
+        image.src = $('#blah').attr("src");
+        $('#blah').attr("src", "#");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(270 * Math.PI / 180);
+            ctx.translate(-canvas.height, 0);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+            $('#blah').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
+
+    function dataURItoBlob(dataURI) {
+        var blobBin = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var file = new Blob([new Uint8Array(array)], { type: mimeString });
+        data.append("img", file);
+        $('#pre-load').hide();
     }
 </script>
 <script>
