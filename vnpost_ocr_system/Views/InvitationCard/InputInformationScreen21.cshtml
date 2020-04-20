@@ -1036,6 +1036,17 @@
         return null;
     }
 
+    function getSuitableString(priorityString, firstLeft, secondLeft) {
+        if (priorityString != null) {
+            return priorityString;
+        }
+        if (firstLeft != null) {
+            return firstLeft;
+        }
+        if (secondLeft != null) {
+            return secondLeft;
+        }
+    }
 
     $(document).on("click", "#add", function () {
         type = $(this).data("type");
@@ -1047,27 +1058,77 @@
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
 
-        if (!$.isEmptyObject(OCRResult) && _newIndex == 2) {
-            $('input#name_edit').val(OCRResult.ProcedurerFullName)
-            $('input#phone_edit').val(OCRResult.ProcedurerPhone)
+        if (!$.isEmptyObject(OCRResult)) {
+            console.log(_newIndex);
+            if (_newIndex == 2) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.ProcedurerFullName, OCRResult.SenderFullName, OCRResult.ReceiverFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.ProcedurerPhone, OCRResult.SenderPhone, OCRResult.ReceiverPhone))
 
-            //Province
-            ProcedurerProvincePostalCode = getSuitableCode(OCRResult.ProcedurerProvincePostalCode,
-                $('#item1').find("option:selected").val(), OCRResult.SenderProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
-            if (ProcedurerProvincePostalCode != null)
-                $('#province_edit').val(ProcedurerProvincePostalCode);
-                $('#province_edit').formSelect()
-            //District
-            ProcedurerDistrictPostalCode = getSuitableCode(OCRResult.ProcedurerDistrictPostalCode,
-                $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
-            selectDistrict(ProcedurerDistrictPostalCode);
-            //Street
-            $('#street_edit').val(OCRResult.ProcedurerStreet);
-            $('#paper_type_edit').val(OCRResult.ProcedurerPersonalPaperType);
-            $('#paper_type_edit').formSelect();
-            $('#paper_number_edit').val(OCRResult.ProcedurerPersonalPaperNumber);
-            $('#paper_date_edit').val(OCRResult.ProcedurerPersonalPaperIssuedDate);
-            $('#paper_place_edit').val(OCRResult.ProcedurerPersonalPaperIssuedPlace);
+                //Province
+                ProcedurerProvincePostalCode = getSuitableCode(OCRResult.ProcedurerProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.SenderProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
+                if (ProcedurerProvincePostalCode != null) {
+                    $('#province_edit').val(ProcedurerProvincePostalCode);
+                    $('#province_edit').formSelect()
+                    //District
+                    ProcedurerDistrictPostalCode = getSuitableCode(OCRResult.ProcedurerDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
+                    selectDistrict(ProcedurerDistrictPostalCode);
+                }
+                
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.ProcedurerStreet, OCRResult.SenderStreet, OCRResult.ReceiverStreet));
+                $('#paper_type_edit').val(OCRResult.ProcedurerPersonalPaperType);
+                $('#paper_type_edit').formSelect();
+                $('#paper_number_edit').val(OCRResult.ProcedurerPersonalPaperNumber);
+                $('#paper_date_edit').val(OCRResult.ProcedurerPersonalPaperIssuedDate);
+                $('#paper_place_edit').val(OCRResult.ProcedurerPersonalPaperIssuedPlace);
+            } else if (_newIndex == 3) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.SenderFullName, OCRResult.ProcedurerFullName, OCRResult.ReceiverFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.SenderPhone, OCRResult.ProcedurerPhone, OCRResult.ReceiverPhone))
+
+                //Province
+                SenderProvincePostalCode = getSuitableCode(OCRResult.SenderProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.ProcedurerProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
+                if (SenderProvincePostalCode != null) {
+                    $('#province_edit').val(SenderProvincePostalCode);
+                    $('#province_edit').formSelect()
+                    //District 
+                    SenderDistrictPostalCode = getSuitableCode(OCRResult.SenderDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
+                    selectDistrict(SenderDistrictPostalCode);
+                }
+                
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.SenderStreet, OCRResult.ProcedurerStreet, OCRResult.ReceiverStreet));
+
+            } else if (_newIndex == 4) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.ReceiverFullName, OCRResult.ProcedurerFullName, OCRResult.SenderFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.ReceiverPhone, OCRResult.ProcedurerPhone, OCRResult.SenderPhone))
+              
+                //Province
+                ReceiverProvincePostalCode = getSuitableCode(OCRResult.ReceiverProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.ProcedurerProvincePostalCode, OCRResult.SenderProvincePostalCode)
+                if (ReceiverProvincePostalCode != null) {
+                    $('#province_edit').val(ReceiverProvincePostalCode);
+                    $('#province_edit').formSelect()
+                //District 
+                    ReceiverDistrictPostalCode = getSuitableCode(OCRResult.ReceiverDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.SenderDistrictPostalCode)
+                    selectDistrict(ReceiverDistrictPostalCode);
+                }
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.ReceiverStreet, OCRResult.ProcedurerStreet, OCRResult.SenderStreet));            }
+            
         }
     })
 
@@ -1298,7 +1359,7 @@
         var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
         $(".is-check-step-2").empty();
         validate1 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
     $(document).on("click", "#profile2", function () {
@@ -1311,7 +1372,7 @@
         var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
         $(".is-check-step-3").empty();
         validate2 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
     $(document).on("click", "#profile3", function () {
@@ -1324,12 +1385,12 @@
         var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
         $(".is-check-step-4").empty();
         validate3 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
 <script>
     var form = $(".validation-wizard").show();
-    var error = true;
+    var error = true;``
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1466,7 +1527,7 @@
                     UserInvitation.UserAdminLocationID = $('#item3').val()
                     UserInvitation.UserProfileID = $('#item4').val()
                     UserInvitation.UserLetterCode = $('#item5').val()
-                    $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
+                    $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0 });
                     $('#c').css("width", $('#myform-p-0').width());
                     return true;
                 }
@@ -1485,7 +1546,7 @@
             }
             else if (currentIndex === 5) {
                 UserInvitation.UserOrderNote = $('#OrderNote').val()
-                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
+                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0 });
                 return true;
             }
             else
@@ -1540,7 +1601,7 @@
             //return form.submit();
         },
         onFinished: function (event, currentIndex) {
-            swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+            swal("Form Submitted!", "");
         }
     }), $(".validation-wizard").validate({
         ignore: "input[type=hidden]",
