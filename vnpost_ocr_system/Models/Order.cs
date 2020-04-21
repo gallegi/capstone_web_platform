@@ -20,7 +20,6 @@ namespace vnpost_ocr_system.Models
             this.OrderImages = new HashSet<OrderImage>();
             this.OrderStatusDetails = new HashSet<OrderStatusDetail>();
             this.Payments = new HashSet<Payment>();
-            this.NotificationMessages = new HashSet<NotificationMessage>();
         }
     
         public long OrderID { get; set; }
@@ -70,7 +69,5 @@ namespace vnpost_ocr_system.Models
         public virtual ICollection<OrderStatusDetail> OrderStatusDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NotificationMessage> NotificationMessages { get; set; }
     }
 }

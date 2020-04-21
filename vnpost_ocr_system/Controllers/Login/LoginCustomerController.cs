@@ -83,9 +83,9 @@ namespace vnpost_ocr_system.Controllers.Login
                             // Save Token to DB
                             AuthenticationToken au = new AuthenticationToken();
                             au.CustomerID = custom.CustomerID;
-                            au.Token = AuthToken;
+                            au.AuthToken = AuthToken;
                             au.Status = true;
-                            au.CreateDate = DateTime.Now;
+                            au.CreatedTime = DateTime.Now;
                             au.ExpireDate = DateTime.Now.AddHours(12);
                             if (Session["DeviceToken"] != null)
                                 au.FirebaseToken = Session["DeviceToken"].ToString();
@@ -221,7 +221,7 @@ namespace vnpost_ocr_system.Controllers.Login
             HttpCookie AuthCookie = Request.Cookies["VNPostORCAuthToken"];
             if (AuthCookie != null)
             {
-                var AuthToken = db.AuthenticationTokens.Where(x => x.Token.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
+                var AuthToken = db.AuthenticationTokens.Where(x => x.AuthToken.Equals(AuthCookie.Value) && x.Status.Equals(true)).FirstOrDefault();
                 if (AuthToken != null)
                 {
                     AuthToken.Status = false;

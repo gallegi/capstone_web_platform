@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
     <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
     <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
+    <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
