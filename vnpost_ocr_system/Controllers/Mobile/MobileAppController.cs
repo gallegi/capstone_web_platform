@@ -277,7 +277,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
 
             //Send message to all device that user loging in
             foreach (string deviceToken in deviceTokens)
-                SendFCMMessageToDevice(deviceToken, title, contentText);
+                SendFCMMessageToDevice(deviceToken, title, contentText, orderID.ToString());
         }
         private static void AddNotiMessage(long orderID, string title, string contentText)
         {
@@ -295,7 +295,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
                 db.SaveChanges();
             }
         }
-        private static void SendFCMMessageToDevice(string deviceToken, string title, string contentText)
+        private static void SendFCMMessageToDevice(string deviceToken, string title, string contentText, string orderID)
         {
             WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
             tRequest.Method = "post";
@@ -309,10 +309,11 @@ namespace vnpost_ocr_system.Controllers.Mobile
                 to = deviceToken,
                 priority = "high",
                 content_available = true,
-                notification = new
+                data = new
                 {
                     body = contentText,
-                    title = title
+                    title = title,
+                    orderID = orderID
                 }
             };
 
