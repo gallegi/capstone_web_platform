@@ -39,6 +39,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<EmailVerification> EmailVerifications { get; set; }
         public virtual DbSet<FormTemplate> FormTemplates { get; set; }
+        public virtual DbSet<NotificationMessage> NotificationMessages { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderImage> OrderImages { get; set; }
         public virtual DbSet<OrderStatusDetail> OrderStatusDetails { get; set; }

@@ -59,6 +59,7 @@ namespace vnpost_ocr_system.Models
         public virtual District District { get; set; }
         public virtual District District1 { get; set; }
         public virtual District District2 { get; set; }
+        public virtual NotificationMessage NotificationMessage { get; set; }
         public virtual PersonalPaperType PersonalPaperType { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Status Status { get; set; }

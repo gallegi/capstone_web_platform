@@ -12,16 +12,14 @@ namespace vnpost_ocr_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AuthenticationToken
+    public partial class NotificationMessage
     {
-        public long TokenID { get; set; }
-        public long CustomerID { get; set; }
-        public string AuthToken { get; set; }
-        public string FirebaseToken { get; set; }
-        public bool Status { get; set; }
-        public System.DateTime CreatedTime { get; set; }
-        public System.DateTime ExpireDate { get; set; }
+        public long ID { get; set; }
+        public long OrderID { get; set; }
+        public string Title { get; set; }
+        public string ContentText { get; set; }
+        public System.DateTime SentDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
