@@ -9,10 +9,11 @@ using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 using System.IO;
 using Newtonsoft.Json;
+using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
-    public class InputInformationScreen21Controller : Controller
+    public class InputInformationScreen21Controller : BaseUserController
     {
         //[Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]

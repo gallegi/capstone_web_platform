@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using vnpost_ocr_system.SupportClass;
 using vnpost_ocr_system.Models;
 using System.Data.SqlClient;
+using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
-    public class SearchStatusController : Controller
+    public class SearchStatusController : BaseUserController
     {
         static string mess = "";
         [Route("giay-hen/tim-giay-hen")]

@@ -8,12 +8,13 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : BaseUserController
     {
         // GET: Payment
 
