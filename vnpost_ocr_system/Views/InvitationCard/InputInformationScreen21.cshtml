@@ -192,7 +192,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -202,7 +202,7 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact1" class="info-list-div col s12">
+                                    <div class="contact1 info-list-div col s12">
                                         <div class="col s8 m8 l8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
@@ -212,21 +212,21 @@
                                             <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                             <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
                                         </div>
-                                        <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
+                                        <div class="col l4 s4 m4 is-check-contact-type-1" id="isCheckContactType1-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType1" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="1" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -241,7 +241,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="2">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -251,27 +251,27 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact2" class="info-list-div col s12">
+                                    <div class="contact2 info-list-div col s12">
                                         <div class="col l8 m8 s8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                         </div>
-                                        <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+                                        <div class="col l4 m4 s4 is-check-contact-type-2" id="isCheckContactType2-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType2" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="2" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="2">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -286,7 +286,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="3">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -296,27 +296,27 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact3" class="info-list-div col s12">
+                                    <div class="contact3 info-list-div col s12">
                                         <div class="col l8 s8 m8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                         </div>
-                                        <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+                                        <div class="col l4 s4 m4 is-check-contact-type-3" id="isCheckContactType3-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="3" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="3" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="3">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -1052,7 +1052,7 @@
         }
     }
 
-    $(document).on("click", "#add", function () {
+    $(document).on("click", ".add", function () {
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
@@ -1061,7 +1061,7 @@
         $('p[name="paper_number_edit"]').text("")
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
-
+        console.log(OCRResult)
         if (!$.isEmptyObject(OCRResult)) {
             console.log(_newIndex);
             if (_newIndex == 2) {
@@ -1136,7 +1136,7 @@
         }
     })
 
-    $(document).on("click", "#edit", function () {
+    $(document).on("click", ".edit", function () {
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
         $('p[name="district_edit"]').text("")
@@ -1152,7 +1152,7 @@
             cache: false,
             dataType: "json",
             data: {
-                id: $(this).data("profile1"),
+                id: $(this).data("contactinfoid"),
                 type: type
             },
             success: function (response) {
@@ -1238,16 +1238,16 @@
         }
     });
 
-    $(document).on("click", 'section #contact1', function () {
-        contact = 'section #contact1:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact1', function () {
+        contact = 'section .contact1:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", 'section #contact2', function () {
-        contact = 'section #contact2:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact2', function () {
+        contact = 'section .contact2:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", 'section #contact3', function () {
-        contact = 'section #contact3:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact3', function () {
+        contact = 'section .contact3:nth-child(' + ($(this).index() + 1) + ')';
     })
 
     $(document).on("click", "#save_profile1", function () {
@@ -1312,10 +1312,10 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            for (var i = 2; i < 5; i++) {
-                                $('section:nth-child(' + i*2 + ') .row').children('p').remove()
-                                $('section:nth-child(' + i*2 + ') .row').append(response.html[i-2])
-                            }
+                            console.log(response)
+                            $('.contact1:last').after(response.html[0]);
+                            $('.contact2:last').after(response.html[1]);
+                            $('.contact3:last').after(response.html[2]);
                         }
                         else {
                             $(contact).find('#FullName').text($('#name_edit').val())
@@ -1343,8 +1343,8 @@
         }
     })
 
-    $(document).on("click", "#profile1", function () {
-        var Adminprofile = $(this).closest('#contact1');
+    $(document).on("click", ".contactInfoType1", function () {
+        var Adminprofile = $(this).closest('.contact1');
         if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == "") {
             toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
             return;
@@ -1359,34 +1359,34 @@
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
-        var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
-        $(".is-check-step-2").empty();
+        var a = $('#isCheckContactType1-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-1").empty();
         validate1 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
-    $(document).on("click", "#profile2", function () {
-        var Adminprofile = $(this).closest('#contact2');
+    $(document).on("click", ".contactInfoType2", function () {
+        var Adminprofile = $(this).closest('.contact2');
         $('#SenderFullName').text(Adminprofile.find('#FullName').text());
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
         $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
-        $(".is-check-step-3").empty();
+        var a = $('#isCheckContactType2-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-2").empty();
         validate2 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
-    $(document).on("click", "#profile3", function () {
-        var Adminprofile = $(this).closest('#contact3');
+    $(document).on("click", ".contactInfoType3", function () {
+        var Adminprofile = $(this).closest('.contact3');
         $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
         $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
-        var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
-        $(".is-check-step-4").empty();
+        var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-3").empty();
         validate3 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
