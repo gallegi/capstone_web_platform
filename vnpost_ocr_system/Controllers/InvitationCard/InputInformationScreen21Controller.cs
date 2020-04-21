@@ -67,6 +67,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public ActionResult Add()
         {
             //if (Session["userID"] == null) return Redirect("~/khach-hang/dang-nhap");
+            var request = Request;
             string FullName = Request["FullName"];
             string Phone = Request["Phone"];
             string PostalDistrictCode = Request["PostalDistrictCode"];
@@ -98,7 +99,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     c.PostalDistrictCode = PostalDistrictCode;
                     c.Street = Street;
                     PersonalPaperType type = PersonalPaperTypeID == "" ? null : db.PersonalPaperTypes.Find(int.Parse(PersonalPaperTypeID));
-                    if (type == null)
+                    if (type == null || int.Parse(Request["Type"]) != 1)
                     {
                         c.PersonalPaperTypeID = null;
                         c.PersonalPaperNumber = null;
@@ -128,14 +129,14 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                             string html = @"
                             <div class='contact" + i + @" info-list-div col s12'>
                                 <div class='col s8 m8 l8'>
-                                    <p id = 'FullName' class='content-text highlight col s12'>" + c.FullName + @"</p>
-                                    <p class='content-text col s12'><span id = 'Street' > " + c.Street + "</ span >, <span data-district='1130' id='Address'>" + district.PostalDistrictName + @", " + province.PostalProvinceName + @"</span></p>
-                                    <p class='content-text col s12'>Số điện thoại: <span id = 'Phone' > " + c.Phone + @" </ span ></ p > ";
+                                    <p class='FullName content-text highlight col s12'>" + c.FullName + @"</p>
+                                    <p class='content-text col s12'><span class='Street' > " + c.Street + "</ span >, <span data-district='1130' class='Address'>" + district.PostalDistrictName + @", " + province.PostalProvinceName + @"</span></p>
+                                    <p class='content-text col s12'>Số điện thoại: <span class='Phone' > " + c.Phone + @" </ span ></ p > ";
                             html += i == 1 ? @"
-                                    <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' id='PersonalPaperTypeName'>" + (type == null ? "" : type.PersonalPaperTypeName) + @"</span></p>
-                                    <p class='content-text col s12'>Số giấy tờ tùy thân: <span id='PersonalPaperNumber'>" + (c.PersonalPaperNumber == null ? "" : c.PersonalPaperNumber) + @"</span></p>
-                                    <p class='content-text col s12'>Ngày cấp: <span id='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
-                                    <p class='content-text col s12'>Nơi cấp: <span id='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>" : "";
+                                    <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' class='PersonalPaperTypeName'>" + (type == null ? "" : type.PersonalPaperTypeName) + @"</span></p>
+                                    <p class='content-text col s12'>Số giấy tờ tùy thân: <span class='PersonalPaperNumber'>" + (c.PersonalPaperNumber == null ? "" : c.PersonalPaperNumber) + @"</span></p>
+                                    <p class='content-text col s12'>Ngày cấp: <span class='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
+                                    <p class='content-text col s12'>Nơi cấp: <span class='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>" : "";
                             html += @"
                                 </div>
                                 <div class='col l4 s4 m4 is-check-contact-type-" + i + "' id='isCheckContactType" + i + "-" + c.ContactInfoID + @"'>
@@ -159,6 +160,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
             catch (Exception e)
             {
+
                 return Json(new { success = false, message = "Có lỗi xảy ra" });
             }
         }
