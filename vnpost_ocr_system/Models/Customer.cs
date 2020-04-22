@@ -17,10 +17,10 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            this.AuthenticationTokens = new HashSet<AuthenticationToken>();
             this.ContactInfoes = new HashSet<ContactInfo>();
             this.Orders = new HashSet<Order>();
             this.ResetPasswordTokens = new HashSet<ResetPasswordToken>();
-            this.AuthenticationTokens = new HashSet<AuthenticationToken>();
         }
     
         public long CustomerID { get; set; }
@@ -34,13 +34,13 @@ namespace vnpost_ocr_system.Models
         public string PostalDistrictID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AuthenticationToken> AuthenticationTokens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContactInfo> ContactInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual District District { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuthenticationToken> AuthenticationTokens { get; set; }
     }
 }
