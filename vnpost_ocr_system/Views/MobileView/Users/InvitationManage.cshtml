@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "InvitationManage";
-      Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
+    Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
 }
 
 <link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
@@ -14,42 +14,42 @@
 <script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
 <script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-
-    <div class="card">
-        <div class="m-b-40 m-t-30 card-content text-responsive">
-            <h6 class="center step-title"><b>Giấy hẹn của tôi</b></h6>
-            <table id="mainTable" class="table-bordered">
-                <thead>
-                    <tr>
-                        <th class="width-8">Mã hồ sơ</th>
-                        <th class="width-12">Ngày tạo</th>
-                        <th class="width-12">Tên giấy hẹn</th>
-                        <th class="width-10">Mã vận đơn</th>
-                        <th class="width-15">Tổng tiền</th>
-                        <th class="width-10">Trạng thái đơn hàng</th>
-                        <th class="width-10"></th>
-                    </tr>
-                </thead>
-                @*<tbody>
-                @foreach (var item in ViewBag.listOrder)
-                {
-                    <tr>
-                        <td>
-                            <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
-                            </a>
-                        </td>
-                        <td>@item.OrderDate</td>
-                        <td>@item.ProfileName</td>
-                        <td>@item.ItemCode</td>
-                        <td>@item.Amount</td>
-                        <td>@item.StatusName</td>
-                    </tr>
-                }
-            </tbody>*@
-            </table>
-        </div>
+<label id="prevPage" class="hidden">/giay-hen/tim-giay-hen</label>
+<div class="card">
+    <div class="m-b-40 m-t-30 card-content text-responsive">
+        <h6 class="center step-title"><b>Giấy hẹn của tôi</b></h6>
+        <table id="mainTable" class="table-bordered">
+            <thead>
+                <tr>
+                    <th class="width-8">Mã hồ sơ</th>
+                    <th class="width-12">Ngày tạo</th>
+                    <th class="width-12">Tên giấy hẹn</th>
+                    <th class="width-10">Mã vận đơn</th>
+                    <th class="width-15">Tổng tiền</th>
+                    <th class="width-10">Trạng thái đơn hàng</th>
+                    <th class="width-10"></th>
+                </tr>
+            </thead>
+            @*<tbody>
+                    @foreach (var item in ViewBag.listOrder)
+                    {
+                        <tr>
+                            <td>
+                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
+                                    <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
+                                </a>
+                            </td>
+                            <td>@item.OrderDate</td>
+                            <td>@item.ProfileName</td>
+                            <td>@item.ItemCode</td>
+                            <td>@item.Amount</td>
+                            <td>@item.StatusName</td>
+                        </tr>
+                    }
+                </tbody>*@
+        </table>
     </div>
+</div>
 
 
 <script>
@@ -78,7 +78,7 @@
             "columns": [
                 {
                     "data": "AppointmentLetterCode", "name": "AppointmentLetterCode", "render": function (data) {
-                        return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id_raw\" value="+data+" hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
+                        return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id_raw\" value=" + data + " hidden></input><a href=\"#\" onclick='submit()'>" + data + "</a></form>";
                     }
                 },
                 { "data": "stringDate", "name": "OrderDate" },
@@ -89,7 +89,7 @@
                 {
                     "data": {}, "render": function (data) {
                         if (data.StatusID == -3) {
-                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel("+data.OrderID +")'>Hủy đơn hàng</a>";
+                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel(" + data.OrderID + ")'>Hủy đơn hàng</a>";
                         } else {
                             return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" disabled>Hủy đơn hàng</a>";
                         }

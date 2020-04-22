@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
+using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.User
 {
@@ -110,6 +111,10 @@ namespace vnpost_ocr_system.Controllers.User
                         new SqlParameter("date", DateTime.Now));
                     transaction.Commit();
                     db.SaveChanges();
+
+                    // Send firebase message
+                    MobileAppController.SendFCMMessage(long.Parse(Code), cancelStatus);
+
                     return Json("", JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
