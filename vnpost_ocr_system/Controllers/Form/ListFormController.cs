@@ -16,7 +16,7 @@ namespace vnpost_ocr_system.Form
         [Route("bieu-mau/list-bieu-mau")]
         public ActionResult Index()
         {
-            var listForms = db.FormTemplates.ToList();
+            var listForms = db.Forms.ToList();
             ViewBag.Forms = listForms;
             return View("/Views/Form/ListFormView.cshtml");
         }
