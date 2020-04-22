@@ -15,6 +15,7 @@
     <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
     <!-- ============================================================== -->
     <!-- Apps -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- ============================================================== -->
     <script src="~/dist/js/app.js"></script>
     <script src="~/dist/js/app.init.js"></script>
@@ -67,7 +68,7 @@
             <!-- Navbar scss in header.scss -->
             <!-- ============================================================== -->
             <nav>
-                <div class="nav-wrapper">
+                <div class="nav-wrapper hide_in_app">
                     <ul class="left">
                         <li class="hide-on-med-and-down">
                             <a href="javascript: void(0);" class="nav-toggle">
@@ -105,6 +106,19 @@
                     <!-- ============================================================== -->
                     <!-- Right topbar icon scss in header.scss -->
                     <!-- ============================================================== -->
+                </div>
+
+                <!--Top bar for app-->
+                <div class="show_in_app" style="display:none">
+                    <div style="visibility:hidden" id="backBtn">
+                        <img onclick="back_button_click()" src="~/assets/images/forward_icon.png" style="transform:rotate(180deg) scale(0.7)" />
+                    </div>
+                    <div style="flex-grow: 1;text-align:center">
+                        <img class="light-logo" src="~/assets/images/vnpost.png" />
+                    </div>
+                    <div>
+                        <a href="/Home/index"><img src="~/assets/images/home_icon.png" width="50" height="50" /></a>
+                    </div>
                 </div>
             </nav>
             <!-- ============================================================== -->
@@ -243,6 +257,16 @@
         $(function () {
             $("#slide-out").show();
         })
+
+        function back_button_click() {
+            var prevPage = document.getElementById("prevPage");
+            if (prevPage == null) {
+                window.location.href = "/Home/index";
+            }
+            else {
+                window.location.href = prevPage.innerHTML ;
+            }
+        }
     </script>
 </body>
 
