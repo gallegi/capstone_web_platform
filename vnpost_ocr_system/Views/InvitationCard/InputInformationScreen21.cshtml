@@ -14,6 +14,10 @@
 <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
 <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
 
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
 <link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
 <link href="~/CustomCSS/InvitationCard/InputInforScreen22.css" rel="stylesheet" />
@@ -49,15 +53,9 @@
     .dropzone .dz-preview .dz-progress .dz-upload {
         background: #29bb22 !important;
         background: linear-gradient(to bottom, #7ceb69, #29bb22) !important;
-        /*position: absolute;*/
         top: 0;
         bottom: 0;
         width: 0;
-        /*-webkit-transition: width 300ms ease-in-out;
-        -moz-transition: width 300ms ease-in-out;
-        -ms-transition: width 300ms ease-in-out;
-        -o-transition: width 300ms ease-in-out;
-        transition: width 300ms ease-in-out;*/
     }
 
     .wizard > .actions {
@@ -68,10 +66,7 @@
         margin: 0px !important;
         display: block;
     }
-    /*.dropzone .dz-preview .dz-image {
-        width: 250px !important;
-        height: 250px !important;
-    }*/
+
     #item5-error {
         color: white;
     }
@@ -106,9 +101,7 @@
     .summary-label {
         font-weight: bold !important;
     }
-    /*.summary-content{
-        font-style:italic !important;
-    }*/
+
     .wizard > .content > .body label[hidden] {
         display: none !important;
     }
@@ -199,7 +192,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -209,31 +202,31 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact1" class="info-list-div col s12">
+                                    <div class="contact1 info-list-div col s12">
                                         <div class="col s8 m8 l8">
-                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@(item.PersonalPaperTypeID == null ? -1 : (int?)item.PersonalPaperTypeID)" id="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
-                                            <p class="content-text col s12">Số giấy tờ tùy thân: <span id="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
-                                            <p class="content-text col s12">Ngày cấp: <span id="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
-                                            <p class="content-text col s12">Nơi cấp: <span id="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
+                                            <p class="FullName content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
+                                            <p class="content-text col s12">Loại giấy tờ tùy thân: <span data-papertype="@(item.PersonalPaperTypeID == null ? -1 : (int?)item.PersonalPaperTypeID)" class="PersonalPaperTypeName">@item.PersonalPaperTypeName</span></p>
+                                            <p class="content-text col s12">Số giấy tờ tùy thân: <span class="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
+                                            <p class="content-text col s12">Ngày cấp: <span class="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
+                                            <p class="content-text col s12">Nơi cấp: <span class="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
                                         </div>
-                                        <div class="col l4 s4 m4 is-check-step-2" id="isCheckStep2-@item.ContactInfoID">
+                                        <div class="col l4 s4 m4 is-check-contact-type-1" id="isCheckContactType1-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile1">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType1" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="1" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="1" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="1">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -248,7 +241,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="2">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -258,27 +251,27 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact2" class="info-list-div col s12">
+                                    <div class="contact2 info-list-div col s12">
                                         <div class="col l8 m8 s8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                         </div>
-                                        <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+                                        <div class="col l4 m4 s4 is-check-contact-type-2" id="isCheckContactType2-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile2">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType2" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="2" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="2" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="2">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="2">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -293,7 +286,7 @@
                             {
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="3">
                                         Tạo thông tin mới
                                     </a>
                                 </p>
@@ -303,27 +296,27 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div id="contact3" class="info-list-div col s12">
+                                    <div class="contact3 info-list-div col s12">
                                         <div class="col l8 s8 m8">
                                             <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
                                         </div>
-                                        <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
+                                        <div class="col l4 s4 m4 is-check-contact-type-3" id="isCheckContactType3-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" id="profile3">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common" data-profile1="@item.ContactInfoID" data-type="3" id="edit" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="3" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn muốn sử dụng thông tin khác?
-                                    <a class="modal-trigger light-blue-text hover-underline" href="#myform1" id="add" data-type="3">
+                                    <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="3">
                                         Nhập thông tin mới
                                     </a>
                                 </p>
@@ -669,103 +662,6 @@
                                             <span>Thẻ ATM nội địa/Internet Banking</span>
                                         </label><br />
                                     </div>
-
-                                    @*<div class="bank-list">
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/1.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/2.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/3.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/4.png" />
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/5.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/6.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/7.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/8.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/9.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/10.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/11.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/12.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/13.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/14.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/15.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/16.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/17.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/18.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/19.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/20.png" />
-                                                </div>
-                                            </div>
-
-                                            <div class="row m-t-20">
-
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/21.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/22.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/23.png" />
-                                                </div>
-                                                <div class="col s6 l3 m2">
-                                                    <img src="~/Content/BankLogo/24.png" />
-                                                </div>
-                                            </div>
-
-
-                                        </div>*@
                                 </div>
                             </div>
 
@@ -893,7 +789,7 @@
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
                             <input name="dateTLHD" id="paper_date_edit" type='text' readonly
-                                   class="col s10 l10 datepicker-here centerText" autocomplete="off"
+                                   class="col s10 l10 datepicker-here" autocomplete="off"
                                    data-language='vi' />
                             <i id="picker-icon" class="unselectable material-icons dp48 small p-0-0 col hover-default">date_range</i>
                         </div>
@@ -914,7 +810,7 @@
                 <div class="select-wrapper row m-b-20">
                     <div class="col l2 m2 p-t-10 s12 "></div>
                     <div class="col l8 m8 s12">
-                        <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_profile1">Lưu</a>
+                        <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_contact_info">Lưu</a>
                         <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common modal-close" id="close-modal">Hủy Bỏ</button>
                     </div>
                     <div class="col l2 m2 p-t-10 s12 "></div>
@@ -933,6 +829,9 @@
     var UserInvitation = {}
     var CreateInvitation = {}
     var OCRResult = {}
+    var ImageData = null;
+    var _currentIndex = -1;
+    var _newIndex = -1;
 
     if (!!$.cookie('CreateInvitation')) {
         CreateInvitation = JSON.parse($.cookie('CreateInvitation'))
@@ -956,7 +855,7 @@
 
     var data1 = new FormData();
 
-    function getDistrict() {
+    function getDistrict(OCRResult) {
         $('#pre-load').show()
         $('#item2').empty();
         $('#item2').formSelect();
@@ -981,14 +880,17 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#item2').append(option);
-                if (UserDistrictsID != "") {
-                    $('#item2').val(UserDistrictsID);
-                    UserDistrictsID = ""
+                if (OCRResult != null && OCRResult.PostalDistrictCode != null) {
+                    $('#item2').val(OCRResult.PostalDistrictCode);
                 }
                 $('#item2').formSelect();
                 if ($('#item2').val() != null)
                     $('p[name="item2"]').text("")
-                getAdmins()
+                if (OCRResult != null) {
+                    getAdmins(OCRResult)
+                } else {
+                    $('#pre-load').hide()
+                }
             },
             error: function () {
                 $('#pre-load').hide()
@@ -996,7 +898,7 @@
         })
     }
 
-    function getAdmins() {
+    function getAdmins(OCRResult) {
         $('#pre-load').show()
         $('#item3').empty();
         $('#item3').formSelect();
@@ -1019,14 +921,17 @@
                     option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
                 }
                 $('#item3').append(option);
-                if (UserAdminLocationID != "") {
-                    $('#item3').val(UserAdminLocationID)
-                    UserAdminLocationID = ""
+                if (OCRResult != null && OCRResult.PublicAdministrationLocationID != null) {
+                    $('#item3').val(OCRResult.PublicAdministrationLocationID)
                 }
                 $('#item3').formSelect();
                 if ($('#item3').val() != null)
                     $('p[name="item3"]').text("")
-                getProfiles();
+                if (OCRResult != null) {
+                    getProfiles(OCRResult);
+                } else {
+                    $('#pre-load').hide()
+                }
             },
             error: function () {
                 $('#pre-load').hide()
@@ -1034,7 +939,7 @@
         })
     }
 
-    function getProfiles() {
+    function getProfiles(OCRResult) {
         $('#pre-load').show()
         $('#item4').empty();
         $('#item4').formSelect();
@@ -1056,9 +961,8 @@
                     option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
                 }
                 $('#item4').append(option);
-                if (UserProfileID != "") {
-                    $('#item4').val(UserProfileID)
-                    UserProfileID = ""
+                if (OCRResult != null && OCRResult.ProfileID != null) {
+                    $('#item4').val(OCRResult.ProfileID)
                 }
                 $('#item4').formSelect();
                 if ($('#item4').val() != null)
@@ -1084,19 +988,18 @@
         if (CreateInvitation.UserOrderNote !== undefined) {
             $('#OrderNote').val(CreateInvitation.UserOrderNote)
         }
-        getDistrict();
 
         $('#item1').change(function () {
-            getDistrict();
+            getDistrict(null);
         })
 
         $('#item2').change(function () {
             $('#pre-load').show()
-            getAdmins();
+            getAdmins(null);
         })
 
         $('#item3').change(function () {
-            getProfiles();
+            getProfiles(null);
         })
 
         $('#item4').change(function () {
@@ -1108,18 +1011,48 @@
         })
     })
 
+
+    //Clear form 1 before add or edit data
     $(document).on("click", ".modal-trigger", function () {
         $('#myform1').find("input[type=text], textarea").val("");
-        $('#paper_type_edit').val($("#paper_type_edit option:first").val());
+        $('#paper_type_edit').val(null);
         $('#paper_type_edit').formSelect()
-        $('#province_edit').val($("#province_edit option:first").val());
+        $('#province_edit').val(null);
         $('#province_edit').formSelect()
         $('#district_edit').empty()
         $('#district_edit').append(dist)
         $('#district_edit').formSelect()
     })
 
-    $(document).on("click", "#add", function () {
+    function getSuitableCode(priorityCode, firstScreenCode, firstLeft, secondLeft) {
+        if (priorityCode != null) {
+            return priorityCode;
+        }
+        if (firstLeft != null) {
+            return firstLeft;
+        }
+        if (secondLeft != null) {
+            return secondLeft;
+        }
+        if (firstScreenCode != null) {
+            return firstScreenCode;
+        }
+        return null;
+    }
+
+    function getSuitableString(priorityString, firstLeft, secondLeft) {
+        if (priorityString != null) {
+            return priorityString;
+        }
+        if (firstLeft != null) {
+            return firstLeft;
+        }
+        if (secondLeft != null) {
+            return secondLeft;
+        }
+    }
+
+    $(document).on("click", ".add", function () {
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
@@ -1128,17 +1061,82 @@
         $('p[name="paper_number_edit"]').text("")
         if (type != 1) $('#showmore').hide();
         else $('#showmore').show();
-
+        console.log(OCRResult)
         if (!$.isEmptyObject(OCRResult)) {
-            $('input#name_edit').val(OCRResult.ProcedurerFullName)
-            $('input#phone_edit').val(OCRResult.ProcedurerPhone)
-            $('#province_edit').val($('#item1').find("option:selected").val());
-            $('#province_edit').formSelect()
-            $('#province_edit').change();
+            console.log(_newIndex);
+            if (_newIndex == 2) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.ProcedurerFullName, OCRResult.SenderFullName, OCRResult.ReceiverFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.ProcedurerPhone, OCRResult.SenderPhone, OCRResult.ReceiverPhone))
+
+                //Province
+                ProcedurerProvincePostalCode = getSuitableCode(OCRResult.ProcedurerProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.SenderProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
+                if (ProcedurerProvincePostalCode != null) {
+                    $('#province_edit').val(ProcedurerProvincePostalCode);
+                    $('#province_edit').formSelect()
+                    //District
+                    ProcedurerDistrictPostalCode = getSuitableCode(OCRResult.ProcedurerDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.SenderDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
+                    selectDistrict(ProcedurerDistrictPostalCode);
+                }
+
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.ProcedurerStreet, OCRResult.SenderStreet, OCRResult.ReceiverStreet));
+                $('#paper_type_edit').val(OCRResult.ProcedurerPersonalPaperType);
+                $('#paper_type_edit').formSelect();
+                $('#paper_number_edit').val(OCRResult.ProcedurerPersonalPaperNumber);
+                $('#paper_date_edit').val(OCRResult.ProcedurerPersonalPaperIssuedDate);
+                $('#paper_place_edit').val(OCRResult.ProcedurerPersonalPaperIssuedPlace);
+            } else if (_newIndex == 3) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.SenderFullName, OCRResult.ProcedurerFullName, OCRResult.ReceiverFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.SenderPhone, OCRResult.ProcedurerPhone, OCRResult.ReceiverPhone))
+
+                //Province
+                SenderProvincePostalCode = getSuitableCode(OCRResult.SenderProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.ProcedurerProvincePostalCode, OCRResult.ReceiverProvincePostalCode)
+                if (SenderProvincePostalCode != null) {
+                    $('#province_edit').val(SenderProvincePostalCode);
+                    $('#province_edit').formSelect()
+                    //District
+                    SenderDistrictPostalCode = getSuitableCode(OCRResult.SenderDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.ReceiverDistrictPostalCode)
+                    selectDistrict(SenderDistrictPostalCode);
+                }
+
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.SenderStreet, OCRResult.ProcedurerStreet, OCRResult.ReceiverStreet));
+
+            } else if (_newIndex == 4) {
+                $('input#name_edit').val(
+                    getSuitableString(OCRResult.ReceiverFullName, OCRResult.ProcedurerFullName, OCRResult.SenderFullName))
+                $('input#phone_edit').val(
+                    getSuitableString(OCRResult.ReceiverPhone, OCRResult.ProcedurerPhone, OCRResult.SenderPhone))
+
+                //Province
+                ReceiverProvincePostalCode = getSuitableCode(OCRResult.ReceiverProvincePostalCode,
+                    $('#item1').find("option:selected").val(), OCRResult.ProcedurerProvincePostalCode, OCRResult.SenderProvincePostalCode)
+                if (ReceiverProvincePostalCode != null) {
+                    $('#province_edit').val(ReceiverProvincePostalCode);
+                    $('#province_edit').formSelect()
+                //District
+                    ReceiverDistrictPostalCode = getSuitableCode(OCRResult.ReceiverDistrictPostalCode,
+                        $('#item2').find("option:selected").val(), OCRResult.ProcedurerDistrictPostalCode, OCRResult.SenderDistrictPostalCode)
+                    selectDistrict(ReceiverDistrictPostalCode);
+                }
+                //Street
+                $('#street_edit').val(
+                    getSuitableString(OCRResult.ReceiverStreet, OCRResult.ProcedurerStreet, OCRResult.SenderStreet));
+            }
         }
     })
 
-    $(document).on("click", "#edit", function () {
+    $(document).on("click", ".edit", function () {
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
         $('p[name="district_edit"]').text("")
@@ -1154,7 +1152,7 @@
             cache: false,
             dataType: "json",
             data: {
-                id: $(this).data("profile1"),
+                id: $(this).data("contactinfoid"),
                 type: type
             },
             success: function (response) {
@@ -1185,7 +1183,13 @@
         })
     })
 
-    $('#province_edit').change(function () {
+    function selectProvinceDistrict(data) {
+        if (data != null) {
+
+        }
+    }
+
+    function selectDistrict(DistrictPostalCode){
         $('#pre-load').show()
         $.ajax({
             type: "POST",
@@ -1193,7 +1197,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                code: $('#province_edit').val()
             },
             success: function (response) {
                 $('#district_edit').empty();
@@ -1202,8 +1206,8 @@
                     option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
                 }
                 $('#district_edit').append(option);
-                if ($("#province_edit").val() == $('#item1').val() && $('#item2').val() > 0) {
-                    $('#district_edit').val($('#item2').val())
+                if (DistrictPostalCode != null) {
+                    $('#district_edit').val(DistrictPostalCode)
                 }
                 $('#district_edit').formSelect();
                 $('#pre-load').hide()
@@ -1212,6 +1216,10 @@
                 $('#pre-load').hide()
             }
         })
+    }
+
+    $('#province_edit').change(function () {
+        selectDistrict(null)
     })
 
     var contact = "";
@@ -1230,19 +1238,19 @@
         }
     });
 
-    $(document).on("click", 'section #contact1', function () {
-        contact = 'section #contact1:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact1', function () {
+        contact = 'section .contact1:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", 'section #contact2', function () {
-        contact = 'section #contact2:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact2', function () {
+        contact = 'section .contact2:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", 'section #contact3', function () {
-        contact = 'section #contact3:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section .contact3', function () {
+        contact = 'section .contact3:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", "#save_profile1", function () {
+    $(document).on("click", "#save_contact_info", function () {
         var check = true;
         if ($('#name_edit').val().trim() == "") {
             $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
@@ -1304,22 +1312,22 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            for (var i = 2; i < 5; i++) {
-                                $('section:nth-child(' + i*2 + ') .row').children('p').remove()
-                                $('section:nth-child(' + i*2 + ') .row').append(response.html[i-2])
-                            }
+                            console.log(response)
+                            $('.contact1:last').after(response.html[0]);
+                            $('.contact2:last').after(response.html[1]);
+                            $('.contact3:last').after(response.html[2]);
                         }
                         else {
-                            $(contact).find('#FullName').text($('#name_edit').val())
-                            $(contact).find('#Street').text($('#street_edit').val())
-                            $(contact).find('#Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
-                            $(contact).find('#Address').data('district', $('#district_edit').val())
-                            $(contact).find('#Phone').text($('#phone_edit').val())
-                            $(contact).find('#PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
-                            $(contact).find('#PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
-                            $(contact).find('#PersonalPaperNumber').text($('#paper_number_edit').val())
-                            $(contact).find('#PersonalPaperIssuedDate').text($('#paper_date_edit').val())
-                            $(contact).find('#PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
+                            $(contact).find('.FullName').text($('#name_edit').val())
+                            $(contact).find('.Street').text($('#street_edit').val())
+                            $(contact).find('.Address').text($('#district_edit option:selected').text() + ", " + $('#province_edit option:selected').text())
+                            $(contact).find('.Address').data('district', $('#district_edit').val())
+                            $(contact).find('.Phone').text($('#phone_edit').val())
+                            $(contact).find('.PersonalPaperTypeName').text($('#paper_type_edit option:selected').text())
+                            $(contact).find('.PersonalPaperTypeName').data('papertype', $('#paper_type_edit').val())
+                            $(contact).find('.PersonalPaperNumber').text($('#paper_number_edit').val())
+                            $(contact).find('.PersonalPaperIssuedDate').text($('#paper_date_edit').val())
+                            $(contact).find('.PersonalPaperIssuedPlace').text($('#paper_place_edit').val())
                         }
                         $('#close-modal').click();
                         successAlert(response.message);
@@ -1335,10 +1343,9 @@
         }
     })
 
-    $(document).on("click", "#profile1", function () {
-        var Adminprofile = $(this).closest('#contact1');
-        if (Adminprofile.find('#PersonalPaperTypeName').text() == "" || Adminprofile.find('#PersonalPaperNumber').text() == ""
-            || Adminprofile.find('#PersonalPaperIssuedDate').text() == "" || Adminprofile.find('#PersonalPaperIssuedPlace').text() == "") {
+    $(document).on("click", ".contactInfoType1", function () {
+        var Adminprofile = $(this).closest('.contact1');
+        if (Adminprofile.find('.PersonalPaperTypeName').text() == "" || Adminprofile.find('.PersonalPaperNumber').text() == "") {
             toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
             return;
         }
@@ -1352,42 +1359,41 @@
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
-        var a = $('#isCheckStep2-' + $(this).attr('data-profile1'));
-        $(".is-check-step-2").empty();
+        var a = $('#isCheckContactType1-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-1").empty();
         validate1 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 
-    $(document).on("click", "#profile2", function () {
-        var Adminprofile = $(this).closest('#contact2');
+    $(document).on("click", ".contactInfoType2", function () {
+        var Adminprofile = $(this).closest('.contact2');
         $('#SenderFullName').text(Adminprofile.find('#FullName').text());
         $('#SenderPhone').text(Adminprofile.find('#Phone').text())
         $('#SenderStreet').text(Adminprofile.find('#Street').text())
         $('#SenderAddress').text(Adminprofile.find('#Address').text())
         $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        var a = $('#isCheckStep3-' + $(this).attr('data-profile1'));
-        $(".is-check-step-3").empty();
+        var a = $('#isCheckContactType2-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-2").empty();
         validate2 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
     })
 
-    $(document).on("click", "#profile3", function () {
-        var Adminprofile = $(this).closest('#contact3');
+    $(document).on("click", ".contactInfoType3", function () {
+        var Adminprofile = $(this).closest('.contact3');
         $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
         $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
         $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
         $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
-        var a = $('#isCheckStep4-' + $(this).attr('data-profile1'));
-        $(".is-check-step-4").empty();
+        var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
+        $(".is-check-contact-type-3").empty();
         validate3 = true;
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:67px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
     })
 </script>
 <script>
     var form = $(".validation-wizard").show();
-    var error = true;
-    var sentAPI = false;
+    var error = true; ``
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1431,6 +1437,8 @@
             finish: "Hoàn tất"
         },
         onStepChanging: function (event, currentIndex, newIndex) {
+            _currentIndex = currentIndex;
+            _newIndex = newIndex;
             if (currentIndex === 0) {
                 if (data1.get("img") == null) {
                     $('p[name="item6"]').text('Vui lòng chọn Ảnh chụp giấy hẹn');
@@ -1440,73 +1448,51 @@
                     $('p[name="item6"]').text('');
                     var data = new FormData();
                     data.append('image', data1.get('img'));
-                    if (!sentAPI) {
+                    if (ImageData != data1.get('img')) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://54.197.16.66:8080/",
+                            url: "http://www.mocky.io/v2/5e9c8e1c30000059000a7eeb",
                             data: data,
                             contentType: false,
                             processData: false,
                             cache: false,
                             dataType: "json",
                             success: function (response) {
-                                console.log(response);
-                                sentAPI = true;
-                                if (response.hasOwnProperty('ProfileID') && response.ProfileID != "") {
-                                    UserProfileID = response.ProfileID;
+                                if (response.hasOwnProperty('form_id') && response.form_id != "") {
                                     $.ajax({
                                         type: "POST",
                                         url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
                                         dataType: "json",
                                         cache: false,
-                                        data: {
-                                            ProfileID: UserProfileID,
-                                            text: response.text
-                                        },
+                                        data: response,
                                         success: function (result) {
+                                            console.log(result)
                                             OCRResult = result;
+                                            $('#item1').val(OCRResult.PostalProvinceCode);
+                                            $('#item1').formSelect();
+                                            UserDistrictsID = OCRResult.PostalDistrictCode;
+                                            UserAdminLocationID = OCRResult.PublicAdministrationLocationID;
+                                            UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode)
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
-                                        }
-                                    })
-
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/getProvinceDistrictPublicAdmins",
-                                        cache: false,
-                                        dataType: "json",
-                                        data: {
-                                            ProfileID: UserProfileID
-                                        },
-                                        success: function (response2) {
-                                            console.log(response2)
-                                            if (response2.success) {
-                                                $('#item1').val(response2.data.PostalProvinceCode);
-                                                $('#item1').formSelect();
-                                                UserDistrictsID = response2.data.PostalDistrictCode;
-                                                UserAdminLocationID = response2.data.PublicAdministrationLocationID;
-                                                getDistrict();
-                                            }
+                                            getDistrict(OCRResult);
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
                                         $('a[role="menuitem"]').eq(1).click();
-                                        return true;
+                                        ImageData = data1.get('img');
                                     });
                                 }
                             },
                             error: function () {
-                                sentAPI = true;
                                 $('#pre-load').hide();
                                 $('a[role="menuitem"]').eq(1).click();
-                                return true;
                             }
                         })
                     }
-                    else
-                        return true;
+                    return true;
                 }
             }
             else if (currentIndex === 1 && newIndex > currentIndex) {
@@ -1544,7 +1530,7 @@
                     UserInvitation.UserAdminLocationID = $('#item3').val()
                     UserInvitation.UserProfileID = $('#item4').val()
                     UserInvitation.UserLetterCode = $('#item5').val()
-                    $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
+                    $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0 });
                     $('#c').css("width", $('#myform-p-0').width());
                     return true;
                 }
@@ -1563,7 +1549,7 @@
             }
             else if (currentIndex === 5) {
                 UserInvitation.UserOrderNote = $('#OrderNote').val()
-                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0.02 });
+                $.cookie('CreateInvitation', JSON.stringify(UserInvitation), { expires: 0 });
                 return true;
             }
             else
@@ -1618,7 +1604,7 @@
             //return form.submit();
         },
         onFinished: function (event, currentIndex) {
-            swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+            swal("Form Submitted!", "");
         }
     }), $(".validation-wizard").validate({
         ignore: "input[type=hidden]",
@@ -1698,49 +1684,6 @@ Dropzone.options.myAwesomeDropzone = {
             data1.append("img", file);
             data1.append("imgName", file.name)
         });
-        //this.on('sending', function (file, xhr, formData) {
-        //        data.append("file", file);
-            //var n = myDropzone.getAcceptedFiles().length;
-            @*if (count3 === n) {
-                var ngaynhap = $("#ngay-chon").val();
-                data3.append("ngayNhap", ngaynhap);
-                data3.append("ca", ca3);
-
-                var link = window.location.href;
-                var phanxuong3 = "@ViewBag.phanxuong";
-
-                data3.append("phanxuong", phanxuong3);
-
-                var notes3 = [];
-                $(".file-description3").each(function () {
-                    notes3.push($(this).val());
-                });*@
-                //data3.append("notes", notes3);
-
-
-                //$.ajax({
-                //    type: "POST",
-                //    url: "/phan-xuong/upload-len-dk",
-                //    //beforeSend: function (xhr) {
-                //    //    xhr.setRequestHeader("XSRF-TOKEN",
-                //    //        $('input:hidden[name="__RequestVerificationToken"]').val());
-                //    //},
-                //    data: data3,
-                //    contentType: false,
-                //    processData: false,
-                //    success: function (data) {
-                //          $("#pre-load").hide("slow", function () {
-                //         });
-                //        if (data.success) {
-                //            reloadAlert("Tải lên thành công!", 1000);
-                //        } else {
-                //            errorAlert("Lỗi!", 1000);
-                //            window.location.reload();
-                //        }
-                //    }
-                //});
-        //    }
-        //});
     },
     dictResponseError: "Lỗi (Code: {{statusCode}})",
     dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
@@ -1800,22 +1743,10 @@ Dropzone.options.myAwesomeDropzone = {
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         var file = new Blob([new Uint8Array(array)], { type: mimeString });
         data1.append("img", file);
-        //var saveData = (function () {
-        //    var a = document.createElement("a");
-        //    document.body.appendChild(a);
-        //    a.style = "display: none";
-        //    return function (data) {
-        //        url = window.URL.createObjectURL(data);
-        //        a.href = url;
-        //        a.download = 'testing.jfif';
-        //        a.click();
-        //        window.URL.revokeObjectURL(url);
-        //    };
-        //}());
-        //saveData(file);
-
         $('#pre-load').hide();
     }
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>

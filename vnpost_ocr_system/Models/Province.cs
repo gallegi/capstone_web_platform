@@ -19,7 +19,7 @@ namespace vnpost_ocr_system.Models
         {
             this.Admins = new HashSet<Admin>();
             this.Districts = new HashSet<District>();
-            this.Forms = new HashSet<Form>();
+            this.Forms = new HashSet<FormTemplate>();
         }
     
         public string PostalProvinceCode { get; set; }
@@ -32,6 +32,6 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<District> Districts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Form> Forms { get; set; }
+        public virtual ICollection<FormTemplate> Forms { get; set; }
     }
 }
