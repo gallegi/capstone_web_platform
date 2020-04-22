@@ -36,7 +36,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
         public ActionResult UserInfo(string VNPostORCAuthToken)
         {
             DateTime dateTimeNow = DateTime.Now;
-            var AuthToken = db.AuthenticationTokens.Where(x => x.Token.Equals(VNPostORCAuthToken) && x.Status.Equals(true) && x.ExpireDate >= dateTimeNow).FirstOrDefault();
+            var AuthToken = db.AuthenticationTokens.Where(x => x.AuthToken.Equals(VNPostORCAuthToken) && x.Status.Equals(true) && x.ExpireDate >= dateTimeNow).FirstOrDefault();
             if (AuthToken == null)
             {
                 return Json(new { Name = "", Email = "" }, JsonRequestBehavior.AllowGet);
@@ -55,7 +55,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
         {
             DateTime dateTimeNow = DateTime.Now;
             List<NotiMessage> notiMesses = new List<NotiMessage>();
-            var AuthToken = db.AuthenticationTokens.Where(x => x.Token.Equals(VNPostORCAuthToken) && x.Status.Equals(true) && x.ExpireDate >= dateTimeNow).FirstOrDefault();
+            var AuthToken = db.AuthenticationTokens.Where(x => x.AuthToken.Equals(VNPostORCAuthToken) && x.Status.Equals(true) && x.ExpireDate >= dateTimeNow).FirstOrDefault();
             if (AuthToken == null)
             {
                 notiMesses = new List<NotiMessage>
