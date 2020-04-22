@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -78,10 +78,10 @@
           </Key>
           <Property Name="TokenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="bigint" Nullable="false" />
-          <Property Name="Token" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="AuthToken" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="FirebaseToken" Type="varchar" MaxLength="256" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="ExpireDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ContactInfo">
@@ -226,8 +226,8 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="bigint" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ContentText" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ContentText" Type="nvarchar" MaxLength="1024" Nullable="false" />
           <Property Name="SentDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
@@ -388,16 +388,6 @@
           </Key>
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
@@ -836,16 +826,46 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK_NotificationMessage_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="*" />
+          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="NotificationMessage">
-              <PropertyRef Name="OrderID" />
+              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Query_Scope_0" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="province" Type="nvarchar" Mode="In" />
+          <Parameter Name="province_limit" Type="int" Mode="In" />
+          <Parameter Name="district" Type="nvarchar" Mode="In" />
+          <Parameter Name="district_limit" Type="int" Mode="In" />
+          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
+          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+          <Parameter Name="profile_limit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Query_Scope_1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="province_code" Type="varchar" Mode="In" />
+          <Parameter Name="district" Type="nvarchar" Mode="In" />
+          <Parameter Name="district_limit" Type="int" Mode="In" />
+          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
+          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+          <Parameter Name="profile_limit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Query_Scope_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="postal_district_code" Type="varchar" Mode="In" />
+          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
+          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+          <Parameter Name="profile_limit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Query_Scope_3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="public_administration_location_id" Type="bigint" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="VNPOST_AppointmentModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminRole" EntityType="Self.AdminRole" Schema="dbo" store:Type="Tables" />
@@ -875,7 +895,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="ResetPasswordToken" EntityType="Self.ResetPasswordToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTimer" EntityType="Self.ServiceTimer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="Admin1" EntitySet="Admin" />
@@ -1025,7 +1044,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="NotificationMessage" EntitySet="NotificationMessage" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VNPOST_AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1111,6 +1131,19 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="LastMofifiedTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="API" Relationship="Self.FK__APIOutput__APIID__75A278F5" FromRole="APIOutputParam" ToRole="API" />
         </EntityType>
+        <EntityType Name="AuthenticationToken">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="AuthToken" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirebaseToken" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_FirebaseToken_Customer" FromRole="AuthenticationToken" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="ContactInfo">
           <Key>
             <PropertyRef Name="ContactInfoID" />
@@ -1142,11 +1175,11 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostalDistrictID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuthenticationTokens" Relationship="Self.FK_FirebaseToken_Customer" FromRole="Customer" ToRole="AuthenticationToken" />
           <NavigationProperty Name="ContactInfoes" Relationship="Self.FK__ContactIn__Custo__778AC167" FromRole="Customer" ToRole="ContactInfo" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CustomerI__7A672E12" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="ResetPasswordTokens" Relationship="Self.FK__ResetPass__Custo__0E6E26BF" FromRole="Customer" ToRole="ResetPasswordToken" />
           <NavigationProperty Name="District" Relationship="Self.FK_Customer_District" FromRole="Customer" ToRole="District" />
-          <NavigationProperty Name="AuthenticationTokens" Relationship="VNPOST_AppointmentModel.FK_FirebaseToken_Customer" FromRole="Customer" ToRole="AuthenticationToken" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1174,7 +1207,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Form">
+        <EntityType Name="FormTemplate">
           <Key>
             <PropertyRef Name="FormID" />
           </Key>
@@ -1266,6 +1299,17 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="Profile" Relationship="Self.FK__Form__ProfileID__345EC57D" FromRole="Form" ToRole="Profile" />
           <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Form__PublicAdmi__336AA144" FromRole="Form" ToRole="PublicAdministration" />
         </EntityType>
+        <EntityType Name="NotificationMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContentText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_NotificationMessage_Order" FromRole="NotificationMessage" ToRole="Order" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -1306,13 +1350,13 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="District" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="District1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="District2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="NotificationMessage" Relationship="Self.FK_NotificationMessage_Order" FromRole="Order" ToRole="NotificationMessage" />
           <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="Order" ToRole="PersonalPaperType" />
           <NavigationProperty Name="Profile" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Order" ToRole="Profile" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Order" ToRole="Status" />
           <NavigationProperty Name="OrderImages" Relationship="Self.FK__OrderImag__Order__04E4BC85" FromRole="Order" ToRole="OrderImage" />
           <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="Order" ToRole="OrderStatusDetail" />
           <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Order" ToRole="Payment" />
-          <NavigationProperty Name="NotificationMessages" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Order" FromRole="Order" ToRole="NotificationMessage" />
         </EntityType>
         <EntityType Name="OrderImage">
           <Key>
@@ -1463,16 +1507,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Status" ToRole="Order" />
           <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Statu__07C12930" FromRole="Status" ToRole="OrderStatusDetail" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <Association Name="FK__Admin__CreatedBy__70DDC3D8">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="Admin1" Type="Self.Admin" Multiplicity="*" />
@@ -1581,6 +1615,18 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FirebaseToken_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="AuthenticationToken" Type="Self.AuthenticationToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="AuthenticationToken">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ContactIn__Custo__778AC167">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
@@ -1667,7 +1713,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK__Form__PostalDist__32767D0B">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
-          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="District">
               <PropertyRef Name="PostalDistrictCode" />
@@ -1715,7 +1761,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK__Form__PostalProv__318258D2">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
-          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Province">
               <PropertyRef Name="PostalProvinceCode" />
@@ -1727,7 +1773,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK__Form__ProfileID__345EC57D">
           <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
-          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profile">
               <PropertyRef Name="ProfileID" />
@@ -1739,13 +1785,25 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK__Form__PublicAdmi__336AA144">
           <End Role="PublicAdministration" Type="Self.PublicAdministration" Multiplicity="0..1" />
-          <End Role="Form" Type="Self.Form" Multiplicity="*" />
+          <End Role="Form" Type="VNPOST_AppointmentModel.FormTemplate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PublicAdministration">
               <PropertyRef Name="PublicAdministrationLocationID" />
             </Principal>
             <Dependent Role="Form">
               <PropertyRef Name="PublicAdministrationLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationMessage_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="NotificationMessage">
+              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1900,11 +1958,13 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="APIInputParams" EntityType="Self.APIInputParam" />
           <EntitySet Name="APIMethods" EntityType="Self.APIMethod" />
           <EntitySet Name="APIOutputParams" EntityType="Self.APIOutputParam" />
+          <EntitySet Name="AuthenticationTokens" EntityType="Self.AuthenticationToken" />
           <EntitySet Name="ContactInfoes" EntityType="Self.ContactInfo" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="EmailVerifications" EntityType="Self.EmailVerification" />
-          <EntitySet Name="Forms" EntityType="Self.Form" />
+          <EntitySet Name="FormTemplates" EntityType="VNPOST_AppointmentModel.FormTemplate" />
+          <EntitySet Name="NotificationMessages" EntityType="Self.NotificationMessage" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderImages" EntityType="Self.OrderImage" />
           <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
@@ -1920,7 +1980,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="ResetPasswordTokens" EntityType="Self.ResetPasswordToken" />
           <EntitySet Name="ServiceTimers" EntityType="Self.ServiceTimer" />
           <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK__Admin__CreatedBy__70DDC3D8" Association="Self.FK__Admin__CreatedBy__70DDC3D8">
             <End Role="Admin" EntitySet="Admins" />
             <End Role="Admin1" EntitySet="Admins" />
@@ -1957,6 +2016,10 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="APIMethod" EntitySet="APIMethods" />
             <End Role="API" EntitySet="APIs" />
           </AssociationSet>
+          <AssociationSet Name="FK_FirebaseToken_Customer" Association="Self.FK_FirebaseToken_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="AuthenticationToken" EntitySet="AuthenticationTokens" />
+          </AssociationSet>
           <AssociationSet Name="FK__ContactIn__Custo__778AC167" Association="Self.FK__ContactIn__Custo__778AC167">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="ContactInfo" EntitySet="ContactInfoes" />
@@ -1987,7 +2050,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           </AssociationSet>
           <AssociationSet Name="FK__Form__PostalDist__32767D0B" Association="Self.FK__Form__PostalDist__32767D0B">
             <End Role="District" EntitySet="Districts" />
-            <End Role="Form" EntitySet="Forms" />
+            <End Role="Form" EntitySet="FormTemplates" />
           </AssociationSet>
           <AssociationSet Name="FK__Order__Procedure__7C4F7684" Association="Self.FK__Order__Procedure__7C4F7684">
             <End Role="District" EntitySet="Districts" />
@@ -2003,15 +2066,19 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           </AssociationSet>
           <AssociationSet Name="FK__Form__PostalProv__318258D2" Association="Self.FK__Form__PostalProv__318258D2">
             <End Role="Province" EntitySet="Provinces" />
-            <End Role="Form" EntitySet="Forms" />
+            <End Role="Form" EntitySet="FormTemplates" />
           </AssociationSet>
           <AssociationSet Name="FK__Form__ProfileID__345EC57D" Association="Self.FK__Form__ProfileID__345EC57D">
             <End Role="Profile" EntitySet="Profiles" />
-            <End Role="Form" EntitySet="Forms" />
+            <End Role="Form" EntitySet="FormTemplates" />
           </AssociationSet>
           <AssociationSet Name="FK__Form__PublicAdmi__336AA144" Association="Self.FK__Form__PublicAdmi__336AA144">
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
-            <End Role="Form" EntitySet="Forms" />
+            <End Role="Form" EntitySet="FormTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationMessage_Order" Association="Self.FK_NotificationMessage_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="NotificationMessage" EntitySet="NotificationMessages" />
           </AssociationSet>
           <AssociationSet Name="FK__Order__Procedure__7D439ABD" Association="Self.FK__Order__Procedure__7D439ABD">
             <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
@@ -2061,65 +2128,78 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
-          <EntitySet Name="AuthenticationTokens" EntityType="VNPOST_AppointmentModel.AuthenticationToken" />
-          <EntitySet Name="NotificationMessages" EntityType="VNPOST_AppointmentModel.NotificationMessage" />
-          <AssociationSet Name="FK_FirebaseToken_Customer" Association="VNPOST_AppointmentModel.FK_FirebaseToken_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="AuthenticationToken" EntitySet="AuthenticationTokens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NotificationMessage_Order" Association="VNPOST_AppointmentModel.FK_NotificationMessage_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="NotificationMessage" EntitySet="NotificationMessages" />
-          </AssociationSet>
+          <FunctionImport Name="Query_Scope_0" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_0_Result)">
+            <Parameter Name="province" Mode="In" Type="String" />
+            <Parameter Name="province_limit" Mode="In" Type="Int32" />
+            <Parameter Name="district" Mode="In" Type="String" />
+            <Parameter Name="district_limit" Mode="In" Type="Int32" />
+            <Parameter Name="public_administration" Mode="In" Type="String" />
+            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Query_Scope_1" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_1_Result)">
+            <Parameter Name="province_code" Mode="In" Type="String" />
+            <Parameter Name="district" Mode="In" Type="String" />
+            <Parameter Name="district_limit" Mode="In" Type="Int32" />
+            <Parameter Name="public_administration" Mode="In" Type="String" />
+            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Query_Scope_2" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_2_Result)">
+            <Parameter Name="postal_district_code" Mode="In" Type="String" />
+            <Parameter Name="public_administration" Mode="In" Type="String" />
+            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Query_Scope_3" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_3_Result)">
+            <Parameter Name="public_administration_location_id" Mode="In" Type="Int64" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="AuthenticationToken">
-          <Key>
-            <PropertyRef Name="TokenID" />
-          </Key>
-          <Property Name="TokenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int64" Nullable="false" />
-          <Property Name="Token" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="FirebaseToken" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="VNPOST_AppointmentModel.FK_FirebaseToken_Customer" FromRole="AuthenticationToken" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="NotificationMessage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int64" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContentText" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Order" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Order" FromRole="NotificationMessage" ToRole="Order" />
-        </EntityType>
-        <Association Name="FK_FirebaseToken_Customer">
-          <End Type="VNPOST_AppointmentModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="VNPOST_AppointmentModel.AuthenticationToken" Role="AuthenticationToken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="AuthenticationToken">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NotificationMessage_Order">
-          <End Type="VNPOST_AppointmentModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="VNPOST_AppointmentModel.NotificationMessage" Role="NotificationMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="NotificationMessage">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="Query_Scope_0_Result">
+          <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalProvinceName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="ProvinceDistance" Nullable="true" />
+          <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="PostalDistrictName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="DistrictDistance" Nullable="true" />
+          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
+          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+          <Property Type="Double" Name="TotalDistance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Query_Scope_1_Result">
+          <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="PostalDistrictName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="DistrictDistance" Nullable="true" />
+          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
+          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+          <Property Type="Double" Name="TotalDistance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Query_Scope_2_Result">
+          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
+          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+          <Property Type="Double" Name="TotalDistance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Query_Scope_3_Result">
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2197,6 +2277,19 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AuthenticationTokens">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AuthenticationToken">
+              <MappingFragment StoreEntitySet="AuthenticationToken">
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="AuthToken" ColumnName="AuthToken" />
+                <ScalarProperty Name="FirebaseToken" ColumnName="FirebaseToken" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ContactInfoes">
             <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ContactInfo">
               <MappingFragment StoreEntitySet="ContactInfo">
@@ -2249,8 +2342,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Forms">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Form">
+          <EntitySetMapping Name="FormTemplates">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.FormTemplate">
               <MappingFragment StoreEntitySet="Form">
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
@@ -2335,6 +2428,17 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
                 <ScalarProperty Name="ReceiverStreetRegex" ColumnName="ReceiverStreetRegex" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationMessages">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
+              <MappingFragment StoreEntitySet="NotificationMessage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2512,41 +2616,63 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AuthenticationTokens">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AuthenticationToken">
-              <MappingFragment StoreEntitySet="AuthenticationToken">
-                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="FirebaseToken" ColumnName="FirebaseToken" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NotificationMessages">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
-              <MappingFragment StoreEntitySet="NotificationMessage">
-                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
-                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Query_Scope_0" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_0">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_0_Result">
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
+                <ScalarProperty Name="ProvinceDistance" ColumnName="ProvinceDistance" />
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
+                <ScalarProperty Name="DistrictDistance" ColumnName="DistrictDistance" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Query_Scope_1" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_1_Result">
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
+                <ScalarProperty Name="DistrictDistance" ColumnName="DistrictDistance" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Query_Scope_2" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_2_Result">
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Query_Scope_3" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_3_Result">
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

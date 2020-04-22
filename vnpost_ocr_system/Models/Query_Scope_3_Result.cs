@@ -10,16 +10,11 @@
 namespace vnpost_ocr_system.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class NotificationMessage
+    public partial class Query_Scope_3_Result
     {
-        public long ID { get; set; }
-        public long OrderID { get; set; }
-        public string Title { get; set; }
-        public string ContentText { get; set; }
-        public System.DateTime SentDate { get; set; }
-    
-        public virtual Order Order { get; set; }
+        public long ProfileID { get; set; }
+        public string ProfileName { get; set; }
+        public Nullable<double> ProfileDistance { get; set; }
     }
 }
