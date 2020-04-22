@@ -12,7 +12,7 @@ namespace vnpost_ocr_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FormTemplate
+    public partial class Form
     {
         public long FormID { get; set; }
         public string FormName { get; set; }

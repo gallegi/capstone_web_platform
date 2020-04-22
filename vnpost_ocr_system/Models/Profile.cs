@@ -17,7 +17,7 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
         {
-            this.Forms = new HashSet<FormTemplate>();
+            this.Forms = new HashSet<Form>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -26,7 +26,7 @@ namespace vnpost_ocr_system.Models
         public long PublicAdministrationLocationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FormTemplate> Forms { get; set; }
+        public virtual ICollection<Form> Forms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual PublicAdministration PublicAdministration { get; set; }

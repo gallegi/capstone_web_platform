@@ -16,10 +16,10 @@ namespace vnpost_ocr_system.Models
     {
         public long TokenID { get; set; }
         public long CustomerID { get; set; }
-        public string AuthToken { get; set; }
+        public string Token { get; set; }
         public string FirebaseToken { get; set; }
         public bool Status { get; set; }
-        public System.DateTime CreatedTime { get; set; }
+        public System.DateTime CreateDate { get; set; }
         public System.DateTime ExpireDate { get; set; }
     
         public virtual Customer Customer { get; set; }
