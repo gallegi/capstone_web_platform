@@ -24,7 +24,6 @@
 
 <script src="~/CustomJS/InputInfo.js"></script>
 
-
 <link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 <link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
 <link href="~/assets/uploader/icons.min.css" rel="stylesheet" />
@@ -125,7 +124,7 @@
                     <h6>Ảnh chụp giấy hẹn</h6>
                     <section>
                         <div class="row">
-                            <div class="col s12 l12">
+                            <div class="col l12 s12 m12">
                                 <label>Dung lượng tối đa 5Mb <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                 <div class="input-field center">
                                     <a class="btn waves-effect waves-light bt-color-common" onclick="rotateLeft()"><i class="material-icons">rotate_left</i></a>
@@ -141,15 +140,16 @@
                                         <span class="text-muted font-13">(File hợp lệ: jpg, png)</span>
                                     </div>
                                 </div>
-                                <p class="validation" name="item6"></p>
+                                <p class="validation col l12 m12 s12" name="item6"></p>
                             </div>
                         </div>
                     </section>
+                    <!-- Step 2 -->
                     <h6>Thông tin thủ tục</h6>
                     <section>
                         <div class="row">
                             <div class="col m6">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 l12 m12">
                                     <select id="item1">
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
@@ -159,24 +159,24 @@
                                     <label for="item1" class="">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item1"></p>
                                 </div>
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 l12 m12">
                                     <select id="item2"></select>
                                     <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item2"></p>
                                 </div>
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 l12 m12">
                                     <input type="text" id="item5" class="required" />
                                     <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item5"></p>
                                 </div>
                             </div>
                             <div class="col m6">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 l12 m12">
                                     <select id="item3" tabindex="-1"></select>
                                     <label for="item3">Tên CQHC <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item3"></p>
                                 </div>
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 l12 m12">
                                     <select id="item4" tabindex="-1"></select>
                                     <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item4"></p>
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                     </section>
-                    <!-- Step 2 -->
+                    <!-- Step 3 -->
                     <h6>Thông tin yêu cầu giải quyết TTHC</h6>
                     <section>
                         <div class="row">
@@ -233,7 +233,7 @@
                             }
                         </div>
                     </section>
-                    <!-- Step 3 -->
+                    <!-- Step 4 -->
                     <h6>Thông tin người gửi</h6>
                     <section>
                         <div class="row">
@@ -278,7 +278,7 @@
                             }
                         </div>
                     </section>
-                    <!-- Step 4 -->
+                    <!-- Step 5 -->
                     <h6>Thông tin người nhận</h6>
                     <section>
                         <div class="row">
@@ -323,7 +323,7 @@
                             }
                         </div>
                     </section>
-                    <!-- Step 5 -->
+                    <!-- Step 6 -->
                     <h6>Xác nhận hồ sơ</h6>
                     <section>
                         <div class="row">
@@ -641,7 +641,7 @@
                             </div>
                         </div>
                     </section>
-                    <!-- Step 6 -->
+                    <!-- Step 7 -->
                     <h6>Xác nhận thanh toán</h6>
                     <section>
                         <div class="row">
@@ -710,7 +710,7 @@
 <div id="myform1" class="modal fade">
     <div class="form-wrapper">
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s12 l12 m12">
                 <div class="select-wrapper row">
                     <p class="col l3 m3 p-t-10 s12">Họ và tên <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
@@ -719,7 +719,7 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12">
+            <div class="input-field col s12 l12 m12">
                 <div class="select-wrapper row">
                     <p class="col l3 m3 p-t-10 s12">Số điện thoại <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
@@ -728,7 +728,7 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12">
+            <div class="input-field col s12 l12 m12">
                 <div class="select-wrapper row">
                     <p class="col l3 m3 p-t-10 s12 ">Tỉnh/Thành phố <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                     <div class="col l9 m9 s12">
@@ -741,7 +741,7 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12">
+            <div class="input-field col s12 l12 m12">
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
@@ -752,7 +752,7 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12">
+            <div class="input-field col s12 l12 m12">
                 <div class="select-wrapper row">
                     <div class="col l3 m3 p-t-10 s12 ">Địa chỉ <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                     <div class="col l9 m9 s12">
@@ -762,7 +762,7 @@
                 </div>
             </div>
             <div id="showmore">
-                <div class="input-field col s12">
+                <div class="input-field col s12 l12 m12">
                     <div class="select-wrapper row">
                         <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                         <div class="col l9 m9 s12">
@@ -775,7 +775,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-field col s12">
+                <div class="col s12 l12 m12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Số giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</p>
                         <div class="col l9 m9 s12">
@@ -784,7 +784,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-field col s12">
+                <div class="col s12 l12 m12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Ngày cấp:</p>
                         <div class="col l9 m9 s12 datepicker-calendar-container row">
@@ -795,7 +795,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-field col s12">
+                <div class="col s12 l12 m12">
                     <div class="input-field row">
                         <p class="col l3 m3 p-t-10 s12">Nơi cấp:</p>
                         <div class="col l9 m9 s12">
@@ -806,14 +806,16 @@
                     </div>
                 </div>
             </div>
-            <div class="input-field col s12">
-                <div class="select-wrapper row m-b-20">
-                    <div class="col l2 m2 p-t-10 s12 "></div>
-                    <div class="col l8 m8 s12">
-                        <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_contact_info">Lưu</a>
-                        <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common modal-close" id="close-modal">Hủy Bỏ</button>
+            <div class="modal-footer">
+                <div class="input-field col s12 m12">
+                    <div class="select-wrapper row m-b-20">
+                        <div class="col l2 m2 p-t-10 s12 "></div>
+                        <div class="col l8 m8 s12">
+                            <a class="col l5 s12 btn waves-effect waves-light bt-color-common" id="save_contact_info">Lưu</a>
+                            <button class="col offset-l2 l5 s12 btn waves-effect waves-light bt-color-common modal-close" id="close-modal">Hủy Bỏ</button>
+                        </div>
+                        <div class="col l2 m2 p-t-10 s12 "></div>
                     </div>
-                    <div class="col l2 m2 p-t-10 s12 "></div>
                 </div>
             </div>
         </div>
@@ -852,8 +854,7 @@
     var validate1 = false;
     var validate2 = false;
     var validate3 = false;
-
-    var data1 = new FormData();
+    var imageName = "";
 
     function getDistrict(OCRResult) {
         $('#pre-load').show()
@@ -1183,12 +1184,6 @@
         })
     })
 
-    function selectProvinceDistrict(data) {
-        if (data != null) {
-
-        }
-    }
-
     function selectDistrict(DistrictPostalCode){
         $('#pre-load').show()
         $.ajax({
@@ -1312,7 +1307,7 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            console.log(response)
+                            //console.log(response)
                             $('.contact1:last').after(response.html[0]);
                             $('.contact2:last').after(response.html[1]);
                             $('.contact3:last').after(response.html[2]);
@@ -1349,20 +1344,20 @@
             toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
             return;
         }
-        $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
-        $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
-        $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
-        $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
-        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
-        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('#PersonalPaperTypeName').data("papertype"));
-        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
-        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
-        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
+        $('#ProcedurerFullName').text(Adminprofile.find('.FullName').text());
+        $('#ProcedurerPhone').text(Adminprofile.find('.Phone').text());
+        $('#ProcedurerStreet').text(Adminprofile.find('.Street').text());
+        $('#ProcedurerAddress').text(Adminprofile.find('.Address').text());
+        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
+        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('.PersonalPaperTypeName').text());
+        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('.PersonalPaperTypeName').data("papertype"));
+        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('.PersonalPaperNumber').text());
+        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('.PersonalPaperIssuedDate').text());
+        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('.PersonalPaperIssuedPlace').text());
         var a = $('#isCheckContactType1-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-1").empty();
-        validate1 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        validate1 = true;
     })
 
     $(document).on("click", ".contactInfoType2", function () {
@@ -1374,8 +1369,8 @@
         $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
         var a = $('#isCheckContactType2-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-2").empty();
-        validate2 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        validate2 = true;
     })
 
     $(document).on("click", ".contactInfoType3", function () {
@@ -1387,13 +1382,13 @@
         $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
         var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-3").empty();
-        validate3 = true;
         a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        validate3 = true;
     })
 </script>
 <script>
     var form = $(".validation-wizard").show();
-    var error = true; ``
+    var error = true;
     $(document).ready(function () {
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
@@ -1437,18 +1432,23 @@
             finish: "Hoàn tất"
         },
         onStepChanging: function (event, currentIndex, newIndex) {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
             _currentIndex = currentIndex;
             _newIndex = newIndex;
             if (currentIndex === 0) {
-                if (data1.get("img") == null) {
+                if ($('img[data-dz-thumbnail]').attr("src") === undefined) {
                     $('p[name="item6"]').text('Vui lòng chọn Ảnh chụp giấy hẹn');
                     return false;
                 }
                 else {
                     $('p[name="item6"]').text('');
                     var data = new FormData();
-                    data.append('image', data1.get('img'));
-                    if (ImageData != data1.get('img')) {
+                    data.append('image', dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
+                    if (ImageData != dataURItoBlob($('img[data-dz-thumbnail]').attr("src"))) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
@@ -1474,7 +1474,8 @@
                                             UserDistrictsID = OCRResult.PostalDistrictCode;
                                             UserAdminLocationID = OCRResult.PublicAdministrationLocationID;
                                             UserProfileID = OCRResult.ProfileID;
-                                            $("#item5").val(OCRResult.AppointmentLetterCode)
+                                            $("#item5").val(OCRResult.AppointmentLetterCode);
+                                            $('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
                                             getDistrict(OCRResult);
@@ -1482,7 +1483,7 @@
                                     }).done(function () {
                                         $('#pre-load').hide();
                                         $('a[role="menuitem"]').eq(1).click();
-                                        ImageData = data1.get('img');
+                                        ImageData = dataURItoBlob($('img[data-dz-thumbnail]').attr("src"));
                                     });
                                 }
                             },
@@ -1558,8 +1559,8 @@
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
             var data = new FormData();
-            data.append("img", data1.get("img"));
-            data.append("imgName", data1.get("imgName"));
+            data.append("img", dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
+            data.append("imgName", imageName);
             data.append("ProfileID", $('#item4').val());
             data.append("AppointmentLetterCode", $('#item5').val());
             data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
@@ -1601,11 +1602,7 @@
                     $('#pre-load').hide();
                 }
             });
-            //return form.submit();
         },
-        onFinished: function (event, currentIndex) {
-            swal("Form Submitted!", "");
-        }
     }), $(".validation-wizard").validate({
         ignore: "input[type=hidden]",
         errorClass: "text-danger",
@@ -1656,6 +1653,7 @@ Dropzone.options.myAwesomeDropzone = {
                 }
                 $('p[name="item6"]').text('')
                 var base64String = event.target.result;
+                imageName = file.name;
                 $('#c').attr("src", base64String);
             };
             reader.readAsDataURL(file);
@@ -1666,8 +1664,7 @@ Dropzone.options.myAwesomeDropzone = {
             }
         });
         this.on("removedfile", function () {
-            data1.delete("img")
-            data1.delete("imgName")
+            imageName = "";
         });
         this.on("thumbnail", function (file, dataUrl) {
             $('.dz-image').last().find('img').attr({ width: '100%', height: '100%' });
@@ -1680,10 +1677,6 @@ Dropzone.options.myAwesomeDropzone = {
             e.preventDefault();
             myDropzone.processQueue();
         });
-        this.on('sending', function (file, xhr, formData) {
-            data1.append("img", file);
-            data1.append("imgName", file.name)
-        });
     },
     dictResponseError: "Lỗi (Code: {{statusCode}})",
     dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
@@ -1693,9 +1686,8 @@ Dropzone.options.myAwesomeDropzone = {
 </script>
 <script>
     function rotateRight() {
-        if (data1.get("img") == null) return;
+        if ($('img[data-dz-thumbnail]').attr("src") === undefined) return;
         $('#pre-load').show();
-        data1.delete("img")
         var image = new Image();
         image.src = $('#c').attr("src");
         image.onload = function () {
@@ -1709,14 +1701,13 @@ Dropzone.options.myAwesomeDropzone = {
             var URL = canvas.toDataURL('image/jpeg');
             $('img[data-dz-thumbnail]').attr("src", URL);
             $('#c').attr("src", URL);
-            dataURItoBlob(URL);
+            $('#pre-load').hide();
         };
     }
 
     function rotateLeft() {
-        if (data1.get("img") == null) return;
+        if ($('img[data-dz-thumbnail]').attr("src") === undefined) return;
         $('#pre-load').show();
-        data1.delete("img")
         var image = new Image();
         image.src = $('#c').attr("src");
         image.onload = function () {
@@ -1728,9 +1719,9 @@ Dropzone.options.myAwesomeDropzone = {
             ctx.translate(-canvas.height, 0);
             ctx.drawImage(image, 0, 0);
             var URL = canvas.toDataURL('image/jpeg');
-            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            $('img[data-dz-thumbnail]').attr("src", URL);
             $('#c').attr("src", URL);
-            dataURItoBlob(URL);
+            $('#pre-load').hide();
         };
     }
 
@@ -1742,8 +1733,7 @@ Dropzone.options.myAwesomeDropzone = {
         }
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         var file = new Blob([new Uint8Array(array)], { type: mimeString });
-        data1.append("img", file);
-        $('#pre-load').hide();
+        return file;
     }
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>

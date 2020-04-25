@@ -6255,6 +6255,9 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\fonts\fa-solid-900.woff" />
+    <Content Include="assets\fonts\fa-solid-900.woff2" />
+    <Content Include="assets\fonts\fa-solid-900.ttf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

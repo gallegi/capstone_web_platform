@@ -12,6 +12,7 @@
 
     <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
     <link href="~/assets/Custom css/Mobile/layout-style.css" rel="stylesheet" />
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
     <!-- ============================================================== -->
     <!-- Apps -->
@@ -25,10 +26,10 @@
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
-    <script src="~/assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="~/assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="~/dist/js/pages/dashboards/dashboard1.js"></script>
+    @*<script src="~/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>*@
+    @*<script src="~/assets/extra-libs/sparkline/sparkline.js"></script>*@
+    @*<script src="~/dist/js/pages/dashboards/dashboard1.js"></script>*@
     <!--Wizard.-->
     <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
     <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -109,7 +110,7 @@
                 </div>
 
                 <!--Top bar for app-->
-                <div class="show_in_app" style="display:none">
+                @*<div class="show_in_app" style="display:none">
                     <div style="visibility:hidden" id="backBtn">
                         <img onclick="back_button_click()" src="~/assets/images/forward_icon.png" style="transform:rotate(180deg) scale(0.7)" />
                     </div>
@@ -119,7 +120,7 @@
                     <div>
                         <a href="/Home/index"><img src="~/assets/images/home_icon.png" width="50" height="50" /></a>
                     </div>
-                </div>
+                </div>*@
             </nav>
             <!-- ============================================================== -->
             <!-- Navbar scss in header.scss -->
@@ -226,7 +227,6 @@
     <!-- All Required js -->
     <!-- ============================================================== -->
 
-    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../../assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/assets/materialize/js/materialize.min.js"></script>
     <!-- ============================================================== -->
