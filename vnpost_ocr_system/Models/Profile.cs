@@ -17,13 +17,16 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
         {
+            this.FormTemplates = new HashSet<FormTemplate>();
             this.Orders = new HashSet<Order>();
         }
     
-        public int ProfileID { get; set; }
+        public long ProfileID { get; set; }
         public string ProfileName { get; set; }
-        public int PublicAdministrationLocationID { get; set; }
+        public long PublicAdministrationLocationID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormTemplate> FormTemplates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual PublicAdministration PublicAdministration { get; set; }

@@ -1,0 +1,282 @@
+﻿html {
+    height: 100%;
+}
+
+.product .img-responsive {
+    center: block;
+    margin: 0 auto;
+}
+/* Each main part is put inside one content_section*/
+.content_section {
+    margin-top: 50px;
+    display:block;  
+}
+
+.cs_container {
+    margin-left: 15%;
+    width: 70%
+}
+
+/*Form name*/
+.content_section_name {
+    margin-top: 0px;
+    display: flex
+}
+
+.name_title {
+    padding: 0px;
+    width: 15%;
+}
+
+    .name_title > h4 {
+        margin: 5px auto;
+        text-align: left
+    }
+
+.name_input {
+    width: 15%;
+    height: 40px;
+}
+    .name_input > p{
+        margin-bottom: 0px;
+        font-size: 20px;
+    }
+
+#form_name {
+    padding: 0px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1.5px solid #ccc;
+    width: 100%;
+    height: 100%;
+}
+
+/* -------------------------------------------------- Form image -------------------------------------------------- */
+#form_img {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    #myImg:hover {
+        opacity: 0.7;
+    }
+
+/* The Modal (background) */
+.img-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.img-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+
+/* Add Animation */
+.img-modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 50px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .img-modal-content {
+        width: 100%;
+    }
+}
+/* --------------------------------------- Json frame --------------------------------------- */
+.content_section_json {
+    margin-top: 50px;
+    max-height: none;
+}
+
+.json-data-frame {
+    display: flex;
+    width: 100%;
+    min-height: 100px;
+    max-height: none;
+}
+
+    .json-data-frame > div#api_output {
+        border-radius: 10px;
+        border: 1.5px solid #ccc;
+        padding: 10px;
+        min-height: 100px;
+        max-height: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .json-data-frame > p {
+        margin: 0;
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        margin-right: -45%;
+        transform: translate(-45%, -45%);
+    }
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+}
+
+:-ms-input-placeholder {
+    text-align: center;
+}
+
+
+/*Card for choosing recognition options in content_section*/
+.row_format_card_left {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5%;
+    margin-left: 0px;
+    width: 45%
+}
+
+.row_format_card_right {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 5%;
+    width: 45%
+}
+
+.format_card_content {
+    padding: 10px 10px 0px 10px;
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    width: 100%;
+    min-height: 100px;
+}
+
+.format_card_title {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: fit-content;
+    height: 20%
+}
+
+    .format_card_title > p {
+        display: inline-block;
+    }
+
+.format_card_btn_group {
+    margin: 5px 0px 5px 0px;
+    padding: 0px 0px 0px 0px;
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+.format_card_btn {
+    margin: 5px 0px 5px 0px;
+    padding: 0px 0px 0px 0px;
+    display: flex;
+    width: 100%;
+    height: 10%
+}
+
+/*Css for radiobutton*/
+div.reg_radio {
+    margin: 0px 5px 0px 0px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    word-wrap: break-word;
+    color: #ffffff;
+    width: 30%;
+    height: 100%
+}
+
+    div.reg_radio > label {
+        color: #5b616e;
+        font-size: 14px;
+        word-wrap: break-word;
+    }
+
+/*HighLight text*/
+span.highlight {
+    background-color: #44e9a6;
+    color: #FFFFFF;
+    padding: 0px 2px;
+}
+
+/*Form image*/
+.bt-color-common {
+    background-color: #2196F3 !important;
+}
+
+.bt-color-cancel {
+    background-color: #ff0000 !important;
+}
+
+/* Input readonly*/
+input:read-only{
+    /* style declaration here */
+    background-color: #fff !important;
+}

@@ -19,6 +19,7 @@ namespace vnpost_ocr_system.Models
         {
             this.ContactInfoes = new HashSet<ContactInfo>();
             this.Customers = new HashSet<Customer>();
+            this.FormTemplates = new HashSet<FormTemplate>();
             this.Orders = new HashSet<Order>();
             this.Orders1 = new HashSet<Order>();
             this.Orders2 = new HashSet<Order>();
@@ -34,6 +35,8 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual Province Province { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormTemplate> FormTemplates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
