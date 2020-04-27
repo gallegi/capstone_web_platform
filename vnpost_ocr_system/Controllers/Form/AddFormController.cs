@@ -326,26 +326,31 @@ namespace vnpost_ocr_system.Controllers.Form
                     ft.FormScopeLevel = IntegerExtensions.ParseNullableInt(Request["form_scope_level"].Trim());
                     ft.PostalProvinceCode = FormatData(Request["postal_province_code"].Trim());
                     ft.ProvinceParseType = IntegerExtensions.ParseNullableInt(Request["province_parse_type"].Trim());
+                    Debug.WriteLine("Province: " + ft.ProvinceParseType + ", " + Request["province_parse_type"]);
                     ft.ProvinceNERIndex = IntegerExtensions.ParseNullableInt(Request["province_ner_index"].Trim());
                     ft.ProvinceRegex = FormatData(Request["province_regex"]);
 
 
                     ft.PostalDistrictCode = FormatData(Request["postal_district_code"].Trim());
                     ft.DistrictParseType = IntegerExtensions.ParseNullableInt(Request["district_parse_type"].Trim());
+                    Debug.WriteLine("District: " + ft.ProvinceParseType + ", " + Request["district_parse_type"]);
                     ft.DistrictNERIndex = IntegerExtensions.ParseNullableInt(Request["district_ner_index"].Trim());
                     ft.DistrictRegex = FormatData(Request["district_regex"]);
 
                     ft.PublicAdministrationParseType = IntegerExtensions.ParseNullableInt(Request["public_administration_parse_type"].Trim());
+                    Debug.WriteLine("PA: " + ft.ProvinceParseType + ", " + Request["public_administration_parse_type"]);
                     ft.PublicAdministrationLocationID = LongExtensions.ParseNullableLong(Request["public_administration_location_id"].Trim());
                     ft.PublicAdministrationNERIndex = IntegerExtensions.ParseNullableInt(Request["public_administration_ner_index"].Trim());
                     ft.PublicAdministrationRegex = FormatData(Request["public_administration_regex"]);
 
                     ft.ProfileParseType = IntegerExtensions.ParseNullableInt(Request["profile_parse_type"].Trim());
+                    Debug.WriteLine("Profile: " + ft.ProvinceParseType + ", " + Request["profile_parse_type"]);
                     ft.ProfileID = LongExtensions.ParseNullableLong(Request["profile_id"].Trim());
                     ft.ProfileNERIndex = IntegerExtensions.ParseNullableInt(Request["profile_ner_index"]);
                     ft.ProfileRegex = FormatData(Request["profile_regex"].Trim());
 
                     ft.AppointmentLetterCodeParseType = IntegerExtensions.ParseNullableInt(Request["appointment_letter_code_parse_type"].Trim());
+                    Debug.WriteLine("AppointmentLetterCodeParseType: " + ft.ProvinceParseType + ", " + Request["appointment_letter_code_parse_type"]);
                     ft.AppointmentLetterCodeNERIndex = IntegerExtensions.ParseNullableInt(Request["appointment_letter_code_ner_index"].Trim());
                     ft.AppointmentLetterCodeRegex = FormatData(Request["appointment_letter_code_regex"]);
 
@@ -460,7 +465,8 @@ namespace vnpost_ocr_system.Controllers.Form
                     try {
                         transaction.Rollback();
                     } catch (Exception inner_ex) {
-                        throw inner_ex;
+                        return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
+                            JsonRequestBehavior.AllowGet);
                     }
 
                     return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút"}, 

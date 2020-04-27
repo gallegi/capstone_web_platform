@@ -504,7 +504,6 @@
 <script>
     // Initialization
     var myFormData = new FormData();
-    var sentAPI = false;
 </script>
 
 <script>
@@ -555,6 +554,13 @@
                 myFormData.set("full_form", response);
                 myFormData.set("original_image", response.image);
                 myFormData.set("form_template", response.ft);
+                console.log("Debug: " + response.ft.FormName);
+                var ft = response.ft;  
+                console.log('province_id', ft.PostalProvinceCode);
+                console.log('province_id', ft.PostalDistrictCode);
+                console.log('province_id', ft.PublicAdministrationLocationID);
+                console.log('province_id', ft.ProfileID);
+
 
                 // set title
                 set_title(response.ft.FormName);
@@ -593,7 +599,6 @@
         var api_output_json = jQuery.parseJSON(api_output);
         var raw_text = api_output_json.raw_text;
         var text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
-        console.log(text);
         $("#api_output").html(text);
     }
 
@@ -682,7 +687,13 @@
         $("#input_r_address_1").val(form_template.ReceiverStreetNERIndex);
         $("#input_r_address_2").val(form_template.ReceiverStreetRegex);
 
-        // Show chosen options
+        // 1. Load NER option from DB + Recall server to get the mapped text
+        load_ner_options(form_template);
+
+        // 2. Get mapped fixed-value from DB
+        load_fv_options(form_template);
+
+        // 3. Show chosen options + Hidden redundant
         var parse_type_dict = {
             // Profile
             "city_pt": form_template.ProvinceParseType,
@@ -718,55 +729,48 @@
         };
         switch_rad_All(parse_type_dict);
     }
-    function parseToString() {
+
+    // Step 1 in Options section: NER
+    function load_ner_options(form_template) {
         $('#pre-load').show();
 
         // recall NER to get data 
         var data = new FormData();
         data.append('image', myFormData.get('image'));
-        if (!sentAPI) {
-            $('#pre-load').show();
-            $.ajax({
-                type: "POST",
-                url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
-                data: data,
-                contentType: false,
-                processData: false,
-                cache: false,
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    sentAPI = true;
 
-                    // add result to form data
-                    myFormData.set("api_output", response);
-                    myFormData.set("api_output_txt", JSON.stringify(response));
+        $('#pre-load').show();
+        $.ajax({
+            type: "POST",
+            url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
+            data: data,
+            contentType: false,
+            processData: false,
+            cache: false,
+            dataType: "json",
+            success: function (response) {
+                console.log(response["province"]);
 
-                    // load data to fixed-value combobox
-                    getProvince();
-                    // load data to NER combobox
-                    add_ner_to_input(response);
-                    
-                    $('#pre-load').hide();
+                // add result to form data
+                myFormData.set("api_output", response);
+                myFormData.set("api_output_txt", JSON.stringify(response));
 
-                },
-                error: function (error) {
-                    raise_error("Error: " + error);
-                    sentAPI = false;
-                    $('#pre-load').hide();
-                    return true;
-                }
-            });
-            console.log("Here4");
-        }
-        else {
-            $('#pre-load').hide();
-            return true;
-        }
+                // load data to NER combobox
+                add_ner_to_input(form_template, response);
+                $('#pre-load').hide();
+
+            },
+            error: function (error) {
+                raise_error("Error: " + error);
+                $('#pre-load').hide();
+                return true;
+            }
+        });
+        $('#pre-load').hide();
+
     }
 
-    // NER combo: Functions Add options to NER
-    function add_ner_to_input(json_data) {
+    // NER combo: Functions Add options to NER input
+    function add_ner_to_input(ft, json_data) {
         var mapped_categories = ["city", "district", "admin_office", "profile", "letter_code",
             "p_name", "p_phone", "p_city", "p_district", "p_address", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
             "s_name", "s_phone", "s_city", "s_district", "s_address",
@@ -776,34 +780,92 @@
             "name", "phone_number", "province", "district", "street",
             "name", "phone_number", "province", "district", "street"];
 
+        var stored_option = [ft.ProvinceNERIndex, ft.DistrictNERIndex, ft.PublicAdministrationNERIndex, ft.ProfileNERIndex, ft.AppointmentLetterCodeNERIndex,
+            ft.ProcedurerFullNameNERIndex, ft.ProcedurerPhoneNERIndex, ft.ProcedurerProvinceNERIndex, ft.ProcedurerDistrictNERIndex, ft.ProcedurerStreetNERIndex,
+            ft.ProcedurerPersonalPaperTypeNERIndex, ft.ProcedurerPersonalPaperNumberNERIndex, ft.ProcedurerPersonalPaperIssuedDateNERIndex, ft.ProcedurerPersonalPaperIssuedPlaceNERIndex,
+            ft.SenderFullNameNERIndex, ft.SenderPhoneNERIndex, ft.SenderProvinceNERIndex, ft.SenderDistrictNERIndex, ft.SenderStreetNERIndex,
+            ft.ReceiverFullNameNERIndex, ft.ReceiverPhoneNERIndex, ft.ReceiverProvinceNERIndex, ft.ReceiverDistrictNERIndex, ft.ReceiverStreetNERIndex];
+
+
         for (i = 0; i < json_key.length; i++) {
-            var drop_id = "drop_" + mapped_categories[i] + "_1";
-            var elementExists = document.getElementById(drop_id);
+            var input_id = "input_" + mapped_categories[i] + "_1";
+            var elementExists = document.getElementById(input_id);
             if (elementExists != null) {
                 // clear the current options
-                drop_id = "#" + drop_id;
-                $(drop_id).empty();
-                $(drop_id).formSelect();
-
-                // re-new the list of dropdown
-                var option = "";
-                var current_val_arr = json_data[json_key[i]];
-                for (j_idx = 0; j_idx < current_val_arr.length; j_idx++) {
-                    val = "";
-                    val = current_val_arr[j_idx];
-                    option += "<option value='" + j_idx + "'>" + j_idx + ": " + val + "</option>";
+                input_id = "#" + input_id;
+                $(input_id).val("");
+                
+                // get the chosen option in the list of NER in each field
+                var option_idx = stored_option[i]; // index of the ner option when admin created this form
+                var current_field_arr = json_data[json_key[i]]; // the ner combobox
+                if ((current_field_arr.length > 0)
+                    && (option_idx != null || option_idx != "")) {
+                    var full_ner_opt = option_idx + ": " + current_field_arr[option_idx];
+                    $(input_id).val(full_ner_opt);
                 }
-
-                $(drop_id).append(option);
-                $(drop_id).formSelect();
             }
         }
     }
 
-    function load_reg_options() {
+
+    // Step 2 in Options section: Fixed-value
+    function load_fv_options(form_template) {
+        $('#pre-load').show();
+        console.log("load fv options");
+        // recall controller to get data 
+        var ft = form_template;
+        console.log("test 2: " + ft.PostalProvinceCode);
+        var data = new FormData();
+
+        data.append('province_id', ft.PostalProvinceCode);
+        data.append('district_id', ft.PostalDistrictCode);
+        data.append('pub_administration_loc_id', ft.PublicAdministrationLocationID);
+        data.append('profile_id', ft.ProfileID);
+
+        $('#pre-load').show();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/chi-tiet-bieu-mau/GetAllFixedValue",
+            data: data,
+            contentType: false,
+            processData: false,
+            cache: false,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response.status == "Success") {
+                    // add to fixed-value input
+                    add_fv_to_input(response.result_name);
+                }
+                $('#pre-load').hide();
+
+            },
+            error: function (error) {
+                raise_error("Error: " + error);
+                $('#pre-load').hide();
+                return true;
+            }
+        });
+        $('#pre-load').hide();
 
     }
 
+    //Fixed-value: Functions Add options to Fixed value
+    function add_fv_to_input(names) {
+        var mapped_fixed_value = ["city", "district", "admin_office", "profile"];
+        for (i = 0; i < mapped_fixed_value.length; i++) {
+            var input_id = "input_" + mapped_fixed_value[i] + "_0";
+            var elementExists = document.getElementById(input_id);
+            if (elementExists != null) {
+                // clear the current options
+                input_id = "#" + input_id;
+                $(input_id).val(names[i]);
+                console.log("name: " + names[i]);
+            }
+        }
+    }
+
+    // Step 3 in Options section
     function switch_rad_All(parse_type_dict) {
         // Switch all status of radio buttons into the right condition
         for (var key in parse_type_dict) {
@@ -855,6 +917,7 @@
             }
         }
     }
+
     function index_of_key(original_dict, f_key) {
         var index = 0;
         for (var k in original_dict) {

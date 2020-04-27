@@ -20,7 +20,7 @@ namespace vnpost_ocr_system.Models
 
         public static long? ParseNullableLong(this string value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value) || value == "null")
                 return null;
 
             return value.ParseLong();

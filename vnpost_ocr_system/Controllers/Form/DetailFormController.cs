@@ -84,6 +84,21 @@ namespace vnpost_ocr_system.Controllers.Form
             }
             return false;
         }
+        public string FormatData(string nullable_text)
+        {
+            /* Remove leading and tailing space */
+            string res = "";
+            if (nullable_text == null || nullable_text == "")
+            {
+                res = null;
+            }
+            else
+            {
+                res = nullable_text.Trim();
+
+            }
+            return res;
+        }
 
         // GET: DetailForm
         [Auther(Roles = "1")]
@@ -200,6 +215,92 @@ namespace vnpost_ocr_system.Controllers.Form
             catch (Exception e)
             {
                 return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chi-tiet-bieu-mau/GetAllFixedValue")]
+        [HttpPost]
+        public ActionResult GetAllFixedValue()
+        {
+            string province_id = Request["province_id"];
+            string district_id = Request["district_id"];
+            string pub_administration_loc_id = Request["pub_administration_loc_id"];
+            string profile_id = Request["profile_id"];
+            string[] result = new string[4];
+            Debug.WriteLine(province_id + ", " + district_id + ", " + pub_administration_loc_id + ", " + profile_id + ", ");
+            try
+            {
+                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+                if (FormatData(province_id) != null)
+                {
+                    Province province = db.Database.SqlQuery<Province>("" +
+                    "select * " +
+                    "from Province p " +
+                    "where p.PostalProvinceCode = @postal_province_code", new SqlParameter("postal_province_code", province_id)).FirstOrDefault();
+                    if (province != null)
+                    {
+                        result[0] = FormatData(province.PostalProvinceName) == null ? null : FormatData(province.PostalProvinceName);
+                        Debug.WriteLine(result[0]);
+
+                    }
+                }
+
+                if (FormatData(district_id) != null)
+                {
+                    District district = db.Database.SqlQuery<District>("" +
+                    "select * " +
+                    "from District d " +
+                    "where d.PostalDistrictCode = @DistrictID", new SqlParameter("DistrictID", district_id)).FirstOrDefault();
+                    if (district != null)
+                    {
+                        result[1] = FormatData(district.PostalDistrictName) == null ? null : FormatData(district.PostalDistrictName);
+                        Debug.WriteLine(result[1]);
+
+                    }
+                }
+
+                if (FormatData(pub_administration_loc_id) != null)
+                {
+                    PublicAdministration pa = db.Database.SqlQuery<PublicAdministration>("" +
+                    "select * " +
+                    "from PublicAdministration pa " +
+                    "where pa.PublicAdministrationLocationID = @pub_admin_loc_id", 
+                    new SqlParameter("pub_admin_loc_id", LongExtensions.ParseNullableLong(pub_administration_loc_id))).FirstOrDefault();
+                    if (pa != null)
+                    {
+                        result[2] = FormatData(pa.PublicAdministrationName) == null ? null : FormatData(pa.PublicAdministrationName);
+                        Debug.WriteLine(result[2]);
+
+                    }
+                }
+
+                if (FormatData(profile_id) != null)
+                {
+                    Profile profile = db.Database.SqlQuery<Profile>("" +
+                    "select * " +
+                    "from Profile prof " +
+                    "where prof.ProfileID = @profile_id", new SqlParameter("profile_id", LongExtensions.ParseNullableLong(profile_id))).FirstOrDefault();
+                    if (profile != null)
+                    {
+                        result[3] = FormatData(profile.ProfileName) == null ? null : FormatData(profile.ProfileName);
+                        Debug.WriteLine(result[3]);
+
+                    }
+                }
+
+                return Json(new
+                {
+                    status_code = "200",
+                    status = "Success",
+                    message = "Xoá biểu mẫu thành công",
+                    result_name = result
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi lấy thông tin về fixed-value và NER" }, JsonRequestBehavior.AllowGet);
             }
         }
     }
