@@ -457,7 +457,8 @@ namespace vnpost_ocr_system.Controllers.Form
                 catch (DbEntityValidationException e)
                 {
                     LogEFException(e);
-                    throw;
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
+                            JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {

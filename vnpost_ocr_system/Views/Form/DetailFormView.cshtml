@@ -95,11 +95,11 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Xóa tài khoản</h4>
+                <h4 class="modal-title" id="myModalLabel">Xóa biểu mẫu</h4>
             </div>
 
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
+                <p>Bạn có chắc chắn muốn xóa biểu mẫu này không?</p>
 
                 <p class="debug-url"></p>
             </div>
@@ -154,7 +154,7 @@
                         <h4>Tên biểu mẫu </h4>
                     </div>
                     <div class="name_input">
-                        <p id="form_temp_name" class="form_name" name="form_name"></p>
+                        <h4 id="form_name" class="form_name" name="form_name"></h4>
                     </div>
                 </div>
                 @*Image*@
@@ -490,9 +490,9 @@
                 </div>
 
                 @* --------------------------------------- Button confirm section  -------------------------------------- *@
-                <div id="btn_confirm_section" class="content_section">
+                <div id="btn_confirm_section" class="content_section" style=" margin-bottom: 20px !important">
                     <div class="input-field right">
-                        <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue !important" onclick="edit()">Chỉnh sửa</a>
+                        <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="edit_form()">Chỉnh sửa</a>
                         <a class="btn waves-effect waves-light bt-color-cancel" style="color:aliceblue" onclick="delete_form()">Xóa</a>
                     </div>
                 </div>
@@ -501,10 +501,6 @@
     </div>
 </div>
 
-<script>
-    // Initialization
-    var myFormData = new FormData();
-</script>
 
 <script>
     // JS support image viewing
@@ -537,6 +533,9 @@
     }
 </script>
 <script>
+    // Initialization
+    var myFormData = new FormData();
+
     // Initial load
     $(document).ready(function () {
         $("pre-load").show();
@@ -551,27 +550,31 @@
             },
             cache: false,
             success: function (response) {
-                myFormData.set("full_form", response);
-                myFormData.set("original_image", response.image);
-                myFormData.set("form_template", response.ft);
-                console.log("Debug: " + response.ft.FormName);
-                var ft = response.ft;  
-                console.log('province_id', ft.PostalProvinceCode);
-                console.log('province_id', ft.PostalDistrictCode);
-                console.log('province_id', ft.PublicAdministrationLocationID);
-                console.log('province_id', ft.ProfileID);
+                if (response.status == "Success") {
+                    myFormData.set("full_form", response.full_form);
+                    myFormData.set("original_image", response.full_form.image);
+                    myFormData.set("form_template", response.full_form.ft);
+                    var ft = response.full_form.ft;
+                    console.log('province_id', ft.PostalProvinceCode);
+                    console.log('province_id', ft.PostalDistrictCode);
+                    console.log('province_id', ft.PublicAdministrationLocationID);
+                    console.log('province_id', ft.ProfileID);
 
+                    // set title
+                    set_title(ft.FormName);
+                    // set image
+                    set_image(response.full_form.image);
+                    // set json
+                    set_json(ft.APIOutput);
+                    // set recognition options
+                    set_reg_options(ft);
 
-                // set title
-                set_title(response.ft.FormName);
-                // set image
-                set_image(response.image);
-                // set json
-                set_json(response.ft.APIOutput);
-                // set recognition options
-                set_reg_options(response.ft);
+                    $("#pre-load").hide();
+                }
+                else {
+                    raise_error(response.message);
+                }
 
-                $("#pre-load").hide();
             }, error: function (xhr) {
                 alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             }
@@ -584,7 +587,7 @@
 
     function set_title(form_name) {
         // Set form nam
-        $("#form_temp_name").html(form_name);
+        $("#form_name").html(form_name);
         console.log("FormT: " + form_name);
     }
     // ------------------------------- image ---------------------------------------------
@@ -734,7 +737,7 @@
     function load_ner_options(form_template) {
         $('#pre-load').show();
 
-        // recall NER to get data 
+        // recall NER to get data
         var data = new FormData();
         data.append('image', myFormData.get('image'));
 
@@ -794,7 +797,7 @@
                 // clear the current options
                 input_id = "#" + input_id;
                 $(input_id).val("");
-                
+
                 // get the chosen option in the list of NER in each field
                 var option_idx = stored_option[i]; // index of the ner option when admin created this form
                 var current_field_arr = json_data[json_key[i]]; // the ner combobox
@@ -812,7 +815,7 @@
     function load_fv_options(form_template) {
         $('#pre-load').show();
         console.log("load fv options");
-        // recall controller to get data 
+        // recall controller to get data
         var ft = form_template;
         console.log("test 2: " + ft.PostalProvinceCode);
         var data = new FormData();
@@ -931,6 +934,14 @@
 </script>
 
 <script>
+    function edit_form() {
+        $("pre-load").show();
+
+        window.location.href = "/bieu-mau/chinh-sua-bieu-mau?form_id=" + @ViewBag.form_id;
+
+        $("pre-load").hide();
+    };
+
     function delete_form() {
         $("pre-load").show();
 
@@ -962,6 +973,5 @@
         });
 
         $("pre-load").hide();
-
     };
 </script>

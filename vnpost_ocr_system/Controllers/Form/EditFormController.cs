@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
 
 namespace vnpost_ocr_system.Controllers.Form
 {
-    public class DetailFormController : Controller
+    public class EditFormController : Controller
     {
         public void LogEFException(DbEntityValidationException e)
         {
@@ -88,21 +88,17 @@ namespace vnpost_ocr_system.Controllers.Form
         {
             /* Remove leading and tailing space */
             string res = "";
-            if (nullable_text == null || nullable_text == "")
-            {
+            if (EmptyStr(nullable_text))
                 res = null;
-            }
             else
-            {
                 res = nullable_text.Trim();
 
-            }
             return res;
         }
 
-        // GET: DetailForm
+        // GET: EditForm
         [Auther(Roles = "1")]
-        [Route("bieu-mau/chi-tiet-bieu-mau")]
+        [Route("bieu-mau/chinh-sua-bieu-mau")]
         public ActionResult Index()
         {
             try
@@ -127,12 +123,11 @@ namespace vnpost_ocr_system.Controllers.Form
                 return Json(new { status_code = "400", status = "Fail", message = "Không có form_id" }, JsonRequestBehavior.AllowGet);
             }
 
-            return View("/Views/Form/DetailFormView.cshtml");
+            return View("/Views/Form/EditFormView.cshtml");
         }
 
-        // GET: DetailForm
         [Auther(Roles = "1")]
-        [Route("bieu-mau/chi-tiet-bieu-mau/GetFormDetail")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetFormDetail")]
         public ActionResult GetFormDetail()
         {
             FullForm full_form;
@@ -150,7 +145,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     // Production
                     ft = db.Database.SqlQuery<FormTemplate>(
                         "select * from FormTemplate f where f.FormID= @FormID",
-                        new SqlParameter("FormID", Request["form_id"])).FirstOrDefault();
+                        new SqlParameter("FormID", LongExtensions.ParseNullableLong(Request["form_id"]))).FirstOrDefault();
 
                     Debug.WriteLine(ft.FormName);
                     if (ft != null)
@@ -162,7 +157,6 @@ namespace vnpost_ocr_system.Controllers.Form
                     full_form.ft = ft;
                     full_form.image = base64_img;
                 }
-                return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
             }
             catch (ImageNotFoundException e)
             {
@@ -177,96 +171,88 @@ namespace vnpost_ocr_system.Controllers.Form
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi. Không lấy được thông tin về biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau"}, JsonRequestBehavior.AllowGet);
             }
 
+            return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
         }
 
-        // ------------------------------------------------- Delete form -------------------------------------------------------------
-        public string ConvertEntJson(FullForm full_form)
-        {
-            string json_text = "";
-            try
-            {
-                json_text = JsonConvert.SerializeObject(full_form);
-                Debug.WriteLine(json_text);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return json_text;
-        }
-
-
+        // Get all province in the database
         [Auther(Roles = "1")]
-        [Route("bieu-mau/chi-tiet-bieu-mau/Delete")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetAllProvince")]
         [HttpPost]
-        public ActionResult DeleteForm()
+        public ActionResult GetAllProvince()
         {
-            string form_id = Request["form_id"];
-
-            if (form_id.Trim() == "")
-                return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
-            try
-            {
-                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
+                .Select(x => new Province
                 {
-                    try
-                    {
-                        // Get information of the deleted form
-                        FormTemplate ft; 
-                        ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
-                            new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
+                    PostalProvinceCode = x.PostalProvinceCode,
+                    PostalProvinceName = x.PostalProvinceName,
+                    ProvinceCode = x.ProvinceCode,
+                    ProvinceShortName = x.ProvinceShortName
 
-                        Debug.WriteLine(ft.FormName);
-
-                        // Load image
-                        string base64_img = "";
-                        if (ft != null)
-                        {
-                            base64_img = LoadImgToB64(ft.FormImageLink);
-                        }
-
-                        // Load Full Form
-                        FullForm full_form = new FullForm();
-                        full_form.ft = ft;
-                        full_form.image = base64_img;
-                        full_form.action = "delete";
-
-                        // Send train request to AI Server
-                        Postman pm = new Postman();
-                        string url = "http://localhost:3978";
-                        string json_text = ConvertEntJson(full_form);
-                        pm.SendRequest(url, json_text);
-
-                        // Delete from database 
-                        string query = "delete from FormTemplate where FormID = @form_id";
-                        db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
-                        transaction.Commit();
-                        db.SaveChanges();
-
-
-                        return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
-            }
+                }).ToList();
+            return Json(list);
         }
 
 
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetDistrictByProvCode")]
+        [HttpPost]
+        public ActionResult GetDistrictByProvCode(string code)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<District> list = db.Database.SqlQuery<District>("select * " +
+                "from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
+                .Select(x => new District
+                {
+                    PostalDistrictCode = x.PostalDistrictCode,
+                    PostalDistrictName = x.PostalDistrictName
+                }).ToList();
+            return Json(list);
+        }
+
 
         [Auther(Roles = "1")]
-        [Route("bieu-mau/chi-tiet-bieu-mau/GetAllFixedValue")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetPublicAdminsByDistrictCode")]
+        [HttpPost]
+        public ActionResult GetPubAdminsByDistrictCode(string code)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<PublicAdministration> list = db.Database.SqlQuery<PublicAdministration>("" +
+                "select * " +
+                "from PublicAdministration pa inner join PostOffice po on pa.PosCode = po.PosCode " +
+                "where po.DistrictCode = @code order by pa.PublicAdministrationName asc", new SqlParameter("code", code)).ToList()
+                .Select(x => new PublicAdministration
+                {
+                    PublicAdministrationLocationID = x.PublicAdministrationLocationID,
+                    PublicAdministrationName = x.PublicAdministrationName,
+                    Address = x.Address
+                }).ToList();
+            return Json(list);
+        }
+
+
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetProfileByPAId")]
+        [HttpPost]
+        public ActionResult GetProfileByPAId(string code)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<Profile> list = db.Database.SqlQuery<Profile>("select * " +
+                "from Profile where PublicAdministrationLocationID = @code order by ProfileName asc", new SqlParameter("code", code)).ToList()
+                .Select(x => new Profile
+                {
+                    ProfileID = x.ProfileID,
+                    ProfileName = x.ProfileName
+                }).ToList();
+            return Json(list);
+        }
+
+
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/GetAllFixedValue")]
         [HttpPost]
         public ActionResult GetAllFixedValue()
         {
@@ -275,7 +261,6 @@ namespace vnpost_ocr_system.Controllers.Form
             string pub_administration_loc_id = Request["pub_administration_loc_id"];
             string profile_id = Request["profile_id"];
             string[] result = new string[4];
-            Debug.WriteLine(province_id + ", " + district_id + ", " + pub_administration_loc_id + ", " + profile_id + ", ");
             try
             {
                 VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
@@ -288,8 +273,6 @@ namespace vnpost_ocr_system.Controllers.Form
                     if (province != null)
                     {
                         result[0] = FormatData(province.PostalProvinceName) == null ? null : FormatData(province.PostalProvinceName);
-                        Debug.WriteLine(result[0]);
-
                     }
                 }
 
@@ -298,75 +281,84 @@ namespace vnpost_ocr_system.Controllers.Form
                     District district = db.Database.SqlQuery<District>("" +
                     "select * " +
                     "from District d " +
-                    "where d.PostalDistrictCode = @DistrictID", new SqlParameter("DistrictID", district_id)).FirstOrDefault();
+                    "where d.District = @DistrictID", new SqlParameter("DistrictID", district_id)).FirstOrDefault();
                     if (district != null)
                     {
                         result[1] = FormatData(district.PostalDistrictName) == null ? null : FormatData(district.PostalDistrictName);
-                        Debug.WriteLine(result[1]);
-
                     }
                 }
 
-                if (FormatData(pub_administration_loc_id) != null)
+                if (FormatData(district_id) != null)
                 {
                     PublicAdministration pa = db.Database.SqlQuery<PublicAdministration>("" +
                     "select * " +
                     "from PublicAdministration pa " +
-                    "where pa.PublicAdministrationLocationID = @pub_admin_loc_id", 
-                    new SqlParameter("pub_admin_loc_id", LongExtensions.ParseNullableLong(pub_administration_loc_id))).FirstOrDefault();
+                    "where pa.PublicAdministrationLocationID = @pub_admin_loc_id", new SqlParameter("pub_admin_loc_id", pub_administration_loc_id)).FirstOrDefault();
                     if (pa != null)
                     {
                         result[2] = FormatData(pa.PublicAdministrationName) == null ? null : FormatData(pa.PublicAdministrationName);
-                        Debug.WriteLine(result[2]);
-
                     }
                 }
 
-                if (FormatData(profile_id) != null)
+                if (FormatData(district_id) != null)
                 {
                     Profile profile = db.Database.SqlQuery<Profile>("" +
                     "select * " +
                     "from Profile prof " +
-                    "where prof.ProfileID = @profile_id", new SqlParameter("profile_id", LongExtensions.ParseNullableLong(profile_id))).FirstOrDefault();
+                    "where prof.ProfileID = @profile_id", new SqlParameter("profile_id", profile_id)).FirstOrDefault();
                     if (profile != null)
                     {
                         result[3] = FormatData(profile.ProfileName) == null ? null : FormatData(profile.ProfileName);
-                        Debug.WriteLine(result[3]);
-
                     }
                 }
-                
 
-                return Json(new
-                {
-                    status_code = "200",
-                    status = "Success",
-                    message = "Lấy thông tin fix value thành công",
-                    result_name = result
-                }, JsonRequestBehavior.AllowGet);
+                return Json(new { 
+                                    status_code = "200", 
+                                    status = "Success", 
+                                    message = "Xoá biểu mẫu thành công", 
+                                    result_name = result,
+                                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi lấy thông tin về fixed-value và NER" }, JsonRequestBehavior.AllowGet);
+                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
             }
         }
-    }
-    public class FullForm
-    {
-        public FullForm() { }
-        public FullForm(FormTemplate ft, string image) {
-            this.ft = ft;
-            this.image = image;
-        }
-        public FullForm(FormTemplate ft, string image, string action)
+
+
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/Delete")]
+        [HttpPost]
+        public ActionResult DeleteForm(string code)
         {
-            this.action = action;
-            this.ft = ft;
-            this.image = image;
+            string form_id = Request["form_id"];
+            if (form_id.Trim() == "")
+                return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
+            try
+            {
+                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        string query = "delete from FormTemplate where FormID = @form_id";
+                        db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", form_id));
+                        transaction.Commit();
+                        db.SaveChanges();
+                        return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        return new HttpStatusCodeResult(400);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+            }
         }
-        public string action{ get; set; }
-        public string image{ get; set; }
-        public FormTemplate ft { get; set; }
     }
 }

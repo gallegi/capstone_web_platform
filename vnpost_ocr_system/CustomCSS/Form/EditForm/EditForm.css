@@ -1,7 +1,6 @@
 ﻿html {
     height: 100%;
 }
-
 .product .img-responsive {
     center: block;
     margin: 0 auto;
@@ -9,7 +8,6 @@
 /* Each main part is put inside one content_section*/
 .content_section {
     margin-top: 50px;
-    display:block;  
 }
 
 .cs_container {
@@ -22,123 +20,38 @@
     margin-top: 0px;
     display: flex
 }
-
-.name_title {
+.name_title{
     padding: 0px;
     width: 15%;
 }
-
-    .name_title > h4 {
+    .name_title > h4{
         margin: 5px auto;
-        text-align: left
+        text-align:left
     }
 
 .name_input {
-    padding: 0px;
-    width: 80%;
+    width: 15%;
+    height: 40px;
 }
-    .name_input > h4 {
-        margin: 5px auto;
-        text-align: left;
-    }
-
 #form_name {
     padding: 0px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1.5px solid #ccc;
     width: 100%;
     height: 100%;
-    margin-bottom: 0px !important;
 }
 
-/* -------------------------------------------------- Form image -------------------------------------------------- */
-#form_img {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+/*Form image*/
+.bt-color-common {
+    background-color: #2196F3 !important;
+}
+.bt-color-cancel {
+    background-color: #ff0000 !important;
 }
 
-    #myImg:hover {
-        opacity: 0.7;
-    }
-
-/* The Modal (background) */
-.img-modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (image) */
-.img-modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-}
-
-
-/* Add Animation */
-.img-modal-content, #caption {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-    from {
-        -webkit-transform: scale(0)
-    }
-
-    to {
-        -webkit-transform: scale(1)
-    }
-}
-
-@keyframes zoom {
-    from {
-        transform: scale(0)
-    }
-
-    to {
-        transform: scale(1)
-    }
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 50px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-    .close:hover,
-    .close:focus {
-        color: #bbb;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px) {
-    .img-modal-content {
-        width: 100%;
-    }
-}
-/* --------------------------------------- Json frame --------------------------------------- */
+/*Json frame*/
 .content_section_json {
-    margin-top: 50px;
+   margin-top: 50px;
     max-height: none;
 }
 
@@ -158,7 +71,6 @@
         width: 100%;
         text-align: left;
     }
-
     .json-data-frame > p {
         margin: 0;
         position: absolute;
@@ -251,31 +163,15 @@ div.reg_radio {
     width: 30%;
     height: 100%
 }
-
-    div.reg_radio > label {
-        color: #5b616e;
-        font-size: 14px;
-        word-wrap: break-word;
-    }
+      div.reg_radio > label {
+            color: #5b616e;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
 
 /*HighLight text*/
 span.highlight {
     background-color: #44e9a6;
     color: #FFFFFF;
     padding: 0px 2px;
-}
-
-/*Form image*/
-.bt-color-common {
-    background-color: #2196F3 !important;
-}
-
-.bt-color-cancel {
-    background-color: #ff0000 !important;
-}
-
-/* Input readonly*/
-input:read-only{
-    /* style declaration here */
-    background-color: #fff !important;
 }
