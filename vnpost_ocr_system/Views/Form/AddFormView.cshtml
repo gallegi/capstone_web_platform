@@ -996,7 +996,7 @@
         var raw_text = json_data.raw_text;
         if (raw_text == null || raw_text == '') {
             // user click btn to parse but OCR result is empty
-            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu');
+            errorAlert('Lỗi', 'Có lỗi xảy ra khi lấy kết quả OCR từ server');
             return false;
 
         } else {
@@ -1287,6 +1287,7 @@
     function parseToString() {
         $('#pre-load').show();
 
+        console.log($("#cache_img").attr('src'));
         // check input fields
         if (validate_form_name() == false) {
             return false;
@@ -1300,8 +1301,10 @@
                 $('#pre-load').show();
                 $.ajax({
                     type: "POST",
-                    url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
-                    data: data,
+                    url: "http://6a918fc8.ngrok.io/ocr",
+                    data: {
+                        image: $("#cache_img").attr('src')
+                    },
                     contentType: false,
                     processData: false,
                     cache: false,
