@@ -1,0 +1,2082 @@
+﻿@model vnpost_ocr_system.Models.FormTemplate
+
+@{
+    ViewBag.Title = "EditFormView";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+@*CSS*@
+<link href="~/CustomCSS/Form/EditForm/EditForm.css" rel="stylesheet" />
+<link href="~/CustomCSS/Form/EditForm/RadioButton.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+
+@* JQuery libs *@
+<script src="~/assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="~/dist/js/custom.min.js"></script>
+<script src="~/CustomJS/Form/EditForm/EditForm.js"></script>
+
+@* Libs for image uploader*@
+<link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
+<script src="~/assets/uploader/dropzoneMultiple.js"></script>
+
+
+<style>
+    /*style for image upload section*/
+    .dropzone .dz-preview .dz-image {
+        margin: auto;
+    }
+
+    .dropzone .dz-preview .dz-progress .dz-upload {
+        background: #29bb22 !important;
+        background: linear-gradient(to bottom, #7ceb69, #29bb22) !important;
+        top: 0;
+        bottom: 0;
+        width: 0;
+    }
+
+    .dz-preview.dz-processing.dz-success.dz-complete.dz-image-preview {
+        margin: 0px !important;
+        display: block;
+    }
+
+    #item5-error {
+        color: white;
+    }
+
+    .summary-label {
+        font-weight: bold !important;
+    }
+
+    .dropzone .dz-preview:hover .dz-image img {
+        -webkit-filter: blur(0px) !important;
+        filter: blur(0px) !important;
+    }
+
+    .validation {
+        color: red;
+    }
+
+    /* style for dropdown-list*/
+    .select-wrapper {
+        padding: 0px 10px;
+        height: 100%;
+        width: 100% !important
+    }
+
+        .select-wrapper > input.select-dropdown {
+            border: solid #000 !important;
+            border-width: 0px !important;
+            height: 100%;
+            width: 100%
+        }
+
+    .dropdown-content li > a, .dropdown-content li > span {
+        font-size: 100% !important;
+    }
+
+    .row_dropdown {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 70%;
+    }
+
+    .format_card_btn > input.form-control {
+        margin: 1px 0px 0px 0px !important;
+        padding: 0px 10px !important;
+        width: 70% !important;
+        height: 30px !important
+    }
+</style>
+@*Notification pop-up about error*@
+<div class="modal fade" id="saveChangeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Chỉnh sửa biểu mẫu</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn lưu thay đổi này chứ?</p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close red" onclick="edit()">Có</a>
+                <a class="btn modal-close blue darken-2">Không</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notifi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+
+            <div class="modal-body">
+                <p id="text_notifi"></p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close blue darken-2">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="card" style="width:100%">
+            <div class="card-content">
+                <h2 class="font-medium title">Chỉnh sửa biểu mẫu</h2><hr />
+                @*Form name*@
+                <div id="name_section" class="content_section_name">
+                    <div class="name_title">
+                        <h4>Tên biểu mẫu <i class="fa fa-asterisk" style="font-size:10px;color:red; "></i></h4>
+                    </div>
+                    <div class="name_input">
+                        <input type="text" id="form_name" class="form-control" name="form_name" spellcheck="false">
+                        <p class="validation" name="validation_name"></p>
+                    </div>
+                </div>
+                @*Image*@
+                <div id="image_section" class="content_section">
+                    <h4>Ảnh biểu mẫu</h4>
+                    <label>Dung lượng tối đa 5Mb <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                    <div class="cs_container">
+                        <section>
+                            <div style="width:100%">
+                                @* Rotate left/right buttons *@
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="rotateLeft()">
+                                        <i class="material-icons">rotate_left</i>
+                                    </a>
+                                    <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="rotateRight()">
+                                        <i class="material-icons">rotate_right</i>
+                                    </a>
+                                </div>
+                                @* Image dropzone *@
+                                <p class="validation" name="validation_img"></p>
+                                <div action='/' enctype="multipart/form-data" method="post" class="dropzone" id="myAwesomeDropzone">
+                                    <div class="fallback">
+                                        <input type="file" id="fUpload" class="form-control" single />
+                                    </div>
+                                    <div class="dz-message needsclick">
+                                        <i class="medium material-icons dp48">cloud_upload</i>
+                                        <h4 id="title_uploader">Kéo thả file hoặc click vào đây để tải lên</h4>
+                                        <span class="text-muted font-13">(File hợp lệ: jpg, png)</span>
+                                    </div>
+                                </div>
+                                @* Button:OCR image to string  *@
+                                <div class="input-field center">
+                                    <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="parseToString()">Chuyển thành chữ</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <input name="id" id="id_raw" readonly hidden />
+                    <img id="cache_img" hidden />
+                </div>
+                @*Parsed JSON content*@
+                <div id="json_section" class="content_section_json">
+                    <h4>Nội dung</h4>
+                    <div class="cs_container">
+                        <p class="validation" name="validation_json"></p>
+                        <div class="json-data-frame">
+                            <div id="api_output" spellcheck="false" readonly></div>
+                        </div>
+                    </div>
+                </div>
+
+                @*==================================== Main choosing options ===========================================*@
+
+                @* -------------------------------------- Profile content section -------------------------------------- *@
+                @{
+                    string[] profile_field = { "Tỉnh/Thành phố", "Quận/Huyện", "Tên CQHC", "Tên thủ tục", "Mã giấy hẹn" };
+                    string[] en_profile_field = { "city", "district", "admin_office", "profile", "letter_code" };
+                    var card_side = "";
+                }
+                <div id="profile_section" class="content_section">
+                    <h4>Thông tin thủ tục</h4>
+                    @for (int i = 0; i < profile_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < profile_field.Length)
+                                {
+                                    @*Create cards for the profile field*@
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+                                    }
+                                    @* Card left *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@profile_field[@card_idx] <i class="fa fa-asterisk" style="font-size:10px;color:red; "></i></h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @{
+                                                        string rad_name = "rad_gr_" + en_profile_field[@card_idx];
+                                                        string[] row_type = { "Fixed-value", "NER", "Regex" };
+                                                    }
+                                                    @for (int row_index = 0; row_index < row_type.Length; row_index++)
+                                                    {
+                                                        string rad_id = "rad_" + en_profile_field[card_idx] + "_" + row_index.ToString();
+                                                        string dropdown_id = "drop_" + en_profile_field[card_idx] + "_" + row_index.ToString();
+
+
+                                                        if ((row_index == 0) && (card_idx != profile_field.Length - 1))
+                                                        {
+                                                            // Fixed-value(for cards in profile field not "letter_code")
+                                                            <div class="format_card_btn">
+                                                                <div class="reg_radio">
+                                                                    <input type="radio" id=@rad_id name=@rad_name>
+                                                                    <label for=@rad_id>@row_type[row_index]</label>
+                                                                </div>
+                                                                @* Dropdown list *@
+                                                                <div class="row_dropdown">
+                                                                    <select id=@dropdown_id>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else if (row_index == 1)
+                                                        {
+                                                            // NER (for all cards)
+                                                            <div class="format_card_btn">
+                                                                <div class="reg_radio">
+                                                                    <input type="radio" id=@rad_id name=@rad_name checked>
+                                                                    <label for=@rad_id>@row_type[@row_index]</label>
+                                                                </div>
+                                                                @* Dropdown list *@
+                                                                <div class="row_dropdown">
+                                                                    <select id=@dropdown_id>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else if (row_index == 2)
+                                                        {
+                                                            //Regex (for all cards)
+                                                            <div class="format_card_btn">
+                                                                @* Radio button *@
+                                                                <div class="reg_radio">
+                                                                    <input type="radio" id=@rad_id name=@rad_name>
+                                                                    <label for=@rad_id>Regex</label>
+                                                                </div>
+                                                                @* Input regex *@
+                                                                @{
+                                                                    string form_name = "input_" + en_profile_field[card_idx];
+                                                                }
+                                                                <input type="text" id=@form_name class="form-control" name=@form_name value=""
+                                                                       focusout="highlight(event)" onchange="highlight(event)" spellcheck="false">
+                                                            </div>
+                                                        }
+                                                    }
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @* -------------------------------------- Procedurer content section  -------------------------------------- *@
+                @{
+                    string[] procedurer_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố",
+                            "Quận/Huyện", "Địa chỉ", "EmptyField", "Loại GTTT", "Số GTTT", "Ngày cấp", "Nơi cấp" };
+                    string[] en_procedurer_field = { "p_name", "p_phone", "p_city", "p_district", "p_address",
+                            "EmptyField", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place" };
+
+                }
+                <div id="requester_section" class="content_section">
+                    <h4>Thông tin người làm thủ tục </h4>
+                    @{
+                        int half = @procedurer_field.Length / 2;
+                    }
+
+                    @for (int i = 0; i < procedurer_field.Length; i += 2)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            <div class="cs_container" style="display:flex">
+                                @* Card left *@
+                                <div class="row_format_card_left">
+                                    <div class="format_card_content">
+                                        <div class="format_card_title">
+                                            <h5>@procedurer_field[@i]</h5>
+                                            @{
+                                                string val_name = "val_" + en_procedurer_field[i];
+                                            }
+                                            <p id=@val_name class="validation" name=@val_name hidden></p>
+                                        </div>
+                                        <div class="format_card_btn_group">
+                                            <form>
+                                                @* Generate radio/dropdown-list inside one card *@
+                                                @{
+                                                    string rad_name = "rad_gr_" + en_procedurer_field[i];
+                                                    string rad_id_ner = "rad_" + en_procedurer_field[i] + "_1";
+                                                    string rad_id_regex = "rad_" + en_procedurer_field[i] + "_2";
+                                                    string dropdown_id = "drop_" + en_procedurer_field[i] + "_1";
+                                                    string rad_id_none = "rad_" + en_procedurer_field[i] + "_3";
+                                                }
+                                                @* NER (for all cards)*@
+                                                <div class="format_card_btn">
+                                                    <div class="reg_radio">
+                                                        <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                        <label for=@rad_id_ner>NER</label>
+                                                    </div>
+                                                    @* Dropdown list *@
+                                                    <div class="row_dropdown">
+                                                        <select id=@dropdown_id>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                @*Regex (for all cards)*@
+                                                <div class="format_card_btn">
+                                                    @* Radio button *@
+                                                    <div class="reg_radio">
+                                                        <input type="radio" id=@rad_id_regex name=@rad_name>
+                                                        <label for=@rad_id_regex>Regex</label>
+                                                    </div>
+                                                    @* Input regex *@
+                                                    @{
+                                                        string form_name = "input_" + en_procedurer_field[i];
+                                                    }
+                                                    <input type="text" id=@form_name class="form-control" name=@form_name value=""
+                                                           focusout="highlight(event)" onchange="highlight(event)" spellcheck="false">
+                                                </div>
+                                                @*None *@
+                                                <div class="format_card_btn">
+                                                    @* Radio button *@
+                                                    <div class="reg_radio">
+                                                        <input type="radio" id=@rad_id_none name=@rad_name>
+                                                        <label for=@rad_id_none>None</label>
+                                                    </div>
+                                                    @* Input regex *@
+                                                    @{
+                                                        form_name = "none_" + en_procedurer_field[i];
+                                                    }
+                                                    <input type="text" id=@form_name class="form-control" name=@form_name
+                                                           value="Không chọn option cho @procedurer_field[i]" spellcheck="false" disabled>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (i + 1 != half)
+                                {
+                                    @* Card right *@
+                                    <div class="row_format_card_right">
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@procedurer_field[@i + 1]</h5>
+                                                @{
+                                                    val_name = "val_" + en_procedurer_field[i + 1];
+                                                }
+                                                <p id=@val_name class="validation" name=@val_name hidden></p>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @{
+                                                        rad_name = "rad_gr_" + en_procedurer_field[i + 1];
+                                                        rad_id_ner = "rad_" + en_procedurer_field[i + 1] + "_1";
+                                                        rad_id_regex = "rad_" + en_procedurer_field[i + 1] + "_2";
+                                                        dropdown_id = "drop_" + en_procedurer_field[i + 1] + "_1";
+                                                        rad_id_none = "rad_" + en_procedurer_field[i + 1] + "_3";
+                                                    }
+                                                    @* NER (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <label for=@rad_id_ner>NER</label>
+                                                        </div>
+                                                        @* Dropdown list *@
+                                                        <div class="row_dropdown">
+                                                            <select id=@dropdown_id>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    @*Regex (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_regex name=@rad_name>
+                                                            <label for=@rad_id_regex>Regex</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            form_name = "input_" + en_procedurer_field[i + 1];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name value=""
+                                                               focusout="highlight(event)" onchange="highlight(event)" spellcheck="false">
+                                                    </div>
+                                                    @*None *@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <label for=@rad_id_none>None</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            form_name = "none_" + en_procedurer_field[i + 1];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name
+                                                               value="Không chọn option cho @procedurer_field[i+1]" spellcheck="false" disabled>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+                @* -------------------------------------- Sender content section  -------------------------------------- *@
+                @{
+                    string[] sender_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ" };
+                    string[] en_sender_field = { "s_name", "s_phone", "s_city", "s_district", "s_address" };
+                    card_side = "";
+                }
+                <div id="sender_section" class="content_section">
+                    <h4>Thông tin người gửi </h4>
+                    @for (int i = 0; i < sender_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < sender_field.Length)
+                                {
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+
+                                    }
+                                    @* Option Card *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@sender_field[@card_idx]</h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @{
+                                                        string rad_name = "rad_gr_" + en_sender_field[@card_idx];
+                                                        string rad_id_ner = "rad_" + en_sender_field[@card_idx] + "_1";
+                                                        string rad_id_regex = "rad_" + en_sender_field[@card_idx] + "_2";
+                                                        string dropdown_id = "drop_" + en_sender_field[@card_idx] + "_1";
+                                                        string rad_id_none = "rad_" + en_sender_field[@card_idx] + "_3";
+                                                    }
+                                                    @* NER (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <label for=@rad_id_ner>NER</label>
+                                                        </div>
+                                                        @* Dropdown list *@
+                                                        <div class="row_dropdown">
+                                                            <select id=@dropdown_id>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    @*Regex (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_regex name=@rad_name>
+                                                            <label for=@rad_id_regex>Regex</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            string form_name = "input_" + en_sender_field[@card_idx];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name value=""
+                                                               focusout="highlight(event)" onchange="highlight(event)" spellcheck="false">
+                                                    </div>
+                                                    @*None *@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <label for=@rad_id_none>None</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            form_name = "none_" + en_sender_field[@card_idx];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name
+                                                               value="Không chọn option cho @sender_field[@card_idx]" spellcheck="false" disabled>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @* -------------------------------------- Receiver content section  -------------------------------------- *@
+                @{
+                    string[] receiver_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ" };
+                    string[] en_receiver_field = { "r_name", "r_phone", "r_city", "r_district", "r_address" };
+                    card_side = "";
+                }
+                <div id="receiver_section" class="content_section">
+                    <h4>Thông tin người nhận </h4>
+                    @for (int i = 0; i < receiver_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < receiver_field.Length)
+                                {
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+
+                                    }
+                                    @* Option Card *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@receiver_field[@card_idx]</h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @{
+                                                        string rad_name = "rad_gr_" + en_receiver_field[@card_idx];
+                                                        string rad_id_ner = "rad_" + en_receiver_field[@card_idx] + "_1";
+                                                        string rad_id_regex = "rad_" + en_receiver_field[@card_idx] + "_2";
+                                                        string dropdown_id = "drop_" + en_receiver_field[@card_idx] + "_1";
+                                                        string rad_id_none = "rad_" + en_receiver_field[@card_idx] + "_3";
+                                                    }
+                                                    @* NER (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <label for=@rad_id_ner>NER</label>
+                                                        </div>
+                                                        @* Dropdown list *@
+                                                        <div class="row_dropdown">
+                                                            <select id=@dropdown_id>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    @*Regex (for all cards)*@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_regex name=@rad_name>
+                                                            <label for=@rad_id_regex>Regex</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            string form_name = "input_" + en_receiver_field[@card_idx];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name value=""
+                                                               focusout="highlight(event)" onchange="highlight(event)" spellcheck="false">
+                                                    </div>
+                                                    @*None *@
+                                                    <div class="format_card_btn">
+                                                        @* Radio button *@
+                                                        <div class="reg_radio">
+                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <label for=@rad_id_none>None</label>
+                                                        </div>
+                                                        @* Input regex *@
+                                                        @{
+                                                            form_name = "none_" + receiver_field[@card_idx];
+                                                        }
+                                                        <input type="text" id=@form_name class="form-control" name=@form_name
+                                                               value="Không chọn option cho @receiver_field[@card_idx]" spellcheck="false" disabled>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+
+                @* --------------------------------------- Button confirm section  -------------------------------------- *@
+                <div id="btn_confirm_section" class="content_section">
+                    <div class="input-field right">
+                        <a href="#saveChangeModal" class="btn waves-effect waves-light bt-color-common modal-trigger" style="color:aliceblue" >Lưu thay đổi</a>
+                        <a class="btn waves-effect waves-light bt-color-cancel" style="color:aliceblue" onclick="cancel()">Hủy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* ======================================================= GENERAL =========================================================*@
+<script>
+    // Radio button
+    $(document).ready(function () {
+        $("label").click(function (e) {
+            // Un-comment this to allow un-clicked on clicked radio
+            //e.preventDefault();
+            $check = $(this).prev();
+
+            // Change the cousin inputs to :ubchecked
+            $format_card_btn = $(this).parents().eq(2);
+            $format_card_btn.find('input:radio').each(function () {
+                $(this).prop("checked", false);
+            });
+
+            // Change the sibling input to :checked
+            if ($(this).prev().is("input")) {
+                if (!$check.prop('checked'))
+                    $check.prop("checked", true);
+            }
+        });
+    });
+</script>
+<script>
+    // Get FormData, this form data contains all set-variables
+    var myFormData = new FormData();
+    var error = true;
+    var sentAPI = false;
+    // Set up config for Dropzone
+    Dropzone.options.myAwesomeDropzone = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 6, // MB
+        addRemoveLinks: true,
+        autoProcessQueue: true,
+        dictRemoveFile: 'Hủy',
+        clickable: true,
+        acceptedFiles: "image/jpeg,image/png,image/gif,image/jpg,image/bmp",
+        maxFiles: 10,
+        thumbnailWidth: null,
+        thumbnailHeight: null,
+        uploadMultiple: true,
+        parallelUploads: 10,
+        maxfilesexceeded: function() {
+            var myDropzone = this;
+            myDropzone.removeAllFiles();
+        },
+        init: function () {
+            this.on("addedfile", function (file) {
+                // Event: Add new file
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var extension = event.target.result.split(';')[0].split('/')[1];
+                    if (!(extension == 'jpeg' || extension == 'png' || extension == 'gif' || extension == 'bmp' || extension == 'jpg')) {
+                        $('p[name="validation_img"]').text('Ảnh chụp giấy hẹn chưa đúng định dạng')
+                        return;
+                    }
+                    $('p[name="validation_img"]').text('')
+                    var base64String = event.target.result;
+                    $('#cache_img').attr("src", base64String);
+                    // append to FormData
+                    myFormData.set('img', $('#cache_img').attr("src"));
+                    myFormData.set('img_name', file.name);
+
+                    console.log(myFormData.get('img') === $('#cache_img').attr("src"));
+                    console.log(myFormData.get('img_name'));
+
+                };
+                reader.readAsDataURL(file);
+                if (this.files.length > 1) {
+                    for (var i = 0; i < this.files.length; i++){
+                        this.removeFile(this.files[i]);
+                    }
+                }
+            });
+            this.on("removedfile", function () {
+                // Event: Remove added file
+                myFormData.delete("img");
+                myFormData.delete("img_name");
+                $('#cache_img').attr("src", "");
+                // Hidden other component
+                hiddenComponents();
+                // Reset sentAPI to re-send json
+                sentAPI = false;
+                // Clear content of radio + combobox when cancel upload image\
+                clearContent();
+
+            });
+            this.on("thumbnail", function (file, dataUrl) {
+                $('.dz-image').last().find('img').attr({ width: '50%', height: '50%', padding: 'auto'});
+            }),
+            this.on("success", function (file) {
+                $('.dz-image').css({ "width": "100%", "height": "auto" });
+            })
+            var myDropzone = this;
+            $("#btnUpload3").click(function (e) {
+                e.preventDefault();
+                myDropzone.processQueue();
+            });
+            this.on('sending', function (file, xhr, formData) {
+                myFormData.append("img", file);
+                myFormData.append("img_name", file.name)
+            });
+
+        },
+        dictResponseError: "Lỗi (Code: {{statusCode}})",
+        dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
+        dictInvalidFileType: "File không hợp lệ",
+    };
+
+@* ======================================================= VIEW MANIPULATION =========================================================*@
+@* TODO: Load info from the DB*@
+    var initial_load_done = false;
+    // Initial load
+    $(document).ready(function () {
+        $("pre-load").show();
+        if (initial_load_done == false) {
+            $.ajax({
+                url: "/bieu-mau/chinh-sua-bieu-mau/GetFormDetail",
+                type: "Post",
+
+                datatype: "json",
+                data: {
+                    form_id: Number(@ViewBag.form_id)
+                },
+                cache: false,
+                success: function (response) {
+                    initial_load_done = true;
+                    // set title
+                    set_title(response.full_form.ft.FormName);
+
+                    //// set image
+                    //set_image(response.image);
+
+                    // set json
+                    set_json(response.full_form.ft.APIOutput);
+
+                    // set recognition options
+                    set_reg_options(response.full_form.ft);
+
+                    $("#pre-load").hide();
+                }, error: function (xhr) {
+                    alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                    $("#pre-load").hide();
+                }
+            });
+        }
+        
+        $("pre-load").hide();
+    });
+
+    // Set form name
+    function set_title(form_name) {
+        $("#form_name").val(form_name);
+        console.log("FormT: " + form_name);
+    }
+
+    // TODO: Set image
+    function advanced_data_uri_to_blob(dataURI) {
+        'use strict'
+        var byteString,
+            mimestring
+
+        if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+            byteString = atob(dataURI.split(',')[1])
+        } else {
+            byteString = decodeURI(dataURI.split(',')[1])
+        }
+
+        mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+        var content = new Array();
+        for (var i = 0; i < byteString.length; i++) {
+            content[i] = byteString.charCodeAt(i)
+        }
+
+        return new Blob([new Uint8Array(content)], {type: mimestring});
+    }
+    function set_image(image_b64) {
+        var blob = advanced_data_uri_to_blob(image_b64);
+        var $dropzone = $("#fUpload").dropzone({});
+        let mockFile = { name: "test.jpg", size: 12345 };
+        myDropzone.displayExistingFile(mockFile, blob);
+    }
+    // ------------------------------------------------
+
+    // Set json
+    function set_json(api_output) {
+        // set json
+        var api_output_json = jQuery.parseJSON(api_output);
+        var raw_text = api_output_json.raw_text;
+        myFormData.set("letter_formated_content", raw_text);
+        var text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
+        console.log(text);
+        $("#api_output").html(text);
+    }
+
+    // ------------------------------- options ---------------------------------------------
+    function set_reg_options(form_template) {
+        // 1. Load regex
+        // Profile
+        $("#input_city").val(form_template.ProvinceRegex);
+        $("#input_district").val(form_template.DistrictRegex);
+        $("#input_admin_office").val(form_template.PublicAdministrationRegex);
+        $("#input_profile").val(form_template.ProfileRegex);
+        $("#input_letter_code").val(form_template.AppointmentLetterCodeRegex);
+
+        // Procedurer
+        $("#input_p_name").val(form_template.ProcedurerFullNameRegex);
+        $("#input_p_phone").val(form_template.ProcedurerPhoneRegex);
+        $("#input_p_city").val(form_template.ProcedurerProvinceRegex);
+        $("#input_p_district").val(form_template.ProcedurerDistrictRegex);
+        $("#input_p_address").val(form_template.ProcedurerStreetRegex);
+        $("#input_p_personal_paper_type").val(form_template.ProcedurerPersonalPaperTypeRegex);
+        $("#input_p_personal_paper_number").val(form_template.ProcedurerPersonalPaperNumberRegex);
+        $("#input_p_issued_date").val(form_template.ProcedurerPersonalPaperIssuedDateRegex);
+        $("#input_p_issued_place").val(form_template.ProcedurerPersonalPaperIssuedPlaceRegex);
+
+        // Sender
+        $("#input_s_name").val(form_template.SenderFullNameRegex);
+        $("#input_s_phone").val(form_template.SenderPhoneRegex);
+        $("#input_s_city").val(form_template.SenderProvinceRegex);
+        $("#input_s_district").val(form_template.SenderDistrictRegex);
+        $("#input_s_address").val(form_template.SenderStreetRegex);
+
+        // Receiver
+        $("#input_r_name").val(form_template.ReceiverFullNameRegex);
+        $("#input_r_phone").val(form_template.ReceiverPhoneRegex);
+        $("#input_r_city").val(form_template.ReceiverProvinceRegex);
+        $("#input_r_district").val(form_template.ReceiverDistrictRegex);
+        $("#input_r_address").val(form_template.ReceiverStreetRegex);
+
+        // 2. Load NER option from DB + Recall server to get the mapped text
+        load_ner_options(form_template);
+
+        // 3. Get mapped fixed-value from DB
+        load_fv_options(form_template);
+
+        // 4. Show chosen options
+        var parse_type_dict = {
+            "city_pt": form_template.ProvinceParseType,
+            "district_pt": form_template.DistrictParseType,
+            "admin_office_pt": form_template.PublicAdministrationParseType,
+            "profile_pt": form_template.ProfileParseType,
+            "letter_code_pt": form_template.AppointmentLetterCodeParseType,
+
+            "p_name_pt": form_template.ProcedurerFullNameParseType,
+            "p_phone_pt": form_template.ProcedurerPhoneParseType,
+            "p_city_pt": form_template.ProcedurerProvinceParseType,
+            "p_district_pt": form_template.ProcedurerDistrictParseType,
+            "p_address_pt": form_template.ProcedurerStreetParseType,
+            "p_personal_paper_type_pt": form_template.ProcedurerPersonalPaperTypeParseType,
+            "p_personal_paper_number_pt": form_template.ProcedurerPersonalPaperNumberParseType,
+            "p_issued_date_pt": form_template.ProcedurerPersonalPaperIssuedDateParseType,
+            "p_issued_place_pt": form_template.ProcedurerPersonalPaperIssuedPlaceParseType,
+
+            "s_name_pt": form_template.SenderFullNameParseType,
+            "s_phone_pt": form_template.SenderPhoneParseType,
+            "s_city_pt": form_template.SenderProvinceParseType,
+            "s_district_pt": form_template.SenderDistrictParseType,
+            "s_address_pt": form_template.SenderStreetParseType,
+
+            "r_name_pt": form_template.ReceiverFullNameParseType,
+            "r_phone_pt": form_template.ReceiverPhoneParseType,
+            "r_city_pt": form_template.ReceiverProvinceParseType,
+            "r_district_pt": form_template.ReceiverDistrictParseType,
+            "r_address_pt": form_template.ReceiverStreetParseType
+        };
+        switch_rad_All(parse_type_dict);
+    }
+
+    // Step 2 in Options section: NER
+    function load_ner_options(form_template) {
+        add_ner_to_input(form_template);
+    }
+
+    // Functions Add options to NER input
+    function add_ner_to_input(ft) {
+        var json_data = jQuery.parseJSON(ft.APIOutput);
+
+        var mapped_categories = ["city", "district", "admin_office", "profile", "letter_code",
+            "p_name", "p_phone", "p_city", "p_district", "p_address", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
+            "s_name", "s_phone", "s_city", "s_district", "s_address",
+            "r_name", "r_phone", "r_city", "r_district", "r_address"];
+        var json_key = ["province", "district", "public_administration", "profile", "appointment_letter_code",
+            "name", "phone_number", "province", "district", "street", "personal_paper_type", "personal_paper_number", "issued_date", "issued_place",
+            "name", "phone_number", "province", "district", "street",
+            "name", "phone_number", "province", "district", "street"];
+
+        var stored_option = [ft.ProvinceNERIndex, ft.DistrictNERIndex, ft.PublicAdministrationNERIndex, ft.ProfileNERIndex, ft.AppointmentLetterCodeNERIndex,
+            ft.ProcedurerFullNameNERIndex, ft.ProcedurerPhoneNERIndex, ft.ProcedurerProvinceNERIndex, ft.ProcedurerDistrictNERIndex, ft.ProcedurerStreetNERIndex,
+            ft.ProcedurerPersonalPaperTypeNERIndex, ft.ProcedurerPersonalPaperNumberNERIndex, ft.ProcedurerPersonalPaperIssuedDateNERIndex, ft.ProcedurerPersonalPaperIssuedPlaceNERIndex,
+            ft.SenderFullNameNERIndex, ft.SenderPhoneNERIndex, ft.SenderProvinceNERIndex, ft.SenderDistrictNERIndex, ft.SenderStreetNERIndex,
+            ft.ReceiverFullNameNERIndex, ft.ReceiverPhoneNERIndex, ft.ReceiverProvinceNERIndex, ft.ReceiverDistrictNERIndex, ft.ReceiverStreetNERIndex];
+
+
+        for (i = 0; i < json_key.length; i++) {
+            var drop_id = "drop_" + mapped_categories[i] + "_1";
+            var elementExists = document.getElementById(drop_id);
+            if (elementExists != null) {
+                // clear the current options
+                drop_id = "#" + drop_id;
+                $(drop_id).empty();
+                $(drop_id).formSelect();
+
+                // re-new the list of dropdown
+                var option = "";
+                var current_val_arr = json_data[json_key[i]];
+                for (j_idx = 0; j_idx < current_val_arr.length; j_idx++) {
+                    val = "";
+                    val = current_val_arr[j_idx];
+                    option += "<option value='" + j_idx + "'>" + j_idx + ": " + val + "</option>";
+                }
+
+                $(drop_id).append(option);
+                $(drop_id).formSelect();
+
+                // set default value = option in DB
+                if (current_val_arr.length != 0) {
+                    if (stored_option[i] != null) {
+                        $(drop_id).get(0).selectedIndex = stored_option[i];
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    // Step 3 in Options section: Fixed-value
+    function load_fv_options(form_template) {
+        add_fv_to_input(form_template);
+    }
+
+    //Functions Add options to Fixed value
+    function add_fv_to_input(ft) {
+        // All province, district, public administration and profile are loaded 
+        getProvince();
+
+        // Set the default option
+        var mapped_fixed_value = ["city", "district", "admin_office", "profile"];
+        var fixed_value = [ft.PostalProvinceCode, ft.PostalDistrictCode, ft.PublicAdministrationLocationID, ft.ProfileID];
+
+        // Get default province then it will load other components consequently
+        getProvinceDefault(ft);
+    }
+
+    // Step 4 in Options section
+    function switch_rad_All(parse_type_dict) {
+        // Switch all status of radio buttons into the right condition
+        for (var key in parse_type_dict) {
+            // check if the property/key is defined in the object itself, not in parent
+            if (parse_type_dict.hasOwnProperty(key)) {
+                toggle_checked(key, parse_type_dict[key]);
+            }
+        }
+    }
+
+    function toggle_checked(name_field, parse_type) {
+        // Based on name field, change status of checked radio button
+        var profile_name_field = ["city", "district", "admin_office", "profile", "letter_code"];
+        var field = name_field.slice(0, -3);
+        var show_idx = 1;
+
+        if (parse_type == null) {
+            if (profile_name_field.indexOf(field) > -1) {
+                show_idx = 0;// Fixed value
+            } else {
+                show_idx = 3;// None option
+            }
+        } else if (parse_type == 0) {
+            show_idx = 1;// NER
+        } else if (parse_type == 1) {
+            show_idx = 2;// Regex
+        }
+        radio_check(field, show_idx);
+    }
+
+    function radio_check(name_field, index) {
+        // Change radio checked + show/hide
+        for (i = 0; i < 4; i++) {
+            var rad_id = "rad_" + name_field + "_" + i;
+
+            if (document.getElementById(rad_id) != null) {
+                rad_id = "#" + rad_id;
+                if (index == i) {
+                    $(rad_id).prop("checked", true);
+                }else {
+                    $(rad_id).prop("checked", false);
+                }
+            }
+        }
+    }
+
+@* ======================================================= ADD MANIPULATION =========================================================*@
+    // Fixed-value combo: Functions supports fixed-value combobox value changing
+    function getProvinceDefault(ft) {
+        // This function is used to get all province + set the default option == value in DB (PostalProvinceCode)
+        $('#drop_city_0').empty();
+        $('#drop_city_0').formSelect();
+        $('#drop_district_0').empty();
+        $('#drop_district_0').formSelect();
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+
+        var fixed_value = ft.PostalProvinceCode; 
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            cache: false,
+            dataType: 'json',
+            success: function (response) {
+                // re-new the list of districts
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].PostalProvinceCode == fixed_value) {
+                        option += "<option value='" + response[i].PostalProvinceCode + "' selected='selected'>" + response[i].PostalProvinceName + "</option>";
+                    } else {
+                        option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
+                    }
+                }
+                $('#drop_city_0').append(option);
+                $('#drop_city_0').formSelect();
+
+                // re-load list public administration
+                getDistrictDefault(ft);
+            },
+            error: function () {
+                $('#pre-load').hide();
+            }
+        })
+    }
+
+    function getDistrictDefault(ft) {
+        // This function is used to get all district of selected province -> reload the district combobox  + set the default option == value in DB (PostalDistrictCode)
+        $('#drop_district_0').empty();
+        $('#drop_district_0').formSelect();
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        var fixed_value = ft.PostalDistrictCode;
+        console.log("district: " + $('#drop_city_0').val());
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: ft.PostalProvinceCode
+            },
+            success: function (response) {
+                // re-new the list of districts
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].PostalDistrictCode == fixed_value) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "' selected='selected'>" + response[i].PostalDistrictName + "</option>";
+                    } else {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                }
+                $('#drop_district_0').append(option);
+                $('#drop_district_0').formSelect();
+
+                // re-load list public administration
+                getPubAdminsDefault(ft);
+            },
+            error: function () {
+                $('#pre-load').hide();
+            }
+        })
+    }
+
+    function getPubAdminsDefault(ft) {
+        // get the list of public adminitration  + set the default option == value in DB (PublicAdministrationLocationID)
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        var fixed_value =  ft.PublicAdministrationLocationID;
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: ft.PostalDistrictCode
+            },
+            success: function (response) {
+                // re-new dropdown public administation
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].PublicAdministrationLocationID == fixed_value) {
+                        option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "' selected='selected'>"
+                            + response[i].PublicAdministrationName + "</option>";
+                    } else {
+                        option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                    }
+                }
+                $('#drop_admin_office_0').append(option);
+                $('#drop_admin_office_0').formSelect();
+
+                // re-load profile combobox
+                getProfilesDefault(ft);
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getProfilesDefault(ft) {
+        // get the list of public adminitration  + set the default option == value in DB (ProfileID)
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+
+        var fixed_value = ft.ProfileID;
+
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: ft.PublicAdministrationLocationID
+            },
+            success: function (response) {
+                // re-new dropdown profile
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].ProfileID == fixed_value) {
+                        option += "<option value='" + response[i].ProfileID + "' selected='selected'>" + response[i].ProfileName + "</option>";
+                    } else {
+                        option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                    }
+                }
+                $('#drop_profile_0').append(option);
+                $('#drop_profile_0').formSelect();
+
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    // BELOW FUNCTIONS ARE USED TO UPDATE PROVINCE, DISTRICT, PUBLIC ADMINISTRATION, PROFILE (AFTER INITIAL LOAD)
+    // Fixed-value combo: Functions supports fixed-value combobox value changing
+    function getProvince() {
+        // This function is used to get all province
+        $('#pre-load').show()
+        $('#drop_city_0').empty();
+        $('#drop_city_0').formSelect();
+        $('#drop_district_0').empty();
+        $('#drop_district_0').formSelect();
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            cache: false,
+            dataType: 'json',
+            success: function (response) {
+                // re-new the list of districts
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    option += "<option value='" + response[i].PostalProvinceCode + "'>" + response[i].PostalProvinceName + "</option>";
+                }
+                $('#drop_city_0').append(option);
+                $('#drop_city_0').formSelect();
+
+                // re-load list public administration
+                getDistrict();
+            },
+            error: function () {
+                $('#pre-load').hide();
+            }
+        })
+    }
+
+    function getDistrict() {
+        // This function is used to get all district of selected province -> reload the district combobox
+        $('#pre-load').show();
+        $('#drop_district_0').empty();
+        $('#drop_district_0').formSelect();
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#drop_city_0').val()
+            },
+            success: function (response) {
+                // re-new the list of districts
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                }
+                $('#drop_district_0').append(option);
+                $('#drop_district_0').formSelect();
+
+                // re-load list public administration
+                getPubAdmins();
+            },
+            error: function () {
+                $('#pre-load').hide();
+            }
+        })
+    }
+
+    function getPubAdmins() {
+        $('#pre-load').show()
+        $('#drop_admin_office_0').empty();
+        $('#drop_admin_office_0').formSelect();
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#drop_district_0').val()
+            },
+            success: function (response) {
+                // re-new dropdown public administation
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    option += "<option data-address='" + response[i].Address + "' value='" + response[i].PublicAdministrationLocationID + "'>" + response[i].PublicAdministrationName + "</option>";
+                }
+                $('#drop_admin_office_0').append(option);
+                $('#drop_admin_office_0').formSelect();
+                // re-load profile combobox
+                getProfiles();
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+    function getProfiles() {
+        $('#pre-load').show()
+        $('#drop_profile_0').empty();
+        $('#drop_profile_0').formSelect();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            cache: false,
+            dataType: 'json',
+            data: {
+                code: $('#drop_admin_office_0').val()
+            },
+            success: function (response) {
+                // re-new dropdown profile
+                var option = "";
+                for (var i = 0; i < response.length; i++) {
+                    option += "<option value='" + response[i].ProfileID + "'>" + response[i].ProfileName + "</option>";
+                }
+                $('#drop_profile_0').append(option);
+                $('#drop_profile_0').formSelect();
+                $('#pre-load').hide()
+
+            },
+            error: function () {
+                $('#pre-load').hide()
+            }
+        })
+    }
+
+     //Set action when user change fixed-value combobox
+    $(document).ready(function () {
+        if (initial_load_done == true) {
+            $('#drop_city_0').change(function () {
+                getDistrict();
+            })
+
+            $('#drop_district_0').change(function () {
+                getPubAdmins();
+            })
+
+            $('#drop_admin_office_0').change(function () {
+                getProfiles();
+            })
+        }
+    })
+
+
+    // Regex input: Functions highlight regex
+    function highlight(event) {
+        // find by regex
+        var input_id = "#" + event.target.id;
+        var user_regex = $(input_id).val();
+        if (user_regex !== null && user_regex !== '') {
+            var input_regex = new RegExp(user_regex, 'gmi');
+            var raw_text = myFormData.get("letter_formated_content");
+
+            // find all index of occurences in the raw_text
+            var start_end_idx = [];
+            while (match = input_regex.exec(raw_text)) {
+                //console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                start_end_idx.push([match.index, input_regex.lastIndex]);
+            }
+
+            // start replacing by highlighted words
+            var prev_length = 0;
+            var new_text = raw_text;
+            start_end_idx.forEach(function (pair) {
+                var matched_str = raw_text.substring(pair[0], pair[1]);
+                var alter_str = '<span style="background-color:yellow">' + matched_str + '</span>';
+                new_text = new_text.substring(0, pair[0] + prev_length) +
+                    alter_str + new_text.substring(pair[1] + prev_length, new_text.length);
+
+                prev_length = prev_length + alter_str.length - matched_str.length;
+            });
+
+            new_text = new_text.replace(/^\s*[\r\n]/gm, '<br/>');
+            $('#api_output').html(new_text);
+        }
+        else {
+            // show the original text
+            var raw_text = myFormData.get("letter_formated_content");
+            text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
+            $("#api_output").html(text);
+        }
+    }
+
+    // ======================================================================================================================================================
+    // NER combo: Functions Add options to NER
+    function addNerToComboBox(json_data) {
+        var mapped_categories = ["city", "district", "admin_office", "profile", "letter_code",
+            "p_name", "p_phone", "p_city", "p_district", "p_address", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
+            "s_name", "s_phone", "s_city", "s_district", "s_address",
+            "r_name", "r_phone", "r_city", "r_district", "r_address"];
+        var json_key = ["province", "district", "public_administration", "profile", "appointment_letter_code",
+            "name", "phone_number", "province", "district", "street", "personal_paper_type", "personal_paper_number", "issued_date", "issued_place",
+            "name", "phone_number", "province", "district", "street",
+            "name", "phone_number", "province", "district", "street"];
+
+        for (i = 0; i < json_key.length; i++) {
+            var drop_id = "drop_" + mapped_categories[i] + "_1";
+            var elementExists = document.getElementById(drop_id);
+            if (elementExists != null) {
+                // clear the current options
+                drop_id = "#" + drop_id;
+                $(drop_id).empty();
+                $(drop_id).formSelect();
+
+                // re-new the list of dropdown
+                var option = "";
+                var current_val_arr = json_data[json_key[i]];
+                for (j_idx = 0; j_idx < current_val_arr.length; j_idx++) {
+                    val = "";
+                    val = current_val_arr[j_idx];
+                    option += "<option value='" + j_idx + "'>" + j_idx + ": " + val + "</option>";
+                }
+
+                $(drop_id).append(option);
+                $(drop_id).formSelect();
+            }
+        }
+    }
+
+    // ======================================================================================================================================================
+
+    // Supported functions for Dropzone buttons
+    function addJsonToFrame(json_data) {
+        var raw_text = json_data.raw_text;
+        if (raw_text == null || raw_text == '') {
+            // user click btn to parse but OCR result is empty
+            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu');
+            return false;
+
+        } else {
+            // show hidden elements
+            $("#json_section").attr("hidden", false);
+            $("#profile_section").attr("hidden", false);
+            $("#requester_section").attr("hidden", false);
+            $("#sender_section").attr("hidden", false);
+            $("#receiver_section").attr("hidden", false);
+
+            // remove empty line from string
+            var text = json_data.raw_text;
+            myFormData.append("letter_formated_content", text)
+
+            // add value to json frame + FormData
+            text = text.replace(/^\s*[\r\n]/gm, '<br/>');
+            $("#api_output").html(text);
+        }
+        return true;
+    }
+
+    function hiddenComponents() {
+        // hidden elements
+        $("#json_section").attr("hidden", true);
+        $("#profile_section").attr("hidden", true);
+        $("#requester_section").attr("hidden", true);
+        $("#sender_section").attr("hidden", true);
+        $("#receiver_section").attr("hidden", true);
+    }
+
+    function clearContent() {
+        // Clear all content
+        var en_profile_field = ["city", "district", "admin_office", "profile", "letter_code"];
+        var en_procedurer_field = ["p_name", "p_phone", "p_city", "p_district", "p_address",
+            "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place"];
+        var en_sender_field = ["s_name", "s_phone", "s_city", "s_district", "s_address"];
+        var en_receiver_field = ["r_name", "r_phone", "r_city", "r_district", "r_address"];
+        var summed_categories = [en_profile_field, en_procedurer_field, en_sender_field, en_receiver_field];
+
+        summed_categories.forEach(function (cate) {
+            cate.forEach(function (field) {
+                // re-set radio-button
+                for (i = 0; i < 4; i++) {
+                    var rad = "rad_" + field + "_" + i;
+                    var elementExists = document.getElementById(rad);
+                    if (elementExists != null) {
+                        // uncheck other option, only keep Regex
+                        rad = 'input#' + rad;
+                        if (i != 1) {
+                            $(rad).prop('checked', false);
+                        } else {
+                            $(rad).prop('checked', true);
+                        }
+                    }
+                }
+                // re-set combobox
+                for (i = 0; i < 2; i++) {
+                    var drop = "drop_" + field + "_" + i;
+                    var elementExists = document.getElementById(drop);
+                    if (elementExists != null) {
+                        // uncheck other option, only keep Regex
+                        drop = '#' + drop;
+                        $(drop).empty();
+                        $(drop).formSelect();
+                    }
+                }
+                // clear content in the input regex
+                var input_name = "input_" + field;
+                var elementExists = document.getElementById(input_name);
+                if (elementExists != null) {
+                    input_name = "#" + input_name;
+                    $(input_name).val("");
+                }
+            })
+        });
+
+        // Clear json
+        $("#api_output").empty();
+        myFormData.delete("letter_formated_content");
+        myFormData.delete("api_output");
+        myFormData.delete("api_output_txt");
+        console.log(myFormData.get("letter_formated_content"));
+        console.log(myFormData.get("api_output"));
+    }
+
+    // ======================================================================================================================================================
+
+    // Supported function for validation
+    function raise_error(error_msg) {
+        $('#pre-load').hide();
+        errorAlert('Lỗi', error_msg);
+    }
+
+    function has_duplicates(array) {
+        var n_size = (new Set(array)).size;
+        var o_size = array.length;
+        return n_size !== o_size;
+    }
+
+    function validate_form_name() {
+        // check form-name
+        var form_name = $("#form_name").val();
+        if (form_name == null || form_name == '') {
+            raise_error('Vui lòng nhập Tên biểu mẫu');
+            return false;
+        }
+        $('#pre-load').hide();
+        return true;
+    }
+    function validate_img() {
+        // check image
+        var img = myFormData.get("img");
+        var cache_img = $("#cache_img").attr('src');
+        if (cache_img == null && (img == null)) {
+            raise_error('Vui lòng chọn Ảnh biểu mẫu');
+            return false;
+        }
+        $('#pre-load').hide();
+        return true;
+    }
+    function validate_json() {
+        // check json
+        var json_data = myFormData.get("api_output").raw_text;
+        if (json_data === null || json_data == '') {
+            raise_error('Rất tiếc ảnh này của bạn không thể nhận dạng, vui lòng chọn ảnh khác');
+            return false;
+        }
+        $('#pre-load').hide();
+        return true;
+    }
+
+    function validate_reg_option() {
+        // check recognition options
+        var vn_field = ["Tỉnh/Thành phố", "Quận/Huyện", "Tên CQHC", "Tên thủ tục", "Mã giấy hẹn",
+            "Họ và tên NLTT", "Số điện thoại NLTT", "Tỉnh/Thành phố NLTT", "Quận/Huyện NLTT", "Địa chỉ NLTT", "EmptyField", "Loại GTTT", "Số GTTT", "Ngày cấp", "Nơi cấp",
+            "Họ và tên người gửi", "Số điện thoại người gửi", "Tỉnh/Thành phố người gửi", "Quận/Huyện người gửi", "Địa chỉ người gửi",
+            "Họ và tên người nhận", "Số điện thoại người nhận", "Tỉnh/Thành phố người nhận", "Quận/Huyện người nhận", "Địa chỉ người nhận"
+        ];
+        var en_field = ["city", "district", "admin_office", "profile", "letter_code",
+            "p_name", "p_phone", "p_city", "p_district", "p_address", "p_EmptyField", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
+            "s_name", "s_phone", "s_city", "s_district", "s_address",
+            "r_name", "r_phone", "r_city", "r_district", "r_address"
+        ];
+        // 1. Not allow: Chosen radio without Combobox/Input value
+        for (i = 0; i < en_field.length; i++) {
+            var field = en_field[i];
+            // get the selected radio-button
+            for (j = 0; j < 4; j++) {
+                var rad = "rad_" + field + "_" + j;
+                if (document.getElementById(rad) != null) {
+                    rad = 'input#' + rad;
+                    if ($(rad).is(':checked')) {
+                        // get the selected combobox value of seleted radion button
+                        if (j == 0 || j == 1) {
+                            var drop = "drop_" + field + "_" + j;
+                            if (document.getElementById(drop) != null) {
+                                drop = '#' + drop;
+                                var selected_option = $(drop).children("option:selected").val();
+                                // verify selected option
+                                if (selected_option == null || selected_option == "") {
+                                    var error_msg = 'Bạn cần nhập giá trị cho phương thức tương ứng ở ' + vn_field[i];
+                                    raise_error(error_msg);
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (j == 2) {
+                            var input_field = "input_" + field;
+                            if (document.getElementById(input_field) != null) {
+                                input_field = "#" + input_field;
+                                var input_val = $(input_field).val();
+                                // verify selected option
+                                if (input_val == null || input_val == "") {
+                                    var error_msg = 'Bạn cần nhập giá trị cho phương thức tương ứng ở ' + vn_field[i];
+                                    raise_error(error_msg);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // 2. Not allow: 2 fields use the same NER
+        var groups_name = ["Họ và tên", "Số điện thoại", "Tỉnh/Thành phó", "Quận/Huyện", "Địa chỉ"];
+        var groups = [["p_name", "s_name", "r_name"],
+        ["p_phone", "s_phone", "r_phone"],
+        ["city", "p_city", "s_city", "r_city"],
+        ["district", "p_district", "s_district", "r_district"],
+        ["p_address", "s_address", "r_address"]];
+
+        for (i = 0; i < groups.length; i++) {
+            var gr = groups[i];
+            var ner_vals = [];
+            for (gr_idx = 0; gr_idx < gr.length; gr_idx++) {
+                // get rad
+                var rad = "rad_" + gr[gr_idx] + "_1";
+
+                if (document.getElementById(rad) != null) {
+                    rad = 'input#' + rad;
+                    if ($(rad).is(':checked')) {
+
+                        // get the selected combobox value of seleted radion button
+                        var drop = "drop_" + gr[gr_idx] + "_1";
+
+                        if (document.getElementById(drop) != null) {
+                            drop = '#' + drop;
+                            var selected_option = $(drop).children("option:selected").val();
+                            // verify selected option
+                            if (selected_option != null) {
+                                ner_vals.push(selected_option);
+                            }
+                        }
+                    }
+                }
+            }
+            if (has_duplicates(ner_vals)) {
+                var error_msg = 'Giá trị NER không được trùng ở các trường ' + groups_name[i];
+                raise_error(error_msg);
+                return false;
+            }
+        }
+        $('#pre-load').hide();
+
+        return true;
+    }
+
+    // ======================================================================================================================================================
+    
+    // Supported functions for Dropzone
+    function rotateRight() {
+        if (myFormData.get("img") == null) return;
+        $('#pre-load').show();
+        myFormData.delete("img")
+        var image = new Image();
+        image.src = $('#cache_img').attr("src");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.translate(0, -canvas.width);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+            $('img[data-dz-thumbnail]').attr("src", URL);
+            $('#cache_img').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
+
+    function rotateLeft() {
+        if (myFormData.get("img") == null) return;
+        $('#pre-load').show();
+        myFormData.delete("img")
+        var image = new Image();
+        image.src = $('#cache_img').attr("src");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(270 * Math.PI / 180);
+            ctx.translate(-canvas.height, 0);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            $('#cache_img').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
+
+    function dataURItoBlob(dataURI) {
+        var blobBin = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var file = new Blob([new Uint8Array(array)], { type: mimeString });
+        myFormData.set("img", file);
+
+        return file;
+        $('#pre-load').hide();
+    }
+
+    function parseToString() {
+        $('#pre-load').show();
+
+        // check input fields
+        if (validate_form_name() == false) {
+            return false;
+        } else if (validate_img() == false) {
+            return false;
+        } else {
+            // user click btn to parse afer uploading image
+            var data = new FormData();
+            data.append('image', myFormData.get('img'));
+            if (!sentAPI) {
+                $('#pre-load').show();
+                $.ajax({
+                    type: "POST",
+                    url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        sentAPI = true;
+
+                        // add result to form data
+                        myFormData.set("form_name", form_name);
+                        myFormData.set("api_output", response);
+                        myFormData.set("api_output_txt", JSON.stringify(response));
+
+                        // add to json frame
+                        var bAddJson = addJsonToFrame(response);
+
+                        if (bAddJson == true) {
+                            // load data to fixed-value combobox
+                            getProvince();
+
+                            // load data to NER combobox
+                            addNerToComboBox(response);
+                            sentAPI = true; // This stops re-send successfull image
+                        } else {
+                            sentAPI = false;
+                        }
+
+                        $('#pre-load').hide();
+
+                    },
+                    error: function (error) {
+                        console.log("Error: ", error);
+                        sentAPI = false;
+                        $('#pre-load').hide();
+                        $('a[role="menuitem"]').eq(1).click();
+                        return true;
+                    }
+                });
+                console.log("Here4");
+            }
+            else {
+                $('#pre-load').hide();
+                return true;
+            }
+        }
+    }
+
+    // ======================================================================================================================================================
+
+    function get_scope_level(profile_opts) {
+        var scope_level = 4;
+        var count = -1;
+        for (i = 0; i < profile_opts.length; i++) {
+            var opts = profile_opts[i];
+            var parse_type = opts[3];
+            if (parse_type == null || parse_type == "") {
+                count++;
+            }
+        }
+        if (count !== -1) {
+            scope_level == count;
+        }
+        return scope_level;
+    }
+
+    function edit() {
+        // TODO: get data and send to Server
+        $('#pre-load').show();
+        console.log("save here");
+        if (validate_form_name() == false) {
+            $('#pre-load').hide();
+            return false;
+        } else if (validate_img() == false) {
+            $('#pre-load').hide();
+            return false;
+        } else if (validate_json() == false) {
+            $('#pre-load').hide();
+            return false;
+        } else if (validate_reg_option() == false) {
+            $('#pre-load').hide();
+            return false;
+        }
+
+        //  ---------------------------------------------- get value of selected options ----------------------------------------------
+        // check recognition options on each section
+        // 1. Profile
+        var vn_field = ["Tỉnh/Thành phố", "Quận/Huyện", "Tên CQHC", "Tên thủ tục", "Mã giấy hẹn"];
+        var en_field = ["city", "district", "admin_office", "profile", "letter_code"];
+        var profile_opts = [];
+
+        for (i = 0; i < en_field.length; i++) {
+            // get in each field
+            var field = en_field[i];
+            var temp_arr = ["", "", "", ""];
+
+            for (j = 0; j < 3; j++) {
+                var current_val = null;
+
+                var drop = "drop_" + field + "_" + j;
+                var input_field = "input_" + field;
+
+                if (document.getElementById(drop) != null) {
+                    // combobox in row -> get combox box val
+                    drop = '#' + drop;
+                    var selected_option = $(drop).children("option:selected").val();
+                    // selected option empty -> null
+                    current_val = selected_option == null ? null : selected_option;
+                } else {
+                    // input in row -> get input val
+                    if (document.getElementById(input_field) != null) {
+                        input_field = '#' + input_field;
+                        var in_regex = $(input_field).val();
+                        // verify input regex
+                        current_val = in_regex == "" ? null : in_regex;
+                    }
+                }
+
+                // check rad-button
+                var rad = "rad_" + field + "_" + j;
+                if (document.getElementById(rad) != null) {
+                    rad = 'input#' + rad;
+                    if ($(rad).is(':checked')) {
+                        // if radio is checked -> Parse type = radio (null: FV, 0: Ner, 1: Regex)
+                        temp_arr[3] = j == 0 ? null : (j - 1);
+                    }
+                    temp_arr[j] = current_val;
+
+                }
+            }
+            profile_opts.push(temp_arr);
+        }
+
+        // 2. Procedurer + Sender + Receiver section
+        var vn_field = ["Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ", "Loại GTTT", "Số GTTT", "Ngày cấp", "Nơi cấp",
+            "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ",
+            "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ"
+        ];
+        var en_field = ["p_name", "p_phone", "p_city", "p_district", "p_address", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
+            "s_name", "s_phone", "s_city", "s_district", "s_address",
+            "r_name", "r_phone", "r_city", "r_district", "r_address"
+        ];
+        var remaining_opts = [];
+
+        for (i = 0; i < en_field.length; i++) {
+            // get in each field
+            var field = en_field[i];
+            var temp_arr = ["", "", "", ""];
+
+            for (j = 0; j < 3; j++) {
+                var current_val = null;
+                var drop = "drop_" + field + "_" + j;
+                var input_field = "input_" + field;
+
+                if (document.getElementById(drop) != null) {
+                    // combobox in row -> get combox box val
+                    drop = '#' + drop;
+                    var selected_option = $(drop).children("option:selected").val();
+                    // selected option empty -> null
+                    current_val = selected_option == null ? null : selected_option;
+                } else {
+                    // input in row -> get input val
+                    if (document.getElementById(input_field) != null) {
+                        input_field = '#' + input_field;
+                        var in_regex = $(input_field).val();
+                        // verify input regex
+                        current_val = in_regex == "" ? null : in_regex;
+                    }
+                }
+
+                // check rad-button
+                var rad = "rad_" + field + "_" + j;
+                if (document.getElementById(rad) != null) {
+                    rad = 'input#' + rad;
+                    if ($(rad).is(':checked')) {
+                        // if radio is checked -> Parse type = radio (null: FV, 0: Ner, 1: Regex)
+                        temp_arr[3] = j == 0 ? null : (j - 1);
+                    }
+                    temp_arr[j] = current_val;
+
+                }
+            }
+            remaining_opts.push(temp_arr);
+        }
+
+        // ---------------------------------------------- send chosen data -> controller ----------------------------------------------
+        var api_output_txt = (myFormData.get("api_output_txt"));
+        console.log("api_output: ", api_output_txt);
+        console.log("added imge: ", myFormData.get("img_name"));
+        var data_form = new FormData();
+
+        // 0. Form info
+        data_form.set("form_name", $("#form_name").val());
+        data_form.set("form_img", $('#cache_img').attr("src"));
+        data_form.set("form_img_link", myFormData.get("img_name"));
+        data_form.set("api_output", api_output_txt);
+
+        // 1. Profile
+        data_form.set("form_scope_level", get_scope_level(profile_opts).toString());
+
+        data_form.set("postal_province_code", profile_opts[0][0]);
+        data_form.set("province_parse_type", profile_opts[0][3] == null ? null : profile_opts[0][3].toString());
+        data_form.set("province_ner_index", profile_opts[0][1]);
+        data_form.set("province_regex", profile_opts[0][2]);
+
+        data_form.set("postal_district_code", profile_opts[1][0]);
+        data_form.set("district_parse_type", profile_opts[1][3] == null ? null : profile_opts[1][0].toString());
+        data_form.set("district_ner_index", profile_opts[1][1]);
+        data_form.set("district_regex", profile_opts[1][2]);
+
+        data_form.set("public_administration_parse_type", profile_opts[2][3] == null ? null : profile_opts[2][3].toString());
+        data_form.set("public_administration_location_id", profile_opts[2][0]);
+        data_form.set("public_administration_ner_index", profile_opts[2][1]);
+        data_form.set("public_administration_regex", profile_opts[2][2]);
+
+        data_form.set("profile_parse_type", profile_opts[3][3] == null ? null : profile_opts[3][3].toString());
+        data_form.set("profile_id", profile_opts[3][0]);
+        data_form.set("profile_ner_index", profile_opts[3][1]);
+        data_form.set("profile_regex", profile_opts[3][2]);
+
+        data_form.set("appointment_letter_code_parse_type", profile_opts[4][3] == null ? null : profile_opts[4][3].toString());
+        data_form.set("appointment_letter_code_ner_index", profile_opts[4][1]);
+        data_form.set("appointment_letter_code_regex", profile_opts[4][2]);
+
+        // 2. Procedurer
+        data_form.set("procedurer_full_name_parse_type", remaining_opts[0][3] == null ? null : remaining_opts[0][3].toString());
+        data_form.set("procedurer_full_name_ner_index", remaining_opts[0][1]);
+        data_form.set("procedurer_full_name_regex", remaining_opts[0][2]);
+
+        data_form.set("procedurer_phone_parse_type", remaining_opts[1][3] == null ? null : remaining_opts[1][3].toString());
+        data_form.set("procedurer_phone_ner_index", remaining_opts[1][1]);
+        data_form.set("procedurer_phone_regex", remaining_opts[1][2]);
+
+        data_form.set("procedurer_province_parse_type", remaining_opts[2][3] == null ? null : remaining_opts[2][3].toString());
+        data_form.set("procedurer_province_ner_index", remaining_opts[2][1]);
+        data_form.set("procedurer_province_regex", remaining_opts[2][2]);
+
+        data_form.set("procedurer_district_parse_type", remaining_opts[3][3] == null ? null : remaining_opts[3][3].toString());
+        data_form.set("procedurer_district_ner_index", remaining_opts[3][1]);
+        data_form.set("procedurer_district_regex", remaining_opts[3][2]);
+
+        data_form.set("procedurer_street_parse_type", remaining_opts[4][3] == null ? null : remaining_opts[4][3].toString());
+        data_form.set("procedurer_street_ner_index", remaining_opts[4][1]);
+        data_form.set("procedurer_street_regex", remaining_opts[4][2]);
+
+        data_form.set("procedurer_personal_paper_type_parse_type", remaining_opts[5][3] == null ? null : remaining_opts[5][3].toString());
+        data_form.set("procedurer_personal_paper_type_ner_index", remaining_opts[5][1]);
+        data_form.set("procedurer_personal_paper_type_regex", remaining_opts[5][2]);
+
+        data_form.set("procedurer_personal_paper_number_parse_type", remaining_opts[6][3] == null ? null : remaining_opts[6][3].toString());
+        data_form.set("procedurer_personal_paper_number_ner_index", remaining_opts[6][1]);
+        data_form.set("procedurer_personal_paper_number_regex", remaining_opts[6][2]);
+
+        data_form.set("procedurer_personal_paper_issued_date_parse_type", remaining_opts[7][3] == null ? null : remaining_opts[7][3].toString());
+        data_form.set("procedurer_personal_paper_issued_date_ner_index", remaining_opts[7][1]);
+        data_form.set("procedurer_personal_paper_issued_date_regex", remaining_opts[7][2]);
+
+        data_form.set("procedurer_personal_paper_issued_place_parse_type", remaining_opts[8][3] == null ? null : remaining_opts[8][3].toString());
+        data_form.set("procedurer_personal_paper_issued_place_ner_index", remaining_opts[8][1]);
+        data_form.set("procedurer_personal_paper_issued_place_regex", remaining_opts[8][2]);
+
+        // 3. Sender
+        data_form.set("sender_full_name_parse_type", remaining_opts[9][3] == null ? null : remaining_opts[9][3].toString());
+        data_form.set("sender_full_name_ner_index", remaining_opts[9][1]);
+        data_form.set("sender_full_name_regex", remaining_opts[9][2]);
+
+        data_form.set("sender_phone_parse_type", remaining_opts[10][3] == null ? null : remaining_opts[10][3].toString());
+        data_form.set("sender_phone_ner_index", remaining_opts[10][1]);
+        data_form.set("sender_phone_regex", remaining_opts[10][2]);
+
+        data_form.set("sender_province_parse_type", remaining_opts[11][3] == null ? null : remaining_opts[11][3].toString());
+        data_form.set("sender_province_ner_index", remaining_opts[11][1]);
+        data_form.set("sender_province_regex", remaining_opts[11][2]);
+
+        data_form.set("sender_district_parse_type", remaining_opts[12][3] == null ? null : remaining_opts[12][3].toString());
+        data_form.set("sender_district_ner_index", remaining_opts[12][1]);
+        data_form.set("sender_district_regex", remaining_opts[12][2]);
+
+        data_form.set("sender_street_parse_type", remaining_opts[13][3] == null ? null : remaining_opts[13][3].toString());
+        data_form.set("sender_street_ner_index", remaining_opts[13][1]);
+        data_form.set("sender_street_regex", remaining_opts[13][2]);
+
+        // 4. Receiver
+        data_form.set("receiver_full_name_parse_type", remaining_opts[14][3] == null ? null : remaining_opts[14][3].toString());
+        data_form.set("receiver_full_name_ner_index", remaining_opts[14][1]);
+        data_form.set("receiver_full_name_regex", remaining_opts[14][2]);
+
+        data_form.set("receiver_phone_parse_type", remaining_opts[15][3] == null ? null : remaining_opts[15][3].toString());
+        data_form.set("receiver_phone_ner_index", remaining_opts[15][1]);
+        data_form.set("receiver_phone_regex", remaining_opts[15][2]);
+
+        data_form.set("receiver_province_parse_type", remaining_opts[16][3] == null ? null : remaining_opts[16][3].toString());
+        data_form.set("receiver_province_ner_index", remaining_opts[16][1]);
+        data_form.set("receiver_province_regex", remaining_opts[16][2]);
+
+        data_form.set("receiver_district_parse_type", remaining_opts[17][3] == null ? null : remaining_opts[17][3].toString());
+        data_form.set("receiver_district_ner_index", remaining_opts[17][1]);
+        data_form.set("receiver_district_regex", remaining_opts[17][2]);
+
+        data_form.set("receiver_street_parse_type", remaining_opts[18][3] == null ? null : remaining_opts[18][3].toString());
+        data_form.set("receiver_street_ner_index", remaining_opts[18][1]);
+        data_form.set("receiver_street_regex", remaining_opts[18][2]);
+
+        if (true) {
+            $('#pre-load').show();
+            $.ajax({
+                type: "POST",
+                url: "/bieu-mau/chinh-sua-bieu-mau/Edit",
+                contentType: false,
+                processData: false,
+                cache: false,
+                data: data_form,
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    $('#pre-load').hide();
+                    if (response.status_code == "200" || response.status == "Success") {
+                        // redirect to the form detail page
+                        if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                            var form_id = response.form_id;
+                            window.location.href = "/bieu-mau/chi-tiet-bieu-mau?form_id=" + form_id;
+                        }
+                    } else if (response.status == "Fail") {
+                        raise_error(response.message);
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#pre-load').hide();
+                    return true;
+                }
+            });
+        }
+        else {
+            $('#pre-load').hide();
+            return true;
+        }
+
+        return true;
+    }
+
+    function cancel() {
+        location.reload();
+    }
+</script>
