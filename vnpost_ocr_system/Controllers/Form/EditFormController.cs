@@ -104,10 +104,6 @@ namespace vnpost_ocr_system.Controllers.Form
             try
             {
                 // initialize data
-                ViewBag.status = "200";
-                ViewBag.status_code = "Success";
-                ViewBag.msg = "Load chi tiết biểu mẫu thành công"; 
-                
                 if (Request["form_id"] == null || Request["form_id"] == "")
                 {
                     throw new Exception();
@@ -120,7 +116,7 @@ namespace vnpost_ocr_system.Controllers.Form
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Không có form_id" }, JsonRequestBehavior.AllowGet);
+                return Json(new { status_code = "400", status = "Fail", message = "Không có form id" }, JsonRequestBehavior.AllowGet);
             }
 
             return View("/Views/Form/EditFormView.cshtml");
@@ -158,18 +154,17 @@ namespace vnpost_ocr_system.Controllers.Form
                     full_form.image = base64_img;
                 }
             }
-            catch (ImageNotFoundException e)
-            {
-                return Json(new { status_code = "400", status = "Fail", message = "Ảnh không load được" }, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (DbEntityValidationException e)
-            {
-                LogEFException(e);
-                throw;
-            }
             catch (Exception e)
             {
+                if (e is ImageNotFoundException)
+                {
+                    return Json(new { status_code = "400", status = "Fail", message = "Ảnh không load được" }, JsonRequestBehavior.AllowGet);
+                }
+                else if (e is DbEntityValidationException)
+                {
+                    LogEFException((DbEntityValidationException) e);
+                }
+
                 Debug.WriteLine(e);
                 return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau"}, JsonRequestBehavior.AllowGet);
             }
@@ -327,38 +322,31 @@ namespace vnpost_ocr_system.Controllers.Form
 
 
         [Auther(Roles = "1")]
-        [Route("bieu-mau/chinh-sua-bieu-mau/Delete")]
+        [Route("bieu-mau/chinh-sua-bieu-mau/Edit")]
         [HttpPost]
-        public ActionResult DeleteForm(string code)
+        public ActionResult EditForm()
         {
             string form_id = Request["form_id"];
             if (form_id.Trim() == "")
                 return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
-            try
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            using (DbContextTransaction transaction = db.Database.BeginTransaction())
             {
-                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        string query = "delete from FormTemplate where FormID = @form_id";
-                        db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", form_id));
-                        transaction.Commit();
-                        db.SaveChanges();
-                        return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
-
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        return new HttpStatusCodeResult(400);
-                    }
+                    string query = "delete from FormTemplate where FormID = @form_id";
+                    db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", form_id));
+                    db.SaveChanges();
                 }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                }
+                transaction.Commit();
+                return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
-            {
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
-            }
+
         }
     }
 }

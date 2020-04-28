@@ -164,20 +164,24 @@ namespace vnpost_ocr_system.Controllers.Form
                 }
                 return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
             }
-            catch (ImageNotFoundException e)
-            {
-                return Json(new { status_code = "400", status = "Fail", message = "Ảnh không load được" }, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (DbEntityValidationException e)
-            {
-                LogEFException(e);
-                throw;
-            }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi. Không lấy được thông tin về biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                string message = "";
+                if (e is ImageNotFoundException )
+                {
+                    Debug.WriteLine("Image not found while loading !!!");
+                    message = "Ảnh không load được";
+                }
+                else if ( e is DbEntityValidationException)
+                {
+                    LogEFException((DbEntityValidationException)e);
+                }
+                else
+                {
+                    Debug.WriteLine(e);
+                    message = "Có lỗi. Không lấy được thông tin về biểu mẫu";
+                }
+                return Json(new { status_code = "400", status = "Fail", message = message }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -193,7 +197,7 @@ namespace vnpost_ocr_system.Controllers.Form
             }
             catch (Exception ex)
             {
-                throw ex;
+                Debug.WriteLine(ex);
             }
             return json_text;
         }
@@ -208,58 +212,50 @@ namespace vnpost_ocr_system.Controllers.Form
 
             if (form_id.Trim() == "")
                 return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
-            try
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            using (DbContextTransaction transaction = db.Database.BeginTransaction())
             {
-                VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                try
                 {
-                    try
+                    // Get information of the deleted form
+                    FormTemplate ft;
+                    ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
+                        new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
+
+                    Debug.WriteLine(ft.FormName);
+
+                    // Load image
+                    string base64_img = "";
+                    if (ft != null)
                     {
-                        // Get information of the deleted form
-                        FormTemplate ft; 
-                        ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
-                            new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
-
-                        Debug.WriteLine(ft.FormName);
-
-                        // Load image
-                        string base64_img = "";
-                        if (ft != null)
-                        {
-                            base64_img = LoadImgToB64(ft.FormImageLink);
-                        }
-
-                        // Load Full Form
-                        FullForm full_form = new FullForm();
-                        full_form.ft = ft;
-                        full_form.image = base64_img;
-                        full_form.action = "delete";
-
-                        // Send train request to AI Server
-                        Postman pm = new Postman();
-                        string url = "http://localhost:3978";
-                        string json_text = ConvertEntJson(full_form);
-                        pm.SendRequest(url, json_text);
-
-                        // Delete from database 
-                        string query = "delete from FormTemplate where FormID = @form_id";
-                        db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
-                        transaction.Commit();
-                        db.SaveChanges();
-
-
-                        return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
+                        base64_img = LoadImgToB64(ft.FormImageLink);
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
-                    }
+
+                    // Load Full Form
+                    FullForm full_form = new FullForm();
+                    full_form.ft = ft;
+                    full_form.image = base64_img;
+                    full_form.action = "delete";
+
+                    // Send train request to AI Server
+                    Postman pm = new Postman();
+                    string url = "http://localhost:3978";
+                    string json_text = ConvertEntJson(full_form);
+                    pm.SendRequest(url, json_text);
+
+                    // Delete from database 
+                    string query = "delete from FormTemplate where FormID = @form_id";
+                    db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
+                    db.SaveChanges();
+
                 }
-            }
-            catch (Exception e)
-            {
-                return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                }
+                transaction.Commit();
+                return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
             }
         }
 

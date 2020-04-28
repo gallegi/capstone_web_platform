@@ -91,22 +91,22 @@
     }
 </style>
 @*Notification pop-up about error*@
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="saveChangeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Xóa tài khoản</h4>
+                <h4 class="modal-title" id="myModalLabel">Chỉnh sửa biểu mẫu</h4>
             </div>
 
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
+                <p>Bạn có chắc chắn muốn lưu thay đổi này chứ?</p>
 
                 <p class="debug-url"></p>
             </div>
 
             <div class="modal-footer">
-                <a class="btn modal-close red" onclick="DeleteAdmin()">Có</a>
+                <a class="btn modal-close red" onclick="edit()">Có</a>
                 <a class="btn modal-close blue darken-2">Không</a>
             </div>
         </div>
@@ -641,7 +641,7 @@
                 @* --------------------------------------- Button confirm section  -------------------------------------- *@
                 <div id="btn_confirm_section" class="content_section">
                     <div class="input-field right">
-                        <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="save()">Lưu</a>
+                        <a href="#saveChangeModal" class="btn waves-effect waves-light bt-color-common modal-trigger" style="color:aliceblue" >Lưu thay đổi</a>
                         <a class="btn waves-effect waves-light bt-color-cancel" style="color:aliceblue" onclick="cancel()">Hủy</a>
                     </div>
                 </div>

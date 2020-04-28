@@ -134,6 +134,24 @@ namespace vnpost_ocr_system.Controllers.Form
 
             return shortened_img;
         }
+
+        public string FormatImgName(string img_name)
+        {
+            string[] img_extensions = { ".png", ".jpeg", ".jpg", ".bmp", ".gif" };
+            string non_extension_name = img_name;
+            foreach (string ext in img_extensions)
+            {
+                if (!EmptyStr(img_name))
+                {
+                    if (non_extension_name.Contains(ext)) {
+                        int index = img_name.IndexOf(ext);
+                        non_extension_name = (index < 0) ? img_name : img_name.Remove(index, ext.Length);
+                        non_extension_name = string.Concat(non_extension_name, ext);
+                    }
+                }
+            }
+            return non_extension_name;
+        }
         public bool SaveImage(string ImgStr, string ImgName)
         {
             /* This function is used to save image before add new form to DB */
@@ -146,9 +164,11 @@ namespace vnpost_ocr_system.Controllers.Form
                 {
                     System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
                 }
+
+                // Check image name
                 string imageName = ImgName;
 
-                //set the image path
+                // Set the image path
                 string imgPath = Path.Combine(path, imageName);
                 string shortened_img = shortenB64Image(ImgStr);
                 Debug.WriteLine("shortened_img: " + shortened_img);
@@ -163,8 +183,7 @@ namespace vnpost_ocr_system.Controllers.Form
             }
             catch (Exception e)
             {
-                Debug.WriteLine("There is error while saving image");
-                Debug.WriteLine(e);
+                Debug.WriteLine("There is error while saving image" + e);
                 return false;
             }
 
@@ -282,7 +301,7 @@ namespace vnpost_ocr_system.Controllers.Form
             }
             catch (Exception ex)
             {
-                throw ex;
+                Debug.WriteLine("Exception while convert object to Json");
             }
             return json_text;
         }
@@ -291,10 +310,12 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/them-bieu-mau/Add")]
         [HttpPost]
         public ActionResult AddForm()
-        {
+        {   
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             using (DbContextTransaction transaction = db.Database.BeginTransaction())
             {
+                long form_id;
+                string form_img_link = "";
                 try
                 {
                     FormTemplate ft = new FormTemplate();
@@ -309,7 +330,10 @@ namespace vnpost_ocr_system.Controllers.Form
                     else
                     {
                         // Save image
-                        bool is_save_success = SaveImage(Request["form_img"], Request["form_img_link"]);
+                        string time_stamp = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ssfff");
+                        form_img_link = FormatImgName(string.Concat(Request["form_img_link"].Trim(), time_stamp));
+
+                        bool is_save_success = SaveImage(Request["form_img"], form_img_link);
                         if (is_save_success == false)
                         {
                             string msg ="Ảnh biểu mẫu chưa được lưu vào database.\nXin vui lòng thử lại sau ít phút";
@@ -318,7 +342,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         }
                     }
                     ft.FormName = Request["form_name"].Trim();
-                    ft.FormImageLink = Request["form_img_link"].Trim();
+                    ft.FormImageLink = form_img_link;
                     ft.APIOutput = Request["api_output"].Trim();
                     string image = Request["form_img"];
 
@@ -441,8 +465,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     db.FormTemplates.Add(ft);
                     db.SaveChanges();
 
-                    long form_id = ft.FormID;
-                    transaction.Commit();
+                    form_id = ft.FormID;
 
                     // 6. Send train request to AI Server
                     FullForm full_form = new FullForm(ft, image, "add");
@@ -452,27 +475,22 @@ namespace vnpost_ocr_system.Controllers.Form
                     string json_text = ConvertEntJson(full_form);
                     pm.SendRequest(url, json_text);
 
-                    return Json(new { status_code = "200", status = "Success", form_id = form_id}, JsonRequestBehavior.AllowGet);
-                }
-                catch (DbEntityValidationException e)
-                {
-                    LogEFException(e);
-                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
-                            JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e);
-                    try {
-                        transaction.Rollback();
-                    } catch (Exception inner_ex) {
-                        return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
-                            JsonRequestBehavior.AllowGet);
+                    if (e is DbEntityValidationException)
+                    {
+                        LogEFException((DbEntityValidationException) e);
                     }
 
+                    Debug.WriteLine(e);
+                    transaction.Rollback();
                     return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút"}, 
                         JsonRequestBehavior.AllowGet);
                 }
+
+                transaction.Commit();
+                return Json(new { status_code = "200", status = "Success", form_id = form_id }, JsonRequestBehavior.AllowGet);
             }
         }
 
