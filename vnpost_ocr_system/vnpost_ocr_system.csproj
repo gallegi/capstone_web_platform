@@ -176,6 +176,7 @@
     <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
     <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
     <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
+    <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
@@ -186,18 +187,14 @@
     <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
-    <Compile Include="Controllers\InvitationCard\ConfirmInforController.cs" />
     <Compile Include="Controllers\InvitationCard\DisplayStatusController.cs" />
-    <Compile Include="Controllers\InvitationCard\InputInformationController.cs" />
-    <Compile Include="Controllers\InvitationCard\InputReceiverInformationController.cs" />
     <Compile Include="Controllers\InvitationCard\InputInformationScreen21Controller.cs" />
-    <Compile Include="Controllers\InvitationCard\InputInformationScreen22Controller.cs" />
-    <Compile Include="Controllers\InvitationCard\InputSenderInfoController.cs" />
     <Compile Include="Controllers\InvitationCard\SearchStatusController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\LoginCustomerController.cs" />
     <Compile Include="Controllers\Login\ManagementUserController.cs" />
     <Compile Include="Controllers\MobileViewController.cs" />
+    <Compile Include="Controllers\Mobile\MobileAppController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\Services\ServicesController.cs" />
     <Compile Include="Controllers\User\AddressInfoController.cs" />
@@ -232,11 +229,9 @@
     <Compile Include="Models\ContactInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ContactInfoDB.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -265,6 +260,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationMessage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotiMessage.cs" />
+    <Compile Include="Models\OCRParsed.cs" />
+    <Compile Include="Models\OCRRaw.cs" />
+    <Compile Include="Models\ContactInfoDB.cs" />
+    <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\MyOrderDetail.cs" />
     <Compile Include="Models\Non_Recive.cs" />
     <Compile Include="Models\NotificationMessage.cs">
@@ -308,6 +311,18 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PublicAdministration.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_0_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_2_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Query_Scope_3_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResetPasswordToken.cs">
@@ -6326,7 +6341,6 @@
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
-    <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />

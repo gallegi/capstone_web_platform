@@ -8,10 +8,11 @@ using System.Globalization;
 using XCrypt;
 using System.Data.Entity;
 using vnpost_ocr_system.SupportClass;
+using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.User
 {
-    public class AccountInfoController : Controller
+    public class AccountInfoController : BaseUserController
     {
         private VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
         // GET: AccountInfo

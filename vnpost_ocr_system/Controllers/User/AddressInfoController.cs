@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.User
 {
-    public class AddressInfoController : Controller
+    public class AddressInfoController : BaseUserController
     {
         // GET: AddressInfo
         [Auther(Roles = "0")]
