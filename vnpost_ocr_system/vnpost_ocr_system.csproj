@@ -180,8 +180,6 @@
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
-    <Compile Include="Controllers\Document\DocumentProcessedController.cs" />
-    <Compile Include="Controllers\Document\DocumentProcessingController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
@@ -6315,8 +6313,6 @@
     <Content Include="Views\Login\ManagementUser.cshtml" />
     <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Document\DocumentProcessed.cshtml" />
-    <Content Include="Views\Document\DocumentProcessing.cshtml" />
     <Content Include="Views\Document\DocumentRecived.cshtml" />
     <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -6351,7 +6347,6 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Form\DetailFormView.cshtml" />
     <Content Include="Views\Form\AddFormView.cshtml" />
-    <Content Include="Views\Form\TestView.cshtml" />
     <Content Include="Views\Form\EditFormView.cshtml" />
     <Content Include="Views\Form\ListFormView.cshtml" />
   </ItemGroup>
@@ -6390,27 +6385,6 @@
     <Folder Include="CustomJS\Form\DetailForm\" />
     <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\AccountInfo\" />
-    <Folder Include="Views\AddAPI\" />
-    <Folder Include="Views\AddForm\" />
-    <Folder Include="Views\AddressInfo\" />
-    <Folder Include="Views\ConfirmInfor\" />
-    <Folder Include="Views\CreateAddressInfo\" />
-    <Folder Include="Views\DetailForm\" />
-    <Folder Include="Views\DisplayCode\" />
-    <Folder Include="Views\DisplayStatisticChart\" />
-    <Folder Include="Views\DisplayStatus\" />
-    <Folder Include="Views\DocumentNotReceived\" />
-    <Folder Include="Views\DocumentReceivedDetail\" />
-    <Folder Include="Views\EditAPI\" />
-    <Folder Include="Views\GetProvinces\" />
-    <Folder Include="Views\InputInformation\" />
-    <Folder Include="Views\InputReceiverInformation\" />
-    <Folder Include="Views\ListAPI\" />
-    <Folder Include="Views\ListForm\" />
-    <Folder Include="Views\LoginCustomer\" />
-    <Folder Include="Views\OCR\" />
-    <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

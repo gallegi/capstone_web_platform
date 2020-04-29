@@ -1452,7 +1452,7 @@
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "https://vnpost.tunnel.dsgcli.net/ocr",
+                            url: "http://103.216.114.237:8080/",
                             data: data,
                             contentType: false,
                             processData: false,
@@ -1478,20 +1478,26 @@
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
                                             getDistrict(OCRResult);
+                                        },
+                                        error: function () {
+                                            $('#pre-load').hide();
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
-                                        $('a[role="menuitem"]').eq(1).click();
+                                        //$('a[role="menuitem"]').eq(1).click();
                                         ImageData = data1.get('img');
                                     });
+                                } else {
+                                    $('#pre-load').hide();
                                 }
                             },
                             error: function () {
                                 $('#pre-load').hide();
-                                $('a[role="menuitem"]').eq(1).click();
+                                //$('a[role="menuitem"]').eq(1).click();
                             }
                         })
                     }
+
                     return true;
                 }
             }
