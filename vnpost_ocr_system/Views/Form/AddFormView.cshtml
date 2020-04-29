@@ -712,12 +712,12 @@
                     $('p[name="validation_img"]').text('')
                     var base64String = event.target.result;
                     $('#cache_img').attr("src", base64String);
-                    // append to FormData
-                    myFormData.set('img', $('#cache_img').attr("src"));
-                    myFormData.set('img_name', file.name);
+                    //// append to FormData
+                    //myFormData.set('img', $('#cache_img').attr("src"));
+                    //myFormData.set('img_name', file.name);
 
-                    console.log(myFormData.get('img') === $('#cache_img').attr("src"));
-                    console.log(myFormData.get('img_name'));
+                    //console.log(myFormData.get('img') === $('#cache_img').attr("src"));
+                    //console.log(myFormData.get('img_name'));
 
                 };
                 reader.readAsDataURL(file);
@@ -1300,7 +1300,7 @@
                 $('#pre-load').show();
                 $.ajax({
                     type: "POST",
-                    url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
+                    url: "https://vnpost.tunnel.dsgcli.net/ocr",
                     data: data,
                     contentType: false,
                     processData: false,
