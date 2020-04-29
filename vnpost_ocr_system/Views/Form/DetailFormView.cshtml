@@ -1,0 +1,977 @@
+﻿@model vnpost_ocr_system.Models.FormTemplate
+@{
+    ViewBag.Title = "DetailFormView";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+@* Libs for image uploader*@
+<link href="~/assets/uploader/dropzone.min.css" rel="stylesheet" />
+<script src="~/assets/uploader/dropzoneMultiple.js"></script>
+
+@*CSS*@
+<link href="~/CustomCSS/Form/DetailForm/DetailForm.css" rel="stylesheet" />
+<link href="~/CustomCSS/Form/DetailForm/RadioButton.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+
+@* JQuery libs *@
+<script src="~/assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="~/dist/js/custom.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+
+<style>
+    /*style for image upload section*/
+    .dropzone .dz-preview .dz-image {
+        margin: auto;
+    }
+
+    .dropzone .dz-preview .dz-progress .dz-upload {
+        background: #29bb22 !important;
+        background: linear-gradient(to bottom, #7ceb69, #29bb22) !important;
+        top: 0;
+        bottom: 0;
+        width: 0;
+    }
+
+    .dz-preview.dz-processing.dz-success.dz-complete.dz-image-preview {
+        margin: 0px !important;
+        display: block;
+    }
+
+    #item5-error {
+        color: white;
+    }
+
+    .summary-label {
+        font-weight: bold !important;
+    }
+
+    .dropzone .dz-preview:hover .dz-image img {
+        -webkit-filter: blur(0px) !important;
+        filter: blur(0px) !important;
+    }
+
+    .validation {
+        color: red;
+    }
+
+    /* style for dropdown-list*/
+    .select-wrapper {
+        padding: 0px 10px;
+        height: 100%;
+        width: 100% !important
+    }
+
+        .select-wrapper > input.select-dropdown {
+            border: solid #000 !important;
+            border-width: 0px !important;
+            height: 100%;
+            width: 100%
+        }
+
+    .dropdown-content li > a, .dropdown-content li > span {
+        font-size: 100% !important;
+    }
+
+    .row_dropdown {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 70%;
+    }
+
+    .format_card_btn > input.form-control {
+        margin: 1px 0px 0px 0px !important;
+        padding: 0px 10px !important;
+        width: 70% !important;
+        height: 30px !important
+    }
+</style>
+
+@*Notification pop-up about error*@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Xóa biểu mẫu</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa biểu mẫu này không?</p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close red" onclick="delete_form()">Có</a>
+                <a class="btn modal-close blue darken-2">Không</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notifi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+
+            <div class="modal-body">
+                <p id="text_notifi"></p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close blue darken-2">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Image Modal Expanding -->
+<div id="myModal" class="img-modal">
+    <span class="close">&times;</span>
+    <img class="img-modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+<input name="id" id="id_raw" readonly hidden />
+<img id="cache_img" hidden />
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="card" style="width:100%">
+            <div class="card-content">
+                <h2 class="font-medium title">Chi tiết biểu mẫu</h2><hr />
+                @*Form name*@
+                <div id="name_section" class="content_section_name">
+                    <div class="name_title">
+                        <h4>Tên biểu mẫu </h4>
+                    </div>
+                    <div class="name_input">
+                        <h4 id="form_name" class="form_name" name="form_name"></h4>
+                    </div>
+                </div>
+                @*Image*@
+                <div id="image_section" class="content_section">
+                    <h4>Ảnh biểu mẫu</h4>
+                    <label>Dung lượng tối đa 5Mb <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                    <div class=row">
+                        <div class="col s12 center">
+                            <div class="h-form-label" id="img">
+                                <img id="form_img" alt="Form" style="width:100%;max-width:300px">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                @*Parsed JSON content*@
+                <div id="json_section" class="content_section_json">
+                    <h4>Nội dung</h4>
+                    <div class="cs_container">
+                        <p class="validation" name="validation_json"></p>
+                        <div class="json-data-frame">
+                            <div id="api_output" spellcheck="false" readonly></div>
+                        </div>
+                    </div>
+                </div>
+
+                @*==================================== Main choosing options ===========================================*@
+
+                @* -------------------------------------- Profile content section -------------------------------------- *@
+                @{
+                    string[] profile_field = { "Tỉnh/Thành phố", "Quận/Huyện", "Tên CQHC", "Tên thủ tục", "Mã giấy hẹn" };
+                    string[] en_profile_field = { "city", "district", "admin_office", "profile", "letter_code" };
+                    var card_side = "";
+                }
+                <div id="profile_section" class="content_section">
+                    <h4>Thông tin thủ tục</h4>
+                    @for (int i = 0; i < profile_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < profile_field.Length)
+                                {
+                                    @*Create cards for the profile field*@
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+                                    }
+                                    @* Card content *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@profile_field[@card_idx] <i class="fa fa-asterisk" style="font-size:10px;color:red; "></i></h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @{
+                                                        string rad_name = "rad_gr_" + en_profile_field[@card_idx];
+                                                        string[] row_type = { "Fixed-value", "NER", "Regex" };
+                                                    }
+                                                    @for (int row_index = 0; row_index < row_type.Length; row_index++)
+                                                    {
+                                                        string rad_id = "rad_" + en_profile_field[card_idx] + "_" + row_index.ToString();
+                                                        string input_id = "input_" + en_profile_field[card_idx] + "_" + row_index.ToString();
+
+                                                        if ((row_index == 0) && (card_idx != profile_field.Length - 1))
+                                                        {
+                                                            // Fixed-value(for cards in profile field not "letter_code")
+                                                            <div class="format_card_btn">
+                                                                <div class="reg_radio">
+                                                                    <input type="radio" id=@rad_id name=@rad_name>
+                                                                    <label for=@rad_id>@row_type[row_index]</label>
+                                                                </div>
+                                                                @* Input *@
+                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false" readonly>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="format_card_btn">
+                                                                <div class="reg_radio">
+                                                                    <input type="radio" id=@rad_id name=@rad_name checked>
+                                                                    <label for=@rad_id>@row_type[@row_index]</label>
+                                                                </div>
+                                                                @* Input *@
+                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false" readonly>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @* -------------------------------------- Procedurer content section  -------------------------------------- *@
+                @{
+                    string[] procedurer_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố",
+                            "Quận/Huyện", "Địa chỉ", "EmptyField", "Loại GTTT", "Số GTTT", "Ngày cấp", "Nơi cấp" };
+                    string[] en_procedurer_field = { "p_name", "p_phone", "p_city", "p_district", "p_address",
+                            "EmptyField", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place" };
+
+                }
+                <div id="requester_section" class="content_section">
+                    <h4>Thông tin người làm thủ tục </h4>
+                    @{
+                        int half = @procedurer_field.Length / 2;
+                    }
+                    @for (int i = 0; i < procedurer_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if ((card_idx < en_procedurer_field.Length) && (card_idx != half))
+                                {
+                                    @*Create cards for the profile field*@
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+                                    }
+                                    @* Card content *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@procedurer_field[card_idx]</h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @* Generate radio/dropdown-list inside one card *@
+                                                    @for (int j = 1; j < 4; j++)
+                                                    {
+                                                        string rad_name = "rad_gr_" + en_procedurer_field[card_idx];
+                                                        string rad_id = "rad_" + en_procedurer_field[card_idx] + "_" + j;
+                                                        string input_id = "input_" + en_procedurer_field[card_idx] + "_" + j;
+                                                        string dis_text = "None";
+                                                        string dis_val = " ";
+                                                        if (j == 1)
+                                                        {
+                                                            dis_text = "NER";
+                                                        }
+                                                        else if (j == 2)
+                                                        {
+                                                            dis_text = "Regex";
+                                                        }
+                                                        else if (j == 3)
+                                                        {
+                                                            input_id = "none" + en_procedurer_field[card_idx];
+                                                            dis_text = "None";
+                                                            dis_val = "Không chọn option cho này";
+
+                                                        }
+                                                        <div class="format_card_btn">
+                                                            <div class="reg_radio">
+                                                                <input type="radio" id=@rad_id name=@rad_name checked>
+                                                                <label for=@rad_id>@dis_text</label>
+                                                            </div>
+                                                            @* Input *@
+                                                            <input type="text" id=@input_id class="form-control" name=@input_id spellcheck="false" value="@dis_val" readonly>
+                                                        </div>
+                                                    }
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+
+                </div>
+
+                @* -------------------------------------- Sender content section  -------------------------------------- *@
+                @{
+                    string[] sender_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ" };
+                    string[] en_sender_field = { "s_name", "s_phone", "s_city", "s_district", "s_address" };
+                    card_side = "";
+                }
+                <div id="sender_section" class="content_section">
+                    <h4>Thông tin người gửi </h4>
+                    @for (int i = 0; i < sender_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < sender_field.Length)
+                                {
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+
+                                    }
+                                    @* Card content*@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@sender_field[@card_idx]</h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @for (int j = 1; j < 4; j++)
+                                                    {
+                                                        string rad_name = "rad_gr_" + en_sender_field[card_idx];
+                                                        string rad_id = "rad_" + en_sender_field[card_idx] + "_" + j;
+                                                        string input_id = "input_" + en_sender_field[card_idx] + "_" + j;
+                                                        string dis_text = "None";
+                                                        string dis_val = " ";
+                                                        if (j == 1)
+                                                        {
+                                                            dis_text = "NER";
+                                                        }
+                                                        else if (j == 2)
+                                                        {
+                                                            dis_text = "Regex";
+                                                        }
+                                                        else if (j == 3)
+                                                        {
+                                                            input_id = "none" + en_sender_field[card_idx];
+                                                            dis_text = "None";
+                                                            dis_val = "Không chọn option cho trường này";
+
+                                                        }
+                                                        @*Regex (for all cards)*@
+                                                        <div class="format_card_btn">
+                                                            @* Radio button *@
+                                                            <div class="reg_radio">
+                                                                <input type="radio" id=@rad_id name=@rad_name checked>
+                                                                <label for=@rad_id>@dis_text</label>
+                                                            </div>
+                                                            @* Input regex *@
+                                                            <input type="text" id=@input_id class="form-control" name=@input_id value="@dis_val" spellcheck="false" readonly>
+                                                        </div>
+                                                    }
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @* -------------------------------------- Receiver content section  -------------------------------------- *@
+                @{
+                    string[] receiver_field = { "Họ và tên", "Số điện thoại", "Tỉnh/Thành phố", "Quận/Huyện", "Địa chỉ" };
+                    string[] en_receiver_field = { "r_name", "r_phone", "r_city", "r_district", "r_address" };
+                    card_side = "";
+                }
+                <div id="receiver_section" class="content_section">
+                    <h4>Thông tin người nhận </h4>
+                    @for (int i = 0; i < receiver_field.Length; i += 2)
+                    {
+                        <div class="cs_container" style="display:flex">
+                            @for (int card_idx = i; card_idx <= i + 1; card_idx++)
+                            {
+                                if (card_idx < receiver_field.Length)
+                                {
+                                    if (card_idx % 2 == 0)
+                                    {
+                                        card_side = "row_format_card_left";
+                                    }
+                                    else
+                                    {
+                                        card_side = "row_format_card_right";
+
+                                    }
+                                    @* Option Card *@
+                                    <div class=@card_side>
+                                        <div class="format_card_content">
+                                            <div class="format_card_title">
+                                                <h5>@receiver_field[@card_idx]</h5>
+                                            </div>
+                                            <div class="format_card_btn_group">
+                                                <form>
+                                                    @for (int j = 1; j < 4; j++)
+                                                    {
+                                                        string rad_name = "rad_gr_" + en_receiver_field[card_idx];
+                                                        string rad_id = "rad_" + en_receiver_field[card_idx] + "_" + j;
+                                                        string input_id = "input_" + en_receiver_field[card_idx] + "_" + j;
+                                                        string dis_text = "None";
+                                                        string dis_val = " ";
+                                                        if (j == 1)
+                                                        {
+                                                            dis_text = "NER";
+                                                        }
+                                                        else if (j == 2)
+                                                        {
+                                                            dis_text = "Regex";
+                                                        }
+                                                        else if (j == 3)
+                                                        {
+                                                            input_id = "none" + en_receiver_field[card_idx];
+                                                            dis_text = "None";
+                                                            dis_val = "Không chọn option cho trường này";
+
+                                                        }
+                                                        <div class="format_card_btn">
+                                                            @* Radio button *@
+                                                            <div class="reg_radio">
+                                                                <input type="radio" id=@rad_id name=@rad_name checked>
+                                                                <label for=@rad_id>@dis_text</label>
+                                                            </div>
+                                                            @* Input regex *@
+                                                            <input type="text" id=@input_id class="form-control" name=@input_id value="@dis_val" spellcheck="false" readonly>
+                                                        </div>
+                                                    }
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+
+                @* --------------------------------------- Button confirm section  -------------------------------------- *@
+                <div id="btn_confirm_section" class="content_section" style=" margin-bottom: 20px !important">
+                    <div class="input-field right">
+                        <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="edit_form()">Chỉnh sửa</a>
+                        <a href="#deleteModal" class="btn waves-effect waves-light bt-color-cancel modal-trigger" style="color:aliceblue" >Xóa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // JS support image viewing
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("form_img");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+</script>
+<script>
+    // Supported function for validation
+    function raise_error(error_msg) {
+        $('#pre-load').hide();
+        errorAlert('Lỗi', error_msg);
+    }
+</script>
+<script>
+    // Initialization
+    var myFormData = new FormData();
+
+    // Initial load
+    $(document).ready(function () {
+        $("pre-load").show();
+
+        $.ajax({
+            url: "/bieu-mau/chi-tiet-bieu-mau/GetFormDetail",
+            type: "Post",
+
+            datatype: "json",
+            data: {
+                form_id: Number(@ViewBag.form_id)
+            },
+            cache: false,
+            success: function (response) {
+                if (response.status == "Success") {
+                    myFormData.set("full_form", response.full_form);
+                    myFormData.set("original_image", response.full_form.image);
+                    myFormData.set("form_template", response.full_form.ft);
+                    var ft = response.full_form.ft;
+                    console.log('province_id', ft.PostalProvinceCode);
+                    console.log('province_id', ft.PostalDistrictCode);
+                    console.log('province_id', ft.PublicAdministrationLocationID);
+                    console.log('province_id', ft.ProfileID);
+
+                    // set title
+                    set_title(ft.FormName);
+                    // set image
+                    set_image(response.full_form.image);
+                    // set json
+                    set_json(ft.APIOutput);
+                    // set recognition options
+                    set_reg_options(ft);
+
+                    $("#pre-load").hide();
+                }
+                else {
+                    raise_error(response.message);
+                }
+
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+        $("pre-load").hide();
+
+    });
+    // ------------------------------- title ---------------------------------------------
+
+    function set_title(form_name) {
+        // Set form nam
+        $("#form_name").html(form_name);
+        console.log("FormT: " + form_name);
+    }
+    // ------------------------------- image ---------------------------------------------
+    function set_image(image_b64) {
+        // Set image
+        $("#form_img").attr("src", image_b64);
+    }
+
+    // ------------------------------- api output ---------------------------------------------
+    function set_json(api_output) {
+        // set json
+        var api_output_json = jQuery.parseJSON(api_output);
+        var raw_text = api_output_json.raw_text;
+        var text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
+        $("#api_output").html(text);
+    }
+
+    // ------------------------------- options ---------------------------------------------
+    function set_reg_options(form_template) {
+        // Profile
+        $("#input_city_0").val(form_template.PostalProvinceCode);
+        console.log(form_template.PostalProvinceCode);
+        $("#input_city_1").val(form_template.ProvinceNERIndex);
+        console.log(form_template.ProvinceNERIndex);
+        $("#input_city_2").val(form_template.ProvinceRegex);
+        console.log(form_template.ProvinceRegex);
+
+        $("#input_district_0").val(form_template.PostalDistrictCode);
+        $("#input_district_1").val(form_template.DistrictNERIndex);
+        $("#input_district_2").val(form_template.DistrictRegex);
+
+        $("#input_admin_office_0").val(form_template.PublicAdministrationLocationID);
+        $("#input_admin_office_1").val(form_template.PublicAdministrationNERIndex);
+        $("#input_admin_office_2").val(form_template.PublicAdministrationRegex);
+
+        $("#input_profile_0").val(form_template.ProfileID);
+        $("#input_profile_1").val(form_template.ProfileNERIndex);
+        $("#input_profile_2").val(form_template.ProfileRegex);
+
+        $("#input_letter_code_1").val(form_template.AppointmentLetterCodeNERIndex);
+        $("#input_letter_code_2").val(form_template.AppointmentLetterCodeRegex);
+
+        // Procedurer
+        $("#input_p_name_1").val(form_template.ProcedurerFullNameNERIndex);
+        $("#input_p_name_2").val(form_template.ProcedurerFullNameRegex);
+
+        $("#input_p_phone_1").val(form_template.ProcedurerPhoneNERIndex);
+        $("#input_p_phone_2").val(form_template.ProcedurerPhoneRegex);
+
+        $("#input_p_city_1").val(form_template.ProcedurerProvinceNERIndex);
+        $("#input_p_city_2").val(form_template.ProcedurerProvinceRegex);
+
+        $("#input_p_district_1").val(form_template.ProcedurerDistrictNERIndex);
+        $("#input_p_district_2").val(form_template.ProcedurerDistrictRegex);
+
+        $("#input_p_address_1").val(form_template.ProcedurerStreetNERIndex);
+        $("#input_p_address_2").val(form_template.ProcedurerStreetRegex);
+
+        $("#input_p_personal_paper_type_1").val(form_template.ProcedurerPersonalPaperTypeNERIndex);
+        $("#input_p_personal_paper_type_2").val(form_template.ProcedurerPersonalPaperTypeRegex);
+
+        $("#input_p_personal_paper_number_1").val(form_template.ProcedurerPersonalPaperNumberNERIndex);
+        $("#input_p_personal_paper_number_2").val(form_template.ProcedurerPersonalPaperNumberRegex);
+
+        $("#input_p_issued_date_1").val(form_template.ProcedurerPersonalPaperIssuedDateNERIndex);
+        $("#input_p_issued_date_2").val(form_template.ProcedurerPersonalPaperIssuedDateRegex);
+
+        $("#input_p_issued_place_1").val(form_template.ProcedurerPersonalPaperIssuedPlaceNERIndex);
+        $("#input_p_issued_place_2").val(form_template.ProcedurerPersonalPaperIssuedPlaceRegex);
+
+        // Sender
+        $("#input_s_name_1").val(form_template.SenderFullNameNERIndex);
+        $("#input_s_name_2").val(form_template.SenderFullNameRegex);
+
+        $("#input_s_phone_1").val(form_template.SenderPhoneNERIndex);
+        $("#input_s_phone_2").val(form_template.SenderPhoneRegex);
+
+        $("#input_s_city_1").val(form_template.SenderProvinceNERIndex);
+        $("#input_s_city_2").val(form_template.SenderProvinceRegex);
+
+        $("#input_s_district_1").val(form_template.SenderDistrictNERIndex);
+        $("#input_s_district_2").val(form_template.SenderDistrictRegex);
+
+        $("#input_s_address_1").val(form_template.SenderStreetNERIndex);
+        $("#input_s_address_2").val(form_template.SenderStreetRegex);
+
+        // Receiver
+        $("#input_r_name_1").val(form_template.ReceiverFullNameNERIndex);
+        $("#input_r_name_2").val(form_template.ReceiverFullNameRegex);
+
+        $("#input_r_phone_1").val(form_template.ReceiverPhoneNERIndex);
+        $("#input_r_phone_2").val(form_template.ReceiverPhoneRegex);
+
+        $("#input_r_city_1").val(form_template.ReceiverProvinceNERIndex);
+        $("#input_r_city_2").val(form_template.ReceiverProvinceRegex);
+
+        $("#input_r_district_1").val(form_template.ReceiverDistrictNERIndex);
+        $("#input_r_district_2").val(form_template.ReceiverDistrictRegex);
+
+        $("#input_r_address_1").val(form_template.ReceiverStreetNERIndex);
+        $("#input_r_address_2").val(form_template.ReceiverStreetRegex);
+
+        // 1. Load NER option from DB + Recall server to get the mapped text
+        load_ner_options(form_template);
+
+        // 2. Get mapped fixed-value from DB
+        load_fv_options(form_template);
+
+        // 3. Show chosen options + Hidden redundant
+        var parse_type_dict = {
+            // Profile
+            "city_pt": form_template.ProvinceParseType,
+            "district_pt": form_template.DistrictParseType,
+            "admin_office_pt": form_template.PublicAdministrationParseType,
+            "profile_pt": form_template.ProfileParseType,
+            "letter_code_pt": form_template.AppointmentLetterCodeParseType,
+
+            // Procedurer
+            "p_name_pt": form_template.ProcedurerFullNameParseType,
+            "p_phone_pt": form_template.ProcedurerPhoneParseType,
+            "p_city_pt": form_template.ProcedurerProvinceParseType,
+            "p_district_pt": form_template.ProcedurerDistrictParseType,
+            "p_address_pt": form_template.ProcedurerStreetParseType,
+            "p_personal_paper_type_pt": form_template.ProcedurerPersonalPaperTypeParseType,
+            "p_personal_paper_number_pt": form_template.ProcedurerPersonalPaperNumberParseType,
+            "p_issued_date_pt": form_template.ProcedurerPersonalPaperIssuedDateParseType,
+            "p_issued_place_pt": form_template.ProcedurerPersonalPaperIssuedPlaceParseType,
+
+            // Sender
+            "s_name_pt": form_template.SenderFullNameParseType,
+            "s_phone_pt": form_template.SenderPhoneParseType,
+            "s_city_pt": form_template.SenderProvinceParseType,
+            "s_district_pt": form_template.SenderDistrictParseType,
+            "s_address_pt": form_template.SenderStreetParseType,
+
+            // Receiver
+            "r_name_pt": form_template.ReceiverFullNameParseType,
+            "r_phone_pt": form_template.ReceiverPhoneParseType,
+            "r_city_pt": form_template.ReceiverProvinceParseType,
+            "r_district_pt": form_template.ReceiverDistrictParseType,
+            "r_address_pt": form_template.ReceiverStreetParseType
+        };
+        switch_rad_All(parse_type_dict);
+    }
+
+    // Step 1 in Options section: NER
+    function load_ner_options(form_template) {
+        $('#pre-load').show();
+
+        // recall NER to get data
+        var data = new FormData();
+        data.append('image', myFormData.get('image'));
+
+        $('#pre-load').show();
+        $.ajax({
+            type: "POST",
+            url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
+            data: data,
+            contentType: false,
+            processData: false,
+            cache: false,
+            dataType: "json",
+            success: function (response) {
+                console.log(response["province"]);
+
+                // add result to form data
+                myFormData.set("api_output", response);
+                myFormData.set("api_output_txt", JSON.stringify(response));
+
+                // load data to NER combobox
+                add_ner_to_input(form_template, response);
+                $('#pre-load').hide();
+
+            },
+            error: function (error) {
+                raise_error("Error: " + error);
+                $('#pre-load').hide();
+                return true;
+            }
+        });
+        $('#pre-load').hide();
+
+    }
+
+    // NER combo: Functions Add options to NER input
+    function add_ner_to_input(ft, json_data) {
+        var mapped_categories = ["city", "district", "admin_office", "profile", "letter_code",
+            "p_name", "p_phone", "p_city", "p_district", "p_address", "p_personal_paper_type", "p_personal_paper_number", "p_issued_date", "p_issued_place",
+            "s_name", "s_phone", "s_city", "s_district", "s_address",
+            "r_name", "r_phone", "r_city", "r_district", "r_address"];
+        var json_key = ["province", "district", "public_administration", "profile", "appointment_letter_code",
+            "name", "phone_number", "province", "district", "street", "personal_paper_type", "personal_paper_number", "issued_date", "issued_place",
+            "name", "phone_number", "province", "district", "street",
+            "name", "phone_number", "province", "district", "street"];
+
+        var stored_option = [ft.ProvinceNERIndex, ft.DistrictNERIndex, ft.PublicAdministrationNERIndex, ft.ProfileNERIndex, ft.AppointmentLetterCodeNERIndex,
+            ft.ProcedurerFullNameNERIndex, ft.ProcedurerPhoneNERIndex, ft.ProcedurerProvinceNERIndex, ft.ProcedurerDistrictNERIndex, ft.ProcedurerStreetNERIndex,
+            ft.ProcedurerPersonalPaperTypeNERIndex, ft.ProcedurerPersonalPaperNumberNERIndex, ft.ProcedurerPersonalPaperIssuedDateNERIndex, ft.ProcedurerPersonalPaperIssuedPlaceNERIndex,
+            ft.SenderFullNameNERIndex, ft.SenderPhoneNERIndex, ft.SenderProvinceNERIndex, ft.SenderDistrictNERIndex, ft.SenderStreetNERIndex,
+            ft.ReceiverFullNameNERIndex, ft.ReceiverPhoneNERIndex, ft.ReceiverProvinceNERIndex, ft.ReceiverDistrictNERIndex, ft.ReceiverStreetNERIndex];
+
+
+        for (i = 0; i < json_key.length; i++) {
+            var input_id = "input_" + mapped_categories[i] + "_1";
+            var elementExists = document.getElementById(input_id);
+            if (elementExists != null) {
+                // clear the current options
+                input_id = "#" + input_id;
+                $(input_id).val("");
+
+                // get the chosen option in the list of NER in each field
+                var option_idx = stored_option[i]; // index of the ner option when admin created this form
+                var current_field_arr = json_data[json_key[i]]; // the ner combobox
+                if ((current_field_arr.length > 0)
+                    && (option_idx != null || option_idx != "")) {
+                    var full_ner_opt = option_idx + ": " + current_field_arr[option_idx];
+                    $(input_id).val(full_ner_opt);
+                }
+            }
+        }
+    }
+
+
+    // Step 2 in Options section: Fixed-value
+    function load_fv_options(form_template) {
+        $('#pre-load').show();
+        console.log("load fv options");
+        // recall controller to get data
+        var ft = form_template;
+        console.log("test 2: " + ft.PostalProvinceCode);
+        var data = new FormData();
+
+        data.append('province_id', ft.PostalProvinceCode);
+        data.append('district_id', ft.PostalDistrictCode);
+        data.append('pub_administration_loc_id', ft.PublicAdministrationLocationID);
+        data.append('profile_id', ft.ProfileID);
+
+        $('#pre-load').show();
+        $.ajax({
+            type: "POST",
+            url: "/bieu-mau/chi-tiet-bieu-mau/GetAllFixedValue",
+            data: data,
+            contentType: false,
+            processData: false,
+            cache: false,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response.status == "Success") {
+                    // add to fixed-value input
+                    add_fv_to_input(response.result_name);
+                }
+                $('#pre-load').hide();
+
+            },
+            error: function (error) {
+                raise_error("Error: " + error);
+                $('#pre-load').hide();
+                return true;
+            }
+        });
+        $('#pre-load').hide();
+
+    }
+
+    //Fixed-value: Functions Add options to Fixed value
+    function add_fv_to_input(names) {
+        var mapped_fixed_value = ["city", "district", "admin_office", "profile"];
+        for (i = 0; i < mapped_fixed_value.length; i++) {
+            var input_id = "input_" + mapped_fixed_value[i] + "_0";
+            var elementExists = document.getElementById(input_id);
+            if (elementExists != null) {
+                // clear the current options
+                input_id = "#" + input_id;
+                $(input_id).val(names[i]);
+                console.log("name: " + names[i]);
+            }
+        }
+    }
+
+    // Step 3 in Options section
+    function switch_rad_All(parse_type_dict) {
+        // Switch all status of radio buttons into the right condition
+        for (var key in parse_type_dict) {
+            // check if the property/key is defined in the object itself, not in parent
+            if (parse_type_dict.hasOwnProperty(key)) {
+                toggle_checked(key, parse_type_dict[key]);
+            }
+        }
+    }
+
+    function toggle_checked(name_field, parse_type) {
+        // Based on name field, change status of checked radio button
+        var profile_name_field = ["city", "district", "admin_office", "profile", "letter_code"];
+        var field = name_field.slice(0, -3);
+        var show_idx = 1;
+
+        if (parse_type == null) {
+            if (profile_name_field.indexOf(field) > -1) {
+                show_idx = 0;// Fixed value
+            } else {
+                show_idx = 3;// None option
+            }
+        } else if (parse_type == 0) {
+            show_idx = 1;// NER
+        } else if (parse_type == 1) {
+            show_idx = 2;// Regex
+        }
+        radio_check(field, show_idx);
+    }
+
+    function radio_check(name_field, index) {
+        // Change radio checked + show/hide
+        for (i = 0; i < 4; i++) {
+            var rad_id = "rad_" + name_field + "_" + i;
+
+            if (document.getElementById(rad_id) != null) {
+                rad_id = "#" + rad_id;
+                if (index == i) {
+                    $(rad_id).prop("checked", true);
+
+                    $format_card_btn = $(rad_id).parents().eq(1);
+                    $format_card_btn.show();
+                }else {
+                    $(rad_id).prop("checked", false);
+
+                    $format_card_btn = $(rad_id).parents().eq(1);
+                    $format_card_btn.hide();
+                }
+            }
+        }
+    }
+
+    function index_of_key(original_dict, f_key) {
+        var index = 0;
+        for (var k in original_dict) {
+            if (k == f_key) {
+                return index;
+            }
+            index++;
+        }
+    }
+
+</script>
+
+<script>
+    function edit_form() {
+        $("pre-load").show();
+
+        window.location.href = "/bieu-mau/chinh-sua-bieu-mau?form_id=" + @ViewBag.form_id;
+
+        $("pre-load").hide();
+    };
+
+    function delete_form() {
+        $("pre-load").show();
+
+        $.ajax({
+            url: "/bieu-mau/chi-tiet-bieu-mau/Delete",
+            type: "Post",
+
+            datatype: "json",
+            data: {
+                form_id: Number(@ViewBag.form_id)
+            },
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                $('#pre-load').hide();
+                if (response.status_code == "200" || response.status == "Success") {
+                    // redirect to the form detail page
+                    successAlert('Thành công', 'Xóa tài khoản thành công');
+                    //window.location.href = "/bieu-mau/them-bieu-mau";
+
+                } else if (response.status == "Fail")
+                {
+                    raise_error(response.message);
+                }
+
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+        $("pre-load").hide();
+    };
+</script>

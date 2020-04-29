@@ -55,6 +55,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ResetPasswordToken> ResetPasswordTokens { get; set; }
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
         public virtual ObjectResult<Query_Scope_0_Result> Query_Scope_0(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
