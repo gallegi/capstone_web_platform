@@ -11,6 +11,20 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 {
     public class GetProvincesController : Controller
     {
+        [Route("GetProvince")]
+        [HttpPost]
+        public ActionResult GetProvince()
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
+                .Select(x => new Province
+                {
+                    PostalProvinceCode = x.PostalProvinceCode,
+                    PostalProvinceName = x.PostalProvinceName
+                }).ToList();
+            return Json(list);
+        }
+
         [Route("GetDistrict")]
         [HttpPost]
         public ActionResult GetDistrictByProvinceCode(string code)
