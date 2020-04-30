@@ -48,7 +48,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 }
                 ViewBag.proList = proList;
             }
-            return View("/Views/Document/DocumentRecived.cshtml");
+            return View("/Views/Document/DocumentReceived.cshtml");
         }
 
 
