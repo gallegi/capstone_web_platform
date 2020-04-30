@@ -11,7 +11,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                provinceID: $(this).val()
             },
             success: function (response) {
                 $('#item2').empty();

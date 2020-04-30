@@ -27,10 +27,10 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetDistrict")]
         [HttpPost]
-        public ActionResult GetDistrictByProvinceCode(string code)
+        public ActionResult GetDistrictByProvinceCode(string PostalProvinceCode)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
+            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", PostalProvinceCode)).ToList()
                 .Select(x => new District
                 {
                     PostalDistrictCode = x.PostalDistrictCode,

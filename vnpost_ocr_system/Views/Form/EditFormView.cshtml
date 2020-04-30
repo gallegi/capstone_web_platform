@@ -1097,11 +1097,11 @@
         console.log("district: " + $('#drop_city_0').val());
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: ft.PostalProvinceCode
+                provinceID: ft.PostalProvinceCode
             },
             success: function (response) {
                 // re-new the list of districts

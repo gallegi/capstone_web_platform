@@ -46,24 +46,6 @@ namespace vnpost_ocr_system.Controllers.Form
             return Json(list);
         }
 
-
-        [Auther(Roles = "1")]
-        [Route("bieu-mau/them-bieu-mau/GetDistrictByProvCode")]
-        [HttpPost]
-        public ActionResult GetDistrictByProvCode(string code)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> list = db.Database.SqlQuery<District>("select * " +
-                "from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
-                .Select(x => new District
-                {
-                    PostalDistrictCode = x.PostalDistrictCode,
-                    PostalDistrictName = x.PostalDistrictName
-                }).ToList();
-            return Json(list);
-        }
-
-
         [Auther(Roles = "1")]
         [Route("bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode")]
         [HttpPost]

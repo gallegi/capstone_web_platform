@@ -60,19 +60,5 @@ namespace vnpost_ocr_system.Controllers.User
             }
             return Json("", JsonRequestBehavior.AllowGet);
         }
-
-        [Route("tai-khoan/tao-dia-chi-moi/lay-quan-huyen")]
-        public ActionResult getDistrict(string provinceID)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> listDistrict = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @provinceID order by PostalDistrictName "
-                , new SqlParameter("provinceID", provinceID)).ToList();
-            listDistrict = listDistrict.Select(x => new District
-            {
-                PostalDistrictCode = x.PostalDistrictCode,
-                PostalDistrictName = x.PostalDistrictName
-            }).ToList();
-            return Json(listDistrict);
-        }
     }
 }
