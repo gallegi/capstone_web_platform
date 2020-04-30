@@ -14,7 +14,15 @@
 <script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
 <script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-<label id="prevPage" class="hidden">/giay-hen/tim-giay-hen</label>
+<label id="prevPage" hidden>/giay-hen/tim-giay-hen</label>
+<style>
+    .pagination li.active a {
+    color: white !important;
+}
+    li.paginate_button.page-item.active {
+    background: #1e88e5;
+}
+</style>
 <div class="card">
     <div class="m-b-40 m-t-30 card-content text-responsive">
         <h6 class="center step-title"><b>Giấy hẹn của tôi</b></h6>
@@ -30,23 +38,6 @@
                     <th class="width-10"></th>
                 </tr>
             </thead>
-            @*<tbody>
-                    @foreach (var item in ViewBag.listOrder)
-                    {
-                        <tr>
-                            <td>
-                                <a class="a-reset" href="~/giay-hen/trang-thai-giay-hen">
-                                    <span class="light-blue-text hover-pointer hover-underline">@item.AppointmentLetterCode</span>
-                                </a>
-                            </td>
-                            <td>@item.OrderDate</td>
-                            <td>@item.ProfileName</td>
-                            <td>@item.ItemCode</td>
-                            <td>@item.Amount</td>
-                            <td>@item.StatusName</td>
-                        </tr>
-                    }
-                </tbody>*@
         </table>
     </div>
 </div>
@@ -56,10 +47,12 @@
 
     $(document).ready(function () {
         searchActi();
+        $("#mainTable").parent().css('overflow','scroll')
     });
 
     function searchActi() {
         var dataTable = $('#mainTable').DataTable({
+            "pagingType": "first_last_numbers",
             "language": {
                 "emptyTable": "Không tìm thấy dữ liệu",
                 "paginate": {
@@ -77,8 +70,9 @@
             },
             "columns": [
                 {
-                    "data": "AppointmentLetterCode", "name": "AppointmentLetterCode", "render": function (data) {
-                        return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id_raw\" value=" + data + " hidden></input><a href=\"#\" onclick='submit()'>" + data + "</a></form>";
+                    "data": "OrderID", "name": "OrderID", "render": function (data) {
+                        return "<form id=\"submit-" + data + "\"" + " action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value=" + '"' + data + '"' + " hidden></input><a href=\"#\" onclick='submit(" + '"' + data + '"' + ")'>" + data + "</a></form>";
+                        //return "<form id=\"submit\" action=\"/giay-hen/trang-thai-giay-hen\" method=\"post\"><input name=\"id\" value="+ '"' + data+ '"' + " hidden></input><a href=\"#\" onclick='submit()'>"+ data +"</a></form>";
                     }
                 },
                 { "data": "stringDate", "name": "OrderDate" },
@@ -88,8 +82,8 @@
                 { "data": "StatusName", "name": "StatusName" },
                 {
                     "data": {}, "render": function (data) {
-                        if (data.StatusID == -3) {
-                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel(" + data.OrderID + ")'>Hủy đơn hàng</a>";
+                        if (data.StatusID == -3 || data.StatusID == -2) {
+                            return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" onclick='getCancel(" + '"' + data.OrderID + '|' + data.StatusID + '"' + ")'>Hủy đơn hàng</a>";
                         } else {
                             return "<a href=\"#\" class=\"open-EditModal waves-effect waves-light btn blue darken-1 modal-trigger\" disabled>Hủy đơn hàng</a>";
                         }
@@ -106,7 +100,7 @@
             "bFilter": false,
             "bInfo": false,
             "bAutoWidth": false,
-            "order": [0, "asc"],
+            "order": [1, "desc"],
             "initComplete": function (settings, json) {
                 ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
                 $("#pre-load").hide("slow", function () {
@@ -116,24 +110,49 @@
         });
     }
 
-    function getCancel(code) {
-        confirmAlert("Hủy đơn hàng", "Bạn muốn hủy đơn hàng ?", function () {
-            $.ajax({
-                type: "POST",
-                url: "/tai-khoan/quan-ly-giay-hen/huy",
-                dataType: "json",
-                data: {
-                    Code: JSON.stringify(code)
-                },
-                success: function () {
-                    window.location.href = '/tai-khoan/quan-ly-giay-hen';
-                }
-            })
+    function inform(info) {
+        var data = {
+            orderID: info
+        };
+        $.ajax({
+            type: "POST",
+            url: "/tai-khoan/quan-ly-giay-hen/danh-sach/poscode",
+            data: JSON.stringify(data),
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            success: function (response) {
+                errorAlert("Đơn hàng đã được tiếp nhận", response);
+            }
         });
     }
 
-    function submit() {
-        document.getElementById("submit").submit();
+    function getCancel(data) {
+        var token = data.split("|");
+        //token[0] = orderID ; token[1] = statusID
+        //alert(token[0]);
+        if (token[1] == -3) {
+            confirmAlert("Hủy đơn hàng", "Bạn muốn hủy đơn hàng ?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/tai-khoan/quan-ly-giay-hen/huy",
+                    dataType: "json",
+                    data: {
+                        Code: token[0]
+                    },
+                    success: function () {
+                        window.location.href = '/tai-khoan/quan-ly-giay-hen';
+                    }
+                })
+            });
+        } else if (token[1] == -2) {
+            inform(token[0]);
+        } else {
+
+        }
+    }
+
+    function submit(data) {
+        document.getElementById("submit-" + data).submit();
     }
 
 </script>
