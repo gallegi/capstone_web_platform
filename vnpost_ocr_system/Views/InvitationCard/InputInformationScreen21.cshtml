@@ -253,9 +253,9 @@
                                 {
                                     <div class="contact2 info-list-div col s12">
                                         <div class="col l8 m8 s8">
-                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                            <p class="FullName content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
                                         <div class="col l4 m4 s4 is-check-contact-type-2" id="isCheckContactType2-@item.ContactInfoID">
                                         </div>
@@ -298,9 +298,9 @@
                                 {
                                     <div class="contact3 info-list-div col s12">
                                         <div class="col l8 s8 m8">
-                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                            <p class="FullName content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
                                         <div class="col l4 s4 m4 is-check-contact-type-3" id="isCheckContactType3-@item.ContactInfoID">
                                         </div>
@@ -687,7 +687,7 @@
                                             <p class="payment-title card-border">Đơn hàng</p>
                                         </div>
                                         <div>
-                                            <b class="payment-title m-b-25">Mã đơn hàng: <span class="AppointmentLetterCode"></span></b>
+                                            <b class="payment-title m-b-25">Mã hồ sơ: <span class="AppointmentLetterCode"></span></b>
                                         </div>
                                         <span>
                                             <span class="payment-title">Thủ tục hành chính:</span>
@@ -1349,16 +1349,16 @@
             toastr.error("Xin hãy cập nhật đầy đủ thông tin trước khi chọn");
             return;
         }
-        $('#ProcedurerFullName').text(Adminprofile.find('#FullName').text());
-        $('#ProcedurerPhone').text(Adminprofile.find('#Phone').text());
-        $('#ProcedurerStreet').text(Adminprofile.find('#Street').text());
-        $('#ProcedurerAddress').text(Adminprofile.find('#Address').text());
-        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('#PersonalPaperTypeName').text());
-        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('#PersonalPaperTypeName').data("papertype"));
-        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('#PersonalPaperNumber').text());
-        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('#PersonalPaperIssuedDate').text());
-        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('#PersonalPaperIssuedPlace').text());
+        $('#ProcedurerFullName').text(Adminprofile.find('.FullName').text());
+        $('#ProcedurerPhone').text(Adminprofile.find('.Phone').text());
+        $('#ProcedurerStreet').text(Adminprofile.find('.Street').text());
+        $('#ProcedurerAddress').text(Adminprofile.find('.Address').text());
+        $('#ProcedurerPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
+        $('#ProcedurerPersonalPaperTypeName').text(Adminprofile.find('.PersonalPaperTypeName').text());
+        $('#ProcedurerPersonalPaperTypeID').text(Adminprofile.find('.PersonalPaperTypeName').data("papertype"));
+        $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('.PersonalPaperNumber').text());
+        $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('.PersonalPaperIssuedDate').text());
+        $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('.PersonalPaperIssuedPlace').text());
         var a = $('#isCheckContactType1-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-1").empty();
         validate1 = true;
@@ -1367,11 +1367,11 @@
 
     $(document).on("click", ".contactInfoType2", function () {
         var Adminprofile = $(this).closest('.contact2');
-        $('#SenderFullName').text(Adminprofile.find('#FullName').text());
-        $('#SenderPhone').text(Adminprofile.find('#Phone').text())
-        $('#SenderStreet').text(Adminprofile.find('#Street').text())
-        $('#SenderAddress').text(Adminprofile.find('#Address').text())
-        $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
+        $('#SenderFullName').text(Adminprofile.find('.FullName').text());
+        $('#SenderPhone').text(Adminprofile.find('.Phone').text())
+        $('#SenderStreet').text(Adminprofile.find('.Street').text())
+        $('#SenderAddress').text(Adminprofile.find('.Address').text())
+        $('#SenderPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
         var a = $('#isCheckContactType2-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-2").empty();
         validate2 = true;
@@ -1380,11 +1380,11 @@
 
     $(document).on("click", ".contactInfoType3", function () {
         var Adminprofile = $(this).closest('.contact3');
-        $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
-        $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
-        $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
-        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
+        $('.ReceiverFullName').text(Adminprofile.find('.FullName').text());
+        $('#ReceiverPhone').text(Adminprofile.find('.Phone').text())
+        $('.ReceiverStreet').text(Adminprofile.find('.Street').text())
+        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
+        $('.ReceiverAddress').text(Adminprofile.find('.Address').text())
         var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
         $(".is-check-contact-type-3").empty();
         validate3 = true;
@@ -1452,7 +1452,7 @@
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://103.216.114.237:8080/",
+                            url: "http://103.104.117.175/ocr",
                             data: data,
                             contentType: false,
                             processData: false,

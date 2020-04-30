@@ -715,7 +715,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     return Json(OCRParsed);
                 }
             }
-            return Json(new { Error = true});
+            return Json(new { error = true, message = "FormID not found"});
         }
 
         private class district
