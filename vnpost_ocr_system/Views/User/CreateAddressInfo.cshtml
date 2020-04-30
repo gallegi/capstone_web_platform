@@ -359,7 +359,7 @@
     $(document).ready(function () {
         $('#province').change(function () {
             var data = {
-                provinceID: document.getElementById("province").value
+                PostalProvinceCode: document.getElementById("province").value
             };
             $.ajax({
                 type: "POST",
