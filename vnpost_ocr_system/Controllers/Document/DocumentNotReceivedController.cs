@@ -19,7 +19,7 @@ namespace vnpost_ocr_system.Controllers.Document
 {
     public class DocumentNotReceivedController : Controller
     {
-        public static List<Non_revieve> excelList = new List<Non_revieve>();
+        public static List<NotReceivedDocument> excelList = new List<NotReceivedDocument>();
         // GET: DocumentNotReceived
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-cho-nhan")]
@@ -61,7 +61,7 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult Search(string province, string district, string coQuan, string profile, string dateFrom, string dateTo)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Non_revieve> searchList = null;
+            List<NotReceivedDocument> searchList = null;
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
             string query = "";
@@ -115,7 +115,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         to = DateTime.ParseExact(dateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                 }
-                searchList = db.Database.SqlQuery<Non_revieve>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY", new SqlParameter("profile", profile),
+                searchList = db.Database.SqlQuery<NotReceivedDocument>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY", new SqlParameter("profile", profile),
                                                                       new SqlParameter("coQuan", coQuan),
                                                                       new SqlParameter("district", district),
                                                                       new SqlParameter("province", province),
@@ -131,7 +131,7 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                       new SqlParameter("dateFrom", from),
                                                                       new SqlParameter("dateTo", to)).FirstOrDefault();
                 totalrowsafterfiltering = totalrows;
-                excelList = db.Database.SqlQuery<Non_revieve>(query, new SqlParameter("profile", profile),
+                excelList = db.Database.SqlQuery<NotReceivedDocument>(query, new SqlParameter("profile", profile),
                                                                       new SqlParameter("coQuan", coQuan),
                                                                       new SqlParameter("district", district),
                                                                       new SqlParameter("province", province),

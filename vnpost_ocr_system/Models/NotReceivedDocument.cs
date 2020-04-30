@@ -5,14 +5,14 @@ using System.Web;
 
 namespace vnpost_ocr_system.Models
 {
-    public class Non_revieve : Order
+    public class NotReceivedDocument : Order
     {
         public string PostalProvinceName { get; set; }
         public string ProfileName { get; set; }
         public string PublicAdministrationName { get; set; }
         public string Phone { get; set; }
     }
-    public class Non_revieve_detail : Non_revieve
+    public class NotReceivedDocumentDetail : NotReceivedDocument
     {
         public string PAPhone { get; set; }
         public string PAAddress { get; set; }

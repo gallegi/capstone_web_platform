@@ -76,11 +76,11 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetAddressOfPublicAdmins")]
         [HttpGet]
-        public ActionResult GetAddressByPublicAdminCode(int code)
+        public ActionResult GetAddressByPublicAdminCode(int PublicAdministrationLocationID)
         {
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                return Json(db.PublicAdministrations.Find(code).PublicAdministrationName);
+                return Json(db.PublicAdministrations.Find(PublicAdministrationLocationID).PublicAdministrationName);
             }
         }
 

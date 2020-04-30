@@ -1245,11 +1245,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_city_0').val()
+                PostalProvinceCode: $('#drop_city_0').val()
             },
             success: function (response) {
                 // re-new the list of districts
