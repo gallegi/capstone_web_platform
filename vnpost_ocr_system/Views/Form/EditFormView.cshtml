@@ -1060,7 +1060,7 @@
         var fixed_value = ft.PostalProvinceCode; 
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -1213,7 +1213,7 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -1310,7 +1310,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_admin_office_0').val()
+                PublicAdministrationLocationID: $('#drop_admin_office_0').val()
             },
             success: function (response) {
                 // re-new dropdown profile

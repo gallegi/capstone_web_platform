@@ -1238,16 +1238,8 @@
         }
     });
 
-    $(document).on("click", 'section .contact1', function () {
-        contact = 'section .contact1:nth-child(' + ($(this).index() + 1) + ')';
-    })
-
-    $(document).on("click", 'section .contact2', function () {
-        contact = 'section .contact2:nth-child(' + ($(this).index() + 1) + ')';
-    })
-
-    $(document).on("click", 'section .contact3', function () {
-        contact = 'section .contact3:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section [class^=contact]', function () {
+        contact = 'section [class^=contact]:nth-child(' + ($(this).index() + 1) + ')';
     })
 
     $(document).on("click", "#save_contact_info", function () {

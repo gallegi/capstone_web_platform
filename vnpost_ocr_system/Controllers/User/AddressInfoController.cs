@@ -75,26 +75,6 @@ namespace vnpost_ocr_system.Controllers.User
             }
         }
 
-        [Route("tai-khoan/so-dia-chi/lay-quan-huyen")]
-        public ActionResult getDistrict(string provinceID)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> listDistrict = db.Districts.Where(x => x.PostalProvinceCode.Equals(provinceID)).ToList();
-            listDistrict = listDistrict.Select(x => new District
-            {
-                PostalDistrictCode = x.PostalDistrictCode,
-                PostalDistrictName = x.PostalDistrictName
-            }).ToList();
-            return Json(listDistrict);
-        }
-
-        [Route("tai-khoan/so-dia-chi/lay-tinh-thanh-pho")]
-        public ActionResult getProvince()
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> listProvince = db.Provinces.ToList<Province>();
-            return Json(listProvince);
-        }
 
         [Auther(Roles = "0")]
         [Route("tai-khoan/so-dia-chi/chinh-sua")]
