@@ -101,7 +101,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $("#item3").val()
+                PublicAdministrationLocationID: $("#item3").val()
             },
             success: function (response) {
                 $('#item4').empty();

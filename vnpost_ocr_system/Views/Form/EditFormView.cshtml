@@ -1172,11 +1172,11 @@
 
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: ft.PublicAdministrationLocationID
+                PublicAdministrationLocationID: ft.PublicAdministrationLocationID
             },
             success: function (response) {
                 // re-new dropdown profile
@@ -1306,7 +1306,7 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {

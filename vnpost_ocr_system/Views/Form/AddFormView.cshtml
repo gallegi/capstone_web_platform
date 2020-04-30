@@ -871,11 +871,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_admin_office_0').val()
+                PublicAdministrationLocationID: $('#drop_admin_office_0').val()
             },
             success: function (response) {
                 // re-new dropdown profile

@@ -71,7 +71,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                PublicAdministrationLocationID: $(this).val()
             },
             success: function (response) {
                 $('#item4').empty();
