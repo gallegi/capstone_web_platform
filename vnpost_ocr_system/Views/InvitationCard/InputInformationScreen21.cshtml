@@ -907,11 +907,11 @@
         $('#PostalDistrictName').text($('#item2').find('option:selected').text());
         $.ajax({
             type: "POST",
-            url: "/GetAdmins",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#item2').val()
+                PostalDistrictCode: $('#item2').val()
             },
             success: function (response) {
                 var option = "";

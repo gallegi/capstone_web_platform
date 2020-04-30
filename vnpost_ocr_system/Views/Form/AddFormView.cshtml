@@ -842,11 +842,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_district_0').val()
+                PostalDistrictCode: $('#drop_district_0').val()
             },
             success: function (response) {
                 // re-new dropdown public administation

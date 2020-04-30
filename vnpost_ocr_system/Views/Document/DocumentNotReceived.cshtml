@@ -465,11 +465,11 @@
         $("#pre-load").show();
         $.ajax({
             type: "POST",
-            url: "/GetAdmins",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#district').val()
+                PostalDistrictCode: $('#district').val()
             },
             success: function (response) {
                 var option = "";

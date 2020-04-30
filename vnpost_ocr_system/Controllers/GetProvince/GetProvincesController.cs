@@ -55,15 +55,15 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             return Json(list);
         }
 
-        [Route("GetAdmins")]
+        [Route("GetPublicAdministration")]
         [HttpPost]
-        public ActionResult GetPublicAdministrationByDistrictCode(string code)
+        public ActionResult GetPublicAdministrationByDistrictCode(string PostalDistrictCode)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<PublicAdministration> list = (from pd in db.Districts
                                                join po in db.PostOffices on pd.DistrictCode equals po.DistrictCode
                                                join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
-                                               where pd.PostalDistrictCode.Equals(code)
+                                               where pd.PostalDistrictCode.Equals(PostalDistrictCode)
                                                orderby pa.PublicAdministrationName
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {

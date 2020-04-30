@@ -45,11 +45,11 @@
         
         $.ajax({
             type: "POST",
-            url: "/GetAdmins",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $("#item2").val()
+                PostalDistrictCode: $("#item2").val()
             },
             success: function (response) {
                 $('#item3').empty();

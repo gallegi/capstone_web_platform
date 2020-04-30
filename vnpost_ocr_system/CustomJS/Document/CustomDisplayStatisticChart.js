@@ -37,11 +37,11 @@
         //$('.tk2').show();
         $.ajax({
             type: "POST",
-            url: "/GetAdmins",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                PostalDistrictCode: $(this).val()
             },
             success: function (response) {
                 $('#item3').empty();
