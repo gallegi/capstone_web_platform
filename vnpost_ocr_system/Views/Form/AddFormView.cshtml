@@ -960,11 +960,14 @@
             // find all index of occurences in the raw_text
             var start_end_idx = [];
             while (match = input_regex.exec(raw_text)) {
-                //console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
-                if (match_index == start_end_idx[start_end_idx.length - 1][0]
-                    && input_regex.lastIndex == start_end_idx[start_end_idx.length - 1][1]) {
-                    break;
+                console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                if (start_end_idx.length > 0) {
+                    if (match.index == start_end_idx[start_end_idx.length - 1][0]
+                        && input_regex.lastIndex == start_end_idx[start_end_idx.length - 1][1]) {
+                        break;
+                    }
                 }
+                
                 start_end_idx.push([match.index, input_regex.lastIndex]);
             }
 
