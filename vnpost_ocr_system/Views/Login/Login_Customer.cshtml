@@ -563,8 +563,7 @@
             $(".set-btn").remove();
         }
         getPro();
-        //chen1();
-        //chen2();
+
     });
 
     function SendTokenPhone() {
@@ -659,7 +658,7 @@
 
     function getPro() {
         $.ajax({
-            url: "/LoginCustomer/GetPro",
+            url: "/GetProvince",
             type: "POST",
             contentType: "application/json;charset=utf-8",
             success: function (result) {

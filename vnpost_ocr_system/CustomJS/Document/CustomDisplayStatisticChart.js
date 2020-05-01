@@ -11,7 +11,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                PostalProvinceCode: $(this).val()
             },
             success: function (response) {
                 $('#item2').empty();
@@ -37,11 +37,11 @@
         //$('.tk2').show();
         $.ajax({
             type: "POST",
-            url: "/GetAdmins",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                PostalDistrictCode: $(this).val()
             },
             success: function (response) {
                 $('#item3').empty();
@@ -71,7 +71,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $(this).val()
+                PublicAdministrationLocationID: $(this).val()
             },
             success: function (response) {
                 $('#item4').empty();

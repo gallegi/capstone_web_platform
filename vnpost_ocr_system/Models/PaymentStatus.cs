@@ -12,10 +12,10 @@ namespace vnpost_ocr_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentStatu
+    public partial class PaymentStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaymentStatu()
+        public PaymentStatus()
         {
             this.Payments = new HashSet<Payment>();
         }

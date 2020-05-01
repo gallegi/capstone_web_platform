@@ -23,6 +23,6 @@ namespace vnpost_ocr_system.Models
     
         public virtual Order Order { get; set; }
         public virtual PaymentMethod PaymentMethod { get; set; }
-        public virtual PaymentStatu PaymentStatu { get; set; }
+        public virtual PaymentStatus PaymentStatu { get; set; }
     }
 }

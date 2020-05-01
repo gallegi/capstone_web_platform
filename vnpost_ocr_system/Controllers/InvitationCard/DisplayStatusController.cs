@@ -12,25 +12,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 {
     public class DisplayStatusController : BaseUserController
     {
-        // GET: 
-        [Route("giay-hen/trang-thai-giay-hen")]
-        [HttpGet]
-        public ActionResult Index()
-        {
-            if (Session["userID"] == null)
-            {
-                SearchStatusController ssc = new SearchStatusController();
-                ssc.getMess("Phải đăng nhập trước");
-                return Redirect("/giay-hen/tim-giay-hen");
-            }
-            else
-            {
-                return View("/Views/InvitationCard/DisplayStatus.cshtml");
-            }
-            //return Redirect("/giay-hen/tim-giay-hen");
-
-        }
-
         [Route("giay-hen/trang-thai-giay-hen")]
         [HttpPost]
         public ActionResult Display(string id)
@@ -49,7 +30,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             if (odb == null)
             {
                 SearchStatusController ssc = new SearchStatusController();
-                ssc.getMess("2");
+                ssc.SetMessage("2");
                 return Redirect("/giay-hen/tim-giay-hen");
             }
             else

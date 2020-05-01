@@ -16,8 +16,9 @@ h5#title {
 }
 
 .search-card {
-    margin-top: 0% !important;
-    height: 230px !important
+    margin-top: -5% !important;
+    height: 230px !important;
+        padding-top:20px
 }
 
 .container-fluid {

@@ -180,10 +180,8 @@
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
-    <Compile Include="Controllers\Document\DocumentProcessedController.cs" />
-    <Compile Include="Controllers\Document\DocumentProcessingController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
-    <Compile Include="Controllers\Document\DocumentRecivedController.cs" />
+    <Compile Include="Controllers\Document\DocumentReceivedController.cs" />
     <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Form\ListFormController.cs" />
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
@@ -270,7 +268,7 @@
     <Compile Include="Models\ContactInfoDB.cs" />
     <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\MyOrderDetail.cs" />
-    <Compile Include="Models\Non_Recive.cs" />
+    <Compile Include="Models\NotReceivedDocument.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -289,7 +287,7 @@
     <Compile Include="Models\PaymentMethod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PaymentStatu.cs">
+    <Compile Include="Models\PaymentStatus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonalPaperType.cs">
@@ -323,7 +321,7 @@
     <Compile Include="Models\Query_Scope_3_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Receive.cs" />
+    <Compile Include="Models\ReceivedDocument.cs" />
     <Compile Include="Models\ResetPasswordToken.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -6308,16 +6306,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_MasterPage.cshtml" />
-    <Content Include="Views\InvitationCard\DisplayCode.cshtml" />
     <Content Include="Views\InvitationCard\DisplayStatus.cshtml" />
     <Content Include="Views\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\ManagementUser.cshtml" />
     <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Document\DocumentProcessed.cshtml" />
-    <Content Include="Views\Document\DocumentProcessing.cshtml" />
-    <Content Include="Views\Document\DocumentRecived.cshtml" />
+    <Content Include="Views\Document\DocumentReceived.cshtml" />
     <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
@@ -6351,7 +6346,6 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Form\DetailFormView.cshtml" />
     <Content Include="Views\Form\AddFormView.cshtml" />
-    <Content Include="Views\Form\TestView.cshtml" />
     <Content Include="Views\Form\EditFormView.cshtml" />
     <Content Include="Views\Form\ListFormView.cshtml" />
   </ItemGroup>
@@ -6390,27 +6384,6 @@
     <Folder Include="CustomJS\Form\DetailForm\" />
     <Folder Include="OrderImage\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\AccountInfo\" />
-    <Folder Include="Views\AddAPI\" />
-    <Folder Include="Views\AddForm\" />
-    <Folder Include="Views\AddressInfo\" />
-    <Folder Include="Views\ConfirmInfor\" />
-    <Folder Include="Views\CreateAddressInfo\" />
-    <Folder Include="Views\DetailForm\" />
-    <Folder Include="Views\DisplayCode\" />
-    <Folder Include="Views\DisplayStatisticChart\" />
-    <Folder Include="Views\DisplayStatus\" />
-    <Folder Include="Views\DocumentNotReceived\" />
-    <Folder Include="Views\DocumentReceivedDetail\" />
-    <Folder Include="Views\EditAPI\" />
-    <Folder Include="Views\GetProvinces\" />
-    <Folder Include="Views\InputInformation\" />
-    <Folder Include="Views\InputReceiverInformation\" />
-    <Folder Include="Views\ListAPI\" />
-    <Folder Include="Views\ListForm\" />
-    <Folder Include="Views\LoginCustomer\" />
-    <Folder Include="Views\OCR\" />
-    <Folder Include="Views\SearchStatus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

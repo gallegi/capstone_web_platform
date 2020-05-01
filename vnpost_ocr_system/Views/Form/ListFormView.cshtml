@@ -5,6 +5,7 @@
         <script>
             function showPopUp(formId, formName, img_url) {
                 document.getElementById('popupimg').setAttribute("src", img_url);
+                document.getElementById('form_id').value = formId;
                 document.getElementById('popup_form_name').innerHTML = formName;
                 window.location.href = "#popup1";
             }
@@ -36,7 +37,7 @@
                             <p>@form.FormName</p>
                         </div>
                         <div class="align">
-                            <button name="btn1" class="cbutton">Xem chi tiết</button>
+                            <button name="btn1" class="cbutton" onclick="window.location.href='/bieu-mau/chi-tiet-bieu-mau?form_id=' + @form.FormID">Xem chi tiết</button>
                         </div>
                     </div>
 
@@ -56,8 +57,9 @@
                 <div class="align">
                     <p id="popup_form_name">Giấy hẹn số GH123</p>
                 </div>
-                <form method="post" action="list-bieu-mau">
-                    <input type="submit" value="Xem chi tiết"/>
+                <form method="get" action="/bieu-mau/chi-tiet-bieu-mau">
+                    <input id="form_id" name="form_id" type="hidden" value="">
+                    <input type="submit" value="Xem chi tiết" />
                 </form>
             </div>
         </div>
