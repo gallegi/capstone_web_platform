@@ -45,7 +45,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<OrderStatusDetail> OrderStatusDetails { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public virtual DbSet<PaymentStatu> PaymentStatus { get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatus1 { get; set; }
         public virtual DbSet<PersonalPaperType> PersonalPaperTypes { get; set; }
         public virtual DbSet<PhoneVerification> PhoneVerifications { get; set; }
         public virtual DbSet<PostOffice> PostOffices { get; set; }

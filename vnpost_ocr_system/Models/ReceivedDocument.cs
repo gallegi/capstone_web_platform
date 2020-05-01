@@ -5,7 +5,7 @@ using System.Web;
 
 namespace vnpost_ocr_system.Models
 {
-    public class Receive : Order
+    public class ReceivedDocument : Order
     {
         public string PostalProvinceName { get; set; }
         public string ProfileName { get; set; }

@@ -712,12 +712,12 @@
                     $('p[name="validation_img"]').text('')
                     var base64String = event.target.result;
                     $('#cache_img').attr("src", base64String);
-                    // append to FormData
-                    myFormData.set('img', $('#cache_img').attr("src"));
-                    myFormData.set('img_name', file.name);
+                    //// append to FormData
+                    //myFormData.set('img', $('#cache_img').attr("src"));
+                    //myFormData.set('img_name', file.name);
 
-                    console.log(myFormData.get('img') === $('#cache_img').attr("src"));
-                    console.log(myFormData.get('img_name'));
+                    //console.log(myFormData.get('img') === $('#cache_img').attr("src"));
+                    //console.log(myFormData.get('img_name'));
 
                 };
                 reader.readAsDataURL(file);
@@ -778,7 +778,7 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -810,11 +810,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_city_0').val()
+                PostalProvinceCode: $('#drop_city_0').val()
             },
             success: function (response) {
                 // re-new the list of districts
@@ -842,11 +842,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_district_0').val()
+                PostalDistrictCode: $('#drop_district_0').val()
             },
             success: function (response) {
                 // re-new dropdown public administation
@@ -871,11 +871,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_admin_office_0').val()
+                PublicAdministrationLocationID: $('#drop_admin_office_0').val()
             },
             success: function (response) {
                 // re-new dropdown profile
@@ -1300,7 +1300,7 @@
                 $('#pre-load').show();
                 $.ajax({
                     type: "POST",
-                    url: "http://www.mocky.io/v2/5e9d0b5030000049000a805e",
+                    url: "http://103.104.117.175/ocr",
                     data: data,
                     contentType: false,
                     processData: false,
