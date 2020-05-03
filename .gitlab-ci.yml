@@ -9,6 +9,6 @@ build_job:
   script:
     - '& "$env:NUGET_PATH" restore'
     - '& "$env:MSBUILD_PATH" /p:Configuration=Release /clp:ErrorsOnly'
-    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:Configuration=Release'
+    # - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:Configuration=Release'
   artifacts:
     expire_in: 2 days
