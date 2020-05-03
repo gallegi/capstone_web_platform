@@ -16,14 +16,6 @@ namespace vnpost_ocr_system.Controllers
 {
     public class PaymentController : BaseUserController
     {
-        // GET: Payment
-
-        //[Route("don-hang/thanh-toan")]
-        //public ActionResult Index()
-        //{
-        //    return View("/Views/Payment/Payment.cshtml");
-        //}
-
         [Auther(Roles = "0")]
         [HttpPost]
         [Route("don-hang/thanh-toan")]

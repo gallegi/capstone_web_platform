@@ -182,7 +182,6 @@
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedController.cs" />
-    <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Form\ListFormController.cs" />
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -200,7 +199,6 @@
     <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
     <Compile Include="Controllers\User\InvitationManageController.cs" />
-    <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6310,10 +6308,8 @@
     <Content Include="Views\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\ManagementUser.cshtml" />
-    <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Document\DocumentReceived.cshtml" />
-    <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
@@ -6330,7 +6326,6 @@
     <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
-    <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
