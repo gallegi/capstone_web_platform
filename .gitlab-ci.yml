@@ -9,7 +9,7 @@ build_job:
   stage: build
   script:
     - '& "$env:NUGET_PATH" restore'
-    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:DeployOnBuild=true /p:Configuration=Release /P:PublishProfile=FolderProfile.pubxml /clp:Summary;ErrorsOnly;WarningsOnly'
+    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:DeployOnBuild=true /p:Configuration=Release /P:PublishProfile=FolderProfile.pubxml /clp:ErrorsOnly'
   artifacts:
     expire_in: 2 days
     paths:
