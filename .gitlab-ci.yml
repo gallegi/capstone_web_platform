@@ -3,12 +3,21 @@ variables:
   MSBUILD_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\msbuild.exe'
 stages:
   - build
+  - deploy
 
 build_job:
   stage: build
   script:
     - '& "$env:NUGET_PATH" restore'
-    - '& "$env:MSBUILD_PATH" /p:Configuration=Release /clp:ErrorsOnly'
-    # - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:Configuration=Release'
+    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:DeployOnBuild=true /p:Configuration=Release /P:PublishProfile=FolderProfile.pubxml'
   artifacts:
     expire_in: 2 days
+    paths:
+      - '.\vnpost_ocr_system\bin\Release\Publish\'
+
+deploy_job:
+  stage: deploy
+  script:
+    - 'xcopy /y /s "\vnpost_ocr_system\bin\Release\Publish\*.*" "C:\inetpub\wwwroot\vnpost"'
+  dependencies:
+    - build_job
