@@ -5995,12 +5995,6 @@
     <Content Include="dist\js\pages\sparkline\jquery.charts-sparkline.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="FormImage\1396336733-chung-minh-thu-8.jpg" />
-    <Content Include="FormImage\can-cuoc-cong-dan.jpg" />
-    <Content Include="FormImage\mau-giay-tiep-nhan-ho-so-va-hen-tra-ket-qua-cap-cap-lai-va-doi-the-bhyt-1.jpg" />
-    <Content Include="FormImage\Receipt of file_2.jpg" />
-    <Content Include="FormImage\Seal - Seal receipt.png" />
-    <Content Include="FormImage\so-tu-phap-5-1509416415817.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
@@ -6280,6 +6274,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6377,8 +6372,8 @@
     <Folder Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\" />
     <Folder Include="assets\libs\node-sass\bin\" />
     <Folder Include="CustomJS\Form\DetailForm\" />
+    <Folder Include="FormImage\" />
     <Folder Include="OrderImage\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

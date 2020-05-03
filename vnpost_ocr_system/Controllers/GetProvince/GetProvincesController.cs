@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 
@@ -101,7 +99,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
                                 d.PostalDistrictCode,
                                 pa.PublicAdministrationLocationID
                             }).FirstOrDefault();
-                return Json(new { success = data == null ? false : true, data = data});
+                return Json(new { success = data == null ? false : true, data = data });
             }
         }
     }

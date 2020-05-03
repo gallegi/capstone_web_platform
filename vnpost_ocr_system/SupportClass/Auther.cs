@@ -1,13 +1,8 @@
-﻿using vnpost_ocr_system.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Filters;
-using System.Text;
-using System.Security.Cryptography;
+﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.Mvc;
 
 namespace vnpost_ocr_system.SupportClass
 {

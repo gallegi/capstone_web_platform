@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
-using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
@@ -126,7 +124,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 else if (o.StatusID == -2) o.step = 1;
                 else if (o.StatusID == 1) o.step = 2;
                 else if (o.StatusID == 5) o.step = 4;
-                else if(o.StatusID == -1)o.step = 3; 
+                else if (o.StatusID == -1) o.step = 3;
                 else o.step = 0;
                 ViewBag.order = o;
                 if (o.StatusID == 0)

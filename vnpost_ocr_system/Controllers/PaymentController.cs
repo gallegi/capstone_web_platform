@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
@@ -93,7 +92,7 @@ namespace vnpost_ocr_system.Controllers
 
                             OrderImage image = new OrderImage();
                             image.ImageRealName = imgName;
-                            image.ImageName = DateTime.Now.ToFileTime().ToString()+"."+imgName.Split('.')[imgName.Split('.').Length-1];
+                            image.ImageName = DateTime.Now.ToFileTime().ToString() + "." + imgName.Split('.')[imgName.Split('.').Length - 1];
                             image.OrderID = o.OrderID;
                             db.OrderImages.Add(image);
                             db.SaveChanges();

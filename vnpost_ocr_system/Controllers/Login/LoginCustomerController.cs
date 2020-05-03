@@ -3,9 +3,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
 using XCrypt;
-using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.Login
 {

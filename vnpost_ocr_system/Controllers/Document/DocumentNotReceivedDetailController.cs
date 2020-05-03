@@ -1,17 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.Mobile;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -36,8 +34,8 @@ namespace vnpost_ocr_system.Controllers.Document
             order = db.Database.SqlQuery<NotReceivedDocumentDetail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
-            ViewBag.imageUrl = id + "/" + order.ImageName; 
-            ViewBag.imageRUrl = order.ImageRealName; 
+            ViewBag.imageUrl = id + "/" + order.ImageName;
+            ViewBag.imageRUrl = order.ImageRealName;
             if (err == true)
             {
                 ViewBag.error = "err";
@@ -69,7 +67,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
             }
 
-            
+
             using (DbContextTransaction con = db.Database.BeginTransaction())
             {
                 try

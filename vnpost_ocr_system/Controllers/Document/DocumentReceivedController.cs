@@ -1,16 +1,15 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Linq.Dynamic;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
-using System.Linq.Dynamic;
 using vnpost_ocr_system.SupportClass;
-using System.Globalization;
-using System.Web.Hosting;
-using System.IO;
-using OfficeOpenXml;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -52,7 +51,7 @@ namespace vnpost_ocr_system.Controllers.Document
         }
 
 
-        
+
 
 
         [Route("da-tiep-nhan")]
@@ -116,7 +115,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     }
                 }
 
-                searchList = db.Database.SqlQuery<ReceivedDocument>(query + " order by "+ sortColumnName + " "+ sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
+                searchList = db.Database.SqlQuery<ReceivedDocument>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
                                                                  new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
