@@ -32,44 +32,6 @@ namespace vnpost_ocr_system.Controllers.Form
             }
         }
 
-        public string LoadImgToB64(string img_name)
-        {
-            /* This function is used to convert one image to Based64Sring */
-            string base64_string = "";
-            String path = Server.MapPath("~/FormImage"); //Path
-
-            //Check if directory exist
-            if (!System.IO.Directory.Exists(path))
-            {
-                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
-            }
-
-            //set the image path
-            string img_path = Path.Combine(path, img_name);
-
-            using (Image image = Image.FromFile(img_path))
-            {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-
-                    // Convert byte[] to Base64 String
-                    base64_string = Convert.ToBase64String(imageBytes);
-                    if (EmptyStr(base64_string))
-                    {
-                        throw new ImageNotFoundException("ảnh không tồn tại hoặc trên server");
-                    }
-                    else
-                    {
-                        // append base64 tag to the current image bytes
-                        base64_string = string.Concat("data:image/jpg;base64,", base64_string);
-                    }
-                    return base64_string;
-                }
-            }
-        }
-
         public bool EmptyStr(string str)
         {
             //Debug.WriteLine("In Validate: " + str);
@@ -132,7 +94,6 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/chi-tiet-bieu-mau/GetFormDetail")]
         public ActionResult GetFormDetail()
         {
-            FullFormDetail full_form;
             string base64_img = "";
             FormTemplate ft;
 
@@ -150,18 +111,13 @@ namespace vnpost_ocr_system.Controllers.Form
                         new SqlParameter("FormID", Request["form_id"])).FirstOrDefault();
 
                     Debug.WriteLine(ft.FormName);
-                    full_form = new FullFormDetail();
-                    if (ft != null)
+                    if (ft == null)
                     {
-                        // Load image
-                        base64_img = LoadImgToB64(ft.FormImageLink);
-                        full_form.ft = ft;
-                        full_form.image = ft.FormImageLink;
-                        Debug.WriteLine("image link: " + full_form.image);
+                        throw new Exception();
                     }
                 }
-                Debug.WriteLine("hrere");
-                return Json(new { status_code = "200", status = "Success", full_form = ConvertEntJson(full_form)}, JsonRequestBehavior.AllowGet);
+                Debug.WriteLine("Json: " + ConvertEntJson<FormTemplate>(ft));
+                return Json(new { status_code = "200", status = "Success", form_template = ConvertEntJson<FormTemplate>(ft)}, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception e)
@@ -188,7 +144,7 @@ namespace vnpost_ocr_system.Controllers.Form
         }
 
         // ------------------------------------------------- Delete form -------------------------------------------------------------
-        public string ConvertEntJson(FullFormDetail full_form)
+        protected string ConvertEntJson<T>(T full_form)
         {
             string json_text = "";
             try
@@ -204,61 +160,54 @@ namespace vnpost_ocr_system.Controllers.Form
         }
 
 
-        //[Auther(Roles = "1")]
-        //[Route("bieu-mau/chi-tiet-bieu-mau/Delete")]
-        //[HttpPost]
-        //public ActionResult DeleteForm()
-        //{
-        //    string form_id = Request["form_id"];
+        [Auther(Roles = "1")]
+        [Route("bieu-mau/chi-tiet-bieu-mau/Delete")]
+        [HttpPost]
+        public ActionResult DeleteForm()
+        {
+            string form_id = Request["form_id"];
 
-        //    if (form_id.Trim() == "")
-        //        return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
-        //    VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-        //    using (DbContextTransaction transaction = db.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            // Get information of the deleted form
-        //            FormTemplate ft;
-        //            ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
-        //                new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
+            if (form_id.Trim() == "")
+                return Json(new { status_code = "400", status = "Fail", message = "Thiếu ID của biểu mẫu" }, JsonRequestBehavior.AllowGet);
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            using (DbContextTransaction transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    // 1. Get information of the deleted form
+                    FormTemplate ft;
+                    ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
+                        new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
 
-        //            Debug.WriteLine(ft.FormName);
+                    Debug.WriteLine(ft.FormName);
 
-        //            // Load image
-        //            string base64_img = "";
-        //            if (ft != null)
-        //            {
-        //                base64_img = LoadImgToB64(ft.FormImageLink);
-        //            }
+                    if (ft == null)
+                    {
+                        throw new Exception();
+                    }
 
-        //            // Load Full Form
-        //            FullFormDetail full_form = new FullFormDetail();
-        //            full_form.ft = ft;
-        //            full_form.image = base64_img;
-        //            full_form.action = "delete";
+                    // 2. Delete from database 
+                    string query = "delete from FormTemplate where FormID = @form_id";
+                    db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
+                    db.SaveChanges();
 
-        //            // Send train request to AI Server
-        //            Postman pm = new Postman();
-        //            string url = "http://localhost:3978";
-        //            string json_text = ConvertEntJson(full_form);
-        //            pm.SendRequest(url, json_text);
+                    // 3. Send train request to AI Server
+                    FullFormRequest full_form = new FullFormRequest(ft, "delete");
 
-        //            // Delete from database 
-        //            string query = "delete from FormTemplate where FormID = @form_id";
-        //            db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
-        //            db.SaveChanges();
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            transaction.Rollback();
-        //            return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
-        //        }
-        //        transaction.Commit();
-        //        return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+                    Postman pm = new Postman();
+                    string url = "http://103.104.117.175/retrain";
+                    string json_text = ConvertEntJson(full_form);
+                    pm.SendRequest(url, json_text);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
+                }
+                transaction.Commit();
+                return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
 
