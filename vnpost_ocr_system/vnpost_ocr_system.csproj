@@ -738,7 +738,6 @@
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview-init.js" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.css" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.js" />
-    <Content Include="assets\images\123.png" />
     <Content Include="assets\images\account-info-background.png" />
     <Content Include="assets\images\alert\alert.png" />
     <Content Include="assets\images\alert\alert2.png" />
@@ -6274,6 +6273,7 @@
     <Content Include="assets\images\slider\2.webp" />
     <Content Include="assets\images\slider\3.webp" />
     <Content Include="assets\images\slider\4.webp" />
+    <Content Include="assets\images\123.webp" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
