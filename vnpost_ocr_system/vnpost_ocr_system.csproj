@@ -173,9 +173,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
+    <Compile Include="Controllers\API\AddAPIController.cs" />
+    <Compile Include="Controllers\API\EditAPIController.cs" />
+    <Compile Include="Controllers\API\ListAPIController.cs" />
     <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
@@ -6257,10 +6257,6 @@
     <Content Include="assets\materialize\README.md" />
     <Content Include="assets\uploader\icons.min.css.map" />
     <Content Include="assets\uploader\icons.min.css.map" />
-    <Content Include="Excel\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-da-nhan.xlsx" />
-    <Content Include="Excel\Ho-so-da-nhan.xlsx" />
     <Content Include="assets\Custom css\Mobile\login-css\flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
