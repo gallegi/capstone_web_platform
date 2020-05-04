@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using XCrypt;
 using vnpost_ocr_system.Models;
-using vnpost_ocr_system.SupportClass;
+using XCrypt;
 
 namespace vnpost_ocr_system.Controllers.Login
 {
@@ -16,7 +14,7 @@ namespace vnpost_ocr_system.Controllers.Login
         public ActionResult Index()
         {
             ViewBag.notifi = "";
-            if(Session["useradminID"] != null) return Redirect("/ho-so/thong-ke-tong-quat");
+            if (Session["useradminID"] != null) return Redirect("/ho-so/thong-ke-tong-quat");
             if (HttpContext.Request.Cookies["remmemadmin"] != null)
             {
                 HttpCookie remme = HttpContext.Request.Cookies.Get("remmemadmin");
@@ -37,7 +35,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 if (admin != null)
                 {
                     string pass_t = password;
-                    password = string.Concat(password, admin.AdminPasswordSalt.Substring(0,6));
+                    password = string.Concat(password, admin.AdminPasswordSalt.Substring(0, 6));
                     string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                     if (passXc.Equals(admin.AdminPasswordHash))
                     {
@@ -72,7 +70,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     return View("/Views/Login/Login.cshtml");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View("/Views/Login/Login.cshtml");
             }

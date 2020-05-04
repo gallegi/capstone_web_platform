@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
@@ -36,11 +35,11 @@ namespace vnpost_ocr_system.Controllers.Services
                 {
                     for (int i = 0; i < id.Length; i++)
                     {
-                        if(hours[i].Equals(""))
+                        if (hours[i].Equals(""))
                         {
                             hours[i] = "0";
                         }
-                        if(minutes[i].Equals(""))
+                        if (minutes[i].Equals(""))
                         {
                             minutes[i] = "0";
                         }
@@ -61,7 +60,7 @@ namespace vnpost_ocr_system.Controllers.Services
                     tran.Commit();
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     tran.Rollback();
                     return null;
@@ -79,11 +78,11 @@ namespace vnpost_ocr_system.Controllers.Services
                 db.Database.ExecuteSqlCommand(sql, new SqlParameter("id", id));
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return null;
             }
-      
+
         }
     }
 }

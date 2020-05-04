@@ -960,9 +960,15 @@
             // find all index of occurences in the raw_text
             var start_end_idx = [];
             while (match = input_regex.exec(raw_text)) {
-                //console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                if (start_end_idx.length > 0) {
+                    if (match.index == start_end_idx[start_end_idx.length - 1][0]
+                        && input_regex.lastIndex == start_end_idx[start_end_idx.length - 1][1]) {
+                        break;
+                    }
+                }
+                
                 start_end_idx.push([match.index, input_regex.lastIndex]);
-
             }
 
             // start replacing by highlighted words
@@ -996,7 +1002,7 @@
         var raw_text = json_data.raw_text;
         if (raw_text == null || raw_text == '') {
             // user click btn to parse but OCR result is empty
-            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu');
+            errorAlert('Lỗi', 'Có lỗi xảy ra khi lấy kết quả OCR từ server');
             return false;
 
         } else {
@@ -1287,6 +1293,7 @@
     function parseToString() {
         $('#pre-load').show();
 
+        console.log($("#cache_img").attr('src'));
         // check input fields
         if (validate_form_name() == false) {
             return false;

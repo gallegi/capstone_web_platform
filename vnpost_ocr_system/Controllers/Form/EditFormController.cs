@@ -1,18 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Data.Entity.Validation;
-using System.Drawing;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace vnpost_ocr_system.Controllers.Form
 {
@@ -162,11 +158,11 @@ namespace vnpost_ocr_system.Controllers.Form
                 }
                 else if (e is DbEntityValidationException)
                 {
-                    LogEFException((DbEntityValidationException) e);
+                    LogEFException((DbEntityValidationException)e);
                 }
 
                 Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau"}, JsonRequestBehavior.AllowGet);
+                return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
@@ -234,12 +230,13 @@ namespace vnpost_ocr_system.Controllers.Form
                     }
                 }
 
-                return Json(new { 
-                                    status_code = "200", 
-                                    status = "Success", 
-                                    message = "Xoá biểu mẫu thành công", 
-                                    result_name = result,
-                                }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    status_code = "200",
+                    status = "Success",
+                    message = "Xoá biểu mẫu thành công",
+                    result_name = result,
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

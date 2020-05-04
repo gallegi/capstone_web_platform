@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Linq.Dynamic;
 using System.Linq;
-using System.Web;
+using System.Linq.Dynamic;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
-using XCrypt;
-using System.Data.Entity;
 using vnpost_ocr_system.SupportClass;
+using XCrypt;
 
 namespace vnpost_ocr_system.Controllers.Login
 {
@@ -99,7 +98,8 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                         a.STT = ++stt;
                     }
-                }else append.AddRange(searchList);
+                }
+                else append.AddRange(searchList);
 
                 db.Configuration.LazyLoadingEnabled = false;
                 totalrows = append.Count;
@@ -284,7 +284,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 return Json(username, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json("", JsonRequestBehavior.AllowGet);
             }
