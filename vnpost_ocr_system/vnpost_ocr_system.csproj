@@ -778,10 +778,6 @@
     <Content Include="assets\images\rating\star-half.png" />
     <Content Include="assets\images\rating\star-off.png" />
     <Content Include="assets\images\rating\star-on.png" />
-    <Content Include="assets\images\slider\1.jpg" />
-    <Content Include="assets\images\slider\2.png" />
-    <Content Include="assets\images\slider\3.jpg" />
-    <Content Include="assets\images\slider\4.jpg" />
     <Content Include="assets\images\users\2.jpg" />
     <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
@@ -6274,6 +6270,10 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\images\slider\1.webp" />
+    <Content Include="assets\images\slider\2.webp" />
+    <Content Include="assets\images\slider\3.webp" />
+    <Content Include="assets\images\slider\4.webp" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
