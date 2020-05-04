@@ -126,7 +126,7 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/chinh-sua-bieu-mau/GetFormDetail")]
         public ActionResult GetFormDetail()
         {
-            FullForm full_form;
+            FullFormDetail full_form;
             string base64_img = "";
             FormTemplate ft;
 
@@ -149,7 +149,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         // Load image
                         base64_img = LoadImgToB64(ft.FormImageLink);
                     }
-                    full_form = new FullForm();
+                    full_form = new FullFormDetail();
                     full_form.ft = ft;
                     full_form.image = base64_img;
                 }
@@ -162,11 +162,11 @@ namespace vnpost_ocr_system.Controllers.Form
                 }
                 else if (e is DbEntityValidationException)
                 {
-                    LogEFException((DbEntityValidationException) e);
+                    LogEFException((DbEntityValidationException)e);
                 }
 
                 Debug.WriteLine(e);
-                return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau"}, JsonRequestBehavior.AllowGet);
+                return Json(new { status_code = "400", status = "Fail", message = "Cõ lỗi xảy ra. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
@@ -276,4 +276,5 @@ namespace vnpost_ocr_system.Controllers.Form
 
         }
     }
+
 }

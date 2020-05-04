@@ -550,16 +550,18 @@
             },
             cache: false,
             success: function (response) {
+                console.log(response);
                 if (response.status == "Success") {
-                    myFormData.set("full_form", response.full_form);
-                    myFormData.set("original_image", response.full_form.image);
-                    myFormData.set("form_template", response.full_form.ft);
-                    var ft = response.full_form.ft;
-                    console.log('province_id', ft.PostalProvinceCode);
-                    console.log('province_id', ft.PostalDistrictCode);
-                    console.log('province_id', ft.PublicAdministrationLocationID);
-                    console.log('province_id', ft.ProfileID);
+                    console.log("hahahahaah");
+                    //myFormData.set("full_form", response.full_form);
+                    //myFormData.set("original_image", response.full_form.image);
+                    //myFormData.set("form_template", response.full_form.ft);
 
+                    console.log("full_form", response.full_form);
+                    console.log("original_image", response.full_form.image);
+                    console.log("form_template", response.full_form.ft);
+
+                    var ft = response.full_form.ft;
                     // set title
                     set_title(ft.FormName);
                     // set image
@@ -576,6 +578,7 @@
                 }
 
             }, error: function (xhr) {
+                console.log("Exception big");
                 alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             }
         });
@@ -593,7 +596,8 @@
     // ------------------------------- image ---------------------------------------------
     function set_image(image_b64) {
         // Set image
-        $("#form_img").attr("src", image_b64);
+        $("#form_img").attr("src", ("~/FormImage/" + image_b64));
+        console.log($("#form_img").attr("src"));
     }
 
     // ------------------------------- api output ---------------------------------------------
