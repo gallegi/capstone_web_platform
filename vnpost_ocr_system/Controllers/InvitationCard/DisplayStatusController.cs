@@ -92,12 +92,13 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, 
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, ppt.PersonalPaperTypeName,
                             (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
                             inner join PublicAdministration pa on pr.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
                             inner join PostOffice p on pa.PosCode = p.PosCode
+                            inner join PersonalPaperType ppt on ppt.PersonalPaperTypeID = o.ProcedurerPersonalPaperTypeID
                             inner join District d on d.DistrictCode = p.DistrictCode
 							inner join OrderStatusDetail os on o.OrderID = os.OrderID
 							inner join Status s on o.StatusID = s.StatusID

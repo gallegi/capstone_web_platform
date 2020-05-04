@@ -3,6 +3,7 @@
     public class orderDB : Order
     {
         public int active { get; set; }
+        public string PersonalPaperTypeName { get; set; }
         public string NgayCap { get; set; }
         public string PublicAdministrationName { get; set; }
         public string Address { get; set; }

@@ -15,11 +15,11 @@
     <div class="row">
 
         <div class="col s12">
-            <h2 class="status-title size-title">Trạng thái đơn hàng</h2>
             <div class="card">
 
                 <div class="card father-display-status">
                     <div class="ClearFix">
+                        <h4 class="font-medium" style="float:left">Trạng thái đơn hàng</h4>
                         <p class="code-order">Mã đơn hàng: #@ViewBag.order.OrderID</p>
                     </div>
                     <!--wizard form-->
@@ -90,7 +90,7 @@
                         </div>
                     }
                     <!--end wizard form-->
-                    <h3>Chi tiết trạng thái đơn hàng</h3>
+                    <h6 class="font-medium">Chi tiết trạng thái đơn hàng</h6>
                     <div class="card detailOrder">
                         @{
                             foreach (var item in ViewBag.list)
@@ -132,12 +132,12 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="f-name">Mã vận đơn: @ViewBag.order.ItemCode</label>
+                                                <label for="f-name">Mã vận đơn:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="f-name"></label>
+                                                <label class="font-medium" for="f-name">@(ViewBag.order.ItemCode != null ? ViewBag.order.ItemCode : "Chưa có") </label>
                                             </div>
                                         </div>
                                     </div>
@@ -146,12 +146,12 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="l-name">Bằng chữ: </label>
+                                                <label for="l-name">Bằng chữ:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="l-name">@ViewBag.order.TotalAmountInWords</label>
+                                                <label class="font-medium" for="l-name">@(ViewBag.order.TotalAmountInWords != null ? ViewBag.order.TotalAmountInWords : "Chưa có")</label>
                                             </div>
                                         </div>
                                     </div>
@@ -162,12 +162,12 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Phí vận chuyển: </label>
+                                                <label for="uname">Phí vận chuyển:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
                                             <div class="h-form-label">
-                                                <label class="font-medium" for="uname">@ViewBag.order.displayAmount (đồng)</label>
+                                                <label class="font-medium" for="uname">@(ViewBag.order.displayAmount != "" ? ViewBag.order.displayAmount + " (đồng)" : ViewBag.order.displayAmount + "Chưa có")</label>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Trạng thái: </label>
+                                                <label for="uname">Trạng thái:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -200,7 +200,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="f-name">Mã giấy hẹn: </label>
+                                                <label for="f-name">Mã giấy hẹn:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -230,7 +230,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Tên cơ quan HCC:  </label>
+                                                <label for="uname">Tên cơ quan HCC:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -244,7 +244,7 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="nname">Số điện thoại BCĐM: </label>
+                                                <label for="nname">Số điện thoại BCĐM:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -260,7 +260,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Tên thủ tục:  </label>
+                                                <label for="uname">Tên thủ tục:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -274,7 +274,7 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="nname">Địa chỉ BCĐM: </label>
+                                                <label for="nname">Địa chỉ BCĐM:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -290,7 +290,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Số điện thoại CQHCC:  </label>
+                                                <label for="uname">Số điện thoại CQHCC:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -319,7 +319,7 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Địa chỉ CQHCC:  </label>
+                                                <label for="uname">Địa chỉ CQHCC:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -384,7 +384,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
+                                                <label for="uname">Địa chỉ:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -414,12 +414,12 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Loại GTTT: </label>
+                                                <label for="uname">Loại GTTT:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
                                             <div class="h-form-label">
-                                                <label for="uname">Chứng Minh Nhân Dân </label>
+                                                <label for="uname">@ViewBag.order.PersonalPaperTypeName</label>
                                             </div>
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="nname">Số GTTT: </label>
+                                                <label for="nname">Số GTTT:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -444,7 +444,7 @@
                                     <div class="row">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Ngày cấp: </label>
+                                                <label for="uname">Ngày cấp:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -508,7 +508,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
+                                                <label for="uname">Địa chỉ:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -567,7 +567,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Địa chỉ: </label>
+                                                <label for="uname">Địa chỉ:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">
@@ -592,7 +592,7 @@
                                     <div class="row clgray">
                                         <div class="col s4">
                                             <div class="h-form-label">
-                                                <label for="uname">Thông tin ghi chú: </label>
+                                                <label for="uname">Thông tin ghi chú:</label>
                                             </div>
                                         </div>
                                         <div class="col s8">

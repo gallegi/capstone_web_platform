@@ -5516,6 +5516,7 @@
     <Content Include="CustomCSS\preloader\css.css" />
     <Content Include="CustomCSS\InvitationCard\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\preloader\pre-load-logo.png" />
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
