@@ -506,14 +506,14 @@
         $("#pre-load").css("z-index","999999")
         $('#user_failed').html('');
         $('#password_failed').html('');
-        var username = document.getElementById('user').value;
+        var username = document.getElementById('user').value.trim();
         var password = document.getElementById('pass').value;
         if (username.length == 0) {
-            $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
+            $('#user_failed').html('Vui lòng nhập nhập Số điện thoại hoặc Email');
             return false;
         }
         if (password.length == 0) {
-            $('#password_failed').html('Mật khẩu không được để trống');
+            $('#password_failed').html('Vui lòng nhập Mật khẩu');
             return false;
         }
         $('#pre-load').show();
@@ -532,7 +532,7 @@
                     $('#user_failed').html('Số điện thoại / Email không đúng');
                 }
                 if (result == 2) {
-                    $('#password_failed').html('Mật khẩu không đúng');
+                    $('#password_failed').html('Mật khẩu không chính xác');
                 }
                 if (result == 3) {
                     window.location.href = '/';
@@ -635,10 +635,10 @@
 
     function getDis() {
         var emp = {
-            id: document.getElementById('province').value
+            PostalProvinceCode: document.getElementById('province').value
         };
         $.ajax({
-            url: "/LoginCustomer/GetDis",
+            url: "/GetDistrict",
             type: "POST",
             data: JSON.stringify(emp),
             contentType: "application/json;charset=utf-8",
@@ -797,7 +797,7 @@
                 return false;
             }
 
-            var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,}([.]{1}[a-z]{1,3})?$/.test(email);
+            var isEmail = /^\w+([\.-]?\w+)*\u0040\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
             if (isEmail == false) {
                 $('#email-err').text('Địa chỉ Email không hợp lệ');
                 return false;

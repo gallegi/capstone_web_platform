@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
+using vnpost_ocr_system.Controllers.Mobile;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.User
 {
@@ -62,8 +61,8 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 item.stringDate = item.OrderDate.ToString("dd/MM/yyyy");
             }
-            int totalrows = db.Database.SqlQuery<MyOrders>(countQuery,new SqlParameter("customerID", customerID)).Count();
-            return Json(new { success = true, data = listOrder , draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrows }, JsonRequestBehavior.AllowGet);
+            int totalrows = db.Database.SqlQuery<MyOrders>(countQuery, new SqlParameter("customerID", customerID)).Count();
+            return Json(new { success = true, data = listOrder, draw = Request["draw"], recordsTotal = totalrows, recordsFiltered = totalrows }, JsonRequestBehavior.AllowGet);
         }
 
         [Route("tai-khoan/quan-ly-giay-hen/danh-sach/poscode")]
@@ -72,8 +71,8 @@ namespace vnpost_ocr_system.Controllers.User
             try
             {
                 VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                
-                string queryInfo = "SELECT dbo.PublicAdministration.PosCode, dbo.[Order].OrderID "+
+
+                string queryInfo = "SELECT dbo.PublicAdministration.PosCode, dbo.[Order].OrderID " +
                                 " FROM dbo.PublicAdministration INNER JOIN " +
                                 " dbo.Profile ON dbo.PublicAdministration.PublicAdministrationLocationID = dbo.Profile.PublicAdministrationLocationID INNER JOIN " +
                                 " dbo.[Order] ON dbo.Profile.ProfileID = dbo.[Order].ProfileID " +
@@ -81,13 +80,13 @@ namespace vnpost_ocr_system.Controllers.User
                 string queryPos = " select * from PostOffice where PosCode = @PosCode";
                 PoscodeInfo info = db.Database.SqlQuery<PoscodeInfo>(queryInfo, new SqlParameter("orderID", orderID)).FirstOrDefault();
                 PostOffice pos = db.Database.SqlQuery<PostOffice>(queryPos, new SqlParameter("PosCode", info.PosCode)).FirstOrDefault();
-                string mess = "Quý khách muốn hủy vui lòng liên hệ Bưu cục " + pos.PosName + " với số điện thoại " + pos.Phone ;
+                string mess = "Quý khách muốn hủy vui lòng liên hệ Bưu cục " + pos.PosName + " với số điện thoại " + pos.Phone;
                 return Json(mess);
             }
             catch (Exception ex)
             {
                 return new HttpStatusCodeResult(400);
-            }                  
+            }
         }
 
         [Route("tai-khoan/quan-ly-giay-hen/huy")]
@@ -103,11 +102,11 @@ namespace vnpost_ocr_system.Controllers.User
                     OrderStatusDetail oDetail = db.Database.SqlQuery<OrderStatusDetail>(queryInfo, new SqlParameter("code", Code)).FirstOrDefault();
 
                     string queryUpdateStatus = "insert into OrderStatusDetail values (@code, @status , @note, @posCode, @date)";
-                    db.Database.ExecuteSqlCommand(queryUpdateStatus, 
+                    db.Database.ExecuteSqlCommand(queryUpdateStatus,
                         new SqlParameter("code", Code),
                         new SqlParameter("status", cancelStatus),
                         new SqlParameter("note", DBNull.Value),
-                        new SqlParameter("posCode", oDetail.PosCode == null ? DBNull.Value : (object) oDetail.PosCode),
+                        new SqlParameter("posCode", oDetail.PosCode == null ? DBNull.Value : (object)oDetail.PosCode),
                         new SqlParameter("date", DateTime.Now));
                     transaction.Commit();
                     db.SaveChanges();
@@ -133,8 +132,8 @@ namespace vnpost_ocr_system.Controllers.User
         public string stringDate { get; set; }
     }
 
-    public class PoscodeInfo 
-    { 
+    public class PoscodeInfo
+    {
         public long PosCode { get; set; }
         public long OrderID { get; set; }
     }

@@ -173,16 +173,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
+    <Compile Include="Controllers\API\AddAPIController.cs" />
+    <Compile Include="Controllers\API\EditAPIController.cs" />
+    <Compile Include="Controllers\API\ListAPIController.cs" />
     <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedController.cs" />
-    <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Form\ListFormController.cs" />
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -200,7 +199,6 @@
     <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
     <Compile Include="Controllers\User\InvitationManageController.cs" />
-    <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -742,7 +740,6 @@
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview-init.js" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.css" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.js" />
-    <Content Include="assets\images\123.png" />
     <Content Include="assets\images\account-info-background.png" />
     <Content Include="assets\images\alert\alert.png" />
     <Content Include="assets\images\alert\alert2.png" />
@@ -782,10 +779,6 @@
     <Content Include="assets\images\rating\star-half.png" />
     <Content Include="assets\images\rating\star-off.png" />
     <Content Include="assets\images\rating\star-on.png" />
-    <Content Include="assets\images\slider\1.jpg" />
-    <Content Include="assets\images\slider\2.png" />
-    <Content Include="assets\images\slider\3.jpg" />
-    <Content Include="assets\images\slider\4.jpg" />
     <Content Include="assets\images\users\2.jpg" />
     <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
@@ -5999,12 +5992,6 @@
     <Content Include="dist\js\pages\sparkline\jquery.charts-sparkline.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="FormImage\1396336733-chung-minh-thu-8.jpg" />
-    <Content Include="FormImage\can-cuoc-cong-dan.jpg" />
-    <Content Include="FormImage\mau-giay-tiep-nhan-ho-so-va-hen-tra-ket-qua-cap-cap-lai-va-doi-the-bhyt-1.jpg" />
-    <Content Include="FormImage\Receipt of file_2.jpg" />
-    <Content Include="FormImage\Seal - Seal receipt.png" />
-    <Content Include="FormImage\so-tu-phap-5-1509416415817.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
@@ -6272,10 +6259,6 @@
     <Content Include="assets\materialize\README.md" />
     <Content Include="assets\uploader\icons.min.css.map" />
     <Content Include="assets\uploader\icons.min.css.map" />
-    <Content Include="Excel\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-da-nhan.xlsx" />
-    <Content Include="Excel\Ho-so-da-nhan.xlsx" />
     <Content Include="assets\Custom css\Mobile\login-css\flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -6284,6 +6267,12 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\images\slider\1.webp" />
+    <Content Include="assets\images\slider\2.webp" />
+    <Content Include="assets\images\slider\3.webp" />
+    <Content Include="assets\images\slider\4.webp" />
+    <Content Include="assets\images\123.webp" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6312,10 +6301,8 @@
     <Content Include="Views\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\ManagementUser.cshtml" />
-    <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Document\DocumentReceived.cshtml" />
-    <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
@@ -6332,7 +6319,6 @@
     <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
-    <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
@@ -6384,8 +6370,8 @@
     <Folder Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\" />
     <Folder Include="assets\libs\node-sass\bin\" />
     <Folder Include="CustomJS\Form\DetailForm\" />
+    <Folder Include="FormImage\" />
     <Folder Include="OrderImage\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

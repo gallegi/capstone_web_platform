@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using System.IO;
-using Newtonsoft.Json;
-using vnpost_ocr_system.Controllers.CustomController;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
@@ -147,7 +144,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                                         <a class='btn waves-effect waves-light bt-color-common contactInfoType" + i + @"' data-contactinfoid='" + c.ContactInfoID + @"'>Sử dụng thông tin này</a>
                                     </div>
                                     <div class='col p-t-10'>
-                                        <a class='modal-trigger btn waves-effect waves-light bt-color-common edit' data-contactinfoid='" +  c.ContactInfoID + @"' data-type='" + i + @"' href='#myform1'>Chỉnh sửa</a>
+                                        <a class='modal-trigger btn waves-effect waves-light bt-color-common edit' data-contactinfoid='" + c.ContactInfoID + @"' data-type='" + i + @"' href='#myform1'>Chỉnh sửa</a>
                                     </ div >
                                 </ div >
                             </ div > ";
@@ -214,7 +211,8 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             if (form.ProvinceParseType == 0 && form.ProvinceNERIndex.HasValue)
             {
                 province = OCRResponse.province[form.ProvinceNERIndex.Value];
-            } else if (form.ProvinceParseType == 1 && form.ProvinceRegex != "")
+            }
+            else if (form.ProvinceParseType == 1 && form.ProvinceRegex != "")
             {
                 province = getMatchResult(OCRResponse.raw_text, form.ProvinceRegex);
             }
@@ -544,7 +542,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
             return ReceiverStreet;
         }
-        
+
         public void parseAllOther(VNPOST_AppointmentEntities db, OCRParsed parsed, OCRRaw OCRResponse, FormTemplate form)
         {
             parsed.AppointmentLetterCode = parseAppointmentLetterCode(OCRResponse, form);
@@ -715,7 +713,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     return Json(OCRParsed);
                 }
             }
-            return Json(new { error = true, message = "FormID not found"});
+            return Json(new { error = true, message = "FormID not found" });
         }
 
         private class district

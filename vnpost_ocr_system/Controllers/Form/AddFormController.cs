@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using System.Data.SqlClient;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 using System.IO;
@@ -50,7 +54,7 @@ namespace vnpost_ocr_system.Controllers.Form
         public string shortenB64Image(string original_img)
         {
             /* This function is used to remove tags heading the original image bytes */
-            string shortened_img = original_img; 
+            string shortened_img = original_img;
             var regex = new Regex(@"(?<=base64,).*$");
             if (!EmptyStr(original_img))
             {
@@ -147,7 +151,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 if (is_duplicated)
                     return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -166,7 +170,7 @@ namespace vnpost_ocr_system.Controllers.Form
             else
             {
                 res = nullable_text.Trim();
-                
+
             }
             return res;
         }
@@ -197,7 +201,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 Boolean status = false;
                 string msg = "Tên biểu mẫu đã bị trùng";
                 return Tuple.Create(status, msg);
-            } 
+            }
 
             return Tuple.Create(true, "Không có lỗi với data input");
         }
@@ -222,7 +226,7 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/them-bieu-mau/Add")]
         [HttpPost]
         public ActionResult AddForm()
-        {   
+        {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             using (DbContextTransaction transaction = db.Database.BeginTransaction())
             {
@@ -252,7 +256,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         bool is_save_success = SaveImage(sourceimage, form_img_link);
                         if (is_save_success == false)
                         {
-                            string msg ="Ảnh biểu mẫu chưa được lưu vào database.\nXin vui lòng thử lại sau ít phút";
+                            string msg = "Ảnh biểu mẫu chưa được lưu vào database.\nXin vui lòng thử lại sau ít phút";
                             Debug.WriteLine(msg);
                             return Json(new { status_code = "400", status = "Fail", message = msg }, JsonRequestBehavior.AllowGet);
                         }
@@ -396,12 +400,12 @@ namespace vnpost_ocr_system.Controllers.Form
                 {
                     if (e is DbEntityValidationException)
                     {
-                        LogEFException((DbEntityValidationException) e);
+                        LogEFException((DbEntityValidationException)e);
                     }
 
                     Debug.WriteLine(e);
                     transaction.Rollback();
-                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút"}, 
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
                         JsonRequestBehavior.AllowGet);
                 }
 
@@ -411,22 +415,4 @@ namespace vnpost_ocr_system.Controllers.Form
         }
 
     }
-    //public class FullForm
-    //{
-    //    public FullForm() { }
-    //    public FullForm(FormTemplate ft, HttpPostedFileBase image)
-    //    {
-    //        this.ft = ft;
-    //        this.image = image;
-    //    }
-    //    public FullForm(FormTemplate ft, HttpPostedFileBase image, string action)
-    //    {
-    //        this.action = action;
-    //        this.ft = ft;
-    //        this.image = image;
-    //    }
-    //    public string action { get; set; }
-    //    public HttpPostedFileBase image { get; set; }
-    //    public FormTemplate ft { get; set; }
-    //}
 }
