@@ -276,13 +276,13 @@ namespace vnpost_ocr_system.Controllers.Login
 
                     MailMessage mail = new MailMessage();
                     mail.To.Add(emailORphone);
-                    mail.From = new MailAddress("vnposttest1@gmail.com");
+                    mail.From = new MailAddress("no-reply@vnpost.tech");
                     mail.Subject = "Thay đổi mật khẩu";
                     mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Credentials = new System.Net.NetworkCredential("vnposttest1@gmail.com", "fpt@12345");
+                    smtp.Host = "smtp.mailgun.org";
+                    smtp.Credentials = new System.Net.NetworkCredential("postmaster@mail.vnpost.tech", "b59cfe65aea2a1bbd9335115e1e14662-0afbfc6c-b6903395");
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
