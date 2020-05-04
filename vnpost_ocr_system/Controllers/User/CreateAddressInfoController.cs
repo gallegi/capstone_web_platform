@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
@@ -43,11 +41,11 @@ namespace vnpost_ocr_system.Controllers.User
                     c.Street = address;
                     c.PersonalPaperTypeID = paperType.Equals("") ? c.PersonalPaperTypeID = null : c.PersonalPaperTypeID = Convert.ToInt32(paperType);
                     c.PersonalPaperNumber = code;
-                    c.PersonalPaperIssuedDate = date.Equals("") ? (DateTime?) null :  DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    c.PersonalPaperIssuedDate = date.Equals("") ? (DateTime?)null : DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     c.PersonalPaperIssuedPlace = placeOfIssue;
 
                     //get customerID from session.
-                    c.CustomerID  = Convert.ToInt32(Session["userID"].ToString());
+                    c.CustomerID = Convert.ToInt32(Session["userID"].ToString());
                     db.ContactInfoes.Add(c);
                     db.SaveChanges();
                     transaction.Commit();

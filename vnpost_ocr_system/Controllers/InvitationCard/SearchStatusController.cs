@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using vnpost_ocr_system.SupportClass;
-using vnpost_ocr_system.Models;
-using System.Data.SqlClient;
 using vnpost_ocr_system.Controllers.CustomController;
+using vnpost_ocr_system.Models;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
@@ -27,7 +23,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             {
                 return View("/Views/InvitationCard/SearchStatus.cshtml");
             }
-            
+
         }
         //[Auther(Roles = "0")]
         [Route("giay-hen/tim-giay-hen")]

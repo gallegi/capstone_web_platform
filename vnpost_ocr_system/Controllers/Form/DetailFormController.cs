@@ -1,18 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Data.Entity.Validation;
-using System.Drawing;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace vnpost_ocr_system.Controllers.Form
 {
@@ -110,8 +107,8 @@ namespace vnpost_ocr_system.Controllers.Form
                 // initialize data
                 ViewBag.status = "200";
                 ViewBag.status_code = "Success";
-                ViewBag.msg = "Load chi tiết biểu mẫu thành công"; 
-                
+                ViewBag.msg = "Load chi tiết biểu mẫu thành công";
+
                 if (Request["form_id"] == null || Request["form_id"] == "")
                 {
                     throw new Exception();
@@ -167,12 +164,12 @@ namespace vnpost_ocr_system.Controllers.Form
             catch (Exception e)
             {
                 string message = "";
-                if (e is ImageNotFoundException )
+                if (e is ImageNotFoundException)
                 {
                     Debug.WriteLine("Image not found while loading !!!");
                     message = "Ảnh không load được";
                 }
-                else if ( e is DbEntityValidationException)
+                else if (e is DbEntityValidationException)
                 {
                     LogEFException((DbEntityValidationException)e);
                 }
@@ -308,7 +305,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     PublicAdministration pa = db.Database.SqlQuery<PublicAdministration>("" +
                     "select * " +
                     "from PublicAdministration pa " +
-                    "where pa.PublicAdministrationLocationID = @pub_admin_loc_id", 
+                    "where pa.PublicAdministrationLocationID = @pub_admin_loc_id",
                     new SqlParameter("pub_admin_loc_id", LongExtensions.ParseNullableLong(pub_administration_loc_id))).FirstOrDefault();
                     if (pa != null)
                     {
@@ -331,7 +328,7 @@ namespace vnpost_ocr_system.Controllers.Form
 
                     }
                 }
-                
+
 
                 return Json(new
                 {
@@ -351,7 +348,8 @@ namespace vnpost_ocr_system.Controllers.Form
     public class FullForm
     {
         public FullForm() { }
-        public FullForm(FormTemplate ft, string image) {
+        public FullForm(FormTemplate ft, string image)
+        {
             this.ft = ft;
             this.image = image;
         }
@@ -361,8 +359,8 @@ namespace vnpost_ocr_system.Controllers.Form
             this.ft = ft;
             this.image = image;
         }
-        public string action{ get; set; }
-        public string image{ get; set; }
+        public string action { get; set; }
+        public string image { get; set; }
         public FormTemplate ft { get; set; }
     }
 }
