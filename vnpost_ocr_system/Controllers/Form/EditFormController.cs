@@ -122,7 +122,7 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/chinh-sua-bieu-mau/GetFormDetail")]
         public ActionResult GetFormDetail()
         {
-            FullForm full_form;
+            FullFormDetail full_form;
             string base64_img = "";
             FormTemplate ft;
 
@@ -145,7 +145,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         // Load image
                         base64_img = LoadImgToB64(ft.FormImageLink);
                     }
-                    full_form = new FullForm();
+                    full_form = new FullFormDetail();
                     full_form.ft = ft;
                     full_form.image = base64_img;
                 }
@@ -273,4 +273,5 @@ namespace vnpost_ocr_system.Controllers.Form
 
         }
     }
+
 }

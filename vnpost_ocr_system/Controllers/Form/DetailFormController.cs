@@ -32,47 +32,9 @@ namespace vnpost_ocr_system.Controllers.Form
             }
         }
 
-        public string LoadImgToB64(string img_name)
-        {
-            /* This function is used to convert one image to Based64Sring */
-            string base64_string = "";
-            String path = Server.MapPath("~/FormImage"); //Path
-
-            //Check if directory exist
-            if (!System.IO.Directory.Exists(path))
-            {
-                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
-            }
-
-            //set the image path
-            string img_path = Path.Combine(path, img_name);
-
-            using (Image image = Image.FromFile(img_path))
-            {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-
-                    // Convert byte[] to Base64 String
-                    base64_string = Convert.ToBase64String(imageBytes);
-                    if (EmptyStr(base64_string))
-                    {
-                        throw new ImageNotFoundException("ảnh không tồn tại hoặc trên server");
-                    }
-                    else
-                    {
-                        // append base64 tag to the current image bytes
-                        base64_string = string.Concat("data:image/jpg;base64,", base64_string);
-                    }
-                    return base64_string;
-                }
-            }
-        }
-
         public bool EmptyStr(string str)
         {
-            Debug.WriteLine("In Validate: " + str);
+            //Debug.WriteLine("In Validate: " + str);
             /* This function is used to check if string is empty or null */
             if (str == null || str == "")
             {
@@ -132,7 +94,6 @@ namespace vnpost_ocr_system.Controllers.Form
         [Route("bieu-mau/chi-tiet-bieu-mau/GetFormDetail")]
         public ActionResult GetFormDetail()
         {
-            FullForm full_form;
             string base64_img = "";
             FormTemplate ft;
 
@@ -150,19 +111,18 @@ namespace vnpost_ocr_system.Controllers.Form
                         new SqlParameter("FormID", Request["form_id"])).FirstOrDefault();
 
                     Debug.WriteLine(ft.FormName);
-                    if (ft != null)
+                    if (ft == null)
                     {
-                        // Load image
-                        base64_img = LoadImgToB64(ft.FormImageLink);
+                        throw new Exception();
                     }
-                    full_form = new FullForm();
-                    full_form.ft = ft;
-                    full_form.image = base64_img;
                 }
-                return Json(new { status_code = "200", status = "Success", full_form = full_form }, JsonRequestBehavior.AllowGet);
+                Debug.WriteLine("Json: " + ConvertEntJson<FormTemplate>(ft));
+                return Json(new { status_code = "200", status = "Success", form_template = ConvertEntJson<FormTemplate>(ft)}, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception e)
             {
+                Debug.WriteLine("Exception");
                 string message = "";
                 if (e is ImageNotFoundException)
                 {
@@ -175,7 +135,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 }
                 else
                 {
-                    Debug.WriteLine(e);
+                    Debug.WriteLine(e.Message);
                     message = "Có lỗi. Không lấy được thông tin về biểu mẫu";
                 }
                 return Json(new { status_code = "400", status = "Fail", message = message }, JsonRequestBehavior.AllowGet);
@@ -184,7 +144,7 @@ namespace vnpost_ocr_system.Controllers.Form
         }
 
         // ------------------------------------------------- Delete form -------------------------------------------------------------
-        public string ConvertEntJson(FullForm full_form)
+        protected string ConvertEntJson<T>(T full_form)
         {
             string json_text = "";
             try
@@ -214,37 +174,30 @@ namespace vnpost_ocr_system.Controllers.Form
             {
                 try
                 {
-                    // Get information of the deleted form
+                    // 1. Get information of the deleted form
                     FormTemplate ft;
                     ft = db.Database.SqlQuery<FormTemplate>("select * from FormTemplate f where f.FormID= @FormID",
                         new SqlParameter("FormID", LongExtensions.ParseNullableLong(form_id))).FirstOrDefault();
 
                     Debug.WriteLine(ft.FormName);
 
-                    // Load image
-                    string base64_img = "";
-                    if (ft != null)
+                    if (ft == null)
                     {
-                        base64_img = LoadImgToB64(ft.FormImageLink);
+                        throw new Exception();
                     }
 
-                    // Load Full Form
-                    FullForm full_form = new FullForm();
-                    full_form.ft = ft;
-                    full_form.image = base64_img;
-                    full_form.action = "delete";
-
-                    // Send train request to AI Server
-                    Postman pm = new Postman();
-                    string url = "http://localhost:3978";
-                    string json_text = ConvertEntJson(full_form);
-                    pm.SendRequest(url, json_text);
-
-                    // Delete from database 
+                    // 2. Delete from database 
                     string query = "delete from FormTemplate where FormID = @form_id";
                     db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
                     db.SaveChanges();
 
+                    // 3. Send train request to AI Server
+                    FullFormRequest full_form = new FullFormRequest(ft, "delete");
+
+                    Postman pm = new Postman();
+                    string url = "http://103.104.117.175/retrain";
+                    string json_text = ConvertEntJson(full_form);
+                    pm.SendRequest(url, json_text);
                 }
                 catch (Exception ex)
                 {
@@ -345,22 +298,5 @@ namespace vnpost_ocr_system.Controllers.Form
             }
         }
     }
-    public class FullForm
-    {
-        public FullForm() { }
-        public FullForm(FormTemplate ft, string image)
-        {
-            this.ft = ft;
-            this.image = image;
-        }
-        public FullForm(FormTemplate ft, string image, string action)
-        {
-            this.action = action;
-            this.ft = ft;
-            this.image = image;
-        }
-        public string action { get; set; }
-        public string image { get; set; }
-        public FormTemplate ft { get; set; }
-    }
+    
 }

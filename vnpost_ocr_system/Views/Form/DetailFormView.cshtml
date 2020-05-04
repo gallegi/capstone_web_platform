@@ -550,25 +550,19 @@
             },
             cache: false,
             success: function (response) {
+                console.log(response);
                 if (response.status == "Success") {
-                    myFormData.set("full_form", response.full_form);
-                    myFormData.set("original_image", response.full_form.image);
-                    myFormData.set("form_template", response.full_form.ft);
-                    var ft = response.full_form.ft;
-                    console.log('province_id', ft.PostalProvinceCode);
-                    console.log('province_id', ft.PostalDistrictCode);
-                    console.log('province_id', ft.PublicAdministrationLocationID);
-                    console.log('province_id', ft.ProfileID);
-
+                    var ft = JSON.parse(response.form_template);
                     // set title
                     set_title(ft.FormName);
                     // set image
-                    set_image(response.full_form.image);
+                    set_image(ft.FormImageLink);
                     // set json
                     set_json(ft.APIOutput);
                     // set recognition options
                     set_reg_options(ft);
 
+                    myFormData.set("form_template", ft);
                     $("#pre-load").hide();
                 }
                 else {
@@ -576,6 +570,7 @@
                 }
 
             }, error: function (xhr) {
+                console.log("Exception big");
                 alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             }
         });
@@ -593,7 +588,8 @@
     // ------------------------------- image ---------------------------------------------
     function set_image(image_b64) {
         // Set image
-        $("#form_img").attr("src", image_b64);
+        $("#form_img").attr("src", ("/FormImage/" + image_b64));
+        console.log($("#form_img").attr("src"));
     }
 
     // ------------------------------- api output ---------------------------------------------
@@ -737,37 +733,10 @@
     function load_ner_options(form_template) {
         $('#pre-load').show();
 
-        // recall NER to get data
-        var data = new FormData();
-        data.append('image', myFormData.get('image'));
+        // load data to NER combobox
+        var api_output_json = jQuery.parseJSON(form_template.APIOutput);
+        add_ner_to_input(form_template, api_output_json);
 
-        $('#pre-load').show();
-        $.ajax({
-            type: "POST",
-            url: "https://vnpost.tunnel.dsgcli.net/ocr",
-            data: data,
-            contentType: false,
-            processData: false,
-            cache: false,
-            dataType: "json",
-            success: function (response) {
-                console.log(response["province"]);
-
-                // add result to form data
-                myFormData.set("api_output", response);
-                myFormData.set("api_output_txt", JSON.stringify(response));
-
-                // load data to NER combobox
-                add_ner_to_input(form_template, response);
-                $('#pre-load').hide();
-
-            },
-            error: function (error) {
-                raise_error("Error: " + error);
-                $('#pre-load').hide();
-                return true;
-            }
-        });
         $('#pre-load').hide();
 
     }
