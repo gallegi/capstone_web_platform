@@ -16,7 +16,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetProvince()
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
+                List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
                 .Select(x => new Province
                 {
                     PostalProvinceCode = x.PostalProvinceCode,
