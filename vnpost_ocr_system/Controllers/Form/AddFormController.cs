@@ -392,7 +392,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     Postman pm = new Postman();
                     string url = "http://103.104.117.175/retrain";
                     string json_text = ConvertEntJson(full_form);
-                    //pm.SendRequest(url, json_text);
+                    pm.SendRequest(url, json_text);
 
                     Debug.WriteLine("req: \n" + json_text);
                 }
