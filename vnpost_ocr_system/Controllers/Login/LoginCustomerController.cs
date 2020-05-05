@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 using XCrypt;
 
 namespace vnpost_ocr_system.Controllers.Login
@@ -262,19 +262,11 @@ namespace vnpost_ocr_system.Controllers.Login
                         db.ResetPasswordTokens.Add(re);
                         db.SaveChanges();
                     }
-
-                    MailMessage mail = new MailMessage();
-                    mail.To.Add(emailORphone);
-                    mail.From = new MailAddress("no-reply@vnpost.tech");
-                    mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br>Mã Token của bạn là: " + token + ".</br>Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + "/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token;
-                    mail.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.mailgun.org";
-                    smtp.Credentials = new System.Net.NetworkCredential("postmaster@mail.vnpost.tech", "b59cfe65aea2a1bbd9335115e1e14662-0afbfc6c-b6903395");
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
+                    MailService.sendMail(
+                        emailORphone, 
+                        "Thay đổi mật khẩu", 
+                        "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token + ".</br> Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + " /khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token
+                    );
                 }
                 catch (Exception ex)
                 {
