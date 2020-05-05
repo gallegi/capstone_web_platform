@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.District" Width="1.5" PointX="3" PointY="27.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.EmailVerification" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.FormTemplate" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VNPOST_AppointmentModel.NotificationMessage" Width="1.5" PointX="9.75" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Order" Width="1.5" PointX="7.5" PointY="20.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.OrderImage" Width="1.5" PointX="9.75" PointY="25.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.OrderStatusDetail" Width="1.5" PointX="12.75" PointY="23.5" IsExpanded="true" />
@@ -58,7 +57,6 @@
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Form__PostalProv__318258D2" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Form__ProfileID__345EC57D" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Form__PublicAdmi__336AA144" ManuallyRouted="false" />
-        <AssociationConnector Association="VNPOST_AppointmentModel.FK_NotificationMessage_Order" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__Procedure__7D439ABD" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__ProfileID__7F2BE32F" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Order__StatusID__02084FDA" ManuallyRouted="false" />
@@ -71,6 +69,8 @@
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Payment__Payment__0A9D95DB" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__PublicAdm__PosCo__0D7A0286" ManuallyRouted="false" />
         <AssociationConnector Association="VNPOST_AppointmentModel.FK__Profile__PublicA__0C85DE4D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.NotificationMessage" Width="1.5" PointX="9.75" PointY="21.75" />
+        <AssociationConnector Association="VNPOST_AppointmentModel.FK_NotificationMessage_Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

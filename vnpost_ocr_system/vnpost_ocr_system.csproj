@@ -762,7 +762,9 @@
     <Content Include="assets\images\big\socialbg.jpg" />
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\forward_icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\home_icon.png" />
     <Content Include="assets\images\logo-icon.png" />
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
@@ -5498,6 +5500,7 @@
     <Content Include="CustomCSS\Form\DetailForm\RadioButton.css" />
     <Content Include="CustomCSS\Form\EditForm\EditForm.css" />
     <Content Include="CustomCSS\Form\EditForm\RadioButton.css" />
+    <Content Include="CustomCSS\Form\ListForm.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\InvitationCard\InputReceiverInfo.css" />
