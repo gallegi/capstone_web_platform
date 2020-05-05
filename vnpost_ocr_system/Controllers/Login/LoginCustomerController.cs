@@ -235,6 +235,55 @@ namespace vnpost_ocr_system.Controllers.Login
             return Redirect("/");
         }
 
+        public ActionResult EmailVerification(string email)
+        {
+            try
+            {
+                string email_norm = email.Trim().ToLower();
+                //Check if email exist => Return error mail exist
+                var user = db.Customers.Where(x => x.Email.Equals(email_norm)).FirstOrDefault();
+                if (user == null)
+                {//Email not exist
+
+                    //Check if token exist for that email and not expired
+                    int token;
+                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(email_norm)).FirstOrDefault();
+                    if (email_token != null && DateTime.Now.Subtract(email_token.CreatedTime).TotalMinutes <= 15)
+                    {//Use old token if token not expired
+                        token = Convert.ToInt32(email_token.VerificationCode);
+                    }
+                    else
+                    {//Generate new token
+                        Random r = new Random();
+                        token = r.Next(100000, 999999);
+                        EmailVerification ev = new EmailVerification();
+                        ev.Email = email_norm;
+                        ev.VerificationCode = token.ToString();
+                        ev.Status = false;
+                        ev.CreatedTime = DateTime.Now;
+                        db.EmailVerifications.Add(ev);
+                        db.SaveChanges();
+                    }
+
+                    MailService.sendMail(
+                        email_norm,
+                        "[VNPost] Mã xác thực email của bạn",
+                        "Mã xác thực email của bạn là: " + token
+                        ); ;
+                }
+                else
+                {//Email already exist
+                   return  Json(new { error = true, message = "Địa chỉ email đã tồn tại" });
+                }
+
+            } catch (Exception e)
+            {//Unexpected error
+                return Json(new { error = true, message = "Có lỗi xảy ra" });
+            }
+            //Return email success
+            return Json(new { error = false, message = "Mã xác nhận đã được gửi đến email của bạn"});
+        }
+
         public ActionResult ResetPassword(string emailORphone)
         {
             string[] absolutepath = Request.Url.ToString().Split('/');
@@ -265,7 +314,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     MailService.sendMail(
                         emailORphone, 
                         "Thay đổi mật khẩu", 
-                        "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token + ".</br> Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + " /khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token
+                        "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token + ".</br> Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + "/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token
                     );
                 }
                 catch (Exception ex)
