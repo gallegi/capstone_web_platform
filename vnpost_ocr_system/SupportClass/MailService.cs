@@ -10,7 +10,7 @@ namespace vnpost_ocr_system.SupportClass
             smtp = new SmtpClient();
             smtp.Host = "smtp.mailgun.org";
             smtp.Credentials = new System.Net.NetworkCredential("postmaster@mail.vnpost.tech", "b59cfe65aea2a1bbd9335115e1e14662-0afbfc6c-b6903395");
-            smtp.Port = 587;
+            smtp.Port = 465;
             smtp.EnableSsl = true;
         }
 
