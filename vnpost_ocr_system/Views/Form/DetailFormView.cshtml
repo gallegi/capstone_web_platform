@@ -168,9 +168,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 @*Parsed JSON content*@
                 <div id="json_section" class="content_section_json">
@@ -236,7 +233,7 @@
                                                                     <label for=@rad_id>@row_type[row_index]</label>
                                                                 </div>
                                                                 @* Input *@
-                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false" readonly>
+                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false">
                                                             </div>
                                                         }
                                                         else
@@ -247,7 +244,7 @@
                                                                     <label for=@rad_id>@row_type[@row_index]</label>
                                                                 </div>
                                                                 @* Input *@
-                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false" readonly>
+                                                                <input type="text" id=@input_id class="form-control" name=@input_id value="" spellcheck="false">
                                                             </div>
                                                         }
                                                     }
@@ -597,7 +594,7 @@
         // set json
         var api_output_json = jQuery.parseJSON(api_output);
         var raw_text = api_output_json.raw_text;
-        var text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
+        var text = raw_text.replace(/[\r\n]+/gm, '<br/>');
         $("#api_output").html(text);
     }
 
@@ -928,7 +925,7 @@
                 $('#pre-load').hide();
                 if (response.status_code == "200" || response.status == "Success") {
                     // redirect to the form detail page
-                    successAlert('Thành công', 'Xóa tài khoản thành công');
+                    successAlert('Thành công', 'Xóa biểu mẫu thành công');
                     //window.location.href = "/bieu-mau/them-bieu-mau";
 
                 } else if (response.status == "Fail")

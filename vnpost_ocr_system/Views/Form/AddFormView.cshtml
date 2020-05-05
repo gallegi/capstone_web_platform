@@ -982,13 +982,14 @@
                 prev_length = prev_length + alter_str.length - matched_str.length;
             });
 
-            new_text = new_text.replace(/^\s*[\r\n]/gm, '<br/>');
+            new_text = new_text.replace(/[\r\n]+/gm, '<br/>');
+
             $('#api_output').html(new_text);
-        }
-        else {
+            console.log(raw_text);
+        }else {
             // show the original text
             var raw_text = myFormData.get("letter_formated_content");
-            text = raw_text.replace(/^\s*[\r\n]/gm, '<br/>');
+            text = raw_text.replace(/[\r\n]+/gm, '<br/>');
             $("#api_output").html(text);
         }
     }
@@ -1015,7 +1016,7 @@
             myFormData.append("letter_formated_content", text)
 
             // add value to json frame + FormData
-            text = text.replace(/^\s*[\r\n]/gm, '<br/>');
+            text = text.replace(/[\r\n]+/gm, '<br/>');
             $("#api_output").html(text);
         }
         return true;
@@ -1302,45 +1303,45 @@
             }
         }
 
-        // 2. Not allow: 2 fields use the same NER
-        var groups_name = ["Họ và tên", "Số điện thoại", "Tỉnh/Thành phó", "Quận/Huyện", "Địa chỉ"];
-        var groups = [["p_name", "s_name", "r_name"],
-        ["p_phone", "s_phone", "r_phone"],
-        ["city", "p_city", "s_city", "r_city"],
-        ["district", "p_district", "s_district", "r_district"],
-        ["p_address", "s_address", "r_address"]];
+        //// 2. Not allow: 2 fields use the same NER
+        //var groups_name = ["Họ và tên", "Số điện thoại", "Tỉnh/Thành phó", "Quận/Huyện", "Địa chỉ"];
+        //var groups = [["p_name", "s_name", "r_name"],
+        //["p_phone", "s_phone", "r_phone"],
+        //["city", "p_city", "s_city", "r_city"],
+        //["district", "p_district", "s_district", "r_district"],
+        //["p_address", "s_address", "r_address"]];
 
-        for (i = 0; i < groups.length; i++) {
-            var gr = groups[i];
-            var ner_vals = [];
-            for (gr_idx = 0; gr_idx < gr.length; gr_idx++) {
-                // get rad
-                var rad = "rad_" + gr[gr_idx] + "_1";
+        //for (i = 0; i < groups.length; i++) {
+        //    var gr = groups[i];
+        //    var ner_vals = [];
+        //    for (gr_idx = 0; gr_idx < gr.length; gr_idx++) {
+        //        // get rad
+        //        var rad = "rad_" + gr[gr_idx] + "_1";
 
-                if (document.getElementById(rad) != null) {
-                    rad = 'input#' + rad;
-                    if ($(rad).is(':checked')) {
+        //        if (document.getElementById(rad) != null) {
+        //            rad = 'input#' + rad;
+        //            if ($(rad).is(':checked')) {
 
-                        // get the selected combobox value of seleted radion button
-                        var drop = "drop_" + gr[gr_idx] + "_1";
+        //                // get the selected combobox value of seleted radion button
+        //                var drop = "drop_" + gr[gr_idx] + "_1";
 
-                        if (document.getElementById(drop) != null) {
-                            drop = '#' + drop;
-                            var selected_option = $(drop).children("option:selected").val();
-                            // verify selected option
-                            if (selected_option != null) {
-                                ner_vals.push(selected_option);
-                            }
-                        }
-                    }
-                }
-            }
-            if (has_duplicates(ner_vals)) {
-                var error_msg = 'Giá trị NER không được trùng ở các trường ' + groups_name[i];
-                raise_error(error_msg);
-                return false;
-            }
-        }
+        //                if (document.getElementById(drop) != null) {
+        //                    drop = '#' + drop;
+        //                    var selected_option = $(drop).children("option:selected").val();
+        //                    // verify selected option
+        //                    if (selected_option != null) {
+        //                        ner_vals.push(selected_option);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    if (has_duplicates(ner_vals)) {
+        //        var error_msg = 'Giá trị NER không được trùng ở các trường ' + groups_name[i];
+        //        raise_error(error_msg);
+        //        return false;
+        //    }
+        //}
         $('#pre-load').hide();
 
         return true;
@@ -1348,17 +1349,14 @@
 
     // ================================================ PROCESS DATA BEFORE SENDING TO CONTROLLER ================================================ 
     function get_scope_level(profile_opts) {
-        var scope_level = 4;
-        var count = -1;
+        // scope_level == number of fixed-value
+        var scope_level = 0;
         for (i = 0; i < profile_opts.length; i++) {
             var opts = profile_opts[i];
             var parse_type = opts[3];
             if (parse_type == null || parse_type == "") {
-                count++;
+                scope_level++;
             }
-        }
-        if (count !== -1) {
-            scope_level == count;
         }
         return scope_level;
     }

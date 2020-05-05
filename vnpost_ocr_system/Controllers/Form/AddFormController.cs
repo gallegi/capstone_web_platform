@@ -114,7 +114,7 @@ namespace vnpost_ocr_system.Controllers.Form
         {
             Debug.WriteLine("In Validate: " + str);
             /* This function is used to check if string is empty or null */
-            if (str == null || str == "")
+            if (str == null || str == "" || str == "null")
             {
                 Debug.WriteLine("Find out empty string: " + str);
                 return true;
@@ -390,7 +390,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     FullFormRequest full_form = new FullFormRequest(ft, "add");
 
                     Postman pm = new Postman();
-                    string url = "http://103.104.117.175/retrain";
+                    string url = "https://ocr.vnpost.tech/retrain";
                     string json_text = ConvertEntJson(full_form);
                     pm.SendRequest(url, json_text);
 
@@ -403,7 +403,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         LogEFException((DbEntityValidationException)e);
                     }
 
-                    Debug.WriteLine(e);
+                    Debug.WriteLine(e + "\n" + e.Message);
                     transaction.Rollback();
                     return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
                         JsonRequestBehavior.AllowGet);
