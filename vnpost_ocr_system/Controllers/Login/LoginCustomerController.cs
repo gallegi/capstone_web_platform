@@ -234,12 +234,7 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             return Redirect("/");
         }
-        public ActionResult GetPro()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
+
         public ActionResult GetDis(string id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -278,7 +273,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     mail.To.Add(emailORphone);
                     mail.From = new MailAddress("no-reply@vnpost.tech");
                     mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token;
+                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br>Mã Token của bạn là: " + token + ".</br>Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình https://vnpost.tech/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.mailgun.org";
@@ -300,21 +295,23 @@ namespace vnpost_ocr_system.Controllers.Login
         }
 
         [Route("khach-hang/thay-doi-mat-khau")]
-        public ActionResult PasswordForm(int token)
+        public ActionResult PasswordForm(int userid, int token)
         {
-            var user = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
+            var user = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.CustomerID == userid && x.Status == false).ToList().LastOrDefault();
             if (user != null && DateTime.Now.Subtract(user.CreatedDate).TotalMinutes <= 15)
             {
                 ViewBag.userid = user.CustomerID;
+                ViewBag.token = token;
                 return View("/Views/Login/ResetPassword.cshtml");
             }
             return Redirect("/khach-hang/dang-nhap");
         }
-        public ActionResult CheckToken(int token)
+
+        public ActionResult CheckToken(int token, int userid)
         {
             try
             {
-                var checktoken = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
+                var checktoken = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.CustomerID == userid && x.Status == false).ToList().LastOrDefault();
                 if (checktoken == null) return Json(0, JsonRequestBehavior.AllowGet);
                 if (DateTime.Now.Subtract(checktoken.CreatedDate).TotalMinutes > 15) return Json(-1, JsonRequestBehavior.AllowGet);
                 return Json(1, JsonRequestBehavior.AllowGet);
@@ -324,13 +321,13 @@ namespace vnpost_ocr_system.Controllers.Login
                 return Json(-2, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult ChangePass(string password, int userid)
+        public ActionResult ChangePass(string password, int userid, int token)
         {
             try
             {
                 Int64 id = Convert.ToInt64(userid);
                 var user = db.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
-                var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Status == false).ToList().LastOrDefault();
+                var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
                 custom_token.Status = true;
                 db.Entry(custom_token).State = System.Data.Entity.EntityState.Modified;
                 password = string.Concat(password, user.PasswordSalt.Substring(0, 6));
