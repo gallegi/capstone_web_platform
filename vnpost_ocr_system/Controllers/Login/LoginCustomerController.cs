@@ -201,7 +201,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 c.Gender = Convert.ToInt32(group1);
                 c.Phone = tbPhone;
                 c.Email = tbEmail;
-                c.DOB = DateTime.Now;
+                c.DOB = null;
                 c.PostalDistrictID = distrint;
                 db.Customers.Add(c);
                 db.SaveChanges();

@@ -398,17 +398,14 @@
                 }),
             contentType: "application/json;charset=utf-8",
                 success: function (result) {
-                    if (result.error) {
-                        $('#email-err').css('color', 'red');
-                    } else {
-                        $('#email-err').css('color', 'green');
+                    if (!result.error) {
                         $('#tbValidCodeEmail').removeAttr('disabled');
                     }
                     $('#email-err').text(result.message);
                 $('#pre-load').hide();
             },
                 error: function (errormessage) {
-                $('#email-err').css('color', 'green');
+                $('#email-err').css('color', 'red');
                 $('#email-err').text('Có lỗi xảy ra.Vui lòng thử lại');
                 $('#pre-load').hide();
             }
@@ -567,6 +564,7 @@
 
 
     function isValidEmail(email) {
+        $('#email-err').css('color', 'red');
         if (email.trim().length == 0) {
             $('#email-err').text('Vui lòng nhập Email');
             return false;
@@ -574,6 +572,8 @@
             $('#email-err').text('Địa chỉ Email không hợp lệ');
             return false;
         }
+
+        $('#email-err').css('color', 'green');
         return true;
     }
 

@@ -32,7 +32,7 @@ namespace vnpost_ocr_system.Controllers.User
             int userID = Convert.ToInt32(Session["userID"].ToString());
             var custom = db.Customers.Where(x => x.CustomerID == userID).ToList().Select(x => new CustomerDB
             {
-                dob = x.DOB.GetValueOrDefault().ToString("dd/MM/yyyy"),
+                dob = x.DOB != null ? x.DOB.Value.ToString("dd/MM/yyyy") : null,
                 FullName = x.FullName,
                 Phone = x.Phone,
                 Email = x.Email,
