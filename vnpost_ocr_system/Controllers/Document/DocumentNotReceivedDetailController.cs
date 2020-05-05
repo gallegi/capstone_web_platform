@@ -54,10 +54,17 @@ namespace vnpost_ocr_system.Controllers.Document
             string id = Request["id"];
             string letterid = Request["letterid"];
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            //da huy
+            Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -2).FirstOrDefault();
+
+            //Order not pending anymore
+            if (order == null)
+            {
+                return Json(new { message = "Changed", JsonRequestBehavior.AllowGet });
+            }
+
+            //Update to Cancelled
             if (status.Equals("0"))
             {
-                Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id)).FirstOrDefault();
                 order.StatusID = 0;
                 db.SaveChanges();
 
@@ -72,8 +79,8 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 try
                 {
-                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
-                    if (order != null)
+                    Order order_by_itemcode = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
+                    if (order_by_itemcode != null)
                     {
                         return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
                     }
@@ -88,6 +95,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
                     o.ItemCode = itemCode;
                     o.Amount = Convert.ToDouble(getAllInfo(itemCode)["TongCuocChuyenPhat"]);
+                    o.TotalAmountInWords = NumberToCurrencyWord.convert((int)o.Amount);
                     //processed
                     long usernameID = Convert.ToInt64((Session["useradminID"]).ToString());
                     o.ProcessedBy = usernameID;
