@@ -6341,6 +6341,8 @@
     <Content Include="Views\Form\AddFormView.cshtml" />
     <Content Include="Views\Form\EditFormView.cshtml" />
     <Content Include="Views\Form\ListFormView.cshtml" />
+    <Content Include="Views\MobileView\Users\AddressInfo.cshtml" />
+    <Content Include="Views\MobileView\Users\CreateAddressInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
