@@ -39,7 +39,6 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<EmailVerification> EmailVerifications { get; set; }
         public virtual DbSet<FormTemplate> FormTemplates { get; set; }
-        public virtual DbSet<NotificationMessage> NotificationMessages { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderImage> OrderImages { get; set; }
         public virtual DbSet<OrderStatusDetail> OrderStatusDetails { get; set; }
@@ -56,6 +55,7 @@ namespace vnpost_ocr_system.Models
         public virtual DbSet<ServiceTimer> ServiceTimers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<NotificationMessage> NotificationMessages { get; set; }
     
         public virtual ObjectResult<Query_Scope_0_Result> Query_Scope_0(string province, Nullable<int> province_limit, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
