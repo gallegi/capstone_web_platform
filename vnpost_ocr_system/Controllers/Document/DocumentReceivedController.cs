@@ -1,22 +1,21 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Linq.Dynamic;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
-using System.Linq.Dynamic;
 using vnpost_ocr_system.SupportClass;
-using System.Globalization;
-using System.Web.Hosting;
-using System.IO;
-using OfficeOpenXml;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
-    public class DocumentRecivedController : Controller
+    public class DocumentReceivedController : Controller
     {
-        public static List<Receive> excelList = new List<Receive>();
+        public static List<ReceivedDocument> excelList = new List<ReceivedDocument>();
         // GET: DocumentRecived
         [Auther(Roles = "1,2,3,4")]
         [Route("ho-so/ho-so-da-nhan")]
@@ -48,11 +47,11 @@ namespace vnpost_ocr_system.Controllers.Document
                 }
                 ViewBag.proList = proList;
             }
-            return View("/Views/Document/DocumentRecived.cshtml");
+            return View("/Views/Document/DocumentReceived.cshtml");
         }
 
 
-        
+
 
 
         [Route("da-tiep-nhan")]
@@ -60,7 +59,7 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult Search(string province, string district, string organ, string profile, string dateFrom, string dateTo)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Receive> searchList = new List<Receive>();
+            List<ReceivedDocument> searchList = new List<ReceivedDocument>();
             int totalrows = 0;
             int totalrowsafterfiltering = 0;
             string query = "";
@@ -116,7 +115,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     }
                 }
 
-                searchList = db.Database.SqlQuery<Receive>(query + " order by "+ sortColumnName + " "+ sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
+                searchList = db.Database.SqlQuery<ReceivedDocument>(query + " order by " + sortColumnName + " " + sortDirection + " OFFSET " + start + " ROWS FETCH NEXT " + length + " ROWS ONLY",
                                                                  new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
@@ -133,7 +132,7 @@ namespace vnpost_ocr_system.Controllers.Document
                                                                       new SqlParameter("dateFrom", from),
                                                                       new SqlParameter("dateTo", to)).FirstOrDefault();
                 totalrowsafterfiltering = totalrows;
-                excelList = db.Database.SqlQuery<Receive>(query, new SqlParameter("profile", profile),
+                excelList = db.Database.SqlQuery<ReceivedDocument>(query, new SqlParameter("profile", profile),
                                                                  new SqlParameter("organ", organ),
                                                                  new SqlParameter("district", district),
                                                                  new SqlParameter("province", province),

@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using System.Data.SqlClient;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
 using System.IO;
@@ -12,6 +16,8 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Data.Entity.Validation;
 using System.Text.RegularExpressions;
+using System.Web.Hosting;
+using System.Drawing;
 
 namespace vnpost_ocr_system.Controllers.Form
 {
@@ -25,79 +31,6 @@ namespace vnpost_ocr_system.Controllers.Form
         public ActionResult Index()
         {
             return View("/Views/Form/AddFormView.cshtml");
-        }
-
-        // Get all province in the database
-        [Auther(Roles = "1")]
-        [Route("bieu-mau/them-bieu-mau/GetAllProvince")]
-        [HttpPost]
-        public ActionResult GetAllProvince()
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
-                .Select(x => new Province
-                {
-                    PostalProvinceCode = x.PostalProvinceCode,
-                    PostalProvinceName = x.PostalProvinceName,
-                    ProvinceCode = x.ProvinceCode,
-                    ProvinceShortName = x.ProvinceShortName
-
-                }).ToList();
-            return Json(list);
-        }
-
-
-        [Auther(Roles = "1")]
-        [Route("bieu-mau/them-bieu-mau/GetDistrictByProvCode")]
-        [HttpPost]
-        public ActionResult GetDistrictByProvCode(string code)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> list = db.Database.SqlQuery<District>("select * " +
-                "from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
-                .Select(x => new District
-                {
-                    PostalDistrictCode = x.PostalDistrictCode,
-                    PostalDistrictName = x.PostalDistrictName
-                }).ToList();
-            return Json(list);
-        }
-
-
-        [Auther(Roles = "1")]
-        [Route("bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode")]
-        [HttpPost]
-        public ActionResult GetPubAdminsByDistrictCode(string code)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<PublicAdministration> list = db.Database.SqlQuery<PublicAdministration>("" +
-                "select * " +
-                "from PublicAdministration pa inner join PostOffice po on pa.PosCode = po.PosCode " +
-                "where po.DistrictCode = @code order by pa.PublicAdministrationName asc", new SqlParameter("code", code)).ToList()
-                .Select(x => new PublicAdministration
-                {
-                    PublicAdministrationLocationID = x.PublicAdministrationLocationID,
-                    PublicAdministrationName = x.PublicAdministrationName,
-                    Address = x.Address
-                }).ToList();
-            return Json(list);
-        }
-
-
-        [Auther(Roles = "1")]
-        [Route("bieu-mau/them-bieu-mau/GetProfileByPAId")]
-        [HttpPost]
-        public ActionResult GetProfileByPAId(string code)
-        {
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Profile> list = db.Database.SqlQuery<Profile>("select * " +
-                "from Profile where PublicAdministrationLocationID = @code order by ProfileName asc", new SqlParameter("code", code)).ToList()
-                .Select(x => new Profile
-                {
-                    ProfileID = x.ProfileID,
-                    ProfileName = x.ProfileName
-                }).ToList();
-            return Json(list);
         }
 
         // -------------------------------------------  FORM TEMPLATE MANIPULATION ------------------------------------------------------------
@@ -121,7 +54,7 @@ namespace vnpost_ocr_system.Controllers.Form
         public string shortenB64Image(string original_img)
         {
             /* This function is used to remove tags heading the original image bytes */
-            string shortened_img = original_img; 
+            string shortened_img = original_img;
             var regex = new Regex(@"(?<=base64,).*$");
             if (!EmptyStr(original_img))
             {
@@ -143,43 +76,31 @@ namespace vnpost_ocr_system.Controllers.Form
             {
                 if (!EmptyStr(img_name))
                 {
-                    if (non_extension_name.Contains(ext)) {
-                        int index = img_name.IndexOf(ext);
-                        non_extension_name = (index < 0) ? img_name : img_name.Remove(index, ext.Length);
+                    int index = non_extension_name.IndexOf(ext, StringComparison.OrdinalIgnoreCase);
+
+                    if (index > 0)
+                    { //non_extension_name.Contains(ext)
+                        non_extension_name = (index < 0) ? non_extension_name : non_extension_name.Remove(index, ext.Length);
                         non_extension_name = string.Concat(non_extension_name, ext);
                     }
                 }
             }
             return non_extension_name;
         }
-        public bool SaveImage(string ImgStr, string ImgName)
+        public bool SaveImage(Image sourceimage, string ImgName)
         {
             /* This function is used to save image before add new form to DB */
             try
             {
-                String path = Server.MapPath("~/FormImage"); //Path
-
-                //Check if directory exist
-                if (!System.IO.Directory.Exists(path))
+                string path = "/FormImage/";
+                if (!Directory.Exists(HostingEnvironment.MapPath(path)))
                 {
-                    System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+                    Directory.CreateDirectory(HostingEnvironment.MapPath(path));
                 }
-
-                // Check image name
-                string imageName = ImgName;
-
-                // Set the image path
-                string imgPath = Path.Combine(path, imageName);
-                string shortened_img = shortenB64Image(ImgStr);
-                Debug.WriteLine("shortened_img: " + shortened_img);
-
-                if (EmptyStr(shortened_img))
+                if (sourceimage.Size != null)
                 {
-                    throw new Exception();
+                    sourceimage.Save(HostingEnvironment.MapPath(path + ImgName));
                 }
-                byte[] imageBytes = Convert.FromBase64String(shortened_img);
-
-                System.IO.File.WriteAllBytes(imgPath, imageBytes);
             }
             catch (Exception e)
             {
@@ -230,7 +151,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 if (is_duplicated)
                     return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -242,18 +163,18 @@ namespace vnpost_ocr_system.Controllers.Form
         {
             /* Remove leading and tailing space */
             string res = "";
-            if (nullable_text == null || nullable_text == "")
+            if (nullable_text == null || nullable_text == "" || nullable_text == "null")
             {
                 res = null;
             }
             else
             {
                 res = nullable_text.Trim();
-                
+
             }
             return res;
         }
-        public Tuple<Boolean, string> ValidateInput(string form_name, string form_img, string form_image_name, string api_output)
+        public Tuple<Boolean, string> ValidateInput(string form_name, string form_image_name, string api_output)
         {
             // 1. Validate non-empty: form_name, form_img, form_img_link, api_output
             if (EmptyStr(form_name))
@@ -261,13 +182,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 Boolean status = false;
                 string msg = "Tên biểu mẫu không được rỗng";
                 return Tuple.Create(status, msg);
-            }else if (EmptyStr(form_img))
-            {
-                Boolean status = false;
-                string msg = "Ảnh không được rỗng";
-                return Tuple.Create(status, msg);
-            }
-            else if (EmptyStr(form_image_name))
+            } else if (EmptyStr(form_image_name))
             {
                 Boolean status = false;
                 string msg = "Tên ảnh không được rỗng";
@@ -286,12 +201,12 @@ namespace vnpost_ocr_system.Controllers.Form
                 Boolean status = false;
                 string msg = "Tên biểu mẫu đã bị trùng";
                 return Tuple.Create(status, msg);
-            } 
+            }
 
             return Tuple.Create(true, "Không có lỗi với data input");
         }
 
-        public string ConvertEntJson(FullForm full_form)
+        public string ConvertEntJson(FullFormRequest full_form)
         {
             string json_text = "";
             try
@@ -305,12 +220,13 @@ namespace vnpost_ocr_system.Controllers.Form
             }
             return json_text;
         }
+        Type GetStaticType<T>(T x) { return typeof(T); }
 
         [Auther(Roles = "1")]
         [Route("bieu-mau/them-bieu-mau/Add")]
         [HttpPost]
         public ActionResult AddForm()
-        {   
+        {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             using (DbContextTransaction transaction = db.Database.BeginTransaction())
             {
@@ -320,7 +236,7 @@ namespace vnpost_ocr_system.Controllers.Form
                 {
                     FormTemplate ft = new FormTemplate();
                     // Validate input first
-                    Tuple<Boolean, string> validation = ValidateInput(Request["form_name"].Trim(), Request["form_img"], Request["form_img_link"], Request["api_output"]);
+                    Tuple<Boolean, string> validation = ValidateInput(Request["form_name"].Trim(), Request["form_img_link"], Request["api_output"]);
                     if (validation.Item1 == false)
                     {
                         string msg = string.Concat("Bad request.\n", validation.Item2);
@@ -330,13 +246,17 @@ namespace vnpost_ocr_system.Controllers.Form
                     else
                     {
                         // Save image
-                        string time_stamp = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ssfff");
+                        string time_stamp = DateTime.Now.ToString("_yyyy_MM_dd_HH_mm_ssfff");
                         form_img_link = FormatImgName(string.Concat(Request["form_img_link"].Trim(), time_stamp));
 
-                        bool is_save_success = SaveImage(Request["form_img"], form_img_link);
+                        Image sourceimage = Image.FromStream(Request.Files["form_img"].InputStream, true, true);
+
+                        Debug.WriteLine("image type: " + GetStaticType(Request.Files["img"]));
+
+                        bool is_save_success = SaveImage(sourceimage, form_img_link);
                         if (is_save_success == false)
                         {
-                            string msg ="Ảnh biểu mẫu chưa được lưu vào database.\nXin vui lòng thử lại sau ít phút";
+                            string msg = "Ảnh biểu mẫu chưa được lưu vào database.\nXin vui lòng thử lại sau ít phút";
                             Debug.WriteLine(msg);
                             return Json(new { status_code = "400", status = "Fail", message = msg }, JsonRequestBehavior.AllowGet);
                         }
@@ -344,20 +264,19 @@ namespace vnpost_ocr_system.Controllers.Form
                     ft.FormName = Request["form_name"].Trim();
                     ft.FormImageLink = form_img_link;
                     ft.APIOutput = Request["api_output"].Trim();
-                    string image = Request["form_img"];
 
                     // 1. Profile
                     ft.FormScopeLevel = IntegerExtensions.ParseNullableInt(Request["form_scope_level"].Trim());
                     ft.PostalProvinceCode = FormatData(Request["postal_province_code"].Trim());
                     ft.ProvinceParseType = IntegerExtensions.ParseNullableInt(Request["province_parse_type"].Trim());
-                    Debug.WriteLine("Province: " + ft.ProvinceParseType + ", " + Request["province_parse_type"]);
+                    Debug.WriteLine("Province: " + FormatData(Request["postal_province_code"].Trim()) + ", " + Request["province_parse_type"]);
                     ft.ProvinceNERIndex = IntegerExtensions.ParseNullableInt(Request["province_ner_index"].Trim());
                     ft.ProvinceRegex = FormatData(Request["province_regex"]);
 
 
                     ft.PostalDistrictCode = FormatData(Request["postal_district_code"].Trim());
                     ft.DistrictParseType = IntegerExtensions.ParseNullableInt(Request["district_parse_type"].Trim());
-                    Debug.WriteLine("District: " + ft.ProvinceParseType + ", " + Request["district_parse_type"]);
+                    Debug.WriteLine("District: " + FormatData(Request["postal_district_code"].Trim()) + ", " + GetStaticType(Request["postal_district_code"])  + ", " + Request["district_parse_type"]);
                     ft.DistrictNERIndex = IntegerExtensions.ParseNullableInt(Request["district_ner_index"].Trim());
                     ft.DistrictRegex = FormatData(Request["district_regex"]);
 
@@ -468,24 +387,25 @@ namespace vnpost_ocr_system.Controllers.Form
                     form_id = ft.FormID;
 
                     // 6. Send train request to AI Server
-                    FullForm full_form = new FullForm(ft, image, "add");
+                    FullFormRequest full_form = new FullFormRequest(ft, "add");
 
                     Postman pm = new Postman();
-                    string url = "http://localhost:3978";
+                    string url = "http://103.104.117.175/retrain";
                     string json_text = ConvertEntJson(full_form);
                     pm.SendRequest(url, json_text);
 
+                    Debug.WriteLine("req: \n" + json_text);
                 }
                 catch (Exception e)
                 {
                     if (e is DbEntityValidationException)
                     {
-                        LogEFException((DbEntityValidationException) e);
+                        LogEFException((DbEntityValidationException)e);
                     }
 
                     Debug.WriteLine(e);
                     transaction.Rollback();
-                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút"}, 
+                    return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
                         JsonRequestBehavior.AllowGet);
                 }
 

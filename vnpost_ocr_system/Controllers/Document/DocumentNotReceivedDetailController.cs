@@ -1,17 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.Mobile;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -25,7 +23,7 @@ namespace vnpost_ocr_system.Controllers.Document
         public ActionResult Detail(string id)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            Non_revieve_detail order = new Non_revieve_detail();
+            NotReceivedDocumentDetail order = new NotReceivedDocumentDetail();
             string sql = "select *, oi.ImageName, oi.ImageRealName ,pa.Phone as 'PAPhone',pa.Address as 'PAAddress', po.Phone as 'POPhone', po.Address as 'POAddress' from [Order] o join [Profile] p on o.ProfileID = p.ProfileID join " +
                         "PublicAdministration pa on p.PublicAdministrationLocationID = pa.PublicAdministrationLocationID " +
                         "join PostOffice po on pa.PosCode = po.PosCode join District d on po.DistrictCode = d.DistrictCode " +
@@ -33,11 +31,11 @@ namespace vnpost_ocr_system.Controllers.Document
                         "join PersonalPaperType ppt on o.ProcedurerPersonalPaperTypeID = ppt.PersonalPaperTypeID " +
                         "join OrderImage oi on o.[OrderID] = oi.[OrderID] " +
                         "where o.OrderID = @id";
-            order = db.Database.SqlQuery<Non_revieve_detail>(sql, new SqlParameter("id", id)).FirstOrDefault();
+            order = db.Database.SqlQuery<NotReceivedDocumentDetail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
-            ViewBag.imageUrl = id + "/" + order.ImageName; 
-            ViewBag.imageRUrl = order.ImageRealName; 
+            ViewBag.imageUrl = id + "/" + order.ImageName;
+            ViewBag.imageRUrl = order.ImageRealName;
             if (err == true)
             {
                 ViewBag.error = "err";
@@ -69,7 +67,7 @@ namespace vnpost_ocr_system.Controllers.Document
                 return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
             }
 
-            
+
             using (DbContextTransaction con = db.Database.BeginTransaction())
             {
                 try

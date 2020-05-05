@@ -1414,7 +1414,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="PaymentMethodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Payment__09A971A2" FromRole="PaymentMethod" ToRole="Payment" />
         </EntityType>
-        <EntityType Name="PaymentStatu">
+        <EntityType Name="PaymentStatus">
           <Key>
             <PropertyRef Name="PaymentStatusID" />
           </Key>
@@ -1937,7 +1937,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Payment__Payment__0A9D95DB">
-          <End Role="PaymentStatus" Type="Self.PaymentStatu" Multiplicity="1" />
+          <End Role="PaymentStatus" Type="VNPOST_AppointmentModel.PaymentStatus" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentStatus">
@@ -1991,7 +1991,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
-          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatu" />
+          <EntitySet Name="PaymentStatus1" EntityType="VNPOST_AppointmentModel.PaymentStatus" />
           <EntitySet Name="PersonalPaperTypes" EntityType="Self.PersonalPaperType" />
           <EntitySet Name="PhoneVerifications" EntityType="Self.PhoneVerification" />
           <EntitySet Name="PostOffices" EntityType="Self.PostOffice" />
@@ -2139,7 +2139,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
           <AssociationSet Name="FK__Payment__Payment__0A9D95DB" Association="Self.FK__Payment__Payment__0A9D95DB">
-            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="PaymentStatus" EntitySet="PaymentStatus1" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
           <AssociationSet Name="FK__PublicAdm__PosCo__0D7A0286" Association="Self.FK__PublicAdm__PosCo__0D7A0286">
@@ -2541,8 +2541,8 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentStatus">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentStatu">
+          <EntitySetMapping Name="PaymentStatus1">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentStatus">
               <MappingFragment StoreEntitySet="PaymentStatus">
                 <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
                 <ScalarProperty Name="PaymentStatusDescription" ColumnName="PaymentStatusDescription" />

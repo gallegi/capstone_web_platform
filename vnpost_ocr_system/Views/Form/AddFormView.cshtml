@@ -345,7 +345,7 @@
                                                 @* NER (for all cards)*@
                                                 <div class="format_card_btn">
                                                     <div class="reg_radio">
-                                                        <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                        <input type="radio" id=@rad_id_ner name=@rad_name>
                                                         <label for=@rad_id_ner>NER</label>
                                                     </div>
                                                     @* Dropdown list *@
@@ -373,7 +373,7 @@
                                                 <div class="format_card_btn">
                                                     @* Radio button *@
                                                     <div class="reg_radio">
-                                                        <input type="radio" id=@rad_id_none name=@rad_name>
+                                                        <input type="radio" id=@rad_id_none name=@rad_name checked>
                                                         <label for=@rad_id_none>None</label>
                                                     </div>
                                                     @* Input regex *@
@@ -412,7 +412,7 @@
                                                     @* NER (for all cards)*@
                                                     <div class="format_card_btn">
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name >
                                                             <label for=@rad_id_ner>NER</label>
                                                         </div>
                                                         @* Dropdown list *@
@@ -440,7 +440,7 @@
                                                     <div class="format_card_btn">
                                                         @* Radio button *@
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <input type="radio" id=@rad_id_none name=@rad_name checked>
                                                             <label for=@rad_id_none>None</label>
                                                         </div>
                                                         @* Input regex *@
@@ -503,7 +503,7 @@
                                                     @* NER (for all cards)*@
                                                     <div class="format_card_btn">
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name >
                                                             <label for=@rad_id_ner>NER</label>
                                                         </div>
                                                         @* Dropdown list *@
@@ -531,7 +531,7 @@
                                                     <div class="format_card_btn">
                                                         @* Radio button *@
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <input type="radio" id=@rad_id_none name=@rad_name checked>
                                                             <label for=@rad_id_none>None</label>
                                                         </div>
                                                         @* Input regex *@
@@ -593,7 +593,7 @@
                                                     @* NER (for all cards)*@
                                                     <div class="format_card_btn">
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_ner name=@rad_name checked>
+                                                            <input type="radio" id=@rad_id_ner name=@rad_name >
                                                             <label for=@rad_id_ner>NER</label>
                                                         </div>
                                                         @* Dropdown list *@
@@ -621,7 +621,7 @@
                                                     <div class="format_card_btn">
                                                         @* Radio button *@
                                                         <div class="reg_radio">
-                                                            <input type="radio" id=@rad_id_none name=@rad_name>
+                                                            <input type="radio" id=@rad_id_none name=@rad_name checked>
                                                             <label for=@rad_id_none>None</label>
                                                         </div>
                                                         @* Input regex *@
@@ -712,6 +712,8 @@
                     $('p[name="validation_img"]').text('')
                     var base64String = event.target.result;
                     $('#cache_img').attr("src", base64String);
+                    console.log("Base64: " + base64String);
+
                     //// append to FormData
                     //myFormData.set('img', $('#cache_img').attr("src"));
                     //myFormData.set('img_name', file.name);
@@ -753,6 +755,7 @@
             });
             this.on('sending', function (file, xhr, formData) {
                 myFormData.append("img", file);
+                console.log("Bin: " + file);
                 myFormData.append("img_name", file.name)
             });
 
@@ -761,9 +764,7 @@
         dictFileTooBig: "Kích cỡ file quá lớn ({{filesize}}MB). Kích cỡ file tối đa: {{maxFilesize}}MB ",
         dictInvalidFileType: "File không hợp lệ",
     };
-</script>
-
-<script>
+    // ==================================== GET COMBO BOX ==================================== 
     // Fixed-value combo: Functions supports fixed-value combobox value changing
     function getProvince() {
         // This function is used to get all province
@@ -778,7 +779,7 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -810,11 +811,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_city_0').val()
+                PostalProvinceCode: $('#drop_city_0').val()
             },
             success: function (response) {
                 // re-new the list of districts
@@ -842,11 +843,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_district_0').val()
+                PostalDistrictCode: $('#drop_district_0').val()
             },
             success: function (response) {
                 // re-new dropdown public administation
@@ -871,11 +872,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_admin_office_0').val()
+                PublicAdministrationLocationID: $('#drop_admin_office_0').val()
             },
             success: function (response) {
                 // re-new dropdown profile
@@ -908,9 +909,8 @@
             getProfiles();
         })
     })
-</script>
 
-<script>
+    //  ==================================== ADD NER OPTION TO COMBOBOX ==================================== 
     // NER combo: Functions Add options to NER
     function addNerToComboBox(json_data) {
         var mapped_categories = ["city", "district", "admin_office", "profile", "letter_code",
@@ -945,9 +945,8 @@
             }
         }
     }
-</script>
 
-<script>
+    //  ==================================== REGEX MANIPULATION ==================================== 
     // Regex input: Functions highlight regex
     function highlight(event) {
         // find by regex
@@ -960,9 +959,15 @@
             // find all index of occurences in the raw_text
             var start_end_idx = [];
             while (match = input_regex.exec(raw_text)) {
-                //console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                console.log(match.index + ' ' + input_regex.lastIndex + ' ' + raw_text.substring(match.index, input_regex.lastIndex));
+                if (start_end_idx.length > 0) {
+                    if (match.index == start_end_idx[start_end_idx.length - 1][0]
+                        && input_regex.lastIndex == start_end_idx[start_end_idx.length - 1][1]) {
+                        break;
+                    }
+                }
+                
                 start_end_idx.push([match.index, input_regex.lastIndex]);
-
             }
 
             // start replacing by highlighted words
@@ -988,15 +993,13 @@
         }
     }
 
-</script>
-
-<script>
+    // ==================================== DROPZONE SUPPORT FUNCTIONS ==================================== 
     // Supported functions for Dropzone buttons
     function addJsonToFrame(json_data) {
         var raw_text = json_data.raw_text;
         if (raw_text == null || raw_text == '') {
             // user click btn to parse but OCR result is empty
-            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu');
+            errorAlert('Lỗi', 'Có lỗi xảy ra khi lấy kết quả OCR từ server');
             return false;
 
         } else {
@@ -1081,9 +1084,127 @@
         console.log(myFormData.get("letter_formated_content"));
         console.log(myFormData.get("api_output"));
     }
-</script>
+    function rotateRight() {
+        if (myFormData.get("img") == null) return;
+        $('#pre-load').show();
+        myFormData.delete("img")
+        var image = new Image();
+        image.src = $('#cache_img').attr("src");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.translate(0, -canvas.width);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+            $('img[data-dz-thumbnail]').attr("src", URL);
+            $('#cache_img').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
 
-    <script>
+    function rotateLeft() {
+        if (myFormData.get("img") == null) return;
+        $('#pre-load').show();
+        myFormData.delete("img")
+        var image = new Image();
+        image.src = $('#cache_img').attr("src");
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.height;
+            canvas.height = image.width;
+            ctx.rotate(270 * Math.PI / 180);
+            ctx.translate(-canvas.height, 0);
+            ctx.drawImage(image, 0, 0);
+            var URL = canvas.toDataURL('image/jpeg');
+
+            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
+            $('#cache_img').attr("src", URL);
+            dataURItoBlob(URL);
+        };
+    }
+
+    function dataURItoBlob(dataURI) {
+        var blobBin = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var file = new Blob([new Uint8Array(array)], { type: mimeString });
+        myFormData.append("img", file);
+
+        $('#pre-load').hide();
+    }
+
+    function parseToString() {
+        $('#pre-load').show();
+        // check input fields
+        if (validate_form_name() == false) {
+            return false;
+        } else if (validate_img() == false) {
+            return false;
+        } else {
+            // user click btn to parse afer uploading image
+            var data = new FormData();
+            console.log("while here exist: " + myFormData.get("img"));
+            data.append('image', myFormData.get('img'));
+            if (!sentAPI) {
+                $('#pre-load').show();
+                $.ajax({
+                    type: "POST",
+                    url: "http://103.104.117.175/ocr",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        sentAPI = true;
+
+                        // add result to form data
+                        myFormData.set("form_name", form_name);
+                        myFormData.set("api_output", response);
+                        myFormData.set("api_output_txt", JSON.stringify(response));
+
+                        // add to json frame
+                        var bAddJson = addJsonToFrame(response);
+
+                        if (bAddJson == true) {
+                            // load data to fixed-value combobox
+                            getProvince();
+
+                            // load data to NER combobox
+                            addNerToComboBox(response);
+                            sentAPI = true; // This stops re-send successfull image
+                        } else {
+                            sentAPI = false;
+                        }
+
+                        $('#pre-load').hide();
+
+                    },
+                    error: function (error) {
+                        console.log("Error: ", error);
+                        sentAPI = false;
+                        $('#pre-load').hide();
+                        $('a[role="menuitem"]').eq(1).click();
+                        return true;
+                    }
+                });
+                console.log("Here4");
+            }
+            else {
+                $('#pre-load').hide();
+                return true;
+            }
+        }
+    }
+    //  ==================================== VALIDATION SUPPORT FUNCTIONS ==================================== 
     // Supported function for validation
     function raise_error(error_msg) {
         $('#pre-load').hide();
@@ -1225,131 +1346,7 @@
         return true;
     }
 
-</script>
-<script>
-    // Supported functions for Dropzone
-    function rotateRight() {
-        if (myFormData.get("img") == null) return;
-        $('#pre-load').show();
-        myFormData.delete("img")
-        var image = new Image();
-        image.src = $('#cache_img').attr("src");
-        image.onload = function () {
-            var canvas = document.createElement("canvas");
-            var ctx = canvas.getContext("2d");
-            canvas.width = image.height;
-            canvas.height = image.width;
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.translate(0, -canvas.width);
-            ctx.drawImage(image, 0, 0);
-            var URL = canvas.toDataURL('image/jpeg');
-            $('img[data-dz-thumbnail]').attr("src", URL);
-            $('#cache_img').attr("src", URL);
-            dataURItoBlob(URL);
-        };
-    }
-
-    function rotateLeft() {
-        if (myFormData.get("img") == null) return;
-        $('#pre-load').show();
-        myFormData.delete("img")
-        var image = new Image();
-        image.src = $('#cache_img').attr("src");
-        image.onload = function () {
-            var canvas = document.createElement("canvas");
-            var ctx = canvas.getContext("2d");
-            canvas.width = image.height;
-            canvas.height = image.width;
-            ctx.rotate(270 * Math.PI / 180);
-            ctx.translate(-canvas.height, 0);
-            ctx.drawImage(image, 0, 0);
-            var URL = canvas.toDataURL('image/jpeg');
-
-            $('img[data-dz-thumbnail]').attr("src", canvas.toDataURL());
-            $('#cache_img').attr("src", URL);
-            dataURItoBlob(URL);
-        };
-    }
-
-    function dataURItoBlob(dataURI) {
-        var blobBin = atob(dataURI.split(',')[1]);
-        var array = [];
-        for (var i = 0; i < blobBin.length; i++) {
-            array.push(blobBin.charCodeAt(i));
-        }
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        var file = new Blob([new Uint8Array(array)], { type: mimeString });
-        myFormData.append("img", file);
-
-        $('#pre-load').hide();
-    }
-
-    function parseToString() {
-        $('#pre-load').show();
-
-        // check input fields
-        if (validate_form_name() == false) {
-            return false;
-        } else if (validate_img() == false) {
-            return false;
-        } else {
-            // user click btn to parse afer uploading image
-            var data = new FormData();
-            data.append('image', myFormData.get('img'));
-            if (!sentAPI) {
-                $('#pre-load').show();
-                $.ajax({
-                    type: "POST",
-                    url: "https://vnpost.tunnel.dsgcli.net/ocr",
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        sentAPI = true;
-
-                        // add result to form data
-                        myFormData.set("form_name", form_name);
-                        myFormData.set("api_output", response);
-                        myFormData.set("api_output_txt", JSON.stringify(response));
-
-                        // add to json frame
-                        var bAddJson = addJsonToFrame(response);
-
-                        if (bAddJson == true) {
-                            // load data to fixed-value combobox
-                            getProvince();
-
-                            // load data to NER combobox
-                            addNerToComboBox(response);
-                            sentAPI = true; // This stops re-send successfull image
-                        } else {
-                            sentAPI = false;
-                        }
-
-                        $('#pre-load').hide();
-
-                    },
-                    error: function (error) {
-                        console.log("Error: ", error);
-                        sentAPI = false;
-                        $('#pre-load').hide();
-                        $('a[role="menuitem"]').eq(1).click();
-                        return true;
-                    }
-                });
-                console.log("Here4");
-            }
-            else {
-                $('#pre-load').hide();
-                return true;
-            }
-        }
-    }
-</script>
-<script>
+    // ================================================ PROCESS DATA BEFORE SENDING TO CONTROLLER ================================================ 
     function get_scope_level(profile_opts) {
         var scope_level = 4;
         var count = -1;
@@ -1488,13 +1485,13 @@
 
         // ---------------------------------------------- send chosen data -> controller ----------------------------------------------
         var api_output_txt = (myFormData.get("api_output_txt"));
-        console.log("api_output: ", api_output_txt);
-        console.log("added imge: ", myFormData.get("img_name"));
         var data_form = new FormData();
 
         // 0. Form info
         data_form.set("form_name", $("#form_name").val());
-        data_form.set("form_img", $('#cache_img').attr("src"));
+        //data_form.set("form_img", $('#cache_img').attr("src"));
+        console.log("here", myFormData.get("img"));
+        data_form.set("form_img", myFormData.get("img"));
         data_form.set("form_img_link", myFormData.get("img_name"));
         data_form.set("api_output", api_output_txt);
 
@@ -1502,105 +1499,105 @@
         data_form.set("form_scope_level", get_scope_level(profile_opts).toString());
 
         data_form.set("postal_province_code", profile_opts[0][0]);
-        data_form.set("province_parse_type", profile_opts[0][3] == null ? "" : profile_opts[0][3].toString());
+        data_form.set("province_parse_type", profile_opts[0][3]);
         data_form.set("province_ner_index", profile_opts[0][1]);
         data_form.set("province_regex", profile_opts[0][2]);
 
         data_form.set("postal_district_code", profile_opts[1][0]);
-        data_form.set("district_parse_type", profile_opts[1][3] == null ? "" : profile_opts[1][0].toString());
+        data_form.set("district_parse_type", profile_opts[1][3]);
         data_form.set("district_ner_index", profile_opts[1][1]);
         data_form.set("district_regex", profile_opts[1][2]);
 
-        data_form.set("public_administration_parse_type", profile_opts[2][3] == null ? "" : profile_opts[2][3].toString());
+        data_form.set("public_administration_parse_type", profile_opts[2][3]);
         data_form.set("public_administration_location_id", profile_opts[2][0]);
         data_form.set("public_administration_ner_index", profile_opts[2][1]);
         data_form.set("public_administration_regex", profile_opts[2][2]);
-
-        data_form.set("profile_parse_type", profile_opts[3][3] == null ? "" : profile_opts[3][3].toString());
+        
+        data_form.set("profile_parse_type", profile_opts[3][3]);
         data_form.set("profile_id", profile_opts[3][0]);
         data_form.set("profile_ner_index", profile_opts[3][1]);
         data_form.set("profile_regex", profile_opts[3][2]);
 
-        data_form.set("appointment_letter_code_parse_type", profile_opts[4][3] == null ? "" : profile_opts[4][3].toString());
+        data_form.set("appointment_letter_code_parse_type", profile_opts[4][3]);
         data_form.set("appointment_letter_code_ner_index", profile_opts[4][1]);
         data_form.set("appointment_letter_code_regex", profile_opts[4][2]);
 
         // 2. Procedurer
-        data_form.set("procedurer_full_name_parse_type", remaining_opts[0][3] == null ? "" : remaining_opts[0][3].toString());
+        data_form.set("procedurer_full_name_parse_type", remaining_opts[0][3]);
         data_form.set("procedurer_full_name_ner_index", remaining_opts[0][1]);
         data_form.set("procedurer_full_name_regex", remaining_opts[0][2]);
 
-        data_form.set("procedurer_phone_parse_type", remaining_opts[1][3] == null ? "" : remaining_opts[1][3].toString());
+        data_form.set("procedurer_phone_parse_type", remaining_opts[1][3]);
         data_form.set("procedurer_phone_ner_index", remaining_opts[1][1]);
         data_form.set("procedurer_phone_regex", remaining_opts[1][2]);
 
-        data_form.set("procedurer_province_parse_type", remaining_opts[2][3] == null ? "" : remaining_opts[2][3].toString());
+        data_form.set("procedurer_province_parse_type", remaining_opts[2][3]);
         data_form.set("procedurer_province_ner_index", remaining_opts[2][1]);
         data_form.set("procedurer_province_regex", remaining_opts[2][2]);
 
-        data_form.set("procedurer_district_parse_type", remaining_opts[3][3] == null ? "" : remaining_opts[3][3].toString());
+        data_form.set("procedurer_district_parse_type", remaining_opts[3][3]);
         data_form.set("procedurer_district_ner_index", remaining_opts[3][1]);
         data_form.set("procedurer_district_regex", remaining_opts[3][2]);
 
-        data_form.set("procedurer_street_parse_type", remaining_opts[4][3] == null ? "" : remaining_opts[4][3].toString());
+        data_form.set("procedurer_street_parse_type", remaining_opts[4][3]);
         data_form.set("procedurer_street_ner_index", remaining_opts[4][1]);
         data_form.set("procedurer_street_regex", remaining_opts[4][2]);
 
-        data_form.set("procedurer_personal_paper_type_parse_type", remaining_opts[5][3] == null ? "" : remaining_opts[5][3].toString());
+        data_form.set("procedurer_personal_paper_type_parse_type", remaining_opts[5][3]);
         data_form.set("procedurer_personal_paper_type_ner_index", remaining_opts[5][1]);
         data_form.set("procedurer_personal_paper_type_regex", remaining_opts[5][2]);
 
-        data_form.set("procedurer_personal_paper_number_parse_type", remaining_opts[6][3] == null ? "" : remaining_opts[6][3].toString());
+        data_form.set("procedurer_personal_paper_number_parse_type", remaining_opts[6][3]);
         data_form.set("procedurer_personal_paper_number_ner_index", remaining_opts[6][1]);
         data_form.set("procedurer_personal_paper_number_regex", remaining_opts[6][2]);
 
-        data_form.set("procedurer_personal_paper_issued_date_parse_type", remaining_opts[7][3] == null ? "" : remaining_opts[7][3].toString());
+        data_form.set("procedurer_personal_paper_issued_date_parse_type", remaining_opts[7][3]);
         data_form.set("procedurer_personal_paper_issued_date_ner_index", remaining_opts[7][1]);
         data_form.set("procedurer_personal_paper_issued_date_regex", remaining_opts[7][2]);
 
-        data_form.set("procedurer_personal_paper_issued_place_parse_type", remaining_opts[8][3] == null ? "" : remaining_opts[8][3].toString());
+        data_form.set("procedurer_personal_paper_issued_place_parse_type", remaining_opts[8][3]);
         data_form.set("procedurer_personal_paper_issued_place_ner_index", remaining_opts[8][1]);
         data_form.set("procedurer_personal_paper_issued_place_regex", remaining_opts[8][2]);
 
         // 3. Sender
-        data_form.set("sender_full_name_parse_type", remaining_opts[9][3] == null ? "" : remaining_opts[9][3].toString());
+        data_form.set("sender_full_name_parse_type", remaining_opts[9][3]);
         data_form.set("sender_full_name_ner_index", remaining_opts[9][1]);
         data_form.set("sender_full_name_regex", remaining_opts[9][2]);
 
-        data_form.set("sender_phone_parse_type", remaining_opts[10][3] == null ? "" : remaining_opts[10][3].toString());
+        data_form.set("sender_phone_parse_type", remaining_opts[10][3]);
         data_form.set("sender_phone_ner_index", remaining_opts[10][1]);
         data_form.set("sender_phone_regex", remaining_opts[10][2]);
 
-        data_form.set("sender_province_parse_type", remaining_opts[11][3] == null ? "" : remaining_opts[11][3].toString());
+        data_form.set("sender_province_parse_type", remaining_opts[11][3]);
         data_form.set("sender_province_ner_index", remaining_opts[11][1]);
         data_form.set("sender_province_regex", remaining_opts[11][2]);
 
-        data_form.set("sender_district_parse_type", remaining_opts[12][3] == null ? "" : remaining_opts[12][3].toString());
+        data_form.set("sender_district_parse_type", remaining_opts[12][3]);
         data_form.set("sender_district_ner_index", remaining_opts[12][1]);
         data_form.set("sender_district_regex", remaining_opts[12][2]);
 
-        data_form.set("sender_street_parse_type", remaining_opts[13][3] == null ? "" : remaining_opts[13][3].toString());
+        data_form.set("sender_street_parse_type", remaining_opts[13][3]);
         data_form.set("sender_street_ner_index", remaining_opts[13][1]);
         data_form.set("sender_street_regex", remaining_opts[13][2]);
 
         // 4. Receiver
-        data_form.set("receiver_full_name_parse_type", remaining_opts[14][3] == null ? "" : remaining_opts[14][3].toString());
+        data_form.set("receiver_full_name_parse_type", remaining_opts[14][3]);
         data_form.set("receiver_full_name_ner_index", remaining_opts[14][1]);
         data_form.set("receiver_full_name_regex", remaining_opts[14][2]);
 
-        data_form.set("receiver_phone_parse_type", remaining_opts[15][3] == null ? "" : remaining_opts[15][3].toString());
+        data_form.set("receiver_phone_parse_type", remaining_opts[15][3]);
         data_form.set("receiver_phone_ner_index", remaining_opts[15][1]);
         data_form.set("receiver_phone_regex", remaining_opts[15][2]);
 
-        data_form.set("receiver_province_parse_type", remaining_opts[16][3] == null ? "" : remaining_opts[16][3].toString());
+        data_form.set("receiver_province_parse_type", remaining_opts[16][3]);
         data_form.set("receiver_province_ner_index", remaining_opts[16][1]);
         data_form.set("receiver_province_regex", remaining_opts[16][2]);
 
-        data_form.set("receiver_district_parse_type", remaining_opts[17][3] == null ? "" : remaining_opts[17][3].toString());
+        data_form.set("receiver_district_parse_type", remaining_opts[17][3]);
         data_form.set("receiver_district_ner_index", remaining_opts[17][1]);
         data_form.set("receiver_district_regex", remaining_opts[17][2]);
 
-        data_form.set("receiver_street_parse_type", remaining_opts[18][3] == null ? "" : remaining_opts[18][3].toString());
+        data_form.set("receiver_street_parse_type", remaining_opts[18][3]);
         data_form.set("receiver_street_ner_index", remaining_opts[18][1]);
         data_form.set("receiver_street_regex", remaining_opts[18][2]);
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 
@@ -11,12 +9,26 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 {
     public class GetProvincesController : Controller
     {
-        [Route("GetDistrict")]
+        [Route("GetProvince")]
         [HttpPost]
-        public ActionResult GetDistrictByProvinceCode(string code)
+        public ActionResult GetProvince()
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", code)).ToList()
+                List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
+                .Select(x => new Province
+                {
+                    PostalProvinceCode = x.PostalProvinceCode,
+                    PostalProvinceName = x.PostalProvinceName
+                }).ToList();
+            return Json(list);
+        }
+
+        [Route("GetDistrict")]
+        [HttpPost]
+        public ActionResult GetDistrictByProvinceCode(string PostalProvinceCode)
+        {
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+            List<District> list = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @code order by PostalDistrictName asc", new SqlParameter("code", PostalProvinceCode)).ToList()
                 .Select(x => new District
                 {
                     PostalDistrictCode = x.PostalDistrictCode,
@@ -27,13 +39,13 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetProfile")]
         [HttpPost]
-        public ActionResult GetProfileByPAId(string code)
+        public ActionResult GetProfileByPAId(string PublicAdministrationLocationID)
         {
-            int code_number;
-            if (!int.TryParse(code, out code_number))
+            int PublicAdministrationLocationID_int;
+            if (!int.TryParse(PublicAdministrationLocationID, out PublicAdministrationLocationID_int))
                 return null;
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(code_number)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
+            List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(PublicAdministrationLocationID_int)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
             {
                 ProfileID = x.ProfileID,
                 ProfileName = x.ProfileName
@@ -41,15 +53,15 @@ namespace vnpost_ocr_system.Controllers.GetProvince
             return Json(list);
         }
 
-        [Route("GetAdmins")]
+        [Route("GetPublicAdministration")]
         [HttpPost]
-        public ActionResult GetPublicAdministrationByDistrictCode(string code)
+        public ActionResult GetPublicAdministrationByDistrictCode(string PostalDistrictCode)
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<PublicAdministration> list = (from pd in db.Districts
                                                join po in db.PostOffices on pd.DistrictCode equals po.DistrictCode
                                                join pa in db.PublicAdministrations on po.PosCode equals pa.PosCode
-                                               where pd.PostalDistrictCode.Equals(code)
+                                               where pd.PostalDistrictCode.Equals(PostalDistrictCode)
                                                orderby pa.PublicAdministrationName
                                                select pa).ToList().Select(x => new PublicAdministration
                                                {
@@ -62,11 +74,11 @@ namespace vnpost_ocr_system.Controllers.GetProvince
 
         [Route("GetAddressOfPublicAdmins")]
         [HttpGet]
-        public ActionResult GetAddressByPublicAdminCode(int code)
+        public ActionResult GetAddressByPublicAdminCode(int PublicAdministrationLocationID)
         {
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
-                return Json(db.PublicAdministrations.Find(code).PublicAdministrationName);
+                return Json(db.PublicAdministrations.Find(PublicAdministrationLocationID).PublicAdministrationName);
             }
         }
 
@@ -87,7 +99,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
                                 d.PostalDistrictCode,
                                 pa.PublicAdministrationLocationID
                             }).FirstOrDefault();
-                return Json(new { success = data == null ? false : true, data = data});
+                return Json(new { success = data == null ? false : true, data = data });
             }
         }
     }

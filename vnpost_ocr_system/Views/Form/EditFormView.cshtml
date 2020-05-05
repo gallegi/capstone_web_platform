@@ -1060,7 +1060,7 @@
         var fixed_value = ft.PostalProvinceCode; 
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -1097,11 +1097,11 @@
         console.log("district: " + $('#drop_city_0').val());
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: ft.PostalProvinceCode
+                PostalProvinceCode: ft.PostalProvinceCode
             },
             success: function (response) {
                 // re-new the list of districts
@@ -1134,11 +1134,11 @@
         var fixed_value =  ft.PublicAdministrationLocationID;
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetPublicAdminsByDistrictCode",
+            url: "/GetPublicAdministration",
             cache: false,
             dataType: 'json',
             data: {
-                code: ft.PostalDistrictCode
+                PostalDistrictCode: ft.PostalDistrictCode
             },
             success: function (response) {
                 // re-new dropdown public administation
@@ -1172,11 +1172,11 @@
 
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: ft.PublicAdministrationLocationID
+                PublicAdministrationLocationID: ft.PublicAdministrationLocationID
             },
             success: function (response) {
                 // re-new dropdown profile
@@ -1213,7 +1213,7 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetAllProvince",
+            url: "/GetProvince",
             cache: false,
             dataType: 'json',
             success: function (response) {
@@ -1245,11 +1245,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetDistrictByProvCode",
+            url: "/GetDistrict",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_city_0').val()
+                PostalProvinceCode: $('#drop_city_0').val()
             },
             success: function (response) {
                 // re-new the list of districts
@@ -1281,7 +1281,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_district_0').val()
+                PostalDistrictCode: $('#drop_district_0').val()
             },
             success: function (response) {
                 // re-new dropdown public administation
@@ -1306,11 +1306,11 @@
         $('#drop_profile_0').formSelect();
         $.ajax({
             type: "POST",
-            url: "/bieu-mau/them-bieu-mau/GetProfileByPAId",
+            url: "/GetProfile",
             cache: false,
             dataType: 'json',
             data: {
-                code: $('#drop_admin_office_0').val()
+                PublicAdministrationLocationID: $('#drop_admin_office_0').val()
             },
             success: function (response) {
                 // re-new dropdown profile

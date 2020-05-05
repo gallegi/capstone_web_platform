@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using vnpost_ocr_system.Models;
-using System.Globalization;
-using XCrypt;
 using System.Data.Entity;
-using vnpost_ocr_system.SupportClass;
+using System.Globalization;
+using System.Linq;
+using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
+using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
+using XCrypt;
 
 namespace vnpost_ocr_system.Controllers.User
 {
@@ -32,7 +30,8 @@ namespace vnpost_ocr_system.Controllers.User
         public ActionResult Info()
         {
             int userID = Convert.ToInt32(Session["userID"].ToString());
-            var custom = db.Customers.Where(x => x.CustomerID == userID).ToList().Select(x => new CustomerDB {
+            var custom = db.Customers.Where(x => x.CustomerID == userID).ToList().Select(x => new CustomerDB
+            {
                 dob = x.DOB.GetValueOrDefault().ToString("dd/MM/yyyy"),
                 FullName = x.FullName,
                 Phone = x.Phone,
@@ -45,7 +44,7 @@ namespace vnpost_ocr_system.Controllers.User
             return Json(custom, JsonRequestBehavior.AllowGet);
         }
         [Auther(Roles = "0")]
-        public ActionResult Update(string name,string phone,string email,string dob,string gender,string oldpass,string newpass,string repass,string dis)
+        public ActionResult Update(string name, string dob, string gender, string oldpass, string newpass, string repass, string dis)
         {
             try
             {
@@ -54,9 +53,9 @@ namespace vnpost_ocr_system.Controllers.User
                 DateTime vert = DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 custom.FullName = name;
                 custom.DOB = vert;
-                custom.Email = email;
+                //custom.Email = email;
                 custom.Gender = Convert.ToInt32(gender);
-                custom.Phone = phone;
+                //custom.Phone = phone;
                 custom.PostalDistrictID = dis;
                 if (!string.IsNullOrEmpty(oldpass))
                 {
@@ -80,6 +79,7 @@ namespace vnpost_ocr_system.Controllers.User
                 {
                     db.Entry(custom).State = EntityState.Modified;
                     db.SaveChanges();
+                    Session["userName"] = custom.FullName;
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -92,7 +92,7 @@ namespace vnpost_ocr_system.Controllers.User
         {
             db.Configuration.ProxyCreationEnabled = false;
             var province = db.Districts.Where(x => x.PostalDistrictCode.Equals(dis)).FirstOrDefault();
-            return Json(province,JsonRequestBehavior.AllowGet);
+            return Json(province, JsonRequestBehavior.AllowGet);
         }
 
     }
