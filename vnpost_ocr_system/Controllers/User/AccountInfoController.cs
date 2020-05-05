@@ -60,7 +60,6 @@ namespace vnpost_ocr_system.Controllers.User
                 if (!string.IsNullOrEmpty(oldpass))
                 {
                     oldpass = string.Concat(oldpass, custom.PasswordSalt.Substring(0, 6));
-                    //string oldpassXc = Encrypt.EncryptString(oldpass, "PD");
                     string oldpassXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(oldpass, "pd");
                     if (oldpassXc.Equals(custom.PasswordHash))
                     {
