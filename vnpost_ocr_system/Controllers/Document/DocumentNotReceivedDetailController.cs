@@ -88,6 +88,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
                     o.ItemCode = itemCode;
                     o.Amount = Convert.ToDouble(getAllInfo(itemCode)["TongCuocChuyenPhat"]);
+                    o.TotalAmountInWords = NumberToCurrencyWord.convert((int)o.Amount);
                     //processed
                     long usernameID = Convert.ToInt64((Session["useradminID"]).ToString());
                     o.ProcessedBy = usernameID;
