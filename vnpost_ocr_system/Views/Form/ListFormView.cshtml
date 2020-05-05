@@ -1,27 +1,16 @@
-﻿
-<head>
-    <link rel="stylesheet" type="text/css" href="~/CustomCSS/Form/ListForm.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        function showPopUp(formId, formName, img_url) {
-            document.getElementById('popupimg').setAttribute("src", img_url);
-            document.getElementById('form_id').value = formId;
-            document.getElementById('popup_form_name').innerHTML = formName;
-            window.location.href = "#popup1";
-        }
-
-    </script>
-</head>
-
-@{
+﻿@{
     ViewBag.Title = "ListFormView";
     Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
 }
 
-
 @{
     var listForms = ViewBag.Forms;
 }
+
+<link rel="stylesheet" type="text/css" href="~/CustomCSS/Form/ListForm.css" />
+<script src="~/assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="~/dist/js/custom.min.js"></script>
+
 
 <body>
     <div class="container-fluid">
@@ -41,7 +30,7 @@
                                 <div class="fill_content">
                                 </div>
                                 @*<div style="background-color:darkslategrey;width:70% ;height:2px; margin:auto;">
-                                </div>*@
+                                    </div>*@
                                 <div class="align">
                                     <p style="padding-top:5px;">@form.FormName</p>
                                     <button name="btn1" class="cbutton waves-effect waves-light btn blue input-field" onclick="window.location.href='/bieu-mau/chi-tiet-bieu-mau?form_id=' + @form.FormID">Xem chi tiết</button>
@@ -77,3 +66,12 @@
         </div>
     </div>
 </body>
+
+<script>
+    function showPopUp(formId, formName, img_url) {
+        document.getElementById('popupimg').setAttribute("src", img_url);
+        document.getElementById('form_id').value = formId;
+        document.getElementById('popup_form_name').innerHTML = formName;
+        window.location.href = "#popup1";
+    }
+</script>
