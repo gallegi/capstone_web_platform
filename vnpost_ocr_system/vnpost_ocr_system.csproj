@@ -336,6 +336,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportClass\Auther.cs" />
+    <Compile Include="SupportClass\MailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Custom css\floating-action-btn.css" />
@@ -762,7 +763,9 @@
     <Content Include="assets\images\big\socialbg.jpg" />
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\forward_icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\home_icon.png" />
     <Content Include="assets\images\logo-icon.png" />
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
@@ -5498,6 +5501,7 @@
     <Content Include="CustomCSS\Form\DetailForm\RadioButton.css" />
     <Content Include="CustomCSS\Form\EditForm\EditForm.css" />
     <Content Include="CustomCSS\Form\EditForm\RadioButton.css" />
+    <Content Include="CustomCSS\Form\ListForm.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\InvitationCard\InputReceiverInfo.css" />
@@ -5518,6 +5522,7 @@
     <Content Include="CustomCSS\preloader\css.css" />
     <Content Include="CustomCSS\InvitationCard\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\preloader\pre-load-logo.png" />
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
@@ -6336,6 +6341,8 @@
     <Content Include="Views\Form\AddFormView.cshtml" />
     <Content Include="Views\Form\EditFormView.cshtml" />
     <Content Include="Views\Form\ListFormView.cshtml" />
+    <Content Include="Views\MobileView\Users\AddressInfo.cshtml" />
+    <Content Include="Views\MobileView\Users\CreateAddressInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

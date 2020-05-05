@@ -22,6 +22,10 @@ namespace vnpost_ocr_system.Controllers.User
             List<PersonalPaperType> listPaperType = db.PersonalPaperTypes.ToList<PersonalPaperType>();
             ViewBag.listProvince = listProvince;
             ViewBag.listPaperType = listPaperType;
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Users/CreateAddressInfo.cshtml");
+            }
             return View("/Views/User/CreateAddressInfo.cshtml");
         }
         [Auther(Roles = "0")]

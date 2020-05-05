@@ -617,6 +617,10 @@
                     $("#pre-load").hide();
                     reloadAlert('Cập nhật trạng thái thành công', 3000);
                     window.location.href = "/ho-so/ho-so-da-nhan/chi-tiet?id_raw=" + id;
+                } else if (respone.message == 'Changed') {
+                    $("#pre-load").hide();
+                    errorAlert('Lỗi', 'Trạng thái của đơn hàng này đã bị thay đổi');
+                    window.location.href = "/ho-so/ho-so-cho-nhan";
                 }
             }
         })

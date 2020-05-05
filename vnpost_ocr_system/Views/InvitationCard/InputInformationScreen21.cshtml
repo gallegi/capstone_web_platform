@@ -119,7 +119,7 @@
     <div class="col s12">
         <div class="card">
             <div class="card-content wizard-content">
-                <h2 class="card-title">Tạo giấy hẹn mới</h2>
+                <h4 class="font-medium">Tạo giấy hẹn mới</h4>
                 <form id="myform" action="/giay-hen/trang-thai-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Ảnh chụp giấy hẹn</h6>
@@ -1444,7 +1444,7 @@
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://103.104.117.175/ocr",
+                            url: "https://ocr.vnpost.tech/ocr",
                             data: data,
                             contentType: false,
                             processData: false,

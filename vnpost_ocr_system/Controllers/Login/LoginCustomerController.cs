@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
+using vnpost_ocr_system.SupportClass;
 using XCrypt;
 
 namespace vnpost_ocr_system.Controllers.Login
@@ -152,7 +152,21 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 if (!string.IsNullOrEmpty(tbEmail))
                 {
-                    if (!tbValidCodeEmail.Equals("123456"))
+                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
+                    if (cus.Count > 0)
+                    {
+                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Customer.cshtml");
+                        }
+                    }
+                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(tbEmail) && x.VerificationCode.Equals(tbValidCodeEmail) && x.Status == false).ToList().LastOrDefault();
+                    if (email_token == null)
                     {
                         ViewBag.invalidcode1 = "Mã xác thực email không chính xác";
                         if (Request.Browser.IsMobileDevice)
@@ -163,11 +177,9 @@ namespace vnpost_ocr_system.Controllers.Login
                         {
                             return View("/Views/Login/Login_Customer.cshtml");
                         }
-                    }
-                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
-                    if (cus.Count > 0)
+                    } else if (DateTime.Now.Subtract(email_token.CreatedTime).TotalMinutes > 15)
                     {
-                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        ViewBag.invalidcode1 = "Mã xác thực email đã hết hạn";
                         if (Request.Browser.IsMobileDevice)
                         {
                             return View("/Views/MobileView/Login.cshtml");
@@ -189,7 +201,7 @@ namespace vnpost_ocr_system.Controllers.Login
                 c.Gender = Convert.ToInt32(group1);
                 c.Phone = tbPhone;
                 c.Email = tbEmail;
-                c.DOB = DateTime.Now;
+                c.DOB = null;
                 c.PostalDistrictID = distrint;
                 db.Customers.Add(c);
                 db.SaveChanges();
@@ -234,18 +246,57 @@ namespace vnpost_ocr_system.Controllers.Login
             }
             return Redirect("/");
         }
-        public ActionResult GetPro()
+
+        public ActionResult EmailVerification(string email)
         {
-            db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Provinces.OrderBy(x => x.PostalProvinceName).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            try
+            {
+                string email_norm = email.Trim().ToLower();
+                //Check if email exist => Return error mail exist
+                var user = db.Customers.Where(x => x.Email.Equals(email_norm)).FirstOrDefault();
+                if (user == null)
+                {//Email not exist
+
+                    //Check if token exist for that email and not expired
+                    int token;
+                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(email_norm) && x.Status == false).ToList().LastOrDefault();
+                    if (email_token != null && DateTime.Now.Subtract(email_token.CreatedTime).TotalMinutes <= 15)
+                    {//Use old token if token not expired
+                        token = Convert.ToInt32(email_token.VerificationCode);
+                    }
+                    else
+                    {//Generate new token
+                        Random r = new Random();
+                        token = r.Next(100000, 999999);
+                        EmailVerification ev = new EmailVerification();
+                        ev.Email = email_norm;
+                        ev.VerificationCode = token.ToString();
+                        ev.Status = false;
+                        ev.CreatedTime = DateTime.Now;
+                        db.EmailVerifications.Add(ev);
+                        db.SaveChanges();
+                    }
+
+                    MailService.sendMail(
+                        email_norm,
+                        "[VNPost] Mã xác thực email của bạn",
+                        "Mã xác thực email của bạn là: " + token
+                        ); ;
+                }
+                else
+                {//Email already exist
+                   return  Json(new { error = true, message = "Địa chỉ email đã tồn tại" });
+                }
+
+            } catch (Exception e)
+            {//Unexpected error
+                Console.WriteLine(e.StackTrace);
+                return Json(new { error = true, message = "Có lỗi xảy ra" });
+            }
+            //Return email success
+            return Json(new { error = false, message = "Mã xác nhận đã được gửi đến email của bạn"});
         }
-        public ActionResult GetDis(string id)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Districts.Where(x => x.PostalProvinceCode == id).OrderBy(x => x.PostalDistrictName).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
+
         public ActionResult ResetPassword(string emailORphone)
         {
             string[] absolutepath = Request.Url.ToString().Split('/');
@@ -273,19 +324,11 @@ namespace vnpost_ocr_system.Controllers.Login
                         db.ResetPasswordTokens.Add(re);
                         db.SaveChanges();
                     }
-
-                    MailMessage mail = new MailMessage();
-                    mail.To.Add(emailORphone);
-                    mail.From = new MailAddress("no-reply@vnpost.tech");
-                    mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token;
-                    mail.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.mailgun.org";
-                    smtp.Credentials = new System.Net.NetworkCredential("postmaster@mail.vnpost.tech", "b59cfe65aea2a1bbd9335115e1e14662-0afbfc6c-b6903395");
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
+                    MailService.sendMail(
+                        emailORphone, 
+                        "Thay đổi mật khẩu", 
+                        "Quý khách vui lòng không cung cấp mã cho người khác.</br> Mã Token của bạn là: " + token + ".</br> Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + "/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token
+                    );
                 }
                 catch (Exception ex)
                 {
@@ -300,21 +343,23 @@ namespace vnpost_ocr_system.Controllers.Login
         }
 
         [Route("khach-hang/thay-doi-mat-khau")]
-        public ActionResult PasswordForm(int token)
+        public ActionResult PasswordForm(int userid, int token)
         {
-            var user = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
+            var user = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.CustomerID == userid && x.Status == false).ToList().LastOrDefault();
             if (user != null && DateTime.Now.Subtract(user.CreatedDate).TotalMinutes <= 15)
             {
                 ViewBag.userid = user.CustomerID;
+                ViewBag.token = token;
                 return View("/Views/Login/ResetPassword.cshtml");
             }
             return Redirect("/khach-hang/dang-nhap");
         }
-        public ActionResult CheckToken(int token)
+
+        public ActionResult CheckToken(int token, int userid)
         {
             try
             {
-                var checktoken = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
+                var checktoken = db.ResetPasswordTokens.Where(x => x.Token.Equals(token.ToString()) && x.CustomerID == userid && x.Status == false).ToList().LastOrDefault();
                 if (checktoken == null) return Json(0, JsonRequestBehavior.AllowGet);
                 if (DateTime.Now.Subtract(checktoken.CreatedDate).TotalMinutes > 15) return Json(-1, JsonRequestBehavior.AllowGet);
                 return Json(1, JsonRequestBehavior.AllowGet);
@@ -324,13 +369,13 @@ namespace vnpost_ocr_system.Controllers.Login
                 return Json(-2, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult ChangePass(string password, int userid)
+        public ActionResult ChangePass(string password, int userid, int token)
         {
             try
             {
                 Int64 id = Convert.ToInt64(userid);
                 var user = db.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
-                var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Status == false).ToList().LastOrDefault();
+                var custom_token = db.ResetPasswordTokens.Where(x => x.CustomerID == user.CustomerID && x.Token.Equals(token.ToString()) && x.Status == false).ToList().LastOrDefault();
                 custom_token.Status = true;
                 db.Entry(custom_token).State = System.Data.Entity.EntityState.Modified;
                 password = string.Concat(password, user.PasswordSalt.Substring(0, 6));

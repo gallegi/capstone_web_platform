@@ -27,6 +27,10 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.contactCount = listContactInfo.Count();
             ViewBag.listProvince = listProvince;
             ViewBag.listPaperType = listPaperType;
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Users/AddressInfo.cshtml");
+            }
             return View("/Views/User/AddressInfo.cshtml");
         }
 
