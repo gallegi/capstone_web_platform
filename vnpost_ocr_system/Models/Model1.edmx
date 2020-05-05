@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -836,13 +836,13 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
         </Association>
         <Association Name="FK_NotificationMessage_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="0..1" />
+          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="NotificationMessage">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1055,8 +1055,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="NotificationMessage" EntitySet="NotificationMessage" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VNPOST_AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1310,17 +1309,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="Profile" Relationship="Self.FK__Form__ProfileID__345EC57D" FromRole="FormTemplate" ToRole="Profile" />
           <NavigationProperty Name="PublicAdministration" Relationship="Self.FK__Form__PublicAdmi__336AA144" FromRole="FormTemplate" ToRole="PublicAdministration" />
         </EntityType>
-        <EntityType Name="NotificationMessage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int64" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContentText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_NotificationMessage_Order" FromRole="NotificationMessage" ToRole="Order" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -1361,13 +1349,13 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <NavigationProperty Name="District" Relationship="Self.FK__Order__Procedure__7C4F7684" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="District1" Relationship="Self.FK__Order__ReceiverP__00200768" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="District2" Relationship="Self.FK__Order__SenderPos__01142BA1" FromRole="Order" ToRole="District" />
-          <NavigationProperty Name="NotificationMessage" Relationship="Self.FK_NotificationMessage_Order" FromRole="Order" ToRole="NotificationMessage" />
           <NavigationProperty Name="PersonalPaperType" Relationship="Self.FK__Order__Procedure__7D439ABD" FromRole="Order" ToRole="PersonalPaperType" />
           <NavigationProperty Name="Profile" Relationship="Self.FK__Order__ProfileID__7F2BE32F" FromRole="Order" ToRole="Profile" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Order__StatusID__02084FDA" FromRole="Order" ToRole="Status" />
           <NavigationProperty Name="OrderImages" Relationship="Self.FK__OrderImag__Order__04E4BC85" FromRole="Order" ToRole="OrderImage" />
           <NavigationProperty Name="OrderStatusDetails" Relationship="Self.FK__OrderStat__Order__02FC7413" FromRole="Order" ToRole="OrderStatusDetail" />
           <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__OrderID__05D8E0BE" FromRole="Order" ToRole="Payment" />
+          <NavigationProperty Name="NotificationMessages" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Order" FromRole="Order" ToRole="NotificationMessage" />
         </EntityType>
         <EntityType Name="OrderImage">
           <Key>
@@ -1816,18 +1804,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NotificationMessage_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="NotificationMessage" Type="Self.NotificationMessage" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="NotificationMessage">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Order__Procedure__7D439ABD">
           <End Role="PersonalPaperType" Type="Self.PersonalPaperType" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -1985,7 +1961,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="EmailVerifications" EntityType="Self.EmailVerification" />
           <EntitySet Name="FormTemplates" EntityType="Self.FormTemplate" />
-          <EntitySet Name="NotificationMessages" EntityType="Self.NotificationMessage" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderImages" EntityType="Self.OrderImage" />
           <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
@@ -2098,10 +2073,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="FormTemplate" EntitySet="FormTemplates" />
           </AssociationSet>
-          <AssociationSet Name="FK_NotificationMessage_Order" Association="Self.FK_NotificationMessage_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="NotificationMessage" EntitySet="NotificationMessages" />
-          </AssociationSet>
           <AssociationSet Name="FK__Order__Procedure__7D439ABD" Association="Self.FK__Order__Procedure__7D439ABD">
             <End Role="PersonalPaperType" EntitySet="PersonalPaperTypes" />
             <End Role="Order" EntitySet="Orders" />
@@ -2180,6 +2151,11 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <Parameter Name="public_administration_location_id" Mode="In" Type="Int64" />
             <Parameter Name="profile" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="NotificationMessages" EntityType="VNPOST_AppointmentModel.NotificationMessage" />
+          <AssociationSet Name="FK_NotificationMessage_Order" Association="VNPOST_AppointmentModel.FK_NotificationMessage_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="NotificationMessage" EntitySet="NotificationMessages" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Query_Scope_0_Result">
           <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
@@ -2222,6 +2198,29 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
           <Property Type="Double" Name="ProfileDistance" Nullable="true" />
         </ComplexType>
+        <EntityType Name="NotificationMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContentText" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="VNPOST_AppointmentModel.FK_NotificationMessage_Order" FromRole="NotificationMessage" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_NotificationMessage_Order">
+          <End Type="VNPOST_AppointmentModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="VNPOST_AppointmentModel.NotificationMessage" Role="NotificationMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="NotificationMessage">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2450,17 +2449,6 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
                 <ScalarProperty Name="ReceiverStreetRegex" ColumnName="ReceiverStreetRegex" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NotificationMessages">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
-              <MappingFragment StoreEntitySet="NotificationMessage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
-                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2706,6 +2694,17 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="NotificationMessages">
+            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
+              <MappingFragment StoreEntitySet="NotificationMessage">
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
