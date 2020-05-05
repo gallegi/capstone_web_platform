@@ -658,10 +658,10 @@
 
         function getDis() {
             var emp = {
-                id: document.getElementById('province').value
+                PostalProvinceCode: document.getElementById('province').value
             };
             $.ajax({
-                url: "/LoginCustomer/GetDis",
+                url: "/GetDistrict",
                 type: "POST",
                 data: JSON.stringify(emp),
                 contentType: "application/json;charset=utf-8",

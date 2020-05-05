@@ -217,7 +217,7 @@
             id: document.getElementById('province_cus').value
         };
         $.ajax({
-            url: "/LoginCustomer/GetDis",
+            url: "/GetDistrict",
             type: "POST",
             data: JSON.stringify(emp),
             contentType: "application/json;charset=utf-8",

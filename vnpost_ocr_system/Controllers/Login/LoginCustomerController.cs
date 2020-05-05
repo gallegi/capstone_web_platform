@@ -235,12 +235,6 @@ namespace vnpost_ocr_system.Controllers.Login
             return Redirect("/");
         }
 
-        public ActionResult GetDis(string id)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var list = db.Districts.Where(x => x.PostalProvinceCode == id).OrderBy(x => x.PostalDistrictName).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
         public ActionResult ResetPassword(string emailORphone)
         {
             string[] absolutepath = Request.Url.ToString().Split('/');
