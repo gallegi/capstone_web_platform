@@ -152,7 +152,21 @@ namespace vnpost_ocr_system.Controllers.Login
                 }
                 if (!string.IsNullOrEmpty(tbEmail))
                 {
-                    if (!tbValidCodeEmail.Equals("123456"))
+                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
+                    if (cus.Count > 0)
+                    {
+                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        if (Request.Browser.IsMobileDevice)
+                        {
+                            return View("/Views/MobileView/Login.cshtml");
+                        }
+                        else
+                        {
+                            return View("/Views/Login/Login_Customer.cshtml");
+                        }
+                    }
+                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(tbEmail) && x.VerificationCode.Equals(tbValidCodeEmail) && x.Status == false).ToList().LastOrDefault();
+                    if (email_token == null)
                     {
                         ViewBag.invalidcode1 = "Mã xác thực email không chính xác";
                         if (Request.Browser.IsMobileDevice)
@@ -163,11 +177,9 @@ namespace vnpost_ocr_system.Controllers.Login
                         {
                             return View("/Views/Login/Login_Customer.cshtml");
                         }
-                    }
-                    var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
-                    if (cus.Count > 0)
+                    } else if (DateTime.Now.Subtract(email_token.CreatedTime).TotalMinutes > 15)
                     {
-                        ViewBag.messe = "Địa chỉ email đã được đăng kí cho tài khoản khác";
+                        ViewBag.invalidcode1 = "Mã xác thực email đã hết hạn";
                         if (Request.Browser.IsMobileDevice)
                         {
                             return View("/Views/MobileView/Login.cshtml");
@@ -247,7 +259,7 @@ namespace vnpost_ocr_system.Controllers.Login
 
                     //Check if token exist for that email and not expired
                     int token;
-                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(email_norm)).FirstOrDefault();
+                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(email_norm) && x.Status == false).ToList().LastOrDefault();
                     if (email_token != null && DateTime.Now.Subtract(email_token.CreatedTime).TotalMinutes <= 15)
                     {//Use old token if token not expired
                         token = Convert.ToInt32(email_token.VerificationCode);
@@ -278,6 +290,7 @@ namespace vnpost_ocr_system.Controllers.Login
 
             } catch (Exception e)
             {//Unexpected error
+                Console.WriteLine(e.StackTrace);
                 return Json(new { error = true, message = "Có lỗi xảy ra" });
             }
             //Return email success
