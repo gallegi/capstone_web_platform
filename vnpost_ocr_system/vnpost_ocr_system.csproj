@@ -336,6 +336,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportClass\Auther.cs" />
+    <Compile Include="SupportClass\MailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Custom css\floating-action-btn.css" />
