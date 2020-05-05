@@ -267,7 +267,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     mail.To.Add(emailORphone);
                     mail.From = new MailAddress("no-reply@vnpost.tech");
                     mail.Subject = "Thay đổi mật khẩu";
-                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br>Mã Token của bạn là: " + token + ".</br>Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình https://vnpost.tech/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token;
+                    mail.Body = "Quý khách vui lòng không cung cấp mã cho người khác.</br>Mã Token của bạn là: " + token + ".</br>Hoặc bạn có thể click vào link sau để thay đổi mật khẩu của mình " + HttpContext.Request.Url.GetLeftPart(UriPartial.Authority)  + "/khach-hang/thay-doi-mat-khau?userid=" + user.CustomerID + "&token=" + token;
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.mailgun.org";
