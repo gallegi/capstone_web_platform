@@ -24,43 +24,49 @@
 }
 
 <body>
-    <div>
-        <div class="flex-container">
-            @{
-                foreach (var form in listForms)
-                {
-                    <div class="box">
-                        <div class="imgregion">
-                            <img onclick="showPopUp(@form.FormID, '@form.FormName', '/FormImage/@form.FormImageLink')" src="~/FormImage/@form.FormImageLink" />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                
+                <button name="btn_add" onclick="window.location.href='/bieu-mau/them-bieu-mau'" class="waves-effect waves-light btn blue input-field">Thêm biểu mẫu</button>
+                <div class="wrapper">
+                    @{
+                        foreach (var form in listForms)
+                        {
+                            <div class="box">
+                                <div class="imgregion">
+                                    <img onclick="showPopUp(@form.FormID, '@form.FormName', '/FormImage/@form.FormImageLink')" src="~/FormImage/@form.FormImageLink" />
+                                    
+                                </div>
+                                
+                                <div class="align">
+                                    <p>@form.FormName</p>
+                                    <button name="btn1" class="cbutton waves-effect waves-light btn blue input-field" onclick="window.location.href='/bieu-mau/chi-tiet-bieu-mau?form_id=' + @form.FormID">Xem chi tiết</button>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                </div>
+
+                <div id="popup1" class="overlay">
+                    <div class="popup">
+                        <a class="close" href="#">&times;</a>
+                        <div class="img-popup-region">
+                            @{<img id="popupimg" src="" /> }
+                        </div>
+                        <div>
+                            <span>Tên biểu</span>
                         </div>
                         <div class="align">
-                            <p>@form.FormName</p>
+                            <p id="popup_form_name">Giấy hẹn số GH123</p>
                         </div>
-                        <div class="align">
-                            <button name="btn1" class="cbutton" onclick="window.location.href='/bieu-mau/chi-tiet-bieu-mau?form_id=' + @form.FormID">Xem chi tiết</button>
-                        </div>
+                        <form method="get" action="/bieu-mau/chi-tiet-bieu-mau">
+                            <input id="form_id" name="form_id" type="hidden" value="">
+                            <input type="submit" value="Xem chi tiết" />
+                        </form>
                     </div>
-
-                }
-            }
-        </div>
-
-        <div id="popup1" class="overlay">
-            <div class="popup">
-                <a class="close" href="#">&times;</a>
-                <div class="img-popup-region">
-                    @{<img id="popupimg" src=""/> }
                 </div>
-                <div>
-                    <span>Tên biểu</span>
-                </div>
-                <div class="align">
-                    <p id="popup_form_name">Giấy hẹn số GH123</p>
-                </div>
-                <form method="get" action="/bieu-mau/chi-tiet-bieu-mau">
-                    <input id="form_id" name="form_id" type="hidden" value="">
-                    <input type="submit" value="Xem chi tiết" />
-                </form>
             </div>
         </div>
     </div>
