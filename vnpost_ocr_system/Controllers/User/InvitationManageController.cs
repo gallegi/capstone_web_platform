@@ -105,7 +105,7 @@ namespace vnpost_ocr_system.Controllers.User
                     db.Database.ExecuteSqlCommand(queryUpdateStatus,
                         new SqlParameter("code", Code),
                         new SqlParameter("status", cancelStatus),
-                        new SqlParameter("note", DBNull.Value),
+                        new SqlParameter("note", "khách hàng huỷ"),
                         new SqlParameter("posCode", oDetail.PosCode == null ? DBNull.Value : (object)oDetail.PosCode),
                         new SqlParameter("date", DateTime.Now));
                     transaction.Commit();

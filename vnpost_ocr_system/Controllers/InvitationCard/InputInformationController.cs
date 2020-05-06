@@ -10,7 +10,7 @@ using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
-    public class InputInformationScreen21Controller : BaseUserController
+    public class InputInformationController : BaseUserController
     {
         //[Auther(Roles = "0")]
         [Route("giay-hen/nhap-giay-hen/thong-tin-thu-tuc")]
@@ -49,11 +49,11 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             }
             if (Request.Browser.IsMobileDevice)
             {
-                return View("/Views/MobileView/InvitationCard/InputInformationScreen21.cshtml");
+                return View("/Views/MobileView/InvitationCard/InputInformation.cshtml");
             }
             else
             {
-                return View("/Views/InvitationCard/InputInformationScreen21.cshtml");
+                return View("/Views/InvitationCard/InputInformation.cshtml");
             }
 
         }
