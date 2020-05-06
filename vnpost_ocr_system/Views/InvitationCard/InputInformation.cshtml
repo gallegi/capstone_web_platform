@@ -773,6 +773,7 @@
                                     <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
                                 }
                             </select>
+                            <p class="validation" name="paper_type_edit"></p>
                         </div>
                     </div>
                 </div>
@@ -1243,12 +1244,17 @@
         if ($('#name_edit').val().trim() == "") {
             $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
             check = false;
-        }
-        else {
+        } else if (/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test($('#name_edit').val().trim()) == false) {
+            $('p[name="name_edit"]').text("Họ tên không chứa kí tự đặc biệt và số");
+            check = false;
+        } else {
             $('p[name="name_edit"]').text("")
         }
         var patt1 = new RegExp("^0[35789]\\d{8}$");
-        if (!patt1.test($('#phone_edit').val().trim())) {
+        if ($('#phone_edit').val().trim().length == 0) {
+            $('p[name="phone_edit"]').text("Vui lòng nhập Số điện thoại")
+            check = false;
+        } else if (!patt1.test($('#phone_edit').val().trim())) {
             $('p[name="phone_edit"]').text("Số điện thoại không hợp lệ")
             check = false;
         }
@@ -1269,6 +1275,15 @@
         else {
             $('p[name="street_edit"]').text("")
         }
+
+        if (type == 1 && $('#paper_type_edit').val() == null) {
+            $('p[name="paper_type_edit"]').text("Vui lòng chọn Loại giấy tờ tùy thân")
+            check = false;
+        }
+        else {
+            $('p[name="paper_type_edit"]').text("")
+        }
+
         if (type == 1 && $('#paper_number_edit').val().trim() == "") {
             $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
             check = false;
