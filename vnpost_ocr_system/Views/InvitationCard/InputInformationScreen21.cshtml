@@ -151,6 +151,7 @@
                             <div class="col m6">
                                 <div class="input-field col s12 l12 m12">
                                     <select id="item1">
+                                        <option value='' selected disabled>Chọn Tỉnh/Thành phố</option>
                                         @foreach (vnpost_ocr_system.Models.Province item in ViewBag.Provinces)
                                         {
                                             <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
@@ -874,7 +875,7 @@
                 PostalProvinceCode: $('#item1').val()
             },
             success: function (response) {
-                var option = "";
+                var option = "<option value='' selected disabled>Chọn Quận huyện</option>";
                 for (var i = 0; i < response.length; i++) {
                     if (i === 0)
                         $("#PostalDistrictName").text(response[i].ProfileName)
@@ -915,7 +916,7 @@
                 PostalDistrictCode: $('#item2').val()
             },
             success: function (response) {
-                var option = "";
+                var option = "<option value='' selected disabled>Chọn Tên cơ quan hành chính</option>";
                 for (var i = 0; i < response.length; i++) {
                     if (i === 0)
                         $("#AdminName").text(response[i].ProfileName)
@@ -955,7 +956,7 @@
                 PublicAdministrationLocationID: $('#item3').val()
             },
             success: function (response) {
-                var option = "";
+                var option = "<option value='' selected disabled>Chọn Tên thủ tục</option>";
                 for (var i = 0; i < response.length; i++) {
                     if (i === 0)
                         $(".ProfileName").text(response[i].ProfileName)
@@ -977,18 +978,18 @@
     }
 
     $(document).ready(function () {
-        if (UserProvinceCode != "") {
-            $('#item1').val(UserProvinceCode)
-            $('#item1').formSelect()
-        }
-        if (CreateInvitation.UserLetterCode !== undefined) {
-            $('#item5').val(CreateInvitation.UserLetterCode)
-            $('.AppointmentLetterCode').text(CreateInvitation.UserLetterCode)
-            $('#item5').focus()
-        }
-        if (CreateInvitation.UserOrderNote !== undefined) {
-            $('#OrderNote').val(CreateInvitation.UserOrderNote)
-        }
+        //if (UserProvinceCode != "") {
+        //    $('#item1').val(UserProvinceCode)
+        //    $('#item1').formSelect()
+        //}
+        //if (CreateInvitation.UserLetterCode !== undefined) {
+        //    $('#item5').val(CreateInvitation.UserLetterCode)
+        //    $('.AppointmentLetterCode').text(CreateInvitation.UserLetterCode)
+        //    $('#item5').focus()
+        //}
+        //if (CreateInvitation.UserOrderNote !== undefined) {
+        //    $('#OrderNote').val(CreateInvitation.UserOrderNote)
+        //}
 
         $('#item1').change(function () {
             getDistrict(null);
@@ -1393,6 +1394,31 @@
     var form = $(".validation-wizard").show();
     var error = true;
     $(document).ready(function () {
+        //Validation on change
+        $('[id^=item]').change(function () {
+            if ($('#item1').val() == null) {
+                $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
+            } else {
+                $('p[name="item1"]').text('');
+                console.log('Change 1')
+            }
+            if ($('#item2').val() == null) {
+                $('p[name="item2"]').text('Vui lòng chọn Quận/huyện')
+            } else {
+                $('p[name="item2"]').text('');
+            }
+            if ($('#item3').val() == null) {
+                $('p[name="item3"]').text('Vui lòng chọn Tên cơ quan hành chính')
+            } else {
+                $('p[name="item3"]').text('');
+            }
+            if ($('#item4').val() == null) {
+                $('p[name="item4"]').text('Vui lòng chọn Tên thủ tục');
+            } else {
+                $('p[name="item4"]').text('');
+            }
+        });
+
         $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
                 $('p[name="item5"]').text('Vui lòng nhập Mã giấy hẹn')
@@ -1480,9 +1506,9 @@
                                             UserAdminLocationID = OCRResult.PublicAdministrationLocationID;
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
-                                            $('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            $("#item5").next().addClass('active')
-                                            $("#item5").blur()
+                                            //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
+                                            //$("#item5").next().addClass('active')
+                                            //$("#item5").blur()
                                             getDistrict(OCRResult);
                                         },
                                         error: function () {
@@ -1508,7 +1534,7 @@
             else if (currentIndex === 1 && newIndex > currentIndex) {
                 var pass = true;
                 if ($('#item1').val() == null) {
-                    $('p[name="item1"]').text('Vui lòng chọn Thành phố');
+                    $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
                     pass = false;
                 }
                 if ($('#item2').val() == null) {

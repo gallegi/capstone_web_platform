@@ -43,7 +43,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         {
             int PublicAdministrationLocationID_int;
             if (!int.TryParse(PublicAdministrationLocationID, out PublicAdministrationLocationID_int))
-                return null;
+                return Json(new List<Profile>());
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
             List<Profile> list = db.Profiles.Where(x => x.PublicAdministrationLocationID.Equals(PublicAdministrationLocationID_int)).OrderBy(x => x.ProfileName).ToList().Select(x => new Profile
             {
