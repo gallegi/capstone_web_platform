@@ -133,10 +133,10 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
         [Auther(Roles = "1")]
         [Route("api/chinh-sua-api/deleteparameter")]
         [HttpPost]
-        public ActionResult DeleteParameter(int apiid, string paramterName)
+        public ActionResult DeleteParameter(int apiid, string parameterName)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-            string name = js.Deserialize<string>(paramterName);
+            string name = js.Deserialize<string>(parameterName);
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 using (DbContextTransaction transaction = db.Database.BeginTransaction())
@@ -144,8 +144,8 @@ namespace vnpost_ocr_system.Controllers.Application_program_interface
 
                     try
                     {
-                        db.Database.ExecuteSqlCommand("delete from APIInputParam where APIID=@apiid and APIInputParamName=@paramterName"
-                         , new SqlParameter("apiid", apiid), new SqlParameter("paramterName", name));
+                        db.Database.ExecuteSqlCommand("delete from APIInputParam where APIID=@apiid and APIInputParamName=@parameterName"
+                         , new SqlParameter("apiid", apiid), new SqlParameter("parameterName", name));
                         transaction.Commit();
                         return Json("", JsonRequestBehavior.AllowGet);
                     }
