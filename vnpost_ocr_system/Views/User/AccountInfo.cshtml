@@ -332,8 +332,8 @@
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
-        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
-        if (isName == true) {
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
             $('#name_failed').html('Họ tên không chứa kí tự đặc biệt và số');
             return false;
         }

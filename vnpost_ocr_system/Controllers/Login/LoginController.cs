@@ -39,6 +39,12 @@ namespace vnpost_ocr_system.Controllers.Login
                     string passXc = new XCryptEngine(XCryptEngine.AlgorithmType.MD5).Encrypt(password, "pd");
                     if (passXc.Equals(admin.AdminPasswordHash))
                     {
+
+                        if (admin.IsActive == false)
+                        {
+                            ViewBag.notifi = "Tài khoản không được phép hoạt động";
+                            return View("/Views/Login/Login.cshtml");
+                        }
                         Session["useradminID"] = admin.AdminID;
                         Session["useradminName"] = admin.AdminName;
                         Session["adminRole"] = admin.Role;
@@ -60,7 +66,7 @@ namespace vnpost_ocr_system.Controllers.Login
                     }
                     else
                     {
-                        ViewBag.notifi = "Sai mật khẩu";
+                        ViewBag.notifi = "Mật khẩu không chính xác";
                         return View("/Views/Login/Login.cshtml");
                     }
                 }

@@ -831,8 +831,8 @@
                 $('#name-err').text('Vui lòng nhập Họ và tên');
                 return false;
             }
-            var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
-            if (isName == true) {
+            var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+            if (isName == false) {
                 $('#name-err').html('Họ và tên không chứa kí tự đặc biệt và số');
                 return false;
             }

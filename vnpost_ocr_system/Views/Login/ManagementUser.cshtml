@@ -464,11 +464,17 @@
             errorAlert('Lỗi', 'Vui lòng nhập họ tên');
             return false;
         }
-        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
-        if (isName == true) {
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
             errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
             return false;
         }
+
+        if (document.getElementById('password_add').value.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập mật khẩu');
+            return false;
+        }
+
         if (document.getElementById('password_add').value.length < 6 || document.getElementById('password_add').value.length > 32) {
             errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
             return false;
@@ -510,11 +516,17 @@
             errorAlert('Lỗi', 'Vui lòng nhập họ tên');
             return false;
         }
-        var isName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}$/.test(name);
-        if (isName == true) {
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
             errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
             return false;
         }
+
+        if (document.getElementById('password_edit').value.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập mật khẩu');
+            return false;
+        }
+
         if (document.getElementById('password_edit').value.length < 6 || document.getElementById('password_edit').value.length > 32) {
             errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
             return false;
