@@ -1,0 +1,95 @@
+﻿.auth-wrapper .auth-sidebar {
+    position: fixed;
+    height: 100%;
+    left: 0px !important;
+    overflow: auto;
+    margin: 0px;
+    top: 60px !important;
+}
+
+
+.page_wrapper {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-top: 0px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+div#main-wrapper {
+    background: url(../../assets/images/123.webp) top center;
+    background-size: cover !important;
+}
+
+.content_all {
+    background-color: transparent !important;
+}
+
+.col.s12.l8.m6.demo-text {
+    float: right !important;
+}
+
+.db img {
+    width: 20%;
+}
+
+.demo-text * {
+    color: white !important;
+}
+
+.auth-wrapper .auth-box {
+    background: #f5f5f5 !important;
+}
+
+#reg-link {
+    cursor: pointer;
+}
+
+#back {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.row.sdt-or-email-checkbox * {
+    margin-left: 25px;
+}
+
+@media only screen and (max-width: 786px) {
+    .demo-text {
+        display: none;
+    }
+}
+
+.send-code-btn {
+    background-color: #ff7e52 !important;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+.code-verify-container {
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px dashed;
+}
+.sdt-or-email-checkbox label{
+    margin-left:20px;
+}
+.modal{
+    padding:35px 35px 35px 35px;
+}
+input[name="group1"]{
+    margin-left:5px;
+}
+label.gender-radio {
+    margin-left: 15px;
+    margin-right: 20px;
+}
+.container-reg{
+    margin-bottom:20px;
+}
+#create-button{
+    background-color:orange;
+    color:white !important;
+    width:30%;
+    border-radius:10px;
+}

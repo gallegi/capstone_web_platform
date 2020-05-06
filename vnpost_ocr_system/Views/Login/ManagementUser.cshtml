@@ -1,0 +1,812 @@
+﻿@{
+    ViewBag.Title = "ManagementUser";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+<style>
+    table, th, td {
+        text-align: center !important;
+    }
+
+    [type="checkbox"]:not(:checked):disabled + span:not(.lever):before {
+        border: 2px solid #5a5a5a !important;
+        background-color: white !important;
+    }
+
+    [type="checkbox"]:checked:disabled + span:before {
+        border-right: 2px solid #5e35b1 !important;
+        border-bottom: 2px solid #5e35b1 !important;
+    }
+
+    select {
+        border-radius: 5px !important;
+        box-shadow: none !important;
+        height: 34px !important;
+    }
+
+    td {
+        padding: 5px 5px !important;
+    }
+
+    .preloader-wrapper {
+        /* position: absolute; */
+        top: unset !important;
+        bottom: unset !important;
+        left: unset !important;
+        right: unset !important;
+        margin: auto !important;
+        position: relative !important;
+        height: 100%;
+    }
+
+    #overflow {
+        overflow-y: auto !important;
+    }
+</style>
+<link href="~/CustomCSS/Login/ManagementUser.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+<link href="~/dist/css/pages/data-table.css" rel="stylesheet">
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/CustomJS/Management_User/ManagementUser.js"></script>
+<script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
+<script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
+
+<!-- Pop-up add user / edit user-->
+<div id="vattu" class="modal p-20" tabindex="0" style="height: auto; z-index: 1003; display: none; opacity: 0; top: 10%; transform: scaleX(0.8) scaleY(0.8);">
+    <div class="modal-header center">
+        <h4>Nhập thông tin tài khoản</h4>
+    </div>
+    <div class="modal-body">
+        <table id="Table" class="centered striped">
+            <tbody>
+                <tr>
+                    <td>Tên người dùng</td>
+                    <td><input class="form-control" type="text" id="name_add"></td>
+                </tr>
+                <tr>
+                    <td>Vai trò</td>
+                    <td>
+                        <select class="browser-default" id="role_add" onchange="ProChan()">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tỉnh/Thành Phố</td>
+                    <td>
+                        <select class="browser-default" id="province_add" disabled="disabled" onchange="GenUsername()">
+                            <option value="0" hidden>Tổng công ty</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tài khoản</td>
+                    <td><input class="form-control" type="text" id="username_add" readonly></td>
+                </tr>
+                <tr>
+                    <td>Mật khẩu</td>
+                    <td><input class="form-control" type="password" id="password_add"></td>
+                </tr>
+                <tr>
+                    <td class="col"></td>
+                    <td>
+                        <span class="col">
+                            <label style=" margin-top: 20px">
+                                <input type="checkbox" id="checkbox_add" />
+                                <span class="black-text">Hiển thị mật khẩu</span>
+                            </label>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hoạt động</td>
+                    <td>
+                        <label>
+                            <input type="checkbox" id="active_add" />
+                            <span></span>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn blue darken-2" onclick="Insert()">Lưu</a>
+        <a class="btn modal-close blue">Đóng</a>
+    </div>
+</div>
+
+@* Pop up xác nhận xóa *@
+<!-- Modal HTML -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Xóa tài khoản</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="btn modal-close red" onclick="DeleteAdmin()">Có</a>
+                <a class="btn modal-close blue darken-2">Không</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notifi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+
+            <div class="modal-body">
+                <p id="text_notifi"></p>
+
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn modal-close blue darken-2">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-content">
+        <div class="row">
+            <div class="center m-l-40">
+                <div class="col l1 center">
+                    <p class="m-t-10">Tên người dùng</p>
+                </div>
+                <div class="col l2">
+                    <input type="text" id="name_filter" class="form-control" />
+                </div>
+
+                <div class="col l1 offset-l1 center">
+                    <p class="m-t-10">Hoạt động</p>
+                </div>
+                <div class="col l2">
+                    <select class="browser-default" id="active">
+                        <option value="">Tất cả</option>
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </div>
+                <div class="col l1 offset-l1 center">
+                    <p class="m-t-10">Vai trò</p>
+                </div>
+                <div class="col l2">
+                    <select class="browser-default" id="role">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row m-t-20">
+            <div class="center m-l-40">
+                <div class="col l1 center">
+                    <p class="m-t-10">Tên tài khoản</p>
+                </div>
+                <div class="col l2">
+                    <input type="text" id="username_filter" class="form-control" />
+                </div>
+            </div>
+
+            <div class="center m-l-40">
+                <div class="col l3">
+                    <button id="sea" style="background-color: #2962ff !important;" class="btn waves-effect waves-light right">
+                        Hiển thị
+                    </button>
+                </div>
+            </div>
+            <div class="m-r-40">
+                <div class="col l1 offset-l2 center">
+                    <p class="m-t-10">Khu vực</p>
+                </div>
+                <div class="col l2">
+                    <select class="browser-default" id="province">
+                        <option value="">Tất cả</option>
+                        <option value="0">Tổng công ty</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-content">
+
+            @* Thanh tìm kiếm, button search, button refresh *@
+            <div class="row my-function">
+                <div class="col l3 m-b-10">
+                    <div class="center">
+                        <a href="#vattu" onclick="ProChan()" class="modal-trigger p-10 m-5 m-r-25" style="background-color:#2962ff !important;color:white" name="action">
+                            Thêm mới
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col l10 offset-l1">
+                        @* Dữ liệu cho nút edit *@
+                        <ul id="dropdown1" style=" width:120px !important; overflow-x: hidden;" class="dropdown-content edit-ul">
+                            <li><a href="#vattu" class="modal-trigger">Chỉnh sửa</a></li>
+                            <li><a href="#deleteModal" class="modal-trigger">Xóa</a></li>
+                        </ul>
+                        <table class="table-bordered" id="mainTable">
+                            <thead>
+                                <tr>
+                                    <th class="center-align">STT</th>
+                                    <th>Tên người dùng</th>
+                                    <th class="center-align">Tài khoản</th>
+                                    <th class="center-align">Vai trò</th>
+                                    <th class="center-align">Khu vực</th>
+                                    <th class="center-align">Hoạt động</th>
+                                    <th class="center-align" colspan="2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="preloader-wrapper small active">
+                                            <div class="spinner-layer spinner-green-only">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div><div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div><div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input style="position: absolute; top: 240px; left: 885px; padding: 15px 5px; text-align: left; font: 400 15px/22.5px &quot;Nunito Sans&quot;, sans-serif; border: 0px none rgb(144, 152, 172); width: 384px; height: 22px; display: none;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@* POP-UP NHẬP THÔNG TIN NGƯỜI DÙNG MỚI *@
+@*<div class="modal fade" id="forminput" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email1">Email address</label>
+                            <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
+
+@* ***************** *@
+
+
+
+
+
+
+<!-- Pop-up ------  DEMO PROTOTYPE ---- edit user-->
+<div id="editUser" class="modal p-20" tabindex="0" style="z-index: 1003; display: none; opacity: 0; top: 10%; transform: scaleX(0.8) scaleY(0.8);">
+    <div class="modal-header center">
+        <h4>Sửa thông tin tài khoản</h4>
+    </div>
+    <div class="modal-body">
+        <table id="Table" class="centered striped">
+            <tbody>
+
+                <tr>
+                    <td>Tên người dùng</td>
+                    <td><input class="form-control" type="text" id="name_edit"></td>
+                </tr>
+                <tr>
+                    <td>Vai trò</td>
+                    <td>
+                        <select class="browser-default" id="role_edit" onchange="ProChanE()" disabled>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tỉnh/Thành Phố</td>
+                    <td>
+                        <select class="browser-default" id="province_edit" disabled>
+                            <option value="0" hidden>Tổng công ty</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tài khoản</td>
+                    <td><input class="form-control" type="text" id="username_edit" readonly></td>
+                </tr>
+
+                <tr>
+                    <td>Mật khẩu</td>
+                    <td><input class="form-control" type="password" id="password_edit"></td>
+                </tr>
+                @*<tr>
+                        <td class="col">Hiển thị mật khẩu</td>
+                        <td>
+                            <span class="col">
+
+                                <label style="margin-top: 20px">
+                                    <input type="checkbox" id="showpass" />
+                                    <span></span>
+                                </label>
+                            </span>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td>Hoạt động</td>
+                    <td>
+                        <label>
+                            <input type="checkbox" id="active_edit" />
+                            <span></span>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn blue darken-2" onclick="Update()">Lưu</a>
+        <a class="btn modal-close blue">Đóng</a>
+    </div>
+</div>
+<input type="text" hidden id="temp_id" />
+<script>
+    $(document).ready(function () {
+        let ch = 1;
+        let addc = 1;
+        getRole();
+        getPro();
+        Sea();
+        $('#sea').click(function () {
+            DataTable.ajax.reload(function () {
+            });
+        });
+        $('#showpass').click(function () {
+            if (ch == 1) { $('#password_edit').attr('type', 'text'); ch = 0; }
+            else { $('#password_edit').attr('type', 'password'); ch = 1; }
+        });
+        $('#checkbox_add').click(function () {
+            if (addc == 1) { $('#password_add').attr('type', 'text'); addc = 0; }
+            else { $('#password_add').attr('type', 'password'); addc = 1; }
+        });
+    });
+
+    function GenUsername() {
+        var emb = {
+            id: document.getElementById('role_add').value,
+            province: document.getElementById('province_add').value,
+        };
+        $.ajax({
+            url: "/ManagementUser/GenUsername",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('username_add').value = result;
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function ProChan() {
+        if (document.getElementById('role_add').value == 4) {  $('#province_add').removeAttr('disabled'); }
+        else {
+            if (document.getElementById('role_add').value == 2) {
+                document.getElementById('province_add').value = 0;
+                $('#province_add').attr('disabled', 'true');
+            } else {
+                document.getElementById('province_add').value = 1;
+                $('#province_add').removeAttr('disabled');
+            }
+        }
+        GenUsername();
+    }
+    function ProChanE() {
+        $('#pre-load').show();
+        if (document.getElementById('role_edit').value == 2) {
+            document.getElementById('province_edit').value = 0;
+            $('#province_edit').attr('disabled', 'disabled');
+        } else {
+            document.getElementById('province_edit').value = 1;
+            $('#province_edit').removeAttr('disabled');
+        }
+        $('#pre-load').hide();
+    }
+    function Insert() {
+        var name = document.getElementById('name_add').value;
+        if (name.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập họ tên');
+            return false;
+        }
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
+            errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
+
+        if (document.getElementById('password_add').value.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập mật khẩu');
+            return false;
+        }
+
+        if (document.getElementById('password_add').value.length < 6 || document.getElementById('password_add').value.length > 32) {
+            errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
+            return false;
+        }
+        $('#pre-load').show();
+        var emb = {
+            name: document.getElementById('name_add').value,
+            username: document.getElementById('username_add').value,
+            password: document.getElementById('password_add').value,
+            province: document.getElementById('province_add').value,
+            role: document.getElementById('role_add').value,
+            active: $('#active_add').is(":checked")
+        };
+        $.ajax({
+            url: "/ManagementUser/Insert",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                if (result == 0) successAlert('Thành công', 'Thêm tài khoản thành công');
+                else if (result == 1) errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                else if (result == 2) errorAlert('Lỗi', 'Tên tài khoản đã tồn tại. Vui lòng thử lại');
+                $('#vattu').modal('close');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#vattu').modal('close');
+            }
+        });
+    }
+
+    function Update() {
+        var name = document.getElementById('name_edit').value;
+        if (name.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập họ tên');
+            return false;
+        }
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
+            errorAlert('Lỗi', 'Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
+
+        if (document.getElementById('password_edit').value.length == 0) {
+            errorAlert('Lỗi', 'Vui lòng nhập mật khẩu');
+            return false;
+        }
+
+        if (document.getElementById('password_edit').value.length < 6 || document.getElementById('password_edit').value.length > 32) {
+            errorAlert('Lỗi', 'Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
+            return false;
+        }
+        var emb = {
+            id: document.getElementById('temp_id').value,
+            name: document.getElementById('name_edit').value,
+            username: document.getElementById('username_edit').value,
+            password: document.getElementById('password_edit').value,
+            province: document.getElementById('province_edit').value,
+            role: document.getElementById('role_edit').value,
+            active: $('#active_edit').is(":checked")
+        };
+        $.ajax({
+            url: "/ManagementUser/Update",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                if (result == 0) successAlert('Thành công', 'Cập nhật thành công');
+                else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#editUser').modal('close');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+                $('#editUser').modal('close');
+            }
+        });
+    }
+
+    function Delete(id) {
+        document.getElementById('temp_id').value = id;
+        confirmAlert('Xóa tài khoản', 'Bạn có chắc chắn muốn xóa tài khoản này không?', function () {
+            DeleteAdmin();
+        });
+    }
+    function DeleteAdmin() {
+        $('#pre-load').show();
+        var emb = {
+            id: document.getElementById('temp_id').value
+        };
+        $.ajax({
+            url: "/ManagementUser/Delete",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#pre-load').hide();
+                DataTable.ajax.reload(function () {
+                });
+                if (result == 0) successAlert('Thành công', 'Xóa tài khoản thành công');
+                else errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+                errorAlert('Lỗi', 'Có lỗi xảy ra , vui lòng nhập lại');
+            }
+        });
+    }
+    function Edit(id) {
+        //$('#pre-load').show();
+        var emb = {
+            id: id
+        };
+        $.ajax({
+            url: "/ManagementUser/GetEdit",
+            type: "POST",
+            data: JSON.stringify(emb),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('name_edit').value = result.AdminName;
+                document.getElementById('username_edit').value = result.AdminUsername;
+                document.getElementById('password_edit').value = result.AdminPasswordHash;
+                if (result.Role == 2) { document.getElementById('province_edit').value = 0; }
+                else { document.getElementById('province_edit').value = result.PostalProvinceCode; }
+                document.getElementById('role_edit').value = result.Role;
+                if (result.IsActive == true) $('#active_edit').attr('checked', 'true');
+                else $('#active_edit').removeAttr('checked');
+                $('#editUser').modal('open');
+                $('#pre-load').hide();
+
+                document.getElementById('temp_id').value = id;
+            },
+            error: function (errormessage) {
+                $('#pre-load').hide();
+            }
+        });
+    }
+
+    function getPro() {
+        $.ajax({
+            url: "/ManagementUser/GetPro",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                var stringA = "";
+                result.listsearch.forEach(function (key) {
+                    string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                let cou = 0;
+                result.listAE.forEach(function (key) {
+                    stringA += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                    cou++;
+                });
+                $('#province').append(string);
+                $('#province').formSelect();
+                $('#province_edit').append(stringA);
+                $('#province_edit').formSelect();
+                $('#province_add').append(stringA);
+                $('#province_add').formSelect();
+                if (cou == 1) {
+                    document.getElementById('province_add').value = result.listAE[0].PostalProvinceCode;
+                    $('#province_add').attr('disabled', true);
+                    document.getElementById('province').value = result.listAE[0].PostalProvinceCode;
+                    $('#province').attr('disabled', true);
+
+                }
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+    function getRole() {
+        $.ajax({
+            url: "/ManagementUser/getRole",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                let cou = 0;
+                result.forEach(function (key) {
+                    string += "<option value='" + key.AdminRoleID + "'>" + key.AdminRoleName + "</option>";
+                    cou++;
+                });
+                $('#role').append(string);
+                $('#role').formSelect();
+                //string = string.substring(36, string.length);
+                $('#role_edit').append(string);
+                $('#role_edit').formSelect();
+                $('#role_add').append(string);
+                $('#role_add').formSelect();
+                if (cou == 1) {
+                    document.getElementById('role').value = result[0].AdminRoleID;
+                    $('#role').attr('disabled', true)
+                }
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function Sea() {
+        DataTable = $('#mainTable')
+            .on('preXhr.dt', function (e, settings, data) {
+                ////////////////////////////////////HIỆN LÊN MỖI KHI CHẠY AJAX//////////////////////////////////
+                $("#pre-load").show("slow", function () {
+                });
+                $("#pre-load").css("z-index", "99999");
+                ////////////////////////////////////////////////////////////////////////
+            })
+            .DataTable({
+                "ajax": {
+                    "url": "/ManagementUser/getData",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "province": function () {
+                            index = 1;
+                            return $('#province').val()
+                        },
+                        "role": function () { return $('#role').val() },
+                        "active": function () { return $('#active').val() },
+                        "username": function () { return $('#username_filter').val() },
+                        "name": function () { return $('#name_filter').val() },
+                    }
+                },
+                "columns": [
+                    //{
+                    //    "data": null, "render": function (data) { return index++; },
+                    //    "orderable": false,
+                    //    "searchable": false,
+                    //},
+                    {
+                        "data": "STT", "name": "STT",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminName", "name": "AdminName",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminUsername", "name": "AdminUsername",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminRoleName", "name": "AdminRoleName",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "PostalProvinceName", "name": "PostalProvinceName",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "IsActive", "render": function (data) {
+                            if (data == true)
+                                return "<label><input type='checkbox' checked disabled/><span></span></label>";
+                            else return "<label><input type='checkbox' disabled/><span></span>  </label>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminID", "render": function (data) {
+                            return "<a class='a-reset' href='#!' onclick='Edit(" + data + ")'><i class='material-icons dp48 p-10 ' style='font-size: 25px !important'>mode_edit</i></a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "AdminID", "render": function (data) {
+                            return "<a class='a-reset' href='#!' onclick='Delete(" + data + ")'><i class='material-icons dp48 p-10  modal-trigger' style='font-size: 25px !important'>clear</i></a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                ],
+                "drawCallback": function (settings) {
+                    ///////////////////////ẨN SAU MỖI AJAX CALL////////////////////////
+                    //index = 1;
+                    $("#pre-load").hide("slow", function () {
+                    });
+                    ////////////////////////////////////////////////
+
+                },
+                "serverSide": "true",
+                "language": {
+                    emptyTable: "<li class='text-danger' align='center'>Không có dữ liệu</li>",
+                    paginate:
+                    {
+                        previous: "Trang trước",
+                        next: "Trang sau",
+                        first: "|<",
+                        last: ">|",
+
+                    },
+                    info: "Đang hiện START đến END của TOTAL bản ghi",
+                    infoEmpty: "Đang hiện 0 đến 0 của 0 bản ghi",
+                },
+                "order": [0, "asc"],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "initComplete": function (settings, json) {
+                    ////////////////////////////////////////////////ẨN KHI KHỞI TẠO TABLE XONG  ////////////////////////////////////////////////
+                    $("#pre-load").hide("slow", function () {
+                    });
+                    //////////////////////////////////////////////// //////////////////////////////////////////////// ////////////////////////////////////////////////
+                }
+            });
+    }
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/AdminLoginPage.cshtml";
+}
+<link href="~/CustomCSS/Login/Authentication.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="auth-box col l4 offset-l4" style="background-color: white;">
+            <div id="loginform">
+                <div class="logo login-logo col l6 offset-l3 s6 offset-s3">
+                    <span class="db"><img src="../../assets/images/Logo.png" alt="logo"></span>
+
+                </div>
+
+                <div class="col l8 offset-l2 m-t-5">
+                    <p class="font-medium login-label">PHẦN MỀM TIẾP NHẬN HỒ SƠ HÀNH CHÍNH CÔNG</p>
+                </div>
+
+                <!-- Form -->
+                @{
+                    var username = "";
+                    var password = "";
+                    if (ViewBag.login != null)
+                    {
+                        username = ViewBag.login.username;
+                        password = ViewBag.login.password;
+                    }
+                }
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { onsubmit = "return valid()" }))
+                {
+                    <div class="row card-custom">
+                        <!-- email -->
+                        <div class="row">
+                            <div class="input-field col s12 p-l-20 p-r-20">
+                                <input id="username" name="username" type="text" value="@username" class="my-input p-l-15" placeholder="Tài khoản">
+                            </div>
+                        </div>
+                        <!-- pwd -->
+                        <div class="row">
+                            <div class="input-field col s12 p-l-20 p-r-20">
+                                <input id="password" type="password" name="password" value="@password" class="my-input p-l-15" placeholder="Mật khẩu">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:20px !important">
+                            <label>
+                                <input type="checkbox" class="filled-in" name="checkbox" />
+                                <span>Ghi nhớ</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col l10 offset-l2 m9 offset-m3 s12 fix-space">
+                                <span style="color:red" id="failed"></span>
+                            </div>
+                        </div>
+                        <div class="row btn_login">
+                            <button class="waves-effect waves-light btn orange" type="submit">Đăng nhập</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <input type="hidden" value="@ViewBag.notifi" id="err" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#failed').text(document.getElementById('err').value);
+    });
+    function valid() {
+        $('#pre-load').show();
+        var user = document.getElementById('username').value;
+        var pass = document.getElementById('password').value;
+        if (user.length == 0) {
+            $('#failed').text('Vui lòng nhập tài khoản');
+            $('#pre-load').hide();
+            return false;
+        }
+        if (pass.length == 0) {
+            $('#failed').text('Vui lòng nhập mật khẩu');
+            $('#pre-load').hide();
+            return false;
+        }
+        if (pass.length < 6 || pass.length > 32) {
+            $('#failed').text('Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
+            $('#pre-load').hide();
+            return false;
+        }
+        $('#pre-load').hide();
+        return true;
+    }
+    //function Login() {
+    //    $('#pre-load').show();
+    //    var emb = {
+    //        user: document.getElementById('username').value,
+    //        pass: document.getElementById('password').value,
+    //        checkbox: $('#remem').is(":checked")
+    //    };
+    //    $.ajax({
+    //        url: "/Login/Login",
+    //        type: "POST",
+    //        data: JSON.stringify(emb),
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (result) {
+    //            if (result == 1) {
+    //                $('#user_failed').html('Số điện thoại / Email không đúng');
+    //            }
+    //            if (result == 2) {
+    //                $('#password_failed').html('Mật khẩu không đúng');
+    //            }
+    //            if (result == 3) {
+    //                window.location.href = '/';
+    //            }
+    //            $('#pre-load').hide();
+    //        },
+    //        error: function (errormessage) {
+    //            $('#pre-load').hide();
+    //        }
+    //    });
+    //}
+</script>

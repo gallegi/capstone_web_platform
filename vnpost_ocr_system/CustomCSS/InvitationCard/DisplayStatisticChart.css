@@ -1,0 +1,39 @@
+﻿.line1{
+   
+    background-color: #d675d0;
+    width: 100%;
+    height: 10px;
+    margin-bottom: 20px;
+  
+    
+}
+.line2{
+   background-color:#58bbff;
+    width: 100%;
+    height: 10px;
+     margin-bottom: 20px;
+}
+.line3{
+    background-color:#fcb051;
+   width: 100%;
+    height: 10px;
+}
+
+@media only screen and (max-width: 1024px){
+  
+}
+.normal-size{
+    font-size: 15px;
+}
+label{
+   
+    color: black;
+}
+.font-weight-bold{
+  font-weight: bold;
+}
+.lefttext{
+    text-align: left;
+    margin-left: 20%;
+    margin-bottom: 5%;
+}

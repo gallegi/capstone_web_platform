@@ -1,0 +1,44 @@
+﻿.h-form-label {
+    font-size: 1rem;
+    line-height:2.5rem;
+}
+
+html body .font-medium {
+    margin-bottom: 2rem;
+}
+
+.btn {
+    border-radius: 5px; 
+}
+
+.my-blue-btn {
+    background-color: #2196F3; 
+}
+
+.my-blue-btn:hover {
+    background-color: #2196F3; 
+}
+
+.my-blue-btn:focus {
+    background-color: #2196F3; 
+}
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+textarea {
+    resize: none;
+    height: 150px;
+}
+
+.font-medium {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.col {
+    padding-top: 20px;
+}
+

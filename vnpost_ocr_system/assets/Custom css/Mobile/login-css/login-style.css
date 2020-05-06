@@ -1,0 +1,99 @@
+﻿html body .m-t-40 {
+    margin-top: 20px !important;
+}
+body {
+    background: none;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.login-header .demo-text {
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+label * {
+    vertical-align: middle !important
+}
+
+
+.logo * {
+    vertical-align: middle;
+    border-radius: 20px
+}
+
+.logo button {
+    border-radius: 20px;
+    background: none;
+    border: none;
+}
+
+    .logo button :active {
+        background-color: lightgray
+    }
+
+html {
+    background: url('../../../images/background-mobile-login.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    height: 100%
+}
+
+.tabs .tab {
+    text-transform: inherit;
+}
+
+.tabs {
+    height: 30px !important;
+}
+
+.tabs-container {
+    margin-bottom: 20px
+}
+
+.tab .active {
+    background-color: #ffe7b6 !important;
+    border-radius: 10px;
+}
+
+div#register-container {
+    overflow: scroll;
+}
+
+.gender-radio {
+    margin-left: 35px
+}
+
+.auth-mode {
+    margin-left: 40px
+}
+
+.container-reg {
+    margin-bottom: 15px !important
+}
+
+.main-lb {
+    margin-bottom: 15px;
+}
+
+.input-field {
+    position: relative;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.name-filed {
+    margin-top: -1rem !important;
+}
+
+button#create-button {
+    background-color: red;
+    color: white !important;
+}
+
+button.btn-small.w100.yellow-logo-bg.accent-4.send-code-btn {
+    background-color: #00c853;
+}
+
+div#register-container {
+    background-color: rgba(255, 255, 255, 0.5);
+}

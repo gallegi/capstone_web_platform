@@ -1,0 +1,655 @@
+﻿
+
+
+@{
+    ViewBag.Title = "DocumentReceivedDetail";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+<link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+<link href="~/CustomCSS/preloader/DisplayStatus.css" rel="stylesheet" />
+
+<link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12">
+            <h2 class="status-title size-title">Trạng thái đơn hàng</h2>
+            <div class="card">
+                <div class="card father-display-status">
+                    <div class="ClearFix">
+                        <p class="code-order">Mã đơn hàng: #@ViewBag.order.OrderID</p>
+                    </div>
+                    <!--wizard form-->
+                    @if (ViewBag.checkCancelled == true)
+                    {
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content wizard-content">
+                                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                        <span class="step" style="background-color:red!important;border-color:red !important;color:white">X</span>
+                                                        Đã hủy
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content wizard-content">
+                                    <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-6">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-0" aria-controls="steps-uid-6-p-0" style="color:black!important;">
+                                                        <span class="step">1</span>
+                                                        Đang chờ tiếp nhận
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-1" aria-controls="steps-uid-6-p-1" style="color:black!important;">
+                                                        <span class="step">2</span>
+                                                        Đã tiếp nhận
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="false">
+                                                    <a id="steps-uid-6-t-2" aria-controls="steps-uid-6-p-2" style="color:black!important;">
+                                                        <span class="step">3</span>
+                                                        Lấy giấy tờ thành công
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
+                                                    <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                        <span class="current-info audible">current step:</span><span class="step">4</span>
+                                                        Đang phát
+                                                    </a>
+                                                </li>
+                                                <li role="tab" class="myStep" aria-disabled="false" aria-selected="true">
+                                                    <a id="steps-uid-6-t-3" aria-controls="steps-uid-6-p-3" style="color:black!important;">
+                                                        <span class="current-info audible">current step:</span><span class="step">5</span>
+                                                        Đã phát thành công
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!--end wizard form-->
+                    <h3>Chi tiết trạng thái đơn hàng</h3>
+                    <div class="card detailOrder">
+                        @{
+                            foreach (var item in ViewBag.list)
+                            {
+                                <div class="gray-line line highlight">@item.dayOfWeek, @item.d/@item.m/@item.y</div>
+                                foreach (var x in item.listOrder)
+                                {
+                                    <div class="line">
+                                        @x.hour : @x.StatusName
+                                    </div>
+                                }
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="page-titles">
+        <div class="d-flex align-items-center">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <form class="h-form b-form">
+                    <div class="form-body">
+                        <div class="divider"></div>
+                        <div></div>
+                        <div class="card-content">
+                            <h6 class="font-medium">Thông tin đơn hàng</h6>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <p><label for="f-name">Mã vận đơn: </label></p>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label class="font-medium" for="f-name">@ViewBag.order.ItemCode</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">Bằng chữ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label class="font-medium" for="l-name">@ViewBag.order.TotalAmountInWords</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Phí vận chuyển: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label class="font-medium" for="uname">@ViewBag.order.displayAmount (đồng)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Trạng thái: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label class="font-medium" for="uname">@ViewBag.order.StatusName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div></div>
+                        <div class="card-content">
+                            <h6 class="font-medium">Thông tin hồ sơ</h6>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Mã giấy hẹn: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="f-name">
+                                                    #@ViewBag.Order.AppointmentLetterCode
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">Tên bưu cục đầu mối:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="l-name">@ViewBag.order.PosName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Tên cơ quan HCC:  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.PublicAdministrationName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname">Số điện thoại BCĐM: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname">@ViewBag.order.Phone_BC</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Tên thủ tục:  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.ProfileName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname">Địa chỉ BCĐM: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="nname">@ViewBag.order.Address_BC</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Số điện thoại CQHCC:  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.Phone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Địa chỉ CQHCC:  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div></div>
+                        <div class="card-content">
+                            <h6 class="font-medium">Thông tin người yêu cầu giải quyết thủ tục hành chính</h6>
+
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="f-name">@ViewBag.order.ProcedurerFullName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">Số điện thoại:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">@ViewBag.order.ProcedurerPhone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.ProcedurerStreet</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Loại GTTT: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="h-form-label">
+                                                <label for="uname">Chứng Minh Nhân Dân </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname">Số GTTT: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname">@ViewBag.order.ProcedurerPersonalPaperNumber</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Ngày cấp: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.NgayCap</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div class="card-content">
+                            <h6 class="font-medium">Thông tin người gửi</h6>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">@ViewBag.order.SenderFullName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">Số điện thoại:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">@ViewBag.order.SenderPhone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.SenderStreet</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div class="card-content">
+                            <h6 class="font-medium">Thông tin người nhận</h6>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">Họ và tên:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="f-name">@ViewBag.order.ReceiverFullName</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">Số điện thoại:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="l-name">@ViewBag.order.ReceiverPhone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Địa chỉ: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.ReceiverStreet</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 l6">
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="nname"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 l6">
+                                    <div class="row clgray">
+                                        <div class="col s3">
+                                            <div class="h-form-label">
+                                                <label for="uname">Thông tin ghi chú: </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="h-form-label">
+                                                <label for="uname">@ViewBag.order.OrderNote</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--Bach-->
+                        <!---->
+
+                        <div></div>
+
+                    </div>
+                    <div></div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<!-- JavaScript add more for 1->4 -->
+<script src="../../dist/js/custom.min.js"></script>
+<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('.form-wrapper').hide();
+    $('.myStep').each(function (index) {
+            if (index < @ViewBag.order.step) $(this).addClass("done");
+            if (index == @ViewBag.order.step) $(this).addClass("current");
+        });
+        jQuery(".show-form").click(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            $('.form-wrapper').fadeIn(300);
+        });
+
+        jQuery(".hide-form").click(function () {
+            $('.form-wrapper').fadeOut(300);
+        });
+
+    })
+
+</script>
+
+
+

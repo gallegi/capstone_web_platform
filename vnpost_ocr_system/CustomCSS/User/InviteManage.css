@@ -1,0 +1,55 @@
+﻿.big-title {
+    font-size: 27px;
+    color: black;
+    letter-spacing: -1px;
+    padding-left: 10.5px;
+}
+
+@media only screen and (min-width: 549px) and (max-width: 622px) {
+    td, th {
+        font-size: small;
+    }
+
+    .big-title {
+        font-size: 20px;
+        color: black;
+        letter-spacing: -1px;
+        padding-left: 10.5px;
+    }
+}
+
+@media only screen and (min-width: 396px) and (max-width: 548px) {
+    td, th {
+        font-size: smaller;
+    }
+    .big-title {
+        font-size: 20px;
+        color: black;
+        letter-spacing: -1px;
+        padding-left: 10.5px;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 395px) {
+    td, th {
+        font-size: x-small;
+    }
+    .big-title {
+        font-size: 17px;
+        color: black;
+        letter-spacing: -1px;
+        padding-left: 10.5px;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 395px) {
+    td, th {
+        font-size: x-small;
+    }
+    .big-title {
+        font-size: 17px;
+        color: black;
+        letter-spacing: -1px;
+        padding-left: 10.5px;
+    }
+}

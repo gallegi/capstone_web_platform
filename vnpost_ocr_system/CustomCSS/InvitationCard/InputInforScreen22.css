@@ -1,0 +1,11 @@
+﻿.highlight{
+    font-weight: bold;
+}
+.centerText{
+    text-align: center;
+  
+}
+.delshadow{
+    box-shadow:none !important;
+    margin-top: 30%;
+}

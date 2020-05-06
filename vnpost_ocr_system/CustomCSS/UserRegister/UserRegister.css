@@ -1,0 +1,75 @@
+﻿.tabs .tab a.active {
+    color: #fdaf18;
+}
+.tabs .tab a {
+    color: black;
+}
+
+.tabs .indicator {
+    color: #fdaf18;
+    background-color: #fdaf18;
+}
+
+.tabs .tab a:focus.active{
+    background-color: white;
+}
+
+.white-background{
+    background-color: white;
+}
+
+.yellow-logo-bg {
+    background-color: #fdaf18;
+}
+
+.yellow-logo-bg::after {
+    background-color: #fdaf18;
+}
+.yellow-logo-bg:focus {
+    background-color: #fdaf18;
+}
+
+.inline{
+    display: inline;
+}
+
+.black-text{
+    color: black;
+}
+
+.btn-large:hover {
+    background-color: #fdaf18;
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    background-color: black;
+}
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+    border: 2px solid black;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    border: 1px solid #e9ecef;
+}
+
+.err{
+    color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    .gender-mobile{
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .new-line-small {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .gender-mobile {
+        margin-left: 20px;
+        margin-top: 25px;
+    }
+}

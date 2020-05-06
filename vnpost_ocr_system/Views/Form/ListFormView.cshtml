@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "ListFormView";
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+@{
+    var listForms = ViewBag.Forms;
+}
+
+<link rel="stylesheet" type="text/css" href="~/CustomCSS/Form/ListForm.css" />
+<script src="~/assets/libs/echarts/dist/echarts-en.min.js"></script>
+<script src="~/dist/js/custom.min.js"></script>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <button name="btn_add" onclick="window.location.href='/bieu-mau/them-bieu-mau'" class="waves-effect waves-light btn blue input-field">Thêm biểu mẫu</button>
+                <div class="wrapper">
+                    @{
+                        foreach (var form in listForms)
+                        {
+                            <div class="box">
+                                <div class="imgregion">
+                                    <img onclick="showPopUp(@form.FormID, '@form.FormName', '/FormImage/@form.FormImageLink')" src="~/FormImage/@form.FormImageLink" />
+
+                                </div>
+                                <div class="fill_content">
+                                </div>
+                                @*<div style="background-color:darkslategrey;width:70% ;height:2px; margin:auto;">
+                                    </div>*@
+                                <div class="align">
+                                    <p style="padding-top:5px;">@form.FormName</p>
+                                    <button name="btn1" class="cbutton waves-effect waves-light btn blue input-field" onclick="window.location.href='/bieu-mau/chi-tiet-bieu-mau?form_id=' + @form.FormID">Xem chi tiết</button>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                </div>
+
+                <div id="popup1" class="overlay">
+                    <div class="popup">
+                        <div class="align">
+                            <p id="popup_form_name">Giấy hẹn số GH123</p>
+                        </div>
+                        <a class="close" href="">&times;</a>
+                        <div class="img-popup-region">
+                            @{<img id="popupimg" src="" /> }
+                        </div>
+                        @*<div class="align">
+                                <span>Tên biểu</span>
+                            </div>*@
+                        @*<div class="align">
+                                <p id="popup_form_name">Giấy hẹn số GH123</p>
+                            </div>*@
+                        <form method="get" action="/bieu-mau/chi-tiet-bieu-mau" class="align">
+                            <input id="form_id" name="form_id" type="hidden" value="">
+                            <input type="submit" value="Xem chi tiết" class="waves-effect waves-light btn blue input-field" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function showPopUp(formId, formName, img_url) {
+        document.getElementById('popupimg').setAttribute("src", img_url);
+        document.getElementById('form_id').value = formId;
+        document.getElementById('popup_form_name').innerHTML = formName;
+        window.location.href = "#popup1";
+    }
+</script>

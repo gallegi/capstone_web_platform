@@ -1,0 +1,120 @@
+.ordercode{
+    
+    padding-top: 2%;
+    padding-right: 2%;
+}
+.left{
+    text-align: left;
+}
+
+.img-upload-btn { 
+   
+    overflow: hidden; 
+    padding-top: 95%;
+} 
+
+.img-upload-btn input[type=file] { 
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    min-width: 100%; 
+    min-height: 100%; 
+    font-size: 100px; 
+    text-align: right; 
+    filter: alpha(opacity=0); 
+    opacity: 0; 
+    outline: none; 
+    background: white; 
+    cursor: inherit; 
+    display: block; 
+} 
+
+.img-upload-btn i { 
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -65px;
+}
+
+.btn-radio {
+    position: relative; 
+    overflow: hidden; 
+}
+
+.btn-radio input[type=radio] { 
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    min-width: 100%; 
+    min-height: 100%; 
+    font-size: 100px; 
+    text-align: right; 
+    filter: alpha(opacity=0); 
+    opacity: 0; 
+    outline: none; 
+    background: white; 
+    cursor: inherit; 
+    display: block; 
+}
+.bold{
+    font-weight: 700;
+}
+p{
+    font-size: 15px;
+}
+.mt{
+    margin-top: 1%;
+}
+.test{
+    width: 500px;
+   
+}
+@media only screen and (max-width: 767px) {
+    .test {
+        width: 200px;
+    }
+    .customStep{
+        display: none !important;
+    }
+    h5{
+        display: block !important;
+    }
+    
+    
+
+}
+   @media only screen and (max-width: 1024px) and (min-width: 768px){
+  .test {
+        width: 310px;
+    }
+}
+   h5{
+       display: none;
+   }
+.customDis{
+    display: none;
+}
+
+.temp{
+    margin-bottom: 3%;
+    box-shadow: none !important;
+}
+.mgbt{
+    padding-bottom: 50px;
+}
+.nodisplay{
+    display: none;
+}
+
+.vertical-step{
+    display: none;
+}
+input.select-dropdown{
+    font-size: 15px !important;
+}
+.btn{
+    /* display: block !important; */
+}

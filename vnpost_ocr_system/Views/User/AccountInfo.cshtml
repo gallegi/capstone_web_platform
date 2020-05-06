@@ -1,0 +1,418 @@
+﻿@{
+    ViewBag.Title = "AccountInfo";
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+<style>
+    .err {
+        color: red !important;
+        font-size: 22px !important;
+    }
+
+    .succ {
+        color: forestgreen !important;
+        font-size: 22px !important;
+    }
+</style>
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+
+<link href="~/CustomCSS/User/AccountInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+
+
+<div class="main-wrapper p-t-20">
+    <div class="card">
+        <div class="card-content">
+            <div class="card-title">
+                <h4>
+                    <b>Thông tin tài khoản</b>
+                </h4>
+            </div>
+            <div class="account-info">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Họ và tên: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="name" type="text" class="p-l-15">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="name_failed"></span>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Số điện thoại: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="phone" type="text" class="p-l-15 readonly">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="phone_failed"></span>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Email: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="email" type="text" class="p-l-15 readonly">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="email_failed"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col s12 l5 m5">
+                            Giới tính: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="1" type="radio" id="M" />
+                                        <span>Nam</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="0" type="radio" id="F" />
+                                        <span>Nữ</span>
+                                    </label>
+                                </div>
+                                <div class="col l4 m4 s12">
+                                    <label>
+                                        <input class="with-gap" name="group1" value="2" type="radio" id="K" />
+                                        <span>Khác</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                            Ngày sinh:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <input name="dateTLHD" id="datepicker"
+                                           class="datepicker-here p-l-15 " autocomplete="off"
+                                           data-language='vi' style="border: 1px solid #000000;
+                               border-radius: 10px; width: 100%!important;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="dob_failed"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5 m-t-15">
+                            Tỉnh/Thành phố: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <select class="form-control" id="province_cus" onchange="getDis()">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5 m-t-15">
+                            Quận/Huyện: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <div class="row">
+                                <div class="col l11 s10">
+                                    <select class="form-control" id="dis_cus">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <label>
+                                <input id="cb-change-pass" type="checkbox" class="filled-in" />
+                                <span>Thay đổi mật khẩu</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fading">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu cũ: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="oldpass" type="password" class="p-l-15" placeholder="Nhập mật khẩu cũ"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="oldpass_failed"></span>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5">
+                            Mật khẩu mới: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="newpass" type="password" class="p-l-15" placeholder="Mật khẩu từ 6 đến 32 ký tự"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="newpass_failed"></span>
+                        </div>
+                    </div>
+                    <div class="row m-b-40">
+                        <div class="col s12 l5 m5">
+                            Nhập lại: <span style="color:red">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="repass" type="password" class="p-l-15" placeholder="Nhập lại mật khẩu mới"
+                                   onclick="changeColor(this)" onfocusout="loseFocus(this)">
+                        </div>
+                        <div class="col s12 l5 m5">
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <span style="color:red" id="repass_failed"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 l5 m5">
+                    </div>
+                    <div class="col s12 l5 m5 right-align">
+                        <button class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit" onclick="Update()">
+                            Cập nhật
+                        </button>
+                    </div>
+                    <div class="col s12 l12 m12 err center" id="err">
+                    </div>
+                    <div class="col s12 l12 m12 succ center" id="succ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="dis_temp" />
+</div>
+
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+
+<script type="text/javascript">
+    function changeColor(obj) {
+        obj.style.border = "0.5px solid #5e35b1";
+    }
+
+    function loseFocus(obj) {
+        obj.style.border = "0.5px solid #999999";
+    }
+
+    function getProbyDis(dis) {
+        var emp = {
+            dis: dis
+        };
+        $.ajax({
+            url: "/AccountInfo/GetProbyDis",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('province_cus').value = result.PostalProvinceCode;
+                $('#province_cus').formSelect();
+                getDis();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function getDis() {
+        var emp = {
+            PostalProvinceCode: document.getElementById('province_cus').value
+        };
+        $.ajax({
+            url: "/GetDistrict",
+            type: "POST",
+            data: JSON.stringify(emp),
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                $('#dis_cus').empty();
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalDistrictCode + "'>" + key.PostalDistrictName + "</option>";
+                });
+                $('#dis_cus').append(string);
+                $('#dis_cus').formSelect();
+                if (document.getElementById('dis_temp').value != '') {
+                    document.getElementById('dis_cus').value = document.getElementById('dis_temp').value;
+                    $('#dis_cus').formSelect();
+                }
+                document.getElementById('dis_temp').value = '';
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+
+    function getPro() {
+        $.ajax({
+            url: "/GetProvince",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                var string = "";
+                result.forEach(function (key) {
+                    string += "<option value='" + key.PostalProvinceCode + "'>" + key.PostalProvinceName + "</option>";
+                });
+                $('#province_cus').append(string);
+                $('#province_cus').formSelect();
+                GetInfo();
+            },
+            error: function (errormessage) {
+            }
+        });
+    }
+    function GetInfo() {
+        $('#preload').show();
+        $.ajax({
+            url: "/AccountInfo/Info",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                document.getElementById('name').value = result.FullName;
+                document.getElementById('phone').value = result.Phone;
+                document.getElementById('email').value = result.Email;
+                document.getElementById('datepicker').value = result.dob;
+                document.getElementById('dis_temp').value = result.PostalDistrictID;
+                getProbyDis(result.PostalDistrictID);
+                if (result.Gender == 1) $('#M').attr('checked', 'checked');
+                if (result.Gender == 0) $('#F').attr('checked', 'checked');
+                if (result.Gender == 2) $('#K').attr('checked', 'checked');
+                if (result.Phone != '') $('#phone').attr('readonly', 'readonly');
+                if (result.Email != '') $('#email').attr('readonly', 'readonly');
+                $('#preload').hide();
+            },
+            error: function (errormessage) {
+                $('#preload').hide();
+            }
+        });
+    }
+    function Update() {
+        if (document.getElementById("M").checked) var check = 1;
+        if (document.getElementById("F").checked) var check = 0;
+        if (document.getElementById("K").checked) var check = 2;
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
+        var email = document.getElementById('email').value;
+        var isName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(name);
+        if (isName == false) {
+            $('#name_failed').html('Họ tên không chứa kí tự đặc biệt và số');
+            return false;
+        }
+        if (phone.length != 0) {
+            if (phone.length != 10) {
+                $('#phone_failed').html('Số điện thoại không tồn tại');
+                return false;
+            }
+        }
+        if (email.length != 0) {
+            var isEmail = /^\w+([\.-]?\w+)*\u0040\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+            if (isEmail == false) {
+                $('#email_failed').text('Địa chỉ email không hợp lệ');
+                return false;
+            }
+        }
+        var oldpassBlank = document.getElementById('oldpass').value;;
+        if ($('#cb-change-pass').is(":checked")) {
+            //var oldpass = document.getElementById('oldpass').value;
+            var newpass = document.getElementById('newpass').value;
+            var repass = document.getElementById('repass').value;
+            if (oldpassBlank.length == 0) {$('#oldpass_failed').html('Vui lòng nhập mật khẩu'); return false;}
+            if (newpass.length == 0) {$('#newpass_failed').html('Vui lòng nhập mật khẩu'); return false;}
+            if (newpass.length < 6 || newpass.length > 32) { $('#newpass_failed').html('Mật khẩu phải có độ dài từ 6 đến 32 kí tự'); return false; }
+            if (repass.length == 0) {$('#repass_failed').html('Vui lòng nhập trường Nhập lại mật khẩu'); return false;}
+            if (newpass != repass) { $('#repass_failed').html('Mật khẩu không trùng khớp'); return false; }
+        } else {
+            oldpassBlank = '';
+        }
+        $('#preload').show();
+        var emp = {
+            name: document.getElementById('name').value,
+            dob: document.getElementById('datepicker').value,
+            gender: check,
+            oldpass: oldpassBlank,
+            newpass: document.getElementById('newpass').value,
+            repass: document.getElementById('repass').value,
+            dis: document.getElementById('dis_cus').value,
+        };
+        $.ajax({
+            url: "/AccountInfo/Update",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(emp),
+            success: function (result) {
+                if (result == 1) {
+                    $('#err').html('');
+                    $('#succ').html('Cập nhật thông tin thành công');
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1300);
+                }
+                if (result == 0) {
+                    $('#oldpass_failed').html('Mật khẩu không chính xác');
+                }
+                if (result == 2) {
+                    $('#err').html('Có lỗi xảy ra. Vui lòng thử lại');
+                }
+                $('#preload').hide();
+            },
+            error: function (errormessage) {
+                $('#preload').hide();
+            }
+        });
+    }
+
+    jQuery(document).ready(function () {
+        jQuery('.fading').hide();
+        $('#err').html('');
+        getPro();
+        $('#cb-change-pass').change(function () {
+            if (this.checked) {
+                $('.fading').fadeIn(300);
+            }
+            else {
+                $('.fading').fadeOut(300);
+            }
+        });
+
+    });
+
+</script>

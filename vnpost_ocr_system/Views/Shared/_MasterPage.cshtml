@@ -1,0 +1,188 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNPOST|Hệ thống tiếp nhận giấy hẹn HCC</title>
+    <!-- chartist CSS -->
+    @*<link href="~/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">*@
+    <link href="~/dist/css/style.css" rel="stylesheet">
+    <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+    <!-- This page CSS -->
+    <link href="~/dist/css/pages/dashboard1.css" rel="stylesheet">
+    <link href="~/CustomCSS/MasterPage/MasterPage.css" rel="stylesheet" />
+    <!--Font css-->
+    <link href="~/assets/Custom css/font-family.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/dist/js/materialize.min.js"></script>
+    <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- Apps -->
+    <!-- ============================================================== -->
+    <script src="~/dist/js/app.js"></script>
+    <script src="~/dist/js/app.init.js"></script>
+    <script src="~/dist/js/app-style-switcher.js"></script>
+    <!-- ============================================================== -->
+    <!-- Custom js -->
+    <!-- ============================================================== -->
+    <script src="~/dist/js/custom.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    @*<script src="~/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>*@
+    <script src="~/assets/extra-libs/sparkline/sparkline.js"></script>
+    @*<script src="~/dist/js/pages/dashboards/dashboard1.js"></script>*@
+    <!--Wizard.-->
+    <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+    <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
+    <style>
+        #dropdown1 {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        .page-footer {
+            padding: 70px 30px 50px 100px;
+        }
+
+        .payment-list img {
+            margin-right: 10px;
+        }
+
+        .user-menu {
+            min-width: 300px !important;
+        }
+
+        label#input-error {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main-wrapper set_color" id="main-wrapper">
+            <!-- ============================================================== -->
+            <!-- Preloader - style you can find in spinners.css -->
+            <!-- ============================================================== -->
+            <div id="pre-load" hidden>
+                <div class="loading">
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="preloader">
+                <div class="loading">
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+            </div>
+
+            <header class="topbar">
+
+                <nav>
+                    <div class="nav-wrapper">
+                        <a href="/Home/index" class="brand-logo" style="background: #ffffff !important;"> <img class="light-logo" src="~/assets/images/vnpost.png"></a>
+                        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="/Home/index" class="nav-link"><i class="material-icons dp48">home</i><span>Trang chủ</span></a></li>
+                            <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="nav-link"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
+                            <li><a href="/giay-hen/tim-giay-hen" class="nav-link"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
+                            @{ if (Session["userID"] != null)
+                                {
+                                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">person</i>@Session["userName"]</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">person</i>Đăng nhập</a></li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <ul id="dropdown1" class="dropdown-content user-menu">
+                <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">settings</i>Tài khoản</a></li>
+                <li class="divider"></li>
+                <li><a href="/tai-khoan/quan-ly-giay-hen" class="nav-link"><i class="material-icons dp48">bookmark_border</i>Quản lý giấy hẹn</a></li>
+                <li><a href="/tai-khoan/so-dia-chi" class="nav-link"><i class="material-icons dp48">book</i>Sổ địa chỉ</a></li>
+                <li><a href="/Logout" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng xuất</a></li>
+            </ul>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="/Home/index"><i class="material-icons dp48">home</i>Trang chủ</a></li>
+                <li class="divider"></li>
+                @{ if (Session["userID"] != null)
+                    {
+                        <li><a href="/tai-khoan/thong-tin-tai-khoan" class="nav-link"><i class="material-icons dp48">person</i>@Session["userName"]</a></li>
+                        <li><a href="/tai-khoan/quan-ly-giay-hen" class="nav-link"><i class="material-icons dp48">bookmark_border</i>Quản lý giấy hẹn</a></li>
+                        <li><a href="/tai-khoan/so-dia-chi" class="nav-link"><i class="material-icons dp48">book</i>Sổ địa chỉ</a></li>
+                        <li><a href="/Logout" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng xuất</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/khach-hang/dang-nhap" class="nav-link"><i class="material-icons dp48">exit_to_app</i>Đăng nhập</a></li>
+                    }
+                }
+                <li class="divider"></li>
+                <li><a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc"><i class="material-icons dp48">add_circle</i>Nhập giấy hẹn mới</a></li>
+                <li><a href="/giay-hen/tim-giay-hen"><i class="material-icons dp48">search</i>Tra cứu giấy hẹn</a></li>
+            </ul>
+            <div class="page_wrapper content_all">
+                @RenderBody()
+            </div>
+        </div>
+        @Html.Partial("~/Views/Shared/Footer.cshtml")
+    </div>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+
+    @*<script src="~/Scripts/Scripts.js"></script>*@
+
+
+
+    @*@Scripts.Render("~/Scripts/moment.js")*@
+</body>
+</html>
+<script>
+    //$(document).ready(function () {
+    //    var windowWidth = $(window).width();
+    //    if (windowWidth <= 768) {
+    //        $(".set_top").remove();
+    //    }
+    //})
+    $(".loading").css("z-index", 99999);
+    $("#pre-load").css("z-index", 99999);
+    $('body').css('overflow', '');
+
+    $(document).ready(function () {
+        $('.sidenav').sidenav({
+            closeOnClick: true
+        });
+    });
+</script>

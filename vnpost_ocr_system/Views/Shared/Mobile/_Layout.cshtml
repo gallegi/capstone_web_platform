@@ -1,0 +1,266 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <title>Materialart Admin Template</title>
+    <link href="~/dist/css/style.css" rel="stylesheet">
+
+    <link href="~/CustomCSS/preloader/css.css" rel="stylesheet" />
+    <link href="~/assets/Custom css/Mobile/layout-style.css" rel="stylesheet" />
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- Apps -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <!--Wizard.-->
+    <link href="~/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="~/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+    <link href="~/assets/libs/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/assets/libs/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/sweetalert/alert-vnpost-js.js"></script>
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/dist/js/app.js"></script>
+    <script src="~/dist/js/app.init.js"></script>
+    <script src="~/dist/js/app-style-switcher.js"></script>
+    <script src="~/dist/js/app.init.light-sidebar.js"></script>
+    <script src="~/dist/js/custom.min.js"></script>
+    <script src="~/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="~/dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/assets/libs/chartist/dist/chartist.min.js"></script>
+    @*<script src="~/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>*@
+</head>
+
+<body>
+    <div class="main-wrapper" id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div id="pre-load" hidden>
+            <div class="loading">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="preloader" hidden>
+            <div class="loading">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <!-- ============================================================== -->
+            <!-- Navbar scss in header.scss -->
+            <!-- ============================================================== -->
+            <nav>
+                <div class="nav-wrapper hide_in_app">
+                    <ul class="left">
+                        <li class="hide-on-med-and-down">
+                            <a href="javascript: void(0);" class="nav-toggle">
+                                <span class="bars bar1"></span>
+                                <span class="bars bar2"></span>
+                                <span class="bars bar3"></span>
+                            </a>
+                        </li>
+                        <li class="hide-on-large-only">
+                            <a href="javascript: void(0);" class="sidebar-toggle">
+                                <span class="bars bar1"></span>
+                                <span class="bars bar2"></span>
+                                <span class="bars bar3"></span>
+                            </a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Notification icon scss in header.scss -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Comment topbar icon scss in header.scss -->
+                        <!-- ============================================================== -->
+
+
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Left topbar icon scss in header.scss -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Right topbar icon scss in header.scss -->
+                    <!-- ============================================================== -->
+                    <ul class="center">
+                        <img class="light-logo" src="~/assets/images/vnpost.png" />
+
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right topbar icon scss in header.scss -->
+                    <!-- ============================================================== -->
+                </div>
+
+                <!--Top bar for app-->
+                @*<div class="show_in_app" style="display:none">
+                    <div style="visibility:hidden" id="backBtn">
+                        <img onclick="back_button_click()" src="~/assets/images/forward_icon.png" style="transform:rotate(180deg) scale(0.7)" />
+                    </div>
+                    <div style="flex-grow: 1;text-align:center">
+                        <img class="light-logo" src="~/assets/images/vnpost.png" />
+                    </div>
+                    <div>
+                        <a href="/Home/index"><img src="~/assets/images/home_icon.png" width="50" height="50" /></a>
+                    </div>
+                </div>*@
+            </nav>
+            <!-- ============================================================== -->
+            <!-- Navbar scss in header.scss -->
+            <!-- ============================================================== -->
+        </header>
+        <!-- ============================================================== -->
+        <!-- Sidebar scss in sidebar.scss -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <ul id="slide-out" class="sidenav" hidden>
+                <li>
+                    <ul class="collapsible">
+                        <li class="small-cap"><span class="hide-menu">TÀI KHOẢN</span></li>
+
+                        @{ if (Session["userID"] != null)
+                            {
+                                <li id="account-area" class="collapsible-header">
+                                    <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
+                                    <div class="u-text">
+                                        <h5>@Session["userName"]</h5>
+                                        <a id="account-settings-button" href="/tai-khoan/thong-tin-tai-khoan" class="waves-effect waves-light btn btn-small red white-text">Thông tin tài khoản</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/khach-hang/dang-nhap" class="collapsible-header"><i class="material-icons dp48">person</i><span class="hide-menu">Đăng nhập</span></a>
+                                </li>
+                            }
+                        }
+
+                        <li style="margin-top:10px">
+                            <a href="/Home/index" class="collapsible-header"><i class="material-icons dp48">home</i><span class="hide-menu">Trang chủ</span></a>
+                        </li>
+
+                        <li class="small-cap"><span class="hide-menu">QUẢN LÝ</span></li>
+                        <li>
+                            <a href="/giay-hen/nhap-giay-hen/thong-tin-thu-tuc" class="collapsible-header"><i class="material-icons dp48">add_circle</i><span class="hide-menu">Nhập giấy hẹn mới</span></a>
+                        </li>
+                        <li>
+                            <a href="/giay-hen/tim-giay-hen" class="collapsible-header"><i class="material-icons dp48">search</i><span class="hide-menu">Tra cứu giấy hẹn</span></a>
+                        </li>
+                        @{
+                            if (Session["userID"] != null)
+                            {
+                                <li>
+                                    <a href="/tai-khoan/quan-ly-giay-hen" class="collapsible-header"><i class="material-icons dp48">drafts</i><span class="hide-menu">Giấy hẹn của tôi</span></a>
+                                </li>
+                                <li>
+                                    <a href="/tai-khoan/so-dia-chi" class="collapsible-header"><i class="material-icons dp48">book</i><span class="hide-menu">Quản lý sổ địa chỉ</span></a>
+                                </li>
+
+                            }
+                        }
+                        @{
+                            if (Session["userID"] != null)
+                            {
+                            <li class="small-cap"><span class="hide-menu">CÀI ĐẶT</span></li>
+                                <li>
+                                    <a href="/Logout" class="collapsible-header"><i class="material-icons">exit_to_app</i><span class="hide-menu">Đăng xuất</span></a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <!-- ============================================================== -->
+        <!-- Sidebar scss in sidebar.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+
+        <div class="chat-windows"></div>
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+
+    @*<script src="../../assets/libs/jquery/dist/jquery.min.js"></script>*@
+    <script src="../../assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/materialize/js/materialize.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- Apps -->
+    <!-- ============================================================== -->
+    @*<script src="../../dist/js/app.js"></script>
+    <script src="../../dist/js/app.init.light-sidebar.js"></script>
+    <script src="../../dist/js/app-style-switcher.js"></script>*@
+    <!-- ============================================================== -->
+    <!-- Custom js -->
+    <!-- ============================================================== -->
+    @*<script src="../../dist/js/custom.min.js"></script>*@ 
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <script src="../../assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
+    <script src="../../assets/extra-libs/jquery.repeater/repeater-init.js"></script>
+    <script src="../../assets/extra-libs/jquery.repeater/dff.js"></script>
+    <script>
+        $(".container-fluid").click(function () {
+            $("#main-wrapper").removeClass("show-sidebar");
+        })
+        $(".loading").css("z-index", 99999);
+        $("#pre-load").css("z-index", 99999);
+        $('body').css('overflow', '');
+
+
+        $(function () {
+            $("#slide-out").show();
+        })
+
+        function back_button_click() {
+            var prevPage = document.getElementById("prevPage");
+            if (prevPage == null) {
+                window.location.href = "/Home/index";
+            }
+            else {
+                window.location.href = prevPage.innerHTML ;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,455 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+<link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <h2 class="center"><b>DANH SÁCH API</b></h2>
+                        <div>
+                            <a href="/api/them-moi-api" class="waves-effect waves-light btn blue input-field" style="background-color: #2196F3;">Thêm API</a>
+                        </div>
+                        <div>
+                            <table class="centered" id="apiTable">
+                                <thead class="table clgray responsive-table">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>APIID</th>
+                                        <th>Tên API</th>
+                                        <th>Đường dẫn API</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @* Pop up xác nhận xóa *@
+                    <!-- Modal HTML -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title center" id="myModalLabel">Xóa tài khoản</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>Bạn có chắc chắn muốn xóa API này không?</p>
+
+                                    <p class="debug-url"></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <a class="btn modal-close blue" id="temp" onlick="getDeleteApiid()">Có</a>
+                                <a class="btn modal-close red darken-2">Không</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <div id="information"><h3  class="center"><b>Thông tin của API lấy thông tin của từng hồ sơ bằng mã hồ sơ</b></h3> </div>
+                    <h4 class="font-medium">Request</h4>
+                    <!----------->
+                    <div class="row">
+                        <div class="col s12 m 5 l5">
+                            <label><b>Phương thức request</b></label>
+                            <div class="h-form-label" >
+                                <select tabindex="-1" id="method" class="card-border" disabled>
+                                    <option value="1">GET</option>
+                                    <option value="2">POST</option>
+                                    <option value="3">PUT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s2 m2 l2"></div>
+                        <div class="col s12 m5 l5">
+                            <label><b>URI</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="uri" disabled="disabled">
+                                <input type="hidden" id="apiid" value="@ViewBag.api" />
+                            </div>
+                        </div>
+                    </div>
+                    <!------------->
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <label><b>Mô tả API</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="description" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Header</h4>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Authorization</b></label>
+                        <input type="text" value="Basic Authentication" disabled="disabled">
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Content-type</b></label>
+                        <input type="text" value="application/json" disabled="disabled">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Username</b></label>
+                        <input type="text" id="username" disabled="disabled"/>
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Password</b></label>
+                        <input type="password" id="password" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Parameter</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="parameterTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Data</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="requestTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Response Data</h4>
+                <div class="row">
+                    <div class="col l11">
+                        <div class="row">
+                            <div class="response-data">
+                                <div class="response-data-left">
+                                    <p>Sample Data</p>
+                                </div>
+                                <div class="response-data-right">
+                                    <textarea style="height: 100%" id="format"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id = "";
+   
+    $(document).ready(function () {
+        if ($("#apiid").val() == '') { drawTable(); }
+        else { listapi();getInformationOfApi();}
+       
+    });
+
+    $(document).on("click", "#delete", function () {
+        id = $(this).data("id");
+       })
+
+    function drawTable() {
+        $.ajax({
+            url: "/api/danh-sach-api/getinformation",
+            type: "Post",
+
+            datatype: "json",
+            cache: false,
+            success: function (data) {
+                 if (data.listAPI.length == 0) { $("#apiTable").find("tbody").append("<tr><td colspan=\"6\"><i>Không có dữ liệu</i></td></tr>") }
+                else {
+                    $.each(data.listAPI, function (i, item) {
+
+                        i++;
+                        var tbData = "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
+                            "<td>" + item.APIDescription + "</td>" +
+                            "<td>" + item.APIUri + "</td>" +
+                            "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
+                            "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
+                            "</tr>";
+
+                        $("#apiTable").find("tbody").append(tbData);
+                    }
+                    );
+                }
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
+                $("#method").val(data.api.APIMethodID);
+                $('#method').formSelect();
+                //$("#method").val(data.api.APIMethodID);
+                $("#uri").val(data.api.APIUri);
+                $("#description").val(data.api.APIDescription);
+                $("#username").val(data.api.Username);
+                $("#password").val(data.api.Password);
+
+                $.each(data.listAPIInputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td>" + item.APIInputParamDescription + "</td>" +
+                        "<td>" + item.APIInputParamName + "</td>" +
+                        "<td>" + item.APIInputParamType + "</td>" +
+                        "</tr>";
+
+                    $("#parameterTable").find("tbody").append(tbData);
+                }
+                );
+                $.each(data.listAPIOutputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td>" + item.APIOutputParamDescription + "</td>" +
+                        "<td>" + item.APIOutputParamName + "</td>" +
+                        "<td>" + item.APIOutputParamType + "</td>" +
+                        "</tr>";
+
+                    $("#requestTable").find("tbody").append(tbData);
+                }
+                );
+               
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+    }
+    function listapi() {
+         $("#pre-load").show();
+     $.ajax({
+            url: "/api/danh-sach-api/listAPI",
+            type: "Post",
+
+            datatype: "json",
+           
+            cache: false,
+            success: function (data) {
+                
+                    $.each(data.listapi, function (i, item) {
+                        i++;
+                        var tbData = "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td> <a href='/api/danh-sach-api?apiid=" + item.APIID + "'>" + item.APIID + "</a></td>" +
+                            "<td>" + item.APIDescription + "</td>" +
+                            "<td>" + item.APIUri + "</td>" +
+                            "<td><a href='/api/chinh-sua-api?apiid=" + item.APIID + "' class='black-text'> <i class='far fa-edit'></i></a></td>" +
+                            "<td><a href='#deleteModal' data-id='" + item.APIID + "' id='delete' class='black-text modal-trigger' name='action'><i class='fa fa-times'></i></a></td>" +
+                            "</tr>";
+
+                        $("#apiTable").find("tbody").append(tbData);
+                    }
+                    );
+                
+                
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $("#pre-load").hide();
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+    }
+
+
+    function getInformationOfApi() {
+        $("#pre-load").show();
+        
+        $("#parameterTable").find("tr:gt(1)").remove();
+        $("#requestTable").find("tr:gt(1)").remove();
+        $.ajax({
+            url: "/api/danh-sach-api/getinformationofapi",
+            type: "Post",
+
+            datatype: "json",
+            data: {
+                apiid: $("#apiid").val(),
+            },
+            cache: false,
+            success: function (data) {
+                $( "h3" ).remove();
+
+                $("#information").append("<h3 class='center'><b>Thông tin của " + data.api.APIDescription + "</b></h3>");
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
+                 //$("#format").val(data.api.SampleResponse);
+                $("#method").val(data.api.APIMethodID);
+               $('#method').formSelect();
+                $("#uri").val(data.api.APIUri);
+                $("#description").val(data.api.APIDescription);
+                $("#username").val(data.api.Username);
+                $("#password").val(data.api.Password);
+                
+                $.each(data.listAPIInputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td>" + item.APIInputParamDescription + "</td>" +
+                        "<td>" + item.APIInputParamName + "</td>" +
+                        "<td>" + item.APIInputParamType + "</td>" +
+                        "</tr>";
+
+                    $("#parameterTable").find("tbody").append(tbData);
+                }
+                );
+                $.each(data.listAPIOutputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td>" + item.APIOutputParamDescription + "</td>" +
+                        "<td>" + item.APIOutputParamName + "</td>" +
+                        "<td>" + item.APIOutputParamType + "</td>" +
+                        "</tr>";
+
+                    $("#requestTable").find("tbody").append(tbData);
+                }
+                );
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $("#pre-load").hide();
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+    }
+
+    $(document).on("click", "#temp", function () {
+        getDeleteApiid()
+    })
+
+    function getDeleteApiid() {
+
+        $('#pre-load').show();
+        $.ajax({
+            type: "POST",
+            url: "/api/danh-sach-api/delete",
+            dataType: "json",
+            data: {
+                apiid: id,
+
+            },
+
+            success: function () {
+                location.reload();
+            },
+            error: function (response) {
+                errorAlert('Lỗi', 'Có lỗi xảy ra , không thể xóa được');
+                $('#pre-load').hide();
+            }
+        });
+    }
+
+
+
+
+</script>

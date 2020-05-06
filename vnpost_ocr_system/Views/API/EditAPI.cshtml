@@ -1,0 +1,662 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminMasterPage.cshtml";
+}
+
+
+<style>
+    .duplicate-request {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+    .duplicate-parameter {
+        border: 1px solid red !important;
+        color: red !important;
+    }
+    .has-space-request {
+         color:red !important;
+        
+       }
+    .has-space-parameter {
+        color:red !important;
+       }
+   .err{
+       color:red !important;
+   }
+    .empty-paramter {
+        border: 1px solid red !important;
+     }
+   .empty-request{
+      border: 1px solid red !important;
+   }
+</style>
+<link href="~/CustomCSS/API/ListAPI.css" rel="stylesheet" />
+<script src="~/assets/extra-libs/jquery-datatables-editable/jquery.dataTables.js"></script>
+<script src="~/assets/extra-libs/tiny-editable/mindmup-editabletable.js"></script>
+<script src="~/assets/extra-libs/tiny-editable/numeric-input-example.js"></script>
+<script src="~/CustomJS/API.js"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <h4 class="font-medium">Request</h4>
+                    <!----------->
+                    <div class="row">
+                        <div class="col s12 m 5 l5">
+                            <label><b>Phương Thức Request</b></label>
+                            <div class="h-form-label">
+                                <select tabindex="-1" class="card-border" id="method">
+                                    <option value="1" selected>GET</option>
+                                    <option value="2">POST</option>
+                                    <option value="3">PUT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s2 m2 l2"></div>
+                        <div class="col s12 m5 l5">
+                            <label><b>URI</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="uri">
+                                <input type="hidden" id="apiid" value="@ViewBag.api" />
+                                <div id="uri-err" class="err">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!------------->
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <label><b>Mô tả API</b></label>
+                            <div class="h-form-label">
+                                <input type="text" id="description">
+                                <div id="description-err" class="err">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Header</h4>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Authorization</b></label>
+                        <input type="text" value="Basic Authentication" disabled="disabled">
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Content-type</b></label>
+                        <input type="text" value="application/json" disabled="disabled">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m5 l5">
+                        <label><b>Username</b></label>
+                        <input type="text" id="username" />
+                    </div>
+                    <div class="col s12 m2 l2"></div>
+                    <div class="col s12 m5 l5">
+                        <label><b>Password</b></label>
+                        <input type="password" id="password" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Parameter</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="parameterTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div id="parameter-err" class="err">
+                        </div>
+                        <div id="parameter-err1" class="err">
+                        </div>
+                        <div id="parameter-err2" class="err">
+                        </div>
+                        <br />
+                        <div class="center-align">
+                            <a><button id="addrowParameter" type="submit" class="btn light-blue lighten-1" onclick="addParameterRow()"><i class='large material-icons'></i>Thêm Parameter data mới</button></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Request Data</h4>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table id="requestTable" class="centered table-bordered editable-table table" style="cursor: pointer;">
+                            <thead class="clgray">
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th colspan="2">Request</th>
+                                    <th rowspan="2">Kiểu dữ liệu</th>
+                                    <th rowspan="2"></th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 45%">Logic</th>
+                                    <th style="width: 30%">Physics</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div id="request-err" class="err">
+                        </div>
+                        <div id="request-err1" class="err">
+                        </div>
+                        <div id="request-err2" class="err">
+                        </div>
+                        <br />
+                        <div class="center-align">
+                            <a><button id="addrowRequest" type="submit" class="btn light-blue lighten-1" onclick="addRequestRow()"><i class='large material-icons'></i>Thêm Request data mới</button></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------------------------->
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="font-medium">Response Data</h4>
+                <div class="row">
+                    <div class="col l11">
+                        <div class="row">
+                            <div class="response-data">
+                                <div class="response-data-left">
+                                    <p>Sample Data</p>
+                                </div>
+                                <div class="response-data-right">
+                                    <textarea style="height: 100%" id="format"></textarea>
+                                    <div id="response-data-err" class="err">
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l12 m12">
+                    <a class="btn blue btn-small darken-2" onclick="FormatJson()">Tự động căn chỉnh JSON Format</a>
+                    <a class="btn blue btn-small darken-2" onclick="Edit()">Xác nhận</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#mainTable').editableTableWidget().numericInputExample().find('td').focus();
+    $('#mainTable2').editableTableWidget().numericInputExample().find('td').focus();
+    $('#editable-datatable').editableTableWidget().numericInputExample().find('td').focus();
+    $(function () {
+        $('#editable-datatable').DataTable();
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        drawTable();
+    });
+    var beforeforma;
+    function FormatJson() {
+        var jsonStr = $("#format").val();
+        var jsonObj = JSON.parse(jsonStr);
+        var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+
+        $("#format").val(jsonPretty);
+
+    }
+
+    var countParameter;
+    var countRequest;
+
+    function drawTable() {
+        $("#pre-load").show();
+        var apiid = $("#apiid").val();
+        $.ajax({
+            url: "/api/chinh-sua-api/getinformation",
+            type: "Post",
+
+            datatype: "json",
+            data: {
+                apiid: Number(apiid)
+            },
+            cache: false,
+            success: function (data) {
+                if (data.api.SampleResponse != '') {
+                    var jsonObj = JSON.parse(data.api.SampleResponse);
+                    var jsonPretty = JSON.stringify(jsonObj, null, '\t');
+                    $("#format").val(jsonPretty);
+                }
+                else {
+                    $("#format").val('');
+                }
+                $("#method").val(data.api.APIMethodID);
+                $('#method').formSelect();
+                $("#uri").val(data.api.APIUri);
+                $("#description").val(data.api.APIDescription);
+                $("#username").val(data.api.Username);
+                $("#password").val(data.api.Password);
+
+                $.each(data.listAPIInputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td class='countP'>" + i + "</td>" +
+                        "<td><input type='text'  value='" + item.APIInputParamDescription + "'></td>" +
+                        "<td><input type='text' class='paramName' value='" + item.APIInputParamName + "' disabled='disabled'></td>" +
+                        "<td><input type='text' value='" + item.APIInputParamType + "'></td>" +
+                        "<td><a  class='black-text modal-trigger' name='action' onclick='deleteParameter(\""+item.APIInputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
+                        "</tr>";
+
+                    $("#parameterTable").find("tbody").append(tbData);
+                }
+                );
+                $.each(data.listAPIOutputParam, function (i, item) {
+                    i++;
+                    var tbData = "<tr>" +
+                        "<td class='countR'>" + i + "</td>" +
+                        "<td><input type='text' value='" + item.APIOutputParamDescription + "'></td>" +
+                        "<td><input type='text' class='requestName' value='" + item.APIOutputParamName + "' disabled='disabled'></td>" +
+                        "<td><input type='text' value='" + item.APIOutputParamType + "'></td>" +
+                        "<td><a class='black-text modal-trigger' name='action' onclick='deleteRequest(\""+item.APIOutputParamName+"\")'><i class='fa fa-times'></i></a></td>" +
+                        "</tr>";
+
+                    $("#requestTable").find("tbody").append(tbData);
+                }
+                );
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                var a = $(".countParameter").length;
+                if (a == null) { countParameter = 0; }
+                else { countParameter = a; }
+                var b = $(".countRequest").length;
+                if (b == null) { countRequest = 0; }
+                else { countRequest = b; }
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $("#pre-load").hide();
+            }, error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+
+    }
+    function checkValidate() {
+       $("#parameterTable TBODY TR TD input").each(function () {
+            var value = $(this).val().trim();
+            if (value === '') {
+                
+                $(this).addClass("empty-paramter");
+            }
+            else
+                $(this).removeClass("empty-paramter");
+        });
+        $("#requestTable TBODY TR TD input").each(function () {
+            var value = $(this).val().trim();
+            if (value === '') {
+
+                $(this).addClass("empty-request");
+            }
+            else
+                $(this).removeClass("empty-request");
+        });
+         
+    }
+    function addParameterRow() {
+        countParameter++;
+        $("#parameterTable").append("<tr id=\"parameter" + countParameter + "\">" +
+
+            "<td class='countP'>" + countParameter + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='paramName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeParamter' name='parameter"+countParameter+"' ><i class='fa fa-times'></i></a></td></td>"+
+            "</tr>");
+         updateSTT("countP");
+    }
+
+    function addRequestRow() {
+        countRequest++;
+        $("#requestTable").append("<tr id=\"request" + countRequest + "\">" +
+
+            "<td class='countR'>" + countRequest + "</td>" +
+            "<td><input type='text' /></td>" +
+            "<td><input type='text' class='requestName' /></td>" +
+            "<td><input type='text' /></td>" +
+            "<td><a class='black-text modal-trigger'  id='removeRequest' name='request"+countRequest+"' ><i class='fa fa-times'></i></a></td></td>"+
+            "</tr>");
+        updateSTT("countR");
+    }
+    $("#requestTable").on("click", "#removeRequest", function () {
+        $("tr#" + $(this).attr("name")).remove();
+        updateSTT("countR");
+    })
+     $("#parameterTable").on("click", "#removeParamter", function () {
+         $("tr#" + $(this).attr("name")).remove();
+          updateSTT("countP");
+       })
+    function updateSTT(a) {
+        let i = 1;
+        $("." + a).each(function () {
+            $(this).html(i++);
+        })
+    }
+      function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+    }
+    function Edit() {
+        var listrequest = new Array();
+        var listparameter = new Array();
+        var check = true;
+        $("#requestTable TBODY TR").each(function () {
+            var request = {};
+
+            request.APIOutputParamDescription = $(this).find("td").eq(1).children().val();
+            request.APIOutputParamName = $(this).find("td:eq(2)").children().val();
+            request.APIOutputParamType = $(this).find("td:eq(3)").children().val();
+
+            listrequest.push(request);
+        });
+        $("#parameterTable TBODY TR").each(function () {
+            var parameter = {};
+            parameter.APIInputParamDescription = $(this).find("td:eq(1)").children().val();
+            parameter.APIInputParamName = $(this).find("td:eq(2)").children().val();
+            parameter.APIInputParamType = $(this).find("td:eq(3)").children().val();
+            listparameter.push(parameter);
+
+        });
+        var api = {
+            APIMethodID: $('#method').val(),
+            APIUri: $('#uri').val(),
+            APIDescription: $('#description').val(),
+            Username: $('#username').val(),
+            Password: $('#password').val(),
+            SampleResponse: $("#format").val(),
+            APIID: $("#apiid").val(),
+        };
+        var data = {
+            listrequest: listrequest,
+            listparameter: listparameter,
+            api: api,
+
+        }
+        var arrparam = [];
+        $(".paramName").each(function () {
+            var value = $(this).val();
+            var hasSpace = value.match(/\s/g);
+            hasSpace ? $(this).addClass("has-space-parameter") : $(this).removeClass("has-space-parameter")
+            if (arrparam.indexOf(value) == -1) {
+                arrparam.push(value);
+                $(this).removeClass("duplicate-parameter");
+            }
+            else {
+                $(this).addClass("duplicate-parameter");
+                $(this).focus();
+            }
+        });
+        var arrrequest = [];
+        $(".requestName").each(function () {
+            var value = $(this).val();
+            var hasSpace = value.match(/\s/g);
+            hasSpace ? $(this).addClass("has-space-request") : $(this).removeClass("has-space-request")
+            if (arrrequest.indexOf(value) == -1) {
+                arrrequest.push(value);
+                $(this).removeClass("duplicate-request");
+            }
+            else {
+                $(this).addClass("duplicate-request");
+                $(this).focus();
+            }
+        });
+
+
+        if ($('#uri').val().trim() === '') {
+            $("html, body").animate({ 
+                scrollTop: $("#uri").offset().top
+            }, 500);
+            $('#uri-err').text('Vui lòng nhập URI');
+            check = false;
+            return false;
+        }
+        else {
+            $('#uri-err').text('');
+        }
+        if (!validURL($('#uri').val())) {
+            $("html, body").animate({
+                scrollTop: $("#uri").offset().top
+            }, 500);
+            $('#uri-err').text('URI không hợp lệ');
+            check = false;
+            return false;
+        } else {
+            $('#uri-err').text('');
+        }
+
+        if ($('#description').val().trim() === '') {
+            $("html, body").animate({
+                scrollTop: $("#description").offset().top
+            }, 500);
+            $('#description-err').text('Vui lòng nhập Mô tả API');
+            check = false;
+            return false;
+        }
+        else {
+            $('#description-err').text('');
+        }
+
+
+
+        checkValidate();
+
+
+        if ($(".duplicate-parameter").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".duplicate-parameter").offset().top
+            }, 500);
+
+            $('#parameter-err2').text('Những physic này đã tồn tại');
+            check = false;
+        }
+        else {
+            $('#parameter-err2').text('');
+        }
+        if ($(".duplicate-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".duplicate-request").offset().top
+            }, 500);
+
+            $('#request-err2').text('Những physic này đã tồn tại');
+            check = false;
+        }
+        else {
+            $('#request-err2').text('');
+        }
+        if ($(".has-space-parameter").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".has-space-parameter").offset().top
+            }, 500);
+            $('#parameter-err1').text('Physics không hợp lệ');
+            check = false;
+        }
+        else {
+            $('#parameter-err1').text('');
+        }
+        //
+        if ($(".has-space-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".has-space-request").offset().top
+            }, 500);
+
+            $('#request-err1').text('Physics không hợp lệ');
+            check = false;
+        }
+        else {
+            $('#request-err1').text('');
+        }
+        //
+        if ($(".empty-paramter").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".empty-paramter").offset().top
+            }, 500);
+            $('#parameter-err').text('Vui lòng nhập những trường còn trống');
+            check = false;
+        }
+        else {
+            $('#parameter-err').text('');
+        }
+        //
+        if ($(".empty-request").length > 0) {
+            $("html, body").animate({
+                scrollTop: $(".empty-request").offset().top
+            }, 500);
+            $('#request-err').text('Vui lòng nhập những trường còn trống');
+            check = false;
+        }
+        else {
+            $('#request-err').text('');
+        }
+
+
+        //
+        if ($('#format').val().trim() === '') {
+          
+            $('#response-data-err').text('Vui lòng nhập SampleData');
+            check = false;
+            return false;
+        }
+        else {
+            $('#response-data-err').text('');
+        }
+
+        try {
+            JSON.parse($('#format').val());
+            $('#response-data-err').text('');
+        } catch (error) {
+            
+            $('#response-data-err').text('SampleData không hợp lệ');
+            check = false;
+            return false;
+        }
+        if (check === false) return;
+        else {
+
+            $.ajax({
+                type: "POST",
+                url: "/api/chinh-sua-api/edit",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+
+                    window.location.replace("/api/danh-sach-api?apiid=" + $("#apiid").val() + "");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    errorAlert('Lỗi', 'Xin Kiểm tra lại');
+
+                    $("#pre-load").hide();
+                }
+
+            });
+        }
+
+    }
+
+    function deleteRequest(requestName) {
+        confirmAlert("Xóa Request Data", "Bạn không thể khôi phục lại khi xóa", function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/api/chinh-sua-api/deleterequest",
+                dataType: "json",
+                data: {
+                    apiid: $("#apiid").val(),
+                    requestName: JSON.stringify(requestName),
+                },
+
+                success: function () {
+                    location.reload();
+                },
+                error: function (response) {
+                    errorAlert('Lỗi', 'Có lỗi xảy ra , không thể xóa được');
+                    $('#pre-load').hide();
+                }
+            });
+        });
+
+    }
+    function deleteParameter(parameterName) {
+        
+         confirmAlert("Xóa Parameter", "Bạn không thể khôi phục lại khi xóa", function () {
+
+             $.ajax({
+                 type: "POST",
+                 url: "/api/chinh-sua-api/deleteparameter",
+                 dataType: "json",
+                 data: {
+                     apiid: $("#apiid").val(),
+                     paramterName: JSON.stringify(parameterName),
+                 },
+
+                 success: function () {
+                     location.reload();
+                 },
+                 error: function (response) {
+                     errorAlert('Lỗi', 'Có lỗi xảy ra , không thể xóa được');
+
+                 }
+             });
+         });
+    }
+
+
+</script>
+

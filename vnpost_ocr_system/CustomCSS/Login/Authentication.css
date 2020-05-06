@@ -1,0 +1,82 @@
+﻿.login-logo img{
+    width: 100%;
+}
+
+.login-label {
+    text-align: center;
+    font-size: 1rem;
+    color: #1c5b96;
+}
+
+.login-btn{
+    margin-bottom: 100px;
+}
+
+::placeholder {
+    color: #808080;
+    opacity: 1;
+    padding-left: 15px;
+}
+
+.my-input {
+    border: 1px solid #e9ecef !important;
+}
+
+input.invalid[type=email]:not(.browser-default) {
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 0 0 0 white !important;
+}
+.title-label{
+    display:flex;
+}
+    .title-label h6 {
+        display: flex;
+        margin-top: 18px;
+        margin-left:5px;
+    }
+    .title-label i {
+        color: #fdaf1b;
+    }
+.btn-login{
+    width:100%;
+
+    margin-top:10px;
+}
+#login{
+    margin-top:50px;
+}
+.login-content{
+    /*height:850px;*/
+}
+@media only screen and (min-width: 1024px) {
+    .login-content {
+        /*height: 850px;*/
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .login-content {
+        height: 1100px;
+    }
+}
+.btn-forget{
+    margin-left:15px;
+}
+.fix-space{
+    margin-top:10px;
+}
+.fix-padding {
+    padding: 0 0rem !important;
+}
+.btn_login{
+    text-align:center !important;
+    margin-top:20px;
+}
+.card-custom{
+    height:500px;
+}
+.row.card-custom {
+    padding: 20px 20px 20px 20px;
+}
+.db img{
+    margin-top:20px !important;
+}

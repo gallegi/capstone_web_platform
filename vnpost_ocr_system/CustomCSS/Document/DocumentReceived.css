@@ -1,0 +1,17 @@
+﻿.margintop {
+    margin-top: 10px;
+}
+
+.card .card-content {
+    padding: 5px 20px 5px 20px
+}
+
+.text-black {
+    color: black;
+}
+
+tbody tr th {
+    font-weight: normal;
+}
+
+
