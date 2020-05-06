@@ -113,7 +113,7 @@ namespace vnpost_ocr_system.Controllers
                             db.SaveChanges();
                             transaction.Commit();
                             ViewBag.id_raw = o.OrderID;
-                            string path = "/OrderImage/" + o.OrderID + "/";
+                            string path = "~/OrderImage/" + o.OrderID + "/";
                             if (!Directory.Exists(HostingEnvironment.MapPath(path)))
                             {
                                 Directory.CreateDirectory(HostingEnvironment.MapPath(path));
