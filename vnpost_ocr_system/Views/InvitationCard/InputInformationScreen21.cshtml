@@ -1568,25 +1568,25 @@
             var data = new FormData();
             data.append("img", data1.get("img"));
             data.append("imgName", data1.get("imgName"));
-            data.append("ProfileID", $('#item4').val());
-            data.append("AppointmentLetterCode", $('#item5').val());
-            data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
-            data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
-            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text());
-            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text())
-            data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
-            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
-            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
-            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
-            data.append("SenderFullName", $('#SenderFullName').text());
-            data.append("SenderPhone", $('#SenderPhone').text());
-            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text())
-            data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text());
-            data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text())
-            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text());
-            data.append("OrderNote", $('#OrderNote').val());
+            data.append("ProfileID", $('#item4').val().trim());
+            data.append("AppointmentLetterCode", $('#item5').val().trim());
+            data.append("ProcedurerFullName", $('#ProcedurerFullName').text().trim());
+            data.append("ProcedurerPhone", $('#ProcedurerPhone').text().trim());
+            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text().trim());
+            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text().trim())
+            data.append("ProcedurerStreet", $('#ProcedurerStreet').text().trim());
+            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text().trim());
+            data.append("SenderFullName", $('#SenderFullName').text().trim());
+            data.append("SenderPhone", $('#SenderPhone').text().trim());
+            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text().trim())
+            data.append("SenderStreet", $('#SenderStreet').text().trim());
+            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text().trim());
+            data.append("ReceiverPhone", $('#ReceiverPhone').text().trim());
+            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text().trim())
+            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text().trim());
+            data.append("OrderNote", $('#OrderNote').val().trim());
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",

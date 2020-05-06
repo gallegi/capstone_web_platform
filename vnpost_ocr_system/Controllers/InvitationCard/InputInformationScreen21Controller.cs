@@ -129,7 +129,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                                 <div class='col s8 m8 l8'>
                                     <p class='FullName content-text highlight col s12'>" + c.FullName + @"</p>
                                     <p class='content-text col s12'><span class='Street' > " + c.Street + "</ span >, <span data-district='1130' class='Address'>" + district.PostalDistrictName + @", " + province.PostalProvinceName + @"</span></p>
-                                    <p class='content-text col s12'>Số điện thoại: <span class='Phone' > " + c.Phone + @" </ span ></ p > ";
+                                    <p class='content-text col s12'>Số điện thoại: <span class='Phone'>" + c.Phone + @"</span></p> ";
                             html += i == 1 ? @"
                                     <p class='content-text col s12'>Loại giấy tờ tùy thân: <span data-papertype='" + c.PersonalPaperTypeID + @"' class='PersonalPaperTypeName'>" + (type == null ? "" : type.PersonalPaperTypeName) + @"</span></p>
                                     <p class='content-text col s12'>Số giấy tờ tùy thân: <span class='PersonalPaperNumber'>" + (c.PersonalPaperNumber == null ? "" : c.PersonalPaperNumber) + @"</span></p>

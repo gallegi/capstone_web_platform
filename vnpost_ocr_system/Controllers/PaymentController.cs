@@ -20,8 +20,8 @@ namespace vnpost_ocr_system.Controllers
         [Route("don-hang/thanh-toan")]
         public ActionResult Add()
         {
-            try
-            {
+            //try
+            //{
                 Image sourceimage = Image.FromStream(Request.Files["img"].InputStream, true, true);
                 string imgName = Request["imgName"].ToString();
                 int ProfileID = int.Parse(Request["ProfileID"].ToString());
@@ -50,8 +50,8 @@ namespace vnpost_ocr_system.Controllers
                 {
                     using (DbContextTransaction transaction = db.Database.BeginTransaction())
                     {
-                        try
-                        {
+                        //try
+                        //{
                             Order o = db.Database.SqlQuery<Order>("select * from [Order] where AppointmentLetterCode = @AppointmentLetterCode",
                                 new SqlParameter("AppointmentLetterCode", AppointmentLetterCode)).FirstOrDefault();
                             if (o != null)
@@ -117,19 +117,19 @@ namespace vnpost_ocr_system.Controllers
                                 sourceimage.Save(HostingEnvironment.MapPath(path + image.ImageName));
                             }
                             return Json(new { success = true, message = "Thêm thành công", data = o.OrderID });
-                        }
-                        catch (Exception e)
-                        {
-                            transaction.Rollback();
-                            return Json(new { success = false, message = "Có lỗi xảy ra" });
-                        }
+                        //}
+                        //catch (Exception e)
+                        //{
+                        //    transaction.Rollback();
+                        //    return Json(new { success = false, message = "Có lỗi xảy ra" });
+                        //}
                     }
                 }
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false, message = "Có lỗi xảy ra" });
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    return Json(new { success = false, message = "Có lỗi xảy ra" });
+            //}
         }
     }
 }
