@@ -50,7 +50,7 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 int userID = Convert.ToInt32(Session["userID"].ToString());
                 var custom = db.Customers.Where(x => x.CustomerID == userID).FirstOrDefault();
-                DateTime vert = DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime? vert = string.IsNullOrEmpty(dob) ? (DateTime?)DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture) : null;
                 custom.FullName = name;
                 custom.DOB = vert;
                 //custom.Email = email;
