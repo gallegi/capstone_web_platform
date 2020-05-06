@@ -15,19 +15,9 @@ namespace vnpost_ocr_system.Controllers.Login
         {
             ViewBag.notifi = "";
             if (Session["useradminID"] != null) return Redirect("/ho-so/thong-ke-tong-quat");
-            if (HttpContext.Request.Cookies["remmemadmin"] != null)
-            {
-                HttpCookie remme = HttpContext.Request.Cookies.Get("remmemadmin");
-                login a = new login()
-                {
-                    username = remme.Values.Get("user"),
-                    password = remme.Values.Get("pass")
-                };
-                ViewBag.login = a;
-            }
             return View("/Views/Login/Login.cshtml");
         }
-        public ActionResult Login(string username, string password, string checkbox)
+        public ActionResult Login(string username, string password)
         {
             try
             {
@@ -51,17 +41,17 @@ namespace vnpost_ocr_system.Controllers.Login
                         Session["adminPro"] = admin.PostalProvinceCode;
                         Session["Role"] = admin.Role.ToString();
                         Session["url"] = "/ho-so/thong-ke-tong-quat";
-                        if (!String.IsNullOrEmpty(checkbox))
-                        {
-                            if (checkbox.Equals("on"))
-                            {
-                                HttpCookie remme = new HttpCookie("remmemadmin");
-                                remme["user"] = admin.AdminUsername;
-                                remme["pass"] = pass_t;
-                                remme.Expires = DateTime.Now.AddDays(365);
-                                HttpContext.Response.Cookies.Add(remme);
-                            }
-                        }
+                        //if (!String.IsNullOrEmpty(checkbox))
+                        //{
+                        //    if (checkbox.Equals("on"))
+                        //    {
+                        //        HttpCookie remme = new HttpCookie("remmemadmin");
+                        //        remme["user"] = admin.AdminUsername;
+                        //        remme["pass"] = pass_t;
+                        //        remme.Expires = DateTime.Now.AddDays(365);
+                        //        HttpContext.Response.Cookies.Add(remme);
+                        //    }
+                        //}
                         return Redirect("/ho-so/thong-ke-tong-quat");
                     }
                     else

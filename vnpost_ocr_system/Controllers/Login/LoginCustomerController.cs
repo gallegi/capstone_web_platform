@@ -19,16 +19,7 @@ namespace vnpost_ocr_system.Controllers.Login
             if (Session["userID"] != null) return Redirect("/");
             ViewBag.invalidcode = "";
             ViewBag.messe = "";
-            if (HttpContext.Request.Cookies["remmem"] != null)
-            {
-                HttpCookie remme = HttpContext.Request.Cookies.Get("remmem");
-                login a = new login()
-                {
-                    username = remme.Values.Get("user"),
-                    password = remme.Values.Get("pass")
-                };
-                ViewBag.login = a;
-            }
+            
             if (Request.Browser.IsMobileDevice)
             {
                 return View("/Views/MobileView/Login.cshtml");
@@ -98,11 +89,6 @@ namespace vnpost_ocr_system.Controllers.Login
                             AuthCookie.Expires = DateTime.Now.AddYears(1);
                             // Add the cookie.
                             Response.Cookies.Add(AuthCookie);
-                            HttpCookie remme = new HttpCookie("remmem");
-                            remme["user"] = user;
-                            remme["pass"] = pass_temp;
-                            remme.Expires = DateTime.Now.AddDays(365);
-                            HttpContext.Response.Cookies.Add(remme);
                         }
                     }
                     return Json(3, JsonRequestBehavior.AllowGet);
