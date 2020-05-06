@@ -337,6 +337,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportClass\Auther.cs" />
     <Compile Include="SupportClass\MailService.cs" />
+    <Compile Include="SupportClass\NumberToCurrencyWord.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Custom css\floating-action-btn.css" />
