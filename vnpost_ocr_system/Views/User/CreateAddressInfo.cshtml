@@ -90,7 +90,7 @@
                     </div>
                     <div class="col s12 l5 m5">
                         <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
-                            <option value="" selected disabled> Chọn loại giấy tờ tùy thân </option>
+                            <option value="" selected> Chọn loại giấy tờ tùy thân </option>
                             @foreach (var item in ViewBag.listPaperType)
                             {
                                 <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
@@ -171,7 +171,7 @@
         var isPhone = regexPhone.test(checkPhone);
         var sub = checkPhone.substring(0, 2);
         var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
-        var validDate = regexDate.test(checkDate);
+        var validDate = !checkDate || regexDate.test(checkDate);
 
         //boolean 
         var valid_address = true;
@@ -326,7 +326,7 @@
         $('#date').focusout(function () {
             var checkDate = $('#date').val().trim();
             var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
-            var validDate = regexDate.test(checkDate);
+            var validDate = !checkDate || regexDate.test(checkDate);
             if (!validDate) {
                 $('p[name="check-date"]').text('Ngày cấp không hợp lệ (không đúng định dạng ngày/tháng/năm)');
             } else {

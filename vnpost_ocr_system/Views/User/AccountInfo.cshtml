@@ -62,7 +62,7 @@
                     </div>
                     <div class="row m-b-30">
                         <div class="col s12 l5 m5">
-                            Email: 
+                            Email: <span style="color:red">*</span>
                         </div>
                         <div class="col s12 l5 m5">
                             <input id="email" type="text" class="p-l-15 readonly">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col s12 l5 m5">
-                            Giới tính:
+                            Giới tính: <span style="color:red">*</span>
                         </div>
                         <div class="col s12 l5 m5">
                             <div class="row">
@@ -355,10 +355,11 @@
             //var oldpass = document.getElementById('oldpass').value;
             var newpass = document.getElementById('newpass').value;
             var repass = document.getElementById('repass').value;
-            if (oldpassBlank.length < 6 || oldpassBlank.length > 32) { $('#oldpass_failed').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
-            if (newpass.length < 6 || newpass.length > 32) { $('#newpass_failed').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
-            if (repass.length < 6 || repass.length > 32) { $('#repass_failed').html('Vui lòng nhập mật khẩu gồm 6-32 kí tự'); return false; }
-            if (newpass != repass) { $('#repass_failed').html('Mật khẩu nhập lại không khớp'); return false; }
+            if (oldpassBlank.length == 0) {$('#oldpass_failed').html('Vui lòng nhập mật khẩu'); return false;}
+            if (newpass.length == 0) {$('#newpass_failed').html('Vui lòng nhập mật khẩu'); return false;}
+            if (newpass.length < 6 || newpass.length > 32) { $('#newpass_failed').html('Mật khẩu phải có độ dài từ 6 đến 32 kí tự'); return false; }
+            if (repass.length == 0) {$('#repass_failed').html('Vui lòng nhập trường Nhập lại mật khẩu'); return false;}
+            if (newpass != repass) { $('#repass_failed').html('Mật khẩu không trùng khớp'); return false; }
         } else {
             oldpassBlank = '';
         }
@@ -386,7 +387,7 @@
                     }, 1300);
                 }
                 if (result == 0) {
-                    $('#err').html('Mật khẩu không đúng');
+                    $('#oldpass_failed').html('Mật khẩu không chính xác');
                 }
                 if (result == 2) {
                     $('#err').html('Có lỗi xảy ra. Vui lòng thử lại');

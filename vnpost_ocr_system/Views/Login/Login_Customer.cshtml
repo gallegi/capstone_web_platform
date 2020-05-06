@@ -464,7 +464,7 @@
             success: function (result) {
                 if (result != -1 && result != 0) {
                     document.getElementById('userid').value = result;
-                    $('#suc-mess').text('Mã đã gửi đến email của bạn');
+                    $('#suc-mess').text('Mã xác thực đã được gửi qua Email, vui lòng kiểm tra hộp thư để cập nhật thông tin.');
                 }
                 if (result == -1) $('#err-mess').text('Có lỗi xảy ra. Vui lòng thử lại');
                 if (result == 0) $('#err-mess').text('Email hoặc số điện thoại không tồn tại');
@@ -652,7 +652,7 @@
         }
 
         if (pro == '' || dis == '') {
-            $('#diachi-err').text('Vui lòng chọn nơi cư trú');
+            $('#diachi-err').text('Vui lòng chọn Tỉnh/ Thành');
             return false;
         }
 
@@ -665,7 +665,7 @@
         }
         if (pass.length < 6 || pass.length > 32) {
 
-            $('#rePass-err').text('Mật khẩu gồm 6-32 kí tự');
+            $('#rePass-err').text('Mật khẩu phải có độ dài từ 6 đến 32 kí tự');
             return false;
         }
         if (rePass.length == 0) {
@@ -675,7 +675,7 @@
         }
         if (rePass != pass) {
 
-            $('#rePass-err').text('Mật khẩu nhập lại không khớp');
+            $('#rePass-err').text('Mật khẩu không trùng khớp');
             return false;
         }
         return valid;
