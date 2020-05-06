@@ -35,7 +35,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         else if (x.StatusID == 3) x.display = "Đã xác nhận đến bưu cục - " + x.PosCode + " - " + x.PosName;
                         else x.display = x.StatusName;
 
-                        if (x.Note != null) x.display += " (" + x.Note + ")";
+                        if (!string.IsNullOrEmpty(x.Note)) x.display += " (" + x.Note + ")";
                         item.listOrder.Add(x);
                         item.dayOfWeek = x.CreatedTime.ToString("ddd");
                     }

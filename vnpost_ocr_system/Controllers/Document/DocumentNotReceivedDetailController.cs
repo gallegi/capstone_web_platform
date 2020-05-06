@@ -53,23 +53,33 @@ namespace vnpost_ocr_system.Controllers.Document
             string note = Request["note"];
             string id = Request["id"];
             string letterid = Request["letterid"];
-            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -3).FirstOrDefault();
 
-            //Order not pending anymore
-            if (order == null)
+            using (VNPOST_AppointmentEntities _db = new VNPOST_AppointmentEntities())
             {
-                return Json(new { message = "Changed", JsonRequestBehavior.AllowGet });
+                //Check if exist pending order with that id
+                Order order = _db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -3).FirstOrDefault();
+
+                //Not exist => Status has been changed before
+                if (order == null)
+                {
+                    return Json(new { message = "Changed" }, JsonRequestBehavior.AllowGet);
+                }
             }
 
-            //Update to Cancelled
+
+            VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
+
             if (status.Equals("0"))
             {
-                order.StatusID = 0;
+                OrderStatusDetail osd = new OrderStatusDetail();
+                osd.OrderID = Convert.ToInt64(id);
+                osd.StatusID = Convert.ToInt32(status);
+                osd.Note = string.IsNullOrEmpty(note) ? "bởi giao dịch viên" : "bởi giao dịch viên - " + note;
+                osd.CreatedTime = DateTime.Now;
+                db.OrderStatusDetails.Add(osd);
                 db.SaveChanges();
-
                 //Send firebase message
-                MobileAppController.SendFCMMessage(order.OrderID, long.Parse(status));
+                MobileAppController.SendFCMMessage(osd.OrderID, long.Parse(status));
 
                 return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
             }
@@ -79,8 +89,8 @@ namespace vnpost_ocr_system.Controllers.Document
             {
                 try
                 {
-                    Order order_by_itemcode = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
-                    if (order_by_itemcode != null)
+                    Order order = db.Orders.Where(x => x.ItemCode.Equals(itemCode) && x.StatusID == -2).FirstOrDefault();
+                    if (order != null)
                     {
                         return Json(new { message = "Exist" }, JsonRequestBehavior.AllowGet);
                     }

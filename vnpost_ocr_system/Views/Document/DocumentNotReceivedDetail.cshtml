@@ -470,10 +470,10 @@
             type: "POST",
             datatype: "json",
             data: {
-                itemCode: $('#con1').val(),
-                status: $('#status').val(),
-                note: $('#note').val(),
-                id: $('#id').val(),
+                itemCode: $('#con1').val().trim(),
+                status: $('#status').val().trim(),
+                note: $('#note').val().trim(),
+                id: $('#id').val().trim(),
                 letterid: $('#letterid').val()
             },
             success: function (respone) {
@@ -494,7 +494,7 @@
                 } else if (respone.message == 'Changed') {
                     $("#pre-load").hide();
                     errorAlert('Lỗi', 'Trạng thái của đơn hàng này đã bị thay đổi trước đó');
-                    setTimeout(() => window.location.href = "/ho-so/ho-so-cho-nhan", 4000)
+                    setTimeout(() => window.location.href = "/ho-so/ho-so-da-nhan/chi-tiet?id_raw=" + id, 3000)
                     
                 }
             }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f97a859ad1dd451ea70240d523e70d1b" Name="Diagram1">
+      <Diagram DiagramId="00f6603675dc49f89db219e1f91c7527" Name="Diagram1">
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Admin" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.AdminRole" Width="1.5" PointX="0.75" PointY="19.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.API" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
@@ -23,7 +23,7 @@
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.OrderStatusDetail" Width="1.5" PointX="12.75" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.Payment" Width="1.5" PointX="12.75" PointY="19.5" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.PaymentMethod" Width="1.5" PointX="10.5" PointY="18.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PaymentStatu" Width="1.5" PointX="10.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VNPOST_AppointmentModel.PaymentStatus" Width="1.5" PointX="10.5" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.PersonalPaperType" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.PhoneVerification" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VNPOST_AppointmentModel.PostOffice" Width="1.5" PointX="0.75" PointY="36.625" IsExpanded="true" />
