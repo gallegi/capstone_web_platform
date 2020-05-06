@@ -399,7 +399,10 @@
             contentType: "application/json;charset=utf-8",
                 success: function (result) {
                     if (!result.error) {
+                        $('#email-err').css('color', 'green');
                         $('#tbValidCodeEmail').removeAttr('disabled');
+                    } else {
+                        $('#email-err').css('color', 'red');
                     }
                     $('#email-err').text(result.message);
                 $('#pre-load').hide();

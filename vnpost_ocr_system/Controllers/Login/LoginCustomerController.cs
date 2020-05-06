@@ -150,6 +150,7 @@ namespace vnpost_ocr_system.Controllers.Login
                         }
                     }
                 }
+                var email_token = db.EmailVerifications.Where(x => x.Email.Equals(tbEmail) && x.VerificationCode.Equals(tbValidCodeEmail) && x.Status == false).ToList().LastOrDefault();
                 if (!string.IsNullOrEmpty(tbEmail))
                 {
                     var cus = db.Customers.Where(x => x.Email.Equals(tbEmail)).ToList();
@@ -165,7 +166,6 @@ namespace vnpost_ocr_system.Controllers.Login
                             return View("/Views/Login/Login_Customer.cshtml");
                         }
                     }
-                    var email_token = db.EmailVerifications.Where(x => x.Email.Equals(tbEmail) && x.VerificationCode.Equals(tbValidCodeEmail) && x.Status == false).ToList().LastOrDefault();
                     if (email_token == null)
                     {
                         ViewBag.invalidcode1 = "Mã xác thực email không chính xác";
@@ -204,6 +204,10 @@ namespace vnpost_ocr_system.Controllers.Login
                 c.DOB = null;
                 c.PostalDistrictID = distrint;
                 db.Customers.Add(c);
+
+                //Update verification code status to true
+                email_token.Status = true;
+                db.Entry(email_token).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 ViewBag.notifi = "Tạo tài khoản thành công";
                 Session["userID"] = c.CustomerID;
