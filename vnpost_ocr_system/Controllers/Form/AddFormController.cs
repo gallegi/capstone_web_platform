@@ -92,7 +92,7 @@ namespace vnpost_ocr_system.Controllers.Form
             /* This function is used to save image before add new form to DB */
             try
             {
-                string path = "/FormImage/";
+                string path = "~/FormImage/";
                 if (!Directory.Exists(HostingEnvironment.MapPath(path)))
                 {
                     Directory.CreateDirectory(HostingEnvironment.MapPath(path));
