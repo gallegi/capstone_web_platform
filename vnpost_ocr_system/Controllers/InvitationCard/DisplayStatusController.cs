@@ -117,7 +117,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 }
                 else
                 {
-                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.HasValue ? o.ProcedurerPersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy") : null;
                     o.displayAmount = formatAmount(o.Amount);
                 }
 

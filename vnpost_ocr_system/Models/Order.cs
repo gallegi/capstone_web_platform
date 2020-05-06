@@ -17,10 +17,10 @@ namespace vnpost_ocr_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
+            this.NotificationMessages = new HashSet<NotificationMessage>();
             this.OrderImages = new HashSet<OrderImage>();
             this.OrderStatusDetails = new HashSet<OrderStatusDetail>();
             this.Payments = new HashSet<Payment>();
-            this.NotificationMessages = new HashSet<NotificationMessage>();
         }
     
         public long OrderID { get; set; }
@@ -35,7 +35,7 @@ namespace vnpost_ocr_system.Models
         public string ProcedurerStreet { get; set; }
         public int ProcedurerPersonalPaperTypeID { get; set; }
         public string ProcedurerPersonalPaperNumber { get; set; }
-        public System.DateTime ProcedurerPersonalPaperIssuedDate { get; set; }
+        public Nullable<System.DateTime> ProcedurerPersonalPaperIssuedDate { get; set; }
         public string ProcedurerPersonalPaperIssuedPlace { get; set; }
         public string SenderFullName { get; set; }
         public string SenderPhone { get; set; }
@@ -60,6 +60,8 @@ namespace vnpost_ocr_system.Models
         public virtual District District { get; set; }
         public virtual District District1 { get; set; }
         public virtual District District2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NotificationMessage> NotificationMessages { get; set; }
         public virtual PersonalPaperType PersonalPaperType { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Status Status { get; set; }
@@ -69,7 +71,5 @@ namespace vnpost_ocr_system.Models
         public virtual ICollection<OrderStatusDetail> OrderStatusDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NotificationMessage> NotificationMessages { get; set; }
     }
 }
