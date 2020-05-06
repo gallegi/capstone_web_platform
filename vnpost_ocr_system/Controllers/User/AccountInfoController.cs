@@ -46,11 +46,11 @@ namespace vnpost_ocr_system.Controllers.User
         [Auther(Roles = "0")]
         public ActionResult Update(string name, string dob, string gender, string oldpass, string newpass, string repass, string dis)
         {
-            try
-            {
+            //try
+            //{
                 int userID = Convert.ToInt32(Session["userID"].ToString());
                 var custom = db.Customers.Where(x => x.CustomerID == userID).FirstOrDefault();
-                DateTime? vert = string.IsNullOrEmpty(dob) ? (DateTime?)DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture) : null;
+                DateTime? vert = string.IsNullOrEmpty(dob) ? null : (DateTime?)DateTime.ParseExact(dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 custom.FullName = name;
                 custom.DOB = vert;
                 //custom.Email = email;
@@ -81,11 +81,11 @@ namespace vnpost_ocr_system.Controllers.User
                     Session["userName"] = custom.FullName;
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
-            }
-            catch (Exception e)
-            {
-                return Json(2, JsonRequestBehavior.AllowGet);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Json(2, JsonRequestBehavior.AllowGet);
+            //}
         }
         public ActionResult GetProbyDis(string dis)
         {
