@@ -206,9 +206,8 @@ namespace vnpost_ocr_system.Controllers.Login
                 db.Customers.Add(c);
                 db.SaveChanges();
                 ViewBag.notifi = "Tạo tài khoản thành công";
-                var custom = db.Customers.Where(x => x.Email.Equals(tbEmail) || x.Phone.Equals(tbPhone)).FirstOrDefault();
-                Session["userID"] = custom.CustomerID;
-                Session["userName"] = custom.FullName;
+                Session["userID"] = c.CustomerID;
+                Session["userName"] = c.FullName;
                 Session["Role"] = "0";
                 Session["url"] = "/";
                 return Redirect("/");
