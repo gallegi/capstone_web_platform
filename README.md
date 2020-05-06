@@ -1,7 +1,7 @@
 ## VNPost_OCR_System
 
 ### Deploy
-* Link Azure: https://vnpost.azurewebsites.net/
+* Link Web: https://vnpost.tech/
 
 ### Drive tài liệu
 * Link drive: https://drive.google.com/drive/u/2/folders/1sXn6cJLndSQFr7N2Dv-mib6ZgDIxUkj1
