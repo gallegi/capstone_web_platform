@@ -98,11 +98,6 @@
                                     <label for="item2">Quận/Huyện <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item2"></p>
                                 </div>
-                                <div class="input-field col s12 l12 m12">
-                                    <input type="text" id="item5" class="required" />
-                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
-                                    <p class="validation" name="item5"></p>
-                                </div>
                             </div>
                             <div class="col m6">
                                 <div class="input-field col s12 l12 m12">
@@ -114,6 +109,11 @@
                                     <select id="item4" tabindex="-1"></select>
                                     <label for="item4">Tên thủ tục <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
                                     <p class="validation" name="item4"></p>
+                                </div>
+                                <div class="input-field col s12 l12 m12">
+                                    <input type="text" id="item5" class="required" />
+                                    <label for="item5">Mã giấy hẹn <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</label>
+                                    <p class="validation" name="item5"></p>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                             <p class="content-text col s12">Số giấy tờ tùy thân: <span class="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
                                             <p class="content-text col s12">Ngày cấp: <span class="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                             <p class="content-text col s12">Nơi cấp: <span class="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
-                                        </div>
+                                        </div>                                      
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common contactInfoType1" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
@@ -191,11 +191,9 @@
                                 {
                                     <div class="contact2 info-list-div step3-items step3-items-@item.ContactInfoID col s12">
                                         <div class="col l8 m8 s8">
-                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
-                                        </div>
-                                        <div class="col l4 m4 s4 is-check-step-3" id="isCheckStep3-@item.ContactInfoID">
+                                            <p class="FullName content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
@@ -239,12 +237,11 @@
                                 {
                                     <div class="contact3 info-list-div step4-items step4-items-@item.ContactInfoID col s12">
                                         <div class="col l8 s8 m8">
-                                            <p id="FullName" class="content-text highlight col s12">@item.FullName</p>
-                                            <p class="content-text col s12"><span id="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" id="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
-                                            <p class="content-text col s12">Số điện thoại: <span id="Phone">@item.Phone</span></p>
+                                            <p class="FullName content-text highlight col s12">@item.FullName</p>
+                                            <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
+                                            <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
-                                        <div class="col l4 s4 m4 is-check-step-4" id="isCheckStep4-@item.ContactInfoID">
-                                        </div>
+
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
@@ -617,7 +614,7 @@
                                             <p class="payment-title card-border">Đơn hàng</p>
                                         </div>
                                         <div>
-                                            <b class="payment-title m-b-25">Mã đơn hàng: <span class="AppointmentLetterCode"></span></b>
+                                            <b class="payment-title m-b-25">Mã giấy hẹn: <span class="AppointmentLetterCode"></span></b>
                                         </div>
                                         <span>
                                             <span class="payment-title">Thủ tục hành chính:</span>
@@ -1121,7 +1118,7 @@
             cache: false,
             dataType: 'json',
             data: {
-                PostalProvinceCode: $(this).val()
+                PostalProvinceCode: $('#province_edit').val()
             },
             success: function (response) {
                 $('#district_edit').empty();
@@ -1162,17 +1159,10 @@
         }
     });
 
-    $(document).on("click", 'section .contact1', function () {
-        contact = 'section .contact1:nth-child(' + ($(this).index() + 1) + ')';
+    $(document).on("click", 'section [class^=contact]', function () {
+        contact = 'section [class^=contact]:nth-child(' + ($(this).index() + 1) + ')';
     })
 
-    $(document).on("click", 'section .contact2', function () {
-        contact = 'section .contact2:nth-child(' + ($(this).index() + 1) + ')';
-    })
-
-    $(document).on("click", 'section .contact3', function () {
-        contact = 'section .contact3:nth-child(' + ($(this).index() + 1) + ')';
-    })
 
     $(document).on("click", "#save_contact_info", function () {
         var check = true;
@@ -1236,10 +1226,21 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            //console.log(response)
-                            $('.contact1:last').after(response.html[0]);
-                            $('.contact2:last').after(response.html[1]);
-                            $('.contact3:last').after(response.html[2]);
+                            if ($('.contact1').length == 0) {
+                                console.log(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-3] .row').prepend(response.html[1])
+                                $('[id^=myform-p-3] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-4] .row').prepend(response.html[2])
+                                $('[id^=myform-p-4] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                            } else {
+                                $('.contact1:last').after(response.html[0]);
+                                $('.contact2:last').after(response.html[1]);
+                                $('.contact3:last').after(response.html[2]);
+                            }
                         }
                         else {
                             $(contact).find('.FullName').text($('#name_edit').val())
@@ -1290,11 +1291,11 @@
 
     $(document).on("click", ".contactInfoType2", function () {
         var Adminprofile = $(this).closest('.contact2');
-        $('#SenderFullName').text(Adminprofile.find('#FullName').text());
-        $('#SenderPhone').text(Adminprofile.find('#Phone').text())
-        $('#SenderStreet').text(Adminprofile.find('#Street').text())
-        $('#SenderAddress').text(Adminprofile.find('#Address').text())
-        $('#SenderPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
+        $('#SenderFullName').text(Adminprofile.find('.FullName').text());
+        $('#SenderPhone').text(Adminprofile.find('.Phone').text())
+        $('#SenderStreet').text(Adminprofile.find('.Street').text())
+        $('#SenderAddress').text(Adminprofile.find('.Address').text())
+        $('#SenderPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
         $(".step3-items").css('background-color', 'white');
         $(".step3-items-" + $(this).attr('data-contactinfoid')).css('background-color', '#e1ffe5');
         validate2 = true;
@@ -1303,11 +1304,12 @@
 
     $(document).on("click", ".contactInfoType3", function () {
         var Adminprofile = $(this).closest('.contact3');
-        $('.ReceiverFullName').text(Adminprofile.find('#FullName').text());
-        $('#ReceiverPhone').text(Adminprofile.find('#Phone').text())
-        $('.ReceiverStreet').text(Adminprofile.find('#Street').text())
-        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('#Address').data("district"));
-        $('.ReceiverAddress').text(Adminprofile.find('#Address').text())
+        $('.ReceiverFullName').text(Adminprofile.find('.FullName').text());
+        $('#ReceiverPhone').text(Adminprofile.find('.Phone').text())
+        $('.ReceiverStreet').text(Adminprofile.find('.Street').text())
+        $('#ReceiverPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
+        $('.ReceiverAddress').text(Adminprofile.find('.Address').text())
+        var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
         $(".step4-items").css('background-color', 'white');
         $(".step4-items-" + $(this).attr('data-contactinfoid')).css('background-color', '#e1ffe5');
         validate3 = true;
@@ -1375,11 +1377,11 @@
                     $('p[name="item6"]').text('');
                     var data = new FormData();
                     data.append('image', dataURItoBlob($('#blah').attr("src")));
-                    if (ImageData != dataURItoBlob($('#blah').attr("src"))) {
+                    if (ImageData != $('#blah').attr("src")) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://www.mocky.io/v2/5e9c8e1c30000059000a7eeb",
+                            url: "https://ocr.vnpost.tech/ocr",
                             data: data,
                             contentType: false,
                             processData: false,
@@ -1387,6 +1389,8 @@
                             dataType: "json",
                             success: function (response) {
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                                    //Call OCR server success
+                                    ImageData = $('#blah').attr("src");
                                     $.ajax({
                                         type: "POST",
                                         url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
@@ -1406,12 +1410,16 @@
                                             $("#item5").next().addClass('active')
                                             $("#item5").blur()
                                             getDistrict(OCRResult);
+                                        },
+                                        error: function () {
+                                            $('#pre-load').hide();
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
-                                        $('a[role="menuitem"]').eq(1).click();
-                                        ImageData = dataURItoBlob($('#blah').attr("src"));
+                                        //$('a[role="menuitem"]').eq(1).click();
                                     });
+                                    } else {
+                                    $('#pre-load').hide();
                                 }
                             },
                             error: function () {
@@ -1486,27 +1494,27 @@
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
             var data = new FormData();
-            data.append("img", dataURItoBlob($('#blah').attr("src")));
+            data.append("img", dataURItoBlob(ImageData));
             data.append("imgName", imageName);
-            data.append("ProfileID", $('#item4').val());
-            data.append("AppointmentLetterCode", $('#item5').val());
-            data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
-            data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
-            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text());
-            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text())
-            data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
-            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
-            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
-            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
-            data.append("SenderFullName", $('#SenderFullName').text());
-            data.append("SenderPhone", $('#SenderPhone').text());
-            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text())
-            data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text());
-            data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text())
-            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text());
-            data.append("OrderNote", $('#OrderNote').val());
+            data.append("ProfileID", $('#item4').val().trim());
+            data.append("AppointmentLetterCode", $('#item5').val().trim());
+            data.append("ProcedurerFullName", $('#ProcedurerFullName').text().trim());
+            data.append("ProcedurerPhone", $('#ProcedurerPhone').text().trim());
+            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text().trim());
+            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text().trim())
+            data.append("ProcedurerStreet", $('#ProcedurerStreet').text().trim());
+            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text().trim());
+            data.append("SenderFullName", $('#SenderFullName').text().trim());
+            data.append("SenderPhone", $('#SenderPhone').text().trim());
+            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text().trim())
+            data.append("SenderStreet", $('#SenderStreet').text().trim());
+            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text().trim());
+            data.append("ReceiverPhone", $('#ReceiverPhone').text().trim());
+            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text().trim())
+            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text().trim());
+            data.append("OrderNote", $('#OrderNote').val().trim());
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",
