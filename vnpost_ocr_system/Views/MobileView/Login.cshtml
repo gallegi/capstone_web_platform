@@ -527,14 +527,14 @@
         function Login() {
             $('#user_failed').html('');
             $('#password_failed').html('');
-            var username = document.getElementById('user').value;
+            var username = document.getElementById('user').value.trim();
             var password = document.getElementById('pass').value;
             if (username.length == 0) {
-                $('#user_failed').html('Vui lòng nhập nhập số điện thoại hoặc email ');
+                $('#user_failed').html('Vui lòng nhập nhập Số điện thoại hoặc Email');
                 return false;
             }
             if (password.length == 0) {
-                $('#password_failed').html('Mật khẩu không được để trống');
+                $('#password_failed').html('Vui lòng nhập Mật khẩu');
                 return false;
             }
             $('#pre-load').show();
@@ -553,7 +553,7 @@
                         $('#user_failed').html('Số điện thoại / Email không đúng');
                     }
                     if (result == 2) {
-                        $('#password_failed').html('Mật khẩu không đúng');
+                        $('#password_failed').html('Mật khẩu không chính xác');
                     }
                     if (result == 3) {
                         window.location.href = '/';
@@ -593,7 +593,33 @@
             $('#tbValidCodePhone').removeAttr('disabled');
         }
         function SendTokenEmail() {
-            $('#tbValidCodeEmail').removeAttr('disabled');
+        var email = document.getElementById("tbEmail").value.trim();
+        if (isValidEmail(email)) {
+            $('#pre-load').show();
+            $.ajax({
+            url: "/LoginCustomer/EmailVerification",
+            type: "POST",
+            data: JSON.stringify({
+                    email: email
+                }),
+            contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    if (!result.error) {
+                        $('#email-err').css('color', 'green');
+                        $('#tbValidCodeEmail').removeAttr('disabled');
+                    } else {
+                        $('#email-err').css('color', 'red');
+                    }
+                    $('#email-err').text(result.message);
+                $('#pre-load').hide();
+            },
+                error: function (errormessage) {
+                $('#email-err').css('color', 'red');
+                $('#email-err').text('Có lỗi xảy ra. Vui lòng thử lại');
+                $('#pre-load').hide();
+            }
+            });
+        }        
         }
 
         function checktoken() {
@@ -602,7 +628,8 @@
             if (document.getElementById('token').value == '') return false;
             $('#pre-load').show();
             var emp = {
-                token: document.getElementById('token').value
+            token: document.getElementById('token').value,
+            userid: document.getElementById('userid').value
             };
             $.ajax({
                 url: "/LoginCustomer/CheckToken",
@@ -610,7 +637,7 @@
                 data: JSON.stringify(emp),
                 contentType: "application/json;charset=utf-8",
                 success: function (result) {
-                    if (result == 1) window.location.href = "/khach-hang/thay-doi-mat-khau?token=" + document.getElementById('token').value;
+                    if (result == 1) window.location.href = "/khach-hang/thay-doi-mat-khau?userid=" + document.getElementById('userid').value + "&token=" + document.getElementById('token').value;
                     if (result == 0) $('#err-token').text('Mã token không đúng.');
                     if (result == -1) $('#err-token').text('Mã token đã hết hạn sử dụng.');
                     if (result == -2) $('#err-token').text('Có lỗi xảy ra.Vui lòng thử lại');
@@ -624,7 +651,7 @@
         }
 
         function ResetPassword() {
-            var emailORphone = document.getElementById('number-email-reset').value;
+            var emailORphone = document.getElementById('number-email-reset').value.trim();
             $('#err-mess').text('');
             $('#err-token').text('');
             if (emailORphone.length == 0) {
@@ -681,7 +708,7 @@
 
         function getPro() {
             $.ajax({
-                url: "/LoginCustomer/GetPro",
+                url: "/GetProvince",
                 type: "POST",
                 contentType: "application/json;charset=utf-8",
                 success: function (result) {
@@ -760,6 +787,20 @@
         });
 
 
+    function isValidEmail(email) {
+        $('#email-err').css('color', 'red');
+        if (email.trim().length == 0) {
+            $('#email-err').text('Vui lòng nhập Email');
+            return false;
+        } else if (/^\w+([\.-]?\w+)*\u0040\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) == false) {
+            $('#email-err').text('Địa chỉ Email không hợp lệ');
+            return false;
+        }
+
+        $('#email-err').css('color', 'green');
+        return true;
+    }
+
         function valid() {
             $('#messe').text('');
             $('#name-err').text('');
@@ -814,17 +855,10 @@
                 }
             }
             if ($("#emailcheck").is(":checked") === true) {
-                if (email.length == 0) {
-
-                    $('#email-err').text('Vui lòng nhập Email');
-                    return false;
+                if (isValidEmail(email) == false) {
+                        return false;
                 }
 
-                var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,}([.]{1}[a-z]{1,3})?$/.test(email);
-                if (isEmail == false) {
-                    $('#email-err').text('Địa chỉ Email không hợp lệ');
-                    return false;
-                }
                 if (validCodeEmail.length == 0) {
 
                     $('#validCodeEmail-err').text('Vui lòng nhập mã xác thực');
@@ -842,13 +876,6 @@
                 $('#diachi-err').text('Vui lòng chọn nơi cư trú');
                 return false;
             }
-
-            //var isEmail = /^[a-zA-Z0-9]{1,}[@@]{1}[a-z]{1,}[.]{1}[a-z]{1,3}$/.test(email);
-            //if (isEmail == false) {
-
-            //    $('#email-err').text('Địa chỉ email không hợp lệ');
-            //    return false;
-            //}
 
 
 

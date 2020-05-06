@@ -242,7 +242,7 @@
 
     function getPro() {
         $.ajax({
-            url: "/LoginCustomer/GetPro",
+            url: "/GetProvince",
             type: "POST",
             contentType: "application/json;charset=utf-8",
             success: function (result) {
@@ -287,6 +287,7 @@
         if (document.getElementById("M").checked) var check = 1;
         if (document.getElementById("F").checked) var check = 0;
         if (document.getElementById("K").checked) var check = 2;
+        var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
         if (phone.length != 0) {
@@ -314,14 +315,12 @@
         $('#preload').show();
         var emp = {
             name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
             dob: document.getElementById('datepicker').value,
             gender: check,
             oldpass: document.getElementById('oldpass').value,
             newpass: document.getElementById('newpass').value,
             repass: document.getElementById('repass').value,
-            dis  : document.getElementById('dis_cus').value,
+            dis: document.getElementById('dis_cus').value,
         };
         $.ajax({
             url: "/AccountInfo/Update",
