@@ -1,0 +1,424 @@
+﻿
+@{
+    ViewBag.Title = "InvitationManage";
+    Layout = "~/Views/Shared/Mobile/_Layout.cshtml";
+}
+
+<link href="~/assets/Custom css/TABLE_BORDERED.css" rel="stylesheet" />
+
+<link href="~/CustomCSS/InvitationCard/InputSenderInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputSenderLib.css" rel="stylesheet" />
+<link href="~/CustomCSS/User/InviteManage.css" rel="stylesheet" />
+
+<link href="~/dist/css/pages/data-table.css" rel="stylesheet">
+<script src="~/assets/extra-libs/Datatables/datatables.min.js"></script>
+<script src="~/dist/js/pages/datatable/datatable-basic.init.js"></script>
+<link href="~/CustomJS/datepicker_src/dist/css/datepicker.min.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/custom.css" rel="stylesheet" />
+<link href="~/CustomJS/datepicker_src/dist/css/font.css" rel="stylesheet" />
+<link href="~/CustomCSS/User/AddressInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/InvitationCard/InputReceiverInfo.css" rel="stylesheet" />
+<link href="~/CustomCSS/preloader/FontAwesome.css" rel="stylesheet" />
+<link href="~/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+
+<style>
+    #toast-container {
+        min-width: 10%;
+        top: 0;
+        right: 50%;
+        transform: translateX(50%) translateY(50%);
+    }
+
+    .validation {
+        color: red;
+    }
+    .card {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .account-info {
+        padding-top: 0px;
+    }
+</style>
+<div class="card">
+    <div class="main-wrapper p-t-20 black-text">
+        <h2 class="big-title m-t-0 m-b-25 m-t-20 col s12">Tạo địa chỉ</h2>
+        <div class="card content-text">
+            <div class="account-info">
+                <div class="row">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Họ và tên:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="name" type="text" value="">
+                            <p class="validation" name="check-name"></p>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Số điện thoại:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="phone" type="text" value="">
+                            <p class="validation" name="check-phone"></p>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Tỉnh/Thành phố:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="browser-default" id="province" onblur="checkProvince()">
+                                <option value='' selected disabled> Chọn Tỉnh/Thành Phố </option>
+                                @foreach (var item in ViewBag.listProvince)
+                                {
+                                    <option value="@item.PostalProvinceCode">@item.PostalProvinceName</option>
+                                }
+                            </select>
+                            <p class="validation" name="check-province"></p>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Quận/Huyện:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="browser-default" id="district" onblur="checkDistrict()">
+                                <option value='' selected disabled> Chọn Quận/Huyện </option>
+                            </select>
+                            <p class="validation" name="check-district"></p>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Địa chỉ:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <textarea id="address"></textarea>
+                            <p class="validation" name="check-address"></p>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Loại giấy tờ tùy thân:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <select tabindex="-1" class="browser-default" id="paperType" onchange="toggleDiv('paperDetail', this)">
+                                <option value="" selected disabled> Chọn loại giấy tờ tùy thân </option>
+                                @foreach (var item in ViewBag.listPaperType)
+                                {
+                                    <option value="@item.PersonalPaperTypeID"> @item.PersonalPaperTypeName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="paperDetail">
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Mã số giấy tờ tùy thân:<span class="red-text">*</span>
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="code" type="text" value="">
+                            <p class="validation" name="check-code"></p>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Ngày cấp:
+                        </div>
+                        <div class="col s10 l4 m4">
+                            <input name="date" id="date" type="datetime"
+                                   class="datepicker-here center date-click" autocomplete="off"
+                                   data-language='vi' value="" />
+                            <i class="fas fa-calendar-alt" style="font-size: 1.5rem;"></i>
+                            <p class="validation" name="check-date"></p>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-30">
+                        <div class="col s12 l5 m5 p-t-10">
+                            Nơi cấp:
+                        </div>
+                        <div class="col s12 l5 m5">
+                            <input id="placeOfIssue" type="text" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 l5 m5">
+                    </div>
+                    <div class="col s12 l5 m5 right-align">
+                        <a class="btn waves-effect waves-light bt-color-common p-l-40 p-r-40" type="submit"
+                           style="margin-right: -11px;" onclick="add()">
+                            Cập nhật
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //add.
+    function add() {
+        var data = {
+            date: document.getElementById("date").value,
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            province: document.getElementById("province").value,
+            district: document.getElementById("district").value,
+            address: document.getElementById("address").value,
+            paperType: document.getElementById("paperType").value,
+            code: document.getElementById("code").value,
+            placeOfIssue: document.getElementById("placeOfIssue").value
+        };
+        var checkName = $('#name').val().trim();
+        var checkDate = $('#date').val().trim();
+        //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+        var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
+        var checkPhone = $('#phone').val().trim();
+        var regexPhone = /^[0-9\-\+]{10}$/;
+        var isPhone = regexPhone.test(checkPhone);
+        var sub = checkPhone.substring(0, 2);
+        var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+        var validDate = regexDate.test(checkDate);
+
+        //boolean
+        var valid_address = true;
+        var valid_name = true;
+        var valid_phone = true;
+        var valid_province = true;
+        var valid_district = true;
+        var valid_code = true;
+        var valid_date = true;
+
+        //check Name
+        if (checkName == "") {
+            $('p[name="check-name"]').text('Vui lòng nhập Họ và tên');
+            valid_name = false;
+        } else if (!validName) {
+            $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            valid_name = false;
+        }
+
+        //check Phone
+        if (checkPhone == "") {
+            $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại');
+            valid_phone = false;
+        } else if (isPhone === false) {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '08') {
+            $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            valid_phone = false;
+        }
+
+        //check Address
+        if ($('#address').val().trim() == "") {
+            $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ');
+            valid_address = false;
+        }
+
+        //check Province
+        if (data.province == "") {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
+            valid_province = false;
+        }
+
+        //check District
+        if (data.district == "") {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
+            valid_district = false;
+        }
+
+        //case paperType
+        if (data.paperType != "") {
+            //check code
+            if ($('#code').val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân');
+                valid_code = false;
+            }
+
+            //check date
+            if (!validDate) {
+                $('p[name="check-date"]').text('Ngày cấp không hợp lệ (không đúng định dạng ngày/tháng/năm)');
+                valid_date = false;
+            }
+        }
+
+        //update status of input:
+        if (valid_name) {
+            $('p[name="check-name"]').text('');
+        }
+        if (valid_phone) {
+            $('p[name="check-phone"]').text('');
+        }
+        if (valid_address) {
+            $('p[name="check-address"]').text('');
+        }
+        if (valid_province) {
+            $('p[name="check-province"]').text('');
+        }
+        if (valid_district) {
+            $('p[name="check-district"]').text('');
+        }
+        if (valid_code) {
+            $('p[name="check-code"]').text('');
+        }
+        if (valid_date) {
+            $('p[name="check-date"]').text('');
+        }
+
+        //handling input cases
+        if (valid_name && valid_phone && valid_address && valid_province && valid_district && valid_code && valid_date) {
+            $.ajax({
+                url: "/tai-khoan/tao-dia-chi-moi/them",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    window.location.href = '/tai-khoan/so-dia-chi';
+                }
+            });
+        } else {
+            toastr.error('Hãy điền đầy đủ thông tin chính xác!', '');
+        }
+    }
+
+    $(document).ready(function () {
+        $('#name').focusout(function () {
+            var checkName = $('#name').val().trim();
+            //var invalidName = /[0-9!#\$%\^\&*\)\(+=._-]{1,}/.test(checkName);
+            var validName = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/.test(checkName);
+            if (checkName == "") {
+                $('p[name="check-name"]').text('Vui lòng nhập Họ và tên')
+            } else if (!validName) {
+                $('p[name="check-name"]').text('Họ và tên không chứa kí tự đặc biệt và số ');
+            } else {
+                $('p[name="check-name"]').text('');
+            }
+        })
+
+        $('#phone').focusout(function () {
+            var checkPhone = $('#phone').val().trim();
+            //Using sub to check 03 05 07 09 04
+            var sub = checkPhone.substring(0, 2);
+            var regexPhone = /^[0-9\-\+]{10}$/;
+            var isPhone = regexPhone.test(checkPhone);
+            if (checkPhone == "") {
+                $('p[name="check-phone"]').text('Vui lòng nhập Số điện thoại')
+            } else if (isPhone === false) {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else if (sub != '03' && sub != '05' && sub != '07' && sub != '09' && sub != '08') {
+                $('p[name="check-phone"]').text('Số điện thoại không hợp lệ');
+            } else {
+                $('p[name="check-phone"]').text('');
+            }
+        })
+
+        $('#address').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-address"]').text('Vui lòng nhập Địa chỉ')
+            } else {
+                $('p[name="check-address"]').text('');
+            }
+        })
+
+        $('#code').focusout(function () {
+            if ($(this).val().trim() == "") {
+                $('p[name="check-code"]').text('Vui lòng nhập Mã số giấy tờ tùy thân')
+            } else {
+                $('p[name="check-code"]').text('');
+            }
+        })
+
+        $('#date').focusout(function () {
+            var checkDate = $('#date').val().trim();
+            var regexDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+            var validDate = regexDate.test(checkDate);
+            if (!validDate) {
+                $('p[name="check-date"]').text('Ngày cấp không hợp lệ (không đúng định dạng ngày/tháng/năm)');
+            } else {
+                $('p[name="check-date"]').text('');
+            }
+        })
+    })
+
+    function checkProvince() {
+        var checkProvince = $('#province').val();
+        if (checkProvince == null) {
+            $('p[name="check-province"]').text('Vui lòng nhập Tỉnh/Thành');
+        } else {
+            $('p[name="check-province"]').text('');
+        }
+    }
+
+    function checkDistrict() {
+        var checkDistrict = $('#district').val();
+        if (checkDistrict == null) {
+            $('p[name="check-district"]').text('Vui lòng nhập Quận/Huyện');
+        } else {
+            $('p[name="check-district"]').text('');
+        }
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#province').change(function () {
+            var data = {
+                PostalProvinceCode: document.getElementById("province").value
+            };
+            $.ajax({
+                type: "POST",
+                url: "/GetDistrict",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    $('#district').empty();
+                    var option = "<option value='' selected disabled>Chọn Quận/Huyện</option>";
+                    //var option;
+                    for (var i = 0; i < response.length; i++) {
+                        option += "<option value='" + response[i].PostalDistrictCode + "'>" + response[i].PostalDistrictName + "</option>";
+                    }
+                    $('#district').append(option);
+                    $('#district').formSelect();
+                    $('#pre-load').hide()
+                }
+            });
+        })
+    })
+
+    //default toggleDiv (fix bug)
+    $(document).ready(function () {
+        $("#paperDetail").hide();
+    })
+
+    //after change
+    function toggleDiv(divId, element) {
+        //alert("#" + divId);
+        if (element.value == '') {
+            $("#" + divId).hide();
+        } else {
+            $("#" + divId).show();
+        }
+    }
+
+
+</script>
+
+<script src="~/assets/libs/toastr/build/toastr.min.js"></script>
+<script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/datepicker.js"></script>
+<script src="~/CustomJS/datepicker_src/dist/js/i18n/datepicker.vi.js"></script>
+<script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
 using vnpost_ocr_system.Models;
-using vnpost_ocr_system.SupportClass;
 
 namespace vnpost_ocr_system.Controllers.InvitationCard
 {
@@ -94,12 +92,13 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     }
                 }
                 ViewBag.list = list;
-                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, 
+                string sql = @"select distinct o.*, pa.PublicAdministrationName, pa.Phone, pa.Address, pr.ProfileName, p.PosName, p.Address as 'Address_BC', p.Phone as 'Phone_BC', s.StatusName, ppt.PersonalPaperTypeName,
                             (case when o.StatusID = 0 then 0 else 1 end) as 'active'
                             from [Order] o 
                             inner join Profile pr on pr.ProfileID = o.ProfileID
                             inner join PublicAdministration pa on pr.PublicAdministrationLocationID = pa.PublicAdministrationLocationID
                             inner join PostOffice p on pa.PosCode = p.PosCode
+                            inner join PersonalPaperType ppt on ppt.PersonalPaperTypeID = o.ProcedurerPersonalPaperTypeID
                             inner join District d on d.DistrictCode = p.DistrictCode
 							inner join OrderStatusDetail os on o.OrderID = os.OrderID
 							inner join Status s on o.StatusID = s.StatusID
@@ -118,7 +117,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 }
                 else
                 {
-                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.HasValue ? o.ProcedurerPersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy") : null;
                     o.displayAmount = formatAmount(o.Amount);
                 }
 
@@ -126,7 +125,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 else if (o.StatusID == -2) o.step = 1;
                 else if (o.StatusID == 1) o.step = 2;
                 else if (o.StatusID == 5) o.step = 4;
-                else if(o.StatusID == -1)o.step = 3; 
+                else if (o.StatusID == -1) o.step = 3;
                 else o.step = 0;
                 ViewBag.order = o;
                 if (o.StatusID == 0)

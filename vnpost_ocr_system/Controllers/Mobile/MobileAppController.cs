@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using vnpost_ocr_system.Models;
-using vnpost_ocr_system.Controllers.CustomController;
 using System.Data.SqlClient;
-using System.Net;
-using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
+using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.CustomController;
+using vnpost_ocr_system.Models;
 
 namespace vnpost_ocr_system.Controllers.Mobile
 {
@@ -189,7 +189,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
                 }
                 else
                 {
-                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                    o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.HasValue ? o.ProcedurerPersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy") : null;
                     o.displayAmount = formatAmount(o.Amount);
                 }
 
@@ -223,7 +223,7 @@ namespace vnpost_ocr_system.Controllers.Mobile
             }
             return s;
         }
-       
+
         public static void SendFCMMessage(long orderID, long statusID)
         {
             List<string> deviceTokens = new List<string>();

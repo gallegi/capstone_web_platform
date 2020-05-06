@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using vnpost_ocr_system.Controllers.CustomController;
@@ -16,14 +15,6 @@ namespace vnpost_ocr_system.Controllers
 {
     public class PaymentController : BaseUserController
     {
-        // GET: Payment
-
-        //[Route("don-hang/thanh-toan")]
-        //public ActionResult Index()
-        //{
-        //    return View("/Views/Payment/Payment.cshtml");
-        //}
-
         [Auther(Roles = "0")]
         [HttpPost]
         [Route("don-hang/thanh-toan")]
@@ -43,7 +34,13 @@ namespace vnpost_ocr_system.Controllers
                 string ProcedurerStreet = Request["ProcedurerStreet"].ToString();
                 int ProcedurerPersonalPaperTypeID = int.Parse(Request["ProcedurerPersonalPaperTypeID"].ToString());
                 string ProcedurerPersonalPaperNumber = Request["ProcedurerPersonalPaperNumber"].ToString();
-                DateTime ProcedurerPersonalPaperIssuedDate = DateTime.ParseExact(Request["ProcedurerPersonalPaperIssuedDate"].ToString(), "dd/MM/yyyy", null);
+
+                DateTime? ProcedurerPersonalPaperIssuedDate = null;
+                DateTime temp;
+                if (DateTime.TryParseExact(Request["ProcedurerPersonalPaperIssuedDate"].ToString(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out temp))
+                {
+                    ProcedurerPersonalPaperIssuedDate = temp;
+                }
                 string ProcedurerPersonalPaperIssuedPlace = Request["ProcedurerPersonalPaperIssuedPlace"].ToString();
                 string SenderFullName = Request["SenderFullName"].ToString();
                 string SenderPhone = Request["SenderPhone"].ToString();
@@ -101,7 +98,7 @@ namespace vnpost_ocr_system.Controllers
 
                             OrderImage image = new OrderImage();
                             image.ImageRealName = imgName;
-                            image.ImageName = DateTime.Now.ToFileTime().ToString()+"."+imgName.Split('.')[imgName.Split('.').Length-1];
+                            image.ImageName = DateTime.Now.ToFileTime().ToString() + "." + imgName.Split('.')[imgName.Split('.').Length - 1];
                             image.OrderID = o.OrderID;
                             db.OrderImages.Add(image);
                             db.SaveChanges();

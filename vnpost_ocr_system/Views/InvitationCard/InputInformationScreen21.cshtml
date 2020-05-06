@@ -118,7 +118,7 @@
     <div class="col s12">
         <div class="card">
             <div class="card-content wizard-content">
-                <h2 class="card-title">Tạo giấy hẹn mới</h2>
+                <h4 class="font-medium">Tạo giấy hẹn mới</h4>
                 <form id="myform" action="/giay-hen/trang-thai-giay-hen" method="post" class="validation-wizard wizard-circle m-t-40">
                     <!-- Step 1 -->
                     <h6>Ảnh chụp giấy hẹn</h6>
@@ -806,7 +806,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div>
                 <div class="input-field col s12 m12">
                     <div class="select-wrapper row m-b-20">
                         <div class="col l2 m2 p-t-10 s12 "></div>
@@ -1299,10 +1299,21 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            //console.log(response)
-                            $('.contact1:last').after(response.html[0]);
-                            $('.contact2:last').after(response.html[1]);
-                            $('.contact3:last').after(response.html[2]);
+                            if ($('.contact1').length == 0) {
+                                console.log(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-3] .row').prepend(response.html[1])
+                                $('[id^=myform-p-3] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-4] .row').prepend(response.html[2])
+                                $('[id^=myform-p-4] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                            } else {
+                                $('.contact1:last').after(response.html[0]);
+                                $('.contact2:last').after(response.html[1]);
+                                $('.contact3:last').after(response.html[2]);
+                            }
                         }
                         else {
                             $(contact).find('.FullName').text($('#name_edit').val())
@@ -1440,11 +1451,11 @@
                     $('p[name="item6"]').text('');
                     var data = new FormData();
                     data.append('image', dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
-                    if (ImageData != dataURItoBlob($('img[data-dz-thumbnail]').attr("src"))) {
+                    if (ImageData != $('img[data-dz-thumbnail]').attr("src")) {
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
-                            url: "http://103.104.117.175/ocr",
+                            url: "https://ocr.vnpost.tech/ocr",
                             data: data,
                             contentType: false,
                             processData: false,
@@ -1452,6 +1463,8 @@
                             dataType: "json",
                             success: function (response) {
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                                    //Call OCR server success
+                                    ImageData = $('img[data-dz-thumbnail]').attr("src");
                                     $.ajax({
                                         type: "POST",
                                         url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
@@ -1477,8 +1490,7 @@
                                         }
                                     }).done(function () {
                                         $('#pre-load').hide();
-                                        $('a[role="menuitem"]').eq(1).click();
-                                        ImageData = dataURItoBlob($('img[data-dz-thumbnail]').attr("src"));
+                                        //$('a[role="menuitem"]').eq(1).click();
                                     });
                                 } else {
                                     $('#pre-load').hide();
@@ -1556,27 +1568,27 @@
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
             var data = new FormData();
-            data.append("img", dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
+            data.append("img", dataURItoBlob(ImageData));
             data.append("imgName", imageName);
-            data.append("ProfileID", $('#item4').val());
-            data.append("AppointmentLetterCode", $('#item5').val());
-            data.append("ProcedurerFullName", $('#ProcedurerFullName').text());
-            data.append("ProcedurerPhone", $('#ProcedurerPhone').text());
-            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text());
-            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text())
-            data.append("ProcedurerStreet", $('#ProcedurerStreet').text());
-            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text());
-            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text());
-            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text());
-            data.append("SenderFullName", $('#SenderFullName').text());
-            data.append("SenderPhone", $('#SenderPhone').text());
-            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text())
-            data.append("SenderStreet", $('#SenderStreet').text());
-            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text());
-            data.append("ReceiverPhone", $('#ReceiverPhone').text());
-            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text())
-            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text());
-            data.append("OrderNote", $('#OrderNote').val());
+            data.append("ProfileID", $('#item4').val().trim());
+            data.append("AppointmentLetterCode", $('#item5').val().trim());
+            data.append("ProcedurerFullName", $('#ProcedurerFullName').text().trim());
+            data.append("ProcedurerPhone", $('#ProcedurerPhone').text().trim());
+            data.append("ProcedurerPostalDistrictCode", $('#ProcedurerPostalDistrictCode').text().trim());
+            data.append("ProcedurerPersonalPaperTypeID", $('#ProcedurerPersonalPaperTypeID').text().trim())
+            data.append("ProcedurerStreet", $('#ProcedurerStreet').text().trim());
+            data.append("ProcedurerPersonalPaperNumber", $('#ProcedurerPersonalPaperNumber').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedDate", $('#ProcedurerPersonalPaperIssuedDate').text().trim());
+            data.append("ProcedurerPersonalPaperIssuedPlace", $('#ProcedurerPersonalPaperIssuedPlace').text().trim());
+            data.append("SenderFullName", $('#SenderFullName').text().trim());
+            data.append("SenderPhone", $('#SenderPhone').text().trim());
+            data.append("SenderPostalDistrictCode", $('#SenderPostalDistrictCode').text().trim())
+            data.append("SenderStreet", $('#SenderStreet').text().trim());
+            data.append("ReceiverFullName", $('.ReceiverFullName').eq(0).text().trim());
+            data.append("ReceiverPhone", $('#ReceiverPhone').text().trim());
+            data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text().trim())
+            data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text().trim());
+            data.append("OrderNote", $('#OrderNote').val().trim());
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",

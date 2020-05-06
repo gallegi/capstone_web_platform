@@ -173,16 +173,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Application program interface\AddAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\EditAPIController.cs" />
-    <Compile Include="Controllers\Application program interface\ListAPIController.cs" />
+    <Compile Include="Controllers\API\AddAPIController.cs" />
+    <Compile Include="Controllers\API\EditAPIController.cs" />
+    <Compile Include="Controllers\API\ListAPIController.cs" />
     <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\Document\DisplayStatisticChartController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentNotReceivedController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedDetailController.cs" />
     <Compile Include="Controllers\Document\DocumentReceivedController.cs" />
-    <Compile Include="Controllers\EditDataController.cs" />
     <Compile Include="Controllers\Form\ListFormController.cs" />
     <Compile Include="Controllers\GetProvince\GetProvincesController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -200,67 +199,68 @@
     <Compile Include="Controllers\User\CreateAddressInfoController.cs" />
     <Compile Include="Controllers\User\AccountInfoController.cs" />
     <Compile Include="Controllers\User\InvitationManageController.cs" />
-    <Compile Include="Controllers\UserRegister\UserRegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminRole.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\API.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\APIInputParam.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\APIMethod.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\APIOutputParam.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationToken.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactInfo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\District.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailVerification.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ErrorObject.cs" />
     <Compile Include="Models\FormTemplate.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FullFormDetail.cs" />
+    <Compile Include="Models\FullFormRequest.cs" />
     <Compile Include="Models\ImageNotFoundException.cs" />
     <Compile Include="Models\IntegerExtensions.cs" />
     <Compile Include="Models\LongExtensions.cs" />
-    <Compile Include="Models\Model1.Context.cs">
+    <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
+    <Compile Include="Models\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
+    <Compile Include="Models\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NotificationMessage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NotiMessage.cs" />
     <Compile Include="Models\OCRParsed.cs" />
@@ -270,72 +270,71 @@
     <Compile Include="Models\MyOrderDetail.cs" />
     <Compile Include="Models\NotReceivedDocument.cs" />
     <Compile Include="Models\Order.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderByDay.cs" />
     <Compile Include="Models\OrderDashBorad.cs" />
     <Compile Include="Models\orderDB.cs" />
     <Compile Include="Models\OrderImage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderStatusDetail.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentMethod.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentStatus.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonalPaperType.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PhoneVerification.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Postman.cs" />
     <Compile Include="Models\PostOffice.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Profile.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Province.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PublicAdministration.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Query_Scope_0_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Query_Scope_1_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Query_Scope_2_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Query_Scope_3_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReceivedDocument.cs" />
     <Compile Include="Models\ResetPasswordToken.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceTimer.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportClass\Auther.cs" />
+    <Compile Include="SupportClass\MailService.cs" />
+    <Compile Include="SupportClass\NumberToCurrencyWord.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Custom css\floating-action-btn.css" />
@@ -740,7 +739,6 @@
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview-init.js" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.css" />
     <Content Include="assets\extra-libs\treeview\dist\bootstrap-treeview.min.js" />
-    <Content Include="assets\images\123.png" />
     <Content Include="assets\images\account-info-background.png" />
     <Content Include="assets\images\alert\alert.png" />
     <Content Include="assets\images\alert\alert2.png" />
@@ -763,7 +761,9 @@
     <Content Include="assets\images\big\socialbg.jpg" />
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\fb-icon.png" />
+    <Content Include="assets\images\forward_icon.png" />
     <Content Include="assets\images\g-icon.png" />
+    <Content Include="assets\images\home_icon.png" />
     <Content Include="assets\images\logo-icon.png" />
     <Content Include="assets\images\logo-light-icon.png" />
     <Content Include="assets\images\logo-light-text.png" />
@@ -780,10 +780,6 @@
     <Content Include="assets\images\rating\star-half.png" />
     <Content Include="assets\images\rating\star-off.png" />
     <Content Include="assets\images\rating\star-on.png" />
-    <Content Include="assets\images\slider\1.jpg" />
-    <Content Include="assets\images\slider\2.png" />
-    <Content Include="assets\images\slider\3.jpg" />
-    <Content Include="assets\images\slider\4.jpg" />
     <Content Include="assets\images\users\2.jpg" />
     <Content Include="assets\images\users\admin1.jpg" />
     <Content Include="assets\images\users\d1.jpg" />
@@ -5503,6 +5499,7 @@
     <Content Include="CustomCSS\Form\DetailForm\RadioButton.css" />
     <Content Include="CustomCSS\Form\EditForm\EditForm.css" />
     <Content Include="CustomCSS\Form\EditForm\RadioButton.css" />
+    <Content Include="CustomCSS\Form\ListForm.css" />
     <Content Include="CustomCSS\InvitationCard\DisplayStatisticChart.css" />
     <Content Include="CustomCSS\InvitationCard\display_Code.css" />
     <Content Include="CustomCSS\InvitationCard\InputReceiverInfo.css" />
@@ -5523,6 +5520,7 @@
     <Content Include="CustomCSS\preloader\css.css" />
     <Content Include="CustomCSS\InvitationCard\Search.css" />
     <Content Include="CustomCSS\preloader\Payment.css" />
+    <Content Include="CustomCSS\preloader\pre-load-logo.png" />
     <Content Include="CustomCSS\User\AddressInfo.css" />
     <Content Include="CustomCSS\User\AccountInfo.css" />
     <Content Include="CustomCSS\UserRegister\UserRegister.css" />
@@ -5997,23 +5995,17 @@
     <Content Include="dist\js\pages\sparkline\jquery.charts-sparkline.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="FormImage\1396336733-chung-minh-thu-8.jpg" />
-    <Content Include="FormImage\can-cuoc-cong-dan.jpg" />
-    <Content Include="FormImage\mau-giay-tiep-nhan-ho-so-va-hen-tra-ket-qua-cap-cap-lai-va-doi-the-bhyt-1.jpg" />
-    <Content Include="FormImage\Receipt of file_2.jpg" />
-    <Content Include="FormImage\Seal - Seal receipt.png" />
-    <Content Include="FormImage\so-tu-phap-5-1509416415817.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -6270,21 +6262,23 @@
     <Content Include="assets\materialize\README.md" />
     <Content Include="assets\uploader\icons.min.css.map" />
     <Content Include="assets\uploader\icons.min.css.map" />
-    <Content Include="Excel\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-cho-nhan.xlsx" />
-    <Content Include="Excel\Download\Ho-so-da-nhan.xlsx" />
-    <Content Include="Excel\Ho-so-da-nhan.xlsx" />
     <Content Include="assets\Custom css\Mobile\login-css\flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2" />
-    <EntityDeploy Include="Models\Model1.edmx">
+    <Content Include="assets\images\slider\1.webp" />
+    <Content Include="assets\images\slider\2.webp" />
+    <Content Include="assets\images\slider\3.webp" />
+    <Content Include="assets\images\slider\4.webp" />
+    <Content Include="assets\images\123.webp" />
+    <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="assets\fonts\fa-solid-900.woff" />
     <Content Include="assets\fonts\fa-solid-900.woff2" />
     <Content Include="assets\fonts\fa-solid-900.ttf" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6313,10 +6307,8 @@
     <Content Include="Views\InvitationCard\SearchStatus.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\ManagementUser.cshtml" />
-    <Content Include="Views\EditData.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Document\DocumentReceived.cshtml" />
-    <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Document\DocumentNotReceived.cshtml" />
     <Content Include="Views\Shared\_AdminMasterPage.cshtml" />
@@ -6333,7 +6325,6 @@
     <Content Include="Views\InvitationCard\InputInformationScreen21.cshtml" />
     <Content Include="Views\User\InvitationManage.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
-    <Content Include="Views\UserRegister\UserRegister.cshtml" />
     <Content Include="Views\MobileView\Login.cshtml" />
     <Content Include="Views\Shared\Mobile\_Layout.cshtml" />
     <Content Include="Views\MobileView\Home.cshtml" />
@@ -6351,6 +6342,8 @@
     <Content Include="Views\Form\AddFormView.cshtml" />
     <Content Include="Views\Form\EditFormView.cshtml" />
     <Content Include="Views\Form\ListFormView.cshtml" />
+    <Content Include="Views\MobileView\Users\AddressInfo.cshtml" />
+    <Content Include="Views\MobileView\Users\CreateAddressInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6385,8 +6378,8 @@
     <Folder Include="assets\libs\ckeditor\plugins\uicolor\icons\hidpi\" />
     <Folder Include="assets\libs\node-sass\bin\" />
     <Folder Include="CustomJS\Form\DetailForm\" />
+    <Folder Include="FormImage\" />
     <Folder Include="OrderImage\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

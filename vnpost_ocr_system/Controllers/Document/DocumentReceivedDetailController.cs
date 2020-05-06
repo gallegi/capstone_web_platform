@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
@@ -36,7 +35,7 @@ namespace vnpost_ocr_system.Controllers.Document
                         else if (x.StatusID == 3) x.display = "Đã xác nhận đến bưu cục - " + x.PosCode + " - " + x.PosName;
                         else x.display = x.StatusName;
 
-                        if (x.Note != null) x.display += " (" + x.Note + ")";
+                        if (!string.IsNullOrEmpty(x.Note)) x.display += " (" + x.Note + ")";
                         item.listOrder.Add(x);
                         item.dayOfWeek = x.CreatedTime.ToString("ddd");
                     }
@@ -93,7 +92,7 @@ namespace vnpost_ocr_system.Controllers.Document
             }
             else
             {
-                o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.ToString("dd/MM/yyyy");
+                o.NgayCap = o.ProcedurerPersonalPaperIssuedDate.HasValue ? o.ProcedurerPersonalPaperIssuedDate.Value.ToString("dd/MM/yyyy") : null;
                 o.displayAmount = formatAmount(o.Amount);
             }
 

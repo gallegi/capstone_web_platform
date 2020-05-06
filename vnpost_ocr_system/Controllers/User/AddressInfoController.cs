@@ -27,6 +27,10 @@ namespace vnpost_ocr_system.Controllers.User
             ViewBag.contactCount = listContactInfo.Count();
             ViewBag.listProvince = listProvince;
             ViewBag.listPaperType = listPaperType;
+            if (Request.Browser.IsMobileDevice)
+            {
+                return View("/Views/MobileView/Users/AddressInfo.cshtml");
+            }
             return View("/Views/User/AddressInfo.cshtml");
         }
 
@@ -43,7 +47,7 @@ namespace vnpost_ocr_system.Controllers.User
                     db.Database.ExecuteSqlCommand(query, new SqlParameter("code", Code));
                     transaction.Commit();
                     db.SaveChanges();
-                    return Json("",JsonRequestBehavior.AllowGet);
+                    return Json("", JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -67,7 +71,7 @@ namespace vnpost_ocr_system.Controllers.User
                 List<District> districts = db.Database.SqlQuery<District>("select * from District where PostalProvinceCode = @provinceID order by PostalDistrictName "
                 , new SqlParameter("provinceID", info.PostalProvinceCode)).ToList();
                 info.PersonalPaperIssuedDateString = info.PersonalPaperIssuedDate == null ? null : info.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy");
-                return Json(new { info = info, list = districts});
+                return Json(new { info = info, list = districts });
             }
             catch (Exception ex)
             {
@@ -95,7 +99,7 @@ namespace vnpost_ocr_system.Controllers.User
             {
                 try
                 {
-                    DateTime? formatDate = string.IsNullOrEmpty(date) ? (DateTime?) null : DateTime.ParseExact(date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime? formatDate = string.IsNullOrEmpty(date) ? (DateTime?)null : DateTime.ParseExact(date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     db.Database.ExecuteSqlCommand(query
                     , new SqlParameter("name", name)
                     , new SqlParameter("phone", phone)

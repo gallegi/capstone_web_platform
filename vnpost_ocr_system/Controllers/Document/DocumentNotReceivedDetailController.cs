@@ -1,17 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using vnpost_ocr_system.Controllers.Mobile;
 using vnpost_ocr_system.Models;
 using vnpost_ocr_system.SupportClass;
-using vnpost_ocr_system.Controllers.Mobile;
 
 namespace vnpost_ocr_system.Controllers.Document
 {
@@ -36,8 +34,8 @@ namespace vnpost_ocr_system.Controllers.Document
             order = db.Database.SqlQuery<NotReceivedDocumentDetail>(sql, new SqlParameter("id", id)).FirstOrDefault();
             ViewBag.Order = order;
             ViewBag.letterid = id;
-            ViewBag.imageUrl = id + "/" + order.ImageName; 
-            ViewBag.imageRUrl = order.ImageRealName; 
+            ViewBag.imageUrl = id + "/" + order.ImageName;
+            ViewBag.imageRUrl = order.ImageRealName;
             if (err == true)
             {
                 ViewBag.error = "err";
@@ -55,21 +53,38 @@ namespace vnpost_ocr_system.Controllers.Document
             string note = Request["note"];
             string id = Request["id"];
             string letterid = Request["letterid"];
+
+            using (VNPOST_AppointmentEntities _db = new VNPOST_AppointmentEntities())
+            {
+                //Check if exist pending order with that id
+                Order order = _db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -3).FirstOrDefault();
+
+                //Not exist => Status has been changed before
+                if (order == null)
+                {
+                    return Json(new { message = "Changed" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            //da huy
+
             if (status.Equals("0"))
             {
-                Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id)).FirstOrDefault();
-                order.StatusID = 0;
+                OrderStatusDetail osd = new OrderStatusDetail();
+                osd.OrderID = Convert.ToInt64(id);
+                osd.StatusID = Convert.ToInt32(status);
+                osd.Note = string.IsNullOrEmpty(note) ? "bởi giao dịch viên" : "bởi giao dịch viên - " + note;
+                osd.CreatedTime = DateTime.Now;
+                db.OrderStatusDetails.Add(osd);
                 db.SaveChanges();
-
                 //Send firebase message
-                MobileAppController.SendFCMMessage(order.OrderID, long.Parse(status));
+                MobileAppController.SendFCMMessage(osd.OrderID, long.Parse(status));
 
                 return Json(new { message = "Cancelled" }, JsonRequestBehavior.AllowGet);
             }
 
-            
+
             using (DbContextTransaction con = db.Database.BeginTransaction())
             {
                 try
@@ -90,6 +105,7 @@ namespace vnpost_ocr_system.Controllers.Document
                     Order o = db.Orders.Where(x => x.OrderID == conId).FirstOrDefault();
                     o.ItemCode = itemCode;
                     o.Amount = Convert.ToDouble(getAllInfo(itemCode)["TongCuocChuyenPhat"]);
+                    o.TotalAmountInWords = NumberToCurrencyWord.convert((int)o.Amount);
                     //processed
                     long usernameID = Convert.ToInt64((Session["useradminID"]).ToString());
                     o.ProcessedBy = usernameID;

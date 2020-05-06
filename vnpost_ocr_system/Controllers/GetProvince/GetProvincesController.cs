@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Web;
 using System.Web.Mvc;
 using vnpost_ocr_system.Models;
 
@@ -16,7 +14,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
         public ActionResult GetProvince()
         {
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
+                List<Province> list = db.Database.SqlQuery<Province>("select * from Province order by PostalProvinceName asc").ToList()
                 .Select(x => new Province
                 {
                     PostalProvinceCode = x.PostalProvinceCode,
@@ -101,7 +99,7 @@ namespace vnpost_ocr_system.Controllers.GetProvince
                                 d.PostalDistrictCode,
                                 pa.PublicAdministrationLocationID
                             }).FirstOrDefault();
-                return Json(new { success = data == null ? false : true, data = data});
+                return Json(new { success = data == null ? false : true, data = data });
             }
         }
     }
