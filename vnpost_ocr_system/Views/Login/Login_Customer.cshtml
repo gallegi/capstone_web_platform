@@ -7,15 +7,6 @@
 <style>
 </style>
 <link href="~/CustomCSS/Login/newlogin.css" rel="stylesheet" />
-@{
-    var username = "";
-    var password = "";
-    if (ViewBag.login != null)
-    {
-        username = ViewBag.login.username;
-        password = ViewBag.login.password;
-    }
-}
 <link href="~/dist/css/pages/authentication.css" rel="stylesheet">
 <div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
     <div class="container">
@@ -41,7 +32,7 @@
                         <!-- email -->
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="user" type="text" value="@username" required>
+                                <input id="user" type="text" value="" required>
                                 <label for="email">Email/Số điện thoại</label>
                             </div>
                         </div>
@@ -51,7 +42,7 @@
                         <!-- pwd -->
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="pass" value="@password" type="password" class="validate" required>
+                                <input id="pass" value="" type="password" class="validate" required>
                                 <label for="password">Mật khẩu</label>
                             </div>
                         </div>
@@ -78,7 +69,7 @@
 
                     </div>
                     <div class="center-align m-t-20 db">
-                        <a href="#" class="btn indigo darken-1 tooltipped m-r-5" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-facebook-f"></i></a> <a href="#" class="btn orange darken-4 tooltipped" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="btn indigo darken-1 tooltipped m-r-5" data-position="top" data-tooltip="Login with Facebook"><i class="fab fa-facebook-f"></i></a> <a href="#" class="btn orange darken-4 tooltipped" data-position="top" data-tooltip="Login with Google"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <div class="center-align m-t-20 db">
                         Chưa có tài khoản? <a href="#regModal" class="modal-trigger">Đăng ký!</a>

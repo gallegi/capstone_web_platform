@@ -18,36 +18,27 @@
                 </div>
 
                 <!-- Form -->
-                @{
-                    var username = "";
-                    var password = "";
-                    if (ViewBag.login != null)
-                    {
-                        username = ViewBag.login.username;
-                        password = ViewBag.login.password;
-                    }
-                }
                 @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { onsubmit = "return valid()" }))
                 {
                     <div class="row card-custom">
                         <!-- email -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="username" name="username" type="text" value="@username" class="my-input p-l-15" placeholder="Tài khoản">
+                                <input id="username" name="username" type="text" value="" class="my-input p-l-15" placeholder="Tài khoản" style="width:95%">
                             </div>
                         </div>
                         <!-- pwd -->
                         <div class="row">
                             <div class="input-field col s12 p-l-20 p-r-20">
-                                <input id="password" type="password" name="password" value="@password" class="my-input p-l-15" placeholder="Mật khẩu">
+                                <input id="password" type="password" name="password" value="" class="my-input p-l-15" placeholder="Mật khẩu" style="width:95%">
                             </div>
                         </div>
-                        <div class="row" style="margin-left:20px !important">
+                        @*<div class="row" style="margin-left:20px !important">
                             <label>
                                 <input type="checkbox" class="filled-in" name="checkbox" />
                                 <span>Ghi nhớ</span>
                             </label>
-                        </div>
+                        </div>*@
                         <div class="row">
                             <div class="col l10 offset-l2 m9 offset-m3 s12 fix-space">
                                 <span style="color:red" id="failed"></span>
