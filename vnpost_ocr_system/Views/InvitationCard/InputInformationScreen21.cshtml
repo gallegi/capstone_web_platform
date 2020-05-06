@@ -1304,10 +1304,21 @@
                 success: function (response) {
                     if (response.success) {
                         if (response.add) {
-                            console.log(response)
-                            $('.contact1:last').after(response.html[0]);
-                            $('.contact2:last').after(response.html[1]);
-                            $('.contact3:last').after(response.html[2]);
+                            if ($('.contact1').length == 0) {
+                                console.log(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend(response.html[0])
+                                $('[id^=myform-p-2] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-3] .row').prepend(response.html[1])
+                                $('[id^=myform-p-3] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+
+                                $('[id^=myform-p-4] .row').prepend(response.html[2])
+                                $('[id^=myform-p-4] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                            } else {
+                                $('.contact1:last').after(response.html[0]);
+                                $('.contact2:last').after(response.html[1]);
+                                $('.contact3:last').after(response.html[2]);
+                            }
                         }
                         else {
                             $(contact).find('.FullName').text($('#name_edit').val())

@@ -54,7 +54,7 @@ namespace vnpost_ocr_system.Controllers.Document
             string id = Request["id"];
             string letterid = Request["letterid"];
             VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-            Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -2).FirstOrDefault();
+            Order order = db.Orders.Where(x => x.OrderID.ToString().Equals(id) && x.StatusID == -3).FirstOrDefault();
 
             //Order not pending anymore
             if (order == null)
