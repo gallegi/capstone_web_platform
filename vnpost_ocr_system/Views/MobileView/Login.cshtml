@@ -96,7 +96,7 @@
                     <!-- email -->
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="user" type="text" value="0762349419" required="">
+                            <input id="user" type="text" value="" required="">
                             <label for="email" class="active"><i class="material-icons dp48">email</i> Email/Số điện thoại</label>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                     <!-- pwd -->
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="pass" value="123456" type="password" class="validate" required="">
+                            <input id="pass" value="" type="password" class="validate" required="">
                             <label for="password" class="active"><i class="material-icons dp48">lock</i> Mật khẩu</label>
                         </div>
                     </div>
@@ -322,7 +322,7 @@
                 <button class='login-btn col s12 btn waves-effect waves-light btn-small m-md yellow darken-4' onclick="ResetPassword()">Gửi mã xác nhận</button>
             </div>
             <hr />
-            @*<div class="card">
+            <div class="card">
                     <div class="card-content">
                         <div class="row">
                             <div class="col l8">
@@ -337,9 +337,13 @@
                             </div>
                         </div>
                     </div>
-                </div>*@
+                </div>
         </div>
     </div>
+<input type="text" id="tem2" value="@ViewBag.invalidcode1" hidden />
+<input type="text" id="tem" value="@ViewBag.invalidcode" hidden />
+<input type="text" id="tem1" value="@ViewBag.messe" hidden />
+<input type="text" id="userid" hidden />
     @*<div id="regModal" class="modal">
             <div class="modal-content">
                 <div id="reg-container">
