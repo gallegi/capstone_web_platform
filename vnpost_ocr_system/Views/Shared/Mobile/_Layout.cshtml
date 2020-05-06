@@ -140,8 +140,7 @@
                                     <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
                                     <div class="u-text">
                                         <h5>@Session["userName"]</h5>
-                                        <p id="email-display">steve@gmail.com</p>
-                                        <a id="account-settings-button" href="/tai-khoan/thong-tin-tai-khoan" class="waves-effect waves-light btn btn-small red white-text">Cài đặt tài khoản</a>
+                                        <a id="account-settings-button" href="/tai-khoan/thong-tin-tai-khoan" class="waves-effect waves-light btn btn-small red white-text">Thông tin tài khoản</a>
                                     </div>
                                 </li>
                             }
@@ -176,16 +175,10 @@
 
                             }
                         }
-                        <li class="small-cap"><span class="hide-menu">CÀI ĐẶT</span></li>
-                        <li>
-                            <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">settings</i><span class="hide-menu">Cài đặt chung</span></a>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="collapsible-header"><i class="material-icons">languages</i><span class="hide-menu">Ngôn ngữ</span></a>
-                        </li>
                         @{
                             if (Session["userID"] != null)
                             {
+                            <li class="small-cap"><span class="hide-menu">CÀI ĐẶT</span></li>
                                 <li>
                                     <a href="/Logout" class="collapsible-header"><i class="material-icons">exit_to_app</i><span class="hide-menu">Đăng xuất</span></a>
                                 </li>

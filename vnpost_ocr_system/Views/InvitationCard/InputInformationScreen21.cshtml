@@ -1396,23 +1396,23 @@
     $(document).ready(function () {
         //Validation on change
         $('[id^=item]').change(function () {
-            if ($('#item1').val() == null) {
+            if ($(this).id == 'item1' && $('#item1').val() == null) {
                 $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
             } else {
                 $('p[name="item1"]').text('');
                 console.log('Change 1')
             }
-            if ($('#item2').val() == null) {
+            if ($(this).id == 'item2' && $('#item2').val() == null) {
                 $('p[name="item2"]').text('Vui lòng chọn Quận/huyện')
             } else {
                 $('p[name="item2"]').text('');
             }
-            if ($('#item3').val() == null) {
+            if ($(this).id == 'item3' && $('#item3').val() == null) {
                 $('p[name="item3"]').text('Vui lòng chọn Tên cơ quan hành chính')
             } else {
                 $('p[name="item3"]').text('');
             }
-            if ($('#item4').val() == null) {
+            if ($(this).id == 'item4' && $('#item4').val() == null) {
                 $('p[name="item4"]').text('Vui lòng chọn Tên thủ tục');
             } else {
                 $('p[name="item4"]').text('');

@@ -263,7 +263,7 @@
         $.ajax({
             url: "/AccountInfo/Info",
             type: "POST",
-            contentType: "application/json;charset=utf-8",
+            contentType: "application/json;charset=utf-8",  
             success: function (result) {
                 document.getElementById('name').value = result.FullName;
                 document.getElementById('phone').value = result.Phone;
