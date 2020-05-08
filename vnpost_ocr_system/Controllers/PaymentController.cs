@@ -127,14 +127,14 @@ namespace vnpost_ocr_system.Controllers
                         catch (Exception e)
                         {
                             transaction.Rollback();
-                            return Json(new { success = false, message = "Có lỗi xảy ra" });
+                            return Json(new { success = false, message = "Có lỗi xảy ra", debug = e.StackTrace});
                         }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return Json(new { success = false, message = "Có lỗi xảy ra" });
+                return Json(new { success = false, message = "Có lỗi xảy ra", debug = e.StackTrace});
             }
         }
     }
