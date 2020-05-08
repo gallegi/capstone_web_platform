@@ -16,7 +16,7 @@ build_and_deploy_dev:
   stage: BuildAndDeploy
   script:
     - '& "$env:NUGET_PATH" restore'
-    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:DeployOnBuild=true /p:Configuration=Release /P:PublishProfile=FolderProfile_dev.pubxml /clp:ErrorsOnly'
+    - '& "$env:MSBUILD_PATH" vnpost_ocr_system\vnpost_ocr_system.csproj /p:DeployOnBuild=true /p:Configuration=Develop /P:PublishProfile=FolderProfile_dev.pubxml /clp:ErrorsOnly'
   only:
     - develop
 #   artifacts:
