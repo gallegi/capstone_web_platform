@@ -392,9 +392,10 @@ namespace vnpost_ocr_system.Controllers.Form
                     Postman pm = new Postman();
                     string url = "https://ocr.vnpost.tech/retrain";
                     string json_text = ConvertEntJson(full_form);
+                    Debug.WriteLine("req: \n" + json_text + ", type: " + GetStaticType(json_text));
+
                     pm.SendRequest(url, json_text);
 
-                    Debug.WriteLine("req: \n" + json_text);
                 }
                 catch (Exception e)
                 {
