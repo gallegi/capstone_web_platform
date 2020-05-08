@@ -435,15 +435,12 @@
     }
 
     function ProChan() {
-        if (document.getElementById('role_add').value == 4) {  $('#province_add').removeAttr('disabled'); }
-        else {
-            if (document.getElementById('role_add').value == 2) {
-                document.getElementById('province_add').value = 0;
-                $('#province_add').attr('disabled', 'true');
-            } else {
-                document.getElementById('province_add').value = 1;
-                $('#province_add').removeAttr('disabled');
-            }
+        if (document.getElementById('role_add').value != 2) {
+            document.getElementById('province_add').value = 1;
+            $('#province_add').removeAttr('disabled');
+        } else {
+            document.getElementById('province_add').value = 0;
+            $('#province_add').attr('disabled', 'true');
         }
         GenUsername();
     }
