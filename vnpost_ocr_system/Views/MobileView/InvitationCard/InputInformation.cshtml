@@ -1519,7 +1519,7 @@
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
             var data = new FormData();
-            data.append("img", dataURItoBlob(ImageData));
+            data.append("img", dataURItoBlob($('#blah').attr("src")));
             data.append("imgName", imageName);
             data.append("ProfileID", $('#item4').val().trim());
             data.append("AppointmentLetterCode", $('#item5').val().trim());
