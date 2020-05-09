@@ -505,27 +505,17 @@ namespace vnpost_ocr_system.Controllers.Form
                     ft.ReceiverStreetNERIndex = IntegerExtensions.ParseNullableInt(Request["receiver_street_ner_index"].Trim());
                     ft.ReceiverStreetRegex = FormatData(Request["receiver_street_regex"]);
 
-                    Debug.WriteLine("First");
                     // 4. Time                    
                     ft.LastModifiedTime = DateTime.Now;
                     db.SaveChanges();
-                    Debug.WriteLine("Second");
-
+                    transaction.Commit();
 
                     // 5. Send train request to AI Server
-                    FullFormRequest full_form = new FullFormRequest(ft, "update");
-
                     Postman pm = new Postman();
                     string url = "https://ocr.vnpost.tech/retrain";
-
-                    Debug.WriteLine("Third");
-
-                    string json_text = ConvertEntJson<FullFormRequest>(full_form);
-                    Debug.WriteLine("req: \n" + json_text);
-                    Debug.WriteLine("Fourth");
-
-                    string response = pm.SendRequest(url, json_text);
-                    Debug.WriteLine("response: \n" + response);
+                    pm.SendRequest(url, "{\"action\":\"update\"}");
+                    
+                    return Json(new { status_code = "200", status = "Success", form_id = l_form_id }, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception e)
@@ -540,10 +530,8 @@ namespace vnpost_ocr_system.Controllers.Form
                     return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi thêm biểu mẫu. Vui lòng thử lại sau ít phút" },
                         JsonRequestBehavior.AllowGet);
                 }
-                Debug.WriteLine("Finally");
 
-                transaction.Commit();
-                return Json(new { status_code = "200", status = "Success", form_id = l_form_id }, JsonRequestBehavior.AllowGet);
+                
             }
         }
     }
