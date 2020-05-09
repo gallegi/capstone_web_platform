@@ -1354,9 +1354,12 @@
         for (i = 0; i < profile_opts.length; i++) {
             var opts = profile_opts[i];
             var parse_type = opts[3];
-            if (parse_type == null || parse_type == "") {
+            console.log("Parse type: " + parse_type + ", type: " + typeof (parse_type));
+            if (parse_type == null || parse_type === "") {
+                console.log("increment");
                 scope_level++;
             }
+            console.log("Scope level: " + scope_level);
         }
         return scope_level;
     }

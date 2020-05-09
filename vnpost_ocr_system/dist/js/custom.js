@@ -1,4 +1,4 @@
-// jQuery
+﻿// jQuery
 
 $(function() {
 
@@ -233,6 +233,7 @@ $(function() {
         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
 
+
     $('.dynamic-color .col').each(function() {
         $(this).children().each(function() {
             var color = $(this).css('background-color'),
@@ -290,3 +291,4 @@ $(function() {
         $('.show-left-part').toggleClass('ti-menu');
     });
 });
+

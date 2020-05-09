@@ -1811,7 +1811,7 @@
         for (i = 0; i < profile_opts.length; i++) {
             var opts = profile_opts[i];
             var parse_type = opts[3];
-            if (parse_type == null || parse_type == "") {
+            if (parse_type == null || parse_type === "") {
                 scope_level++;
             }
         }

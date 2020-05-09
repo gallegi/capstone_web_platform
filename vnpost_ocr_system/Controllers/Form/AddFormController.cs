@@ -383,19 +383,16 @@ namespace vnpost_ocr_system.Controllers.Form
 
                     db.FormTemplates.Add(ft);
                     db.SaveChanges();
-
                     form_id = ft.FormID;
+                    transaction.Commit();
 
                     // 6. Send train request to AI Server
-                    FullFormRequest full_form = new FullFormRequest(ft, "add");
-
                     Postman pm = new Postman();
                     string url = "https://ocr.vnpost.tech/retrain";
-                    string json_text = ConvertEntJson(full_form);
-                    Debug.WriteLine("req: \n" + json_text + ", type: " + GetStaticType(json_text));
 
-                    pm.SendRequest(url, json_text);
+                    pm.SendRequest(url, "{\"action\":\"add\"}");
 
+                    return Json(new { status_code = "200", status = "Success", form_id = form_id }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
@@ -410,8 +407,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         JsonRequestBehavior.AllowGet);
                 }
 
-                transaction.Commit();
-                return Json(new { status_code = "200", status = "Success", form_id = form_id }, JsonRequestBehavior.AllowGet);
+                
             }
         }
 

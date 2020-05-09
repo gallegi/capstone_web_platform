@@ -190,22 +190,22 @@ namespace vnpost_ocr_system.Controllers.Form
                     string query = "delete from FormTemplate where FormID = @form_id";
                     db.Database.ExecuteSqlCommand(query, new SqlParameter("form_id", LongExtensions.ParseNullableLong(form_id)));
                     db.SaveChanges();
+                    transaction.Commit();
 
                     // 3. Send train request to AI Server
-                    FullFormRequest full_form = new FullFormRequest(ft, "delete");
-
                     Postman pm = new Postman();
-                    string url = "http://103.104.117.175/retrain";
-                    string json_text = ConvertEntJson(full_form);
-                    pm.SendRequest(url, json_text);
+                    string url = "https://ocr.vnpost.tech/retrain";
+
+                    pm.SendRequest(url, "{\"action\":\"delete\"}");
+                    return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
+
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                     return Json(new { status_code = "400", status = "Fail", message = "Có lỗi xảy ra khi xóa biểu mẫu" }, JsonRequestBehavior.AllowGet);
                 }
-                transaction.Commit();
-                return Json(new { status_code = "200", status = "Success", message = "Xoá biểu mẫu thành công" }, JsonRequestBehavior.AllowGet);
+                
             }
         }
 
