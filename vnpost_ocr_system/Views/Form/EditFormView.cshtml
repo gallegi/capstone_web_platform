@@ -25,6 +25,10 @@
 
 <style>
     /*style for image upload section*/
+    .dropzone{
+        border: 2px dashed #0087F7;
+        border-radius: 5px;
+    }
     .dropzone .dz-preview .dz-image {
         margin: auto;
     }
@@ -781,7 +785,7 @@
 
             });
             this.on("thumbnail", function (file, dataUrl) {
-                $('.dz-image').last().find('img').attr({ width: '50%', height: '50%', padding: 'auto'});
+                $('.dz-image').last().find('img').attr({ width: '70%', height: '70%', style: 'margin:0px auto'});
             }),
             this.on("success", function (file) {
                 $('.dz-image').css({ "width": "100%", "height": "auto" });
@@ -828,7 +832,8 @@
                     set_image(ft.FormImageLink);
 
                     // set json
-                    set_json(ft.APIOutput);
+                    myFormData.set("ori_api_output", ft.APIOutput);
+                    set_json();
 
                     // set recognition options
                     set_reg_options(ft);
@@ -863,8 +868,9 @@
     // ------------------------------------------------
 
     // Set json
-    function set_json(api_output) {
+    function set_json() {
         // parse string json
+        var api_output = myFormData.get("ori_api_output");
         var api_output_json = jQuery.parseJSON(api_output);
         myFormData.set("api_output", api_output_json);
         myFormData.set("api_output_txt", JSON.stringify(api_output_json));
@@ -1416,7 +1422,7 @@
         // find by regex
         var input_id = "#" + event.target.id;
         var user_regex = $(input_id).val();
-        if (user_regex !== null && user_regex !== '') {
+        if (user_regex !== null && user_regex !== "") {
             var input_regex = new RegExp(user_regex, 'gmi');
             var raw_text = myFormData.get("letter_formated_content");
 
@@ -1454,9 +1460,9 @@
     // Supported functions for Dropzone buttons
     function addJsonToFrame(json_data) {
         var raw_text = json_data.raw_text;
-        if (raw_text == null || raw_text == '') {
+        if (raw_text == null || raw_text === "") {
             // user click btn to parse but OCR result is empty
-            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu');
+            errorAlert('Lỗi', 'Vui lòng chọn Ảnh biểu mẫu khác');
             return false;
 
         } else {
@@ -1470,8 +1476,6 @@
             // remove empty line from string
             var text = json_data.raw_text;
             myFormData.append("letter_formated_content", text)
-            myFormData.set("api_output", api_output_json);
-            myFormData.set("api_output_txt", JSON.stringify(api_output_json));
 
             // add value to json frame + FormData
             text = text.replace(/[\r\n]+/gm, '<br/>');
@@ -1567,6 +1571,9 @@
 
         // Reset sentAPI to re-send json
         sentAPI = false;
+
+        // Reset api output
+        set_json();
         $(".dz-preview").remove();
         $(".dropzone.dz-started .dz-message").show();
     }
@@ -1587,7 +1594,7 @@
     function validate_form_name() {
         // check form-name
         var form_name = $("#form_name").val();
-        if (form_name == null || form_name == '') {
+        if (form_name == null || form_name  === "") {
             raise_error('Vui lòng nhập Tên biểu mẫu');
             return false;
         }
@@ -1613,7 +1620,7 @@
     function validate_json() {
         // check json
         var json_data = myFormData.get("api_output").raw_text;
-        if (json_data === null || json_data == '') {
+        if (json_data === null || json_data  === "") {
             raise_error('Rất tiếc ảnh này của bạn không thể nhận dạng, vui lòng chọn ảnh khác');
             return false;
         }
@@ -1674,6 +1681,27 @@
             }
         }
 
+        // 2. Not allow: Fixed value of the following level is chosen but the previous one is not checked
+        var field_names = ["Tỉnh/Thành phố", "Quận/Huyện", "Tên CQHC", "Tên TTHC"];
+        var rad_names = ["rad_city_0", "rad_district_0", "rad_admin_office_0", "rad_profile_0"];
+
+        for (i = rad_names.length - 1;  i > 0;i--) {
+            var low_level_rad = rad_names[i];
+            var high_level_rad = rad_names[i - 1];
+
+            if (document.getElementById(low_level_rad) != null && document.getElementById(high_level_rad) != null ) {
+                low_level_rad = 'input#' + low_level_rad;
+                high_level_rad = 'input#' + high_level_rad;
+                if ($(low_level_rad).is(':checked') == true && 
+                    $(high_level_rad).is(':checked') == false) {
+                    // low level rad is chosen but the higher level is not
+                    var error_msg = "Lỗi ở Thông tin thủ tục.\r\nBạn cần chọn fixed-value ở " + field_names[i - 1] + " thì mới có thể chọn fixed-value ở " + field_names[i];
+                    raise_error(error_msg);
+                    return false;
+                }
+            }
+
+        }
         $('#pre-load').hide();
 
         return true;
