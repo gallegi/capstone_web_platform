@@ -194,7 +194,7 @@
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
                                     <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
-                                        Tạo thông tin mới
+                                        Nhập thông tin mới
                                     </a>
                                 </p>
                             }
@@ -204,7 +204,7 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact1 info-list-div col s12">
-                                        <div class="col s8 m8 l8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
@@ -253,7 +253,7 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact2 info-list-div col s12">
-                                        <div class="col l8 m8 s8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
@@ -298,7 +298,7 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact3 info-list-div col s12">
-                                        <div class="col l8 s8 m8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
@@ -1239,12 +1239,36 @@
         contact = 'section [class^=contact]:nth-child(' + ($(this).index() + 1) + ')';
     })
 
+    function removeAccents(str) {
+        var AccentsMap = [
+            "aàảãáạăằẳẵắặâầẩẫấậ",
+            "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",
+            "dđ", "DĐ",
+            "eèẻẽéẹêềểễếệ",
+            "EÈẺẼÉẸÊỀỂỄẾỆ",
+            "iìỉĩíị",
+            "IÌỈĨÍỊ",
+            "oòỏõóọôồổỗốộơờởỡớợ",
+            "OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ",
+            "uùủũúụưừửữứự",
+            "UÙỦŨÚỤƯỪỬỮỨỰ",
+            "yỳỷỹýỵ",
+            "YỲỶỸÝỴ"
+        ];
+        for (var i = 0; i < AccentsMap.length; i++) {
+            var re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+            var char = AccentsMap[i][0];
+            str = str.replace(re, char);
+        }
+        return str;
+    }
+
     $(document).on("click", "#save_contact_info", function () {
         var check = true;
         if ($('#name_edit').val().trim() == "") {
             $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
             check = false;
-        } else if (/^[a-zA-Z\s]+$/.test($('#name_edit').val().trim()) == false) {
+        } else if (/^[a-zA-Z\s]+$/.test(removeAccents(('#name_edit').val().trim())) == false) {
             $('p[name="name_edit"]').text("Họ tên không chứa kí tự đặc biệt và số");
             check = false;
         } else {
@@ -1316,15 +1340,17 @@
                     if (response.success) {
                         if (response.add) {
                             if ($('.contact1').length == 0) {
-                                console.log(response.html[0])
-                                $('[id^=myform-p-2] .row').prepend(response.html[0])
-                                $('[id^=myform-p-2] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
-
-                                $('[id^=myform-p-3] .row').prepend(response.html[1])
-                                $('[id^=myform-p-3] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
-
-                                $('[id^=myform-p-4] .row').prepend(response.html[2])
-                                $('[id^=myform-p-4] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                                $('#myform-p-2 .row').children().eq(0)[0].innerHTML = $('#myform-p-2 .row').children().eq(0)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-2 .row').prepend(response.html[0])
+                                $('#myform-p-2 .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                                
+                                $('#myform-p-3 .row').children().eq(0)[0].innerHTML = $('#myform-p-3 .row').children().eq(0)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-3 .row').prepend(response.html[1])
+                                $('#myform-p-3 .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                               
+                                $('#myform-p-4 .row').children().eq(0)[0].innerHTML = $('#myform-p-4 .row').children().eq(0)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-4 .row').prepend(response.html[2])
+                                $('#myform-p-4 .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
                             } else {
                                 $('.contact1:last').after(response.html[0]);
                                 $('.contact2:last').after(response.html[1]);
@@ -1522,7 +1548,7 @@
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
                                             //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            //$("#item5").next().addClass('active')
+                                            $("#item5").next().addClass('active')
                                             //$("#item5").blur()
                                             getDistrict(OCRResult);
                                         },

@@ -131,7 +131,7 @@
                                 <p class="col s12 big-heading m-b-15">
                                     Bạn chưa có thông tin
                                     <a class="modal-trigger light-blue-text hover-underline add" href="#myform1" data-type="1">
-                                        Tạo thông tin mới
+                                        Nhập thông tin mới
                                     </a>
                                 </p>
                             }
@@ -140,7 +140,7 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="contact1 info-list-div step2-items step2-items-@item.ContactInfoID col s12">
+                                    <div class="contact1 info-list-div col s12">
                                         <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
@@ -152,10 +152,10 @@
                                         </div>                                      
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType1" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType1" data-contactinfoid="@item.ContactInfoID" style='display: block !important'>Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col l2 s12 p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="1" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" style='display: block !important' data-type="1" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -190,18 +190,18 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="contact2 info-list-div step3-items step3-items-@item.ContactInfoID col s12">
-                                        <div class="col l8 m8 s8">
+                                    <div class="contact2 info-list-div col s12">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType2" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType2" data-contactinfoid="@item.ContactInfoID" style='display: block !important'>Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col l2 s12 p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="2" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" style='display: block !important' data-type="2" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -236,8 +236,8 @@
                                 <p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
-                                    <div class="contact3 info-list-div step4-items step4-items-@item.ContactInfoID col s12">
-                                        <div class="col l8 s8 m8">
+                                    <div class="contact3 info-list-div col s12">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
@@ -245,10 +245,10 @@
 
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
-                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID">Sử dụng thông tin này</a>
+                                                <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID" style='display: block !important'>Sử dụng thông tin này</a>
                                             </div>
                                             <div class="col l2 s12 p-t-10">
-                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" data-type="3" href="#myform1">Chỉnh sửa</a>
+                                                <a class="modal-trigger btn waves-effect waves-light bt-color-common edit" data-contactinfoid="@item.ContactInfoID" style='display: block !important' data-type="3" href="#myform1">Chỉnh sửa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -692,7 +692,7 @@
             <div id="showmore">
                 <div class="input-field col s12 l12 m12">
                     <div class="select-wrapper row">
-                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân:</div>
+                        <div class="col l3 m3 p-t-10 s12 ">Loại giấy tờ tùy thân <i class="fa fa-asterisk" style="font-size:10px;color:red"></i> :</div>
                         <div class="col l9 m9 s12">
                             <select tabindex="-1" id="paper_type_edit" class="card-border">
                                 @foreach (vnpost_ocr_system.Models.PersonalPaperType item in ViewBag.papertypes)
@@ -1175,7 +1175,10 @@
             $('p[name="name_edit"]').text("")
         }
         var patt1 = new RegExp("^0[35789]\\d{8}$");
-        if (!patt1.test($('#phone_edit').val().trim())) {
+        if ($('#phone_edit').val().trim().length == 0) {
+            $('p[name="phone_edit"]').text("Vui lòng nhập Số điện thoại")
+            check = false;
+        } else if (!patt1.test($('#phone_edit').val().trim())) {
             $('p[name="phone_edit"]').text("Số điện thoại không hợp lệ")
             check = false;
         }
@@ -1196,6 +1199,15 @@
         else {
             $('p[name="street_edit"]').text("")
         }
+
+        if (type == 1 && $('#paper_type_edit').val() == null) {
+            $('p[name="paper_type_edit"]').text("Vui lòng chọn Loại giấy tờ tùy thân")
+            check = false;
+        }
+        else {
+            $('p[name="paper_type_edit"]').text("")
+        }
+        
         if (type == 1 && $('#paper_number_edit').val().trim() == "") {
             $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
             check = false;
@@ -1228,15 +1240,17 @@
                     if (response.success) {
                         if (response.add) {
                             if ($('.contact1').length == 0) {
-                                console.log(response.html[0])
-                                $('[id^=myform-p-2] .row').prepend(response.html[0])
-                                $('[id^=myform-p-2] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
-
-                                $('[id^=myform-p-3] .row').prepend(response.html[1])
-                                $('[id^=myform-p-3] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
-
-                                $('[id^=myform-p-4] .row').prepend(response.html[2])
-                                $('[id^=myform-p-4] .row').prepend('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                                $('#myform-p-2 .row').children().eq(1)[0].innerHTML = $('#myform-p-2 .row').children().eq(1)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-2 .row').children(':first').after(response.html[0])
+                                $('#myform-p-2 .row').children(':first').after('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                                
+                                $('#myform-p-3 .row').children().eq(1)[0].innerHTML = $('#myform-p-3 .row').children().eq(1)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-3 .row').children(':first').after(response.html[1])
+                                $('#myform-p-3 .row').children(':first').after('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
+                                
+                                $('#myform-p-4 .row').children().eq(1)[0].innerHTML = $('#myform-p-4 .row').children().eq(1)[0].innerHTML.replace('Bạn chưa có thông tin', 'Bạn muốn sử dụng thông tin khác?')                          
+                                $('#myform-p-4 .row').children(':first').after(response.html[2])
+                                $('#myform-p-4 .row').children(':first').after('<p class="col s12 big-heading m-b-15">Chọn thông tin có sẵn bên dưới:</p>')
                             } else {
                                 $('.contact1:last').after(response.html[0]);
                                 $('.contact2:last').after(response.html[1]);
@@ -1285,8 +1299,8 @@
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('.PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('.PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('.PersonalPaperIssuedPlace').text());
-        $(".step2-items").css('background-color', 'white');
-        $(".step2-items-" + $(this).attr('data-contactinfoid')).css('background-color', '#e1ffe5');
+        $(".contact1").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5');
         validate1 = true;
     })
 
@@ -1297,8 +1311,8 @@
         $('#SenderStreet').text(Adminprofile.find('.Street').text())
         $('#SenderAddress').text(Adminprofile.find('.Address').text())
         $('#SenderPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
-        $(".step3-items").css('background-color', 'white');
-        $(".step3-items-" + $(this).attr('data-contactinfoid')).css('background-color', '#e1ffe5');
+        $(".contact2").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5');
         validate2 = true;
 
     })
@@ -1311,8 +1325,8 @@
         $('#ReceiverPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('.Address').text())
         var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
-        $(".step4-items").css('background-color', 'white');
-        $(".step4-items-" + $(this).attr('data-contactinfoid')).css('background-color', '#e1ffe5');
+        $(".contact3").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5');
         validate3 = true;
     })
 </script>
@@ -1344,10 +1358,11 @@
                 $('p[name="item4"]').text('');
             }
         });
-        $('#item5').focusout(function () {
+
+        function CheckAppoimentLetterCode() {
             if ($(this).val() == "" || $(this).val().trim() == "") {
                 $('p[name="item5"]').text('Vui lòng nhập Mã giấy hẹn')
-                return;
+                return false;
             }
             else {
                 $('#pre-load').show()
@@ -1372,6 +1387,10 @@
                     }
                 })
             }
+        }
+
+        $('#item5').focusout(function () {
+            CheckAppoimentLetterCode();
         })
     })
 
@@ -1432,7 +1451,7 @@
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
                                             //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            //$("#item5").next().addClass('active')
+                                            $("#item5").next().addClass('active')
                                             //$("#item5").blur()
                                             getDistrict(OCRResult);
                                         },
@@ -1459,7 +1478,7 @@
             else if (currentIndex === 1 && newIndex > currentIndex) {
                 var pass = true;
                 if ($('#item1').val() == null) {
-                    $('p[name="item1"]').text('Vui lòng chọn Thành phố');
+                    $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
                     pass = false;
                 }
                 if ($('#item2').val() == null) {
