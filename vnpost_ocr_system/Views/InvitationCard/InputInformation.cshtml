@@ -1268,7 +1268,7 @@
         if ($('#name_edit').val().trim() == "") {
             $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
             check = false;
-        } else if (/^[a-zA-Z\s]+$/.test(removeAccents(('#name_edit').val().trim())) == false) {
+        } else if (/^[a-zA-Z\s]+$/.test(removeAccents($('#name_edit').val().trim())) == false) {
             $('p[name="name_edit"]').text("Họ tên không chứa kí tự đặc biệt và số");
             check = false;
         } else {
