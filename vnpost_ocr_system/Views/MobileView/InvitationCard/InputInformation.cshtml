@@ -1164,14 +1164,39 @@
         contact = 'section [class^=contact]:nth-child(' + ($(this).index() + 1) + ')';
     })
 
+    function removeAccents(str) {
+        var AccentsMap = [
+            "aàảãáạăằẳẵắặâầẩẫấậ",
+            "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",
+            "dđ", "DĐ",
+            "eèẻẽéẹêềểễếệ",
+            "EÈẺẼÉẸÊỀỂỄẾỆ",
+            "iìỉĩíị",
+            "IÌỈĨÍỊ",
+            "oòỏõóọôồổỗốộơờởỡớợ",
+            "OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ",
+            "uùủũúụưừửữứự",
+            "UÙỦŨÚỤƯỪỬỮỨỰ",
+            "yỳỷỹýỵ",
+            "YỲỶỸÝỴ"
+        ];
+        for (var i = 0; i < AccentsMap.length; i++) {
+            var re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+            var char = AccentsMap[i][0];
+            str = str.replace(re, char);
+        }
+        return str;
+    }
 
     $(document).on("click", "#save_contact_info", function () {
         var check = true;
         if ($('#name_edit').val().trim() == "") {
             $('p[name="name_edit"]').text("Vui lòng nhập Họ và tên")
             check = false;
-        }
-        else {
+        } else if (/^[a-zA-Z\s]+$/.test(removeAccents(('#name_edit').val().trim())) == false) {
+            $('p[name="name_edit"]').text("Họ tên không chứa kí tự đặc biệt và số");
+            check = false;
+        } else {
             $('p[name="name_edit"]').text("")
         }
         var patt1 = new RegExp("^0[35789]\\d{8}$");
@@ -1207,7 +1232,7 @@
         else {
             $('p[name="paper_type_edit"]').text("")
         }
-        
+
         if (type == 1 && $('#paper_number_edit').val().trim() == "") {
             $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
             check = false;
