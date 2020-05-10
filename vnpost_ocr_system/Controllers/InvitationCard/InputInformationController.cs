@@ -200,7 +200,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
             var match = Regex.Match(text, pattern);
             if (match.Success)
-                return match.Groups[1].Value.Trim();
+                return match.Groups[0].Value.Trim();
             else
                 return null;
         }
