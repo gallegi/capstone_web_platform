@@ -1175,7 +1175,10 @@
             $('p[name="name_edit"]').text("")
         }
         var patt1 = new RegExp("^0[35789]\\d{8}$");
-        if (!patt1.test($('#phone_edit').val().trim())) {
+        if ($('#phone_edit').val().trim().length == 0) {
+            $('p[name="phone_edit"]').text("Vui lòng nhập Số điện thoại")
+            check = false;
+        } else if (!patt1.test($('#phone_edit').val().trim())) {
             $('p[name="phone_edit"]').text("Số điện thoại không hợp lệ")
             check = false;
         }
@@ -1196,6 +1199,15 @@
         else {
             $('p[name="street_edit"]').text("")
         }
+
+        if (type == 1 && $('#paper_type_edit').val() == null) {
+            $('p[name="paper_type_edit"]').text("Vui lòng chọn Loại giấy tờ tùy thân")
+            check = false;
+        }
+        else {
+            $('p[name="paper_type_edit"]').text("")
+        }
+        
         if (type == 1 && $('#paper_number_edit').val().trim() == "") {
             $('p[name="paper_number_edit"]').text("Vui lòng nhập Số giấy tờ tùy thân")
             check = false;
