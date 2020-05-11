@@ -69,11 +69,14 @@
                                     <i class="small material-icons dp48">cloud_upload</i> Chọn ảnh
                                 </div>
                                 <div class="col s1 m1 l1"></div>
-                                <div id="img-capture" class="image-input center col s5 m5 l5">
+                                <div id="img-capture" class="image-input center col s5 m5 l5 hide_in_app">
+                                    <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
+                                </div>
+                                <div id="img-capture-for-app" class="image-input center col s5 m5 l5 show_in_app" style="display:none!important">
                                     <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
                                 </div>
                                 <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
-                                <input type="file" accept="image/*" onchange="readURL(this);" id="img-capture-file" capture="camera" hidden>
+                                <input type="file" accept="image/*;capture=camera" onchange="readURL(this);" id="img-capture-file" hidden>
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
                                 </div>
@@ -1447,6 +1450,40 @@ Dropzone.options.myAwesomeDropzone = {
             data.append("imgName", input.files[0].name)
         }
     }
+
+    function dataURLtoFile(dataURI) {
+        var blobBin = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var file = new Blob([new Uint8Array(array)], { type: mimeString });
+        file.name = "anh_giay_hen"
+
+        //$("#img-capture-file").file
+
+        $("#img-display").show();
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah')
+                .attr('src', e.target.result)
+                .width('100%')
+                .height('100%');
+            var base64String = e.target.result;
+            var image = new Image();
+            image.src = base64String;
+            $('#img').empty();
+            $('#img').append(image);
+            $('#img').children().width("100%")
+        };
+        reader.readAsDataURL(file);
+        data.delete("img")
+        data.delete("imgName")
+        data.append("img", file);
+        data.append("imgName", file.name)
+    }
 </script>
 <script>
     function rotateRight() {
@@ -1513,7 +1550,18 @@ Dropzone.options.myAwesomeDropzone = {
     $("#img-capture").click(function () {
         $("#img-capture-file").click();
     })
+    $("#img-capture-for-app").click(function () {
+        app_take_picture();
+    })
 
+    function app_take_picture() {
+        try {
+            VNPostAPP.TakePicture(); //<-- executes C# code
+        }
+        catch (err) {
+            errorAlert(err);
+        }
+    }
 </script>
 <script src="~/assets/libs/toastr/build/toastr.min.js"></script>
 <script src="~/assets/extra-libs/toastr/toastr-init.js"></script>
