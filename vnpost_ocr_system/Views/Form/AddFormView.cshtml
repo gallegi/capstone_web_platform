@@ -998,7 +998,7 @@
         var raw_text = json_data.raw_text;
         if (raw_text == null || raw_text == '') {
             // user click btn to parse but OCR result is empty
-            errorAlert('Lỗi', 'Có lỗi xảy ra khi lấy kết quả OCR từ server');
+            errorAlert('Lỗi', 'Kết quả OCR từ server rỗng, vui lòng thử ảnh khác');
             return false;
 
         } else {
@@ -1013,7 +1013,7 @@
             var text = json_data.raw_text;
             myFormData.append("letter_formated_content", text)
 
-            // add value to json frame + FormData
+            // add value to json frame + FormData            
             text = text.replace(/[\r\n]+/gm, '<br/>');
             $("#api_output").html(text);
         }
@@ -1166,6 +1166,9 @@
                         sentAPI = true;
 
                         // add result to form data
+                        response.raw_text = response.raw_text.replace(/\</gm, '');
+                        response.raw_text = response.raw_text.replace(/\>/gm, '');
+                        
                         myFormData.set("form_name", form_name);
                         myFormData.set("api_output", response);
                         myFormData.set("api_output_txt", JSON.stringify(response));
