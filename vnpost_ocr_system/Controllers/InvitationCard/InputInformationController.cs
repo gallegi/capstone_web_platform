@@ -126,7 +126,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         {
                             string html = @"
                             <div class='contact" + i + @" info-list-div col s12'>
-                                <div class='col s8 m8 l8'>
+                                <div class='col s12 m12 l12'>
                                     <p class='FullName content-text highlight col s12'>" + c.FullName + @"</p>
                                     <p class='content-text col s12'><span class='Street' > " + c.Street + "</ span >, <span data-district='1130' class='Address'>" + district.PostalDistrictName + @", " + province.PostalProvinceName + @"</span></p>
                                     <p class='content-text col s12'>Số điện thoại: <span class='Phone'>" + c.Phone + @"</span></p> ";
@@ -200,7 +200,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
 
             var match = Regex.Match(text, pattern);
             if (match.Success)
-                return match.Groups[1].Value.Trim();
+                return match.Groups[0].Value.Trim();
             else
                 return null;
         }

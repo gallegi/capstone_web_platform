@@ -322,12 +322,12 @@
 
                         </div>
                     }
-                    @using (Html.BeginForm("ChangeDate2", "DisplayStatisticChart", FormMethod.Post, new
+                    @using (Html.BeginForm("ChangeDate", "DisplayStatisticChart", FormMethod.Post, new
                     {
                         id = "form2",
                         enctype = "multipart/form-data",
                         onSubmit = "return SubmitForm2(this);",
-                        data_restUrl = Url.Action("ChangeDate2", "DisplayStatisticChart")
+                        data_restUrl = Url.Action("ChangeDate", "DisplayStatisticChart")
                     }))
                     {
                         <input type="hidden" id="provine_ch2" name="provine" />
