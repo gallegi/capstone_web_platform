@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -704,12 +705,18 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         [HttpPost]
         public ActionResult GetOCRResult(OCRRaw OCRResponse)
         {
+            OCRParsed OCRParsed = new OCRParsed();
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
+                Debug.WriteLine("Form id: " + OCRResponse.form_id);
                 FormTemplate form = db.FormTemplates.Where(record => record.FormID == OCRResponse.form_id).FirstOrDefault();
+                Debug.WriteLine("Form id: " + form.FormID);
                 if (form != null)
                 {
-                    OCRParsed OCRParsed = parseOCRReusult(db, OCRResponse, form);
+                    Debug.WriteLine("here");
+                    Debug.WriteLine("Form: " + form.FormID);
+
+                    OCRParsed = parseOCRReusult(db, OCRResponse, form);
                     return Json(OCRParsed);
                 }
             }
