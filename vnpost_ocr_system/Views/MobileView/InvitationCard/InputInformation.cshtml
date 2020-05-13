@@ -1448,6 +1448,10 @@
                     var data = new FormData();
                     data.append('image', dataURItoBlob($('#blah').attr("src")));
                     if (ImageData != $('#blah').attr("src")) {
+                        //Clear step 2 data
+                        $('#item1').val("");
+                        $('#item1').formSelect();
+                        $('#item5').val("");
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
@@ -1459,6 +1463,8 @@
                             dataType: "json",
                             success: function (response) {
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                                    response.raw_text = response.raw_text.replace(/\</gm, '');
+                                    response.raw_text = response.raw_text.replace(/\>/gm, '');
                                     //Call OCR server success
                                     ImageData = $('#blah').attr("src");
                                     $.ajax({
@@ -1468,7 +1474,6 @@
                                         cache: false,
                                         data: response,
                                         success: function (result) {
-                                            console.log(result)
                                             OCRResult = result;
                                             $('#item1').val(OCRResult.PostalProvinceCode);
                                             $('#item1').formSelect();
