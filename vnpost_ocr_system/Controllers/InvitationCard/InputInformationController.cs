@@ -887,7 +887,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
             using (VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities())
             {
                 FormTemplate form = db.FormTemplates.Where(record => record.FormID == OCRResponse.form_id).FirstOrDefault();
-                Debug.WriteLine("Form id: " + form.FormID);
                 if (form != null)
                 {
                     OCRParsed = parseOCRReusult(db, OCRResponse, form);
