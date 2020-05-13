@@ -136,7 +136,16 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 {
                     ViewBag.checkCancelled = false;
                 }
-                return View("/Views/InvitationCard/DisplayStatus.cshtml");
+
+                if (Request.Browser.IsMobileDevice)
+                {
+                    return View("/Views/MobileView/InvitationCard/DisplayStatus.cshtml");
+                }
+                else
+                {
+                    return View("/Views/InvitationCard/DisplayStatus.cshtml");
+                }
+                
             }
 
 
