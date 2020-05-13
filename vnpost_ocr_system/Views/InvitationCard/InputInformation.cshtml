@@ -1050,6 +1050,7 @@
     }
 
     $(document).on("click", ".add", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
@@ -1134,6 +1135,7 @@
     })
 
     $(document).on("click", ".edit", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
         $('p[name="district_edit"]').text("")
