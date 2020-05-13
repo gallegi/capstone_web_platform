@@ -1523,6 +1523,9 @@
                             dataType: "json",
                             success: function (response) {
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                                    response.raw_text = response.raw_text.replace(/\</gm, '');
+                                    response.raw_text = response.raw_text.replace(/\>/gm, '');
+                                    console.log("form_id: " + response.form_id);
                                     //Call OCR server success
                                     ImageData = $('img[data-dz-thumbnail]').attr("src");
                                     $.ajax({
