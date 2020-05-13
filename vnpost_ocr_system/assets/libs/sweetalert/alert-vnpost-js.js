@@ -7,7 +7,20 @@
             confirmButtonText: 'Đóng'
         })
     }
-   
+
+    function successAlertThenRedirect(title, text, url) {
+        Swal.fire({
+            title: title,
+            text: text,
+            type: 'success',
+            confirmButtonText: 'Đóng'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = url;
+            }
+        })
+    }
+
     function errorAlert(title,text) {
         Swal.fire({
             title: title,
@@ -109,4 +122,4 @@ function submitSingle(title, confirmButtonText, func) {
         }
     })
 }
-    
+

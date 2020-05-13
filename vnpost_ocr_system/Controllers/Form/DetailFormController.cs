@@ -36,7 +36,7 @@ namespace vnpost_ocr_system.Controllers.Form
         {
             //Debug.WriteLine("In Validate: " + str);
             /* This function is used to check if string is empty or null */
-            if (str == null || str == "")
+            if (str == null || str == "" || str == "null")
             {
                 Debug.WriteLine("Find out empty string: " + str);
                 return true;
@@ -47,7 +47,7 @@ namespace vnpost_ocr_system.Controllers.Form
         {
             /* Remove leading and tailing space */
             string res = "";
-            if (nullable_text == null || nullable_text == "")
+            if (nullable_text == null || nullable_text == "" || nullable_text == "null")
             {
                 res = null;
             }
@@ -225,7 +225,7 @@ namespace vnpost_ocr_system.Controllers.Form
             try
             {
                 VNPOST_AppointmentEntities db = new VNPOST_AppointmentEntities();
-                if (FormatData(province_id) != null)
+                if (!EmptyStr(FormatData(province_id)))
                 {
                     Province province = db.Database.SqlQuery<Province>("" +
                     "select * " +
@@ -239,7 +239,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     }
                 }
 
-                if (FormatData(district_id) != null)
+                if (!EmptyStr(FormatData(district_id)))
                 {
                     District district = db.Database.SqlQuery<District>("" +
                     "select * " +
@@ -253,7 +253,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     }
                 }
 
-                if (FormatData(pub_administration_loc_id) != null)
+                if (!EmptyStr(FormatData(pub_administration_loc_id)))
                 {
                     PublicAdministration pa = db.Database.SqlQuery<PublicAdministration>("" +
                     "select * " +
@@ -268,7 +268,7 @@ namespace vnpost_ocr_system.Controllers.Form
                     }
                 }
 
-                if (FormatData(profile_id) != null)
+                if (!EmptyStr(FormatData(profile_id)))
                 {
                     Profile profile = db.Database.SqlQuery<Profile>("" +
                     "select * " +

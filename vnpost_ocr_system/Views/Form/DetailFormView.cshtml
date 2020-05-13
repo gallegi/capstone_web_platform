@@ -487,10 +487,10 @@
                 </div>
 
                 @* --------------------------------------- Button confirm section  -------------------------------------- *@
-                <div id="btn_confirm_section" class="content_section" style=" margin-bottom: 20px !important">
-                    <div class="input-field right">
+                <div id="btn_confirm_section" class="content_section" style="display:flex">
+                    <div class="input-field right" style="margin-left: auto; margin-right:0px">
                         <a class="btn waves-effect waves-light bt-color-common" style="color:aliceblue" onclick="edit_form()">Chỉnh sửa</a>
-                        <a href="#deleteModal" class="btn waves-effect waves-light bt-color-cancel modal-trigger" style="color:aliceblue" >Xóa</a>
+                        <a class="btn waves-effect waves-light bt-color-cancel" style="color:aliceblue" onclick="confirm_delete()">Xóa</a>
                     </div>
                 </div>
             </div>
@@ -528,8 +528,7 @@
         $('#pre-load').hide();
         errorAlert('Lỗi', error_msg);
     }
-</script>
-<script>
+    // ================================================ INITIALLY LOAD DATA ================================================ 
     // Initialization
     var myFormData = new FormData();
 
@@ -897,9 +896,7 @@
         }
     }
 
-</script>
-
-<script>
+    // ================================================ PROCESS DATA BEFORE SENDING TO CONTROLLER ================================================ 
     function edit_form() {
         $("pre-load").show();
 
@@ -907,6 +904,24 @@
 
         $("pre-load").hide();
     };
+
+    function confirm_delete() {
+        console.log("here");
+        Swal.fire({
+            title: 'Xóa biểu mẫu',
+            text: "Bạn có chắc chắn muốn xóa biểu mẫu này không?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa biểu mẫu này',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.value) {
+                delete_form();
+            }
+        })
+    }
 
     function delete_form() {
         $("pre-load").show();
@@ -925,9 +940,7 @@
                 $('#pre-load').hide();
                 if (response.status_code == "200" || response.status == "Success") {
                     // redirect to the form detail page
-                    successAlert('Thành công', 'Xóa biểu mẫu thành công');
-                    //window.location.href = "/bieu-mau/them-bieu-mau";
-
+                    successAlertThenRedirect('Thành công', 'Xóa biểu mẫu thành công', '/bieu-mau/list-bieu-mau');
                 } else if (response.status == "Fail")
                 {
                     raise_error(response.message);

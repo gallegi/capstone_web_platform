@@ -245,7 +245,6 @@
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
-
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID" style='display: block !important'>Sử dụng thông tin này</a>
@@ -1342,7 +1341,6 @@
         $(".contact2").css('background-color', 'white');
         Adminprofile.css('background-color', '#e1ffe5');
         validate2 = true;
-
     })
 
     $(document).on("click", ".contactInfoType3", function () {
@@ -1450,6 +1448,10 @@
                     var data = new FormData();
                     data.append('image', dataURItoBlob($('#blah').attr("src")));
                     if (ImageData != $('#blah').attr("src")) {
+                        //Clear step 2 data
+                        $('#item1').val("");
+                        $('#item1').formSelect();
+                        $('#item5').val("");
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
@@ -1461,6 +1463,8 @@
                             dataType: "json",
                             success: function (response) {
                                 if (response.hasOwnProperty('form_id') && response.form_id != "") {
+                                    response.raw_text = response.raw_text.replace(/\</gm, '');
+                                    response.raw_text = response.raw_text.replace(/\>/gm, '');
                                     //Call OCR server success
                                     ImageData = $('#blah').attr("src");
                                     $.ajax({
@@ -1470,7 +1474,6 @@
                                         cache: false,
                                         data: response,
                                         success: function (result) {
-                                            console.log(result)
                                             OCRResult = result;
                                             $('#item1').val(OCRResult.PostalProvinceCode);
                                             $('#item1').formSelect();

@@ -388,7 +388,7 @@ namespace vnpost_ocr_system.Controllers.Form
                         ft.FormImageLink = form_img_link;
                     }
 
-                    ft = new FormTemplate();
+                    //ft = new FormTemplate();
                     // 3. Start updating 
                     // Basic info
                     ft.FormName = Request["form_name"].Trim();
