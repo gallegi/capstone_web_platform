@@ -242,7 +242,6 @@
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
                                         </div>
-
                                         <div class="col s12 m-t-10">
                                             <div class="col l4 s12 p-t-10">
                                                 <a class="btn waves-effect waves-light bt-color-common contactInfoType3" data-contactinfoid="@item.ContactInfoID" style='display: block !important'>Sử dụng thông tin này</a>
@@ -1339,7 +1338,6 @@
         $(".contact2").css('background-color', 'white');
         Adminprofile.css('background-color', '#e1ffe5');
         validate2 = true;
-
     })
 
     $(document).on("click", ".contactInfoType3", function () {

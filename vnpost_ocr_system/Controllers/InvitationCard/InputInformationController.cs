@@ -126,7 +126,7 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         {
                             string html = @"
                             <div class='contact" + i + @" info-list-div col s12'>
-                                <div class='col s8 m8 l8'>
+                                <div class='col s12 m12 l12'>
                                     <p class='FullName content-text highlight col s12'>" + c.FullName + @"</p>
                                     <p class='content-text col s12'><span class='Street' > " + c.Street + "</ span >, <span data-district='1130' class='Address'>" + district.PostalDistrictName + @", " + province.PostalProvinceName + @"</span></p>
                                     <p class='content-text col s12'>Số điện thoại: <span class='Phone'>" + c.Phone + @"</span></p> ";
@@ -136,8 +136,6 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                                     <p class='content-text col s12'>Ngày cấp: <span class='PersonalPaperIssuedDate'>" + PersonalPaperIssuedDateString + @"</span></p>
                                     <p class='content-text col s12'>Nơi cấp: <span class='PersonalPaperIssuedPlace'>" + c.PersonalPaperIssuedPlace + @"</span></p>" : "";
                             html += @"
-                                </div>
-                                <div class='col l4 s4 m4 is-check-contact-type-" + i + "' id='isCheckContactType" + i + "-" + c.ContactInfoID + @"'>
                                 </div>
                                 <div class='col s12 m-t-10'>
                                     <div class='col p-t-10'>

@@ -204,7 +204,7 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact1 info-list-div col s12">
-                                        <div class="col s8 m8 l8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
@@ -212,8 +212,6 @@
                                             <p class="content-text col s12">Số giấy tờ tùy thân: <span class="PersonalPaperNumber">@item.PersonalPaperNumber</span></p>
                                             <p class="content-text col s12">Ngày cấp: <span class="PersonalPaperIssuedDate">@(item.PersonalPaperIssuedDate == null ? "" : item.PersonalPaperIssuedDate.GetValueOrDefault().ToString("dd/MM/yyyy"))</span></p>
                                             <p class="content-text col s12">Nơi cấp: <span class="PersonalPaperIssuedPlace">@(item.PersonalPaperIssuedPlace == null ? "" : item.PersonalPaperIssuedPlace)</span></p>
-                                        </div>
-                                        <div class="col l4 s4 m4 is-check-contact-type-1" id="isCheckContactType1-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
@@ -253,12 +251,10 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact2 info-list-div col s12">
-                                        <div class="col s8 m8 l8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
-                                        </div>
-                                        <div class="col l4 m4 s4 is-check-contact-type-2" id="isCheckContactType2-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
@@ -298,12 +294,10 @@
                                 foreach (vnpost_ocr_system.Models.ContactInfoDB item in ViewBag.contactInfos)
                                 {
                                     <div class="contact3 info-list-div col s12">
-                                        <div class="col s8 m8 l8">
+                                        <div class="col s12 m12 l12">
                                             <p class="FullName content-text highlight col s12">@item.FullName</p>
                                             <p class="content-text col s12"><span class="Street">@item.Street</span>, <span data-district="@item.PostalDistrictCode" class="Address">@(item.PostalDistrictName), @item.PostalProvinceName</span></p>
                                             <p class="content-text col s12">Số điện thoại: <span class="Phone">@item.Phone</span></p>
-                                        </div>
-                                        <div class="col l4 s4 m4 is-check-contact-type-3" id="isCheckContactType3-@item.ContactInfoID">
                                         </div>
                                         <div class="col s12 m-t-10">
                                             <div class="col p-t-10">
@@ -1399,9 +1393,8 @@
         $('#ProcedurerPersonalPaperNumber').text(Adminprofile.find('.PersonalPaperNumber').text());
         $('#ProcedurerPersonalPaperIssuedDate').text(Adminprofile.find('.PersonalPaperIssuedDate').text());
         $('#ProcedurerPersonalPaperIssuedPlace').text(Adminprofile.find('.PersonalPaperIssuedPlace').text());
-        var a = $('#isCheckContactType1-' + $(this).attr('data-contactinfoid'));
-        $(".is-check-contact-type-1").empty();
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        $(".contact1").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5');
         validate1 = true;
     })
 
@@ -1412,9 +1405,8 @@
         $('#SenderStreet').text(Adminprofile.find('.Street').text())
         $('#SenderAddress').text(Adminprofile.find('.Address').text())
         $('#SenderPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
-        var a = $('#isCheckContactType2-' + $(this).attr('data-contactinfoid'));
-        $(".is-check-contact-type-2").empty();
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>");
+        $(".contact2").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5'); 
         validate2 = true;
     })
 
@@ -1426,8 +1418,8 @@
         $('#ReceiverPostalDistrictCode').text(Adminprofile.find('.Address').data("district"));
         $('.ReceiverAddress').text(Adminprofile.find('.Address').text())
         var a = $('#isCheckContactType3-' + $(this).attr('data-contactinfoid'));
-        $(".is-check-contact-type-3").empty();
-        a.append("<i class=\"material-icons dp48 right\" style=\"font-size:35px;right:0px;vertical-align: middle;color: #7abd7a;\">check_circle</i>")
+        $(".contact3").css('background-color', 'white');
+        Adminprofile.css('background-color', '#e1ffe5');
         validate3 = true;
     })
 </script>
@@ -1519,6 +1511,7 @@
                     var data = new FormData();
                     data.append('image', dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
                     if (ImageData != $('img[data-dz-thumbnail]').attr("src")) {
+                        //Clear 
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
