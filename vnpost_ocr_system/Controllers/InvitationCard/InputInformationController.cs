@@ -207,13 +207,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProvince(OCRRaw OCRResponse, FormTemplate form)
         {
             string province = null;
-            if (form.ProvinceParseType == 0 && form.ProvinceNERIndex.HasValue)
+            try
             {
-                province = OCRResponse.province[form.ProvinceNERIndex.Value];
+                if (form.ProvinceParseType == 0 && form.ProvinceNERIndex.HasValue)
+                {
+                    province = OCRResponse.province[form.ProvinceNERIndex.Value];
+                }
+                else if (form.ProvinceParseType == 1 && form.ProvinceRegex != "")
+                {
+                    province = getMatchResult(OCRResponse.raw_text, form.ProvinceRegex);
+                }
             }
-            else if (form.ProvinceParseType == 1 && form.ProvinceRegex != "")
+            catch (Exception e)
             {
-                province = getMatchResult(OCRResponse.raw_text, form.ProvinceRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return province;
         }
@@ -221,13 +228,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseDistrict(OCRRaw OCRResponse, FormTemplate form)
         {
             string district = null;
-            if (form.DistrictParseType == 0 && form.DistrictNERIndex.HasValue)
+            try
             {
-                district = OCRResponse.district[form.DistrictNERIndex.Value];
+
+                if (form.DistrictParseType == 0 && form.DistrictNERIndex.HasValue)
+                {
+                    district = OCRResponse.district[form.DistrictNERIndex.Value];
+                }
+                else if (form.DistrictParseType == 1 && form.DistrictRegex != "")
+                {
+                    district = getMatchResult(OCRResponse.raw_text, form.DistrictRegex);
+                }
             }
-            else if (form.DistrictParseType == 1 && form.DistrictRegex != "")
+            catch (Exception e)
             {
-                district = getMatchResult(OCRResponse.raw_text, form.DistrictRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return district;
         }
@@ -235,13 +250,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parsePublicAdministration(OCRRaw OCRResponse, FormTemplate form)
         {
             string publicAdministration = null;
-            if (form.PublicAdministrationParseType == 0 && form.PublicAdministrationNERIndex.HasValue)
+            try
             {
-                publicAdministration = OCRResponse.public_administration[form.PublicAdministrationNERIndex.Value];
+
+                if (form.PublicAdministrationParseType == 0 && form.PublicAdministrationNERIndex.HasValue)
+                {
+                    publicAdministration = OCRResponse.public_administration[form.PublicAdministrationNERIndex.Value];
+                }
+                else if (form.PublicAdministrationParseType == 1 && form.PublicAdministrationRegex != "")
+                {
+                    publicAdministration = getMatchResult(OCRResponse.raw_text, form.PublicAdministrationRegex);
+                }
             }
-            else if (form.PublicAdministrationParseType == 1 && form.PublicAdministrationRegex != "")
+            catch (Exception e)
             {
-                publicAdministration = getMatchResult(OCRResponse.raw_text, form.PublicAdministrationRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return publicAdministration;
         }
@@ -249,13 +272,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProfile(OCRRaw OCRResponse, FormTemplate form)
         {
             string profile = null;
-            if (form.ProfileParseType == 0 && form.ProfileNERIndex.HasValue)
+            try
             {
-                profile = OCRResponse.profile[form.ProfileNERIndex.Value];
+
+                if (form.ProfileParseType == 0 && form.ProfileNERIndex.HasValue)
+                {
+                    profile = OCRResponse.profile[form.ProfileNERIndex.Value];
+                }
+                else if (form.ProfileParseType == 1 && form.ProfileRegex != "")
+                {
+                    profile = getMatchResult(OCRResponse.raw_text, form.ProfileRegex);
+                }
             }
-            else if (form.ProfileParseType == 1 && form.ProfileRegex != "")
+            catch (Exception e)
             {
-                profile = getMatchResult(OCRResponse.raw_text, form.ProfileRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return profile;
         }
@@ -263,13 +294,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseAppointmentLetterCode(OCRRaw OCRResponse, FormTemplate form)
         {
             string appointmentLetterCode = null;
-            if (form.AppointmentLetterCodeParseType == 0 && form.AppointmentLetterCodeNERIndex.HasValue)
+            try
             {
-                appointmentLetterCode = OCRResponse.appointment_letter_code[form.AppointmentLetterCodeNERIndex.Value];
+
+                if (form.AppointmentLetterCodeParseType == 0 && form.AppointmentLetterCodeNERIndex.HasValue)
+                {
+                    appointmentLetterCode = OCRResponse.appointment_letter_code[form.AppointmentLetterCodeNERIndex.Value];
+                }
+                else if (form.AppointmentLetterCodeParseType == 1 && form.AppointmentLetterCodeRegex != "")
+                {
+                    appointmentLetterCode = getMatchResult(OCRResponse.raw_text, form.AppointmentLetterCodeRegex);
+                }
             }
-            else if (form.AppointmentLetterCodeParseType == 1 && form.AppointmentLetterCodeRegex != "")
+            catch (Exception e)
             {
-                appointmentLetterCode = getMatchResult(OCRResponse.raw_text, form.AppointmentLetterCodeRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return appointmentLetterCode;
         }
@@ -277,13 +316,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerFullName(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerFullName = null;
-            if (form.ProcedurerFullNameParseType == 0 && form.ProcedurerFullNameNERIndex.HasValue)
+            try
             {
-                procedurerFullName = OCRResponse.name[form.ProcedurerFullNameNERIndex.Value];
+
+                if (form.ProcedurerFullNameParseType == 0 && form.ProcedurerFullNameNERIndex.HasValue)
+                {
+                    procedurerFullName = OCRResponse.name[form.ProcedurerFullNameNERIndex.Value];
+                }
+                else if (form.ProcedurerFullNameParseType == 1 && form.ProcedurerFullNameRegex != "")
+                {
+                    procedurerFullName = getMatchResult(OCRResponse.raw_text, form.ProcedurerFullNameRegex);
+                }
             }
-            else if (form.ProcedurerFullNameParseType == 1 && form.ProcedurerFullNameRegex != "")
+            catch (Exception e)
             {
-                procedurerFullName = getMatchResult(OCRResponse.raw_text, form.ProcedurerFullNameRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerFullName;
         }
@@ -291,13 +338,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerPhone(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerPhone = null;
-            if (form.ProcedurerPhoneParseType == 0 && form.ProcedurerPhoneNERIndex.HasValue)
+            try
             {
-                procedurerPhone = OCRResponse.phone_number[form.ProcedurerPhoneNERIndex.Value];
+
+                if (form.ProcedurerPhoneParseType == 0 && form.ProcedurerPhoneNERIndex.HasValue)
+                {
+                    procedurerPhone = OCRResponse.phone_number[form.ProcedurerPhoneNERIndex.Value];
+                }
+                else if (form.ProcedurerPhoneParseType == 1 && form.ProcedurerPhoneRegex != "")
+                {
+                    procedurerPhone = getMatchResult(OCRResponse.raw_text, form.ProcedurerPhoneRegex);
+                }
             }
-            else if (form.ProcedurerPhoneParseType == 1 && form.ProcedurerPhoneRegex != "")
+            catch (Exception e)
             {
-                procedurerPhone = getMatchResult(OCRResponse.raw_text, form.ProcedurerPhoneRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerPhone;
         }
@@ -305,13 +360,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerProvince(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerProvince = null;
-            if (form.ProcedurerProvinceParseType == 0 && form.ProcedurerProvinceNERIndex.HasValue)
+            try
             {
-                procedurerProvince = OCRResponse.province[form.ProcedurerProvinceNERIndex.Value];
+                if (form.ProcedurerProvinceParseType == 0 && form.ProcedurerProvinceNERIndex.HasValue)
+                {
+                    procedurerProvince = OCRResponse.province[form.ProcedurerProvinceNERIndex.Value];
+                }
+                else if (form.ProcedurerProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                {
+                    procedurerProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                }
             }
-            else if (form.ProcedurerProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            catch (Exception e)
             {
-                procedurerProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerProvince;
         }
@@ -319,13 +381,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerDistrict(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerDistrict = null;
-            if (form.ProcedurerDistrictParseType == 0 && form.ProcedurerDistrictNERIndex.HasValue)
+            try
             {
-                procedurerDistrict = OCRResponse.district[form.ProcedurerDistrictNERIndex.Value];
+
+                if (form.ProcedurerDistrictParseType == 0 && form.ProcedurerDistrictNERIndex.HasValue)
+                {
+                    procedurerDistrict = OCRResponse.district[form.ProcedurerDistrictNERIndex.Value];
+                }
+                else if (form.ProcedurerDistrictParseType == 1 && form.ProcedurerDistrictRegex != "")
+                {
+                    procedurerDistrict = getMatchResult(OCRResponse.raw_text, form.ProcedurerDistrictRegex);
+                }
             }
-            else if (form.ProcedurerDistrictParseType == 1 && form.ProcedurerDistrictRegex != "")
+            catch (Exception e)
             {
-                procedurerDistrict = getMatchResult(OCRResponse.raw_text, form.ProcedurerDistrictRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerDistrict;
         }
@@ -333,13 +403,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerStreet(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerStreet = null;
-            if (form.ProcedurerStreetParseType == 0 && form.ProcedurerStreetNERIndex.HasValue)
+            try
             {
-                procedurerStreet = OCRResponse.street[form.ProcedurerStreetNERIndex.Value];
+
+                if (form.ProcedurerStreetParseType == 0 && form.ProcedurerStreetNERIndex.HasValue)
+                {
+                    procedurerStreet = OCRResponse.street[form.ProcedurerStreetNERIndex.Value];
+                }
+                else if (form.ProcedurerStreetParseType == 1 && form.ProcedurerStreetRegex != "")
+                {
+                    procedurerStreet = getMatchResult(OCRResponse.raw_text, form.ProcedurerStreetRegex);
+                }
             }
-            else if (form.ProcedurerStreetParseType == 1 && form.ProcedurerStreetRegex != "")
+            catch (Exception e)
             {
-                procedurerStreet = getMatchResult(OCRResponse.raw_text, form.ProcedurerStreetRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerStreet;
         }
@@ -347,28 +425,43 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerPersonalPaperType(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerPersonalPaperType = null;
-            if (form.ProcedurerPersonalPaperTypeParseType == 0 && form.ProcedurerPersonalPaperTypeNERIndex.HasValue)
+            try
             {
-                procedurerPersonalPaperType = OCRResponse.personal_paper_type[form.ProcedurerPersonalPaperTypeNERIndex.Value];
-            }
-            else if (form.ProcedurerPersonalPaperTypeParseType == 1 && form.ProcedurerPersonalPaperTypeRegex != "")
-            {
-                procedurerPersonalPaperType = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperTypeRegex);
-            }
 
+                if (form.ProcedurerPersonalPaperTypeParseType == 0 && form.ProcedurerPersonalPaperTypeNERIndex.HasValue)
+                {
+                    procedurerPersonalPaperType = OCRResponse.personal_paper_type[form.ProcedurerPersonalPaperTypeNERIndex.Value];
+                }
+                else if (form.ProcedurerPersonalPaperTypeParseType == 1 && form.ProcedurerPersonalPaperTypeRegex != "")
+                {
+                    procedurerPersonalPaperType = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperTypeRegex);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
             return procedurerPersonalPaperType;
         }
 
         public string parseProcedurerPersonalPaperNumber(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerPersonalPaperNumber = null;
-            if (form.ProcedurerPersonalPaperNumberParseType == 0 && form.ProcedurerPersonalPaperNumberNERIndex.HasValue)
+            try
             {
-                procedurerPersonalPaperNumber = OCRResponse.personal_paper_number[form.ProcedurerPersonalPaperNumberNERIndex.Value];
+
+                if (form.ProcedurerPersonalPaperNumberParseType == 0 && form.ProcedurerPersonalPaperNumberNERIndex.HasValue)
+                {
+                    procedurerPersonalPaperNumber = OCRResponse.personal_paper_number[form.ProcedurerPersonalPaperNumberNERIndex.Value];
+                }
+                else if (form.ProcedurerPersonalPaperNumberParseType == 1 && form.ProcedurerPersonalPaperNumberRegex != "")
+                {
+                    procedurerPersonalPaperNumber = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperNumberRegex);
+                }
             }
-            else if (form.ProcedurerPersonalPaperNumberParseType == 1 && form.ProcedurerPersonalPaperNumberRegex != "")
+            catch (Exception e)
             {
-                procedurerPersonalPaperNumber = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperNumberRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerPersonalPaperNumber;
         }
@@ -376,13 +469,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerIssuedDate(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerIssuedDate = null;
-            if (form.ProcedurerPersonalPaperIssuedDateParseType == 0 && form.ProcedurerPersonalPaperIssuedDateNERIndex.HasValue)
+            try
             {
-                procedurerIssuedDate = OCRResponse.issued_date[form.ProcedurerPersonalPaperIssuedDateNERIndex.Value];
+
+                if (form.ProcedurerPersonalPaperIssuedDateParseType == 0 && form.ProcedurerPersonalPaperIssuedDateNERIndex.HasValue)
+                {
+                    procedurerIssuedDate = OCRResponse.issued_date[form.ProcedurerPersonalPaperIssuedDateNERIndex.Value];
+                }
+                else if (form.ProcedurerPersonalPaperIssuedDateParseType == 1 && form.ProcedurerPersonalPaperIssuedDateRegex != "")
+                {
+                    procedurerIssuedDate = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedDateRegex);
+                }
             }
-            else if (form.ProcedurerPersonalPaperIssuedDateParseType == 1 && form.ProcedurerPersonalPaperIssuedDateRegex != "")
+            catch (Exception e)
             {
-                procedurerIssuedDate = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedDateRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerIssuedDate;
         }
@@ -390,13 +491,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseProcedurerIssuedPlace(OCRRaw OCRResponse, FormTemplate form)
         {
             string procedurerIssuedPlace = null;
-            if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 0 && form.ProcedurerPersonalPaperIssuedPlaceNERIndex.HasValue)
+            try
             {
-                procedurerIssuedPlace = OCRResponse.issued_place[form.ProcedurerPersonalPaperIssuedPlaceNERIndex.Value];
+
+                if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 0 && form.ProcedurerPersonalPaperIssuedPlaceNERIndex.HasValue)
+                {
+                    procedurerIssuedPlace = OCRResponse.issued_place[form.ProcedurerPersonalPaperIssuedPlaceNERIndex.Value];
+                }
+                else if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 1 && form.ProcedurerPersonalPaperIssuedPlaceRegex != "")
+                {
+                    procedurerIssuedPlace = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedPlaceRegex);
+                }
             }
-            else if (form.ProcedurerPersonalPaperIssuedPlaceParseType == 1 && form.ProcedurerPersonalPaperIssuedPlaceRegex != "")
+            catch (Exception e)
             {
-                procedurerIssuedPlace = getMatchResult(OCRResponse.raw_text, form.ProcedurerPersonalPaperIssuedPlaceRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return procedurerIssuedPlace;
         }
@@ -404,13 +513,21 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseSenderFullName(OCRRaw OCRResponse, FormTemplate form)
         {
             string SenderFullName = null;
-            if (form.SenderFullNameParseType == 0 && form.SenderFullNameNERIndex.HasValue)
+            try
             {
-                SenderFullName = OCRResponse.name[form.SenderFullNameNERIndex.Value];
+
+                if (form.SenderFullNameParseType == 0 && form.SenderFullNameNERIndex.HasValue)
+                {
+                    SenderFullName = OCRResponse.name[form.SenderFullNameNERIndex.Value];
+                }
+                else if (form.SenderFullNameParseType == 1 && form.SenderFullNameRegex != "")
+                {
+                    SenderFullName = getMatchResult(OCRResponse.raw_text, form.SenderFullNameRegex);
+                }
             }
-            else if (form.SenderFullNameParseType == 1 && form.SenderFullNameRegex != "")
+            catch (Exception e)
             {
-                SenderFullName = getMatchResult(OCRResponse.raw_text, form.SenderFullNameRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return SenderFullName;
         }
@@ -418,13 +535,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseSenderPhone(OCRRaw OCRResponse, FormTemplate form)
         {
             string senderPhone = null;
-            if (form.SenderPhoneParseType == 0 && form.SenderPhoneNERIndex.HasValue)
+            try
             {
-                senderPhone = OCRResponse.phone_number[form.SenderPhoneNERIndex.Value];
+                if (form.SenderPhoneParseType == 0 && form.SenderPhoneNERIndex.HasValue)
+                {
+                    senderPhone = OCRResponse.phone_number[form.SenderPhoneNERIndex.Value];
+                }
+                else if (form.SenderPhoneParseType == 1 && form.SenderPhoneRegex != "")
+                {
+                    senderPhone = getMatchResult(OCRResponse.raw_text, form.SenderPhoneRegex);
+                }
             }
-            else if (form.SenderPhoneParseType == 1 && form.SenderPhoneRegex != "")
+            catch (Exception e)
             {
-                senderPhone = getMatchResult(OCRResponse.raw_text, form.SenderPhoneRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return senderPhone;
         }
@@ -432,13 +556,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseSenderProvince(OCRRaw OCRResponse, FormTemplate form)
         {
             string SenderProvince = null;
-            if (form.SenderProvinceParseType == 0 && form.SenderProvinceNERIndex.HasValue)
+            try
             {
-                SenderProvince = OCRResponse.province[form.SenderProvinceNERIndex.Value];
+                if (form.SenderProvinceParseType == 0 && form.SenderProvinceNERIndex.HasValue)
+                {
+                    SenderProvince = OCRResponse.province[form.SenderProvinceNERIndex.Value];
+                }
+                else if (form.SenderProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                {
+                    SenderProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                }
             }
-            else if (form.SenderProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            catch (Exception e)
             {
-                SenderProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return SenderProvince;
         }
@@ -446,13 +577,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseSenderDistrict(OCRRaw OCRResponse, FormTemplate form)
         {
             string SenderDistrict = null;
-            if (form.SenderDistrictParseType == 0 && form.SenderDistrictNERIndex.HasValue)
+            try
             {
-                SenderDistrict = OCRResponse.district[form.SenderDistrictNERIndex.Value];
+                if (form.SenderDistrictParseType == 0 && form.SenderDistrictNERIndex.HasValue)
+                {
+                    SenderDistrict = OCRResponse.district[form.SenderDistrictNERIndex.Value];
+                }
+                else if (form.SenderDistrictParseType == 1 && form.SenderDistrictRegex != "")
+                {
+                    SenderDistrict = getMatchResult(OCRResponse.raw_text, form.SenderDistrictRegex);
+                }
             }
-            else if (form.SenderDistrictParseType == 1 && form.SenderDistrictRegex != "")
+            catch (Exception e)
             {
-                SenderDistrict = getMatchResult(OCRResponse.raw_text, form.SenderDistrictRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return SenderDistrict;
         }
@@ -460,13 +598,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseSenderStreet(OCRRaw OCRResponse, FormTemplate form)
         {
             string SenderStreet = null;
-            if (form.SenderStreetParseType == 0 && form.SenderStreetNERIndex.HasValue)
+            try
             {
-                SenderStreet = OCRResponse.street[form.SenderStreetNERIndex.Value];
+                if (form.SenderStreetParseType == 0 && form.SenderStreetNERIndex.HasValue)
+                {
+                    SenderStreet = OCRResponse.street[form.SenderStreetNERIndex.Value];
+                }
+                else if (form.SenderStreetParseType == 1 && form.SenderStreetRegex != "")
+                {
+                    SenderStreet = getMatchResult(OCRResponse.raw_text, form.SenderStreetRegex);
+                }
             }
-            else if (form.SenderStreetParseType == 1 && form.SenderStreetRegex != "")
+            catch (Exception e)
             {
-                SenderStreet = getMatchResult(OCRResponse.raw_text, form.SenderStreetRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return SenderStreet;
         }
@@ -475,13 +620,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseReceiverFullName(OCRRaw OCRResponse, FormTemplate form)
         {
             string ReceiverFullName = null;
-            if (form.ReceiverFullNameParseType == 0 && form.ReceiverFullNameNERIndex.HasValue)
+            try
             {
-                ReceiverFullName = OCRResponse.name[form.ReceiverFullNameNERIndex.Value];
+                if (form.ReceiverFullNameParseType == 0 && form.ReceiverFullNameNERIndex.HasValue)
+                {
+                    ReceiverFullName = OCRResponse.name[form.ReceiverFullNameNERIndex.Value];
+                }
+                else if (form.ReceiverFullNameParseType == 1 && form.ReceiverFullNameRegex != "")
+                {
+                    ReceiverFullName = getMatchResult(OCRResponse.raw_text, form.ReceiverFullNameRegex);
+                }
             }
-            else if (form.ReceiverFullNameParseType == 1 && form.ReceiverFullNameRegex != "")
+            catch (Exception e)
             {
-                ReceiverFullName = getMatchResult(OCRResponse.raw_text, form.ReceiverFullNameRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return ReceiverFullName;
         }
@@ -489,13 +641,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseReceiverPhone(OCRRaw OCRResponse, FormTemplate form)
         {
             string receiverPhone = null;
-            if (form.ReceiverPhoneParseType == 0 && form.ReceiverPhoneNERIndex.HasValue)
+            try
             {
-                receiverPhone = OCRResponse.phone_number[form.ReceiverPhoneNERIndex.Value];
+                if (form.ReceiverPhoneParseType == 0 && form.ReceiverPhoneNERIndex.HasValue)
+                {
+                    receiverPhone = OCRResponse.phone_number[form.ReceiverPhoneNERIndex.Value];
+                }
+                else if (form.ReceiverPhoneParseType == 1 && form.ReceiverPhoneRegex != "")
+                {
+                    receiverPhone = getMatchResult(OCRResponse.raw_text, form.ReceiverPhoneRegex);
+                }
             }
-            else if (form.ReceiverPhoneParseType == 1 && form.ReceiverPhoneRegex != "")
+            catch (Exception e)
             {
-                receiverPhone = getMatchResult(OCRResponse.raw_text, form.ReceiverPhoneRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return receiverPhone;
         }
@@ -503,13 +662,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseReceiverProvince(OCRRaw OCRResponse, FormTemplate form)
         {
             string ReceiverProvince = null;
-            if (form.ReceiverProvinceParseType == 0 && form.ReceiverProvinceNERIndex.HasValue)
+            try
             {
-                ReceiverProvince = OCRResponse.province[form.ReceiverProvinceNERIndex.Value];
+                if (form.ReceiverProvinceParseType == 0 && form.ReceiverProvinceNERIndex.HasValue)
+                {
+                    ReceiverProvince = OCRResponse.province[form.ReceiverProvinceNERIndex.Value];
+                }
+                else if (form.ReceiverProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                {
+                    ReceiverProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                }
             }
-            else if (form.ReceiverProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+            catch (Exception e)
             {
-                ReceiverProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return ReceiverProvince;
         }
@@ -517,13 +683,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseReceiverDistrict(OCRRaw OCRResponse, FormTemplate form)
         {
             string ReceiverDistrict = null;
-            if (form.ReceiverDistrictParseType == 0 && form.ReceiverDistrictNERIndex.HasValue)
+            try
             {
-                ReceiverDistrict = OCRResponse.district[form.ReceiverDistrictNERIndex.Value];
+                if (form.ReceiverDistrictParseType == 0 && form.ReceiverDistrictNERIndex.HasValue)
+                {
+                    ReceiverDistrict = OCRResponse.district[form.ReceiverDistrictNERIndex.Value];
+                }
+                else if (form.ReceiverDistrictParseType == 1 && form.ReceiverDistrictRegex != "")
+                {
+                    ReceiverDistrict = getMatchResult(OCRResponse.raw_text, form.ReceiverDistrictRegex);
+                }
             }
-            else if (form.ReceiverDistrictParseType == 1 && form.ReceiverDistrictRegex != "")
+            catch (Exception e)
             {
-                ReceiverDistrict = getMatchResult(OCRResponse.raw_text, form.ReceiverDistrictRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return ReceiverDistrict;
         }
@@ -531,13 +704,20 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
         public string parseReceiverStreet(OCRRaw OCRResponse, FormTemplate form)
         {
             string ReceiverStreet = null;
-            if (form.ReceiverStreetParseType == 0 && form.ReceiverStreetNERIndex.HasValue)
+            try
             {
-                ReceiverStreet = OCRResponse.street[form.ReceiverStreetNERIndex.Value];
+                if (form.ReceiverStreetParseType == 0 && form.ReceiverStreetNERIndex.HasValue)
+                {
+                    ReceiverStreet = OCRResponse.street[form.ReceiverStreetNERIndex.Value];
+                }
+                else if (form.ReceiverStreetParseType == 1 && form.ReceiverStreetRegex != "")
+                {
+                    ReceiverStreet = getMatchResult(OCRResponse.raw_text, form.ReceiverStreetRegex);
+                }
             }
-            else if (form.ReceiverStreetParseType == 1 && form.ReceiverStreetRegex != "")
+            catch (Exception e)
             {
-                ReceiverStreet = getMatchResult(OCRResponse.raw_text, form.ReceiverStreetRegex);
+                Debug.WriteLine(e.StackTrace);
             }
             return ReceiverStreet;
         }
