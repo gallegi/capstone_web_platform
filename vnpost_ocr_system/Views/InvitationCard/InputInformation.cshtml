@@ -1516,7 +1516,12 @@
                         //Clear step 2 data
                         $('#item1').val("");
                         $('#item1').formSelect();
-                        $('#item1').trigger('change');
+                        $('#item2').empty();
+                        $('#item2').formSelect();
+                        $('#item3').empty();
+                        $('#item3').formSelect();
+                        $('#item4').empty();
+                        $('#item4').formSelect();
                         $('#item5').val("");
                         $('p[name^="item"]').text('');
                         $('#pre-load').show();
