@@ -1668,7 +1668,7 @@
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         var file = new Blob([new Uint8Array(array)], { type: mimeString });
         file.name = "anh_giay_hen.jpg"
-
+        imageName = file.name
         //$("#img-capture-file").file
 
         $("#img-display").show();
@@ -1687,10 +1687,10 @@
             $('#img').children().width("100%")
         };
         reader.readAsDataURL(file);
-        data.delete("img")
-        data.delete("imgName")
-        data.append("img", file);
-        data.append("imgName", file.name)
+//        data.delete("img")
+//        data.delete("imgName")
+//        data.append("img", file);
+//        data.append("imgName", file.name)
     }
 </script>
 <script>
