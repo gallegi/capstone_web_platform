@@ -1602,7 +1602,9 @@
                         // redirect to the form detail page
                         if (response.hasOwnProperty('form_id') && response.form_id != "") {
                             var form_id = response.form_id;
-                            window.location.href = "/bieu-mau/chi-tiet-bieu-mau?form_id=" + form_id;
+                            var url = "/bieu-mau/chi-tiet-bieu-mau?form_id=" + form_id;
+
+                            successAlertThenRedirect('Thành công', 'Thêm biểu mẫu thành công', url);
                         }
                     } else if (response.status == "Fail")
                     {
