@@ -1369,7 +1369,6 @@
                 $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
             } else {
                 $('p[name="item1"]').text('');
-                console.log('Change 1')
             }
             if ($(this).id == 'item2' && $('#item2').val() == null) {
                 $('p[name="item2"]').text('Vui lòng chọn Quận/huyện')
@@ -1598,7 +1597,6 @@
             data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text().trim())
             data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text().trim());
             data.append("OrderNote", $('#OrderNote').val().trim());
-            console.log(data)
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",
@@ -1606,7 +1604,6 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log("Success")
                     if (response.success) {
                         $.removeCookie('CreateInvitation')
                         $('#id_raw').val(response.data)
@@ -1670,7 +1667,7 @@
         }
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         var file = new Blob([new Uint8Array(array)], { type: mimeString });
-        file.name = "anh_giay_hen"
+        file.name = "anh_giay_hen.jpg"
 
         //$("#img-capture-file").file
 
