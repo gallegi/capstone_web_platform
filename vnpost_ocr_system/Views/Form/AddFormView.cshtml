@@ -794,6 +794,8 @@
             },
             error: function () {
                 $('#pre-load').hide();
+                raise_error("Có lỗi xảy ra khi lấy danh sách các Tỉnh/Thành phố");
+
             }
         })
     }
@@ -829,6 +831,8 @@
             },
             error: function () {
                 $('#pre-load').hide();
+                raise_error("Có lỗi xảy ra khi lấy danh sách các Quận/Huyện");
+
             }
         })
     }
@@ -859,7 +863,9 @@
                 getProfiles();
             },
             error: function () {
-                $('#pre-load').hide()
+                $('#pre-load').hide();
+                raise_error("Có lỗi xảy ra khi lấy danh sách các Cơ quan hành chính");
+
             }
         })
     }
@@ -888,7 +894,9 @@
 
             },
             error: function () {
-                $('#pre-load').hide()
+                $('#pre-load').hide();
+                raise_error("Có lỗi xảy ra khi lấy danh sách các Tên thủ tục hành chính");
+
             }
         })
     }
@@ -1195,6 +1203,8 @@
                         sentAPI = false;
                         $('#pre-load').hide();
                         $('a[role="menuitem"]').eq(1).click();
+                        raise_error("Có lỗi xảy ra khi lấy kết quả OCR");
+
                         return true;
                     }
                 });
@@ -1614,6 +1624,8 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#pre-load').hide();
+                    raise_error("Có lỗi xảy ra. Vui lòng thử lại sau ít phút");
+
                     return true;
                 }
             });
