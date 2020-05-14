@@ -763,6 +763,8 @@
                 // Reset sentAPI to re-send json
                 sentAPI = false;
 
+                $(".dz-preview").remove();
+                $(".dropzone.dz-started .dz-message").show();
             });
             this.on("thumbnail", function (file, dataUrl) {
                 $('.dz-image').last().find('img').attr({ width: '70%', height: '70%', style: 'margin:0px auto'});
@@ -2115,6 +2117,8 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#pre-load').hide();
+                    raise_error("Có lỗi xảy ra. Vui lòng thử lại sau ít phút");
+
                     return true;
                 }
             });

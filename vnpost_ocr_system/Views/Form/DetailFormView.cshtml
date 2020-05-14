@@ -567,6 +567,7 @@
 
             }, error: function (xhr) {
                 console.log("Exception big");
+                raise_error("Có lỗi xảy ra khi lấy thông tin biểu mẫu");
                 alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             }
         });
@@ -947,7 +948,9 @@
                 }
 
             }, error: function (xhr) {
-                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                //alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                raise_error("Có lỗi xảy ra khi xóa biểu mẫu. Vui lòng thử lại sau ít phút");
+
             }
         });
 
