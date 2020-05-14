@@ -366,9 +366,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 {
                     procedurerProvince = OCRResponse.province[form.ProcedurerProvinceNERIndex.Value];
                 }
-                else if (form.ProcedurerProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                else if (form.ProcedurerProvinceParseType == 1 && form.ProcedurerProvinceRegex != "")
                 {
-                    procedurerProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                    procedurerProvince = getMatchResult(OCRResponse.raw_text, form.ProcedurerProvinceRegex);
                 }
             }
             catch (Exception e)
@@ -562,9 +562,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 {
                     SenderProvince = OCRResponse.province[form.SenderProvinceNERIndex.Value];
                 }
-                else if (form.SenderProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                else if (form.SenderProvinceParseType == 1 && form.ProcedurerProvinceRegex != "")
                 {
-                    SenderProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                    SenderProvince = getMatchResult(OCRResponse.raw_text, form.ProcedurerProvinceRegex);
                 }
             }
             catch (Exception e)
@@ -668,9 +668,9 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                 {
                     ReceiverProvince = OCRResponse.province[form.ReceiverProvinceNERIndex.Value];
                 }
-                else if (form.ReceiverProvinceParseType == 1 && form.ProcerdurerProvinceRegex != "")
+                else if (form.ReceiverProvinceParseType == 1 && form.ProcedurerProvinceRegex != "")
                 {
-                    ReceiverProvince = getMatchResult(OCRResponse.raw_text, form.ProcerdurerProvinceRegex);
+                    ReceiverProvince = getMatchResult(OCRResponse.raw_text, form.ProcedurerProvinceRegex);
                 }
             }
             catch (Exception e)
@@ -852,7 +852,10 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                     string district = parseDistrict(OCRResponse, form);
                     string publicAdministration = parsePublicAdministration(OCRResponse, form);
                     string profile = parseProfile(OCRResponse, form);
-                    Query_Scope_0_Result scope0Result = db.Query_Scope_0(
+
+                    if (district != null)
+                    {
+                        Query_Scope_0_Result scope0Result = db.Query_Scope_0(
                         parseProvince(OCRResponse, form),
                         3,
                         parseDistrict(OCRResponse, form),
@@ -862,13 +865,32 @@ namespace vnpost_ocr_system.Controllers.InvitationCard
                         parseProfile(OCRResponse, form),
                         3
                         ).FirstOrDefault();
-                    if (scope0Result != null)
+                        if (scope0Result != null)
+                        {
+                            OCRParsed.PostalProvinceCode = scope0Result.PostalProvinceCode;
+                            OCRParsed.PostalDistrictCode = scope0Result.PostalDistrictCode;
+                            OCRParsed.PublicAdministrationLocationID = scope0Result.PublicAdministrationLocationID;
+                            OCRParsed.ProfileID = scope0Result.ProfileID;
+                        }
+                    } else
                     {
-                        OCRParsed.PostalProvinceCode = scope0Result.PostalProvinceCode;
-                        OCRParsed.PostalDistrictCode = scope0Result.PostalDistrictCode;
-                        OCRParsed.PublicAdministrationLocationID = scope0Result.PublicAdministrationLocationID;
-                        OCRParsed.ProfileID = scope0Result.ProfileID;
+                        Query_Scope_0_Without_District_Result scope0WithoutDistrictResult = db.Query_Scope_0_Without_District(
+                        parseProvince(OCRResponse, form),
+                        3,
+                        parsePublicAdministration(OCRResponse, form),
+                        3,
+                        parseProfile(OCRResponse, form),
+                        3
+                        ).FirstOrDefault();
+                        if (scope0WithoutDistrictResult != null)
+                        {
+                            OCRParsed.PostalProvinceCode = scope0WithoutDistrictResult.PostalProvinceCode;
+                            OCRParsed.PostalDistrictCode = scope0WithoutDistrictResult.PostalDistrictCode;
+                            OCRParsed.PublicAdministrationLocationID = scope0WithoutDistrictResult.PublicAdministrationLocationID;
+                            OCRParsed.ProfileID = scope0WithoutDistrictResult.ProfileID;
+                        }
                     }
+                    
                     break;
             }
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VNPOST_AppointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VNPOST_Appointment_dev.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -168,7 +168,7 @@
           <Property Name="ProcedurerPhoneRegex" Type="nvarchar" MaxLength="100" />
           <Property Name="ProcedurerProvinceParseType" Type="int" />
           <Property Name="ProcedurerProvinceNERIndex" Type="int" />
-          <Property Name="ProcerdurerProvinceRegex" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcedurerProvinceRegex" Type="nvarchar" MaxLength="100" />
           <Property Name="ProcedurerDistrictParseType" Type="int" />
           <Property Name="ProcedurerDistrictNERIndex" Type="int" />
           <Property Name="ProcedurerDistrictRegex" Type="nvarchar" MaxLength="100" />
@@ -846,6 +846,14 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Parameter Name="profile" Type="nvarchar" Mode="In" />
           <Parameter Name="profile_limit" Type="int" Mode="In" />
         </Function>
+        <Function Name="Query_Scope_0_Without_District" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="province" Type="nvarchar" Mode="In" />
+          <Parameter Name="province_limit" Type="int" Mode="In" />
+          <Parameter Name="public_administration" Type="nvarchar" Mode="In" />
+          <Parameter Name="public_administration_limit" Type="int" Mode="In" />
+          <Parameter Name="profile" Type="nvarchar" Mode="In" />
+          <Parameter Name="profile_limit" Type="int" Mode="In" />
+        </Function>
         <Function Name="Query_Scope_1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="province_code" Type="varchar" Mode="In" />
           <Parameter Name="district" Type="nvarchar" Mode="In" />
@@ -866,7 +874,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Parameter Name="public_administration_location_id" Type="bigint" Mode="In" />
           <Parameter Name="profile" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="VNPOST_AppointmentModelStoreContainer">
+        <EntityContainer Name="VNPOST_Appointment_devStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminRole" EntityType="Self.AdminRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="API" EntityType="Self.API" Schema="dbo" store:Type="Tables" />
@@ -1048,7 +1056,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="VNPOST_AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="VNPOST_Appointment_dev" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -1243,7 +1251,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Name="ProcedurerPhoneRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProcedurerProvinceParseType" Type="Int32" />
           <Property Name="ProcedurerProvinceNERIndex" Type="Int32" />
-          <Property Name="ProcerdurerProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedurerProvinceRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProcedurerDistrictParseType" Type="Int32" />
           <Property Name="ProcedurerDistrictNERIndex" Type="Int32" />
           <Property Name="ProcedurerDistrictRegex" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1916,7 +1924,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Payment__Payment__0A9D95DB">
-          <End Role="PaymentStatus" Type="VNPOST_AppointmentModel.PaymentStatus" Multiplicity="1" />
+          <End Role="PaymentStatus" Type="VNPOST_Appointment_dev.PaymentStatus" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentStatus">
@@ -1970,7 +1978,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <EntitySet Name="OrderStatusDetails" EntityType="Self.OrderStatusDetail" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
-          <EntitySet Name="PaymentStatus1" EntityType="VNPOST_AppointmentModel.PaymentStatus" />
+          <EntitySet Name="PaymentStatus1" EntityType="VNPOST_Appointment_dev.PaymentStatus" />
           <EntitySet Name="PersonalPaperTypes" EntityType="Self.PersonalPaperType" />
           <EntitySet Name="PhoneVerifications" EntityType="Self.PhoneVerification" />
           <EntitySet Name="PostOffices" EntityType="Self.PostOffice" />
@@ -2128,7 +2136,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <End Role="PublicAdministration" EntitySet="PublicAdministrations" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
-          <FunctionImport Name="Query_Scope_0" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_0_Result)">
+          <FunctionImport Name="Query_Scope_0" ReturnType="Collection(VNPOST_Appointment_dev.Query_Scope_0_Result)">
             <Parameter Name="province" Mode="In" Type="String" />
             <Parameter Name="province_limit" Mode="In" Type="Int32" />
             <Parameter Name="district" Mode="In" Type="String" />
@@ -2138,7 +2146,15 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <Parameter Name="profile" Mode="In" Type="String" />
             <Parameter Name="profile_limit" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Query_Scope_1" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_1_Result)">
+          <FunctionImport Name="Query_Scope_0_Without_District" ReturnType="Collection(VNPOST_Appointment_dev.Query_Scope_0_Without_District_Result)">
+            <Parameter Name="province" Mode="In" Type="String" />
+            <Parameter Name="province_limit" Mode="In" Type="Int32" />
+            <Parameter Name="public_administration" Mode="In" Type="String" />
+            <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
+            <Parameter Name="profile" Mode="In" Type="String" />
+            <Parameter Name="profile_limit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Query_Scope_1" ReturnType="Collection(VNPOST_Appointment_dev.Query_Scope_1_Result)">
             <Parameter Name="province_code" Mode="In" Type="String" />
             <Parameter Name="district" Mode="In" Type="String" />
             <Parameter Name="district_limit" Mode="In" Type="Int32" />
@@ -2147,14 +2163,14 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             <Parameter Name="profile" Mode="In" Type="String" />
             <Parameter Name="profile_limit" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Query_Scope_2" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_2_Result)">
+          <FunctionImport Name="Query_Scope_2" ReturnType="Collection(VNPOST_Appointment_dev.Query_Scope_2_Result)">
             <Parameter Name="postal_district_code" Mode="In" Type="String" />
             <Parameter Name="public_administration" Mode="In" Type="String" />
             <Parameter Name="public_administration_limit" Mode="In" Type="Int32" />
             <Parameter Name="profile" Mode="In" Type="String" />
             <Parameter Name="profile_limit" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Query_Scope_3" ReturnType="Collection(VNPOST_AppointmentModel.Query_Scope_3_Result)">
+          <FunctionImport Name="Query_Scope_3" ReturnType="Collection(VNPOST_Appointment_dev.Query_Scope_3_Result)">
             <Parameter Name="public_administration_location_id" Mode="In" Type="Int64" />
             <Parameter Name="profile" Mode="In" Type="String" />
           </FunctionImport>
@@ -2166,6 +2182,19 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
           <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
           <Property Type="String" Name="PostalDistrictName" Nullable="false" MaxLength="100" />
           <Property Type="Double" Name="DistrictDistance" Nullable="true" />
+          <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
+          <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
+          <Property Type="Int64" Name="ProfileID" Nullable="false" />
+          <Property Type="String" Name="ProfileName" Nullable="false" MaxLength="2000" />
+          <Property Type="Double" Name="ProfileDistance" Nullable="true" />
+          <Property Type="Double" Name="TotalDistance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Query_Scope_0_Without_District_Result">
+          <Property Type="String" Name="PostalProvinceCode" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalProvinceName" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="ProvinceDistance" Nullable="true" />
+          <Property Type="String" Name="PostalDistrictCode" Nullable="false" MaxLength="4" />
           <Property Type="Int64" Name="PublicAdministrationLocationID" Nullable="false" />
           <Property Type="String" Name="PublicAdministrationName" Nullable="false" MaxLength="200" />
           <Property Type="Double" Name="PublicAdministractionDistance" Nullable="true" />
@@ -2205,9 +2234,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VNPOST_AppointmentModelStoreContainer" CdmEntityContainer="VNPOST_AppointmentEntities">
+        <EntityContainerMapping StorageEntityContainer="VNPOST_Appointment_devStoreContainer" CdmEntityContainer="VNPOST_AppointmentEntities">
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Admin">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />
                 <ScalarProperty Name="AdminName" ColumnName="AdminName" />
@@ -2225,7 +2254,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AdminRoles">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AdminRole">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.AdminRole">
               <MappingFragment StoreEntitySet="AdminRole">
                 <ScalarProperty Name="AdminRoleID" ColumnName="AdminRoleID" />
                 <ScalarProperty Name="AdminRoleName" ColumnName="AdminRoleName" />
@@ -2233,7 +2262,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="APIs">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.API">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.API">
               <MappingFragment StoreEntitySet="API">
                 <ScalarProperty Name="APIID" ColumnName="APIID" />
                 <ScalarProperty Name="APIMethodID" ColumnName="APIMethodID" />
@@ -2247,7 +2276,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="APIInputParams">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIInputParam">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.APIInputParam">
               <MappingFragment StoreEntitySet="APIInputParam">
                 <ScalarProperty Name="APIID" ColumnName="APIID" />
                 <ScalarProperty Name="APIInputParamName" ColumnName="APIInputParamName" />
@@ -2258,7 +2287,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="APIMethods">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIMethod">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.APIMethod">
               <MappingFragment StoreEntitySet="APIMethod">
                 <ScalarProperty Name="MethodID" ColumnName="MethodID" />
                 <ScalarProperty Name="MethodName" ColumnName="MethodName" />
@@ -2267,7 +2296,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="APIOutputParams">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.APIOutputParam">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.APIOutputParam">
               <MappingFragment StoreEntitySet="APIOutputParam">
                 <ScalarProperty Name="APIID" ColumnName="APIID" />
                 <ScalarProperty Name="APIOutputParamName" ColumnName="APIOutputParamName" />
@@ -2278,7 +2307,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AuthenticationTokens">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.AuthenticationToken">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.AuthenticationToken">
               <MappingFragment StoreEntitySet="AuthenticationToken">
                 <ScalarProperty Name="TokenID" ColumnName="TokenID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -2291,7 +2320,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ContactInfoes">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ContactInfo">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.ContactInfo">
               <MappingFragment StoreEntitySet="ContactInfo">
                 <ScalarProperty Name="ContactInfoID" ColumnName="ContactInfoID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -2307,7 +2336,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Customer">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -2322,7 +2351,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Districts">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.District">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.District">
               <MappingFragment StoreEntitySet="District">
                 <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
                 <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
@@ -2332,7 +2361,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmailVerifications">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.EmailVerification">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.EmailVerification">
               <MappingFragment StoreEntitySet="EmailVerification">
                 <ScalarProperty Name="EmailVerificationID" ColumnName="EmailVerificationID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -2343,7 +2372,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FormTemplates">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.FormTemplate">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.FormTemplate">
               <MappingFragment StoreEntitySet="FormTemplate">
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
@@ -2377,7 +2406,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
                 <ScalarProperty Name="ProcedurerPhoneRegex" ColumnName="ProcedurerPhoneRegex" />
                 <ScalarProperty Name="ProcedurerProvinceParseType" ColumnName="ProcedurerProvinceParseType" />
                 <ScalarProperty Name="ProcedurerProvinceNERIndex" ColumnName="ProcedurerProvinceNERIndex" />
-                <ScalarProperty Name="ProcerdurerProvinceRegex" ColumnName="ProcerdurerProvinceRegex" />
+                <ScalarProperty Name="ProcedurerProvinceRegex" ColumnName="ProcedurerProvinceRegex" />
                 <ScalarProperty Name="ProcedurerDistrictParseType" ColumnName="ProcedurerDistrictParseType" />
                 <ScalarProperty Name="ProcedurerDistrictNERIndex" ColumnName="ProcedurerDistrictNERIndex" />
                 <ScalarProperty Name="ProcedurerDistrictRegex" ColumnName="ProcedurerDistrictRegex" />
@@ -2432,7 +2461,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NotificationMessages">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.NotificationMessage">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.NotificationMessage">
               <MappingFragment StoreEntitySet="NotificationMessage">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -2443,7 +2472,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Order">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -2479,7 +2508,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderImages">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.OrderImage">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.OrderImage">
               <MappingFragment StoreEntitySet="OrderImage">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ImageName" ColumnName="ImageName" />
@@ -2488,7 +2517,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatusDetails">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.OrderStatusDetail">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.OrderStatusDetail">
               <MappingFragment StoreEntitySet="OrderStatusDetail">
                 <ScalarProperty Name="OrderStatusDetailID" ColumnName="OrderStatusDetailID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -2500,7 +2529,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Payment">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Payment">
               <MappingFragment StoreEntitySet="Payment">
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -2512,7 +2541,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentMethods">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentMethod">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PaymentMethod">
               <MappingFragment StoreEntitySet="PaymentMethod">
                 <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
@@ -2520,7 +2549,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentStatus1">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PaymentStatus">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PaymentStatus">
               <MappingFragment StoreEntitySet="PaymentStatus">
                 <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
                 <ScalarProperty Name="PaymentStatusDescription" ColumnName="PaymentStatusDescription" />
@@ -2528,7 +2557,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonalPaperTypes">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PersonalPaperType">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PersonalPaperType">
               <MappingFragment StoreEntitySet="PersonalPaperType">
                 <ScalarProperty Name="PersonalPaperTypeID" ColumnName="PersonalPaperTypeID" />
                 <ScalarProperty Name="PersonalPaperTypeName" ColumnName="PersonalPaperTypeName" />
@@ -2536,7 +2565,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhoneVerifications">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PhoneVerification">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PhoneVerification">
               <MappingFragment StoreEntitySet="PhoneVerification">
                 <ScalarProperty Name="PhoneVerificationID" ColumnName="PhoneVerificationID" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -2547,7 +2576,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PostOffices">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PostOffice">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PostOffice">
               <MappingFragment StoreEntitySet="PostOffice">
                 <ScalarProperty Name="PosCode" ColumnName="PosCode" />
                 <ScalarProperty Name="PosName" ColumnName="PosName" />
@@ -2558,7 +2587,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Profile">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Profile">
               <MappingFragment StoreEntitySet="Profile">
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
@@ -2567,7 +2596,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Provinces">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Province">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Province">
               <MappingFragment StoreEntitySet="Province">
                 <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
                 <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
@@ -2577,7 +2606,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PublicAdministrations">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.PublicAdministration">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.PublicAdministration">
               <MappingFragment StoreEntitySet="PublicAdministration">
                 <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
                 <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
@@ -2588,7 +2617,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ResetPasswordTokens">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ResetPasswordToken">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.ResetPasswordToken">
               <MappingFragment StoreEntitySet="ResetPasswordToken">
                 <ScalarProperty Name="TokenID" ColumnName="TokenID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -2599,7 +2628,7 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ServiceTimers">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.ServiceTimer">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.ServiceTimer">
               <MappingFragment StoreEntitySet="ServiceTimer">
                 <ScalarProperty Name="ServiceTimeID" ColumnName="ServiceTimeID" />
                 <ScalarProperty Name="ServiceTimeHour" ColumnName="ServiceTimeHour" />
@@ -2609,16 +2638,16 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="VNPOST_AppointmentModel.Status">
+            <EntityTypeMapping TypeName="VNPOST_Appointment_dev.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Query_Scope_0" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_0">
+          <FunctionImportMapping FunctionImportName="Query_Scope_0" FunctionName="VNPOST_Appointment_dev.Store.Query_Scope_0">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_0_Result">
+              <ComplexTypeMapping TypeName="VNPOST_Appointment_dev.Query_Scope_0_Result">
                 <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
                 <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
                 <ScalarProperty Name="ProvinceDistance" ColumnName="ProvinceDistance" />
@@ -2635,9 +2664,26 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Query_Scope_1" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_1">
+          <FunctionImportMapping FunctionImportName="Query_Scope_0_Without_District" FunctionName="VNPOST_Appointment_dev.Store.Query_Scope_0_Without_District">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_1_Result">
+              <ComplexTypeMapping TypeName="VNPOST_Appointment_dev.Query_Scope_0_Without_District_Result">
+                <ScalarProperty Name="PostalProvinceCode" ColumnName="PostalProvinceCode" />
+                <ScalarProperty Name="PostalProvinceName" ColumnName="PostalProvinceName" />
+                <ScalarProperty Name="ProvinceDistance" ColumnName="ProvinceDistance" />
+                <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
+                <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
+                <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
+                <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
+                <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Query_Scope_1" FunctionName="VNPOST_Appointment_dev.Store.Query_Scope_1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VNPOST_Appointment_dev.Query_Scope_1_Result">
                 <ScalarProperty Name="PostalDistrictCode" ColumnName="PostalDistrictCode" />
                 <ScalarProperty Name="PostalDistrictName" ColumnName="PostalDistrictName" />
                 <ScalarProperty Name="DistrictDistance" ColumnName="DistrictDistance" />
@@ -2651,9 +2697,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Query_Scope_2" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_2">
+          <FunctionImportMapping FunctionImportName="Query_Scope_2" FunctionName="VNPOST_Appointment_dev.Store.Query_Scope_2">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_2_Result">
+              <ComplexTypeMapping TypeName="VNPOST_Appointment_dev.Query_Scope_2_Result">
                 <ScalarProperty Name="PublicAdministrationLocationID" ColumnName="PublicAdministrationLocationID" />
                 <ScalarProperty Name="PublicAdministrationName" ColumnName="PublicAdministrationName" />
                 <ScalarProperty Name="PublicAdministractionDistance" ColumnName="PublicAdministractionDistance" />
@@ -2664,9 +2710,9 @@ warning 6035: The relationship 'FK__PostOffic__Distr__0B91BA14' has columns that
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Query_Scope_3" FunctionName="VNPOST_AppointmentModel.Store.Query_Scope_3">
+          <FunctionImportMapping FunctionImportName="Query_Scope_3" FunctionName="VNPOST_Appointment_dev.Store.Query_Scope_3">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="VNPOST_AppointmentModel.Query_Scope_3_Result">
+              <ComplexTypeMapping TypeName="VNPOST_Appointment_dev.Query_Scope_3_Result">
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
                 <ScalarProperty Name="ProfileDistance" ColumnName="ProfileDistance" />
