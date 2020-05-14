@@ -410,7 +410,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label  summary-content">
                                                 <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
-                                                <label hidden id="ProcedurerPostalDistrictCode"></label>
+                                                <label style='display:none' id="ProcedurerPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -424,7 +424,7 @@
                                             <div class="col s7">
                                                 <div class="h-form-label  summary-content">
                                                     <label id="ProcedurerPersonalPaperTypeName"></label>
-                                                    <label hidden id="ProcedurerPersonalPaperTypeID"></label>
+                                                    <label style='display:none' id="ProcedurerPersonalPaperTypeID"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -506,7 +506,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label summary-content">
                                                 <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
-                                                <label hidden id="SenderPostalDistrictCode"></label>
+                                                <label style='display:none' id="SenderPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -549,7 +549,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label summary-content">
                                                 <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
-                                                <label hidden id="ReceiverPostalDistrictCode"></label>
+                                                <label style='display:none' id="ReceiverPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -702,6 +702,7 @@
                                     <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
                                 }
                             </select>
+                            <p class="validation" name="paper_type_edit"></p>
                         </div>
                     </div>
                 </div>
