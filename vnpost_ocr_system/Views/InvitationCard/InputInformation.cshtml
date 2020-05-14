@@ -1435,7 +1435,6 @@
                 $('p[name="item1"]').text('Vui lòng chọn Tỉnh/Thành phố');
             } else {
                 $('p[name="item1"]').text('');
-                console.log('Change 1')
             }
             if ($(this).id == 'item2' && $('#item2').val() == null) {
                 $('p[name="item2"]').text('Vui lòng chọn Quận/huyện')
@@ -1511,8 +1510,8 @@
                 else {
                     $('p[name="item6"]').text('');
                     var data = new FormData();
-                    data.append('image', dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
-                    if (ImageData != $('img[data-dz-thumbnail]').attr("src")) {
+                    data.append('image', dataURItoBlob($('#c').attr("src")));
+                    if (ImageData != $('#c').attr("src")) {
                         //Clear step 2 data
                         $('#item1').val("");
                         $('#item1').formSelect();
@@ -1538,7 +1537,7 @@
                                     response.raw_text = response.raw_text.replace(/\</gm, '');
                                     response.raw_text = response.raw_text.replace(/\>/gm, '');
                                     //Call OCR server success
-                                    ImageData = $('img[data-dz-thumbnail]').attr("src");
+                                    ImageData = $('#c').attr("src");
                                     $.ajax({
                                         type: "POST",
                                         url: "/giay-hen/nhap-giay-hen/thong-tin-thu-tuc/GetOCRResult",
@@ -1643,7 +1642,7 @@
         onFinishing: function (event, currentIndex) {
             $('#pre-load').show();
             var data = new FormData();
-            data.append("img", dataURItoBlob($('img[data-dz-thumbnail]').attr("src")));
+            data.append("img", dataURItoBlob($('#c').attr("src")));
             data.append("imgName", imageName);
             data.append("ProfileID", $('#item4').val().trim());
             data.append("AppointmentLetterCode", $('#item5').val().trim());
@@ -1668,8 +1667,10 @@
                 type: "POST",
                 url: "/don-hang/thanh-toan",
                 data: data,
+                dataType: "json",
                 processData: false,
                 contentType: false,
+                cache: false,
                 success: function (response) {
                     if (response.success) {
                         $.removeCookie('CreateInvitation')
@@ -1711,7 +1712,7 @@
     //Create by TUANKQ, THANGDV
 Dropzone.options.myAwesomeDropzone = {
     paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 6, // MB
+    maxFilesize: 10, // MB
     addRemoveLinks: true,
     autoProcessQueue: true,
     dictRemoveFile: 'Hủy',

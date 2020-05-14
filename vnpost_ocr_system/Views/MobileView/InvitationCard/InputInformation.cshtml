@@ -1598,6 +1598,7 @@
             data.append("ReceiverPostalDistrictCode", $('#ReceiverPostalDistrictCode').text().trim())
             data.append("ReceiverStreet", $('.ReceiverStreet').eq(0).text().trim());
             data.append("OrderNote", $('#OrderNote').val().trim());
+            console.log(data)
             $.ajax({
                 type: "POST",
                 url: "/don-hang/thanh-toan",
@@ -1605,6 +1606,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    console.log("Success")
                     if (response.success) {
                         $.removeCookie('CreateInvitation')
                         $('#id_raw').val(response.data)
