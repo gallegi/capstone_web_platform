@@ -1516,7 +1516,9 @@
                         //Clear step 2 data
                         $('#item1').val("");
                         $('#item1').formSelect();
+                        $('#item1').trigger('change');
                         $('#item5').val("");
+                        $('p[name^="item"]').text('');
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
