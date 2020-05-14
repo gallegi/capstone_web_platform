@@ -1388,7 +1388,7 @@
             }
         });
 
-        function CheckAppoimentLetterCode() {
+        $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
                 $('p[name="item5"]').text('Vui lòng nhập Mã giấy hẹn')
                 return false;
@@ -1416,10 +1416,6 @@
                     }
                 })
             }
-        }
-
-        $('#item5').focusout(function () {
-            CheckAppoimentLetterCode();
         })
     })
 
