@@ -1554,8 +1554,11 @@
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
                                             //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            $("#item5").next().addClass('active')
-                                            //$("#item5").blur()
+                                            if ($("#item5").val()) {
+                                                $("#item5").next().addClass('active')
+                                                $("#item5").blur()
+                                            }
+
                                             getDistrict(OCRResult);
                                         },
                                         error: function () {
