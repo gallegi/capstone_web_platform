@@ -180,11 +180,11 @@
                     <span style="" class="col s12 l3 m3 main-lb">Email hoặc số điện thoại: </span>
                     <div class="col s12 l8 m8 sdt-or-email-checkbox">
                         <label div class="auth-mode" id="sdt-checkbox">
-                            <input type="checkbox" id="phonecheck" class="ep-checkboxes" checked>
+                            <input type="checkbox" id="phonecheck" class="ep-checkboxes">
                             <span>Số điện thoại</span>
                         </label>
                         <label div class="auth-mode" id="email-checkbox">
-                            <input type="checkbox" id="emailcheck" class="ep-checkboxes">
+                            <input type="checkbox" id="emailcheck" class="ep-checkboxes" checked>
                             <span>Email</span>
                         </label>
                     </div>
@@ -192,7 +192,7 @@
 
                 <div class="row container-reg">
 
-                    <div id="checkboxphone" class="col l5 m5 s12 code-verify-container">
+                    <div id="checkboxphone" class="col l5 m5 s12 code-verify-container" hidden>
                         <div class="row">
                             <div class="input-field col s7 l7 m-b-0">
                                 <input id="tbPhone" name="tbPhone" class="validate my-input p-l-10" placeholder="Nhập số điện thoại">
@@ -224,7 +224,7 @@
                         </div>
                     </div>
 
-                    <div id="checkboxemail" class="col l5 m5 s12 code-verify-container" hidden>
+                    <div id="checkboxemail" class="col l5 m5 s12 code-verify-container">
                         <div class="row">
                             <div class="input-field col s7 l7 m7 m-b-0">
                                 <input id="tbEmail" name="tbEmail" class="validate my-input p-l-10" placeholder="Nhập địa chỉ email">

@@ -53,7 +53,7 @@ namespace vnpost_ocr_system.Models
 
             this.ft.ProcedurerProvinceParseType = ft.ProcedurerProvinceParseType;
             this.ft.ProcedurerProvinceNERIndex = ft.ProcedurerProvinceNERIndex;
-            this.ft.ProcerdurerProvinceRegex = ft.ProcerdurerProvinceRegex;
+            this.ft.ProcedurerProvinceRegex = ft.ProcedurerProvinceRegex;
 
             this.ft.ProcedurerDistrictParseType = ft.ProcedurerDistrictParseType;
             this.ft.ProcedurerDistrictNERIndex = ft.ProcedurerDistrictNERIndex;
@@ -168,7 +168,7 @@ namespace vnpost_ocr_system.Models
 
             this.ft.ProcedurerProvinceParseType = ft.ProcedurerProvinceParseType;
             this.ft.ProcedurerProvinceNERIndex = ft.ProcedurerProvinceNERIndex;
-            this.ft.ProcerdurerProvinceRegex = ft.ProcerdurerProvinceRegex;
+            this.ft.ProcedurerProvinceRegex = ft.ProcedurerProvinceRegex;
 
             this.ft.ProcedurerDistrictParseType = ft.ProcedurerDistrictParseType;
             this.ft.ProcedurerDistrictNERIndex = ft.ProcedurerDistrictNERIndex;

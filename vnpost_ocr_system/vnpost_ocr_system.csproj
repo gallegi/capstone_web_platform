@@ -311,6 +311,9 @@
     <Compile Include="Models\Query_Scope_0_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Query_Scope_0_Without_District_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Query_Scope_1_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -6267,6 +6270,9 @@
     <Content Include="assets\images\slider\3.webp" />
     <Content Include="assets\images\slider\4.webp" />
     <Content Include="assets\images\123.webp" />
+    <Content Include="assets\fonts\fa-solid-900.woff" />
+    <Content Include="assets\fonts\fa-solid-900.woff2" />
+    <Content Include="assets\fonts\fa-solid-900.ttf" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -6274,9 +6280,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="assets\fonts\fa-solid-900.woff" />
-    <Content Include="assets\fonts\fa-solid-900.woff2" />
-    <Content Include="assets\fonts\fa-solid-900.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile_dev.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

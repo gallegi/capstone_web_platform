@@ -69,7 +69,7 @@
                                 <div id="img-capture-for-app" class="image-input center col s5 m5 l5 show_in_app" style="display:none!important">
                                     <i class="small material-icons dp48">camera_alt</i> Chụp ảnh
                                 </div>
-                                <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/x-png,image/jpeg" class="img-input" hidden>
+                                <input type="file" id="img-chooser-file" onchange="readURL(this);" accept="image/*" class="img-input" hidden>
                                 <input type="file" accept="image/*" onchange="readURL(this);" id="img-capture-file" capture="camera" hidden>
                                 <div id="img-display" hidden>
                                     <img id="blah" src="#" alt="your image" />
@@ -410,7 +410,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label  summary-content">
                                                 <label><span id="ProcedurerStreet"></span>, <span id="ProcedurerAddress"></span></label>
-                                                <label hidden id="ProcedurerPostalDistrictCode"></label>
+                                                <label style='display:none' id="ProcedurerPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -424,7 +424,7 @@
                                             <div class="col s7">
                                                 <div class="h-form-label  summary-content">
                                                     <label id="ProcedurerPersonalPaperTypeName"></label>
-                                                    <label hidden id="ProcedurerPersonalPaperTypeID"></label>
+                                                    <label style='display:none' id="ProcedurerPersonalPaperTypeID"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -506,7 +506,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label summary-content">
                                                 <label><span id="SenderStreet"></span>, <span id="SenderAddress"></span></label>
-                                                <label hidden id="SenderPostalDistrictCode"></label>
+                                                <label style='display:none' id="SenderPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -549,7 +549,7 @@
                                         <div class="col s7">
                                             <div class="h-form-label summary-content">
                                                 <label><span class="ReceiverStreet"></span>, <span class="ReceiverAddress"></span></label>
-                                                <label hidden id="ReceiverPostalDistrictCode"></label>
+                                                <label style='display:none' id="ReceiverPostalDistrictCode"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -702,6 +702,7 @@
                                     <option value="@item.PersonalPaperTypeID">@item.PersonalPaperTypeName</option>
                                 }
                             </select>
+                            <p class="validation" name="paper_type_edit"></p>
                         </div>
                     </div>
                 </div>
@@ -983,6 +984,7 @@
     }
 
     $(document).on("click", ".add", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
@@ -1067,6 +1069,7 @@
     })
 
     $(document).on("click", ".edit", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
         $('p[name="district_edit"]').text("")
@@ -1385,7 +1388,7 @@
             }
         });
 
-        function CheckAppoimentLetterCode() {
+        $('#item5').focusout(function () {
             if ($(this).val() == "" || $(this).val().trim() == "") {
                 $('p[name="item5"]').text('Vui lòng nhập Mã giấy hẹn')
                 return false;
@@ -1413,10 +1416,6 @@
                     }
                 })
             }
-        }
-
-        $('#item5').focusout(function () {
-            CheckAppoimentLetterCode();
         })
     })
 
@@ -1451,7 +1450,14 @@
                         //Clear step 2 data
                         $('#item1').val("");
                         $('#item1').formSelect();
+                        $('#item2').empty();
+                        $('#item2').formSelect();
+                        $('#item3').empty();
+                        $('#item3').formSelect();
+                        $('#item4').empty();
+                        $('#item4').formSelect();
                         $('#item5').val("");
+                        $('p[name^="item"]').text('');
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
@@ -1482,8 +1488,10 @@
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
                                             //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            $("#item5").next().addClass('active')
-                                            //$("#item5").blur()
+                                            if ($("#item5").val()) {
+                                                $("#item5").next().addClass('active')
+                                                $("#item5").blur()
+                                            }
                                             getDistrict(OCRResult);
                                         },
                                         error: function () {

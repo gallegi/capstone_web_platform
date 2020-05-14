@@ -93,6 +93,35 @@ namespace vnpost_ocr_system.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_0_Result>("Query_Scope_0", provinceParameter, province_limitParameter, districtParameter, district_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
         }
     
+        public virtual ObjectResult<Query_Scope_0_Without_District_Result> Query_Scope_0_Without_District(string province, Nullable<int> province_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
+        {
+            var provinceParameter = province != null ?
+                new ObjectParameter("province", province) :
+                new ObjectParameter("province", typeof(string));
+    
+            var province_limitParameter = province_limit.HasValue ?
+                new ObjectParameter("province_limit", province_limit) :
+                new ObjectParameter("province_limit", typeof(int));
+    
+            var public_administrationParameter = public_administration != null ?
+                new ObjectParameter("public_administration", public_administration) :
+                new ObjectParameter("public_administration", typeof(string));
+    
+            var public_administration_limitParameter = public_administration_limit.HasValue ?
+                new ObjectParameter("public_administration_limit", public_administration_limit) :
+                new ObjectParameter("public_administration_limit", typeof(int));
+    
+            var profileParameter = profile != null ?
+                new ObjectParameter("profile", profile) :
+                new ObjectParameter("profile", typeof(string));
+    
+            var profile_limitParameter = profile_limit.HasValue ?
+                new ObjectParameter("profile_limit", profile_limit) :
+                new ObjectParameter("profile_limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_Scope_0_Without_District_Result>("Query_Scope_0_Without_District", provinceParameter, province_limitParameter, public_administrationParameter, public_administration_limitParameter, profileParameter, profile_limitParameter);
+        }
+    
         public virtual ObjectResult<Query_Scope_1_Result> Query_Scope_1(string province_code, string district, Nullable<int> district_limit, string public_administration, Nullable<int> public_administration_limit, string profile, Nullable<int> profile_limit)
         {
             var province_codeParameter = province_code != null ?

@@ -682,7 +682,7 @@
                                             <p class="payment-title card-border">Đơn hàng</p>
                                         </div>
                                         <div>
-                                            <b class="payment-title m-b-25">Mã hồ sơ: <span class="AppointmentLetterCode"></span></b>
+                                            <b class="payment-title m-b-25">Mã giấy hẹn: <span class="AppointmentLetterCode"></span></b>
                                         </div>
                                         <span>
                                             <span class="payment-title">Thủ tục hành chính:</span>
@@ -1050,6 +1050,7 @@
     }
 
     $(document).on("click", ".add", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         type = $(this).data("type");
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
@@ -1134,6 +1135,7 @@
     })
 
     $(document).on("click", ".edit", function () {
+        $('#paper_date_edit').datepicker({format: 'dd/mm/yyyy' })
         $('p[name="name_edit"]').text("")
         $('p[name="phone_edit"]').text("")
         $('p[name="district_edit"]').text("")
@@ -1514,7 +1516,14 @@
                         //Clear step 2 data
                         $('#item1').val("");
                         $('#item1').formSelect();
+                        $('#item2').empty();
+                        $('#item2').formSelect();
+                        $('#item3').empty();
+                        $('#item3').formSelect();
+                        $('#item4').empty();
+                        $('#item4').formSelect();
                         $('#item5').val("");
+                        $('p[name^="item"]').text('');
                         $('#pre-load').show();
                         $.ajax({
                             type: "POST",
@@ -1545,8 +1554,10 @@
                                             UserProfileID = OCRResult.ProfileID;
                                             $("#item5").val(OCRResult.AppointmentLetterCode);
                                             //$('.AppointmentLetterCode').text(OCRResult.AppointmentLetterCode);
-                                            $("#item5").next().addClass('active')
-                                            //$("#item5").blur()
+                                            if ($("#item5").val()) {
+                                                $("#item5").next().addClass('active')
+                                                $("#item5").blur()
+                                            }
                                             getDistrict(OCRResult);
                                         },
                                         error: function () {

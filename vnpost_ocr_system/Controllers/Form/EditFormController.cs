@@ -437,7 +437,7 @@ namespace vnpost_ocr_system.Controllers.Form
 
                     ft.ProcedurerProvinceParseType = IntegerExtensions.ParseNullableInt(Request["procedurer_province_parse_type"].Trim());
                     ft.ProcedurerProvinceNERIndex = IntegerExtensions.ParseNullableInt(Request["procedurer_province_ner_index"].Trim());
-                    ft.ProcerdurerProvinceRegex = FormatData(Request["procedurer_province_regex"]);
+                    ft.ProcedurerProvinceRegex = FormatData(Request["procedurer_province_regex"]);
 
                     ft.ProcedurerDistrictParseType = IntegerExtensions.ParseNullableInt(Request["procedurer_district_parse_type"].Trim());
                     ft.ProcedurerDistrictNERIndex = IntegerExtensions.ParseNullableInt(Request["procedurer_district_ner_index"].Trim());

@@ -46,7 +46,7 @@ namespace vnpost_ocr_system.Models
         public string ProcedurerPhoneRegex { get; set; }
         public Nullable<int> ProcedurerProvinceParseType { get; set; }
         public Nullable<int> ProcedurerProvinceNERIndex { get; set; }
-        public string ProcerdurerProvinceRegex { get; set; }
+        public string ProcedurerProvinceRegex { get; set; }
         public Nullable<int> ProcedurerDistrictParseType { get; set; }
         public Nullable<int> ProcedurerDistrictNERIndex { get; set; }
         public string ProcedurerDistrictRegex { get; set; }
