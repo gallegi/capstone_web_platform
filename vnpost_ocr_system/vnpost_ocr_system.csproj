@@ -6346,6 +6346,7 @@
     <Content Include="Views\Form\ListFormView.cshtml" />
     <Content Include="Views\MobileView\Users\AddressInfo.cshtml" />
     <Content Include="Views\MobileView\Users\CreateAddressInfo.cshtml" />
+    <Content Include="Views\MobileView\InvitationCard\DisplayStatus.cshtml" />
     <None Include="Web.Develop.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
